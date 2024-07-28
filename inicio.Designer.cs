@@ -36,6 +36,7 @@
             txtpass = new TextBox();
             iniciobtn = new Button();
             panel1 = new Panel();
+            passView = new CheckBox();
             pictureBox2 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -44,7 +45,7 @@
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(70, 12);
+            pictureBox1.Location = new Point(172, 56);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(213, 132);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
@@ -56,7 +57,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F);
             label1.ForeColor = SystemColors.ControlLightLight;
-            label1.Location = new Point(70, 178);
+            label1.Location = new Point(172, 227);
             label1.Name = "label1";
             label1.Size = new Size(64, 21);
             label1.TabIndex = 1;
@@ -67,7 +68,7 @@
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F);
             label2.ForeColor = SystemColors.ControlLightLight;
-            label2.Location = new Point(70, 225);
+            label2.Location = new Point(172, 274);
             label2.Name = "label2";
             label2.Size = new Size(89, 21);
             label2.TabIndex = 1;
@@ -75,14 +76,14 @@
             // 
             // txtusuario
             // 
-            txtusuario.Location = new Point(168, 180);
+            txtusuario.Location = new Point(270, 229);
             txtusuario.Name = "txtusuario";
             txtusuario.Size = new Size(115, 23);
             txtusuario.TabIndex = 0;
             // 
             // txtpass
             // 
-            txtpass.Location = new Point(168, 227);
+            txtpass.Location = new Point(270, 276);
             txtpass.Name = "txtpass";
             txtpass.Size = new Size(115, 23);
             txtpass.TabIndex = 1;
@@ -90,7 +91,7 @@
             // 
             // iniciobtn
             // 
-            iniciobtn.Location = new Point(117, 277);
+            iniciobtn.Location = new Point(219, 326);
             iniciobtn.Name = "iniciobtn";
             iniciobtn.Size = new Size(119, 26);
             iniciobtn.TabIndex = 3;
@@ -101,29 +102,40 @@
             // panel1
             // 
             panel1.BackColor = SystemColors.Highlight;
-            panel1.Location = new Point(70, 158);
+            panel1.Location = new Point(95, 203);
             panel1.Name = "panel1";
-            panel1.Size = new Size(215, 5);
+            panel1.Size = new Size(366, 10);
             panel1.TabIndex = 4;
+            // 
+            // passView
+            // 
+            passView.Appearance = Appearance.Button;
+            passView.Image = Properties.Resources.ojo;
+            passView.Location = new Point(391, 276);
+            passView.Name = "passView";
+            passView.Size = new Size(27, 24);
+            passView.TabIndex = 6;
+            passView.UseVisualStyleBackColor = true;
+            passView.CheckedChanged += passView_CheckedChanged;
             // 
             // pictureBox2
             // 
-            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(5, 5);
+            pictureBox2.Dock = DockStyle.Fill;
+            pictureBox2.Image = Properties.Resources.restaurantes_moda_barcelona_roka_6475ba03ee8bc;
+            pictureBox2.Location = new Point(0, 0);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(39, 42);
+            pictureBox2.Size = new Size(550, 368);
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox2.TabIndex = 5;
+            pictureBox2.TabIndex = 7;
             pictureBox2.TabStop = false;
-            pictureBox2.Click += pictureBox2_Click;
             // 
             // inicio
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
-            ClientSize = new Size(344, 334);
-            Controls.Add(pictureBox2);
+            ClientSize = new Size(550, 368);
+            Controls.Add(passView);
             Controls.Add(panel1);
             Controls.Add(iniciobtn);
             Controls.Add(txtpass);
@@ -131,6 +143,7 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(pictureBox1);
+            Controls.Add(pictureBox2);
             ForeColor = SystemColors.ControlText;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "inicio";
@@ -151,6 +164,7 @@
         private TextBox txtpass;
         private Button iniciobtn;
         private Panel panel1;
+        private CheckBox passView;
         private PictureBox pictureBox2;
     }
 }

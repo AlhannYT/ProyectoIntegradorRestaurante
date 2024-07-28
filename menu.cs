@@ -28,5 +28,12 @@ namespace Proyecto_restaurante
 
             mantUsuarios.Show();
         }
+
+        private void agregarClientesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MantClientes mantClientes = new MantClientes();
+
+            mantClientes.Show();
+        }
     }
 }

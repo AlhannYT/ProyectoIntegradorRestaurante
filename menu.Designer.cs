@@ -33,6 +33,7 @@
             toolStripMenuItem1 = new ToolStripMenuItem();
             toolStripMenuItem2 = new ToolStripMenuItem();
             pictureBox1 = new PictureBox();
+            agregarClientesToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -48,16 +49,16 @@
             // 
             // toolStripMenuItem1
             // 
-            toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem2 });
+            toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem2, agregarClientesToolStripMenuItem });
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(64, 20);
-            toolStripMenuItem1.Text = "Usuarios";
+            toolStripMenuItem1.Size = new Size(106, 20);
+            toolStripMenuItem1.Text = "Mantenimientos";
             toolStripMenuItem1.Click += toolStripMenuItem1_Click;
             // 
             // toolStripMenuItem2
             // 
             toolStripMenuItem2.Name = "toolStripMenuItem2";
-            toolStripMenuItem2.Size = new Size(164, 22);
+            toolStripMenuItem2.Size = new Size(180, 22);
             toolStripMenuItem2.Text = "Agregar Usuarios";
             toolStripMenuItem2.Click += toolStripMenuItem2_Click;
             // 
@@ -70,6 +71,13 @@
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
+            // 
+            // agregarClientesToolStripMenuItem
+            // 
+            agregarClientesToolStripMenuItem.Name = "agregarClientesToolStripMenuItem";
+            agregarClientesToolStripMenuItem.Size = new Size(180, 22);
+            agregarClientesToolStripMenuItem.Text = "Agregar Clientes";
+            agregarClientesToolStripMenuItem.Click += agregarClientesToolStripMenuItem_Click;
             // 
             // menu
             // 
@@ -90,10 +98,10 @@
         }
 
         #endregion
-
-        private MenuStrip menuStrip1;
         private ToolStripMenuItem toolStripMenuItem1;
         private ToolStripMenuItem toolStripMenuItem2;
         private PictureBox pictureBox1;
+        public MenuStrip menuStrip1;
+        private ToolStripMenuItem agregarClientesToolStripMenuItem;
     }
 }

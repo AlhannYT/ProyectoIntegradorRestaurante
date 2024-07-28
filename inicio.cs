@@ -1,6 +1,7 @@
 using System;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace Proyecto_restaurante
 {
@@ -18,7 +19,7 @@ namespace Proyecto_restaurante
                 MessageBox.Show("Error: Campos vacíos.");
                 return;
             }
-
+            //cambia lo que dice "Server= Tu servidor", y los datos tuyos donde van, la base de datos va a ser la misma, pero el login y la contra es el tuyo
             string conexionString = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
 
             using (SqlConnection conexion = new SqlConnection(conexionString))
@@ -39,7 +40,7 @@ namespace Proyecto_restaurante
 
                         if (cont > 0)
                         {
-                            
+
                             MessageBox.Show("Usuario autenticado con éxito.");
                             menu.Show();
                             this.Hide();
@@ -57,9 +58,20 @@ namespace Proyecto_restaurante
             }
         }
 
-        private void pictureBox2_Click(object sender, EventArgs e)
+        
+
+        private void passView_CheckedChanged(object sender, EventArgs e)
         {
-            this.Close();
+            if (passView.Checked == true)
+            {
+                passView.Image = Proyecto_restaurante.Properties.Resources.ojos_cruzados;
+                txtpass.UseSystemPasswordChar = false;
+            }
+            else if (passView.Checked == false)
+            {
+                passView.Image = Proyecto_restaurante.Properties.Resources.ojo;
+                txtpass.UseSystemPasswordChar = true;
+            }
         }
     }
 }
