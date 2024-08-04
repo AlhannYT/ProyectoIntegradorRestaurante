@@ -16,6 +16,7 @@ namespace Proyecto_restaurante
         public MantUsuarios()
         {
             InitializeComponent();
+            
         }
         private bool mensajeMostrado = false;
         private string nombreUsuarioActual;
@@ -23,7 +24,6 @@ namespace Proyecto_restaurante
         {
 
         }
-
         private void passView_CheckedChanged(object sender, EventArgs e)
         {
             if (passView.Checked == true)
@@ -31,12 +31,14 @@ namespace Proyecto_restaurante
                 passView.Image = Proyecto_restaurante.Properties.Resources.ojos_cruzados;
                 txtRegistroPass.UseSystemPasswordChar = false;
                 txtnuevapass.UseSystemPasswordChar = false;
+                txtRegistroPass.Focus();
             }
             else if (passView.Checked == false)
             {
                 passView.Image = Proyecto_restaurante.Properties.Resources.ojo;
                 txtRegistroPass.UseSystemPasswordChar = true;
                 txtnuevapass.UseSystemPasswordChar = true;
+                txtRegistroPass.Focus();
             }
         }
 
@@ -61,14 +63,13 @@ namespace Proyecto_restaurante
 
         private void verificarbtn_Click(object sender, EventArgs e)
         {
-            
-            
             if (string.IsNullOrEmpty(txtRegistroUsuario.Text))
             {
                 MessageBox.Show("Error: Colocar un nombre.");
                 return;
             }
 
+            //cambia lo que dice "Server= Tu servidor", y los datos tuyos donde van, la base de datos va a ser la misma, pero el login y la contra es el tuyo
             string conexionString = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
 
             using (SqlConnection conexion = new SqlConnection(conexionString))
@@ -92,17 +93,33 @@ namespace Proyecto_restaurante
 
                                 if (editar == DialogResult.Yes)
                                 {
+                                    string obtenerDatosQuery = "SELECT estado, privilegio FROM login_usuario WHERE usuario = @nombre";
+                                    using (SqlCommand obtenerDatosCommand = new SqlCommand(obtenerDatosQuery, conexion))
+                                    {
+                                        obtenerDatosCommand.Parameters.AddWithValue("@nombre", txtRegistroUsuario.Text);
+
+                                        using (SqlDataReader reader = obtenerDatosCommand.ExecuteReader())
+                                        {
+                                            if (reader.Read())
+                                            {
+                                                estadochk.Checked = reader.GetBoolean(0);
+                                                privilegiochk.Checked = reader.GetBoolean(1);
+                                            }
+                                        }
+                                    }
+
                                     nombreUsuarioActual = txtRegistroUsuario.Text;
                                     txtRegistroPass.Enabled = true;
                                     txtnuevapass.Visible = true;
                                     txtnuevapass.Enabled = true;
-                                    confirmarpass.Text = "Nueva Contraseña";
+                                    confirmarpass.Text = "Confirmar Contraseña";
                                     confirmarpass.Visible = true;
                                     guardarbtn.Visible = true;
                                     verificarbtn.Visible = false;
                                     passView.Enabled = true;
                                     txtRegistroPass.Focus();
                                     txtestado_datos.Text = "Editando";
+                                    checkBox1.Enabled = true;
                                 }
                                 else
                                 {
@@ -121,6 +138,7 @@ namespace Proyecto_restaurante
                                 confirmarpass.Visible = false;
                                 guardarbtn.Visible = true;
                                 verificarbtn.Visible = false;
+                                passView.Enabled = true;
                                 txtestado_datos.Text = "Creando";
                                 MessageBox.Show("Ingrese la contraseña y haga clic en 'Guardar Datos' para registrar el nuevo usuario.");
                                 mensajeMostrado = true;
@@ -138,6 +156,17 @@ namespace Proyecto_restaurante
 
         private void guardarbtn_Click(object sender, EventArgs e)
         {
+            if (checkBox1.Checked == false && txtnuevapass.Visible == true)
+            {
+                if (txtRegistroPass.Text != txtnuevapass.Text)
+                {
+                    MessageBox.Show("Debe colocar la misma contraseña");
+                    txtnuevapass.Text = "";
+                    txtnuevapass.Focus();
+                    return;
+                }
+            }
+
             string conexionString = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
 
             using (SqlConnection conexion = new SqlConnection(conexionString))
@@ -241,8 +270,6 @@ namespace Proyecto_restaurante
             txtnuevapass.Visible = false;
             txtnuevapass.Enabled = false;
 
-            confirmarpass.Visible = false;
-
             verificarbtn.Visible = true;
 
             guardarbtn.Visible = false;
@@ -262,6 +289,49 @@ namespace Proyecto_restaurante
             privilegiochk.Text = "Usuario";
             privilegiochk.ForeColor = Color.Black;
             privilegiochk.Checked = false;
+
+            passView.Enabled = false;
+            checkBox1.Enabled = false;
+
+            passView.Checked = false;
+            checkBox1.Checked = false;
+            confirmarpass.Visible = false;
+        }
+
+        private void txtRegistroUsuario_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                verificarbtn_Click(sender, e);
+                e.Handled = true;
+            }
+        }
+
+        private void txtRegistroUsuario_TextChanged(object sender, EventArgs e)
+        {
+            int posicion = txtRegistroUsuario.SelectionStart;
+
+            txtRegistroUsuario.Text = txtRegistroUsuario.Text.ToUpper();
+
+            txtRegistroUsuario.SelectionStart = posicion;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked == true)
+            {
+                confirmarpass.Text = "Nueva Contraseña";
+                confirmarpass.Visible = true;
+                guardarbtn.Visible = true;
+                verificarbtn.Visible = false;
+            }
+            else if (checkBox1.Checked == false)
+            {
+                confirmarpass.Text = "Confirmar Contraseña";
+                confirmarpass.Visible = true;
+                guardarbtn.Visible = true;
+                verificarbtn.Visible = false;
+            }
         }
     }
 }

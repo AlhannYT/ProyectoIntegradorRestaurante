@@ -22,11 +22,11 @@ namespace Proyecto_restaurante
         private void txtcedula_TextChanged(object sender, EventArgs e)
         {
             string posicion = txtcedula.Text;
-            posicion = posicion.Replace("-", ""); // Remove existing hyphens
+            posicion = posicion.Replace("-", "");
 
             if (posicion.Length > 11)
             {
-                posicion = posicion.Substring(0, 11); // Limit to 11 digits
+                posicion = posicion.Substring(0, 11);
             }
 
             if (posicion.Length > 3)
@@ -97,6 +97,7 @@ namespace Proyecto_restaurante
                 return;
             }
 
+            //cambia lo que dice "Server= Tu servidor", y los datos tuyos donde van, la base de datos va a ser la misma, pero el login y la contra es el tuyo
             string conexionString = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
 
             using (SqlConnection conexion = new SqlConnection(conexionString))

@@ -10,6 +10,7 @@ namespace Proyecto_restaurante
         public inicio()
         {
             InitializeComponent();
+            timer1.Start();
         }
 
         private void iniciobtn_Click(object sender, EventArgs e)
@@ -19,6 +20,7 @@ namespace Proyecto_restaurante
                 MessageBox.Show("Error: Campos vacíos.");
                 return;
             }
+
             //cambia lo que dice "Server= Tu servidor", y los datos tuyos donde van, la base de datos va a ser la misma, pero el login y la contra es el tuyo
             string conexionString = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
 
@@ -29,25 +31,38 @@ namespace Proyecto_restaurante
                 {
                     conexion.Open();
 
-                    string query = "SELECT COUNT(*) FROM login_usuario WHERE usuario = @usuario AND pass = @pass";
+                    string query = "SELECT privilegio FROM login_usuario WHERE usuario = @usuario AND pass = @pass AND estado = 0";
 
                     using (SqlCommand comando = new SqlCommand(query, conexion))
                     {
                         comando.Parameters.AddWithValue("@usuario", txtusuario.Text);
                         comando.Parameters.AddWithValue("@pass", txtpass.Text);
 
-                        int cont = (int)comando.ExecuteScalar();
+                        object result = comando.ExecuteScalar();
 
-                        if (cont > 0)
+                        if (result != null)
                         {
+                            int privilegio = Convert.ToInt32(result);
 
-                            MessageBox.Show("Usuario autenticado con éxito.");
+                            if (privilegio == 1)
+                            {
+                                menu.toolStripMenuItem2.Enabled = true; // Activar opción si es administrador
+                            }
+                            else
+                            {
+                                menu.toolStripMenuItem2.Enabled = false; // Desactivar opción si no es administrador
+                            }
+
+                            menu.usuariolabel.Text = "USUARIO ACTUAL: " + txtusuario.Text;
                             menu.Show();
+
                             this.Hide();
                         }
                         else
                         {
-                            MessageBox.Show("Usuario o contraseña incorrectos.");
+                            MessageBox.Show("Usuario o contraseña incorrectos, o el usuario está inactivo.");
+                            txtpass.Text = "";
+                            txtpass.Focus();
                         }
                     }
                 }
@@ -58,7 +73,6 @@ namespace Proyecto_restaurante
             }
         }
 
-        
 
         private void passView_CheckedChanged(object sender, EventArgs e)
         {
@@ -71,6 +85,58 @@ namespace Proyecto_restaurante
             {
                 passView.Image = Proyecto_restaurante.Properties.Resources.ojo;
                 txtpass.UseSystemPasswordChar = true;
+            }
+        }
+
+        private void txtusuario_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                txtpass.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void txtpass_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                iniciobtn.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void txtusuario_TextChanged(object sender, EventArgs e)
+        {
+            int posicion = txtusuario.SelectionStart;
+
+            txtusuario.Text = txtusuario.Text.ToUpper();
+
+            txtusuario.SelectionStart = posicion;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        int step = 5;
+        int direction = 1;
+        int leftLimit = 0; 
+        int rightLimit = 450;
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            iniciolabel.Left += step * direction;
+
+            if (iniciolabel.Left + iniciolabel.Width >= rightLimit || iniciolabel.Left <= leftLimit)
+            {
+                direction *= -1;
             }
         }
     }

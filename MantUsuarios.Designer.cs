@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MantUsuarios));
             label1 = new Label();
             txtRegistroUsuario = new TextBox();
@@ -46,6 +47,8 @@
             confirmarpass = new Label();
             privilegiochk = new CheckBox();
             label4 = new Label();
+            checkBox1 = new CheckBox();
+            toolTip1 = new ToolTip(components);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -67,6 +70,8 @@
             txtRegistroUsuario.Name = "txtRegistroUsuario";
             txtRegistroUsuario.Size = new Size(119, 23);
             txtRegistroUsuario.TabIndex = 0;
+            txtRegistroUsuario.TextChanged += txtRegistroUsuario_TextChanged;
+            txtRegistroUsuario.KeyPress += txtRegistroUsuario_KeyPress;
             // 
             // txtRegistroPass
             // 
@@ -227,6 +232,23 @@
             label4.TabIndex = 9;
             label4.Text = "Privilegio:";
             // 
+            // checkBox1
+            // 
+            checkBox1.Appearance = Appearance.Button;
+            checkBox1.Enabled = false;
+            checkBox1.Image = Properties.Resources.cuadrado_norte;
+            checkBox1.Location = new Point(370, 248);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(27, 24);
+            checkBox1.TabIndex = 7;
+            toolTip1.SetToolTip(checkBox1, "Este boton sirve para alternar entre\r\ndejar la misma contraseña o\r\ncolocar una nueva contraseña\r\n\r\n");
+            checkBox1.UseVisualStyleBackColor = true;
+            checkBox1.CheckedChanged += checkBox1_CheckedChanged;
+            // 
+            // toolTip1
+            // 
+            toolTip1.ToolTipTitle = "Ayuda";
+            // 
             // MantUsuarios
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -237,6 +259,7 @@
             Controls.Add(limpiarbtn);
             Controls.Add(verificarbtn);
             Controls.Add(guardarbtn);
+            Controls.Add(checkBox1);
             Controls.Add(passView);
             Controls.Add(privilegiochk);
             Controls.Add(estadochk);
@@ -277,5 +300,7 @@
         private Label confirmarpass;
         private CheckBox privilegiochk;
         private Label label4;
+        private CheckBox checkBox1;
+        private ToolTip toolTip1;
     }
 }
