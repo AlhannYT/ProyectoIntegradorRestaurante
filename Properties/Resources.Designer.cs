@@ -63,6 +63,26 @@ namespace Proyecto_restaurante.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap actualizar {
+            get {
+                object obj = ResourceManager.GetObject("actualizar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ajustes {
+            get {
+                object obj = ResourceManager.GetObject("ajustes", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap basura {
             get {
                 object obj = ResourceManager.GetObject("basura", resourceCulture);
@@ -76,6 +96,16 @@ namespace Proyecto_restaurante.Properties {
         internal static System.Drawing.Bitmap billete_de_banco {
             get {
                 object obj = ResourceManager.GetObject("billete-de-banco", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap cena_de_bodas {
+            get {
+                object obj = ResourceManager.GetObject("cena-de-bodas", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -116,6 +146,26 @@ namespace Proyecto_restaurante.Properties {
         internal static System.Drawing.Bitmap cuadrado_norte {
             get {
                 object obj = ResourceManager.GetObject("cuadrado-norte", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap departamento {
+            get {
+                object obj = ResourceManager.GetObject("departamento", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_sala_de_estar_96 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-sala-de-estar-96", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

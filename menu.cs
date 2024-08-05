@@ -17,11 +17,6 @@ namespace Proyecto_restaurante
             InitializeComponent();
         }
 
-        private void toolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
             MantUsuarios mantUsuarios = new MantUsuarios();
@@ -34,12 +29,6 @@ namespace Proyecto_restaurante
             MantClientes mantClientes = new MantClientes();
 
             mantClientes.Show();
-        }
-
-        private void clientesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ConsultaClientes consultaClientes = new ConsultaClientes();
-            consultaClientes.Show();
         }
 
         private void agregarCategoriasToolStripMenuItem_Click(object sender, EventArgs e)
@@ -59,6 +48,29 @@ namespace Proyecto_restaurante
         {
             MantMedidas medidas = new MantMedidas();
             medidas.Show();
+        }
+
+        private void departamentosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MantDepart mantDepart = new MantDepart();
+            mantDepart.Show();
+        }
+
+        private void salasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MantSalas mantSalas = new MantSalas();
+            mantSalas.Show();
+        }
+
+        private void mesasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MantMesas mantMesas = new MantMesas();
+            mantMesas.Show();
+        }
+
+        private void configuracionbtn_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Pendiente: \n-Alternar a modo oscuro");
         }
     }
 }

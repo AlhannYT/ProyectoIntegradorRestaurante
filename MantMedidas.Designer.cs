@@ -37,15 +37,23 @@
             pictureBox1 = new PictureBox();
             label3 = new Label();
             verificarbtn = new Button();
+            panel2 = new Panel();
+            panel1 = new Panel();
+            eliminarbtn = new Button();
+            label4 = new Label();
+            tabladatos = new DataGridView();
+            txtbuscador = new TextBox();
+            label5 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)tabladatos).BeginInit();
             SuspendLayout();
             // 
             // guardarbtn
             // 
             guardarbtn.Enabled = false;
-            guardarbtn.Location = new Point(30, 366);
+            guardarbtn.Location = new Point(39, 304);
             guardarbtn.Name = "guardarbtn";
-            guardarbtn.Size = new Size(121, 53);
+            guardarbtn.Size = new Size(121, 44);
             guardarbtn.TabIndex = 0;
             guardarbtn.Text = "Guardar";
             guardarbtn.UseVisualStyleBackColor = true;
@@ -54,9 +62,9 @@
             // 
             // limpiarbtn
             // 
-            limpiarbtn.Location = new Point(213, 366);
+            limpiarbtn.Location = new Point(222, 304);
             limpiarbtn.Name = "limpiarbtn";
-            limpiarbtn.Size = new Size(121, 53);
+            limpiarbtn.Size = new Size(121, 44);
             limpiarbtn.TabIndex = 0;
             limpiarbtn.Text = "Limpiar";
             limpiarbtn.UseVisualStyleBackColor = true;
@@ -66,7 +74,7 @@
             // 
             label1.AutoSize = true;
             label1.ForeColor = SystemColors.Control;
-            label1.Location = new Point(30, 256);
+            label1.Location = new Point(39, 205);
             label1.Name = "label1";
             label1.Size = new Size(68, 15);
             label1.TabIndex = 1;
@@ -76,7 +84,7 @@
             // 
             label2.AutoSize = true;
             label2.ForeColor = SystemColors.Control;
-            label2.Location = new Point(30, 309);
+            label2.Location = new Point(39, 258);
             label2.Name = "label2";
             label2.Size = new Size(110, 15);
             label2.TabIndex = 1;
@@ -84,7 +92,7 @@
             // 
             // txtabreviatura
             // 
-            txtabreviatura.Location = new Point(167, 253);
+            txtabreviatura.Location = new Point(176, 202);
             txtabreviatura.Name = "txtabreviatura";
             txtabreviatura.Size = new Size(167, 23);
             txtabreviatura.TabIndex = 2;
@@ -94,7 +102,7 @@
             // txtmedida
             // 
             txtmedida.Enabled = false;
-            txtmedida.Location = new Point(167, 306);
+            txtmedida.Location = new Point(176, 255);
             txtmedida.Name = "txtmedida";
             txtmedida.Size = new Size(167, 23);
             txtmedida.TabIndex = 2;
@@ -103,9 +111,9 @@
             // pictureBox1
             // 
             pictureBox1.Image = Properties.Resources.cinta_metrica;
-            pictureBox1.Location = new Point(108, 61);
+            pictureBox1.Location = new Point(114, 62);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(165, 163);
+            pictureBox1.Size = new Size(145, 115);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 3;
             pictureBox1.TabStop = false;
@@ -123,20 +131,98 @@
             // 
             // verificarbtn
             // 
-            verificarbtn.Location = new Point(30, 366);
+            verificarbtn.Location = new Point(39, 304);
             verificarbtn.Name = "verificarbtn";
-            verificarbtn.Size = new Size(121, 53);
+            verificarbtn.Size = new Size(121, 44);
             verificarbtn.TabIndex = 0;
             verificarbtn.Text = "Verificar";
             verificarbtn.UseVisualStyleBackColor = true;
             verificarbtn.Click += verificarbtn_Click;
+            // 
+            // panel2
+            // 
+            panel2.BackColor = Color.Red;
+            panel2.Location = new Point(378, 0);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(10, 365);
+            panel2.TabIndex = 17;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.Red;
+            panel1.Location = new Point(385, 107);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(369, 10);
+            panel1.TabIndex = 16;
+            // 
+            // eliminarbtn
+            // 
+            eliminarbtn.Image = Properties.Resources.basura;
+            eliminarbtn.Location = new Point(709, 73);
+            eliminarbtn.Name = "eliminarbtn";
+            eliminarbtn.Size = new Size(29, 24);
+            eliminarbtn.TabIndex = 14;
+            eliminarbtn.UseVisualStyleBackColor = true;
+            eliminarbtn.Click += eliminarbtn_Click;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label4.ForeColor = SystemColors.Control;
+            label4.Location = new Point(394, 74);
+            label4.Name = "label4";
+            label4.Size = new Size(69, 17);
+            label4.TabIndex = 11;
+            label4.Text = "Buscador: ";
+            // 
+            // tabladatos
+            // 
+            tabladatos.AllowUserToAddRows = false;
+            tabladatos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            tabladatos.Location = new Point(394, 123);
+            tabladatos.Name = "tabladatos";
+            tabladatos.ReadOnly = true;
+            tabladatos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            tabladatos.Size = new Size(344, 225);
+            tabladatos.TabIndex = 12;
+            // 
+            // txtbuscador
+            // 
+            txtbuscador.ForeColor = SystemColors.ScrollBar;
+            txtbuscador.Location = new Point(469, 73);
+            txtbuscador.Name = "txtbuscador";
+            txtbuscador.Size = new Size(231, 23);
+            txtbuscador.TabIndex = 13;
+            txtbuscador.Text = "(ID, Abreviatura, Nombre)";
+            txtbuscador.TextChanged += txtbuscador_TextChanged;
+            txtbuscador.Enter += txtbuscador_Enter;
+            txtbuscador.Leave += txtbuscador_Leave;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.ForeColor = SystemColors.Control;
+            label5.Location = new Point(420, 9);
+            label5.Name = "label5";
+            label5.Size = new Size(304, 40);
+            label5.TabIndex = 18;
+            label5.Text = "Consulta de Medidas";
             // 
             // MantMedidas
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.GrayText;
-            ClientSize = new Size(370, 450);
+            ClientSize = new Size(748, 359);
+            Controls.Add(label5);
+            Controls.Add(panel2);
+            Controls.Add(panel1);
+            Controls.Add(eliminarbtn);
+            Controls.Add(label4);
+            Controls.Add(tabladatos);
+            Controls.Add(txtbuscador);
             Controls.Add(verificarbtn);
             Controls.Add(pictureBox1);
             Controls.Add(txtmedida);
@@ -148,8 +234,10 @@
             Controls.Add(guardarbtn);
             Name = "MantMedidas";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "MantMedidas";
+            Text = "Mantenimiento de Medidas";
+            Load += MantMedidas_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)tabladatos).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -165,5 +253,12 @@
         private PictureBox pictureBox1;
         private Label label3;
         private Button verificarbtn;
+        private Panel panel2;
+        private Panel panel1;
+        private Button eliminarbtn;
+        private Label label4;
+        private DataGridView tabladatos;
+        private TextBox txtbuscador;
+        private Label label5;
     }
 }

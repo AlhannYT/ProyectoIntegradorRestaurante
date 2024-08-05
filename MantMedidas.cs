@@ -168,7 +168,7 @@ namespace Proyecto_restaurante
 
                                 abrevMedidaActual = txtabreviatura.Text;
                                 guardarbtn.Visible = true;
-                                
+
                                 guardarbtn.Enabled = true;
                                 verificarbtn.Visible = false;
                                 txtabreviatura.Enabled = false;
@@ -182,7 +182,6 @@ namespace Proyecto_restaurante
                         }
                         else
                         {
-                            //MessageBox.Show("No se encontró ninguna medida con esa abreviatura. Puedes proceder a crear una nueva.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             guardarbtn.Visible = true;
                             guardarbtn.Enabled = true;
                             verificarbtn.Visible = false;
@@ -217,6 +216,83 @@ namespace Proyecto_restaurante
             {
                 verificarbtn_Click(sender, e);
             }
+        }
+
+        private void FiltroDatosBusqueda(string busqueda)
+        {
+            string conexion = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
+
+            using (SqlConnection conectar = new SqlConnection(conexion))
+            {
+                try
+                {
+                    conectar.Open();
+
+                    string query = @"
+                        SELECT * FROM medidas
+                        WHERE CAST(id AS VARCHAR) LIKE @buscar OR
+                        abreviatura LIKE @buscar OR
+                        nombre_medida LIKE @buscar";
+
+                    using (SqlCommand comando = new SqlCommand(query, conectar))
+                    {
+                        comando.Parameters.AddWithValue("@buscar", "%" + busqueda + "%");
+
+                        SqlDataAdapter da = new SqlDataAdapter(comando);
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+
+                        tabladatos.DataSource = dt;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error: {ex.Message}");
+                }
+            }
+        }
+
+        private void txtbuscador_TextChanged(object sender, EventArgs e)
+        {
+            FiltroDatosBusqueda(txtbuscador.Text);
+        }
+
+        private void MantMedidas_Load(object sender, EventArgs e)
+        {
+            string conexion = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
+            string consulta = "select * from medidas";
+
+            SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexion);
+
+            DataTable dt = new DataTable();
+
+            adaptador.Fill(dt);
+
+            tabladatos.DataSource = dt;
+        }
+
+        private void txtbuscador_Enter(object sender, EventArgs e)
+        {
+            if (txtbuscador.Text == "(ID, Abreviatura, Nombre)")
+            {
+                txtbuscador.Text = "";
+                txtbuscador.ForeColor = Color.Black;
+            }
+        }
+
+        private void txtbuscador_Leave(object sender, EventArgs e)
+        {
+            if (txtbuscador.Text == "")
+            {
+                txtbuscador.Text = "(ID, Abreviatura, Nombre)";
+                txtbuscador.ForeColor = Color.Gray;
+                MantMedidas_Load(sender, e);
+            }
+        }
+
+        private void eliminarbtn_Click(object sender, EventArgs e)
+        {
+            txtbuscador.Text = "";
         }
     }
 }

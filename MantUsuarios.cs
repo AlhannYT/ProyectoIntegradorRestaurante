@@ -16,14 +16,10 @@ namespace Proyecto_restaurante
         public MantUsuarios()
         {
             InitializeComponent();
-            
         }
         private bool mensajeMostrado = false;
         private string nombreUsuarioActual;
-        private void label1_Click(object sender, EventArgs e)
-        {
 
-        }
         private void passView_CheckedChanged(object sender, EventArgs e)
         {
             if (passView.Checked == true)
@@ -107,7 +103,8 @@ namespace Proyecto_restaurante
                                             }
                                         }
                                     }
-
+                                    estadochk.Enabled = true;
+                                    privilegiochk.Enabled = true;
                                     nombreUsuarioActual = txtRegistroUsuario.Text;
                                     txtRegistroPass.Enabled = true;
                                     txtnuevapass.Visible = true;
@@ -132,6 +129,8 @@ namespace Proyecto_restaurante
                         {
                             if (!mensajeMostrado)
                             {
+                                estadochk.Enabled = true;
+                                privilegiochk.Enabled = true;
                                 txtRegistroPass.Enabled = true;
                                 txtnuevapass.Visible = false;
                                 txtnuevapass.Enabled = false;
@@ -183,7 +182,7 @@ namespace Proyecto_restaurante
                             insertarCommand.Parameters.AddWithValue("@nombre", txtRegistroUsuario.Text);
                             insertarCommand.Parameters.AddWithValue("@pass", txtRegistroPass.Text);
                             insertarCommand.Parameters.AddWithValue("@privilegio", privilegiochk.Checked ? 1 : 0);
-                            insertarCommand.Parameters.AddWithValue("@estado", estadochk.Checked ? 1 : 0);
+                            insertarCommand.Parameters.AddWithValue("@estado", estadochk.Checked ? 0 : 1);
 
                             int rowsAffected = insertarCommand.ExecuteNonQuery();
 
@@ -220,7 +219,7 @@ namespace Proyecto_restaurante
                             actualizarCommand.Parameters.AddWithValue("@nuevoNombre", txtRegistroUsuario.Text);
                             actualizarCommand.Parameters.AddWithValue("@pass", txtnuevapass.Text);
                             actualizarCommand.Parameters.AddWithValue("@privilegio", privilegiochk.Checked ? 1 : 0);
-                            actualizarCommand.Parameters.AddWithValue("@estado", estadochk.Checked ? 1 : 0);
+                            actualizarCommand.Parameters.AddWithValue("@estado", estadochk.Checked ? 0 : 1);
                             actualizarCommand.Parameters.AddWithValue("@nombreActual", nombreUsuarioActual);
 
                             int rowsAffected = actualizarCommand.ExecuteNonQuery();
@@ -261,6 +260,9 @@ namespace Proyecto_restaurante
 
         private void RestablecerFormulario()
         {
+            estadochk.Enabled = false;
+            privilegiochk.Enabled = false;
+
             txtRegistroUsuario.Text = "";
             txtRegistroPass.Enabled = false;
 
@@ -331,6 +333,79 @@ namespace Proyecto_restaurante
                 confirmarpass.Visible = true;
                 guardarbtn.Visible = true;
                 verificarbtn.Visible = false;
+            }
+        }
+
+
+
+        private void FiltroDatosBusqueda(string busqueda)
+        {
+            string conexion = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
+
+            using (SqlConnection conectar = new SqlConnection(conexion))
+            {
+                try
+                {
+                    conectar.Open();
+
+                    string query = @"
+                        SELECT id, usuario, estado from login_usuario
+                        WHERE CAST(id AS VARCHAR) LIKE @buscar OR
+                        usuario LIKE @buscar";
+
+                    using (SqlCommand comando = new SqlCommand(query, conectar))
+                    {
+                        comando.Parameters.AddWithValue("@buscar", "%" + busqueda + "%");
+
+                        SqlDataAdapter da = new SqlDataAdapter(comando);
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+
+                        tabladatos.DataSource = dt;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error: {ex.Message}");
+                }
+            }
+        }
+
+        private void MantUsuarios_Load(object sender, EventArgs e)
+        {
+            string conexion = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
+            string consulta = "select id, usuario, estado from login_usuario";
+
+            SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexion);
+
+            DataTable dt = new DataTable();
+
+            adaptador.Fill(dt);
+
+            tabladatos.DataSource = dt;
+        }
+
+        private void txtbuscador_TextChanged(object sender, EventArgs e)
+        {
+            FiltroDatosBusqueda(txtbuscador.Text);
+        }
+
+        private void txtbuscador_Enter(object sender, EventArgs e)
+        {
+            if (txtbuscador.Text == "(ID, Usuario)")
+            {
+                txtbuscador.Text = "";
+                txtbuscador.ForeColor = Color.Black;
+            }
+        }
+
+        private void txtbuscador_Leave(object sender, EventArgs e)
+        {
+            if (txtbuscador.Text == "")
+            {
+                txtbuscador.Text = "(ID, Usuario)";
+                txtbuscador.ForeColor = Color.Gray;
+                MantUsuarios_Load(sender, e);
             }
         }
     }

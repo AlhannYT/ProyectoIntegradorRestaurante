@@ -48,7 +48,7 @@ namespace Proyecto_restaurante
         private void RestablecerFormulario()
         {
             txtnombre.Text = "";
-            
+
             txtapellido.Text = "";
 
             txtcedula.Text = "";
@@ -121,6 +121,7 @@ namespace Proyecto_restaurante
                             if (rowsAffected > 0)
                             {
                                 MessageBox.Show("Cliente registrado con éxito.");
+                                MantClientes_Load(sender, e);
                                 RestablecerFormulario();
                             }
                             else
@@ -246,6 +247,86 @@ namespace Proyecto_restaurante
             txtapellido.Text = txtapellido.Text.ToUpper();
 
             txtapellido.SelectionStart = posicion;
+        }
+
+        private void txtbuscador_TextChanged(object sender, EventArgs e)
+        {
+            FiltroDatosBusqueda(txtbuscador.Text);
+        }
+
+
+        private void FiltroDatosBusqueda(string busqueda)
+        {
+            string conexion = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
+
+            using (SqlConnection conectar = new SqlConnection(conexion))
+            {
+                try
+                {
+                    conectar.Open();
+
+                    string query = @"
+                        SELECT * FROM cliente
+                        WHERE CAST(id AS VARCHAR) LIKE @buscar OR
+                        nombre_cliente LIKE @buscar OR
+                        apellido_cliente LIKE @buscar";
+
+                    using (SqlCommand comando = new SqlCommand(query, conectar))
+                    {
+                        comando.Parameters.AddWithValue("@buscar", "%" + busqueda + "%");
+
+                        SqlDataAdapter da = new SqlDataAdapter(comando);
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+
+                        tabladatos.DataSource = dt;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error: {ex.Message}");
+                }
+            }
+        }
+
+        private void txtbuscador_Enter(object sender, EventArgs e)
+        {
+            if (txtbuscador.Text == "(ID, Nombre, Apellido)")
+            {
+                txtbuscador.Text = "";
+                txtbuscador.ForeColor = Color.Black;
+            }
+        }
+
+        private void txtbuscador_Leave(object sender, EventArgs e)
+        {
+            if (txtbuscador.Text == "")
+            {
+                txtbuscador.Text = "(ID, Nombre, Apellido)";
+                txtbuscador.ForeColor = Color.Gray;
+                MantClientes_Load(sender, e);
+            }
+        }
+
+        private void MantClientes_Load(object sender, EventArgs e)
+        {
+            string conexion = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
+            string consulta = "select * from cliente";
+
+            SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexion);
+
+            DataTable dt = new DataTable();
+
+            adaptador.Fill(dt);
+
+            tabladatos.DataSource = dt;
+        }
+
+        private void eliminarbtn_Click(object sender, EventArgs e)
+        {
+            txtbuscador.Text = "(ID, Nombre, Apellido)";
+            txtbuscador.ForeColor = Color.Gray;
+            MantClientes_Load(sender, e);
         }
     }
 }

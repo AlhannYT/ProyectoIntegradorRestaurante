@@ -6,24 +6,25 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace Proyecto_restaurante
 {
-    public partial class MantCategoria : Form
+    public partial class MantSalas : Form
     {
-        public MantCategoria()
+        public MantSalas()
         {
             InitializeComponent();
         }
 
-        private bool mensajeMostrado = false;
-        private string nombreCategoriaActual;
+        private string nombreSalaActual;
 
         private void guardarbtn_Click(object sender, EventArgs e)
         {
+            MantMesas mesas = new MantMesas();
+
             string conexionString = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
 
             using (SqlConnection conexion = new SqlConnection(conexionString))
@@ -32,20 +33,21 @@ namespace Proyecto_restaurante
                 {
                     conexion.Open();
 
-                    if (string.IsNullOrEmpty(nombreCategoriaActual))
+                    if (string.IsNullOrEmpty(nombreSalaActual))
                     {
-                        string queryInsertar = "INSERT INTO categoria (nombre_categoria) VALUES (@nombreCateg)";
+                        string queryInsertar = "INSERT INTO salas (nombre_sala) VALUES (@nombreSala)";
                         using (SqlCommand insertarCommand = new SqlCommand(queryInsertar, conexion))
                         {
-                            insertarCommand.Parameters.AddWithValue("@nombreCateg", txtcategoria.Text);
-
+                            insertarCommand.Parameters.AddWithValue("@nombreSala", txtnombresala.Text);
 
                             int rowsAffected = insertarCommand.ExecuteNonQuery();
 
                             if (rowsAffected > 0)
                             {
-                                MessageBox.Show("Categoria registrada con éxito.");
-                                txtcategoria.Text = "";
+                                MessageBox.Show("Sala registrada con éxito.");
+                                mesas.RecargarClick();
+                                MantSalas_Load(sender, e);
+                                limpiarbtn_Click(sender, e);
                             }
                             else
                             {
@@ -55,30 +57,34 @@ namespace Proyecto_restaurante
                     }
                     else
                     {
-                        string verificarPassQuery = "SELECT COUNT(*) FROM categoria WHERE nombre_categoria = @nombreCategActual";
-                        using (SqlCommand verificarPassCommand = new SqlCommand(verificarPassQuery, conexion))
-                        {
-                            verificarPassCommand.Parameters.AddWithValue("@nombreCategActual", nombreCategoriaActual);
+                        //string verificarPassQuery = "SELECT COUNT(*) FROM mesas WHERE nombre_mesa = @nombreMesaActual";
+                        //using (SqlCommand verificarPassCommand = new SqlCommand(verificarPassQuery, conexion))
+                        //{
+                        //    verificarPassCommand.Parameters.AddWithValue("@nombreMesaActual", nombreMesaActual);
 
-                        }
+                        //}
 
-                        string queryActualizar = "UPDATE categoria SET nombre_categoria = @nuevoNombreCateg";
-                        using (SqlCommand actualizarCommand = new SqlCommand(queryActualizar, conexion))
-                        {
-                            actualizarCommand.Parameters.AddWithValue("@nuevoNombreCateg", txtcategoria.Text);
+                        //string queryActualizar = "UPDATE mesa SET nombre_categoria = @nuevoNombreCateg, sala = @sala, nombre_mesa = @nombreMesa, num_asientos = @numAsientos WHERE nombre_categoria = @nombreCategActual";
+                        //using (SqlCommand actualizarCommand = new SqlCommand(queryActualizar, conexion))
+                        //{
+                        //    actualizarCommand.Parameters.AddWithValue("@nuevoNombreCateg", txtcategoria.Text);
+                        //    actualizarCommand.Parameters.AddWithValue("@sala", comboBoxSala.SelectedItem.ToString());
+                        //    actualizarCommand.Parameters.AddWithValue("@nombreMesa", txtnombreMesa.Text);
+                        //    actualizarCommand.Parameters.AddWithValue("@numAsientos", txtNumAsientos.Text);
+                        //    actualizarCommand.Parameters.AddWithValue("@nombreCategActual", nombreCategoriaActual);
 
-                            int rowsAffected = actualizarCommand.ExecuteNonQuery();
+                        //    int rowsAffected = actualizarCommand.ExecuteNonQuery();
 
-                            if (rowsAffected > 0)
-                            {
-                                MessageBox.Show("Categoria actualizada con éxito.");
-                                txtcategoria.Text = "";
-                            }
-                            else
-                            {
-                                MessageBox.Show("No se pudo actualizar los datos.");
-                            }
-                        }
+                        //    if (rowsAffected > 0)
+                        //    {
+                        //        MessageBox.Show("Categoría actualizada con éxito.");
+                        //        limpiarbtn_Click(sender, e);
+                        //    }
+                        //    else
+                        //    {
+                        //        MessageBox.Show("No se pudo actualizar los datos.");
+                        //    }
+                        //}
                     }
                 }
                 catch (Exception ex)
@@ -88,18 +94,13 @@ namespace Proyecto_restaurante
             }
         }
 
-        private void limpiarbtn_Click(object sender, EventArgs e)
+        private void txtnombresala_TextChanged(object sender, EventArgs e)
         {
-            txtcategoria.Text = "";
-        }
+            int posicion = txtnombresala.SelectionStart;
 
-        private void txtcategoria_TextChanged(object sender, EventArgs e)
-        {
-            int posicion = txtcategoria.SelectionStart;
+            txtnombresala.Text = txtnombresala.Text.ToUpper();
 
-            txtcategoria.Text = txtcategoria.Text.ToUpper();
-
-            txtcategoria.SelectionStart = posicion;
+            txtnombresala.SelectionStart = posicion;
         }
 
         private void FiltroDatosBusqueda(string busqueda)
@@ -113,9 +114,9 @@ namespace Proyecto_restaurante
                     conectar.Open();
 
                     string query = @"
-                        SELECT * FROM categoria
+                        SELECT * FROM salas
                         WHERE CAST(id AS VARCHAR) LIKE @buscar OR
-                        nombre_categoria LIKE @buscar";
+                        nombre_sala LIKE @buscar";
 
                     using (SqlCommand comando = new SqlCommand(query, conectar))
                     {
@@ -135,15 +136,20 @@ namespace Proyecto_restaurante
             }
         }
 
+        private void limpiarbtn_Click(object sender, EventArgs e)
+        {
+            txtnombresala.Text = "";
+        }
+
         private void txtbuscador_TextChanged(object sender, EventArgs e)
         {
             FiltroDatosBusqueda(txtbuscador.Text);
         }
 
-        private void MantCategoria_Load(object sender, EventArgs e)
+        private void MantSalas_Load(object sender, EventArgs e)
         {
             string conexion = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
-            string consulta = "select * from categoria";
+            string consulta = "select * from salas";
 
             SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexion);
 
@@ -156,7 +162,7 @@ namespace Proyecto_restaurante
 
         private void txtbuscador_Enter(object sender, EventArgs e)
         {
-            if (txtbuscador.Text == "(ID, Categoria)")
+            if (txtbuscador.Text == "(ID, Nombre Sala)")
             {
                 txtbuscador.Text = "";
                 txtbuscador.ForeColor = Color.Black;
@@ -167,9 +173,9 @@ namespace Proyecto_restaurante
         {
             if (txtbuscador.Text == "")
             {
-                txtbuscador.Text = "(ID, Abreviatura, Nombre)";
+                txtbuscador.Text = "(ID, Nombre Sala)";
                 txtbuscador.ForeColor = Color.Gray;
-                MantCategoria_Load(sender, e);
+                MantSalas_Load(sender, e);
             }
         }
     }
