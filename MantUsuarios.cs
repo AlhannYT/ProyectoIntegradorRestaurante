@@ -20,6 +20,7 @@ namespace Proyecto_restaurante
         private bool mensajeMostrado = false;
         private string nombreUsuarioActual;
 
+
         private void passView_CheckedChanged(object sender, EventArgs e)
         {
             if (passView.Checked == true)
@@ -42,13 +43,14 @@ namespace Proyecto_restaurante
         {
             if (estadochk.Checked == true)
             {
-                estadochk.Text = "Inactivo";
-                estadochk.ForeColor = Color.Red;
+                estadochk.Text = "Activo";
+                estadochk.ForeColor = Color.Lime;
             }
             else if (estadochk.Checked == false)
             {
-                estadochk.Text = "Activo";
-                estadochk.ForeColor = Color.Lime;
+
+                estadochk.Text = "Inactivo";
+                estadochk.ForeColor = Color.Red;
             }
         }
 
@@ -115,7 +117,7 @@ namespace Proyecto_restaurante
                                     verificarbtn.Visible = false;
                                     passView.Enabled = true;
                                     txtRegistroPass.Focus();
-                                    txtestado_datos.Text = "Editando";
+                                    this.Text = "Mantenimiento de Usuarios || Editando...";
                                     checkBox1.Enabled = true;
                                 }
                                 else
@@ -138,7 +140,7 @@ namespace Proyecto_restaurante
                                 guardarbtn.Visible = true;
                                 verificarbtn.Visible = false;
                                 passView.Enabled = true;
-                                txtestado_datos.Text = "Creando";
+                                this.Text = "Mantenimiento de Usuarios || Creando...";
                                 MessageBox.Show("Ingrese la contraseña y haga clic en 'Guardar Datos' para registrar el nuevo usuario.");
                                 mensajeMostrado = true;
                             }
@@ -182,13 +184,15 @@ namespace Proyecto_restaurante
                             insertarCommand.Parameters.AddWithValue("@nombre", txtRegistroUsuario.Text);
                             insertarCommand.Parameters.AddWithValue("@pass", txtRegistroPass.Text);
                             insertarCommand.Parameters.AddWithValue("@privilegio", privilegiochk.Checked ? 1 : 0);
-                            insertarCommand.Parameters.AddWithValue("@estado", estadochk.Checked ? 0 : 1);
+                            insertarCommand.Parameters.AddWithValue("@estado", estadochk.Checked ? 1 : 0);
 
                             int rowsAffected = insertarCommand.ExecuteNonQuery();
 
                             if (rowsAffected > 0)
                             {
                                 MessageBox.Show("Usuario registrado con éxito.");
+                                MantUsuarios_Load(sender, e);
+                                eliminarbtn_Click(sender, e);
                                 RestablecerFormulario();
                             }
                             else
@@ -219,7 +223,7 @@ namespace Proyecto_restaurante
                             actualizarCommand.Parameters.AddWithValue("@nuevoNombre", txtRegistroUsuario.Text);
                             actualizarCommand.Parameters.AddWithValue("@pass", txtnuevapass.Text);
                             actualizarCommand.Parameters.AddWithValue("@privilegio", privilegiochk.Checked ? 1 : 0);
-                            actualizarCommand.Parameters.AddWithValue("@estado", estadochk.Checked ? 0 : 1);
+                            actualizarCommand.Parameters.AddWithValue("@estado", estadochk.Checked ? 1 : 0);
                             actualizarCommand.Parameters.AddWithValue("@nombreActual", nombreUsuarioActual);
 
                             int rowsAffected = actualizarCommand.ExecuteNonQuery();
@@ -227,6 +231,7 @@ namespace Proyecto_restaurante
                             if (rowsAffected > 0)
                             {
                                 MessageBox.Show("Usuario actualizado con éxito.");
+                                MantUsuarios_Load(sender, e);
                                 RestablecerFormulario();
                             }
                             else
@@ -253,7 +258,7 @@ namespace Proyecto_restaurante
             else if (privilegiochk.Checked == false)
             {
                 privilegiochk.Text = "Usuario";
-                privilegiochk.ForeColor = Color.Black;
+                privilegiochk.ForeColor = Color.White;
             }
         }
 
@@ -276,7 +281,7 @@ namespace Proyecto_restaurante
 
             guardarbtn.Visible = false;
 
-            txtestado_datos.Text = "Creando";
+            this.Text = "Mantenimiento de Usuarios || Creando...";
 
             nombreUsuarioActual = "";
 
@@ -286,7 +291,7 @@ namespace Proyecto_restaurante
 
             estadochk.Text = "Activo";
             estadochk.ForeColor = Color.Lime;
-            estadochk.Checked = false;
+            estadochk.Checked = true;
 
             privilegiochk.Text = "Usuario";
             privilegiochk.ForeColor = Color.Black;
@@ -349,7 +354,7 @@ namespace Proyecto_restaurante
                     conectar.Open();
 
                     string query = @"
-                        SELECT id, usuario, estado from login_usuario
+                        SELECT id, usuario, estado, privilegio from login_usuario
                         WHERE CAST(id AS VARCHAR) LIKE @buscar OR
                         usuario LIKE @buscar";
 
@@ -373,8 +378,11 @@ namespace Proyecto_restaurante
 
         private void MantUsuarios_Load(object sender, EventArgs e)
         {
+            ConfirmPanelTransp.BackColor = Color.FromArgb(100, 0, 0, 0);
+            
+            button1.Enabled = false;
             string conexion = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
-            string consulta = "select id, usuario, estado from login_usuario";
+            string consulta = "select id, usuario, estado, privilegio from login_usuario";
 
             SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexion);
 
@@ -408,5 +416,158 @@ namespace Proyecto_restaurante
                 MantUsuarios_Load(sender, e);
             }
         }
+
+        private void eliminarbtn_Click(object sender, EventArgs e)
+        {
+            txtbuscador.Text = "(ID, Usuario)";
+            txtbuscador.ForeColor = Color.Gray;
+
+            estadochk.Enabled = false;
+            privilegiochk.Enabled = false;
+
+            
+            txtRegistroPass.Enabled = false;
+
+            txtRegistroPass.Text = "";
+
+            txtnuevapass.Text = "";
+            txtnuevapass.Visible = false;
+            txtnuevapass.Enabled = false;
+
+            verificarbtn.Visible = true;
+
+            guardarbtn.Visible = false;
+
+            this.Text = "Mantenimiento de Usuarios || Creando...";
+
+            nombreUsuarioActual = "";
+
+            mensajeMostrado = false;
+
+            txtRegistroUsuario.Focus();
+
+            estadochk.Text = "Activo";
+            estadochk.ForeColor = Color.Lime;
+            estadochk.Checked = true;
+
+            privilegiochk.Text = "Usuario";
+            privilegiochk.ForeColor = Color.Black;
+            privilegiochk.Checked = false;
+
+            passView.Enabled = false;
+            checkBox1.Enabled = false;
+
+            passView.Checked = false;
+            checkBox1.Checked = false;
+            confirmarpass.Visible = false;
+
+            button1.Enabled = false; //Boton de eliminar usuario (olvidé cambiarle el nombre xd)
+
+            MantUsuarios_Load(sender, e);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            panelconfirmacion.Location = new Point(310, 94);
+            panelconfirmacion.Visible = true;
+
+            ConfirmPanelTransp.Location = new Point(0, 0);
+            ConfirmPanelTransp.Visible = true;
+        }
+
+        private void cancelarbtn_Click(object sender, EventArgs e)
+        {
+            ConfirmPanelTransp.Location = new Point(764, 363);
+            ConfirmPanelTransp.Visible = false;
+
+            panelconfirmacion.Visible = false;
+            panelconfirmacion.Location = new Point(470, 363);
+        }
+
+        private void tabladatos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            txtRegistroUsuario.Text = tabladatos.SelectedCells[1].Value.ToString();
+            estadochk.Checked = Convert.ToBoolean(tabladatos.SelectedCells[2].Value);
+            privilegiochk.Checked = Convert.ToBoolean(tabladatos.SelectedCells[3].Value);
+
+            estadochk.Enabled = true;
+            privilegiochk.Enabled = true;
+            nombreUsuarioActual = txtRegistroUsuario.Text;
+            txtRegistroPass.Enabled = true;
+            txtnuevapass.Visible = true;
+            txtnuevapass.Enabled = true;
+            confirmarpass.Text = "Confirmar Contraseña";
+            confirmarpass.Visible = true;
+            guardarbtn.Visible = true;
+            verificarbtn.Visible = false;
+            passView.Enabled = true;
+            txtRegistroPass.Focus();
+            this.Text = "Mantenimiento de Usuarios || Editando...";
+            checkBox1.Enabled = true;
+
+            button1.Enabled = true;
+        }
+
+        public string UsuarioAdministrador;
+
+        private void eliminarusuariobtn_Click(object sender, EventArgs e)
+        {
+            string conexionString = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
+
+            using (SqlConnection conexion = new SqlConnection(conexionString))
+            {
+                conexion.Open();
+
+                string verificarPassQuery = "SELECT COUNT(*) FROM login_usuario WHERE usuario = @nombreAdmin AND pass = @pass";
+                using (SqlCommand verificarPassCommand = new SqlCommand(verificarPassQuery, conexion))
+                {
+                    verificarPassCommand.Parameters.AddWithValue("@nombreAdmin", UsuarioAdministrador);
+                    verificarPassCommand.Parameters.AddWithValue("@pass", confirmarpasspanel.Text);
+                    int passCount = (int)verificarPassCommand.ExecuteScalar();
+
+                    if (passCount == 0)
+                    {
+                        MessageBox.Show("Contraseña incorrecta.");
+                        confirmarpasspanel.Text = "";
+                        return;
+                    }
+                }
+
+                DialogResult editar = MessageBox.Show("¿Está de acuerdo con eliminar este usuario?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (editar == DialogResult.Yes)
+                {
+                    string eliminarUsuarioQuery = "DELETE FROM login_usuario WHERE usuario = @nombre";
+
+                    using (SqlCommand obtenerDatosCommand = new SqlCommand(eliminarUsuarioQuery, conexion))
+                    {
+                        obtenerDatosCommand.Parameters.AddWithValue("@nombre", txtRegistroUsuario.Text);
+
+                        int rowsAffected = obtenerDatosCommand.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Usuario eliminado exitosamente.");
+                            button1.Enabled = false;
+                            confirmarpasspanel.Text = "";
+                            eliminarbtn_Click(sender, e);
+                            limpiarbtn_Click(sender, e);
+                            MantUsuarios_Load(sender, e);
+                        }
+                        else
+                        {
+                            MessageBox.Show("No se encontró el usuario.");
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Operación cancelada.");
+                }
+            }
+
+            cancelarbtn_Click(sender, e);
+        }
+
     }
 }

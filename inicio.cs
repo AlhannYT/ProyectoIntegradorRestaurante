@@ -27,11 +27,12 @@ namespace Proyecto_restaurante
             using (SqlConnection conexion = new SqlConnection(conexionString))
             {
                 menu menu = new menu();
+
                 try
                 {
                     conexion.Open();
 
-                    string query = "SELECT privilegio FROM login_usuario WHERE usuario = @usuario AND pass = @pass AND estado = 0";
+                    string query = "SELECT privilegio FROM login_usuario WHERE usuario = @usuario AND pass = @pass AND estado = 1";
 
                     using (SqlCommand comando = new SqlCommand(query, conexion))
                     {
@@ -46,14 +47,15 @@ namespace Proyecto_restaurante
 
                             if (privilegio == 1)
                             {
-                                menu.toolStripMenuItem2.Enabled = true; // Activar opción si es administrador
+                                menu.toolStripMenuItem2.Enabled = true; 
                             }
                             else
                             {
-                                menu.toolStripMenuItem2.Enabled = false; // Desactivar opción si no es administrador
+                                menu.toolStripMenuItem2.Enabled = false; 
                             }
 
                             menu.usuariolabel.Text = "USUARIO ACTUAL: " + txtusuario.Text;
+                            menu.usuarioActual = txtusuario.Text;
                             menu.Show();
 
                             this.Hide();

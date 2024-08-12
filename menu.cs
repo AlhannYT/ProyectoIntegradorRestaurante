@@ -17,10 +17,13 @@ namespace Proyecto_restaurante
             InitializeComponent();
         }
 
+        public string usuarioActual;
+
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
             MantUsuarios mantUsuarios = new MantUsuarios();
-
+            mantUsuarios.adminlabel.Text = "Administrador: " + usuarioActual;
+            mantUsuarios.UsuarioAdministrador = usuarioActual;
             mantUsuarios.Show();
         }
 

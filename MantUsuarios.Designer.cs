@@ -41,13 +41,13 @@
             guardarbtn = new Button();
             limpiarbtn = new Button();
             verificarbtn = new Button();
-            txtestado_datos = new TextBox();
             txtnuevapass = new TextBox();
             confirmarpass = new Label();
             privilegiochk = new CheckBox();
             label4 = new Label();
             checkBox1 = new CheckBox();
             toolTip1 = new ToolTip(components);
+            button1 = new Button();
             label6 = new Label();
             panel2 = new Panel();
             panel1 = new Panel();
@@ -56,8 +56,22 @@
             tabladatos = new DataGridView();
             txtbuscador = new TextBox();
             label1 = new Label();
+            panelconfirmacion = new Panel();
+            panel3 = new Panel();
+            confirmarpasspanel = new TextBox();
+            adminlabel = new Label();
+            label8 = new Label();
+            cancelarbtn = new Button();
+            eliminarusuariobtn = new Button();
+            ConfirmPanelTransp = new Panel();
+            pictureBox3 = new PictureBox();
+            pictureBox2 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tabladatos).BeginInit();
+            panelconfirmacion.SuspendLayout();
+            ConfirmPanelTransp.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
             // txtRegistroUsuario
@@ -113,6 +127,8 @@
             // estadochk
             // 
             estadochk.AutoSize = true;
+            estadochk.Checked = true;
+            estadochk.CheckState = CheckState.Checked;
             estadochk.Enabled = false;
             estadochk.ForeColor = Color.Lime;
             estadochk.Location = new Point(205, 166);
@@ -174,16 +190,6 @@
             verificarbtn.Text = "Verificar";
             verificarbtn.UseVisualStyleBackColor = true;
             verificarbtn.Click += verificarbtn_Click;
-            // 
-            // txtestado_datos
-            // 
-            txtestado_datos.Enabled = false;
-            txtestado_datos.Location = new Point(12, 68);
-            txtestado_datos.Name = "txtestado_datos";
-            txtestado_datos.Size = new Size(65, 23);
-            txtestado_datos.TabIndex = 0;
-            txtestado_datos.Text = "Creando";
-            txtestado_datos.TextAlign = HorizontalAlignment.Center;
             // 
             // txtnuevapass
             // 
@@ -247,6 +253,18 @@
             // 
             toolTip1.ToolTipTitle = "Ayuda";
             // 
+            // button1
+            // 
+            button1.Enabled = false;
+            button1.Image = Properties.Resources.basura;
+            button1.Location = new Point(337, 218);
+            button1.Name = "button1";
+            button1.Size = new Size(27, 24);
+            button1.TabIndex = 35;
+            toolTip1.SetToolTip(button1, "¡Este boton elimina por\r\ncompleto al usuario que\r\nhaya sido seleccionado!");
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // label6
             // 
             label6.AutoSize = true;
@@ -263,7 +281,7 @@
             panel2.BackColor = Color.Red;
             panel2.Location = new Point(406, -1);
             panel2.Name = "panel2";
-            panel2.Size = new Size(10, 382);
+            panel2.Size = new Size(10, 397);
             panel2.TabIndex = 31;
             // 
             // panel1
@@ -271,17 +289,18 @@
             panel1.BackColor = Color.Red;
             panel1.Location = new Point(414, 102);
             panel1.Name = "panel1";
-            panel1.Size = new Size(401, 10);
+            panel1.Size = new Size(483, 10);
             panel1.TabIndex = 30;
             // 
             // eliminarbtn
             // 
-            eliminarbtn.Image = Properties.Resources.basura;
-            eliminarbtn.Location = new Point(765, 72);
+            eliminarbtn.Image = Properties.Resources.limpio;
+            eliminarbtn.Location = new Point(845, 72);
             eliminarbtn.Name = "eliminarbtn";
-            eliminarbtn.Size = new Size(29, 24);
+            eliminarbtn.Size = new Size(27, 24);
             eliminarbtn.TabIndex = 29;
             eliminarbtn.UseVisualStyleBackColor = true;
+            eliminarbtn.Click += eliminarbtn_Click;
             // 
             // label7
             // 
@@ -302,15 +321,16 @@
             tabladatos.Name = "tabladatos";
             tabladatos.ReadOnly = true;
             tabladatos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tabladatos.Size = new Size(380, 247);
+            tabladatos.Size = new Size(451, 244);
             tabladatos.TabIndex = 27;
+            tabladatos.CellClick += tabladatos_CellClick;
             // 
             // txtbuscador
             // 
             txtbuscador.ForeColor = SystemColors.ScrollBar;
             txtbuscador.Location = new Point(493, 73);
             txtbuscador.Name = "txtbuscador";
-            txtbuscador.Size = new Size(266, 23);
+            txtbuscador.Size = new Size(346, 23);
             txtbuscador.TabIndex = 28;
             txtbuscador.Text = "(ID, Usuario)";
             txtbuscador.TextChanged += txtbuscador_TextChanged;
@@ -328,12 +348,124 @@
             label1.TabIndex = 33;
             label1.Text = "Registro de Usuarios";
             // 
+            // panelconfirmacion
+            // 
+            panelconfirmacion.BackColor = Color.FromArgb(192, 0, 0);
+            panelconfirmacion.Controls.Add(panel3);
+            panelconfirmacion.Controls.Add(confirmarpasspanel);
+            panelconfirmacion.Controls.Add(adminlabel);
+            panelconfirmacion.Controls.Add(label8);
+            panelconfirmacion.Controls.Add(cancelarbtn);
+            panelconfirmacion.Controls.Add(eliminarusuariobtn);
+            panelconfirmacion.Location = new Point(470, 363);
+            panelconfirmacion.Name = "panelconfirmacion";
+            panelconfirmacion.Size = new Size(251, 205);
+            panelconfirmacion.TabIndex = 34;
+            panelconfirmacion.Visible = false;
+            // 
+            // panel3
+            // 
+            panel3.BackColor = Color.White;
+            panel3.Location = new Point(13, 61);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(224, 6);
+            panel3.TabIndex = 3;
+            // 
+            // confirmarpasspanel
+            // 
+            confirmarpasspanel.Location = new Point(11, 115);
+            confirmarpasspanel.Name = "confirmarpasspanel";
+            confirmarpasspanel.Size = new Size(231, 23);
+            confirmarpasspanel.TabIndex = 2;
+            confirmarpasspanel.UseSystemPasswordChar = true;
+            // 
+            // adminlabel
+            // 
+            adminlabel.AutoSize = true;
+            adminlabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            adminlabel.ForeColor = SystemColors.Control;
+            adminlabel.Location = new Point(11, 80);
+            adminlabel.Name = "adminlabel";
+            adminlabel.Size = new Size(129, 21);
+            adminlabel.TabIndex = 1;
+            adminlabel.Text = "Administrador: ";
+            adminlabel.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label8
+            // 
+            label8.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label8.ForeColor = SystemColors.Control;
+            label8.Location = new Point(11, 3);
+            label8.Name = "label8";
+            label8.Size = new Size(231, 52);
+            label8.TabIndex = 1;
+            label8.Text = "Coloque su contraseña para eliminar a este usuario";
+            label8.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // cancelarbtn
+            // 
+            cancelarbtn.Image = Properties.Resources.salida;
+            cancelarbtn.ImageAlign = ContentAlignment.MiddleLeft;
+            cancelarbtn.Location = new Point(137, 148);
+            cancelarbtn.Name = "cancelarbtn";
+            cancelarbtn.Size = new Size(105, 44);
+            cancelarbtn.TabIndex = 0;
+            cancelarbtn.Text = "     Cancelar";
+            cancelarbtn.UseVisualStyleBackColor = true;
+            cancelarbtn.Click += cancelarbtn_Click;
+            // 
+            // eliminarusuariobtn
+            // 
+            eliminarusuariobtn.Image = Properties.Resources.basura;
+            eliminarusuariobtn.ImageAlign = ContentAlignment.MiddleLeft;
+            eliminarusuariobtn.Location = new Point(11, 148);
+            eliminarusuariobtn.Name = "eliminarusuariobtn";
+            eliminarusuariobtn.Size = new Size(105, 44);
+            eliminarusuariobtn.TabIndex = 0;
+            eliminarusuariobtn.Text = "      Eliminar";
+            eliminarusuariobtn.UseVisualStyleBackColor = true;
+            eliminarusuariobtn.Click += eliminarusuariobtn_Click;
+            // 
+            // ConfirmPanelTransp
+            // 
+            ConfirmPanelTransp.BackColor = Color.Silver;
+            ConfirmPanelTransp.Controls.Add(pictureBox3);
+            ConfirmPanelTransp.Controls.Add(pictureBox2);
+            ConfirmPanelTransp.Location = new Point(764, 363);
+            ConfirmPanelTransp.Name = "ConfirmPanelTransp";
+            ConfirmPanelTransp.Size = new Size(876, 371);
+            ConfirmPanelTransp.TabIndex = 36;
+            ConfirmPanelTransp.Visible = false;
+            // 
+            // pictureBox3
+            // 
+            pictureBox3.Image = Properties.Resources.alerta;
+            pictureBox3.Location = new Point(599, 94);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(275, 206);
+            pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox3.TabIndex = 0;
+            pictureBox3.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.Image = Properties.Resources.alerta;
+            pictureBox2.Location = new Point(3, 94);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(275, 206);
+            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox2.TabIndex = 0;
+            pictureBox2.TabStop = false;
+            // 
             // MantUsuarios
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.WindowFrame;
-            ClientSize = new Size(806, 375);
+            ClientSize = new Size(877, 373);
+            Controls.Add(panelconfirmacion);
+            Controls.Add(ConfirmPanelTransp);
+            Controls.Add(button1);
             Controls.Add(label1);
             Controls.Add(label6);
             Controls.Add(panel2);
@@ -357,14 +489,18 @@
             Controls.Add(label2);
             Controls.Add(txtnuevapass);
             Controls.Add(txtRegistroPass);
-            Controls.Add(txtestado_datos);
             Controls.Add(txtRegistroUsuario);
             Name = "MantUsuarios";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Mantenimiento de Usuarios";
+            Text = "Mantenimiento de Usuarios || Creando...";
             Load += MantUsuarios_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)tabladatos).EndInit();
+            panelconfirmacion.ResumeLayout(false);
+            panelconfirmacion.PerformLayout();
+            ConfirmPanelTransp.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -381,7 +517,6 @@
         private Button guardarbtn;
         private Button limpiarbtn;
         private Button verificarbtn;
-        private TextBox txtestado_datos;
         private TextBox txtnuevapass;
         private Label confirmarpass;
         private CheckBox privilegiochk;
@@ -396,5 +531,16 @@
         private DataGridView tabladatos;
         private TextBox txtbuscador;
         private Label label1;
+        private Label label8;
+        private Button eliminarusuariobtn;
+        private TextBox confirmarpasspanel;
+        private Button cancelarbtn;
+        private Panel panel3;
+        private Button button1;
+        public Label adminlabel;
+        public Panel panelconfirmacion;
+        private Panel ConfirmPanelTransp;
+        private PictureBox pictureBox2;
+        private PictureBox pictureBox3;
     }
 }
