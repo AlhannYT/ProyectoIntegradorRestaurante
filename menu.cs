@@ -75,5 +75,11 @@ namespace Proyecto_restaurante
         {
             MessageBox.Show("Pendiente: \n-Alternar a modo oscuro");
         }
+
+        private void monedasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MantMonedas mantMone = new MantMonedas();
+            mantMone.Show();
+        }
     }
 }

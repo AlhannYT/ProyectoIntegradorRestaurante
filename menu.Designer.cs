@@ -45,6 +45,7 @@
             panel3 = new Panel();
             cerrarbtn = new Button();
             configuracionbtn = new Button();
+            monedasToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
@@ -66,7 +67,7 @@
             // 
             // toolStripMenuItem1
             // 
-            toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem2, agregarClientesToolStripMenuItem, agregarCategoriasToolStripMenuItem, medidasToolStripMenuItem, departamentosToolStripMenuItem, salasToolStripMenuItem, mesasToolStripMenuItem });
+            toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem2, agregarClientesToolStripMenuItem, agregarCategoriasToolStripMenuItem, medidasToolStripMenuItem, departamentosToolStripMenuItem, salasToolStripMenuItem, mesasToolStripMenuItem, monedasToolStripMenuItem });
             toolStripMenuItem1.ForeColor = SystemColors.Control;
             toolStripMenuItem1.Name = "toolStripMenuItem1";
             toolStripMenuItem1.Size = new Size(176, 34);
@@ -189,6 +190,13 @@
             configuracionbtn.UseVisualStyleBackColor = true;
             configuracionbtn.Click += configuracionbtn_Click;
             // 
+            // monedasToolStripMenuItem
+            // 
+            monedasToolStripMenuItem.Name = "monedasToolStripMenuItem";
+            monedasToolStripMenuItem.Size = new Size(229, 34);
+            monedasToolStripMenuItem.Text = "Monedas";
+            monedasToolStripMenuItem.Click += monedasToolStripMenuItem_Click;
+            // 
             // menu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -231,5 +239,6 @@
         private ToolStripMenuItem salasToolStripMenuItem;
         private ToolStripMenuItem mesasToolStripMenuItem;
         private Button configuracionbtn;
+        private ToolStripMenuItem monedasToolStripMenuItem;
     }
 }
