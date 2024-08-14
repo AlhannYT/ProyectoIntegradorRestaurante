@@ -48,6 +48,8 @@
             eliminarbtn = new Button();
             panel1 = new Panel();
             panel2 = new Panel();
+            estadochk = new CheckBox();
+            label8 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tabladatos).BeginInit();
             SuspendLayout();
@@ -168,7 +170,7 @@
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
             pictureBox1.Location = new Point(129, 42);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(180, 136);
+            pictureBox1.Size = new Size(147, 109);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 3;
             pictureBox1.TabStop = false;
@@ -178,11 +180,13 @@
             tabladatos.AllowUserToAddRows = false;
             tabladatos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tabladatos.Location = new Point(430, 110);
+            tabladatos.MultiSelect = false;
             tabladatos.Name = "tabladatos";
             tabladatos.ReadOnly = true;
             tabladatos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tabladatos.Size = new Size(544, 333);
+            tabladatos.Size = new Size(635, 333);
             tabladatos.TabIndex = 4;
+            tabladatos.CellClick += tabladatos_CellClick;
             // 
             // label6
             // 
@@ -211,7 +215,7 @@
             txtbuscador.ForeColor = SystemColors.ScrollBar;
             txtbuscador.Location = new Point(498, 62);
             txtbuscador.Name = "txtbuscador";
-            txtbuscador.Size = new Size(443, 23);
+            txtbuscador.Size = new Size(524, 23);
             txtbuscador.TabIndex = 6;
             txtbuscador.Text = "(ID, Nombre, Apellido)";
             txtbuscador.TextChanged += txtbuscador_TextChanged;
@@ -220,8 +224,8 @@
             // 
             // eliminarbtn
             // 
-            eliminarbtn.Image = Properties.Resources.basura;
-            eliminarbtn.Location = new Point(945, 61);
+            eliminarbtn.Image = Properties.Resources.limpio;
+            eliminarbtn.Location = new Point(1028, 60);
             eliminarbtn.Name = "eliminarbtn";
             eliminarbtn.Size = new Size(29, 24);
             eliminarbtn.TabIndex = 8;
@@ -233,7 +237,7 @@
             panel1.BackColor = Color.Red;
             panel1.Location = new Point(423, 91);
             panel1.Name = "panel1";
-            panel1.Size = new Size(567, 10);
+            panel1.Size = new Size(651, 10);
             panel1.TabIndex = 9;
             // 
             // panel2
@@ -245,12 +249,38 @@
             panel2.Size = new Size(10, 464);
             panel2.TabIndex = 10;
             // 
+            // estadochk
+            // 
+            estadochk.AutoSize = true;
+            estadochk.Checked = true;
+            estadochk.CheckState = CheckState.Checked;
+            estadochk.ForeColor = Color.Lime;
+            estadochk.Location = new Point(216, 163);
+            estadochk.Name = "estadochk";
+            estadochk.Size = new Size(60, 19);
+            estadochk.TabIndex = 11;
+            estadochk.Text = "Activo";
+            estadochk.UseVisualStyleBackColor = true;
+            estadochk.CheckedChanged += estadochk_CheckedChanged;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI", 12F);
+            label8.ForeColor = SystemColors.Control;
+            label8.Location = new Point(151, 159);
+            label8.Name = "label8";
+            label8.Size = new Size(59, 21);
+            label8.TabIndex = 0;
+            label8.Text = "Estado:";
+            // 
             // MantClientes
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlDarkDark;
-            ClientSize = new Size(980, 455);
+            ClientSize = new Size(1073, 455);
+            Controls.Add(estadochk);
             Controls.Add(panel1);
             Controls.Add(panel2);
             Controls.Add(eliminarbtn);
@@ -268,6 +298,7 @@
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label2);
+            Controls.Add(label8);
             Controls.Add(label5);
             Controls.Add(label1);
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -302,5 +333,7 @@
         private Button eliminarbtn;
         private Panel panel1;
         private Panel panel2;
+        private CheckBox estadochk;
+        private Label label8;
     }
 }

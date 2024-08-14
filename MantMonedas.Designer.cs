@@ -53,21 +53,25 @@
             // 
             // button1
             // 
+            button1.Image = Properties.Resources.disco;
+            button1.ImageAlign = ContentAlignment.MiddleLeft;
             button1.Location = new Point(67, 371);
             button1.Name = "button1";
             button1.Size = new Size(128, 45);
             button1.TabIndex = 0;
-            button1.Text = "Guardar";
+            button1.Text = "     Guardar";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
             // limpiarbtn
             // 
+            limpiarbtn.Image = Properties.Resources.limpio;
+            limpiarbtn.ImageAlign = ContentAlignment.MiddleLeft;
             limpiarbtn.Location = new Point(242, 371);
             limpiarbtn.Name = "limpiarbtn";
             limpiarbtn.Size = new Size(128, 45);
             limpiarbtn.TabIndex = 0;
-            limpiarbtn.Text = "Limpiar";
+            limpiarbtn.Text = "     Limpiar";
             limpiarbtn.UseVisualStyleBackColor = true;
             limpiarbtn.Click += limpiarbtn_Click;
             // 

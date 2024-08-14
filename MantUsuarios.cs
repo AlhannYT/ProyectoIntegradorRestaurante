@@ -212,7 +212,7 @@ namespace Proyecto_restaurante
 
                             if (passCount == 0)
                             {
-                                MessageBox.Show("La contraseña antigua no es correcta.");
+                                MessageBox.Show("La contraseña actual no es correcta.");
                                 return;
                             }
                         }
@@ -303,6 +303,8 @@ namespace Proyecto_restaurante
             passView.Checked = false;
             checkBox1.Checked = false;
             confirmarpass.Visible = false;
+
+            button1.Enabled = false;
         }
 
         private void txtRegistroUsuario_KeyPress(object sender, KeyPressEventArgs e)
@@ -321,6 +323,11 @@ namespace Proyecto_restaurante
             txtRegistroUsuario.Text = txtRegistroUsuario.Text.ToUpper();
 
             txtRegistroUsuario.SelectionStart = posicion;
+
+            if(txtRegistroUsuario.Text=="")
+            {
+                RestablecerFormulario();
+            }
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -379,7 +386,7 @@ namespace Proyecto_restaurante
         private void MantUsuarios_Load(object sender, EventArgs e)
         {
             ConfirmPanelTransp.BackColor = Color.FromArgb(100, 0, 0, 0);
-            
+
             button1.Enabled = false;
             string conexion = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
             string consulta = "select id, usuario, estado, privilegio from login_usuario";
@@ -425,7 +432,7 @@ namespace Proyecto_restaurante
             estadochk.Enabled = false;
             privilegiochk.Enabled = false;
 
-            
+
             txtRegistroPass.Enabled = false;
 
             txtRegistroPass.Text = "";
@@ -569,5 +576,10 @@ namespace Proyecto_restaurante
             cancelarbtn_Click(sender, e);
         }
 
+        private void instrucciones_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Instrucciones para crear: \n1-Colocar nombre de usuario \n2-Colocar privilegios \n3-Colocar contraseña \n4-Guardar" +
+                " \n\nInstrucciones para Editar: \n1-Dar click al usuario en la tabla \n2-Para poder guardar los cambios este usuario debe de proporcionar su contaseña o estar presente al momento del cambio \n3- En caso de querer una nueva contraseña darle al botón 'N' para alternar entre confirmar y poner una nueva contraseña");
+        }
     }
 }

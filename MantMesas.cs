@@ -21,6 +21,8 @@ namespace Proyecto_restaurante
 
         private string nombreMesaActual;
 
+        private int idMesa=0;
+
         private void guardarbtn_Click(object sender, EventArgs e)
         {
             Regex numerosRegex = new Regex(@"^[\d-]+$");
@@ -56,14 +58,16 @@ namespace Proyecto_restaurante
                             insertarCommand.Parameters.AddWithValue("@sala", salacmbx.SelectedItem.ToString());
                             insertarCommand.Parameters.AddWithValue("@nombreMesa", txtnombreMesa.Text);
                             insertarCommand.Parameters.AddWithValue("@numAsientos", txtNumAsientos.Text);
-                            insertarCommand.Parameters.AddWithValue("@estado", 1);
+                            insertarCommand.Parameters.AddWithValue("@estado", estadochk.Checked ? 1 : 0);
 
                             int rowsAffected = insertarCommand.ExecuteNonQuery();
 
                             if (rowsAffected > 0)
                             {
                                 MessageBox.Show("Mesa registrada con éxito.");
+                                recargarbtn_Click(sender, e);
                                 limpiarbtn_Click(sender, e);
+                                MantMesas_Load(sender, e);
                             }
                             else
                             {
@@ -73,34 +77,37 @@ namespace Proyecto_restaurante
                     }
                     else
                     {
-                        //string verificarPassQuery = "SELECT COUNT(*) FROM mesas WHERE nombre_mesa = @nombreMesaActual";
-                        //using (SqlCommand verificarPassCommand = new SqlCommand(verificarPassQuery, conexion))
-                        //{
-                        //    verificarPassCommand.Parameters.AddWithValue("@nombreMesaActual", nombreMesaActual);
+                        string verificarQuery = "SELECT COUNT(*) FROM mesas WHERE nombre_mesa = @nombreMesaActual and id=@IDMesaActual";
+                        using (SqlCommand verificarCommand = new SqlCommand(verificarQuery, conexion))
+                        {
+                            verificarCommand.Parameters.AddWithValue("@nombreMesaActual", nombreMesaActual);
+                            verificarCommand.Parameters.AddWithValue("@IDMesaActual", idMesa);
+                        }
 
-                        //}
+                        string queryActualizar = "UPDATE mesas SET sala = @sala, nombre_mesa = @nuevoNombreMesa, estado = @estado, num_asientos = @numAsientos WHERE id = @IDMesa and nombre_mesa = @nombreMesaActual";
+                        using (SqlCommand actualizarCommand = new SqlCommand(queryActualizar, conexion))
+                        {
+                            actualizarCommand.Parameters.AddWithValue("@IDMesa", idMesa);
+                            actualizarCommand.Parameters.AddWithValue("@nombreMesaActual", nombreMesaActual);
+                            actualizarCommand.Parameters.AddWithValue("@nuevoNombreMesa", txtnombreMesa.Text);
+                            actualizarCommand.Parameters.AddWithValue("@sala", salacmbx.SelectedItem.ToString());
+                            actualizarCommand.Parameters.AddWithValue("@numAsientos", txtNumAsientos.Text);
+                            actualizarCommand.Parameters.AddWithValue("@estado", estadochk.Checked ? 1 : 0);
 
-                        //string queryActualizar = "UPDATE mesa SET nombre_categoria = @nuevoNombreCateg, sala = @sala, nombre_mesa = @nombreMesa, num_asientos = @numAsientos WHERE nombre_categoria = @nombreCategActual";
-                        //using (SqlCommand actualizarCommand = new SqlCommand(queryActualizar, conexion))
-                        //{
-                        //    actualizarCommand.Parameters.AddWithValue("@nuevoNombreCateg", txtcategoria.Text);
-                        //    actualizarCommand.Parameters.AddWithValue("@sala", comboBoxSala.SelectedItem.ToString());
-                        //    actualizarCommand.Parameters.AddWithValue("@nombreMesa", txtnombreMesa.Text);
-                        //    actualizarCommand.Parameters.AddWithValue("@numAsientos", txtNumAsientos.Text);
-                        //    actualizarCommand.Parameters.AddWithValue("@nombreCategActual", nombreCategoriaActual);
+                            int rowsAffected = actualizarCommand.ExecuteNonQuery();
 
-                        //    int rowsAffected = actualizarCommand.ExecuteNonQuery();
-
-                        //    if (rowsAffected > 0)
-                        //    {
-                        //        MessageBox.Show("Categoría actualizada con éxito.");
-                        //        limpiarbtn_Click(sender, e);
-                        //    }
-                        //    else
-                        //    {
-                        //        MessageBox.Show("No se pudo actualizar los datos.");
-                        //    }
-                        //}
+                            if (rowsAffected > 0)
+                            {
+                                MessageBox.Show("Mesa actualizada con éxito.");
+                                limpiarbtn_Click(sender, e);
+                                MantMesas_Load(sender, e);
+                                recargarbtn_Click(sender, e);
+                            }
+                            else
+                            {
+                                MessageBox.Show("No se pudo actualizar los datos.");
+                            }
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -115,6 +122,10 @@ namespace Proyecto_restaurante
             salacmbx.SelectedIndex = -1;
             txtnombreMesa.Text = "";
             txtNumAsientos.Text = "";
+            this.Text = "Mantenimiento de Mesas || Creando...";
+            MantMesas_Load(sender, e);
+            estadochk.Checked = true;
+            recargarbtn_Click(sender, e);
         }
 
         private void txtnombreMesa_TextChanged(object sender, EventArgs e)
@@ -136,21 +147,21 @@ namespace Proyecto_restaurante
         private void MantMesas_Load(object sender, EventArgs e)
         {
             string conexionString = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
-
+            
             using (SqlConnection conexion = new SqlConnection(conexionString))
             {
                 try
                 {
                     conexion.Open();
 
-                    string query = "SELECT nombre_sala FROM salas";
-                    using (SqlCommand command = new SqlCommand(query, conexion))
+                    string query = "SELECT nombre_sala FROM salas where estado = 1";
+                    using (SqlCommand comando = new SqlCommand(query, conexion))
                     {
-                        using (SqlDataReader reader = command.ExecuteReader())
+                        using (SqlDataReader lector = comando.ExecuteReader())
                         {
-                            while (reader.Read())
+                            while (lector.Read())
                             {
-                                salacmbx.Items.Add(reader["nombre_sala"].ToString());
+                                salacmbx.Items.Add(lector["nombre_sala"].ToString());
                             }
                         }
                     }
@@ -161,7 +172,7 @@ namespace Proyecto_restaurante
                 }
             }
 
-            string consulta = "select id, nombre_mesa, sala, num_asientos from mesas";
+            string consulta = "select id, nombre_mesa, sala, num_asientos, estado from mesas";
 
             SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
 
@@ -244,7 +255,35 @@ namespace Proyecto_restaurante
 
         private void eliminarbtn_Click(object sender, EventArgs e)
         {
-            txtbuscador.Text = "";
+            limpiarbtn_Click(sender, e);
+        }
+
+        private void estadochk_CheckedChanged(object sender, EventArgs e)
+        {
+            if (estadochk.Checked == true)
+            {
+                estadochk.Text = "Disponible";
+                estadochk.ForeColor = Color.Lime;
+            }
+            else if (estadochk.Checked == false)
+            {
+
+                estadochk.Text = "Reservada";
+                estadochk.ForeColor = Color.Red;
+            }
+        }
+
+        private void tabladatos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            this.Text = "Mantenimiento de Mesas || Editando...";
+
+            idMesa = Convert.ToInt32(tabladatos.SelectedCells[0].Value);
+            txtnombreMesa.Text = tabladatos.SelectedCells[1].Value.ToString();
+            nombreMesaActual = txtnombreMesa.Text;
+            salacmbx.Text = tabladatos.SelectedCells[2].Value.ToString();
+            txtNumAsientos.Text = tabladatos.SelectedCells[3].Value.ToString();
+
+            estadochk.Checked = Convert.ToBoolean(tabladatos.SelectedCells[4].Value);
         }
     }
 }

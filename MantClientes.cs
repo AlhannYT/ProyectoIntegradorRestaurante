@@ -43,7 +43,7 @@ namespace Proyecto_restaurante
             txtcedula.SelectionStart = txtcedula.Text.Length;
         }
 
-        private string nombreUsuarioActual;
+        private string nombreClienteActual;
 
         private void RestablecerFormulario()
         {
@@ -53,10 +53,10 @@ namespace Proyecto_restaurante
 
             txtcedula.Text = "";
 
-            nombreUsuarioActual = "";
+            nombreClienteActual = "";
 
             txtnumero.Text = "";
-
+            estadochk.Checked=true;
             txtnombre.Focus();
         }
 
@@ -106,15 +106,16 @@ namespace Proyecto_restaurante
                 {
                     conexion.Open();
 
-                    if (string.IsNullOrEmpty(nombreUsuarioActual))
+                    if (string.IsNullOrEmpty(nombreClienteActual))
                     {
-                        string queryInsertar = "INSERT INTO cliente (nombre_cliente, apellido_cliente, identificacion, telefono) VALUES (@nombre_cliente, @apellido_cliente, @identificacion, @telefono)";
+                        string queryInsertar = "INSERT INTO cliente (nombre_cliente, apellido_cliente, identificacion, telefono, estado) VALUES (@nombre_cliente, @apellido_cliente, @identificacion, @telefono, @estado)";
                         using (SqlCommand insertarCommand = new SqlCommand(queryInsertar, conexion))
                         {
                             insertarCommand.Parameters.AddWithValue("@nombre_cliente", txtnombre.Text);
                             insertarCommand.Parameters.AddWithValue("@apellido_cliente", txtapellido.Text);
                             insertarCommand.Parameters.AddWithValue("@identificacion", txtcedula.Text);
                             insertarCommand.Parameters.AddWithValue("@telefono", txtnumero.Text);
+                            insertarCommand.Parameters.AddWithValue("@estado", estadochk.Checked ? 1 : 0);
 
                             int rowsAffected = insertarCommand.ExecuteNonQuery();
 
@@ -122,6 +123,7 @@ namespace Proyecto_restaurante
                             {
                                 MessageBox.Show("Cliente registrado con éxito.");
                                 MantClientes_Load(sender, e);
+                                limpiarbtn_Click(sender, e);
                                 RestablecerFormulario();
                             }
                             else
@@ -130,34 +132,33 @@ namespace Proyecto_restaurante
                             }
                         }
                     }
-
-                    /*Esto es una parte de codigo que tenia de otro registro que es para editar, 
-                     solo lo tengo ahi para no borrarlo si uno lo llegara a necesitar*/
-
-                    /*else
+                    else
                     {
-                        string queryActualizar = "UPDATE login_usuario SET usuario = @nuevoNombre, pass = @pass, privilegio= @privilegio, estado = @estado WHERE usuario = @nombreActual";
+                        string queryActualizar = "UPDATE cliente SET nombre_cliente = @nuevoNombre, apellido_cliente = @apellido, identificacion= @identificacion, telefono = @telefono, estado= @estado WHERE nombre_cliente = @nombreActual";
                         using (SqlCommand actualizarCommand = new SqlCommand(queryActualizar, conexion))
                         {
-                            actualizarCommand.Parameters.AddWithValue("@nuevoNombre", txtRegistroUsuario.Text);
-                            actualizarCommand.Parameters.AddWithValue("@pass", txtnuevapass.Text);
-                            actualizarCommand.Parameters.AddWithValue("@privilegio", privilegiochk.Checked ? 1 : 0);
+                            actualizarCommand.Parameters.AddWithValue("@nuevoNombre", txtnombre.Text);
+                            actualizarCommand.Parameters.AddWithValue("@apellido", txtapellido.Text);
+                            actualizarCommand.Parameters.AddWithValue("@identificacion", txtcedula.Text);
+                            actualizarCommand.Parameters.AddWithValue("@telefono", txtnumero.Text);
                             actualizarCommand.Parameters.AddWithValue("@estado", estadochk.Checked ? 1 : 0);
-                            actualizarCommand.Parameters.AddWithValue("@nombreActual", nombreUsuarioActual);
+                            actualizarCommand.Parameters.AddWithValue("@nombreActual", nombreClienteActual);
 
                             int rowsAffected = actualizarCommand.ExecuteNonQuery();
 
                             if (rowsAffected > 0)
                             {
-                                MessageBox.Show("Usuario actualizado con éxito.");
+                                MessageBox.Show("Cliente actualizado con éxito.");
+                                limpiarbtn_Click(sender, e);
                                 RestablecerFormulario();
+                                MantClientes_Load(sender, e);
                             }
                             else
                             {
                                 MessageBox.Show("No se pudo actualizar los datos.");
                             }
                         }
-                    }*/
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -326,7 +327,33 @@ namespace Proyecto_restaurante
         {
             txtbuscador.Text = "(ID, Nombre, Apellido)";
             txtbuscador.ForeColor = Color.Gray;
+            RestablecerFormulario();
             MantClientes_Load(sender, e);
+        }
+
+        private void estadochk_CheckedChanged(object sender, EventArgs e)
+        {
+            if (estadochk.Checked == true)
+            {
+                estadochk.Text = "Activo";
+                estadochk.ForeColor = Color.Lime;
+            }
+            else if (estadochk.Checked == false)
+            {
+
+                estadochk.Text = "Inactivo";
+                estadochk.ForeColor = Color.Red;
+            }
+        }
+
+        private void tabladatos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            txtnombre.Text = tabladatos.SelectedCells[1].Value.ToString();
+            nombreClienteActual=txtnombre.Text;
+            txtapellido.Text = tabladatos.SelectedCells[2].Value.ToString();
+            txtcedula.Text = tabladatos.SelectedCells[3].Value.ToString();
+            txtnumero.Text = tabladatos.SelectedCells[4].Value.ToString();
+            estadochk.Checked = Convert.ToBoolean(tabladatos.SelectedCells[5].Value);
         }
     }
 }

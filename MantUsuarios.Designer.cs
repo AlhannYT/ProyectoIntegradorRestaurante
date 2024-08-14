@@ -48,6 +48,7 @@
             checkBox1 = new CheckBox();
             toolTip1 = new ToolTip(components);
             button1 = new Button();
+            instrucciones = new Button();
             label6 = new Label();
             panel2 = new Panel();
             panel1 = new Panel();
@@ -148,6 +149,7 @@
             passView.Name = "passView";
             passView.Size = new Size(27, 24);
             passView.TabIndex = 7;
+            toolTip1.SetToolTip(passView, "Mostrar Contraseña");
             passView.UseVisualStyleBackColor = true;
             passView.CheckedChanged += passView_CheckedChanged;
             // 
@@ -265,6 +267,17 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
+            // instrucciones
+            // 
+            instrucciones.Image = Properties.Resources.interrogatorio;
+            instrucciones.Location = new Point(12, 12);
+            instrucciones.Name = "instrucciones";
+            instrucciones.Size = new Size(24, 25);
+            instrucciones.TabIndex = 37;
+            toolTip1.SetToolTip(instrucciones, "Instrucciones");
+            instrucciones.UseVisualStyleBackColor = true;
+            instrucciones.Click += instrucciones_Click;
+            // 
             // label6
             // 
             label6.AutoSize = true;
@@ -318,6 +331,7 @@
             tabladatos.AllowUserToAddRows = false;
             tabladatos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tabladatos.Location = new Point(421, 118);
+            tabladatos.MultiSelect = false;
             tabladatos.Name = "tabladatos";
             tabladatos.ReadOnly = true;
             tabladatos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -463,6 +477,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.WindowFrame;
             ClientSize = new Size(877, 373);
+            Controls.Add(instrucciones);
             Controls.Add(panelconfirmacion);
             Controls.Add(ConfirmPanelTransp);
             Controls.Add(button1);
@@ -542,5 +557,6 @@
         private Panel ConfirmPanelTransp;
         private PictureBox pictureBox2;
         private PictureBox pictureBox3;
+        private Button instrucciones;
     }
 }

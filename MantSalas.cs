@@ -23,6 +23,13 @@ namespace Proyecto_restaurante
 
         private void guardarbtn_Click(object sender, EventArgs e)
         {
+
+            if (string.IsNullOrEmpty(txtnombresala.Text))
+            {
+                MessageBox.Show("Error: No deje campos vacios.");
+                return;
+            }
+
             MantMesas mesas = new MantMesas();
 
             string conexionString = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
@@ -35,10 +42,11 @@ namespace Proyecto_restaurante
 
                     if (string.IsNullOrEmpty(nombreSalaActual))
                     {
-                        string queryInsertar = "INSERT INTO salas (nombre_sala) VALUES (@nombreSala)";
+                        string queryInsertar = "INSERT INTO salas (nombre_sala, estado) VALUES (@nombreSala, estado)";
                         using (SqlCommand insertarCommand = new SqlCommand(queryInsertar, conexion))
                         {
                             insertarCommand.Parameters.AddWithValue("@nombreSala", txtnombresala.Text);
+                            insertarCommand.Parameters.AddWithValue("@estado", estadochk.Checked ? 1 : 0);
 
                             int rowsAffected = insertarCommand.ExecuteNonQuery();
 
@@ -57,34 +65,32 @@ namespace Proyecto_restaurante
                     }
                     else
                     {
-                        //string verificarPassQuery = "SELECT COUNT(*) FROM mesas WHERE nombre_mesa = @nombreMesaActual";
-                        //using (SqlCommand verificarPassCommand = new SqlCommand(verificarPassQuery, conexion))
-                        //{
-                        //    verificarPassCommand.Parameters.AddWithValue("@nombreMesaActual", nombreMesaActual);
+                        string verificarQuery = "SELECT COUNT(*) FROM salas WHERE nombre_sala = @nombreSalaActual";
+                        using (SqlCommand verificarCommand = new SqlCommand(verificarQuery, conexion))
+                        {
+                            verificarCommand.Parameters.AddWithValue("@nombreSalaActual", nombreSalaActual);
+                        }
 
-                        //}
+                        string queryActualizar = "UPDATE salas SET nombre_sala = @nuevoNombreSala, estado = @estado WHERE nombre_sala = @nombreSalaActual";
+                        using (SqlCommand actualizarCommand = new SqlCommand(queryActualizar, conexion))
+                        {
+                            actualizarCommand.Parameters.AddWithValue("@nuevoNombreSala", txtnombresala.Text);
+                            actualizarCommand.Parameters.AddWithValue("@estado", estadochk.Checked ? 1 : 0);
+                            actualizarCommand.Parameters.AddWithValue("@nombreSalaActual", nombreSalaActual);
 
-                        //string queryActualizar = "UPDATE mesa SET nombre_categoria = @nuevoNombreCateg, sala = @sala, nombre_mesa = @nombreMesa, num_asientos = @numAsientos WHERE nombre_categoria = @nombreCategActual";
-                        //using (SqlCommand actualizarCommand = new SqlCommand(queryActualizar, conexion))
-                        //{
-                        //    actualizarCommand.Parameters.AddWithValue("@nuevoNombreCateg", txtcategoria.Text);
-                        //    actualizarCommand.Parameters.AddWithValue("@sala", comboBoxSala.SelectedItem.ToString());
-                        //    actualizarCommand.Parameters.AddWithValue("@nombreMesa", txtnombreMesa.Text);
-                        //    actualizarCommand.Parameters.AddWithValue("@numAsientos", txtNumAsientos.Text);
-                        //    actualizarCommand.Parameters.AddWithValue("@nombreCategActual", nombreCategoriaActual);
+                            int rowsAffected = actualizarCommand.ExecuteNonQuery();
 
-                        //    int rowsAffected = actualizarCommand.ExecuteNonQuery();
-
-                        //    if (rowsAffected > 0)
-                        //    {
-                        //        MessageBox.Show("Categoría actualizada con éxito.");
-                        //        limpiarbtn_Click(sender, e);
-                        //    }
-                        //    else
-                        //    {
-                        //        MessageBox.Show("No se pudo actualizar los datos.");
-                        //    }
-                        //}
+                            if (rowsAffected > 0)
+                            {
+                                MessageBox.Show("Sala actualizada con éxito.");
+                                MantSalas_Load(sender, e);
+                                limpiarbtn_Click(sender, e);
+                            }
+                            else
+                            {
+                                MessageBox.Show("No se pudo actualizar los datos.");
+                            }
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -139,6 +145,7 @@ namespace Proyecto_restaurante
         private void limpiarbtn_Click(object sender, EventArgs e)
         {
             txtnombresala.Text = "";
+            estadochk.Checked = true;
         }
 
         private void txtbuscador_TextChanged(object sender, EventArgs e)
@@ -177,6 +184,34 @@ namespace Proyecto_restaurante
                 txtbuscador.ForeColor = Color.Gray;
                 MantSalas_Load(sender, e);
             }
+        }
+
+        private void tabladatos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            txtnombresala.Text = tabladatos.SelectedCells[1].Value.ToString();
+            nombreSalaActual = txtnombresala.Text;
+            estadochk.Checked = Convert.ToBoolean(tabladatos.SelectedCells[2].Value);
+        }
+
+        private void estadochk_CheckedChanged(object sender, EventArgs e)
+        {
+            if (estadochk.Checked == true)
+            {
+                estadochk.Text = "Activo";
+                estadochk.ForeColor = Color.Lime;
+            }
+            else if (estadochk.Checked == false)
+            {
+
+                estadochk.Text = "Inactivo";
+                estadochk.ForeColor = Color.Red;
+            }
+        }
+
+        private void eliminarbtn_Click(object sender, EventArgs e)
+        {
+            limpiarbtn_Click(sender, e);
+            MantSalas_Load(sender, e);
         }
     }
 }
