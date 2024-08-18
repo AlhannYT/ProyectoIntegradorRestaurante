@@ -43,13 +43,15 @@
             label5 = new Label();
             panel1 = new Panel();
             panel2 = new Panel();
+            estadochk = new CheckBox();
+            label6 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tabladatos).BeginInit();
             SuspendLayout();
             // 
             // txtnombredepa
             // 
-            txtnombredepa.Location = new Point(185, 196);
+            txtnombredepa.Location = new Point(185, 231);
             txtnombredepa.Name = "txtnombredepa";
             txtnombredepa.Size = new Size(161, 23);
             txtnombredepa.TabIndex = 0;
@@ -69,7 +71,7 @@
             // 
             label1.AutoSize = true;
             label1.ForeColor = SystemColors.Control;
-            label1.Location = new Point(29, 199);
+            label1.Location = new Point(29, 234);
             label1.Name = "label1";
             label1.Size = new Size(130, 15);
             label1.TabIndex = 2;
@@ -77,7 +79,7 @@
             // 
             // guardarbtn
             // 
-            guardarbtn.Location = new Point(29, 298);
+            guardarbtn.Location = new Point(29, 333);
             guardarbtn.Name = "guardarbtn";
             guardarbtn.Size = new Size(108, 45);
             guardarbtn.TabIndex = 3;
@@ -89,7 +91,7 @@
             // 
             label2.AutoSize = true;
             label2.ForeColor = SystemColors.Control;
-            label2.Location = new Point(29, 242);
+            label2.Location = new Point(29, 277);
             label2.Name = "label2";
             label2.Size = new Size(56, 15);
             label2.TabIndex = 2;
@@ -97,7 +99,7 @@
             // 
             // txtprovincia
             // 
-            txtprovincia.Location = new Point(185, 239);
+            txtprovincia.Location = new Point(185, 274);
             txtprovincia.Name = "txtprovincia";
             txtprovincia.Size = new Size(161, 23);
             txtprovincia.TabIndex = 1;
@@ -105,7 +107,7 @@
             // 
             // limpiarbtn
             // 
-            limpiarbtn.Location = new Point(238, 298);
+            limpiarbtn.Location = new Point(238, 333);
             limpiarbtn.Name = "limpiarbtn";
             limpiarbtn.Size = new Size(108, 45);
             limpiarbtn.TabIndex = 3;
@@ -126,8 +128,8 @@
             // 
             // eliminarbtn
             // 
-            eliminarbtn.Image = Properties.Resources.basura;
-            eliminarbtn.Location = new Point(745, 53);
+            eliminarbtn.Image = Properties.Resources.limpio;
+            eliminarbtn.Location = new Point(803, 53);
             eliminarbtn.Name = "eliminarbtn";
             eliminarbtn.Size = new Size(29, 24);
             eliminarbtn.TabIndex = 7;
@@ -149,18 +151,20 @@
             tabladatos.AllowUserToAddRows = false;
             tabladatos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tabladatos.Location = new Point(385, 102);
+            tabladatos.MultiSelect = false;
             tabladatos.Name = "tabladatos";
             tabladatos.ReadOnly = true;
             tabladatos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tabladatos.Size = new Size(389, 252);
+            tabladatos.Size = new Size(447, 276);
             tabladatos.TabIndex = 5;
+            tabladatos.CellClick += tabladatos_CellClick;
             // 
             // txtbuscador
             // 
             txtbuscador.ForeColor = SystemColors.ScrollBar;
             txtbuscador.Location = new Point(456, 53);
             txtbuscador.Name = "txtbuscador";
-            txtbuscador.Size = new Size(283, 23);
+            txtbuscador.Size = new Size(341, 23);
             txtbuscador.TabIndex = 6;
             txtbuscador.Text = "(ID, Nombre, Provincia)";
             txtbuscador.TextChanged += txtbuscador_TextChanged;
@@ -172,7 +176,7 @@
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label5.ForeColor = SystemColors.Control;
-            label5.Location = new Point(427, 9);
+            label5.Location = new Point(434, 9);
             label5.Name = "label5";
             label5.Size = new Size(322, 32);
             label5.TabIndex = 8;
@@ -183,7 +187,7 @@
             panel1.BackColor = Color.Red;
             panel1.Location = new Point(377, 84);
             panel1.Name = "panel1";
-            panel1.Size = new Size(409, 10);
+            panel1.Size = new Size(472, 10);
             panel1.TabIndex = 9;
             // 
             // panel2
@@ -191,15 +195,40 @@
             panel2.BackColor = Color.Red;
             panel2.Location = new Point(369, -2);
             panel2.Name = "panel2";
-            panel2.Size = new Size(10, 367);
+            panel2.Size = new Size(10, 403);
             panel2.TabIndex = 10;
+            // 
+            // estadochk
+            // 
+            estadochk.AutoSize = true;
+            estadochk.Checked = true;
+            estadochk.CheckState = CheckState.Checked;
+            estadochk.ForeColor = Color.Lime;
+            estadochk.Location = new Point(185, 177);
+            estadochk.Name = "estadochk";
+            estadochk.Size = new Size(60, 19);
+            estadochk.TabIndex = 11;
+            estadochk.Text = "Activo";
+            estadochk.UseVisualStyleBackColor = true;
+            estadochk.CheckedChanged += estadochk_CheckedChanged;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.ForeColor = SystemColors.Control;
+            label6.Location = new Point(137, 177);
+            label6.Name = "label6";
+            label6.Size = new Size(45, 15);
+            label6.TabIndex = 2;
+            label6.Text = "Estado:";
             // 
             // MantDepart
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.WindowFrame;
-            ClientSize = new Size(783, 362);
+            ClientSize = new Size(845, 390);
+            Controls.Add(estadochk);
             Controls.Add(panel2);
             Controls.Add(panel1);
             Controls.Add(label5);
@@ -211,13 +240,15 @@
             Controls.Add(guardarbtn);
             Controls.Add(label2);
             Controls.Add(label3);
+            Controls.Add(label6);
             Controls.Add(label1);
             Controls.Add(pictureBox1);
             Controls.Add(txtprovincia);
             Controls.Add(txtnombredepa);
             Name = "MantDepart";
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Mantenimiento de Departamentos";
+            Text = "Mantenimiento de Departamento || Creando...";
             Load += MantDepart_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)tabladatos).EndInit();
@@ -242,5 +273,7 @@
         private Label label5;
         private Panel panel1;
         private Panel panel2;
+        private CheckBox estadochk;
+        private Label label6;
     }
 }

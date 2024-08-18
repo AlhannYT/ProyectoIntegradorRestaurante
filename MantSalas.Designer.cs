@@ -229,8 +229,9 @@
             Controls.Add(limpiarbtn);
             Controls.Add(guardarbtn);
             Name = "MantSalas";
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Mantenimiento de Salas";
+            Text = "Mantenimiento de Salas || Creando...";
             Load += MantSalas_Load;
             ((System.ComponentModel.ISupportInitialize)tabladatos).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

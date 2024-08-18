@@ -506,6 +506,7 @@
             Controls.Add(txtRegistroPass);
             Controls.Add(txtRegistroUsuario);
             Name = "MantUsuarios";
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Mantenimiento de Usuarios || Creando...";
             Load += MantUsuarios_Load;

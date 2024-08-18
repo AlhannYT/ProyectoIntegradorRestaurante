@@ -44,6 +44,8 @@
             tabladatos = new DataGridView();
             txtbuscador = new TextBox();
             label5 = new Label();
+            estadochk = new CheckBox();
+            label6 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tabladatos).BeginInit();
             SuspendLayout();
@@ -51,7 +53,7 @@
             // guardarbtn
             // 
             guardarbtn.Enabled = false;
-            guardarbtn.Location = new Point(39, 304);
+            guardarbtn.Location = new Point(39, 322);
             guardarbtn.Name = "guardarbtn";
             guardarbtn.Size = new Size(121, 44);
             guardarbtn.TabIndex = 0;
@@ -62,7 +64,7 @@
             // 
             // limpiarbtn
             // 
-            limpiarbtn.Location = new Point(222, 304);
+            limpiarbtn.Location = new Point(222, 322);
             limpiarbtn.Name = "limpiarbtn";
             limpiarbtn.Size = new Size(121, 44);
             limpiarbtn.TabIndex = 0;
@@ -74,7 +76,7 @@
             // 
             label1.AutoSize = true;
             label1.ForeColor = SystemColors.Control;
-            label1.Location = new Point(39, 205);
+            label1.Location = new Point(39, 230);
             label1.Name = "label1";
             label1.Size = new Size(68, 15);
             label1.TabIndex = 1;
@@ -84,7 +86,7 @@
             // 
             label2.AutoSize = true;
             label2.ForeColor = SystemColors.Control;
-            label2.Location = new Point(39, 258);
+            label2.Location = new Point(39, 271);
             label2.Name = "label2";
             label2.Size = new Size(110, 15);
             label2.TabIndex = 1;
@@ -92,7 +94,7 @@
             // 
             // txtabreviatura
             // 
-            txtabreviatura.Location = new Point(176, 202);
+            txtabreviatura.Location = new Point(176, 227);
             txtabreviatura.Name = "txtabreviatura";
             txtabreviatura.Size = new Size(167, 23);
             txtabreviatura.TabIndex = 2;
@@ -102,7 +104,7 @@
             // txtmedida
             // 
             txtmedida.Enabled = false;
-            txtmedida.Location = new Point(176, 255);
+            txtmedida.Location = new Point(176, 268);
             txtmedida.Name = "txtmedida";
             txtmedida.Size = new Size(167, 23);
             txtmedida.TabIndex = 2;
@@ -131,7 +133,7 @@
             // 
             // verificarbtn
             // 
-            verificarbtn.Location = new Point(39, 304);
+            verificarbtn.Location = new Point(39, 322);
             verificarbtn.Name = "verificarbtn";
             verificarbtn.Size = new Size(121, 44);
             verificarbtn.TabIndex = 0;
@@ -144,7 +146,7 @@
             panel2.BackColor = Color.Red;
             panel2.Location = new Point(378, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(10, 365);
+            panel2.Size = new Size(10, 380);
             panel2.TabIndex = 17;
             // 
             // panel1
@@ -152,13 +154,13 @@
             panel1.BackColor = Color.Red;
             panel1.Location = new Point(385, 107);
             panel1.Name = "panel1";
-            panel1.Size = new Size(369, 10);
+            panel1.Size = new Size(470, 10);
             panel1.TabIndex = 16;
             // 
             // eliminarbtn
             // 
-            eliminarbtn.Image = Properties.Resources.basura;
-            eliminarbtn.Location = new Point(709, 73);
+            eliminarbtn.Image = Properties.Resources.limpio;
+            eliminarbtn.Location = new Point(806, 71);
             eliminarbtn.Name = "eliminarbtn";
             eliminarbtn.Size = new Size(29, 24);
             eliminarbtn.TabIndex = 14;
@@ -181,18 +183,20 @@
             tabladatos.AllowUserToAddRows = false;
             tabladatos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tabladatos.Location = new Point(394, 123);
+            tabladatos.MultiSelect = false;
             tabladatos.Name = "tabladatos";
             tabladatos.ReadOnly = true;
             tabladatos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tabladatos.Size = new Size(344, 225);
+            tabladatos.Size = new Size(441, 243);
             tabladatos.TabIndex = 12;
+            tabladatos.CellClick += tabladatos_CellClick;
             // 
             // txtbuscador
             // 
             txtbuscador.ForeColor = SystemColors.ScrollBar;
             txtbuscador.Location = new Point(469, 73);
             txtbuscador.Name = "txtbuscador";
-            txtbuscador.Size = new Size(231, 23);
+            txtbuscador.Size = new Size(331, 23);
             txtbuscador.TabIndex = 13;
             txtbuscador.Text = "(ID, Abreviatura, Nombre)";
             txtbuscador.TextChanged += txtbuscador_TextChanged;
@@ -210,12 +214,37 @@
             label5.TabIndex = 18;
             label5.Text = "Consulta de Medidas";
             // 
+            // estadochk
+            // 
+            estadochk.AutoSize = true;
+            estadochk.Checked = true;
+            estadochk.CheckState = CheckState.Checked;
+            estadochk.ForeColor = Color.Lime;
+            estadochk.Location = new Point(188, 190);
+            estadochk.Name = "estadochk";
+            estadochk.Size = new Size(60, 19);
+            estadochk.TabIndex = 19;
+            estadochk.Text = "Activo";
+            estadochk.UseVisualStyleBackColor = true;
+            estadochk.CheckedChanged += estadochk_CheckedChanged;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.ForeColor = SystemColors.Control;
+            label6.Location = new Point(136, 191);
+            label6.Name = "label6";
+            label6.Size = new Size(48, 15);
+            label6.TabIndex = 1;
+            label6.Text = "Estado: ";
+            // 
             // MantMedidas
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.GrayText;
-            ClientSize = new Size(748, 359);
+            ClientSize = new Size(844, 378);
+            Controls.Add(estadochk);
             Controls.Add(label5);
             Controls.Add(panel2);
             Controls.Add(panel1);
@@ -229,12 +258,14 @@
             Controls.Add(txtabreviatura);
             Controls.Add(label2);
             Controls.Add(label3);
+            Controls.Add(label6);
             Controls.Add(label1);
             Controls.Add(limpiarbtn);
             Controls.Add(guardarbtn);
             Name = "MantMedidas";
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Mantenimiento de Medidas";
+            Text = "Mantenimiento de Medidas || Creando...";
             Load += MantMedidas_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)tabladatos).EndInit();
@@ -260,5 +291,7 @@
         private DataGridView tabladatos;
         private TextBox txtbuscador;
         private Label label5;
+        private CheckBox estadochk;
+        private Label label6;
     }
 }

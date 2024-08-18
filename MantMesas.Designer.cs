@@ -307,6 +307,7 @@
             Controls.Add(limpiarbtn);
             Controls.Add(guardarbtn);
             Name = "MantMesas";
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Mantenimiento de Mesas || Creando...";
             Load += MantMesas_Load;

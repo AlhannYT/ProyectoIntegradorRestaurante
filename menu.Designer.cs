@@ -38,17 +38,23 @@
             departamentosToolStripMenuItem = new ToolStripMenuItem();
             salasToolStripMenuItem = new ToolStripMenuItem();
             mesasToolStripMenuItem = new ToolStripMenuItem();
+            monedasToolStripMenuItem = new ToolStripMenuItem();
+            cajasToolStripMenuItem = new ToolStripMenuItem();
+            proveedoresToolStripMenuItem = new ToolStripMenuItem();
+            productosToolStripMenuItem = new ToolStripMenuItem();
             pictureBox1 = new PictureBox();
             usuariolabel = new Label();
             panel1 = new Panel();
+            panel5 = new Panel();
             panel2 = new Panel();
+            pictureBox2 = new PictureBox();
             panel3 = new Panel();
             cerrarbtn = new Button();
-            configuracionbtn = new Button();
-            monedasToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
+            panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel3.SuspendLayout();
             SuspendLayout();
             // 
@@ -57,7 +63,7 @@
             menuStrip1.AutoSize = false;
             menuStrip1.BackColor = SystemColors.WindowFrame;
             menuStrip1.Dock = DockStyle.Left;
-            menuStrip1.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            menuStrip1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             menuStrip1.Items.AddRange(new ToolStripItem[] { toolStripMenuItem1 });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
@@ -67,67 +73,95 @@
             // 
             // toolStripMenuItem1
             // 
-            toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem2, agregarClientesToolStripMenuItem, agregarCategoriasToolStripMenuItem, medidasToolStripMenuItem, departamentosToolStripMenuItem, salasToolStripMenuItem, mesasToolStripMenuItem, monedasToolStripMenuItem });
+            toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem2, agregarClientesToolStripMenuItem, agregarCategoriasToolStripMenuItem, medidasToolStripMenuItem, departamentosToolStripMenuItem, salasToolStripMenuItem, mesasToolStripMenuItem, monedasToolStripMenuItem, cajasToolStripMenuItem, proveedoresToolStripMenuItem, productosToolStripMenuItem });
             toolStripMenuItem1.ForeColor = SystemColors.Control;
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(176, 34);
+            toolStripMenuItem1.Size = new Size(176, 29);
             toolStripMenuItem1.Text = "Mantenimientos";
             // 
             // toolStripMenuItem2
             // 
             toolStripMenuItem2.Name = "toolStripMenuItem2";
-            toolStripMenuItem2.Size = new Size(229, 34);
+            toolStripMenuItem2.Size = new Size(213, 30);
             toolStripMenuItem2.Text = "Usuarios";
             toolStripMenuItem2.Click += toolStripMenuItem2_Click;
             // 
             // agregarClientesToolStripMenuItem
             // 
             agregarClientesToolStripMenuItem.Name = "agregarClientesToolStripMenuItem";
-            agregarClientesToolStripMenuItem.Size = new Size(229, 34);
+            agregarClientesToolStripMenuItem.Size = new Size(213, 30);
             agregarClientesToolStripMenuItem.Text = "Clientes";
             agregarClientesToolStripMenuItem.Click += agregarClientesToolStripMenuItem_Click;
             // 
             // agregarCategoriasToolStripMenuItem
             // 
             agregarCategoriasToolStripMenuItem.Name = "agregarCategoriasToolStripMenuItem";
-            agregarCategoriasToolStripMenuItem.Size = new Size(229, 34);
+            agregarCategoriasToolStripMenuItem.Size = new Size(213, 30);
             agregarCategoriasToolStripMenuItem.Text = "Categorias";
             agregarCategoriasToolStripMenuItem.Click += agregarCategoriasToolStripMenuItem_Click;
             // 
             // medidasToolStripMenuItem
             // 
             medidasToolStripMenuItem.Name = "medidasToolStripMenuItem";
-            medidasToolStripMenuItem.Size = new Size(229, 34);
+            medidasToolStripMenuItem.Size = new Size(213, 30);
             medidasToolStripMenuItem.Text = "Medidas";
             medidasToolStripMenuItem.Click += medidasToolStripMenuItem_Click;
             // 
             // departamentosToolStripMenuItem
             // 
             departamentosToolStripMenuItem.Name = "departamentosToolStripMenuItem";
-            departamentosToolStripMenuItem.Size = new Size(229, 34);
+            departamentosToolStripMenuItem.Size = new Size(213, 30);
             departamentosToolStripMenuItem.Text = "Departamentos";
             departamentosToolStripMenuItem.Click += departamentosToolStripMenuItem_Click;
             // 
             // salasToolStripMenuItem
             // 
             salasToolStripMenuItem.Name = "salasToolStripMenuItem";
-            salasToolStripMenuItem.Size = new Size(229, 34);
+            salasToolStripMenuItem.Size = new Size(213, 30);
             salasToolStripMenuItem.Text = "Salas";
             salasToolStripMenuItem.Click += salasToolStripMenuItem_Click;
             // 
             // mesasToolStripMenuItem
             // 
             mesasToolStripMenuItem.Name = "mesasToolStripMenuItem";
-            mesasToolStripMenuItem.Size = new Size(229, 34);
+            mesasToolStripMenuItem.Size = new Size(213, 30);
             mesasToolStripMenuItem.Text = "Mesas";
             mesasToolStripMenuItem.Click += mesasToolStripMenuItem_Click;
+            // 
+            // monedasToolStripMenuItem
+            // 
+            monedasToolStripMenuItem.Name = "monedasToolStripMenuItem";
+            monedasToolStripMenuItem.Size = new Size(213, 30);
+            monedasToolStripMenuItem.Text = "Monedas";
+            monedasToolStripMenuItem.Click += monedasToolStripMenuItem_Click;
+            // 
+            // cajasToolStripMenuItem
+            // 
+            cajasToolStripMenuItem.Name = "cajasToolStripMenuItem";
+            cajasToolStripMenuItem.Size = new Size(213, 30);
+            cajasToolStripMenuItem.Text = "Cajas";
+            cajasToolStripMenuItem.Click += cajasToolStripMenuItem_Click;
+            // 
+            // proveedoresToolStripMenuItem
+            // 
+            proveedoresToolStripMenuItem.Name = "proveedoresToolStripMenuItem";
+            proveedoresToolStripMenuItem.Size = new Size(213, 30);
+            proveedoresToolStripMenuItem.Text = "Proveedores";
+            proveedoresToolStripMenuItem.Click += proveedoresToolStripMenuItem_Click;
+            // 
+            // productosToolStripMenuItem
+            // 
+            productosToolStripMenuItem.Name = "productosToolStripMenuItem";
+            productosToolStripMenuItem.Size = new Size(213, 30);
+            productosToolStripMenuItem.Text = "Productos";
+            productosToolStripMenuItem.Click += productosToolStripMenuItem_Click;
             // 
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
             pictureBox1.Location = new Point(186, 0);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(563, 356);
+            pictureBox1.Size = new Size(563, 332);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
@@ -136,7 +170,7 @@
             // 
             usuariolabel.AutoSize = true;
             usuariolabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            usuariolabel.Location = new Point(4, 5);
+            usuariolabel.Location = new Point(0, 17);
             usuariolabel.Name = "usuariolabel";
             usuariolabel.Size = new Size(145, 21);
             usuariolabel.TabIndex = 2;
@@ -145,26 +179,46 @@
             // panel1
             // 
             panel1.BackColor = SystemColors.Control;
+            panel1.Controls.Add(panel5);
             panel1.Controls.Add(usuariolabel);
-            panel1.Location = new Point(198, 357);
+            panel1.Location = new Point(262, 332);
             panel1.Name = "panel1";
-            panel1.Size = new Size(413, 31);
+            panel1.Size = new Size(347, 56);
             panel1.TabIndex = 3;
+            // 
+            // panel5
+            // 
+            panel5.BackColor = Color.Lime;
+            panel5.Location = new Point(-1, 42);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(349, 6);
+            panel5.TabIndex = 4;
             // 
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(0, 192, 0);
-            panel2.Location = new Point(186, 357);
+            panel2.Controls.Add(pictureBox2);
+            panel2.Location = new Point(186, 332);
             panel2.Name = "panel2";
-            panel2.Size = new Size(14, 31);
+            panel2.Size = new Size(76, 57);
             panel2.TabIndex = 4;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.Image = Properties.Resources.perfil_blanco;
+            pictureBox2.Location = new Point(2, 2);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(72, 53);
+            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox2.TabIndex = 0;
+            pictureBox2.TabStop = false;
             // 
             // panel3
             // 
             panel3.Controls.Add(cerrarbtn);
-            panel3.Location = new Point(612, 357);
+            panel3.Location = new Point(612, 332);
             panel3.Name = "panel3";
-            panel3.Size = new Size(136, 31);
+            panel3.Size = new Size(136, 56);
             panel3.TabIndex = 5;
             // 
             // cerrarbtn
@@ -172,30 +226,13 @@
             cerrarbtn.BackColor = Color.Red;
             cerrarbtn.FlatStyle = FlatStyle.Flat;
             cerrarbtn.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            cerrarbtn.Location = new Point(2, 1);
+            cerrarbtn.Location = new Point(0, 3);
             cerrarbtn.Name = "cerrarbtn";
-            cerrarbtn.Size = new Size(133, 29);
-            cerrarbtn.TabIndex = 0;
+            cerrarbtn.Size = new Size(133, 50);
+            cerrarbtn.TabIndex = 1;
             cerrarbtn.Text = "Cerrar Sesión";
             cerrarbtn.UseVisualStyleBackColor = false;
             cerrarbtn.Click += cerrarbtn_Click;
-            // 
-            // configuracionbtn
-            // 
-            configuracionbtn.Image = Properties.Resources.ajustes;
-            configuracionbtn.Location = new Point(704, 0);
-            configuracionbtn.Name = "configuracionbtn";
-            configuracionbtn.Size = new Size(45, 38);
-            configuracionbtn.TabIndex = 6;
-            configuracionbtn.UseVisualStyleBackColor = true;
-            configuracionbtn.Click += configuracionbtn_Click;
-            // 
-            // monedasToolStripMenuItem
-            // 
-            monedasToolStripMenuItem.Name = "monedasToolStripMenuItem";
-            monedasToolStripMenuItem.Size = new Size(229, 34);
-            monedasToolStripMenuItem.Text = "Monedas";
-            monedasToolStripMenuItem.Click += monedasToolStripMenuItem_Click;
             // 
             // menu
             // 
@@ -203,21 +240,24 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.WindowFrame;
             ClientSize = new Size(750, 390);
-            Controls.Add(configuracionbtn);
             Controls.Add(panel3);
             Controls.Add(panel2);
             Controls.Add(panel1);
             Controls.Add(pictureBox1);
             Controls.Add(menuStrip1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "menu";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Menu";
+            Load += menu_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             panel3.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -238,7 +278,11 @@
         private ToolStripMenuItem departamentosToolStripMenuItem;
         private ToolStripMenuItem salasToolStripMenuItem;
         private ToolStripMenuItem mesasToolStripMenuItem;
-        private Button configuracionbtn;
         private ToolStripMenuItem monedasToolStripMenuItem;
+        private ToolStripMenuItem cajasToolStripMenuItem;
+        private ToolStripMenuItem proveedoresToolStripMenuItem;
+        private PictureBox pictureBox2;
+        private Panel panel5;
+        private ToolStripMenuItem productosToolStripMenuItem;
     }
 }

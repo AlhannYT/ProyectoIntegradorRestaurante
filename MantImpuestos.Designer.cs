@@ -273,7 +273,8 @@
             Controls.Add(txtvalorimpuesto);
             Controls.Add(txtnombreimpuesto);
             Name = "MantImpuestos";
-            Text = "MantImpuestos";
+            ShowInTaskbar = false;
+            Text = "Manenimiento de Impuestos || Creando...";
             Load += MantImpuestos_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)tabladatos).EndInit();

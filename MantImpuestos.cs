@@ -21,6 +21,10 @@ namespace Proyecto_restaurante
         private string nombreImpuestoActual;
         private void MantImpuestos_Load(object sender, EventArgs e)
         {
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+
+            //string conexion = "Server=LENOVO\\SQLEXPRESS;Database=RestauranteDB;integrated security=true";
             string conexion = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
             string consulta = "select id, nombre_impuesto, porcentaje, fecha_registro, estado from impuestos";
 
@@ -42,6 +46,7 @@ namespace Proyecto_restaurante
                 return;
             }
 
+            //string conexionString = "Server=LENOVO\\SQLEXPRESS;Database=RestauranteDB;integrated security=true";
             string conexionString = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
 
             using (SqlConnection conexion = new SqlConnection(conexionString))

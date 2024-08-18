@@ -33,6 +33,7 @@ namespace Proyecto_restaurante
             MantMesas mesas = new MantMesas();
 
             string conexionString = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
+            //string conexionString = "Server=LENOVO\\SQLEXPRESS;Database=RestauranteDB;integrated security=true";
 
             using (SqlConnection conexion = new SqlConnection(conexionString))
             {
@@ -42,7 +43,7 @@ namespace Proyecto_restaurante
 
                     if (string.IsNullOrEmpty(nombreSalaActual))
                     {
-                        string queryInsertar = "INSERT INTO salas (nombre_sala, estado) VALUES (@nombreSala, estado)";
+                        string queryInsertar = "INSERT INTO salas (nombre_sala, estado) VALUES (@nombreSala, @estado)";
                         using (SqlCommand insertarCommand = new SqlCommand(queryInsertar, conexion))
                         {
                             insertarCommand.Parameters.AddWithValue("@nombreSala", txtnombresala.Text);
@@ -83,6 +84,7 @@ namespace Proyecto_restaurante
                             if (rowsAffected > 0)
                             {
                                 MessageBox.Show("Sala actualizada con éxito.");
+                                mesas.RecargarClick();
                                 MantSalas_Load(sender, e);
                                 limpiarbtn_Click(sender, e);
                             }
@@ -112,6 +114,7 @@ namespace Proyecto_restaurante
         private void FiltroDatosBusqueda(string busqueda)
         {
             string conexion = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
+            //string conexion = "Server=LENOVO\\SQLEXPRESS;Database=RestauranteDB;integrated security=true";
 
             using (SqlConnection conectar = new SqlConnection(conexion))
             {
@@ -144,6 +147,8 @@ namespace Proyecto_restaurante
 
         private void limpiarbtn_Click(object sender, EventArgs e)
         {
+            this.Text = "Mantenimiento de Salas || Creando...";
+            
             txtnombresala.Text = "";
             estadochk.Checked = true;
         }
@@ -156,6 +161,7 @@ namespace Proyecto_restaurante
         private void MantSalas_Load(object sender, EventArgs e)
         {
             string conexion = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
+            //string conexion = "Server=LENOVO\\SQLEXPRESS;Database=RestauranteDB;integrated security=true";
             string consulta = "select * from salas";
 
             SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexion);
@@ -188,6 +194,8 @@ namespace Proyecto_restaurante
 
         private void tabladatos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            this.Text = "Mantenimiento de Salas || Editando...";
+
             txtnombresala.Text = tabladatos.SelectedCells[1].Value.ToString();
             nombreSalaActual = txtnombresala.Text;
             estadochk.Checked = Convert.ToBoolean(tabladatos.SelectedCells[2].Value);

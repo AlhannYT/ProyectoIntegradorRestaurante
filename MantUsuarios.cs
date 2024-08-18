@@ -20,7 +20,6 @@ namespace Proyecto_restaurante
         private bool mensajeMostrado = false;
         private string nombreUsuarioActual;
 
-
         private void passView_CheckedChanged(object sender, EventArgs e)
         {
             if (passView.Checked == true)
@@ -66,9 +65,9 @@ namespace Proyecto_restaurante
                 MessageBox.Show("Error: Colocar un nombre.");
                 return;
             }
-
-            //cambia lo que dice "Server= Tu servidor", y los datos tuyos donde van, la base de datos va a ser la misma, pero el login y la contra es el tuyo
+                        
             string conexionString = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
+            //string conexionString = "Server=LENOVO\\SQLEXPRESS;Database=RestauranteDB;integrated security=true";
 
             using (SqlConnection conexion = new SqlConnection(conexionString))
             {
@@ -168,6 +167,7 @@ namespace Proyecto_restaurante
                 }
             }
 
+            //string conexionString = "Server=LENOVO\\SQLEXPRESS;Database=RestauranteDB;integrated security=true";
             string conexionString = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
 
             using (SqlConnection conexion = new SqlConnection(conexionString))
@@ -353,6 +353,7 @@ namespace Proyecto_restaurante
         private void FiltroDatosBusqueda(string busqueda)
         {
             string conexion = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
+            //string conexion = "Server=LENOVO\\SQLEXPRESS;Database=RestauranteDB;integrated security=true";
 
             using (SqlConnection conectar = new SqlConnection(conexion))
             {
@@ -385,10 +386,16 @@ namespace Proyecto_restaurante
 
         private void MantUsuarios_Load(object sender, EventArgs e)
         {
+
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+
             ConfirmPanelTransp.BackColor = Color.FromArgb(100, 0, 0, 0);
 
             button1.Enabled = false;
             string conexion = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
+            //string conexion = "Server=LENOVO\\SQLEXPRESS;Database=RestauranteDB;integrated security=true";
+
             string consulta = "select id, usuario, estado, privilegio from login_usuario";
 
             SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexion);
@@ -520,6 +527,7 @@ namespace Proyecto_restaurante
         private void eliminarusuariobtn_Click(object sender, EventArgs e)
         {
             string conexionString = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
+            //string conexionString = "Server=LENOVO\\SQLEXPRESS;Database=RestauranteDB;integrated security=true";
 
             using (SqlConnection conexion = new SqlConnection(conexionString))
             {

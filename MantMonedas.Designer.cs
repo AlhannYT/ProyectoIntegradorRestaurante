@@ -274,6 +274,7 @@
             Controls.Add(limpiarbtn);
             Controls.Add(button1);
             Name = "MantMonedas";
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Mantenimiento de Monedas || Creando...";
             Load += MantMonedas_Load;

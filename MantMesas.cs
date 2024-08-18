@@ -21,7 +21,7 @@ namespace Proyecto_restaurante
 
         private string nombreMesaActual;
 
-        private int idMesa=0;
+        private int idMesa = 0;
 
         private void guardarbtn_Click(object sender, EventArgs e)
         {
@@ -43,7 +43,7 @@ namespace Proyecto_restaurante
                 return;
             }
             string conexionString = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
-
+            //string conexionString = "Server=LENOVO\\SQLEXPRESS;Database=RestauranteDB;integrated security=true";
             using (SqlConnection conexion = new SqlConnection(conexionString))
             {
                 try
@@ -146,8 +146,12 @@ namespace Proyecto_restaurante
 
         private void MantMesas_Load(object sender, EventArgs e)
         {
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+
             string conexionString = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
-            
+            //string conexionString = "Server=LENOVO\\SQLEXPRESS;Database=RestauranteDB;integrated security=true";
+
             using (SqlConnection conexion = new SqlConnection(conexionString))
             {
                 try
@@ -197,6 +201,7 @@ namespace Proyecto_restaurante
         private void FiltroDatosBusqueda(string busqueda)
         {
             string conexion = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
+            //string conexion = "Server=LENOVO\\SQLEXPRESS;Database=RestauranteDB;integrated security=true";
 
             using (SqlConnection conectar = new SqlConnection(conexion))
             {

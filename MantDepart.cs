@@ -18,12 +18,14 @@ namespace Proyecto_restaurante
             InitializeComponent();
         }
 
-        //private bool mensajeMostrado = false;
         private string nombreDepartActual;
+
+        private int idDepart=0;
 
         private void guardarbtn_Click(object sender, EventArgs e)
         {
             string conexionString = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
+            //string conexionString = "Server=LENOVO\\SQLEXPRESS;Database=RestauranteDB;integrated security=true";
 
             using (SqlConnection conexion = new SqlConnection(conexionString))
             {
@@ -33,19 +35,21 @@ namespace Proyecto_restaurante
 
                     if (string.IsNullOrEmpty(nombreDepartActual))
                     {
-                        string queryInsertar = "INSERT INTO departamento (provincia, nombre_depa) VALUES (@nombreProv, @nombreDepa)";
+                        // Insertar un nuevo departamento
+                        string queryInsertar = "INSERT INTO departamento (provincia, nombre_depa, estado) VALUES (@nombreProv, @nombreDepa, @estado)";
                         using (SqlCommand insertarCommand = new SqlCommand(queryInsertar, conexion))
                         {
                             insertarCommand.Parameters.AddWithValue("@nombreDepa", txtnombredepa.Text);
                             insertarCommand.Parameters.AddWithValue("@nombreProv", txtprovincia.Text);
+                            insertarCommand.Parameters.AddWithValue("@estado", estadochk.Checked ? 1 : 0);
 
                             int rowsAffected = insertarCommand.ExecuteNonQuery();
 
                             if (rowsAffected > 0)
                             {
                                 MessageBox.Show("Departamento registrado con éxito.");
-                                txtnombredepa.Text = "";
-                                txtprovincia.Text = "";
+                                MantDepart_Load(sender, e);
+                                limpiarbtn_Click(sender, e);
                             }
                             else
                             {
@@ -55,26 +59,21 @@ namespace Proyecto_restaurante
                     }
                     else
                     {
-                        string verificarDepaQuery = "SELECT COUNT(*) FROM departamento WHERE nombre_depa = @nombreDepartActual";
-                        using (SqlCommand verificarPassCommand = new SqlCommand(verificarDepaQuery, conexion))
-                        {
-                            verificarPassCommand.Parameters.AddWithValue("@nombreDepartActual", nombreDepartActual);
-
-                        }
-
-                        string queryActualizar = "UPDATE departamento SET provincia = @provinciaDepa, nombre_depa = @nuevoNombreDepart";
+                        string queryActualizar = "UPDATE departamento SET provincia = @provinciaDepa, nombre_depa = @nuevoNombreDepart, estado = @estado WHERE id = @idDepart";
                         using (SqlCommand actualizarCommand = new SqlCommand(queryActualizar, conexion))
                         {
+                            actualizarCommand.Parameters.AddWithValue("@idDepart", idDepart);
                             actualizarCommand.Parameters.AddWithValue("@nuevoNombreDepart", txtnombredepa.Text);
                             actualizarCommand.Parameters.AddWithValue("@provinciaDepa", txtprovincia.Text);
+                            actualizarCommand.Parameters.AddWithValue("@estado", estadochk.Checked ? 1 : 0);
 
                             int rowsAffected = actualizarCommand.ExecuteNonQuery();
 
                             if (rowsAffected > 0)
                             {
                                 MessageBox.Show("Departamento actualizado con éxito.");
-                                txtnombredepa.Text = "";
-                                txtprovincia.Text = "";
+                                MantDepart_Load(sender, e);
+                                limpiarbtn_Click(sender, e);
                             }
                             else
                             {
@@ -112,6 +111,9 @@ namespace Proyecto_restaurante
         {
             txtprovincia.Text = "";
             txtnombredepa.Text = "";
+            nombreDepartActual = "";
+            idDepart = 0;
+            this.Text = "Mantenimiento de Departamento || Creando...";
         }
 
         private void txtbuscador_Enter(object sender, EventArgs e)
@@ -135,6 +137,10 @@ namespace Proyecto_restaurante
 
         private void MantDepart_Load(object sender, EventArgs e)
         {
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+
+            //string conexion = "Server=LENOVO\\SQLEXPRESS;Database=RestauranteDB;integrated security=true";
             string conexion = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
             string consulta = "select * from departamento";
 
@@ -150,6 +156,7 @@ namespace Proyecto_restaurante
         private void FiltroDatosBusqueda(string busqueda)
         {
             string conexion = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
+            //string conexion = "Server=LENOVO\\SQLEXPRESS;Database=RestauranteDB;integrated security=true";
 
             using (SqlConnection conectar = new SqlConnection(conexion))
             {
@@ -184,6 +191,31 @@ namespace Proyecto_restaurante
         private void txtbuscador_TextChanged(object sender, EventArgs e)
         {
             FiltroDatosBusqueda(txtbuscador.Text);
+        }
+
+        private void tabladatos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            this.Text = "Mantenimiento de Departamento || Editando...";
+            idDepart = Convert.ToInt32(tabladatos.SelectedCells[0].Value);
+            txtnombredepa.Text = tabladatos.SelectedCells[1].Value.ToString();
+            nombreDepartActual = txtnombredepa.Text;
+            txtprovincia.Text = tabladatos.SelectedCells[2].Value.ToString();
+            estadochk.Checked = Convert.ToBoolean(tabladatos.SelectedCells[3].Value);
+        }
+
+        private void estadochk_CheckedChanged(object sender, EventArgs e)
+        {
+            if (estadochk.Checked == true)
+            {
+                estadochk.Text = "Activo";
+                estadochk.ForeColor = Color.Lime;
+            }
+            else if (estadochk.Checked == false)
+            {
+
+                estadochk.Text = "Inactivo";
+                estadochk.ForeColor = Color.Red;
+            }
         }
     }
 }

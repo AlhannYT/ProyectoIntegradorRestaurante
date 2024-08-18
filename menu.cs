@@ -71,15 +71,34 @@ namespace Proyecto_restaurante
             mantMesas.Show();
         }
 
-        private void configuracionbtn_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Pendiente: \n-Alternar a modo oscuro");
-        }
-
         private void monedasToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MantMonedas mantMone = new MantMonedas();
             mantMone.Show();
+        }
+
+        private void cajasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MantCajas mantCaj = new MantCajas();
+            mantCaj.Show();
+        }
+
+        private void proveedoresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MantProveedor mantProv = new MantProveedor();
+            mantProv.Show();
+        }
+
+        private void productosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MantProductos mantProductos = new MantProductos();
+            mantProductos.Show();
+        }
+
+        private void menu_Load(object sender, EventArgs e)
+        {
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
         }
     }
 }

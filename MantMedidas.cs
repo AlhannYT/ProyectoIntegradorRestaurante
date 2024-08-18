@@ -43,7 +43,8 @@ namespace Proyecto_restaurante
 
         private void guardarbtn_Click(object sender, EventArgs e)
         {
-            string conexionString = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
+            //string conexionString = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
+            string conexionString = "Server=LENOVO\\SQLEXPRESS;Database=RestauranteDB;integrated security=true";
 
             using (SqlConnection conexion = new SqlConnection(conexionString))
             {
@@ -53,17 +54,19 @@ namespace Proyecto_restaurante
 
                     if (string.IsNullOrEmpty(abrevMedidaActual))
                     {
-                        string queryInsertar = "INSERT INTO medidas (abreviatura, nombre_medida) VALUES (@abreviatura, @nombreMedida)";
+                        string queryInsertar = "INSERT INTO medidas (abreviatura, nombre_medida, estado) VALUES (@abreviatura, @nombreMedida, @estado)";
                         using (SqlCommand insertarCommand = new SqlCommand(queryInsertar, conexion))
                         {
                             insertarCommand.Parameters.AddWithValue("@abreviatura", txtabreviatura.Text);
                             insertarCommand.Parameters.AddWithValue("@nombreMedida", txtmedida.Text);
+                            insertarCommand.Parameters.AddWithValue("@estado", estadochk.Checked ? 1 : 0);
 
                             int rowsAffected = insertarCommand.ExecuteNonQuery();
 
                             if (rowsAffected > 0)
                             {
                                 MessageBox.Show("Medida registrada con éxito.");
+                                MantMedidas_Load(sender, e);
                                 limpiarCampos();
                             }
                             else
@@ -74,17 +77,20 @@ namespace Proyecto_restaurante
                     }
                     else
                     {
-                        string queryActualizar = "UPDATE medidas SET nombre_medida = @nombreMedida WHERE abreviatura = @abreviatura";
+                        string queryActualizar = "UPDATE medidas SET abreviatura = @abreviaturaNueva, nombre_medida = @nombreMedida, estado = @estado WHERE abreviatura = @abreviaturaActual";
                         using (SqlCommand actualizarCommand = new SqlCommand(queryActualizar, conexion))
                         {
-                            actualizarCommand.Parameters.AddWithValue("@abreviatura", abrevMedidaActual);
+                            actualizarCommand.Parameters.AddWithValue("@abreviaturaActual", abrevMedidaActual);
+                            actualizarCommand.Parameters.AddWithValue("@abreviaturaNueva", txtabreviatura.Text);
                             actualizarCommand.Parameters.AddWithValue("@nombreMedida", txtmedida.Text);
+                            actualizarCommand.Parameters.AddWithValue("@estado", estadochk.Checked ? 1 : 0);
 
                             int rowsAffected = actualizarCommand.ExecuteNonQuery();
 
                             if (rowsAffected > 0)
                             {
                                 MessageBox.Show("Medida actualizada con éxito.");
+                                MantMedidas_Load(sender, e);
                                 limpiarCampos();
                             }
                             else
@@ -132,6 +138,7 @@ namespace Proyecto_restaurante
             }
 
             string conexionString = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
+            //string conexionString = "Server=LENOVO\\SQLEXPRESS;Database=RestauranteDB;integrated security=true";
 
             using (SqlConnection conexion = new SqlConnection(conexionString))
             {
@@ -151,7 +158,7 @@ namespace Proyecto_restaurante
 
                             if (editar == DialogResult.Yes)
                             {
-                                string obtenerDatosQuery = "SELECT abreviatura, nombre_medida FROM medidas WHERE abreviatura = @abreviatura";
+                                string obtenerDatosQuery = "SELECT abreviatura, nombre_medida, estado FROM medidas WHERE abreviatura = @abreviatura";
                                 using (SqlCommand obtenerDatosCommand = new SqlCommand(obtenerDatosQuery, conexion))
                                 {
                                     obtenerDatosCommand.Parameters.AddWithValue("@abreviatura", txtabreviatura.Text);
@@ -199,9 +206,11 @@ namespace Proyecto_restaurante
 
         private void limpiarCampos()
         {
-            txtabreviatura.Text = string.Empty;
-            txtmedida.Text = string.Empty;
-            abrevMedidaActual = null;
+            this.Text = "Mantenimiento de Usuarios || Creando...";
+
+            txtabreviatura.Text = "";
+            txtmedida.Text = "";
+            abrevMedidaActual = "";
             txtabreviatura.Enabled = true;
             guardarbtn.Visible = false;
             guardarbtn.Enabled = false;
@@ -221,6 +230,7 @@ namespace Proyecto_restaurante
         private void FiltroDatosBusqueda(string busqueda)
         {
             string conexion = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
+            //string conexion = "Server=LENOVO\\SQLEXPRESS;Database=RestauranteDB;integrated security=true";
 
             using (SqlConnection conectar = new SqlConnection(conexion))
             {
@@ -259,6 +269,10 @@ namespace Proyecto_restaurante
 
         private void MantMedidas_Load(object sender, EventArgs e)
         {
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+
+            //string conexion = "Server=LENOVO\\SQLEXPRESS;Database=RestauranteDB;integrated security=true";
             string conexion = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
             string consulta = "select * from medidas";
 
@@ -293,6 +307,37 @@ namespace Proyecto_restaurante
         private void eliminarbtn_Click(object sender, EventArgs e)
         {
             txtbuscador.Text = "";
+        }
+
+        private void tabladatos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            this.Text = "Mantenimiento de Usuarios || Editando...";
+            txtabreviatura.Text = tabladatos.SelectedCells[1].Value.ToString();
+            abrevMedidaActual = txtabreviatura.Text;
+            txtmedida.Text = tabladatos.SelectedCells[2].Value.ToString();
+
+            estadochk.Checked = Convert.ToBoolean(tabladatos.SelectedCells[3].Value);
+            verificarbtn.Visible = false;
+            verificarbtn.Enabled=false;
+            guardarbtn.Visible = true;
+            guardarbtn.Enabled=true;
+            txtabreviatura.Enabled = true;
+            txtmedida.Enabled = true;
+        }
+
+        private void estadochk_CheckedChanged(object sender, EventArgs e)
+        {
+            if (estadochk.Checked == true)
+            {
+                estadochk.Text = "Activo";
+                estadochk.ForeColor = Color.Lime;
+            }
+            else if (estadochk.Checked == false)
+            {
+
+                estadochk.Text = "Inactivo";
+                estadochk.ForeColor = Color.Red;
+            }
         }
     }
 }
