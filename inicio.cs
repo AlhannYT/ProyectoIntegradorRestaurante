@@ -21,8 +21,7 @@ namespace Proyecto_restaurante
                 return;
             }
 
-            string conexionString = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
-            //string conexionString = "Server=LENOVO\\SQLEXPRESS;Database=RestauranteDB;integrated security=true";
+            string conexionString = ConexionBD.ConexionSQL();
 
             using (SqlConnection conexion = new SqlConnection(conexionString))
             {
@@ -74,8 +73,6 @@ namespace Proyecto_restaurante
                 }
             }
         }
-
-
         private void passView_CheckedChanged(object sender, EventArgs e)
         {
             if (passView.Checked == true)
@@ -121,26 +118,11 @@ namespace Proyecto_restaurante
         {
             this.WindowState = FormWindowState.Minimized;
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        int step = 5;
-        int direction = 1;
-        int leftLimit = 0; 
-        int rightLimit = 450;
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            iniciolabel.Left += step * direction;
-
-            if (iniciolabel.Left + iniciolabel.Width >= rightLimit || iniciolabel.Left <= leftLimit)
-            {
-                direction *= -1;
-            }
-        }
     }
 }
 

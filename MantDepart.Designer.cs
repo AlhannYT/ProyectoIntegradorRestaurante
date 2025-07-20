@@ -79,6 +79,8 @@
             // 
             // guardarbtn
             // 
+            guardarbtn.Image = Properties.Resources.disco;
+            guardarbtn.ImageAlign = ContentAlignment.MiddleLeft;
             guardarbtn.Location = new Point(29, 333);
             guardarbtn.Name = "guardarbtn";
             guardarbtn.Size = new Size(108, 45);
@@ -107,6 +109,8 @@
             // 
             // limpiarbtn
             // 
+            limpiarbtn.Image = Properties.Resources.limpio;
+            limpiarbtn.ImageAlign = ContentAlignment.MiddleLeft;
             limpiarbtn.Location = new Point(238, 333);
             limpiarbtn.Name = "limpiarbtn";
             limpiarbtn.Size = new Size(108, 45);

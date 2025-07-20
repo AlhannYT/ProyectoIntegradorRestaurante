@@ -112,9 +112,9 @@
             // panel1
             // 
             panel1.BackColor = SystemColors.Highlight;
-            panel1.Location = new Point(102, 206);
+            panel1.Location = new Point(102, 205);
             panel1.Name = "panel1";
-            panel1.Size = new Size(366, 10);
+            panel1.Size = new Size(366, 6);
             panel1.TabIndex = 4;
             // 
             // passView
@@ -157,7 +157,7 @@
             iniciolabel.AutoSize = true;
             iniciolabel.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             iniciolabel.ForeColor = Color.White;
-            iniciolabel.Location = new Point(6, 6);
+            iniciolabel.Location = new Point(230, 7);
             iniciolabel.Name = "iniciolabel";
             iniciolabel.Size = new Size(113, 20);
             iniciolabel.TabIndex = 8;
@@ -176,10 +176,6 @@
             button2.TabIndex = 3;
             button2.UseVisualStyleBackColor = false;
             button2.Click += button2_Click;
-            // 
-            // timer1
-            // 
-            timer1.Tick += timer1_Tick;
             // 
             // inicio
             // 

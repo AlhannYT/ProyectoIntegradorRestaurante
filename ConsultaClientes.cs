@@ -20,10 +20,10 @@ namespace Proyecto_restaurante
 
         private void ConsultaClientes_Load(object sender, EventArgs e)
         {
-            string conexion = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
+            string conexionString = ConexionBD.ConexionSQL();
             string consulta = "select * from cliente";
 
-            SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexion);
+            SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
 
             DataTable dt = new DataTable();
 
@@ -34,9 +34,9 @@ namespace Proyecto_restaurante
 
         private void FiltroDatosBusqueda(string busqueda)
         {
-            string conexion = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
+            string conexionString = ConexionBD.ConexionSQL();
 
-            using (SqlConnection conectar = new SqlConnection(conexion))
+            using (SqlConnection conectar = new SqlConnection(conexionString))
             {
                 try
                 {

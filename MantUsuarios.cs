@@ -65,9 +65,8 @@ namespace Proyecto_restaurante
                 MessageBox.Show("Error: Colocar un nombre.");
                 return;
             }
-                        
-            string conexionString = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
-            //string conexionString = "Server=LENOVO\\SQLEXPRESS;Database=RestauranteDB;integrated security=true";
+
+            string conexionString = ConexionBD.ConexionSQL();
 
             using (SqlConnection conexion = new SqlConnection(conexionString))
             {
@@ -167,8 +166,7 @@ namespace Proyecto_restaurante
                 }
             }
 
-            //string conexionString = "Server=LENOVO\\SQLEXPRESS;Database=RestauranteDB;integrated security=true";
-            string conexionString = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
+            string conexionString = ConexionBD.ConexionSQL();
 
             using (SqlConnection conexion = new SqlConnection(conexionString))
             {
@@ -348,14 +346,11 @@ namespace Proyecto_restaurante
             }
         }
 
-
-
         private void FiltroDatosBusqueda(string busqueda)
         {
-            string conexion = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
-            //string conexion = "Server=LENOVO\\SQLEXPRESS;Database=RestauranteDB;integrated security=true";
+            string conexionString = ConexionBD.ConexionSQL();
 
-            using (SqlConnection conectar = new SqlConnection(conexion))
+            using (SqlConnection conectar = new SqlConnection(conexionString))
             {
                 try
                 {
@@ -393,12 +388,11 @@ namespace Proyecto_restaurante
             ConfirmPanelTransp.BackColor = Color.FromArgb(100, 0, 0, 0);
 
             button1.Enabled = false;
-            string conexion = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
-            //string conexion = "Server=LENOVO\\SQLEXPRESS;Database=RestauranteDB;integrated security=true";
+            string conexionString = ConexionBD.ConexionSQL();
 
             string consulta = "select id, usuario, estado, privilegio from login_usuario";
 
-            SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexion);
+            SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
 
             DataTable dt = new DataTable();
 
@@ -526,8 +520,7 @@ namespace Proyecto_restaurante
 
         private void eliminarusuariobtn_Click(object sender, EventArgs e)
         {
-            string conexionString = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
-            //string conexionString = "Server=LENOVO\\SQLEXPRESS;Database=RestauranteDB;integrated security=true";
+            string conexionString = ConexionBD.ConexionSQL();
 
             using (SqlConnection conexion = new SqlConnection(conexionString))
             {

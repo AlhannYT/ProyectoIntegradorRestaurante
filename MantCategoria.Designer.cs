@@ -131,7 +131,7 @@
             // eliminarbtn
             // 
             eliminarbtn.Image = Properties.Resources.limpio;
-            eliminarbtn.Location = new Point(709, 76);
+            eliminarbtn.Location = new Point(725, 76);
             eliminarbtn.Name = "eliminarbtn";
             eliminarbtn.Size = new Size(29, 24);
             eliminarbtn.TabIndex = 29;
@@ -156,7 +156,7 @@
             tabladatos.Name = "tabladatos";
             tabladatos.ReadOnly = true;
             tabladatos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tabladatos.Size = new Size(348, 224);
+            tabladatos.Size = new Size(364, 224);
             tabladatos.TabIndex = 27;
             tabladatos.CellClick += tabladatos_CellClick;
             // 
@@ -165,7 +165,7 @@
             txtbuscador.ForeColor = SystemColors.ScrollBar;
             txtbuscador.Location = new Point(465, 76);
             txtbuscador.Name = "txtbuscador";
-            txtbuscador.Size = new Size(238, 23);
+            txtbuscador.Size = new Size(256, 23);
             txtbuscador.TabIndex = 28;
             txtbuscador.Text = "(ID, Nombre Categoria)";
             txtbuscador.TextChanged += txtbuscador_TextChanged;
@@ -213,7 +213,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.WindowFrame;
-            ClientSize = new Size(746, 361);
+            ClientSize = new Size(761, 361);
             Controls.Add(estadochk);
             Controls.Add(label2);
             Controls.Add(label5);

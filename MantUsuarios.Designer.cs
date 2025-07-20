@@ -165,6 +165,8 @@
             // 
             // guardarbtn
             // 
+            guardarbtn.Image = Properties.Resources.basura;
+            guardarbtn.ImageAlign = ContentAlignment.MiddleLeft;
             guardarbtn.Location = new Point(42, 318);
             guardarbtn.Name = "guardarbtn";
             guardarbtn.Size = new Size(114, 44);
@@ -175,6 +177,8 @@
             // 
             // limpiarbtn
             // 
+            limpiarbtn.Image = Properties.Resources.limpio;
+            limpiarbtn.ImageAlign = ContentAlignment.MiddleLeft;
             limpiarbtn.Location = new Point(217, 318);
             limpiarbtn.Name = "limpiarbtn";
             limpiarbtn.Size = new Size(114, 44);
@@ -185,7 +189,9 @@
             // 
             // verificarbtn
             // 
-            verificarbtn.Location = new Point(42, 318);
+            verificarbtn.Image = Properties.Resources.disco;
+            verificarbtn.ImageAlign = ContentAlignment.MiddleLeft;
+            verificarbtn.Location = new Point(41, 318);
             verificarbtn.Name = "verificarbtn";
             verificarbtn.Size = new Size(114, 44);
             verificarbtn.TabIndex = 8;

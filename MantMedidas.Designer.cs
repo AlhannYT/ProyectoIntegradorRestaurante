@@ -64,6 +64,8 @@
             // 
             // limpiarbtn
             // 
+            limpiarbtn.Image = Properties.Resources.limpio;
+            limpiarbtn.ImageAlign = ContentAlignment.MiddleLeft;
             limpiarbtn.Location = new Point(222, 322);
             limpiarbtn.Name = "limpiarbtn";
             limpiarbtn.Size = new Size(121, 44);
@@ -133,6 +135,8 @@
             // 
             // verificarbtn
             // 
+            verificarbtn.Image = Properties.Resources.disco;
+            verificarbtn.ImageAlign = ContentAlignment.MiddleLeft;
             verificarbtn.Location = new Point(39, 322);
             verificarbtn.Name = "verificarbtn";
             verificarbtn.Size = new Size(121, 44);

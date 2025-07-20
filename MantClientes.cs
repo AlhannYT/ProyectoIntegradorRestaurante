@@ -97,8 +97,7 @@ namespace Proyecto_restaurante
                 return;
             }
 
-            string conexionString = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
-            //string conexionString = "Server=LENOVO\\SQLEXPRESS;Database=RestauranteDB;integrated security=true";
+            string conexionString = ConexionBD.ConexionSQL();
 
             using (SqlConnection conexion = new SqlConnection(conexionString))
             {
@@ -258,10 +257,9 @@ namespace Proyecto_restaurante
 
         private void FiltroDatosBusqueda(string busqueda)
         {
-            string conexion = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
-            //string conexion = "Server=LENOVO\\SQLEXPRESS;Database=RestauranteDB;integrated security=true";
+            string conexionString = ConexionBD.ConexionSQL();
 
-            using (SqlConnection conectar = new SqlConnection(conexion))
+            using (SqlConnection conectar = new SqlConnection(conexionString))
             {
                 try
                 {
@@ -315,11 +313,11 @@ namespace Proyecto_restaurante
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
 
-            //string conexion = "Server=LENOVO\\SQLEXPRESS;Database=RestauranteDB;integrated security=true";
-            string conexion = "Server=ALHANNYT-PC\\ALHANNSQLSERVER;Database=RestauranteDB;User Id=alhann;Password=123456;";
+            string conexionString = ConexionBD.ConexionSQL();
+
             string consulta = "select * from cliente";
 
-            SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexion);
+            SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
 
             DataTable dt = new DataTable();
 
