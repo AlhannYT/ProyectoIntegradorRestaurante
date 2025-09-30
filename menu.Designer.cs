@@ -42,6 +42,8 @@
             cajasToolStripMenuItem = new ToolStripMenuItem();
             proveedoresToolStripMenuItem = new ToolStripMenuItem();
             productosToolStripMenuItem = new ToolStripMenuItem();
+            procesosToolStripMenuItem = new ToolStripMenuItem();
+            pedidosToolStripMenuItem = new ToolStripMenuItem();
             pictureBox1 = new PictureBox();
             usuariolabel = new Label();
             panel1 = new Panel();
@@ -50,6 +52,7 @@
             pictureBox2 = new PictureBox();
             panel3 = new Panel();
             cerrarbtn = new Button();
+            comprasToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
@@ -64,7 +67,7 @@
             menuStrip1.BackColor = SystemColors.WindowFrame;
             menuStrip1.Dock = DockStyle.Left;
             menuStrip1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { toolStripMenuItem1 });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { toolStripMenuItem1, procesosToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(183, 390);
@@ -156,6 +159,21 @@
             productosToolStripMenuItem.Text = "Productos";
             productosToolStripMenuItem.Click += productosToolStripMenuItem_Click;
             // 
+            // procesosToolStripMenuItem
+            // 
+            procesosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { pedidosToolStripMenuItem, comprasToolStripMenuItem });
+            procesosToolStripMenuItem.ForeColor = Color.White;
+            procesosToolStripMenuItem.Name = "procesosToolStripMenuItem";
+            procesosToolStripMenuItem.Size = new Size(176, 29);
+            procesosToolStripMenuItem.Text = "Procesos";
+            // 
+            // pedidosToolStripMenuItem
+            // 
+            pedidosToolStripMenuItem.Name = "pedidosToolStripMenuItem";
+            pedidosToolStripMenuItem.Size = new Size(180, 30);
+            pedidosToolStripMenuItem.Text = "Pedidos";
+            pedidosToolStripMenuItem.Click += pedidosToolStripMenuItem_Click;
+            // 
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
@@ -234,6 +252,13 @@
             cerrarbtn.UseVisualStyleBackColor = false;
             cerrarbtn.Click += cerrarbtn_Click;
             // 
+            // comprasToolStripMenuItem
+            // 
+            comprasToolStripMenuItem.Name = "comprasToolStripMenuItem";
+            comprasToolStripMenuItem.Size = new Size(180, 30);
+            comprasToolStripMenuItem.Text = "Compras";
+            comprasToolStripMenuItem.Click += comprasToolStripMenuItem_Click;
+            // 
             // menu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -284,5 +309,8 @@
         private PictureBox pictureBox2;
         private Panel panel5;
         private ToolStripMenuItem productosToolStripMenuItem;
+        private ToolStripMenuItem procesosToolStripMenuItem;
+        private ToolStripMenuItem pedidosToolStripMenuItem;
+        private ToolStripMenuItem comprasToolStripMenuItem;
     }
 }

@@ -100,5 +100,19 @@ namespace Proyecto_restaurante
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
         }
+
+        private void pedidosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Pedidos pedidos = new Pedidos();
+            pedidos.NombreResponsable = usuarioActual;
+            pedidos.Show();
+        }
+
+        private void comprasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Compras compras = new Compras();
+            compras.responsableCompra = usuarioActual;
+            compras.Show();
+        }
     }
 }
