@@ -55,8 +55,8 @@ namespace Proyecto_restaurante
 
         private void departamentosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MantDepart mantDepart = new MantDepart();
-            mantDepart.Show();
+            //MantDepart mantDepart = new MantDepart();
+            //mantDepart.Show();
         }
 
         private void salasToolStripMenuItem_Click(object sender, EventArgs e)
@@ -85,14 +85,14 @@ namespace Proyecto_restaurante
 
         private void proveedoresToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MantProveedor mantProv = new MantProveedor();
-            mantProv.Show();
+            //MantProveedor mantProv = new MantProveedor();
+            //mantProv.Show();
         }
 
         private void productosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MantProductos mantProductos = new MantProductos();
-            mantProductos.Show();
+            //MantProductos mantProductos = new MantProductos();
+            //mantProductos.Show();
         }
 
         private void menu_Load(object sender, EventArgs e)
@@ -103,16 +103,16 @@ namespace Proyecto_restaurante
 
         private void pedidosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Pedidos pedidos = new Pedidos();
-            pedidos.NombreResponsable = usuarioActual;
-            pedidos.Show();
+            //Pedidos pedidos = new Pedidos();
+            //pedidos.NombreResponsable = usuarioActual;
+            //pedidos.Show();
         }
 
         private void comprasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Compras compras = new Compras();
-            compras.responsableCompra = usuarioActual;
-            compras.Show();
+            //Compras compras = new Compras();
+            //compras.responsableCompra = usuarioActual;
+            //compras.Show();
         }
     }
 }
