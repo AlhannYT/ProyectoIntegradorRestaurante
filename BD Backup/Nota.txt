@@ -1,0 +1,1 @@
+Tu vas a poner la carpeta de imágenes de productos en el disco c:\\, ósea tu la coge y la pega afuera y ya, si no, vas a tener que volver a poner las imágenes nuevamente de 0

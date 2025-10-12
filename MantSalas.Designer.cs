@@ -51,9 +51,10 @@
             // 
             guardarbtn.Image = Properties.Resources.disco;
             guardarbtn.ImageAlign = ContentAlignment.MiddleLeft;
-            guardarbtn.Location = new Point(31, 228);
+            guardarbtn.Location = new Point(35, 304);
+            guardarbtn.Margin = new Padding(3, 4, 3, 4);
             guardarbtn.Name = "guardarbtn";
-            guardarbtn.Size = new Size(102, 45);
+            guardarbtn.Size = new Size(117, 60);
             guardarbtn.TabIndex = 0;
             guardarbtn.Text = "     Guardar";
             guardarbtn.UseVisualStyleBackColor = true;
@@ -61,9 +62,10 @@
             // 
             // txtnombresala
             // 
-            txtnombresala.Location = new Point(179, 182);
+            txtnombresala.Location = new Point(205, 243);
+            txtnombresala.Margin = new Padding(3, 4, 3, 4);
             txtnombresala.Name = "txtnombresala";
-            txtnombresala.Size = new Size(100, 23);
+            txtnombresala.Size = new Size(114, 27);
             txtnombresala.TabIndex = 1;
             txtnombresala.TextChanged += txtnombresala_TextChanged;
             // 
@@ -71,9 +73,9 @@
             // 
             label1.AutoSize = true;
             label1.ForeColor = SystemColors.Control;
-            label1.Location = new Point(31, 185);
+            label1.Location = new Point(35, 247);
             label1.Name = "label1";
-            label1.Size = new Size(75, 15);
+            label1.Size = new Size(96, 20);
             label1.TabIndex = 2;
             label1.Text = "Nombre Sala";
             // 
@@ -82,9 +84,9 @@
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = SystemColors.Control;
-            label2.Location = new Point(31, 9);
+            label2.Location = new Point(35, 12);
             label2.Name = "label2";
-            label2.Size = new Size(250, 40);
+            label2.Size = new Size(318, 50);
             label2.TabIndex = 2;
             label2.Text = "Registro de Salas";
             // 
@@ -92,9 +94,10 @@
             // 
             limpiarbtn.Image = Properties.Resources.limpio;
             limpiarbtn.ImageAlign = ContentAlignment.MiddleLeft;
-            limpiarbtn.Location = new Point(179, 228);
+            limpiarbtn.Location = new Point(205, 304);
+            limpiarbtn.Margin = new Padding(3, 4, 3, 4);
             limpiarbtn.Name = "limpiarbtn";
-            limpiarbtn.Size = new Size(102, 45);
+            limpiarbtn.Size = new Size(117, 60);
             limpiarbtn.TabIndex = 0;
             limpiarbtn.Text = "     Limpiar";
             limpiarbtn.UseVisualStyleBackColor = true;
@@ -105,34 +108,37 @@
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label5.ForeColor = SystemColors.Control;
-            label5.Location = new Point(328, 9);
+            label5.Location = new Point(375, 12);
             label5.Name = "label5";
-            label5.Size = new Size(256, 40);
+            label5.Size = new Size(324, 50);
             label5.TabIndex = 25;
             label5.Text = "Consulta de Salas";
             // 
             // panel2
             // 
             panel2.BackColor = Color.Red;
-            panel2.Location = new Point(302, -1);
+            panel2.Location = new Point(345, -1);
+            panel2.Margin = new Padding(3, 4, 3, 4);
             panel2.Name = "panel2";
-            panel2.Size = new Size(10, 301);
+            panel2.Size = new Size(11, 401);
             panel2.TabIndex = 24;
             // 
             // panel1
             // 
             panel1.BackColor = Color.Red;
-            panel1.Location = new Point(310, 102);
+            panel1.Location = new Point(354, 136);
+            panel1.Margin = new Padding(3, 4, 3, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(399, 10);
+            panel1.Size = new Size(456, 13);
             panel1.TabIndex = 23;
             // 
             // eliminarbtn
             // 
             eliminarbtn.Image = Properties.Resources.limpio;
-            eliminarbtn.Location = new Point(647, 67);
+            eliminarbtn.Location = new Point(759, 90);
+            eliminarbtn.Margin = new Padding(3, 4, 3, 4);
             eliminarbtn.Name = "eliminarbtn";
-            eliminarbtn.Size = new Size(29, 24);
+            eliminarbtn.Size = new Size(33, 30);
             eliminarbtn.TabIndex = 22;
             eliminarbtn.UseVisualStyleBackColor = true;
             eliminarbtn.Click += eliminarbtn_Click;
@@ -142,9 +148,9 @@
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label4.ForeColor = SystemColors.Control;
-            label4.Location = new Point(319, 69);
+            label4.Location = new Point(365, 92);
             label4.Name = "label4";
-            label4.Size = new Size(69, 17);
+            label4.Size = new Size(89, 23);
             label4.TabIndex = 19;
             label4.Text = "Buscador: ";
             // 
@@ -152,21 +158,24 @@
             // 
             tabladatos.AllowUserToAddRows = false;
             tabladatos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            tabladatos.Location = new Point(317, 118);
+            tabladatos.Location = new Point(362, 157);
+            tabladatos.Margin = new Padding(3, 4, 3, 4);
             tabladatos.MultiSelect = false;
             tabladatos.Name = "tabladatos";
             tabladatos.ReadOnly = true;
+            tabladatos.RowHeadersWidth = 51;
             tabladatos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tabladatos.Size = new Size(360, 155);
+            tabladatos.Size = new Size(430, 207);
             tabladatos.TabIndex = 20;
             tabladatos.CellClick += tabladatos_CellClick;
             // 
             // txtbuscador
             // 
             txtbuscador.ForeColor = SystemColors.ScrollBar;
-            txtbuscador.Location = new Point(390, 68);
+            txtbuscador.Location = new Point(460, 91);
+            txtbuscador.Margin = new Padding(3, 4, 3, 4);
             txtbuscador.Name = "txtbuscador";
-            txtbuscador.Size = new Size(251, 23);
+            txtbuscador.Size = new Size(293, 27);
             txtbuscador.TabIndex = 21;
             txtbuscador.Text = "(ID, Nombre Sala)";
             txtbuscador.TextChanged += txtbuscador_TextChanged;
@@ -176,9 +185,10 @@
             // pictureBox1
             // 
             pictureBox1.Image = Properties.Resources.icons8_sala_de_estar_96;
-            pictureBox1.Location = new Point(101, 52);
+            pictureBox1.Location = new Point(115, 69);
+            pictureBox1.Margin = new Padding(3, 4, 3, 4);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(121, 89);
+            pictureBox1.Size = new Size(138, 119);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 26;
             pictureBox1.TabStop = false;
@@ -189,9 +199,10 @@
             estadochk.Checked = true;
             estadochk.CheckState = CheckState.Checked;
             estadochk.ForeColor = Color.Lime;
-            estadochk.Location = new Point(156, 150);
+            estadochk.Location = new Point(178, 200);
+            estadochk.Margin = new Padding(3, 4, 3, 4);
             estadochk.Name = "estadochk";
-            estadochk.Size = new Size(60, 19);
+            estadochk.Size = new Size(73, 24);
             estadochk.TabIndex = 27;
             estadochk.Text = "Activo";
             estadochk.UseVisualStyleBackColor = true;
@@ -201,18 +212,18 @@
             // 
             label3.AutoSize = true;
             label3.ForeColor = SystemColors.Control;
-            label3.Location = new Point(105, 151);
+            label3.Location = new Point(120, 201);
             label3.Name = "label3";
-            label3.Size = new Size(45, 15);
+            label3.Size = new Size(57, 20);
             label3.TabIndex = 2;
             label3.Text = "Estado:";
             // 
             // MantSalas
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.WindowFrame;
-            ClientSize = new Size(688, 285);
+            ClientSize = new Size(804, 380);
             Controls.Add(estadochk);
             Controls.Add(pictureBox1);
             Controls.Add(label5);
@@ -228,9 +239,10 @@
             Controls.Add(txtnombresala);
             Controls.Add(limpiarbtn);
             Controls.Add(guardarbtn);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "MantSalas";
             ShowInTaskbar = false;
-            StartPosition = FormStartPosition.CenterScreen;
+            StartPosition = FormStartPosition.Manual;
             Text = "Mantenimiento de Salas || Creando...";
             Load += MantSalas_Load;
             ((System.ComponentModel.ISupportInitialize)tabladatos).EndInit();

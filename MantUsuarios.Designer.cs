@@ -77,9 +77,10 @@
             // 
             // txtRegistroUsuario
             // 
-            txtRegistroUsuario.Location = new Point(212, 219);
+            txtRegistroUsuario.Location = new Point(243, 293);
+            txtRegistroUsuario.Margin = new Padding(3, 4, 3, 4);
             txtRegistroUsuario.Name = "txtRegistroUsuario";
-            txtRegistroUsuario.Size = new Size(119, 23);
+            txtRegistroUsuario.Size = new Size(135, 27);
             txtRegistroUsuario.TabIndex = 0;
             txtRegistroUsuario.TextChanged += txtRegistroUsuario_TextChanged;
             txtRegistroUsuario.KeyPress += txtRegistroUsuario_KeyPress;
@@ -87,9 +88,10 @@
             // txtRegistroPass
             // 
             txtRegistroPass.Enabled = false;
-            txtRegistroPass.Location = new Point(212, 248);
+            txtRegistroPass.Location = new Point(243, 332);
+            txtRegistroPass.Margin = new Padding(3, 4, 3, 4);
             txtRegistroPass.Name = "txtRegistroPass";
-            txtRegistroPass.Size = new Size(119, 23);
+            txtRegistroPass.Size = new Size(135, 27);
             txtRegistroPass.TabIndex = 1;
             txtRegistroPass.UseSystemPasswordChar = true;
             // 
@@ -98,9 +100,9 @@
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 11.25F);
             label2.ForeColor = SystemColors.ControlLightLight;
-            label2.Location = new Point(40, 222);
+            label2.Location = new Point(42, 296);
             label2.Name = "label2";
-            label2.Size = new Size(116, 20);
+            label2.Size = new Size(151, 25);
             label2.TabIndex = 2;
             label2.Text = "Ingresar Usuario";
             // 
@@ -109,18 +111,19 @@
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 11.25F);
             label3.ForeColor = SystemColors.ControlLightLight;
-            label3.Location = new Point(40, 251);
+            label3.Location = new Point(42, 335);
             label3.Name = "label3";
-            label3.Size = new Size(140, 20);
+            label3.Size = new Size(182, 25);
             label3.TabIndex = 2;
             label3.Text = "Ingresar Contraseña";
             // 
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(139, 51);
+            pictureBox1.Location = new Point(146, 68);
+            pictureBox1.Margin = new Padding(3, 4, 3, 4);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(115, 109);
+            pictureBox1.Size = new Size(131, 145);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 4;
             pictureBox1.TabStop = false;
@@ -132,9 +135,10 @@
             estadochk.CheckState = CheckState.Checked;
             estadochk.Enabled = false;
             estadochk.ForeColor = Color.Lime;
-            estadochk.Location = new Point(205, 166);
+            estadochk.Location = new Point(221, 221);
+            estadochk.Margin = new Padding(3, 4, 3, 4);
             estadochk.Name = "estadochk";
-            estadochk.Size = new Size(60, 19);
+            estadochk.Size = new Size(73, 24);
             estadochk.TabIndex = 6;
             estadochk.Text = "Activo";
             estadochk.UseVisualStyleBackColor = true;
@@ -145,9 +149,10 @@
             passView.Appearance = Appearance.Button;
             passView.Enabled = false;
             passView.Image = Properties.Resources.ojo;
-            passView.Location = new Point(337, 248);
+            passView.Location = new Point(386, 332);
+            passView.Margin = new Padding(3, 4, 3, 4);
             passView.Name = "passView";
-            passView.Size = new Size(27, 24);
+            passView.Size = new Size(31, 30);
             passView.TabIndex = 7;
             toolTip1.SetToolTip(passView, "Mostrar Contraseña");
             passView.UseVisualStyleBackColor = true;
@@ -157,9 +162,9 @@
             // 
             label5.AutoSize = true;
             label5.ForeColor = SystemColors.ControlLightLight;
-            label5.Location = new Point(140, 167);
+            label5.Location = new Point(143, 223);
             label5.Name = "label5";
-            label5.Size = new Size(48, 15);
+            label5.Size = new Size(61, 20);
             label5.TabIndex = 2;
             label5.Text = "Estado: ";
             // 
@@ -167,9 +172,10 @@
             // 
             guardarbtn.Image = Properties.Resources.basura;
             guardarbtn.ImageAlign = ContentAlignment.MiddleLeft;
-            guardarbtn.Location = new Point(42, 318);
+            guardarbtn.Location = new Point(44, 424);
+            guardarbtn.Margin = new Padding(3, 4, 3, 4);
             guardarbtn.Name = "guardarbtn";
-            guardarbtn.Size = new Size(114, 44);
+            guardarbtn.Size = new Size(130, 59);
             guardarbtn.TabIndex = 8;
             guardarbtn.Text = "Guardar";
             guardarbtn.UseVisualStyleBackColor = true;
@@ -179,9 +185,10 @@
             // 
             limpiarbtn.Image = Properties.Resources.limpio;
             limpiarbtn.ImageAlign = ContentAlignment.MiddleLeft;
-            limpiarbtn.Location = new Point(217, 318);
+            limpiarbtn.Location = new Point(248, 424);
+            limpiarbtn.Margin = new Padding(3, 4, 3, 4);
             limpiarbtn.Name = "limpiarbtn";
-            limpiarbtn.Size = new Size(114, 44);
+            limpiarbtn.Size = new Size(130, 59);
             limpiarbtn.TabIndex = 8;
             limpiarbtn.Text = "Limpiar";
             limpiarbtn.UseVisualStyleBackColor = true;
@@ -191,9 +198,10 @@
             // 
             verificarbtn.Image = Properties.Resources.disco;
             verificarbtn.ImageAlign = ContentAlignment.MiddleLeft;
-            verificarbtn.Location = new Point(41, 318);
+            verificarbtn.Location = new Point(43, 424);
+            verificarbtn.Margin = new Padding(3, 4, 3, 4);
             verificarbtn.Name = "verificarbtn";
-            verificarbtn.Size = new Size(114, 44);
+            verificarbtn.Size = new Size(130, 59);
             verificarbtn.TabIndex = 8;
             verificarbtn.Text = "Verificar";
             verificarbtn.UseVisualStyleBackColor = true;
@@ -202,9 +210,10 @@
             // txtnuevapass
             // 
             txtnuevapass.Enabled = false;
-            txtnuevapass.Location = new Point(212, 277);
+            txtnuevapass.Location = new Point(243, 370);
+            txtnuevapass.Margin = new Padding(3, 4, 3, 4);
             txtnuevapass.Name = "txtnuevapass";
-            txtnuevapass.Size = new Size(119, 23);
+            txtnuevapass.Size = new Size(135, 27);
             txtnuevapass.TabIndex = 1;
             txtnuevapass.UseSystemPasswordChar = true;
             txtnuevapass.Visible = false;
@@ -214,9 +223,9 @@
             confirmarpass.AutoSize = true;
             confirmarpass.Font = new Font("Segoe UI", 11.25F);
             confirmarpass.ForeColor = SystemColors.Control;
-            confirmarpass.Location = new Point(40, 280);
+            confirmarpass.Location = new Point(42, 373);
             confirmarpass.Name = "confirmarpass";
-            confirmarpass.Size = new Size(153, 20);
+            confirmarpass.Size = new Size(198, 25);
             confirmarpass.TabIndex = 2;
             confirmarpass.Text = "Confirmar Contraseña";
             confirmarpass.Visible = false;
@@ -226,9 +235,10 @@
             privilegiochk.AutoSize = true;
             privilegiochk.Enabled = false;
             privilegiochk.ForeColor = Color.Black;
-            privilegiochk.Location = new Point(205, 191);
+            privilegiochk.Location = new Point(221, 255);
+            privilegiochk.Margin = new Padding(3, 4, 3, 4);
             privilegiochk.Name = "privilegiochk";
-            privilegiochk.Size = new Size(66, 19);
+            privilegiochk.Size = new Size(81, 24);
             privilegiochk.TabIndex = 6;
             privilegiochk.Text = "Usuario";
             privilegiochk.UseVisualStyleBackColor = true;
@@ -238,9 +248,9 @@
             // 
             label4.AutoSize = true;
             label4.ForeColor = SystemColors.ControlLightLight;
-            label4.Location = new Point(140, 191);
+            label4.Location = new Point(143, 255);
             label4.Name = "label4";
-            label4.Size = new Size(59, 15);
+            label4.Size = new Size(74, 20);
             label4.TabIndex = 9;
             label4.Text = "Privilegio:";
             // 
@@ -249,9 +259,10 @@
             checkBox1.Appearance = Appearance.Button;
             checkBox1.Enabled = false;
             checkBox1.Image = Properties.Resources.cuadrado_norte;
-            checkBox1.Location = new Point(370, 248);
+            checkBox1.Location = new Point(424, 332);
+            checkBox1.Margin = new Padding(3, 4, 3, 4);
             checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(27, 24);
+            checkBox1.Size = new Size(31, 30);
             checkBox1.TabIndex = 7;
             toolTip1.SetToolTip(checkBox1, "Este boton sirve para alternar entre\r\ndejar la misma contraseña o\r\ncolocar una nueva contraseña\r\n\r\n");
             checkBox1.UseVisualStyleBackColor = true;
@@ -265,9 +276,10 @@
             // 
             button1.Enabled = false;
             button1.Image = Properties.Resources.basura;
-            button1.Location = new Point(337, 218);
+            button1.Location = new Point(386, 292);
+            button1.Margin = new Padding(3, 4, 3, 4);
             button1.Name = "button1";
-            button1.Size = new Size(27, 24);
+            button1.Size = new Size(31, 30);
             button1.TabIndex = 35;
             toolTip1.SetToolTip(button1, "¡Este boton elimina por\r\ncompleto al usuario que\r\nhaya sido seleccionado!");
             button1.UseVisualStyleBackColor = true;
@@ -275,13 +287,15 @@
             // 
             // instrucciones
             // 
+            instrucciones.BackColor = Color.White;
             instrucciones.Image = Properties.Resources.interrogatorio;
-            instrucciones.Location = new Point(12, 12);
+            instrucciones.Location = new Point(1014, 12);
+            instrucciones.Margin = new Padding(3, 4, 3, 4);
             instrucciones.Name = "instrucciones";
-            instrucciones.Size = new Size(24, 25);
+            instrucciones.Size = new Size(27, 28);
             instrucciones.TabIndex = 37;
             toolTip1.SetToolTip(instrucciones, "Instrucciones");
-            instrucciones.UseVisualStyleBackColor = true;
+            instrucciones.UseVisualStyleBackColor = false;
             instrucciones.Click += instrucciones_Click;
             // 
             // label6
@@ -289,34 +303,37 @@
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label6.ForeColor = SystemColors.Control;
-            label6.Location = new Point(453, 9);
+            label6.Location = new Point(518, 12);
             label6.Name = "label6";
-            label6.Size = new Size(306, 40);
+            label6.Size = new Size(386, 50);
             label6.TabIndex = 32;
             label6.Text = "Consulta de Usuarios";
             // 
             // panel2
             // 
             panel2.BackColor = Color.Red;
-            panel2.Location = new Point(406, -1);
+            panel2.Location = new Point(464, -1);
+            panel2.Margin = new Padding(3, 4, 3, 4);
             panel2.Name = "panel2";
-            panel2.Size = new Size(10, 397);
+            panel2.Size = new Size(11, 529);
             panel2.TabIndex = 31;
             // 
             // panel1
             // 
             panel1.BackColor = Color.Red;
-            panel1.Location = new Point(414, 102);
+            panel1.Location = new Point(473, 136);
+            panel1.Margin = new Padding(3, 4, 3, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(483, 10);
+            panel1.Size = new Size(593, 13);
             panel1.TabIndex = 30;
             // 
             // eliminarbtn
             // 
             eliminarbtn.Image = Properties.Resources.limpio;
-            eliminarbtn.Location = new Point(845, 72);
+            eliminarbtn.Location = new Point(1010, 96);
+            eliminarbtn.Margin = new Padding(3, 4, 3, 4);
             eliminarbtn.Name = "eliminarbtn";
-            eliminarbtn.Size = new Size(27, 24);
+            eliminarbtn.Size = new Size(31, 31);
             eliminarbtn.TabIndex = 29;
             eliminarbtn.UseVisualStyleBackColor = true;
             eliminarbtn.Click += eliminarbtn_Click;
@@ -326,9 +343,9 @@
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label7.ForeColor = SystemColors.Control;
-            label7.Location = new Point(422, 74);
+            label7.Location = new Point(482, 99);
             label7.Name = "label7";
-            label7.Size = new Size(69, 17);
+            label7.Size = new Size(89, 23);
             label7.TabIndex = 26;
             label7.Text = "Buscador: ";
             // 
@@ -336,21 +353,24 @@
             // 
             tabladatos.AllowUserToAddRows = false;
             tabladatos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            tabladatos.Location = new Point(421, 118);
+            tabladatos.Location = new Point(481, 157);
+            tabladatos.Margin = new Padding(3, 4, 3, 4);
             tabladatos.MultiSelect = false;
             tabladatos.Name = "tabladatos";
             tabladatos.ReadOnly = true;
+            tabladatos.RowHeadersWidth = 51;
             tabladatos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tabladatos.Size = new Size(451, 244);
+            tabladatos.Size = new Size(559, 325);
             tabladatos.TabIndex = 27;
             tabladatos.CellClick += tabladatos_CellClick;
             // 
             // txtbuscador
             // 
             txtbuscador.ForeColor = SystemColors.ScrollBar;
-            txtbuscador.Location = new Point(493, 73);
+            txtbuscador.Location = new Point(576, 97);
+            txtbuscador.Margin = new Padding(3, 4, 3, 4);
             txtbuscador.Name = "txtbuscador";
-            txtbuscador.Size = new Size(346, 23);
+            txtbuscador.Size = new Size(428, 27);
             txtbuscador.TabIndex = 28;
             txtbuscador.Text = "(ID, Usuario)";
             txtbuscador.TextChanged += txtbuscador_TextChanged;
@@ -362,9 +382,9 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = SystemColors.Control;
-            label1.Location = new Point(55, 9);
+            label1.Location = new Point(37, 10);
             label1.Name = "label1";
-            label1.Size = new Size(300, 40);
+            label1.Size = new Size(380, 50);
             label1.TabIndex = 33;
             label1.Text = "Registro de Usuarios";
             // 
@@ -377,25 +397,28 @@
             panelconfirmacion.Controls.Add(label8);
             panelconfirmacion.Controls.Add(cancelarbtn);
             panelconfirmacion.Controls.Add(eliminarusuariobtn);
-            panelconfirmacion.Location = new Point(470, 363);
+            panelconfirmacion.Location = new Point(537, 484);
+            panelconfirmacion.Margin = new Padding(3, 4, 3, 4);
             panelconfirmacion.Name = "panelconfirmacion";
-            panelconfirmacion.Size = new Size(251, 205);
+            panelconfirmacion.Size = new Size(287, 273);
             panelconfirmacion.TabIndex = 34;
             panelconfirmacion.Visible = false;
             // 
             // panel3
             // 
             panel3.BackColor = Color.White;
-            panel3.Location = new Point(13, 61);
+            panel3.Location = new Point(15, 81);
+            panel3.Margin = new Padding(3, 4, 3, 4);
             panel3.Name = "panel3";
-            panel3.Size = new Size(224, 6);
+            panel3.Size = new Size(256, 8);
             panel3.TabIndex = 3;
             // 
             // confirmarpasspanel
             // 
-            confirmarpasspanel.Location = new Point(11, 115);
+            confirmarpasspanel.Location = new Point(13, 153);
+            confirmarpasspanel.Margin = new Padding(3, 4, 3, 4);
             confirmarpasspanel.Name = "confirmarpasspanel";
-            confirmarpasspanel.Size = new Size(231, 23);
+            confirmarpasspanel.Size = new Size(263, 27);
             confirmarpasspanel.TabIndex = 2;
             confirmarpasspanel.UseSystemPasswordChar = true;
             // 
@@ -404,9 +427,9 @@
             adminlabel.AutoSize = true;
             adminlabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             adminlabel.ForeColor = SystemColors.Control;
-            adminlabel.Location = new Point(11, 80);
+            adminlabel.Location = new Point(13, 107);
             adminlabel.Name = "adminlabel";
-            adminlabel.Size = new Size(129, 21);
+            adminlabel.Size = new Size(160, 28);
             adminlabel.TabIndex = 1;
             adminlabel.Text = "Administrador: ";
             adminlabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -415,9 +438,9 @@
             // 
             label8.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label8.ForeColor = SystemColors.Control;
-            label8.Location = new Point(11, 3);
+            label8.Location = new Point(13, 4);
             label8.Name = "label8";
-            label8.Size = new Size(231, 52);
+            label8.Size = new Size(264, 69);
             label8.TabIndex = 1;
             label8.Text = "Coloque su contraseña para eliminar a este usuario";
             label8.TextAlign = ContentAlignment.MiddleCenter;
@@ -426,9 +449,10 @@
             // 
             cancelarbtn.Image = Properties.Resources.salida;
             cancelarbtn.ImageAlign = ContentAlignment.MiddleLeft;
-            cancelarbtn.Location = new Point(137, 148);
+            cancelarbtn.Location = new Point(157, 197);
+            cancelarbtn.Margin = new Padding(3, 4, 3, 4);
             cancelarbtn.Name = "cancelarbtn";
-            cancelarbtn.Size = new Size(105, 44);
+            cancelarbtn.Size = new Size(120, 59);
             cancelarbtn.TabIndex = 0;
             cancelarbtn.Text = "     Cancelar";
             cancelarbtn.UseVisualStyleBackColor = true;
@@ -438,9 +462,10 @@
             // 
             eliminarusuariobtn.Image = Properties.Resources.basura;
             eliminarusuariobtn.ImageAlign = ContentAlignment.MiddleLeft;
-            eliminarusuariobtn.Location = new Point(11, 148);
+            eliminarusuariobtn.Location = new Point(13, 197);
+            eliminarusuariobtn.Margin = new Padding(3, 4, 3, 4);
             eliminarusuariobtn.Name = "eliminarusuariobtn";
-            eliminarusuariobtn.Size = new Size(105, 44);
+            eliminarusuariobtn.Size = new Size(120, 59);
             eliminarusuariobtn.TabIndex = 0;
             eliminarusuariobtn.Text = "      Eliminar";
             eliminarusuariobtn.UseVisualStyleBackColor = true;
@@ -451,18 +476,20 @@
             ConfirmPanelTransp.BackColor = Color.Silver;
             ConfirmPanelTransp.Controls.Add(pictureBox3);
             ConfirmPanelTransp.Controls.Add(pictureBox2);
-            ConfirmPanelTransp.Location = new Point(764, 363);
+            ConfirmPanelTransp.Location = new Point(873, 484);
+            ConfirmPanelTransp.Margin = new Padding(3, 4, 3, 4);
             ConfirmPanelTransp.Name = "ConfirmPanelTransp";
-            ConfirmPanelTransp.Size = new Size(876, 371);
+            ConfirmPanelTransp.Size = new Size(1001, 495);
             ConfirmPanelTransp.TabIndex = 36;
             ConfirmPanelTransp.Visible = false;
             // 
             // pictureBox3
             // 
             pictureBox3.Image = Properties.Resources.alerta;
-            pictureBox3.Location = new Point(599, 94);
+            pictureBox3.Location = new Point(685, 125);
+            pictureBox3.Margin = new Padding(3, 4, 3, 4);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(275, 206);
+            pictureBox3.Size = new Size(314, 275);
             pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox3.TabIndex = 0;
             pictureBox3.TabStop = false;
@@ -470,19 +497,20 @@
             // pictureBox2
             // 
             pictureBox2.Image = Properties.Resources.alerta;
-            pictureBox2.Location = new Point(3, 94);
+            pictureBox2.Location = new Point(3, 125);
+            pictureBox2.Margin = new Padding(3, 4, 3, 4);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(275, 206);
+            pictureBox2.Size = new Size(314, 275);
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 0;
             pictureBox2.TabStop = false;
             // 
             // MantUsuarios
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.WindowFrame;
-            ClientSize = new Size(877, 373);
+            ClientSize = new Size(1051, 497);
             Controls.Add(instrucciones);
             Controls.Add(panelconfirmacion);
             Controls.Add(ConfirmPanelTransp);
@@ -511,9 +539,10 @@
             Controls.Add(txtnuevapass);
             Controls.Add(txtRegistroPass);
             Controls.Add(txtRegistroUsuario);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "MantUsuarios";
             ShowInTaskbar = false;
-            StartPosition = FormStartPosition.CenterScreen;
+            StartPosition = FormStartPosition.Manual;
             Text = "Mantenimiento de Usuarios || Creando...";
             Load += MantUsuarios_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

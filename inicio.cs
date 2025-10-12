@@ -46,14 +46,18 @@ namespace Proyecto_restaurante
 
                             if (privilegio == 1)
                             {
-                                menu.toolStripMenuItem2.Enabled = true; 
+                                menu.button1.Visible = true;
+                                menu.ajustesbtn.Visible = true;
+                                menu.panel5.BackColor = Color.Gold;
                             }
                             else
                             {
-                                menu.toolStripMenuItem2.Enabled = false; 
+                                menu.button1.Visible = false;
+                                menu.ajustesbtn.Visible = false;
+                                menu.panel5.BackColor = Color.Green;
                             }
 
-                            menu.usuariolabel.Text = "USUARIO ACTUAL: " + txtusuario.Text;
+                            menu.usuariolabel.Text = "USUARIO ACTUAL: \n" + txtusuario.Text;
                             menu.usuarioActual = txtusuario.Text;
                             menu.Show();
 
