@@ -260,7 +260,6 @@ namespace Proyecto_restaurante
             }
         }
 
-
         private void RestablecerFormulario()
         {
             estadochk.Enabled = false;

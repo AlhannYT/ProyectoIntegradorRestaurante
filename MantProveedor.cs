@@ -206,7 +206,7 @@ namespace Proyecto_restaurante
                 }
             }
 
-            string consulta = "select * from proveedor";
+            string consulta = "select  id, nombre_proveedor, documento, numero_telefono, correo_electronico from proveedor";
 
             SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
 

@@ -19,7 +19,7 @@ namespace Proyecto_restaurante
             InitializeComponent();
         }
 
-        private string CodigoProductoActual;
+        public string CodigoProductoActual;
         private int idProducto = 0;
 
         private void guardarbtn_Click(object sender, EventArgs e)
@@ -215,40 +215,7 @@ namespace Proyecto_restaurante
                 }
             }
 
-            string consulta = "select * from productos";
-
-            SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
-
-            DataTable dt = new DataTable();
-
-            adaptador.Fill(dt);
-
-            tabladatos.DataSource = dt;
-        }
-
-        private void tabladatos_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            this.Text = "Mantenimiento de Productos || Editando...";
-
-            idProducto = Convert.ToInt32(tabladatos.SelectedCells[0].Value);
-
-
-            txtcodigo_producto.Text = tabladatos.SelectedCells[1].Value.ToString();
-            CodigoProductoActual = txtcodigo_producto.Text;
             string codigoProducto = txtcodigo_producto.Text;
-            txtnombre_prod.Text = tabladatos.SelectedCells[2].Value.ToString();
-            categoriacmbx.Text = tabladatos.SelectedCells[3].Value.ToString();
-            txtprecio_compra.Text = tabladatos.SelectedCells[4].Value.ToString();
-            txtprecio_venta.Text = tabladatos.SelectedCells[5].Value.ToString();
-            txtexistencia.Text = tabladatos.SelectedCells[6].Value.ToString();
-
-            decimal ivaValue = Convert.ToDecimal(tabladatos.SelectedCells[7].Value);
-            ivacmbx.Text = (ivaValue * 100).ToString("F2");
-
-            txtcodigo_barras.Text = tabladatos.SelectedCells[8].Value.ToString();
-            proveedorcmbx.Text = tabladatos.SelectedCells[9].Value.ToString();
-            estadochk.Checked = Convert.ToBoolean(tabladatos.SelectedCells[10].Value);
-
             string rutaImagenes = @"C:\CarpetaDeImagenesProductos\";
             string rutaImagenProducto = Path.Combine(rutaImagenes, codigoProducto + ".jpg");
 
@@ -258,10 +225,12 @@ namespace Proyecto_restaurante
             }
             else
             {
-                imagenproducto.Image = null;
-                MessageBox.Show("Imagen no encontrada para el producto seleccionado.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //MessageBox.Show("Imagen no encontrada para el producto seleccionado.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+
         }
+
+
 
         private void recargarbtn_Click(object sender, EventArgs e)
         {
@@ -310,65 +279,7 @@ namespace Proyecto_restaurante
             }
         }
 
-        private void txtbuscador_Enter(object sender, EventArgs e)
-        {
-            if (txtbuscador.Text == "(ID, Codigo, Nombre, Categoria, Codigo de Barras, Proveedor)")
-            {
-                txtbuscador.Text = "";
-                txtbuscador.ForeColor = Color.Black;
-            }
-        }
 
-        private void txtbuscador_Leave(object sender, EventArgs e)
-        {
-            if (txtbuscador.Text == "")
-            {
-                txtbuscador.Text = "(ID, Codigo, Nombre, Categoria, Codigo de Barras, Proveedor)";
-                txtbuscador.ForeColor = Color.Gray;
-                MantProductos_Load(sender, e);
-            }
-        }
-
-        private void FiltroDatosBusqueda(string busqueda)
-        {
-            string conexionString = ConexionBD.ConexionSQL();
-
-            using (SqlConnection conectar = new SqlConnection(conexionString))
-            {
-                try
-                {
-                    conectar.Open();
-
-                    string query = @"
-                        SELECT * FROM productos
-                        WHERE CAST(id AS VARCHAR) LIKE @buscar OR
-                        codigo_producto LIKE @buscar OR
-                        nombre_producto LIKE @buscar OR
-                        categoria LIKE @buscar OR
-                        proveedor LIKE @buscar";
-
-                    using (SqlCommand comando = new SqlCommand(query, conectar))
-                    {
-                        comando.Parameters.AddWithValue("@buscar", "%" + busqueda + "%");
-
-                        SqlDataAdapter da = new SqlDataAdapter(comando);
-                        DataTable dt = new DataTable();
-                        da.Fill(dt);
-
-                        tabladatos.DataSource = dt;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error: {ex.Message}");
-                }
-            }
-        }
-
-        private void txtbuscador_TextChanged(object sender, EventArgs e)
-        {
-            FiltroDatosBusqueda(txtbuscador.Text);
-        }
 
         private void txtnombre_prod_TextChanged(object sender, EventArgs e)
         {
@@ -470,10 +381,9 @@ namespace Proyecto_restaurante
             }
         }
 
-        private void eliminarbtn_Click(object sender, EventArgs e)
+        private void txtcodigo_producto_TextChanged(object sender, EventArgs e)
         {
-            txtbuscador.Text = "(ID, Codigo, Nombre, Categoria, Codigo de Barras, Proveedor)";
-            limpiarbtn_Click(sender, e);
+            seleccionimagenbtn.Enabled = !string.IsNullOrWhiteSpace(txtcodigo_barras.Text);
         }
     }
 }

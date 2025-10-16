@@ -154,16 +154,16 @@ namespace Proyecto_restaurante
         {
             foreach (Form f in this.MdiChildren)
             {
-                if (f is MantProductos)
+                if (f is ConsProductos)
                 {
                     f.BringToFront();
                     return;
                 }
             }
-            MantProductos mantProductos = new MantProductos();
-            mantProductos.Location = new Point(561, 50);
-            mantProductos.MdiParent = this;
-            mantProductos.Show();
+            ConsProductos ConsProductos = new ConsProductos();
+            ConsProductos.Location = new Point(561, 50);
+            ConsProductos.MdiParent = this;
+            ConsProductos.Show();
         }
 
         private void button10_Click(object sender, EventArgs e)
@@ -215,6 +215,11 @@ namespace Proyecto_restaurante
             mantCaj.Location = new Point(561, 50);
             mantCaj.MdiParent = this;
             mantCaj.Show();
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

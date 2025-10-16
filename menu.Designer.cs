@@ -51,6 +51,7 @@
             panel4 = new Panel();
             pictureBox1 = new PictureBox();
             panel6 = new Panel();
+            reservacion = new Button();
             button11 = new Button();
             ajustestxt = new Label();
             ajustesbtn = new Button();
@@ -67,8 +68,9 @@
             usuariolabel.AutoSize = true;
             usuariolabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             usuariolabel.Location = new Point(2, 2);
+            usuariolabel.Margin = new Padding(2, 0, 2, 0);
             usuariolabel.Name = "usuariolabel";
-            usuariolabel.Size = new Size(181, 28);
+            usuariolabel.Size = new Size(145, 21);
             usuariolabel.TabIndex = 2;
             usuariolabel.Text = "USUARIO ACTUAL: ";
             // 
@@ -77,38 +79,38 @@
             panel1.BackColor = Color.White;
             panel1.Controls.Add(panel5);
             panel1.Controls.Add(usuariolabel);
-            panel1.Location = new Point(99, 12);
-            panel1.Margin = new Padding(3, 4, 3, 4);
+            panel1.Location = new Point(79, 10);
+            panel1.Margin = new Padding(2, 3, 2, 3);
             panel1.Name = "panel1";
-            panel1.Size = new Size(281, 75);
+            panel1.Size = new Size(225, 60);
             panel1.TabIndex = 3;
             // 
             // panel5
             // 
             panel5.BackColor = Color.Lime;
-            panel5.Location = new Point(-1, 61);
-            panel5.Margin = new Padding(3, 4, 3, 4);
+            panel5.Location = new Point(-1, 49);
+            panel5.Margin = new Padding(2, 3, 2, 3);
             panel5.Name = "panel5";
-            panel5.Size = new Size(282, 8);
+            panel5.Size = new Size(226, 6);
             panel5.TabIndex = 4;
             // 
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(0, 192, 0);
             panel2.Controls.Add(pictureBox2);
-            panel2.Location = new Point(13, 12);
-            panel2.Margin = new Padding(3, 4, 3, 4);
+            panel2.Location = new Point(10, 10);
+            panel2.Margin = new Padding(2, 3, 2, 3);
             panel2.Name = "panel2";
-            panel2.Size = new Size(87, 76);
+            panel2.Size = new Size(70, 61);
             panel2.TabIndex = 4;
             // 
             // pictureBox2
             // 
             pictureBox2.Image = Properties.Resources.perfil_blanco;
-            pictureBox2.Location = new Point(2, 3);
-            pictureBox2.Margin = new Padding(3, 4, 3, 4);
+            pictureBox2.Location = new Point(2, 2);
+            pictureBox2.Margin = new Padding(2, 3, 2, 3);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(82, 71);
+            pictureBox2.Size = new Size(66, 57);
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 0;
             pictureBox2.TabStop = false;
@@ -117,8 +119,8 @@
             // 
             panel3.AutoSize = true;
             panel3.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            panel3.Location = new Point(56, 77);
-            panel3.Margin = new Padding(3, 4, 3, 4);
+            panel3.Location = new Point(45, 62);
+            panel3.Margin = new Padding(2, 3, 2, 3);
             panel3.Name = "panel3";
             panel3.Size = new Size(0, 0);
             panel3.TabIndex = 5;
@@ -128,10 +130,10 @@
             cerrarbtn.BackColor = Color.Red;
             cerrarbtn.FlatStyle = FlatStyle.Flat;
             cerrarbtn.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            cerrarbtn.Location = new Point(386, 11);
-            cerrarbtn.Margin = new Padding(3, 4, 3, 4);
+            cerrarbtn.Location = new Point(309, 9);
+            cerrarbtn.Margin = new Padding(2, 3, 2, 3);
             cerrarbtn.Name = "cerrarbtn";
-            cerrarbtn.Size = new Size(143, 78);
+            cerrarbtn.Size = new Size(114, 62);
             cerrarbtn.TabIndex = 13;
             cerrarbtn.Text = "Cerrar Sesión";
             cerrarbtn.UseVisualStyleBackColor = false;
@@ -141,9 +143,10 @@
             // 
             button1.BackColor = Color.Gold;
             button1.Image = Properties.Resources.persona1;
-            button1.Location = new Point(408, 173);
+            button1.Location = new Point(328, 138);
+            button1.Margin = new Padding(2);
             button1.Name = "button1";
-            button1.Size = new Size(130, 81);
+            button1.Size = new Size(104, 65);
             button1.TabIndex = 8;
             button1.Text = "Usuarios";
             button1.TextAlign = ContentAlignment.BottomCenter;
@@ -153,9 +156,10 @@
             // button2
             // 
             button2.Image = Properties.Resources.cliente1;
-            button2.Location = new Point(142, 70);
+            button2.Location = new Point(113, 56);
+            button2.Margin = new Padding(2);
             button2.Name = "button2";
-            button2.Size = new Size(130, 81);
+            button2.Size = new Size(104, 65);
             button2.TabIndex = 2;
             button2.Text = "Clientes";
             button2.TextAlign = ContentAlignment.BottomCenter;
@@ -165,9 +169,10 @@
             // button3
             // 
             button3.Image = Properties.Resources.categoria;
-            button3.Location = new Point(275, 70);
+            button3.Location = new Point(221, 56);
+            button3.Margin = new Padding(2);
             button3.Name = "button3";
-            button3.Size = new Size(130, 81);
+            button3.Size = new Size(104, 65);
             button3.TabIndex = 3;
             button3.Text = "Categorias";
             button3.TextAlign = ContentAlignment.BottomCenter;
@@ -177,9 +182,10 @@
             // button4
             // 
             button4.Image = Properties.Resources.sala;
-            button4.Location = new Point(408, 70);
+            button4.Location = new Point(328, 56);
+            button4.Margin = new Padding(2);
             button4.Name = "button4";
-            button4.Size = new Size(130, 81);
+            button4.Size = new Size(104, 65);
             button4.TabIndex = 4;
             button4.Text = "Salas";
             button4.TextAlign = ContentAlignment.BottomCenter;
@@ -189,9 +195,10 @@
             // button5
             // 
             button5.Image = Properties.Resources.producto;
-            button5.Location = new Point(7, 70);
+            button5.Location = new Point(6, 56);
+            button5.Margin = new Padding(2);
             button5.Name = "button5";
-            button5.Size = new Size(130, 81);
+            button5.Size = new Size(104, 65);
             button5.TabIndex = 1;
             button5.Text = "Articulos";
             button5.TextAlign = ContentAlignment.BottomCenter;
@@ -201,9 +208,10 @@
             // button6
             // 
             button6.Image = Properties.Resources.proveedor1;
-            button6.Location = new Point(275, 173);
+            button6.Location = new Point(221, 138);
+            button6.Margin = new Padding(2);
             button6.Name = "button6";
-            button6.Size = new Size(130, 81);
+            button6.Size = new Size(104, 65);
             button6.TabIndex = 7;
             button6.Text = "Proveedores";
             button6.TextAlign = ContentAlignment.BottomCenter;
@@ -213,9 +221,10 @@
             // button7
             // 
             button7.Image = Properties.Resources.caja;
-            button7.Location = new Point(142, 173);
+            button7.Location = new Point(113, 138);
+            button7.Margin = new Padding(2);
             button7.Name = "button7";
-            button7.Size = new Size(130, 81);
+            button7.Size = new Size(104, 65);
             button7.TabIndex = 6;
             button7.Text = "Cajas";
             button7.TextAlign = ContentAlignment.BottomCenter;
@@ -225,9 +234,10 @@
             // button8
             // 
             button8.Image = Properties.Resources.mesa;
-            button8.Location = new Point(7, 173);
+            button8.Location = new Point(6, 138);
+            button8.Margin = new Padding(2);
             button8.Name = "button8";
-            button8.Size = new Size(130, 81);
+            button8.Size = new Size(104, 65);
             button8.TabIndex = 5;
             button8.Text = "Mesas";
             button8.TextAlign = ContentAlignment.BottomCenter;
@@ -239,18 +249,20 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(4, 13);
+            label1.Location = new Point(3, 10);
+            label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(249, 41);
+            label1.Size = new Size(201, 32);
             label1.TabIndex = 14;
             label1.Text = "Mantenimientos";
             // 
             // button9
             // 
             button9.Image = Properties.Resources.carrito32x;
-            button9.Location = new Point(142, 344);
+            button9.Location = new Point(114, 275);
+            button9.Margin = new Padding(2);
             button9.Name = "button9";
-            button9.Size = new Size(130, 81);
+            button9.Size = new Size(104, 65);
             button9.TabIndex = 10;
             button9.Text = "Compras";
             button9.TextAlign = ContentAlignment.BottomCenter;
@@ -260,9 +272,10 @@
             // button10
             // 
             button10.Image = Properties.Resources.pedido;
-            button10.Location = new Point(7, 344);
+            button10.Location = new Point(6, 275);
+            button10.Margin = new Padding(2);
             button10.Name = "button10";
-            button10.Size = new Size(130, 81);
+            button10.Size = new Size(104, 65);
             button10.TabIndex = 9;
             button10.Text = "Pedidos";
             button10.TextAlign = ContentAlignment.BottomCenter;
@@ -274,9 +287,10 @@
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 18F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(4, 289);
+            label2.Location = new Point(3, 231);
+            label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
-            label2.Size = new Size(140, 41);
+            label2.Size = new Size(116, 32);
             label2.TabIndex = 17;
             label2.Text = "Procesos";
             // 
@@ -292,17 +306,19 @@
             panel4.Controls.Add(pictureBox1);
             panel4.Dock = DockStyle.Top;
             panel4.Location = new Point(0, 0);
+            panel4.Margin = new Padding(2);
             panel4.Name = "panel4";
-            panel4.Size = new Size(1582, 106);
+            panel4.Size = new Size(1266, 85);
             panel4.TabIndex = 18;
             // 
             // pictureBox1
             // 
             pictureBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             pictureBox1.Image = Properties.Resources.logo_completo;
-            pictureBox1.Location = new Point(937, 0);
+            pictureBox1.Location = new Point(668, 0);
+            pictureBox1.Margin = new Padding(2);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(643, 104);
+            pictureBox1.Size = new Size(596, 83);
             pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox1.TabIndex = 6;
             pictureBox1.TabStop = false;
@@ -312,6 +328,7 @@
             panel6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             panel6.BackColor = SystemColors.WindowFrame;
             panel6.BorderStyle = BorderStyle.FixedSingle;
+            panel6.Controls.Add(reservacion);
             panel6.Controls.Add(button11);
             panel6.Controls.Add(ajustestxt);
             panel6.Controls.Add(ajustesbtn);
@@ -327,22 +344,37 @@
             panel6.Controls.Add(button5);
             panel6.Controls.Add(button7);
             panel6.Controls.Add(button6);
-            panel6.Location = new Point(0, 106);
+            panel6.Location = new Point(0, 85);
+            panel6.Margin = new Padding(2);
             panel6.Name = "panel6";
-            panel6.Size = new Size(555, 706);
+            panel6.Size = new Size(444, 565);
             panel6.TabIndex = 19;
+            // 
+            // reservacion
+            // 
+            reservacion.Image = Properties.Resources.recepcion;
+            reservacion.Location = new Point(222, 275);
+            reservacion.Margin = new Padding(2);
+            reservacion.Name = "reservacion";
+            reservacion.Size = new Size(104, 65);
+            reservacion.TabIndex = 20;
+            reservacion.Text = "Reservación";
+            reservacion.TextAlign = ContentAlignment.BottomCenter;
+            reservacion.UseVisualStyleBackColor = true;
             // 
             // button11
             // 
             button11.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             button11.Image = Properties.Resources.ajuste;
-            button11.Location = new Point(9, 596);
+            button11.Location = new Point(7, 477);
+            button11.Margin = new Padding(2);
             button11.Name = "button11";
-            button11.Size = new Size(130, 81);
+            button11.Size = new Size(104, 65);
             button11.TabIndex = 11;
             button11.Text = "Generales";
             button11.TextAlign = ContentAlignment.BottomCenter;
             button11.UseVisualStyleBackColor = true;
+            button11.Click += button11_Click;
             // 
             // ajustestxt
             // 
@@ -350,9 +382,10 @@
             ajustestxt.AutoSize = true;
             ajustestxt.Font = new Font("Segoe UI", 18F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
             ajustestxt.ForeColor = Color.White;
-            ajustestxt.Location = new Point(4, 543);
+            ajustestxt.Location = new Point(3, 434);
+            ajustestxt.Margin = new Padding(2, 0, 2, 0);
             ajustestxt.Name = "ajustestxt";
-            ajustestxt.Size = new Size(286, 41);
+            ajustestxt.Size = new Size(232, 32);
             ajustestxt.TabIndex = 19;
             ajustestxt.Text = "Ajustes del sistema";
             // 
@@ -361,9 +394,10 @@
             ajustesbtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             ajustesbtn.BackColor = Color.Gold;
             ajustesbtn.Image = Properties.Resources.seguro;
-            ajustesbtn.Location = new Point(142, 596);
+            ajustesbtn.Location = new Point(114, 477);
+            ajustesbtn.Margin = new Padding(2);
             ajustesbtn.Name = "ajustesbtn";
-            ajustesbtn.Size = new Size(130, 81);
+            ajustesbtn.Size = new Size(104, 65);
             ajustesbtn.TabIndex = 12;
             ajustesbtn.Text = "Administrativos";
             ajustesbtn.TextAlign = ContentAlignment.BottomCenter;
@@ -371,18 +405,21 @@
             // 
             // menu
             // 
-            AutoScaleDimensions = new SizeF(120F, 120F);
+            AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             AutoSize = true;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            BackColor = SystemColors.WindowFrame;
-            ClientSize = new Size(1582, 812);
+            BackColor = Color.Silver;
+            BackgroundImage = Properties.Resources.tenedor1;
+            BackgroundImageLayout = ImageLayout.Center;
+            ClientSize = new Size(1266, 650);
             Controls.Add(panel6);
             Controls.Add(panel4);
+            DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             IsMdiContainer = true;
-            Margin = new Padding(3, 4, 3, 4);
+            Margin = new Padding(2, 3, 2, 3);
             Name = "menu";
             Text = "Menu";
             WindowState = FormWindowState.Maximized;
@@ -425,5 +462,6 @@
         public Panel panel1;
         public Panel panel5;
         private PictureBox pictureBox1;
+        private Button reservacion;
     }
 }

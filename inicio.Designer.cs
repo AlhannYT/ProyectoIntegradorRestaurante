@@ -52,10 +52,9 @@
             pictureBox1.BackColor = Color.Transparent;
             pictureBox1.BorderStyle = BorderStyle.FixedSingle;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(245, 77);
-            pictureBox1.Margin = new Padding(3, 4, 3, 4);
+            pictureBox1.Location = new Point(214, 58);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(162, 175);
+            pictureBox1.Size = new Size(142, 132);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
@@ -65,9 +64,9 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F);
             label1.ForeColor = SystemColors.ControlLightLight;
-            label1.Location = new Point(191, 307);
+            label1.Location = new Point(167, 230);
             label1.Name = "label1";
-            label1.Size = new Size(79, 28);
+            label1.Size = new Size(64, 21);
             label1.TabIndex = 1;
             label1.Text = "Usuario";
             // 
@@ -76,38 +75,35 @@
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F);
             label2.ForeColor = SystemColors.ControlLightLight;
-            label2.Location = new Point(191, 370);
+            label2.Location = new Point(167, 278);
             label2.Name = "label2";
-            label2.Size = new Size(110, 28);
+            label2.Size = new Size(89, 21);
             label2.TabIndex = 1;
             label2.Text = "Contraseña";
             // 
             // txtusuario
             // 
-            txtusuario.Location = new Point(303, 308);
-            txtusuario.Margin = new Padding(3, 4, 3, 4);
+            txtusuario.Location = new Point(265, 231);
             txtusuario.Name = "txtusuario";
-            txtusuario.Size = new Size(131, 27);
+            txtusuario.Size = new Size(115, 23);
             txtusuario.TabIndex = 0;
             txtusuario.TextChanged += txtusuario_TextChanged;
             txtusuario.KeyPress += txtusuario_KeyPress;
             // 
             // txtpass
             // 
-            txtpass.Location = new Point(303, 371);
-            txtpass.Margin = new Padding(3, 4, 3, 4);
+            txtpass.Location = new Point(265, 278);
             txtpass.Name = "txtpass";
-            txtpass.Size = new Size(131, 27);
+            txtpass.Size = new Size(115, 23);
             txtpass.TabIndex = 1;
             txtpass.UseSystemPasswordChar = true;
             txtpass.KeyPress += txtpass_KeyPress;
             // 
             // iniciobtn
             // 
-            iniciobtn.Location = new Point(245, 433);
-            iniciobtn.Margin = new Padding(3, 4, 3, 4);
+            iniciobtn.Location = new Point(214, 325);
             iniciobtn.Name = "iniciobtn";
-            iniciobtn.Size = new Size(162, 39);
+            iniciobtn.Size = new Size(142, 29);
             iniciobtn.TabIndex = 3;
             iniciobtn.Text = "Iniciar Sesión";
             iniciobtn.UseVisualStyleBackColor = true;
@@ -116,20 +112,18 @@
             // panel1
             // 
             panel1.BackColor = SystemColors.Highlight;
-            panel1.Location = new Point(117, 273);
-            panel1.Margin = new Padding(3, 4, 3, 4);
+            panel1.Location = new Point(99, 201);
             panel1.Name = "panel1";
-            panel1.Size = new Size(418, 8);
+            panel1.Size = new Size(366, 6);
             panel1.TabIndex = 4;
             // 
             // passView
             // 
             passView.Appearance = Appearance.Button;
             passView.Image = Properties.Resources.ojo;
-            passView.Location = new Point(441, 371);
-            passView.Margin = new Padding(3, 4, 3, 4);
+            passView.Location = new Point(386, 278);
             passView.Name = "passView";
-            passView.Size = new Size(31, 27);
+            passView.Size = new Size(27, 20);
             passView.TabIndex = 6;
             passView.UseVisualStyleBackColor = true;
             passView.CheckedChanged += passView_CheckedChanged;
@@ -137,10 +131,9 @@
             // pictureBox2
             // 
             pictureBox2.Image = Properties.Resources.restaurantes_moda_barcelona_roka_6475ba03ee8bc;
-            pictureBox2.Location = new Point(-17, 44);
-            pictureBox2.Margin = new Padding(3, 4, 3, 4);
+            pictureBox2.Location = new Point(-15, 33);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(662, 492);
+            pictureBox2.Size = new Size(601, 396);
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 7;
             pictureBox2.TabStop = false;
@@ -152,10 +145,9 @@
             button1.FlatStyle = FlatStyle.Flat;
             button1.Image = Properties.Resources.minimizar_ventana__1_;
             button1.ImageAlign = ContentAlignment.TopCenter;
-            button1.Location = new Point(564, 4);
-            button1.Margin = new Padding(3, 4, 3, 4);
+            button1.Location = new Point(494, 3);
             button1.Name = "button1";
-            button1.Size = new Size(33, 36);
+            button1.Size = new Size(29, 27);
             button1.TabIndex = 3;
             button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
@@ -165,9 +157,9 @@
             iniciolabel.AutoSize = true;
             iniciolabel.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             iniciolabel.ForeColor = Color.White;
-            iniciolabel.Location = new Point(255, 9);
+            iniciolabel.Location = new Point(223, 7);
             iniciolabel.Name = "iniciolabel";
-            iniciolabel.Size = new Size(144, 25);
+            iniciolabel.Size = new Size(113, 20);
             iniciolabel.TabIndex = 8;
             iniciolabel.Text = "Inicio de Sesion";
             // 
@@ -178,20 +170,19 @@
             button2.FlatStyle = FlatStyle.Flat;
             button2.Image = Properties.Resources.cruz__1_;
             button2.ImageAlign = ContentAlignment.TopCenter;
-            button2.Location = new Point(604, 4);
-            button2.Margin = new Padding(3, 4, 3, 4);
+            button2.Location = new Point(528, 3);
             button2.Name = "button2";
-            button2.Size = new Size(33, 36);
+            button2.Size = new Size(29, 27);
             button2.TabIndex = 3;
             button2.UseVisualStyleBackColor = false;
             button2.Click += button2_Click;
             // 
             // inicio
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
-            ClientSize = new Size(645, 491);
+            ClientSize = new Size(564, 368);
             Controls.Add(pictureBox1);
             Controls.Add(iniciolabel);
             Controls.Add(passView);
@@ -207,7 +198,6 @@
             ForeColor = SystemColors.ControlText;
             FormBorderStyle = FormBorderStyle.None;
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Margin = new Padding(3, 4, 3, 4);
             Name = "inicio";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Inicio De Sesion";
