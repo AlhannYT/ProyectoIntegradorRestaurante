@@ -1,6 +1,6 @@
 ﻿namespace Proyecto_restaurante
 {
-    partial class ConsultaClientes
+    partial class ConsClientes
     {
         /// <summary>
         /// Required designer variable.
@@ -30,10 +30,12 @@
         {
             txtbuscador = new TextBox();
             tabladatos = new DataGridView();
-            panel1 = new Panel();
             label1 = new Label();
             label2 = new Label();
             eliminarbtn = new Button();
+            label3 = new Label();
+            Editar = new Button();
+            agregar = new Button();
             ((System.ComponentModel.ISupportInitialize)tabladatos).BeginInit();
             SuspendLayout();
             // 
@@ -53,29 +55,21 @@
             // 
             tabladatos.AllowUserToAddRows = false;
             tabladatos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            tabladatos.Location = new Point(12, 131);
+            tabladatos.Location = new Point(12, 106);
             tabladatos.Name = "tabladatos";
             tabladatos.ReadOnly = true;
             tabladatos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tabladatos.Size = new Size(543, 307);
+            tabladatos.Size = new Size(543, 332);
             tabladatos.TabIndex = 1;
-            // 
-            // panel1
-            // 
-            panel1.BackColor = Color.Red;
-            panel1.Location = new Point(12, 110);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(543, 10);
-            panel1.TabIndex = 2;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 21.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = SystemColors.Control;
-            label1.Location = new Point(145, 9);
+            label1.Location = new Point(216, 9);
             label1.Name = "label1";
-            label1.Size = new Size(276, 40);
+            label1.Size = new Size(295, 40);
             label1.TabIndex = 3;
             label1.Text = "Consulta de Clientes";
             // 
@@ -92,7 +86,7 @@
             // 
             // eliminarbtn
             // 
-            eliminarbtn.Image = Properties.Resources.basura;
+            eliminarbtn.Image = Properties.Resources.limpio;
             eliminarbtn.Location = new Point(526, 76);
             eliminarbtn.Name = "eliminarbtn";
             eliminarbtn.Size = new Size(29, 24);
@@ -100,20 +94,56 @@
             eliminarbtn.UseVisualStyleBackColor = true;
             eliminarbtn.Click += eliminarbtn_Click;
             // 
-            // ConsultaClientes
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 18F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
+            label3.ForeColor = SystemColors.Control;
+            label3.Location = new Point(583, 69);
+            label3.Name = "label3";
+            label3.Size = new Size(116, 32);
+            label3.TabIndex = 48;
+            label3.Text = "Acciones";
+            // 
+            // Editar
+            // 
+            Editar.Image = Properties.Resources.editarcliente1;
+            Editar.Location = new Point(560, 184);
+            Editar.Name = "Editar";
+            Editar.Size = new Size(159, 72);
+            Editar.TabIndex = 46;
+            Editar.Text = "Editar";
+            Editar.TextAlign = ContentAlignment.BottomCenter;
+            Editar.UseVisualStyleBackColor = true;
+            // 
+            // agregar
+            // 
+            agregar.Image = Properties.Resources.cliente1;
+            agregar.Location = new Point(560, 106);
+            agregar.Name = "agregar";
+            agregar.Size = new Size(159, 72);
+            agregar.TabIndex = 47;
+            agregar.Text = "Nuevo";
+            agregar.TextAlign = ContentAlignment.BottomCenter;
+            agregar.UseVisualStyleBackColor = true;
+            agregar.Click += agregar_Click;
+            // 
+            // ConsClientes
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlDarkDark;
-            ClientSize = new Size(565, 450);
+            ClientSize = new Size(727, 450);
+            Controls.Add(label3);
+            Controls.Add(Editar);
+            Controls.Add(agregar);
             Controls.Add(eliminarbtn);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(panel1);
             Controls.Add(tabladatos);
             Controls.Add(txtbuscador);
-            Name = "ConsultaClientes";
-            StartPosition = FormStartPosition.CenterScreen;
+            Name = "ConsClientes";
+            StartPosition = FormStartPosition.Manual;
             Text = "ConsultaClientes";
             Load += ConsultaClientes_Load;
             ((System.ComponentModel.ISupportInitialize)tabladatos).EndInit();
@@ -125,9 +155,11 @@
 
         private TextBox txtbuscador;
         private DataGridView tabladatos;
-        private Panel panel1;
         private Label label1;
         private Label label2;
         private Button eliminarbtn;
+        private Label label3;
+        private Button Editar;
+        private Button agregar;
     }
 }

@@ -11,17 +11,21 @@ using System.Windows.Forms;
 
 namespace Proyecto_restaurante
 {
-    public partial class ConsultaClientes : Form
+    public partial class ConsClientes : Form
     {
-        public ConsultaClientes()
+        public ConsClientes()
         {
             InitializeComponent();
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint |
+                          ControlStyles.UserPaint |
+                          ControlStyles.OptimizedDoubleBuffer, true);
+            this.UpdateStyles();
         }
 
         private void ConsultaClientes_Load(object sender, EventArgs e)
         {
             string conexionString = ConexionBD.ConexionSQL();
-            string consulta = "select * from cliente";
+            string consulta = "select id, nombre_cliente, apellido_cliente, identificacion, telefono from cliente";
 
             SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
 
@@ -95,6 +99,22 @@ namespace Proyecto_restaurante
         private void txtbuscador_TextChanged(object sender, EventArgs e)
         {
             FiltroDatosBusqueda(txtbuscador.Text);
+        }
+
+        private void agregar_Click(object sender, EventArgs e)
+        {
+            foreach (Form f in this.MdiChildren)
+            {
+                if (f is MantClientes)
+                {
+                    f.BringToFront();
+                    return;
+                }
+            }
+            MantClientes mantClientes = new MantClientes();
+            mantClientes.Location = new Point(561, 50);
+            //CodigoProductoActual = "";
+            mantClientes.Show();
         }
     }
 }

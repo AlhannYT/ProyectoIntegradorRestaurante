@@ -121,7 +121,6 @@ namespace Proyecto_restaurante
                             if (rowsAffected > 0)
                             {
                                 MessageBox.Show("Cliente registrado con éxito.");
-                                MantClientes_Load(sender, e);
                                 limpiarbtn_Click(sender, e);
                                 RestablecerFormulario();
                             }
@@ -150,7 +149,6 @@ namespace Proyecto_restaurante
                                 MessageBox.Show("Cliente actualizado con éxito.");
                                 limpiarbtn_Click(sender, e);
                                 RestablecerFormulario();
-                                MantClientes_Load(sender, e);
                             }
                             else
                             {
@@ -249,90 +247,12 @@ namespace Proyecto_restaurante
             txtapellido.SelectionStart = posicion;
         }
 
-        private void txtbuscador_TextChanged(object sender, EventArgs e)
-        {
-            FiltroDatosBusqueda(txtbuscador.Text);
-        }
-
-
-        private void FiltroDatosBusqueda(string busqueda)
-        {
-            string conexionString = ConexionBD.ConexionSQL();
-
-            using (SqlConnection conectar = new SqlConnection(conexionString))
-            {
-                try
-                {
-                    conectar.Open();
-
-                    string query = @"
-                        SELECT * FROM cliente
-                        WHERE CAST(id AS VARCHAR) LIKE @buscar OR
-                        nombre_cliente LIKE @buscar OR
-                        apellido_cliente LIKE @buscar";
-
-                    using (SqlCommand comando = new SqlCommand(query, conectar))
-                    {
-                        comando.Parameters.AddWithValue("@buscar", "%" + busqueda + "%");
-
-                        SqlDataAdapter da = new SqlDataAdapter(comando);
-                        DataTable dt = new DataTable();
-                        da.Fill(dt);
-
-                        tabladatos.DataSource = dt;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error: {ex.Message}");
-                }
-            }
-        }
-
-        private void txtbuscador_Enter(object sender, EventArgs e)
-        {
-            if (txtbuscador.Text == "(ID, Nombre, Apellido)")
-            {
-                txtbuscador.Text = "";
-                txtbuscador.ForeColor = Color.Black;
-            }
-        }
-
-        private void txtbuscador_Leave(object sender, EventArgs e)
-        {
-            if (txtbuscador.Text == "")
-            {
-                txtbuscador.Text = "(ID, Nombre, Apellido)";
-                txtbuscador.ForeColor = Color.Gray;
-                MantClientes_Load(sender, e);
-            }
-        }
 
         private void MantClientes_Load(object sender, EventArgs e)
         {
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-
-            string conexionString = ConexionBD.ConexionSQL();
-
-            string consulta = "select * from cliente";
-
-            SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
-
-            DataTable dt = new DataTable();
-
-            adaptador.Fill(dt);
-
-            tabladatos.DataSource = dt;
+            
         }
 
-        private void eliminarbtn_Click(object sender, EventArgs e)
-        {
-            txtbuscador.Text = "(ID, Nombre, Apellido)";
-            txtbuscador.ForeColor = Color.Gray;
-            RestablecerFormulario();
-            MantClientes_Load(sender, e);
-        }
 
         private void estadochk_CheckedChanged(object sender, EventArgs e)
         {
@@ -351,12 +271,12 @@ namespace Proyecto_restaurante
 
         private void tabladatos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            txtnombre.Text = tabladatos.SelectedCells[1].Value.ToString();
-            nombreClienteActual=txtnombre.Text;
-            txtapellido.Text = tabladatos.SelectedCells[2].Value.ToString();
-            txtcedula.Text = tabladatos.SelectedCells[3].Value.ToString();
-            txtnumero.Text = tabladatos.SelectedCells[4].Value.ToString();
-            estadochk.Checked = Convert.ToBoolean(tabladatos.SelectedCells[5].Value);
+            //txtnombre.Text = tabladatos.SelectedCells[1].Value.ToString();
+            //nombreClienteActual=txtnombre.Text;
+            //txtapellido.Text = tabladatos.SelectedCells[2].Value.ToString();
+            //txtcedula.Text = tabladatos.SelectedCells[3].Value.ToString();
+            //txtnumero.Text = tabladatos.SelectedCells[4].Value.ToString();
+            //estadochk.Checked = Convert.ToBoolean(tabladatos.SelectedCells[5].Value);
         }
     }
 }

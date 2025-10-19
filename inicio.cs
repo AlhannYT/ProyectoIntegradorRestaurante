@@ -47,13 +47,11 @@ namespace Proyecto_restaurante
                             if (privilegio == 1)
                             {
                                 menu.button1.Visible = true;
-                                menu.ajustesbtn.Visible = true;
                                 menu.panel5.BackColor = Color.Gold;
                             }
                             else
                             {
                                 menu.button1.Visible = false;
-                                menu.ajustesbtn.Visible = false;
                                 menu.panel5.BackColor = Color.Green;
                             }
 

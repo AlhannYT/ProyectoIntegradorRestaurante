@@ -17,6 +17,10 @@ namespace Proyecto_restaurante
         public Compras()
         {
             InitializeComponent();
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint |
+                          ControlStyles.UserPaint |
+                          ControlStyles.OptimizedDoubleBuffer, true);
+            this.UpdateStyles();
         }
         private int compraID;
         private int cantidadProd = 0;

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,11 +16,14 @@ namespace Proyecto_restaurante
         public menu()
         {
             InitializeComponent();
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint |
+                          ControlStyles.UserPaint |
+                          ControlStyles.OptimizedDoubleBuffer, true);
+            this.UpdateStyles();
         }
 
         public string usuarioActual;
-
-
+        
         private void cerrarbtn_Click(object sender, EventArgs e)
         {
             inicio cerrarsesion = new inicio();
@@ -47,6 +51,9 @@ namespace Proyecto_restaurante
         {
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
+            barraizq.BringToFront();
+            barrasup.BringToFront();
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -72,17 +79,17 @@ namespace Proyecto_restaurante
         {
             foreach (Form f in this.MdiChildren)
             {
-                if (f is MantClientes)
+                if (f is ConsClientes)
                 {
                     f.BringToFront();
                     return;
                 }
             }
 
-            MantClientes mantClientes = new MantClientes();
-            mantClientes.Location = new Point(561, 50);
-            mantClientes.MdiParent = this;
-            mantClientes.Show();
+            ConsClientes consClientes = new ConsClientes();
+            consClientes.Location = new Point(561, 50);
+            consClientes.MdiParent = this;
+            consClientes.Show();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -152,6 +159,7 @@ namespace Proyecto_restaurante
 
         private void button5_Click(object sender, EventArgs e)
         {
+
             foreach (Form f in this.MdiChildren)
             {
                 if (f is ConsProductos)
@@ -163,7 +171,9 @@ namespace Proyecto_restaurante
             ConsProductos ConsProductos = new ConsProductos();
             ConsProductos.Location = new Point(561, 50);
             ConsProductos.MdiParent = this;
+
             ConsProductos.Show();
+
         }
 
         private void button10_Click(object sender, EventArgs e)
@@ -220,6 +230,65 @@ namespace Proyecto_restaurante
         private void button11_Click(object sender, EventArgs e)
         {
 
+        }
+
+        public int estadobarra = 1;
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+
+            if (estadobarra == 1)
+            {
+                barraizq.Width = 63;
+
+                foreach (Control ctrl in barraizq.Controls)
+                {
+                    if (ctrl is Button btn)
+                    {
+                        btn.Width = 42;
+                        btn.Text = ""; 
+                        btn.ImageAlign = ContentAlignment.MiddleCenter;
+                        label1.Text = "M";
+                        label2.Text = "P";
+                        ajustestxt.Text = "A";
+                    }
+                }
+
+                estadobarra = 0;
+            }
+            else
+            {
+                barraizq.Width = 241;
+
+                foreach (Control ctrl in barraizq.Controls)
+                {
+                    if (ctrl is Button btn)
+                    {
+                        btn.Width = 217;
+                        button12.Width = 42;
+                        button5.Text = "Articulos";
+                        button8.Text = "Mesas";
+                        button2.Text = "Clientes";
+                        button3.Text = "Categorias";
+                        button7.Text = "Cajas";
+                        button4.Text = "Salas";
+                        button5.Text = "Articulos";
+                        button6.Text = "Proveedores";
+                        button1.Text = "Usuarios";
+                        button10.Text = "Pedidos";
+                        button9.Text = "Compras";
+                        reservacion.Text = "Reservacion";
+                        button11.Text = "Ajustes Generales";
+                        btn.ImageAlign = ContentAlignment.MiddleRight;
+                        button12.ImageAlign = ContentAlignment.MiddleCenter;
+                        label1.Text = "Mantenimientos";
+                        label2.Text = "Procesos";
+                        ajustestxt.Text = "Ajustes";
+                    }
+                }
+
+                estadobarra = 1;
+            }
         }
     }
 }

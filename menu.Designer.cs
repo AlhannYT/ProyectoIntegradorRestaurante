@@ -48,19 +48,20 @@
             button9 = new Button();
             button10 = new Button();
             label2 = new Label();
-            panel4 = new Panel();
+            barrasup = new Panel();
             pictureBox1 = new PictureBox();
-            panel6 = new Panel();
+            barraizq = new Panel();
+            button12 = new Button();
             reservacion = new Button();
             button11 = new Button();
             ajustestxt = new Label();
-            ajustesbtn = new Button();
+            label3 = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
-            panel4.SuspendLayout();
+            barrasup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            panel6.SuspendLayout();
+            barraizq.SuspendLayout();
             SuspendLayout();
             // 
             // usuariolabel
@@ -134,7 +135,7 @@
             cerrarbtn.Margin = new Padding(2, 3, 2, 3);
             cerrarbtn.Name = "cerrarbtn";
             cerrarbtn.Size = new Size(114, 62);
-            cerrarbtn.TabIndex = 13;
+            cerrarbtn.TabIndex = 20;
             cerrarbtn.Text = "Cerrar Sesión";
             cerrarbtn.UseVisualStyleBackColor = false;
             cerrarbtn.Click += cerrarbtn_Click;
@@ -143,104 +144,112 @@
             // 
             button1.BackColor = Color.Gold;
             button1.Image = Properties.Resources.persona1;
-            button1.Location = new Point(328, 138);
+            button1.ImageAlign = ContentAlignment.MiddleRight;
+            button1.Location = new Point(9, 423);
             button1.Margin = new Padding(2);
             button1.Name = "button1";
-            button1.Size = new Size(104, 65);
-            button1.TabIndex = 8;
+            button1.Size = new Size(217, 40);
+            button1.TabIndex = 9;
             button1.Text = "Usuarios";
-            button1.TextAlign = ContentAlignment.BottomCenter;
+            button1.TextAlign = ContentAlignment.MiddleLeft;
             button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
             // 
             // button2
             // 
             button2.Image = Properties.Resources.cliente1;
-            button2.Location = new Point(113, 56);
+            button2.ImageAlign = ContentAlignment.MiddleRight;
+            button2.Location = new Point(9, 178);
             button2.Margin = new Padding(2);
             button2.Name = "button2";
-            button2.Size = new Size(104, 65);
-            button2.TabIndex = 2;
+            button2.Size = new Size(217, 40);
+            button2.TabIndex = 4;
             button2.Text = "Clientes";
-            button2.TextAlign = ContentAlignment.BottomCenter;
+            button2.TextAlign = ContentAlignment.MiddleLeft;
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
             // button3
             // 
             button3.Image = Properties.Resources.categoria;
-            button3.Location = new Point(221, 56);
+            button3.ImageAlign = ContentAlignment.MiddleRight;
+            button3.Location = new Point(9, 227);
             button3.Margin = new Padding(2);
             button3.Name = "button3";
-            button3.Size = new Size(104, 65);
-            button3.TabIndex = 3;
+            button3.Size = new Size(217, 40);
+            button3.TabIndex = 5;
             button3.Text = "Categorias";
-            button3.TextAlign = ContentAlignment.BottomCenter;
+            button3.TextAlign = ContentAlignment.MiddleLeft;
             button3.UseVisualStyleBackColor = true;
             button3.Click += button3_Click;
             // 
             // button4
             // 
             button4.Image = Properties.Resources.sala;
-            button4.Location = new Point(328, 56);
+            button4.ImageAlign = ContentAlignment.MiddleRight;
+            button4.Location = new Point(9, 325);
             button4.Margin = new Padding(2);
             button4.Name = "button4";
-            button4.Size = new Size(104, 65);
-            button4.TabIndex = 4;
+            button4.Size = new Size(217, 40);
+            button4.TabIndex = 7;
             button4.Text = "Salas";
-            button4.TextAlign = ContentAlignment.BottomCenter;
+            button4.TextAlign = ContentAlignment.MiddleLeft;
             button4.UseVisualStyleBackColor = true;
             button4.Click += button4_Click;
             // 
             // button5
             // 
             button5.Image = Properties.Resources.producto;
-            button5.Location = new Point(6, 56);
+            button5.ImageAlign = ContentAlignment.MiddleRight;
+            button5.Location = new Point(9, 80);
             button5.Margin = new Padding(2);
             button5.Name = "button5";
-            button5.Size = new Size(104, 65);
-            button5.TabIndex = 1;
+            button5.Size = new Size(217, 40);
+            button5.TabIndex = 2;
             button5.Text = "Articulos";
-            button5.TextAlign = ContentAlignment.BottomCenter;
+            button5.TextAlign = ContentAlignment.MiddleLeft;
             button5.UseVisualStyleBackColor = true;
             button5.Click += button5_Click;
             // 
             // button6
             // 
             button6.Image = Properties.Resources.proveedor1;
-            button6.Location = new Point(221, 138);
+            button6.ImageAlign = ContentAlignment.MiddleRight;
+            button6.Location = new Point(9, 374);
             button6.Margin = new Padding(2);
             button6.Name = "button6";
-            button6.Size = new Size(104, 65);
-            button6.TabIndex = 7;
+            button6.Size = new Size(217, 40);
+            button6.TabIndex = 8;
             button6.Text = "Proveedores";
-            button6.TextAlign = ContentAlignment.BottomCenter;
+            button6.TextAlign = ContentAlignment.MiddleLeft;
             button6.UseVisualStyleBackColor = true;
             button6.Click += button6_Click;
             // 
             // button7
             // 
             button7.Image = Properties.Resources.caja;
-            button7.Location = new Point(113, 138);
+            button7.ImageAlign = ContentAlignment.MiddleRight;
+            button7.Location = new Point(9, 276);
             button7.Margin = new Padding(2);
             button7.Name = "button7";
-            button7.Size = new Size(104, 65);
+            button7.Size = new Size(217, 40);
             button7.TabIndex = 6;
             button7.Text = "Cajas";
-            button7.TextAlign = ContentAlignment.BottomCenter;
+            button7.TextAlign = ContentAlignment.MiddleLeft;
             button7.UseVisualStyleBackColor = true;
             button7.Click += button7_Click;
             // 
             // button8
             // 
             button8.Image = Properties.Resources.mesa;
-            button8.Location = new Point(6, 138);
+            button8.ImageAlign = ContentAlignment.MiddleRight;
+            button8.Location = new Point(9, 129);
             button8.Margin = new Padding(2);
             button8.Name = "button8";
-            button8.Size = new Size(104, 65);
-            button8.TabIndex = 5;
+            button8.Size = new Size(217, 40);
+            button8.TabIndex = 3;
             button8.Text = "Mesas";
-            button8.TextAlign = ContentAlignment.BottomCenter;
+            button8.TextAlign = ContentAlignment.MiddleLeft;
             button8.UseVisualStyleBackColor = true;
             button8.Click += button8_Click;
             // 
@@ -249,7 +258,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(3, 10);
+            label1.Location = new Point(3, 41);
             label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
             label1.Size = new Size(201, 32);
@@ -259,26 +268,28 @@
             // button9
             // 
             button9.Image = Properties.Resources.carrito32x;
-            button9.Location = new Point(114, 275);
+            button9.ImageAlign = ContentAlignment.MiddleRight;
+            button9.Location = new Point(10, 586);
             button9.Margin = new Padding(2);
             button9.Name = "button9";
-            button9.Size = new Size(104, 65);
-            button9.TabIndex = 10;
+            button9.Size = new Size(217, 40);
+            button9.TabIndex = 11;
             button9.Text = "Compras";
-            button9.TextAlign = ContentAlignment.BottomCenter;
+            button9.TextAlign = ContentAlignment.MiddleLeft;
             button9.UseVisualStyleBackColor = true;
             button9.Click += button9_Click;
             // 
             // button10
             // 
             button10.Image = Properties.Resources.pedido;
-            button10.Location = new Point(6, 275);
+            button10.ImageAlign = ContentAlignment.MiddleRight;
+            button10.Location = new Point(10, 537);
             button10.Margin = new Padding(2);
             button10.Name = "button10";
-            button10.Size = new Size(104, 65);
-            button10.TabIndex = 9;
+            button10.Size = new Size(217, 40);
+            button10.TabIndex = 10;
             button10.Text = "Pedidos";
-            button10.TextAlign = ContentAlignment.BottomCenter;
+            button10.TextAlign = ContentAlignment.MiddleLeft;
             button10.UseVisualStyleBackColor = true;
             button10.Click += button10_Click;
             // 
@@ -287,29 +298,29 @@
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 18F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(3, 231);
+            label2.Location = new Point(3, 498);
             label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
             label2.Size = new Size(116, 32);
             label2.TabIndex = 17;
             label2.Text = "Procesos";
             // 
-            // panel4
+            // barrasup
             // 
-            panel4.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            panel4.BackColor = Color.FromArgb(64, 64, 64);
-            panel4.BorderStyle = BorderStyle.FixedSingle;
-            panel4.Controls.Add(panel1);
-            panel4.Controls.Add(panel2);
-            panel4.Controls.Add(panel3);
-            panel4.Controls.Add(cerrarbtn);
-            panel4.Controls.Add(pictureBox1);
-            panel4.Dock = DockStyle.Top;
-            panel4.Location = new Point(0, 0);
-            panel4.Margin = new Padding(2);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(1266, 85);
-            panel4.TabIndex = 18;
+            barrasup.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            barrasup.BackColor = Color.FromArgb(64, 64, 64);
+            barrasup.BorderStyle = BorderStyle.FixedSingle;
+            barrasup.Controls.Add(panel1);
+            barrasup.Controls.Add(panel2);
+            barrasup.Controls.Add(panel3);
+            barrasup.Controls.Add(cerrarbtn);
+            barrasup.Controls.Add(pictureBox1);
+            barrasup.Dock = DockStyle.Top;
+            barrasup.Location = new Point(0, 0);
+            barrasup.Margin = new Padding(2);
+            barrasup.Name = "barrasup";
+            barrasup.Size = new Size(1266, 85);
+            barrasup.TabIndex = 18;
             // 
             // pictureBox1
             // 
@@ -323,56 +334,68 @@
             pictureBox1.TabIndex = 6;
             pictureBox1.TabStop = false;
             // 
-            // panel6
+            // barraizq
             // 
-            panel6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            panel6.BackColor = SystemColors.WindowFrame;
-            panel6.BorderStyle = BorderStyle.FixedSingle;
-            panel6.Controls.Add(reservacion);
-            panel6.Controls.Add(button11);
-            panel6.Controls.Add(ajustestxt);
-            panel6.Controls.Add(ajustesbtn);
-            panel6.Controls.Add(label1);
-            panel6.Controls.Add(button1);
-            panel6.Controls.Add(label2);
-            panel6.Controls.Add(button2);
-            panel6.Controls.Add(button9);
-            panel6.Controls.Add(button3);
-            panel6.Controls.Add(button10);
-            panel6.Controls.Add(button4);
-            panel6.Controls.Add(button8);
-            panel6.Controls.Add(button5);
-            panel6.Controls.Add(button7);
-            panel6.Controls.Add(button6);
-            panel6.Location = new Point(0, 85);
-            panel6.Margin = new Padding(2);
-            panel6.Name = "panel6";
-            panel6.Size = new Size(444, 565);
-            panel6.TabIndex = 19;
+            barraizq.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            barraizq.BackColor = SystemColors.WindowFrame;
+            barraizq.BorderStyle = BorderStyle.FixedSingle;
+            barraizq.Controls.Add(button12);
+            barraizq.Controls.Add(reservacion);
+            barraizq.Controls.Add(button11);
+            barraizq.Controls.Add(ajustestxt);
+            barraizq.Controls.Add(label1);
+            barraizq.Controls.Add(button1);
+            barraizq.Controls.Add(label2);
+            barraizq.Controls.Add(button2);
+            barraizq.Controls.Add(button9);
+            barraizq.Controls.Add(button3);
+            barraizq.Controls.Add(button10);
+            barraizq.Controls.Add(button4);
+            barraizq.Controls.Add(button8);
+            barraizq.Controls.Add(button5);
+            barraizq.Controls.Add(button7);
+            barraizq.Controls.Add(button6);
+            barraizq.Location = new Point(0, 85);
+            barraizq.Margin = new Padding(2);
+            barraizq.Name = "barraizq";
+            barraizq.Size = new Size(241, 839);
+            barraizq.TabIndex = 19;
+            // 
+            // button12
+            // 
+            button12.Image = Properties.Resources._3_rayas;
+            button12.Location = new Point(9, 2);
+            button12.Name = "button12";
+            button12.Size = new Size(42, 29);
+            button12.TabIndex = 1;
+            button12.UseVisualStyleBackColor = true;
+            button12.Click += button12_Click;
             // 
             // reservacion
             // 
             reservacion.Image = Properties.Resources.recepcion;
-            reservacion.Location = new Point(222, 275);
+            reservacion.ImageAlign = ContentAlignment.MiddleRight;
+            reservacion.Location = new Point(10, 635);
             reservacion.Margin = new Padding(2);
             reservacion.Name = "reservacion";
-            reservacion.Size = new Size(104, 65);
-            reservacion.TabIndex = 20;
+            reservacion.Size = new Size(217, 40);
+            reservacion.TabIndex = 12;
             reservacion.Text = "Reservación";
-            reservacion.TextAlign = ContentAlignment.BottomCenter;
+            reservacion.TextAlign = ContentAlignment.MiddleLeft;
             reservacion.UseVisualStyleBackColor = true;
             // 
             // button11
             // 
             button11.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             button11.Image = Properties.Resources.ajuste;
-            button11.Location = new Point(7, 477);
+            button11.ImageAlign = ContentAlignment.MiddleRight;
+            button11.Location = new Point(10, 787);
             button11.Margin = new Padding(2);
             button11.Name = "button11";
-            button11.Size = new Size(104, 65);
-            button11.TabIndex = 11;
+            button11.Size = new Size(217, 40);
+            button11.TabIndex = 13;
             button11.Text = "Generales";
-            button11.TextAlign = ContentAlignment.BottomCenter;
+            button11.TextAlign = ContentAlignment.MiddleLeft;
             button11.UseVisualStyleBackColor = true;
             button11.Click += button11_Click;
             // 
@@ -382,26 +405,25 @@
             ajustestxt.AutoSize = true;
             ajustestxt.Font = new Font("Segoe UI", 18F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
             ajustestxt.ForeColor = Color.White;
-            ajustestxt.Location = new Point(3, 434);
+            ajustestxt.Location = new Point(3, 742);
             ajustestxt.Margin = new Padding(2, 0, 2, 0);
             ajustestxt.Name = "ajustestxt";
-            ajustestxt.Size = new Size(232, 32);
+            ajustestxt.Size = new Size(97, 32);
             ajustestxt.TabIndex = 19;
-            ajustestxt.Text = "Ajustes del sistema";
+            ajustestxt.Text = "Ajustes";
             // 
-            // ajustesbtn
+            // label3
             // 
-            ajustesbtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            ajustesbtn.BackColor = Color.Gold;
-            ajustesbtn.Image = Properties.Resources.seguro;
-            ajustesbtn.Location = new Point(114, 477);
-            ajustesbtn.Margin = new Padding(2);
-            ajustesbtn.Name = "ajustesbtn";
-            ajustesbtn.Size = new Size(104, 65);
-            ajustesbtn.TabIndex = 12;
-            ajustesbtn.Text = "Administrativos";
-            ajustesbtn.TextAlign = ContentAlignment.BottomCenter;
-            ajustesbtn.UseVisualStyleBackColor = false;
+            label3.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            label3.AutoSize = true;
+            label3.BackColor = Color.Transparent;
+            label3.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.Location = new Point(924, 894);
+            label3.Margin = new Padding(2, 0, 2, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(331, 21);
+            label3.TabIndex = 2;
+            label3.Text = "Wilder (2-21-0179) / Alhann (2-21-0018) ©";
             // 
             // menu
             // 
@@ -412,9 +434,10 @@
             BackColor = Color.Silver;
             BackgroundImage = Properties.Resources.tenedor1;
             BackgroundImageLayout = ImageLayout.Center;
-            ClientSize = new Size(1266, 650);
-            Controls.Add(panel6);
-            Controls.Add(panel4);
+            ClientSize = new Size(1266, 924);
+            Controls.Add(barraizq);
+            Controls.Add(label3);
+            Controls.Add(barrasup);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -428,12 +451,13 @@
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
-            panel4.ResumeLayout(false);
-            panel4.PerformLayout();
+            barrasup.ResumeLayout(false);
+            barrasup.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            panel6.ResumeLayout(false);
-            panel6.PerformLayout();
+            barraizq.ResumeLayout(false);
+            barraizq.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -454,14 +478,15 @@
         private Button button10;
         private Label label2;
         public Button button1;
-        private Panel panel4;
-        private Panel panel6;
         public Label ajustestxt;
-        public Button ajustesbtn;
         public Button button11;
         public Panel panel1;
         public Panel panel5;
         private PictureBox pictureBox1;
         private Button reservacion;
+        public Panel barrasup;
+        public Panel barraizq;
+        public Label label3;
+        private Button button12;
     }
 }

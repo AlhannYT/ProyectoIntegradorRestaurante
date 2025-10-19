@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Proyecto_restaurante
 {
@@ -16,6 +17,10 @@ namespace Proyecto_restaurante
         public ConsProductos()
         {
             InitializeComponent();
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint |
+                          ControlStyles.UserPaint |
+                          ControlStyles.OptimizedDoubleBuffer, true);
+            this.UpdateStyles();
         }
 
         private string CodigoProductoActual;
@@ -40,8 +45,10 @@ namespace Proyecto_restaurante
             }
         }
 
+
         private void ConsProductos_Load(object sender, EventArgs e)
         {
+            
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
 
@@ -57,6 +64,8 @@ namespace Proyecto_restaurante
             adaptador.Fill(dt);
 
             tabladatos.DataSource = dt;
+
+
         }
 
         private void agregar_Click(object sender, EventArgs e)
@@ -99,5 +108,6 @@ namespace Proyecto_restaurante
             mantProductos.Location = new Point(561, 50);
             mantProductos.Show();
         }
+
     }
 }
