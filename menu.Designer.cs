@@ -256,7 +256,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
+            label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;
             label1.Location = new Point(3, 41);
             label1.Margin = new Padding(2, 0, 2, 0);
@@ -296,7 +296,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 18F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
+            label2.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.White;
             label2.Location = new Point(3, 498);
             label2.Margin = new Padding(2, 0, 2, 0);
@@ -326,11 +326,11 @@
             // 
             pictureBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             pictureBox1.Image = Properties.Resources.logo_completo;
-            pictureBox1.Location = new Point(668, 0);
+            pictureBox1.Location = new Point(858, 0);
             pictureBox1.Margin = new Padding(2);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(596, 83);
-            pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
+            pictureBox1.Size = new Size(406, 83);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 6;
             pictureBox1.TabStop = false;
             // 
@@ -364,7 +364,7 @@
             // button12
             // 
             button12.Image = Properties.Resources._3_rayas;
-            button12.Location = new Point(9, 2);
+            button12.Location = new Point(9, 3);
             button12.Name = "button12";
             button12.Size = new Size(42, 29);
             button12.TabIndex = 1;
@@ -403,9 +403,9 @@
             // 
             ajustestxt.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             ajustestxt.AutoSize = true;
-            ajustestxt.Font = new Font("Segoe UI", 18F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
+            ajustestxt.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             ajustestxt.ForeColor = Color.White;
-            ajustestxt.Location = new Point(3, 742);
+            ajustestxt.Location = new Point(3, 745);
             ajustestxt.Margin = new Padding(2, 0, 2, 0);
             ajustestxt.Name = "ajustestxt";
             ajustestxt.Size = new Size(97, 32);
@@ -436,8 +436,8 @@
             BackgroundImageLayout = ImageLayout.Center;
             ClientSize = new Size(1266, 924);
             Controls.Add(barraizq);
-            Controls.Add(label3);
             Controls.Add(barrasup);
+            Controls.Add(label3);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
