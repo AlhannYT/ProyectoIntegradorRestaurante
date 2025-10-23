@@ -157,7 +157,7 @@
             // 
             // button2
             // 
-            button2.Image = Properties.Resources.cliente1;
+            button2.Image = Properties.Resources.cliente31;
             button2.ImageAlign = ContentAlignment.MiddleRight;
             button2.Location = new Point(9, 178);
             button2.Margin = new Padding(2);
@@ -258,12 +258,14 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(3, 41);
+            label1.Image = Properties.Resources.mantenimiento1;
+            label1.ImageAlign = ContentAlignment.MiddleRight;
+            label1.Location = new Point(5, 41);
             label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(201, 32);
+            label1.Size = new Size(229, 32);
             label1.TabIndex = 14;
-            label1.Text = "Mantenimientos";
+            label1.Text = "Mantenimientos    ";
             // 
             // button9
             // 
@@ -298,12 +300,14 @@
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(3, 498);
+            label2.Image = Properties.Resources.proceso;
+            label2.ImageAlign = ContentAlignment.MiddleRight;
+            label2.Location = new Point(5, 498);
             label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
-            label2.Size = new Size(116, 32);
+            label2.Size = new Size(144, 32);
             label2.TabIndex = 17;
-            label2.Text = "Procesos";
+            label2.Text = "Procesos    ";
             // 
             // barrasup
             // 
@@ -383,6 +387,7 @@
             reservacion.Text = "Reservación";
             reservacion.TextAlign = ContentAlignment.MiddleLeft;
             reservacion.UseVisualStyleBackColor = true;
+            reservacion.Click += reservacion_Click;
             // 
             // button11
             // 
@@ -405,12 +410,14 @@
             ajustestxt.AutoSize = true;
             ajustestxt.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             ajustestxt.ForeColor = Color.White;
-            ajustestxt.Location = new Point(3, 745);
+            ajustestxt.Image = Properties.Resources.opciones;
+            ajustestxt.ImageAlign = ContentAlignment.MiddleRight;
+            ajustestxt.Location = new Point(5, 745);
             ajustestxt.Margin = new Padding(2, 0, 2, 0);
             ajustestxt.Name = "ajustestxt";
-            ajustestxt.Size = new Size(97, 32);
+            ajustestxt.Size = new Size(125, 32);
             ajustestxt.TabIndex = 19;
-            ajustestxt.Text = "Ajustes";
+            ajustestxt.Text = "Ajustes    ";
             // 
             // label3
             // 

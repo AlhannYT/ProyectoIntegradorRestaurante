@@ -124,6 +124,8 @@
             // 
             // iniciobtn
             // 
+            iniciobtn.Image = Properties.Resources.entrar1;
+            iniciobtn.ImageAlign = ContentAlignment.MiddleLeft;
             iniciobtn.Location = new Point(211, 325);
             iniciobtn.Name = "iniciobtn";
             iniciobtn.Size = new Size(142, 29);

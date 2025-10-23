@@ -100,6 +100,16 @@ namespace Proyecto_restaurante
             panelmesas.Location = new Point(803, 33);
         }
 
+        public void habilitarbotones(object sender, EventArgs e)
+        {
+            buscarproductobtn.Enabled = true;
+            txtcodigoproducto.Enabled = true;
+            txtnombreproducto.Enabled = true;
+            txtprecioproducto.Enabled = true;
+            bajarproductobtn.Enabled = true;
+            numCantidad.Enabled = true;
+        }
+
         private void tablapanelproducto_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -131,12 +141,7 @@ namespace Proyecto_restaurante
             panelclientes.Visible = false;
             panelclientes.Location = new Point(803, 532);
 
-            buscarproductobtn.Enabled = true;
-            txtcodigoproducto.Enabled = true;
-            txtnombreproducto.Enabled = true;
-            txtprecioproducto.Enabled = true;
-            bajarproductobtn.Enabled = true;
-            numCantidad.Enabled = true;
+            habilitarbotones(sender, e);
         }
 
         private void tablaseleccionmesas_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -251,7 +256,7 @@ namespace Proyecto_restaurante
         {
             string codigoProducto = tabladatosconsultaprod.SelectedCells[0].Value.ToString();
 
-            string rutaImagenes = @"C:\CarpetaDeImagenesProductos\";
+            string rutaImagenes = @"C:\SistemaArchivos\Productos\";
             string rutaImagenProducto = Path.Combine(rutaImagenes, codigoProducto + ".jpg");
 
             if (File.Exists(rutaImagenProducto))
@@ -779,10 +784,8 @@ namespace Proyecto_restaurante
         {
             try
             {
-                // Definir la ruta donde se guardará el PDF en el disco C
-                string folderPath = @"C:\Factura";
+                string folderPath = @"C:\SistemaArchivos\Facturas\";
 
-                
                 if (!Directory.Exists(folderPath))
                 {
                     Directory.CreateDirectory(folderPath);
@@ -790,28 +793,28 @@ namespace Proyecto_restaurante
 
                 string filePath = Path.Combine(folderPath, $"factura_{facturaId}.pdf");
 
-               
+
                 PdfSharp.Pdf.PdfDocument document = new PdfSharp.Pdf.PdfDocument();
                 document.Info.Title = $"Factura {facturaId}";
 
 
                 PdfSharp.Pdf.PdfPage page = document.AddPage();
 
-                
+
                 XGraphics gfx = XGraphics.FromPdfPage(page);
 
-                
-                XFont titleFont = new XFont("Verdana", 20); 
-                XFont textFont = new XFont("Verdana", 14);  
-                XFont smallFont = new XFont("Verdana", 12); 
 
-               
+                XFont titleFont = new XFont("Verdana", 20);
+                XFont textFont = new XFont("Verdana", 14);
+                XFont smallFont = new XFont("Verdana", 12);
+
+
                 double marginLeft = 40;
                 double marginTop = 40;
                 double lineHeight = 25;
                 double currentY = marginTop;
 
-                
+
                 gfx.DrawString("Factura", titleFont, XBrushes.Black,
                     new XRect(marginLeft, currentY, page.Width - marginLeft * 2, page.Height),
                     XStringFormats.TopCenter);
@@ -837,7 +840,6 @@ namespace Proyecto_restaurante
                         string fecha = readerFactura["fecha"].ToString();
                         decimal total = Convert.ToDecimal(readerFactura["total"]);
 
-                        // Información del pedido
                         gfx.DrawString($"ID Pedido: {idPedido}", textFont, XBrushes.Black,
                             new XRect(marginLeft, currentY, page.Width - marginLeft * 2, page.Height), XStringFormats.TopLeft);
                         currentY += lineHeight;
@@ -854,11 +856,10 @@ namespace Proyecto_restaurante
                             new XRect(marginLeft, currentY, page.Width - marginLeft * 2, page.Height), XStringFormats.TopLeft);
                         currentY += lineHeight;
 
-                        
+
                         gfx.DrawLine(XPens.Black, marginLeft, currentY, page.Width - marginLeft, currentY);
                         currentY += lineHeight;
 
-                        // Total
                         gfx.DrawString($"Total: {total.ToString("C")}", textFont, XBrushes.Black,
                             new XRect(marginLeft, currentY, page.Width - marginLeft * 2, page.Height), XStringFormats.TopLeft);
                         currentY += lineHeight;
@@ -866,7 +867,7 @@ namespace Proyecto_restaurante
                         gfx.DrawLine(XPens.Black, marginLeft, currentY, page.Width - marginLeft, currentY);
                         currentY += lineHeight;
 
-                        
+
                         gfx.DrawString("Gracias por su visita.", smallFont, XBrushes.Black,
                             new XRect(marginLeft, currentY, page.Width - marginLeft * 2, page.Height), XStringFormats.TopLeft);
                         currentY += lineHeight;
@@ -878,10 +879,8 @@ namespace Proyecto_restaurante
                     readerFactura.Close();
                 }
 
-                // Guardar el documento
                 document.Save(filePath);
 
-                // Abrir el PDF generado
                 System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
                 {
                     FileName = filePath,
@@ -894,14 +893,12 @@ namespace Proyecto_restaurante
             }
         }
 
-
         private void imprimirbtn_Click(object sender, EventArgs e)
         {
             if (facturaID > 0)
             {
                 try
                 {
-                   
                     GenerarFacturaPDF(facturaID);
                     MessageBox.Show("Factura generada correctamente.");
                 }
@@ -914,7 +911,6 @@ namespace Proyecto_restaurante
             {
                 MessageBox.Show("Seleccione una factura válida para imprimir.");
             }
-
         }
 
         private void txtproductobusqueda_TextChanged(object sender, EventArgs e)
@@ -1043,20 +1039,12 @@ namespace Proyecto_restaurante
             }
         }
 
-
-
-
         private void label2_Click(object sender, EventArgs e)
         {
 
         }
 
         private void tablaseleccionmesas_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void panel6_Paint(object sender, PaintEventArgs e)
         {
 
         }
@@ -1074,6 +1062,14 @@ namespace Proyecto_restaurante
         private void label20_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void txtnombrecompleto_TextChanged(object sender, EventArgs e)
+        {
+            if(!string.IsNullOrEmpty(txtnombrecompleto.Text))
+            {
+                habilitarbotones(sender, e);
+            }
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public static class ConexionBD
 {
-    private static string rutaArchivo = @"C:\CarpetaDeImagenesProductos\Conexion\ConexionesSQL.txt";
+    private static string rutaArchivo = @"C:\SistemaArchivos\Conexion\ConexionesSQL.txt";
 
     private static string BaseDeDatos = "RestauranteDB";
 
@@ -25,8 +25,7 @@ public static class ConexionBD
         {
             MessageBox.Show("No se encontró una conexion por defecto.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-            
-
+        
         var partes = lineaDefecto.Split('|');
 
         datosConexion["Servidor"] = partes[0];

@@ -23,7 +23,8 @@ namespace Proyecto_restaurante
         }
 
         public string usuarioActual;
-        
+
+
         private void cerrarbtn_Click(object sender, EventArgs e)
         {
             inicio cerrarsesion = new inicio();
@@ -246,11 +247,14 @@ namespace Proyecto_restaurante
                     if (ctrl is Button btn)
                     {
                         btn.Width = 42;
-                        btn.Text = ""; 
+                        btn.Text = "";
                         btn.ImageAlign = ContentAlignment.MiddleCenter;
-                        label1.Text = "M";
-                        label2.Text = "P";
-                        ajustestxt.Text = "A";
+                        label1.Text = "  ";
+                        label2.Text = "  ";
+                        ajustestxt.Text = "  ";
+                        label1.ImageAlign = ContentAlignment.MiddleCenter;
+                        label2.ImageAlign = ContentAlignment.MiddleCenter;
+                        ajustestxt.ImageAlign = ContentAlignment.MiddleCenter;
                     }
                 }
 
@@ -278,17 +282,53 @@ namespace Proyecto_restaurante
                         button10.Text = "Pedidos";
                         button9.Text = "Compras";
                         reservacion.Text = "Reservacion";
-                        button11.Text = "Ajustes Generales";
+                        button11.Text = "Generales";
                         btn.ImageAlign = ContentAlignment.MiddleRight;
                         button12.ImageAlign = ContentAlignment.MiddleCenter;
-                        label1.Text = "Mantenimientos";
-                        label2.Text = "Procesos";
-                        ajustestxt.Text = "Ajustes";
+                        label1.Text = "Mantenimientos    ";
+                        label2.Text = "Procesos    ";
+                        ajustestxt.Text = "Ajustes    ";
+                        label1.ImageAlign = ContentAlignment.MiddleRight;
+                        label2.ImageAlign = ContentAlignment.MiddleRight;
+                        ajustestxt.ImageAlign = ContentAlignment.MiddleRight;
                     }
                 }
 
                 estadobarra = 1;
             }
+        }
+
+
+        public void agregarproducto(object sender, EventArgs e)
+        {
+            foreach (Form f in this.MdiChildren)
+            {
+                if (f is MantProductos)
+                {
+                    f.BringToFront();
+                    return;
+                }
+            }
+
+            MantProductos mantProductos = new MantProductos();
+            mantProductos.Location = new Point(561, 70);
+            mantProductos.Show();
+        }
+
+        private void reservacion_Click(object sender, EventArgs e)
+        {
+            foreach (Form f in this.MdiChildren)
+            {
+                if (f is Reservacion)
+                {
+                    f.BringToFront();
+                    return;
+                }
+            }
+            Reservacion reservacion = new Reservacion();
+            reservacion.Location = new Point(561, 50);
+            reservacion.MdiParent = this;
+            reservacion.Show();
         }
     }
 }

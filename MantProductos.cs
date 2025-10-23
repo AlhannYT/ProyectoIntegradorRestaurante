@@ -230,8 +230,6 @@ namespace Proyecto_restaurante
 
         }
 
-
-
         private void recargarbtn_Click(object sender, EventArgs e)
         {
             categoriacmbx.Items.Clear();
@@ -278,7 +276,6 @@ namespace Proyecto_restaurante
                 estadochk.ForeColor = Color.Red;
             }
         }
-
 
 
         private void txtnombre_prod_TextChanged(object sender, EventArgs e)

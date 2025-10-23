@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Compras));
             panel1 = new Panel();
             fechacompra = new DateTimePicker();
             limpiarbtn = new Button();
@@ -77,31 +78,30 @@
             panel1.Controls.Add(labelresponsable);
             panel1.Controls.Add(comprarbtn);
             panel1.Controls.Add(label5);
-            panel1.Location = new Point(5, 60);
-            panel1.Margin = new Padding(3, 4, 3, 4);
+            panel1.Location = new Point(4, 45);
             panel1.Name = "panel1";
-            panel1.Size = new Size(896, 89);
+            panel1.Size = new Size(784, 67);
             panel1.TabIndex = 0;
             // 
             // fechacompra
             // 
             fechacompra.Enabled = false;
             fechacompra.Format = DateTimePickerFormat.Short;
-            fechacompra.Location = new Point(161, 49);
-            fechacompra.Margin = new Padding(3, 4, 3, 4);
+            fechacompra.Location = new Point(141, 37);
             fechacompra.Name = "fechacompra";
-            fechacompra.Size = new Size(121, 27);
+            fechacompra.Size = new Size(106, 23);
             fechacompra.TabIndex = 1;
             // 
             // limpiarbtn
             // 
+            limpiarbtn.Image = Properties.Resources.nuevo;
             limpiarbtn.ImageAlign = ContentAlignment.MiddleLeft;
-            limpiarbtn.Location = new Point(755, 11);
-            limpiarbtn.Margin = new Padding(3, 4, 3, 4);
+            limpiarbtn.Location = new Point(661, 9);
             limpiarbtn.Name = "limpiarbtn";
-            limpiarbtn.Size = new Size(127, 67);
+            limpiarbtn.Size = new Size(111, 50);
             limpiarbtn.TabIndex = 0;
-            limpiarbtn.Text = "Limpiar";
+            limpiarbtn.Text = "Nuevo";
+            limpiarbtn.TextAlign = ContentAlignment.MiddleRight;
             limpiarbtn.UseVisualStyleBackColor = true;
             limpiarbtn.Click += limpiarbtn_Click;
             // 
@@ -110,9 +110,9 @@
             labelresponsable.AutoSize = true;
             labelresponsable.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelresponsable.ForeColor = SystemColors.Control;
-            labelresponsable.Location = new Point(1, 12);
+            labelresponsable.Location = new Point(1, 9);
             labelresponsable.Name = "labelresponsable";
-            labelresponsable.Size = new Size(253, 25);
+            labelresponsable.Size = new Size(199, 20);
             labelresponsable.TabIndex = 1;
             labelresponsable.Text = "Responsable de la compra: ";
             // 
@@ -120,12 +120,11 @@
             // 
             comprarbtn.BackColor = Color.FromArgb(128, 255, 128);
             comprarbtn.Enabled = false;
-            comprarbtn.Image = Properties.Resources.carrito;
+            comprarbtn.Image = Properties.Resources.comprar1;
             comprarbtn.ImageAlign = ContentAlignment.MiddleLeft;
-            comprarbtn.Location = new Point(608, 11);
-            comprarbtn.Margin = new Padding(3, 4, 3, 4);
+            comprarbtn.Location = new Point(532, 9);
             comprarbtn.Name = "comprarbtn";
-            comprarbtn.Size = new Size(127, 67);
+            comprarbtn.Size = new Size(111, 50);
             comprarbtn.TabIndex = 0;
             comprarbtn.Text = "Comprar";
             comprarbtn.TextAlign = ContentAlignment.MiddleRight;
@@ -137,9 +136,9 @@
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 11.25F);
             label5.ForeColor = SystemColors.Control;
-            label5.Location = new Point(3, 49);
+            label5.Location = new Point(3, 37);
             label5.Name = "label5";
-            label5.Size = new Size(160, 25);
+            label5.Size = new Size(126, 20);
             label5.TabIndex = 1;
             label5.Text = "Fecha de compra:";
             // 
@@ -148,9 +147,9 @@
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label4.ForeColor = SystemColors.Control;
-            label4.Location = new Point(294, 9);
+            label4.Location = new Point(257, 7);
             label4.Name = "label4";
-            label4.Size = new Size(323, 41);
+            label4.Size = new Size(263, 32);
             label4.TabIndex = 1;
             label4.Text = "Compra de productos";
             // 
@@ -158,10 +157,9 @@
             // 
             panel2.BackColor = Color.FromArgb(64, 64, 64);
             panel2.Controls.Add(tablaproductos);
-            panel2.Location = new Point(5, 217);
-            panel2.Margin = new Padding(3, 4, 3, 4);
+            panel2.Location = new Point(4, 163);
             panel2.Name = "panel2";
-            panel2.Size = new Size(639, 367);
+            panel2.Size = new Size(559, 275);
             panel2.TabIndex = 0;
             // 
             // tablaproductos
@@ -169,13 +167,12 @@
             tablaproductos.AllowUserToAddRows = false;
             tablaproductos.AllowUserToDeleteRows = false;
             tablaproductos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            tablaproductos.Location = new Point(3, 4);
-            tablaproductos.Margin = new Padding(3, 4, 3, 4);
+            tablaproductos.Location = new Point(3, 3);
             tablaproductos.MultiSelect = false;
             tablaproductos.Name = "tablaproductos";
             tablaproductos.RowHeadersWidth = 51;
             tablaproductos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tablaproductos.Size = new Size(632, 359);
+            tablaproductos.Size = new Size(553, 269);
             tablaproductos.TabIndex = 0;
             tablaproductos.CellClick += tablaproductos_CellClick;
             // 
@@ -187,10 +184,9 @@
             panel3.Controls.Add(label2);
             panel3.Controls.Add(label1);
             panel3.Controls.Add(imagenproducto);
-            panel3.Location = new Point(650, 217);
-            panel3.Margin = new Padding(3, 4, 3, 4);
+            panel3.Location = new Point(569, 163);
             panel3.Name = "panel3";
-            panel3.Size = new Size(250, 367);
+            panel3.Size = new Size(219, 275);
             panel3.TabIndex = 0;
             // 
             // labelcantidad
@@ -198,9 +194,9 @@
             labelcantidad.AutoSize = true;
             labelcantidad.Font = new Font("Segoe UI", 11.25F);
             labelcantidad.ForeColor = SystemColors.Control;
-            labelcantidad.Location = new Point(192, 268);
+            labelcantidad.Location = new Point(168, 201);
             labelcantidad.Name = "labelcantidad";
-            labelcantidad.Size = new Size(0, 25);
+            labelcantidad.Size = new Size(0, 20);
             labelcantidad.TabIndex = 1;
             // 
             // labeltotal
@@ -208,9 +204,9 @@
             labeltotal.AutoSize = true;
             labeltotal.Font = new Font("Segoe UI", 11.25F);
             labeltotal.ForeColor = SystemColors.Control;
-            labeltotal.Location = new Point(72, 316);
+            labeltotal.Location = new Point(63, 237);
             labeltotal.Name = "labeltotal";
-            labeltotal.Size = new Size(0, 25);
+            labeltotal.Size = new Size(0, 20);
             labeltotal.TabIndex = 1;
             // 
             // label2
@@ -218,9 +214,9 @@
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 11.25F);
             label2.ForeColor = SystemColors.Control;
-            label2.Location = new Point(14, 315);
+            label2.Location = new Point(12, 236);
             label2.Name = "label2";
-            label2.Size = new Size(56, 25);
+            label2.Size = new Size(45, 20);
             label2.TabIndex = 1;
             label2.Text = "Total:";
             // 
@@ -229,19 +225,18 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 11.25F);
             label1.ForeColor = SystemColors.Control;
-            label1.Location = new Point(14, 267);
+            label1.Location = new Point(12, 200);
             label1.Name = "label1";
-            label1.Size = new Size(200, 25);
+            label1.Size = new Size(157, 20);
             label1.TabIndex = 1;
             label1.Text = "Cantidad de articulos: ";
             // 
             // imagenproducto
             // 
             imagenproducto.Image = Properties.Resources.paisaje;
-            imagenproducto.Location = new Point(14, 16);
-            imagenproducto.Margin = new Padding(3, 4, 3, 4);
+            imagenproducto.Location = new Point(12, 12);
             imagenproducto.Name = "imagenproducto";
-            imagenproducto.Size = new Size(223, 235);
+            imagenproducto.Size = new Size(195, 176);
             imagenproducto.SizeMode = PictureBoxSizeMode.StretchImage;
             imagenproducto.TabIndex = 0;
             imagenproducto.TabStop = false;
@@ -255,39 +250,35 @@
             panel5.Controls.Add(agregarbtn);
             panel5.Controls.Add(txtpreciocompra);
             panel5.Controls.Add(txtcodigo);
-            panel5.Location = new Point(5, 159);
-            panel5.Margin = new Padding(3, 4, 3, 4);
+            panel5.Location = new Point(4, 119);
             panel5.Name = "panel5";
-            panel5.Size = new Size(896, 51);
+            panel5.Size = new Size(784, 38);
             panel5.TabIndex = 0;
             // 
             // numCantidad
             // 
-            numCantidad.Location = new Point(723, 11);
-            numCantidad.Margin = new Padding(3, 4, 3, 4);
+            numCantidad.Location = new Point(633, 8);
             numCantidad.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
             numCantidad.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numCantidad.Name = "numCantidad";
-            numCantidad.Size = new Size(123, 27);
+            numCantidad.Size = new Size(108, 23);
             numCantidad.TabIndex = 1;
             numCantidad.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // txtnombre
             // 
             txtnombre.Enabled = false;
-            txtnombre.Location = new Point(142, 11);
-            txtnombre.Margin = new Padding(3, 4, 3, 4);
+            txtnombre.Location = new Point(124, 8);
             txtnombre.Name = "txtnombre";
-            txtnombre.Size = new Size(442, 27);
+            txtnombre.Size = new Size(387, 23);
             txtnombre.TabIndex = 0;
             // 
             // buscarprodbtn
             // 
             buscarprodbtn.Image = Properties.Resources.carrito_de_compras;
-            buscarprodbtn.Location = new Point(7, 11);
-            buscarprodbtn.Margin = new Padding(3, 4, 3, 4);
+            buscarprodbtn.Location = new Point(6, 8);
             buscarprodbtn.Name = "buscarprodbtn";
-            buscarprodbtn.Size = new Size(30, 27);
+            buscarprodbtn.Size = new Size(26, 23);
             buscarprodbtn.TabIndex = 0;
             buscarprodbtn.UseVisualStyleBackColor = true;
             buscarprodbtn.Click += buscarprodbtn_Click;
@@ -296,29 +287,26 @@
             // 
             agregarbtn.Enabled = false;
             agregarbtn.Image = Properties.Resources.angulo_hacia_abajo;
-            agregarbtn.Location = new Point(854, 10);
-            agregarbtn.Margin = new Padding(3, 4, 3, 4);
+            agregarbtn.Location = new Point(747, 9);
             agregarbtn.Name = "agregarbtn";
-            agregarbtn.Size = new Size(30, 28);
+            agregarbtn.Size = new Size(26, 23);
             agregarbtn.TabIndex = 0;
             agregarbtn.UseVisualStyleBackColor = true;
             agregarbtn.Click += agregarbtn_Click;
             // 
             // txtpreciocompra
             // 
-            txtpreciocompra.Location = new Point(592, 11);
-            txtpreciocompra.Margin = new Padding(3, 4, 3, 4);
+            txtpreciocompra.Location = new Point(518, 8);
             txtpreciocompra.Name = "txtpreciocompra";
-            txtpreciocompra.Size = new Size(123, 27);
+            txtpreciocompra.Size = new Size(108, 23);
             txtpreciocompra.TabIndex = 0;
             // 
             // txtcodigo
             // 
             txtcodigo.Enabled = false;
-            txtcodigo.Location = new Point(44, 11);
-            txtcodigo.Margin = new Padding(3, 4, 3, 4);
+            txtcodigo.Location = new Point(38, 8);
             txtcodigo.Name = "txtcodigo";
-            txtcodigo.Size = new Size(90, 27);
+            txtcodigo.Size = new Size(79, 23);
             txtcodigo.TabIndex = 0;
             // 
             // panelprod
@@ -329,10 +317,9 @@
             panelprod.Controls.Add(txtbusquedapanelprod);
             panelprod.Controls.Add(salirprodbtn);
             panelprod.Controls.Add(tablapanelprod);
-            panelprod.Location = new Point(5, 592);
-            panelprod.Margin = new Padding(3, 4, 3, 4);
+            panelprod.Location = new Point(4, 444);
             panelprod.Name = "panelprod";
-            panelprod.Size = new Size(896, 636);
+            panelprod.Size = new Size(784, 477);
             panelprod.TabIndex = 1;
             panelprod.Visible = false;
             // 
@@ -340,9 +327,9 @@
             // 
             label7.AutoSize = true;
             label7.ForeColor = SystemColors.Control;
-            label7.Location = new Point(14, 125);
+            label7.Location = new Point(12, 94);
             label7.Name = "label7";
-            label7.Size = new Size(81, 20);
+            label7.Size = new Size(65, 15);
             label7.TabIndex = 3;
             label7.Text = "Busqueda: ";
             // 
@@ -351,27 +338,25 @@
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.ForeColor = SystemColors.Control;
-            label3.Location = new Point(289, 20);
+            label3.Location = new Point(253, 15);
             label3.Name = "label3";
-            label3.Size = new Size(350, 41);
+            label3.Size = new Size(285, 32);
             label3.TabIndex = 1;
             label3.Text = "Busqueda de productos";
             // 
             // txtbusquedapanelprod
             // 
-            txtbusquedapanelprod.Location = new Point(89, 121);
-            txtbusquedapanelprod.Margin = new Padding(3, 4, 3, 4);
+            txtbusquedapanelprod.Location = new Point(78, 91);
             txtbusquedapanelprod.Name = "txtbusquedapanelprod";
-            txtbusquedapanelprod.Size = new Size(787, 27);
+            txtbusquedapanelprod.Size = new Size(689, 23);
             txtbusquedapanelprod.TabIndex = 2;
             txtbusquedapanelprod.TextChanged += txtbusquedapanelprod_TextChanged;
             // 
             // salirprodbtn
             // 
-            salirprodbtn.Location = new Point(766, 20);
-            salirprodbtn.Margin = new Padding(3, 4, 3, 4);
+            salirprodbtn.Location = new Point(670, 15);
             salirprodbtn.Name = "salirprodbtn";
-            salirprodbtn.Size = new Size(112, 59);
+            salirprodbtn.Size = new Size(98, 44);
             salirprodbtn.TabIndex = 1;
             salirprodbtn.Text = "Salir";
             salirprodbtn.UseVisualStyleBackColor = true;
@@ -382,23 +367,21 @@
             tablapanelprod.AllowUserToAddRows = false;
             tablapanelprod.AllowUserToDeleteRows = false;
             tablapanelprod.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            tablapanelprod.Location = new Point(14, 160);
-            tablapanelprod.Margin = new Padding(3, 4, 3, 4);
+            tablapanelprod.Location = new Point(12, 120);
             tablapanelprod.MultiSelect = false;
             tablapanelprod.Name = "tablapanelprod";
             tablapanelprod.RowHeadersWidth = 51;
             tablapanelprod.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tablapanelprod.Size = new Size(864, 404);
+            tablapanelprod.Size = new Size(756, 303);
             tablapanelprod.TabIndex = 0;
             tablapanelprod.CellDoubleClick += tablapanelprod_CellDoubleClick;
             // 
             // txtidcompra
             // 
             txtidcompra.Enabled = false;
-            txtidcompra.Location = new Point(43, 19);
-            txtidcompra.Margin = new Padding(3, 4, 3, 4);
+            txtidcompra.Location = new Point(38, 14);
             txtidcompra.Name = "txtidcompra";
-            txtidcompra.Size = new Size(97, 27);
+            txtidcompra.Size = new Size(85, 23);
             txtidcompra.TabIndex = 2;
             // 
             // label6
@@ -406,18 +389,18 @@
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label6.ForeColor = SystemColors.Control;
-            label6.Location = new Point(8, 20);
+            label6.Location = new Point(7, 15);
             label6.Name = "label6";
-            label6.Size = new Size(33, 25);
+            label6.Size = new Size(27, 20);
             label6.TabIndex = 1;
             label6.Text = "N°";
             // 
             // Compras
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.WindowFrame;
-            ClientSize = new Size(906, 589);
+            ClientSize = new Size(793, 442);
             Controls.Add(panelprod);
             Controls.Add(txtidcompra);
             Controls.Add(label4);
@@ -426,7 +409,7 @@
             Controls.Add(panel2);
             Controls.Add(panel5);
             Controls.Add(panel1);
-            Margin = new Padding(3, 4, 3, 4);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Compras";
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.Manual;
