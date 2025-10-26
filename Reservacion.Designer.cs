@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Reservacion));
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
             panel2 = new Panel();
@@ -154,7 +155,7 @@
             panel8.Controls.Add(fecreservacion);
             panel8.Location = new Point(520, 199);
             panel8.Name = "panel8";
-            panel8.Size = new Size(315, 270);
+            panel8.Size = new Size(313, 270);
             panel8.TabIndex = 3;
             // 
             // numericUpDown1
@@ -302,10 +303,10 @@
             // 
             pictureBox1.BackColor = SystemColors.Window;
             pictureBox1.Image = Properties.Resources.telefono;
-            pictureBox1.Location = new Point(4, 107);
+            pictureBox1.Location = new Point(5, 108);
             pictureBox1.Margin = new Padding(3, 2, 3, 2);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(34, 29);
+            pictureBox1.Size = new Size(32, 27);
             pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox1.TabIndex = 4;
             pictureBox1.TabStop = false;
@@ -315,7 +316,7 @@
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = SystemColors.Control;
-            label2.Location = new Point(329, 6);
+            label2.Location = new Point(334, 8);
             label2.Name = "label2";
             label2.Size = new Size(180, 32);
             label2.TabIndex = 3;
@@ -513,6 +514,7 @@
             facturarbtn.Text = "Orden";
             facturarbtn.TextAlign = ContentAlignment.MiddleRight;
             facturarbtn.UseVisualStyleBackColor = false;
+            facturarbtn.Click += facturarbtn_Click;
             // 
             // label9
             // 
@@ -557,6 +559,7 @@
             ClientSize = new Size(850, 510);
             Controls.Add(tabControl1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "Reservacion";

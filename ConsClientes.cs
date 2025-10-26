@@ -23,20 +23,53 @@ namespace Proyecto_restaurante
             this.UpdateStyles();
         }
 
-        private string nombreClienteActual;
+        private string IDModificar;
 
         private void ConsultaClientes_Load(object sender, EventArgs e)
         {
             string conexionString = ConexionBD.ConexionSQL();
-            string consulta = "select id, nombre_cliente, apellido_cliente, identificacion, telefono from cliente";
 
-            SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
+            string consultaid = "SELECT TOP 1 id FROM cliente ORDER BY id DESC";
 
-            DataTable dt = new DataTable();
+            using (SqlConnection con = new SqlConnection(conexionString))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand(consultaid, con))
+                {
+                    object resultado = cmd.ExecuteScalar();
 
-            adaptador.Fill(dt);
+                    if (resultado != null)
+                    {
+                        int nuevoId = Convert.ToInt32(resultado) + 1;
+                        idclientetxt.Text = nuevoId.ToString();
+                    }
+                    else
+                    {
+                        //MessageBox.Show("No se encontraron clientes.");
+                        idclientetxt.Text = "?";
+                    }
+                }
+            }
+            if (filtro.Checked == true)
+            {
+                string consulta = "select id, nombre_cliente, apellido_cliente, identificacion, telefono from cliente where estado = 1";
 
-            tabladatos.DataSource = dt;
+                SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
+
+                DataTable dt = new DataTable();
+
+                adaptador.Fill(dt);
+
+                tabladatos.DataSource = dt;
+            }
+            else
+            {
+                string consulta = "select id, nombre_cliente, apellido_cliente, identificacion, telefono from cliente where estado = 0";
+                SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
+                DataTable dt = new DataTable();
+                adaptador.Fill(dt);
+                tabladatos.DataSource = dt;
+            }
         }
 
         private void FiltroDatosBusqueda(string busqueda)
@@ -45,31 +78,60 @@ namespace Proyecto_restaurante
 
             using (SqlConnection conectar = new SqlConnection(conexionString))
             {
-                try
+                if (filtro.Checked == true)
                 {
-                    conectar.Open();
+                    try
+                    {
+                        conectar.Open();
 
-                    string query = @"
-                        SELECT * FROM cliente
+                        string query = @"
+                        SELECT id, nombre_cliente, apellido_cliente, identificacion, telefono FROM cliente
                         WHERE CAST(id AS VARCHAR) LIKE @buscar OR
                         nombre_cliente LIKE @buscar OR
-                        apellido_cliente LIKE @buscar";
+                        apellido_cliente LIKE @buscar and estado = 1";
 
-                    using (SqlCommand comando = new SqlCommand(query, conectar))
+                        using (SqlCommand comando = new SqlCommand(query, conectar))
+                        {
+                            comando.Parameters.AddWithValue("@buscar", "%" + busqueda + "%");
+
+                            SqlDataAdapter da = new SqlDataAdapter(comando);
+                            DataTable dt = new DataTable();
+                            da.Fill(dt);
+
+                            tabladatos.DataSource = dt;
+                        }
+                    }
+                    catch (Exception ex)
                     {
-                        comando.Parameters.AddWithValue("@buscar", "%" + busqueda + "%");
-
-                        SqlDataAdapter da = new SqlDataAdapter(comando);
-                        DataTable dt = new DataTable();
-                        da.Fill(dt);
-
-                        tabladatos.DataSource = dt;
+                        MessageBox.Show($"Error: {ex.Message}");
                     }
                 }
-                catch (Exception ex)
+                else if (filtro.Checked == false)
                 {
-                    MessageBox.Show($"Error: {ex.Message}");
+                    try
+                    {
+                        conectar.Open();
+                        string query = @"
+                        SELECT id, nombre_cliente, apellido_cliente, identificacion, telefono FROM cliente
+                        WHERE CAST(id AS VARCHAR) LIKE @buscar OR
+                        nombre_cliente LIKE @buscar OR
+                        apellido_cliente LIKE @buscar and estado = 0";
+                        using (SqlCommand comando = new SqlCommand(query, conectar))
+                        {
+                            comando.Parameters.AddWithValue("@buscar", "%" + busqueda + "%");
+                            SqlDataAdapter da = new SqlDataAdapter(comando);
+                            DataTable dt = new DataTable();
+                            da.Fill(dt);
+                            tabladatos.DataSource = dt;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error: {ex.Message}");
+                    }
                 }
+
+
             }
         }
 
@@ -107,6 +169,7 @@ namespace Proyecto_restaurante
         private void agregar_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedIndex = 1;
+            IDModificar = "";
         }
 
         private void guardarbtn_Click(object sender, EventArgs e)
@@ -154,7 +217,7 @@ namespace Proyecto_restaurante
                 {
                     conexion.Open();
 
-                    if (string.IsNullOrEmpty(nombreClienteActual))
+                    if (string.IsNullOrEmpty(IDModificar))
                     {
                         string queryInsertar = "INSERT INTO cliente (nombre_cliente, apellido_cliente, identificacion, telefono, estado, direccion) VALUES (@nombre_cliente, @apellido_cliente, @identificacion, @telefono, @estado, @direccion)";
                         using (SqlCommand insertarCommand = new SqlCommand(queryInsertar, conexion))
@@ -182,15 +245,17 @@ namespace Proyecto_restaurante
                     }
                     else
                     {
-                        string queryActualizar = "UPDATE cliente SET nombre_cliente = @nuevoNombre, apellido_cliente = @apellido, identificacion= @identificacion, telefono = @telefono, estado= @estado, direccion= @direccion WHERE nombre_cliente = @nombreActual";
+                        string queryActualizar = "UPDATE cliente SET nombre_cliente = @nombre, apellido_cliente = @apellido, identificacion= @identificacion, telefono = @telefono, estado= @estado, direccion= @direccion WHERE id = @id";
                         using (SqlCommand actualizarCommand = new SqlCommand(queryActualizar, conexion))
                         {
-                            actualizarCommand.Parameters.AddWithValue("@nuevoNombre", txtnombre.Text);
+
+                            actualizarCommand.Parameters.AddWithValue("@id", IDModificar);
+                            actualizarCommand.Parameters.AddWithValue("@nombre", txtnombre.Text);
                             actualizarCommand.Parameters.AddWithValue("@apellido", txtapellido.Text);
                             actualizarCommand.Parameters.AddWithValue("@identificacion", txtcedula.Text);
                             actualizarCommand.Parameters.AddWithValue("@telefono", txtnumero.Text);
                             actualizarCommand.Parameters.AddWithValue("@estado", estadochk.Checked ? 1 : 0);
-                            actualizarCommand.Parameters.AddWithValue("@nombreActual", nombreClienteActual);
+                            actualizarCommand.Parameters.AddWithValue("@direccion", txtdireccion.Text);
 
                             int rowsAffected = actualizarCommand.ExecuteNonQuery();
 
@@ -216,13 +281,14 @@ namespace Proyecto_restaurante
 
         private void RestablecerFormulario()
         {
+            imagencliente.Image = Proyecto_restaurante.Properties.Resources.perfilcliente;
             txtnombre.Text = "";
 
             txtapellido.Text = "";
 
             txtcedula.Text = "";
 
-            nombreClienteActual = "";
+            IDModificar = "";
 
             txtnumero.Text = "";
             estadochk.Checked = true;
@@ -328,8 +394,6 @@ namespace Proyecto_restaurante
             txtapellido.SelectionStart = posicion;
         }
 
-
-
         private void button1_Click(object sender, EventArgs e)
         {
             ConsultaClientes_Load(sender, e);
@@ -338,6 +402,7 @@ namespace Proyecto_restaurante
         private void button2_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedIndex = 0;
+            RestablecerFormulario();
         }
 
         private void txtnumero_KeyPress(object sender, KeyPressEventArgs e)
@@ -376,7 +441,7 @@ namespace Proyecto_restaurante
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    string codigoCliente = txtcedula.Text;
+                    string codigoCliente = idclientetxt.Text;
                     string destinoCarpeta = @"C:\SistemaArchivos\Clientes";
                     string extension = Path.GetExtension(openFileDialog.FileName);
                     string nuevaRuta = Path.Combine(destinoCarpeta, codigoCliente + extension);
@@ -406,6 +471,130 @@ namespace Proyecto_restaurante
                         MessageBox.Show("Error al copiar la imagen: " + ex.Message);
                     }
                 }
+            }
+        }
+
+        private int idCliente;
+
+        private void tabladatos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow fila = tabladatos.Rows[e.RowIndex];
+                int idCliente = Convert.ToInt32(fila.Cells["id"].Value);
+
+                string rutaImagenes = @"C:\SistemaArchivos\Clientes\";
+                string rutaImagenCliente = Path.Combine(rutaImagenes, idCliente + ".jpg");
+
+                if (File.Exists(rutaImagenCliente))
+                {
+                    clienteimg.Image = Image.FromFile(rutaImagenCliente);
+                }
+                else
+                {
+                    clienteimg.Image = Proyecto_restaurante.Properties.Resources.perfilcliente;
+                }
+            }
+        }
+
+        private void Editar_Click(object sender, EventArgs e)
+        {
+            if (tabladatos.SelectedRows.Count > 0)
+            {
+                int idCliente = Convert.ToInt32(tabladatos.SelectedRows[0].Cells["id"].Value);
+
+                IDModificar = idCliente.ToString();
+
+                CargarDatosCliente(idCliente);
+
+                tabControl1.SelectedIndex = 1;
+            }
+            else
+            {
+                MessageBox.Show("Seleccione un cliente para editar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void CargarDatosCliente(int idCliente)
+        {
+            try
+            {
+                string conexionString = ConexionBD.ConexionSQL();
+                string query = "SELECT id, nombre_cliente, apellido_cliente, identificacion, telefono, direccion, estado FROM cliente WHERE id = @id";
+
+                using (SqlConnection conexion = new SqlConnection(conexionString))
+                using (SqlCommand comando = new SqlCommand(query, conexion))
+                {
+                    comando.Parameters.AddWithValue("@id", idCliente);
+                    conexion.Open();
+
+                    SqlDataReader lector = comando.ExecuteReader();
+
+                    if (lector.Read())
+                    {
+                        idclientetxt.Text = lector["id"].ToString();
+                        txtnombre.Text = lector["nombre_cliente"].ToString();
+                        txtapellido.Text = lector["apellido_cliente"].ToString();
+                        txtcedula.Text = lector["identificacion"].ToString();
+                        txtnumero.Text = lector["telefono"].ToString();
+                        txtdireccion.Text = lector["direccion"].ToString();
+
+                        bool activo = lector["estado"] != DBNull.Value && Convert.ToBoolean(lector["estado"]);
+                        estadochk.Checked = activo;
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontró información del cliente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                    lector.Close();
+                }
+
+                string rutaImagen = Path.Combine(@"C:\SistemaArchivos\Clientes\", idCliente + ".jpg");
+                if (File.Exists(rutaImagen))
+                {
+                    using (var fs = new FileStream(rutaImagen, FileMode.Open, FileAccess.Read))
+                    {
+                        clienteimg.Image = Image.FromStream(fs);
+                    }
+                }
+                else
+                {
+                    imagencliente.Image = Proyecto_restaurante.Properties.Resources.perfilcliente;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar los datos del cliente: " + ex.Message);
+            }
+        }
+
+        private void filtro_CheckedChanged(object sender, EventArgs e)
+        {
+            if (filtro.Checked)
+            {
+                ConsultaClientes_Load(sender, e);
+                filtro.Image = Proyecto_restaurante.Properties.Resources.sicheck;
+            }
+            else
+            {
+                ConsultaClientes_Load(sender, e);
+                filtro.Image = Proyecto_restaurante.Properties.Resources.nocheck;
+            }
+        }
+
+        private void estadochk_CheckedChanged(object sender, EventArgs e)
+        {
+            if (estadochk.Checked == true)
+            {
+                estadochk.Text = "Activo";
+                estadochk.ForeColor = Color.Lime;
+            }
+            else if (estadochk.Checked == false)
+            {
+
+                estadochk.Text = "Inactivo";
+                estadochk.ForeColor = Color.Red;
             }
         }
     }

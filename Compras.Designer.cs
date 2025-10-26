@@ -287,7 +287,7 @@
             // 
             agregarbtn.Enabled = false;
             agregarbtn.Image = Properties.Resources.angulo_hacia_abajo;
-            agregarbtn.Location = new Point(747, 9);
+            agregarbtn.Location = new Point(747, 8);
             agregarbtn.Name = "agregarbtn";
             agregarbtn.Size = new Size(26, 23);
             agregarbtn.TabIndex = 0;

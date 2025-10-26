@@ -93,23 +93,6 @@ namespace Proyecto_restaurante
             consClientes.Show();
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            foreach (Form f in this.MdiChildren)
-            {
-                if (f is MantCategoria)
-                {
-                    f.BringToFront();
-                    return;
-                }
-            }
-
-            MantCategoria mantCategoria = new MantCategoria();
-            mantCategoria.Location = new Point(561, 50);
-            mantCategoria.MdiParent = this;
-            mantCategoria.Show();
-        }
-
         private void button4_Click(object sender, EventArgs e)
         {
             foreach (Form f in this.MdiChildren)
@@ -273,13 +256,13 @@ namespace Proyecto_restaurante
                         button5.Text = "Articulos";
                         button8.Text = "Mesas";
                         button2.Text = "Clientes";
-                        button3.Text = "Categorias";
                         button7.Text = "Cajas";
                         button4.Text = "Salas";
                         button5.Text = "Articulos";
                         button6.Text = "Proveedores";
                         button1.Text = "Usuarios";
                         button10.Text = "Pedidos";
+                        button14.Text = "Tipos";
                         button9.Text = "Compras";
                         reservacion.Text = "Reservacion";
                         button11.Text = "Generales";
@@ -329,6 +312,24 @@ namespace Proyecto_restaurante
             reservacion.Location = new Point(561, 50);
             reservacion.MdiParent = this;
             reservacion.Show();
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            foreach (Form f in this.MdiChildren)
+            {
+                if (f is MenuTipos)
+                {
+                    f.BringToFront();
+                    return;
+                }
+            }
+            MenuTipos menuTipos = new MenuTipos();
+            menuTipos.Location = new Point(561, 50);
+            menuTipos.textoinicial.Location = new Point(396, 150);
+            menuTipos.textoinicial.Visible = true;
+            menuTipos.MdiParent = this;
+            menuTipos.Show();
         }
     }
 }

@@ -219,8 +219,6 @@ namespace Proyecto_restaurante
 
         private void tabladatos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            this.Text = "Mantenimiento de Proveedores || Editando...";
-
             idProveedor = Convert.ToInt32(tabladatos.SelectedCells[0].Value);
             txtnombre_prov.Text = tabladatos.SelectedCells[1].Value.ToString();
             nombreProvActual = txtnombre_prov.Text;

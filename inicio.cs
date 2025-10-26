@@ -14,7 +14,7 @@ namespace Proyecto_restaurante
             timer1.Start();
         }
 
-        public string rutaArchivo = @"C:\CarpetaDeImagenesProductos\Conexion\ConexionesSQL.txt";
+        public string rutaArchivo = @"C:\SistemaArchivos\Conexion\ConexionesSQL.txt";
 
         private void iniciobtn_Click(object sender, EventArgs e)
         {

@@ -410,7 +410,7 @@
             // button1
             // 
             button1.Image = Properties.Resources.cuadrado_norte;
-            button1.Location = new Point(301, 314);
+            button1.Location = new Point(300, 314);
             button1.Name = "button1";
             button1.Size = new Size(27, 24);
             button1.TabIndex = 50;

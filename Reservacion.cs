@@ -16,5 +16,10 @@ namespace Proyecto_restaurante
         {
             InitializeComponent();
         }
+
+        private void facturarbtn_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
