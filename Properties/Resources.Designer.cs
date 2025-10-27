@@ -183,6 +183,16 @@ namespace Proyecto_restaurante.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap basurablanco {
+            get {
+                object obj = ResourceManager.GetObject("basurablanco", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap billete_de_banco {
             get {
                 object obj = ResourceManager.GetObject("billete-de-banco", resourceCulture);
@@ -246,6 +256,16 @@ namespace Proyecto_restaurante.Properties {
         internal static System.Drawing.Bitmap caja {
             get {
                 object obj = ResourceManager.GetObject("caja", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap cajero {
+            get {
+                object obj = ResourceManager.GetObject("cajero", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -493,6 +513,16 @@ namespace Proyecto_restaurante.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap cuchilloblanco {
+            get {
+                object obj = ResourceManager.GetObject("cuchilloblanco", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap departamento {
             get {
                 object obj = ResourceManager.GetObject("departamento", resourceCulture);
@@ -506,6 +536,16 @@ namespace Proyecto_restaurante.Properties {
         internal static System.Drawing.Bitmap disco {
             get {
                 object obj = ResourceManager.GetObject("disco", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap discoblanco {
+            get {
+                object obj = ResourceManager.GetObject("discoblanco", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -606,6 +646,16 @@ namespace Proyecto_restaurante.Properties {
         internal static System.Drawing.Bitmap filtrar {
             get {
                 object obj = ResourceManager.GetObject("filtrar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap filtroblanco {
+            get {
+                object obj = ResourceManager.GetObject("filtroblanco", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -766,6 +816,16 @@ namespace Proyecto_restaurante.Properties {
         internal static System.Drawing.Bitmap minimizar_ventana__1_ {
             get {
                 object obj = ResourceManager.GetObject("minimizar-ventana (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mundoblanco {
+            get {
+                object obj = ResourceManager.GetObject("mundoblanco", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1023,6 +1083,16 @@ namespace Proyecto_restaurante.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap regla {
+            get {
+                object obj = ResourceManager.GetObject("regla", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap restaurantes_moda_barcelona_roka_6475ba03ee8bc {
             get {
                 object obj = ResourceManager.GetObject("restaurantes-moda-barcelona-roka-6475ba03ee8bc", resourceCulture);
@@ -1163,6 +1233,16 @@ namespace Proyecto_restaurante.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap telefonoblanco {
+            get {
+                object obj = ResourceManager.GetObject("telefonoblanco", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap tenedor {
             get {
                 object obj = ResourceManager.GetObject("tenedor", resourceCulture);
@@ -1196,6 +1276,16 @@ namespace Proyecto_restaurante.Properties {
         internal static System.Drawing.Bitmap types {
             get {
                 object obj = ResourceManager.GetObject("types", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ubicacion {
+            get {
+                object obj = ResourceManager.GetObject("ubicacion", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

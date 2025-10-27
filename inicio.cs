@@ -14,6 +14,7 @@ namespace Proyecto_restaurante
             timer1.Start();
         }
 
+        private static string rutaUsuario = @"C:\SistemaArchivos\Usuarios\Usuarios.txt";
         public string rutaArchivo = @"C:\SistemaArchivos\Conexion\ConexionesSQL.txt";
 
         private void iniciobtn_Click(object sender, EventArgs e)
@@ -60,15 +61,39 @@ namespace Proyecto_restaurante
 
                             menu.usuariolabel.Text = "USUARIO ACTUAL: \n" + txtusuario.Text;
                             menu.usuarioActual = txtusuario.Text;
-                            menu.Show();
 
+                            Directory.CreateDirectory(Path.GetDirectoryName(rutaUsuario));
+
+                            if (recordarchk.Checked)
+                            {
+                                try
+                                {
+                                    File.WriteAllText(rutaUsuario, txtusuario.Text);
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show("No se pudo guardar el usuario recordado: " + ex.Message);
+                                }
+                            }
+                            else
+                            {
+                                try
+                                {
+                                    if (File.Exists(rutaUsuario))
+                                        File.Delete(rutaUsuario);
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show("No se pudo eliminar el archivo del usuario recordado: " + ex.Message);
+                                }
+                            }
+
+                            menu.Show();
                             this.Hide();
                         }
                         else
                         {
-                            MessageBox.Show("Usuario o contraseña incorrectos, o el usuario está inactivo.");
-                            txtpass.Text = "";
-                            txtpass.Focus();
+                            MessageBox.Show("Usuario o contraseña incorrectos o usuario inactivo.");
                         }
                     }
                 }
@@ -78,6 +103,7 @@ namespace Proyecto_restaurante
                 }
             }
         }
+
         private void passView_CheckedChanged(object sender, EventArgs e)
         {
             if (passView.Checked == true)
@@ -117,6 +143,8 @@ namespace Proyecto_restaurante
             txtusuario.Text = txtusuario.Text.ToUpper();
 
             txtusuario.SelectionStart = posicion;
+
+            recordarchk.Checked = false;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -194,7 +222,7 @@ namespace Proyecto_restaurante
 
             File.WriteAllLines(rutaArchivo, lineas);
 
-            MessageBox.Show(actualizada ? "Conexión actualizada correctamente." : "Conexión guardada correctamente.","Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(actualizada ? "Conexión actualizada correctamente." : "Conexión guardada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             button6_Click(sender, e);
         }
 
@@ -296,6 +324,39 @@ namespace Proyecto_restaurante
             {
                 MessageBox.Show("No se pudo eliminar la conexión. Verifica los datos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void inicio_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                if (File.Exists(rutaUsuario))
+                {
+                    string usuarioGuardado = File.ReadAllText(rutaUsuario).Trim();
+
+                    if (!string.IsNullOrEmpty(usuarioGuardado))
+                    {
+                        txtusuario.Text = usuarioGuardado;
+                        recordarchk.Checked = true;
+                        txtpass.Focus();
+                    }
+                }
+                else
+                {
+                    txtusuario.Text = string.Empty;
+                    recordarchk.Checked = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No se pudo leer el usuario recordado: " + ex.Message);
+            }
+        }
+
+        private void inicio_Shown(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtusuario.Text))
+                txtpass.Focus();
         }
     }
 }

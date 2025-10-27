@@ -28,48 +28,48 @@ namespace Proyecto_restaurante
             categpanel.BringToFront();
             categpanel.Visible = true;
 
-            string consultaid = "SELECT TOP 1 IdCategoria FROM CategoriaProducto ORDER BY IdCategoria DESC";
+            //string consultaid = "SELECT TOP 1 IdCategoria FROM CategoriaProducto ORDER BY IdCategoria DESC";
 
-            using (SqlConnection con = new SqlConnection(conexionString))
-            {
-                con.Open();
-                using (SqlCommand cmd = new SqlCommand(consultaid, con))
-                {
-                    object resultado = cmd.ExecuteScalar();
+            //using (SqlConnection con = new SqlConnection(conexionString))
+            //{
+            //    con.Open();
+            //    using (SqlCommand cmd = new SqlCommand(consultaid, con))
+            //    {
+            //        object resultado = cmd.ExecuteScalar();
 
-                    if (resultado != null)
-                    {
-                        int nuevoId = Convert.ToInt32(resultado) + 1;
-                        idcateg.Text = nuevoId.ToString();
-                    }
-                    else
-                    {
-                        //MessageBox.Show("No se encontraron clientes.");
-                        idcateg.Text = "?";
-                    }
-                }
-            }
+            //        if (resultado != null)
+            //        {
+            //            int nuevoId = Convert.ToInt32(resultado) + 1;
+            //            idcateg.Text = nuevoId.ToString();
+            //        }
+            //        else
+            //        {
+            //            //MessageBox.Show("No se encontraron clientes.");
+            //            idcateg.Text = "?";
+            //        }
+            //    }
+            //}
 
-            if (categfiltrochk.Checked == true)
-            {
-                string consulta = "select * from CategoriaProducto where Activo = 1";
+            //if (categfiltrochk.Checked == true)
+            //{
+            //    string consulta = "select * from CategoriaProducto where Activo = 1";
 
-                SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
+            //    SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
 
-                DataTable dt = new DataTable();
+            //    DataTable dt = new DataTable();
 
-                adaptador.Fill(dt);
+            //    adaptador.Fill(dt);
 
-                categdt.DataSource = dt;
-            }
-            else
-            {
-                string consulta = "select * from CategoriaProducto where Activo = 0";
-                SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
-                DataTable dt = new DataTable();
-                adaptador.Fill(dt);
-                categdt.DataSource = dt;
-            }
+            //    categdt.DataSource = dt;
+            //}
+            //else
+            //{
+            //    string consulta = "select * from CategoriaProducto where Activo = 0";
+            //    SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
+            //    DataTable dt = new DataTable();
+            //    adaptador.Fill(dt);
+            //    categdt.DataSource = dt;
+            //}
         }
 
         private void button8_Click(object sender, EventArgs e)
@@ -79,48 +79,48 @@ namespace Proyecto_restaurante
             idenpanel.BringToFront();
             idenpanel.Visible = true;
 
-            string consultaid = "SELECT TOP 1 IdTipoDocumento FROM TipoDocumento ORDER BY IdTipoDocumento DESC";
+            //string consultaid = "SELECT TOP 1 IdTipoDocumento FROM TipoDocumento ORDER BY IdTipoDocumento DESC";
 
-            using (SqlConnection con = new SqlConnection(conexionString))
-            {
-                con.Open();
-                using (SqlCommand cmd = new SqlCommand(consultaid, con))
-                {
-                    object resultado = cmd.ExecuteScalar();
+            //using (SqlConnection con = new SqlConnection(conexionString))
+            //{
+            //    con.Open();
+            //    using (SqlCommand cmd = new SqlCommand(consultaid, con))
+            //    {
+            //        object resultado = cmd.ExecuteScalar();
 
-                    if (resultado != null)
-                    {
-                        int nuevoId = Convert.ToInt32(resultado) + 1;
-                        iddocid.Text = nuevoId.ToString();
-                    }
-                    else
-                    {
-                        //MessageBox.Show("No se encontraron clientes.");
-                        iddocid.Text = "?";
-                    }
-                }
-            }
+            //        if (resultado != null)
+            //        {
+            //            int nuevoId = Convert.ToInt32(resultado) + 1;
+            //            iddocid.Text = nuevoId.ToString();
+            //        }
+            //        else
+            //        {
+            //            //MessageBox.Show("No se encontraron clientes.");
+            //            iddocid.Text = "?";
+            //        }
+            //    }
+            //}
 
-            if (categfiltrochk.Checked == true)
-            {
-                string consulta = "select * from CategoriaProducto where Activo = 1";
+            //if (categfiltrochk.Checked == true)
+            //{
+            //    string consulta = "select * from TipoDocumento where Activo = 1";
 
-                SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
+            //    SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
 
-                DataTable dt = new DataTable();
+            //    DataTable dt = new DataTable();
 
-                adaptador.Fill(dt);
+            //    adaptador.Fill(dt);
 
-                categdt.DataSource = dt;
-            }
-            else
-            {
-                string consulta = "select * from CategoriaProducto where Activo = 0";
-                SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
-                DataTable dt = new DataTable();
-                adaptador.Fill(dt);
-                identdt.DataSource = dt;
-            }
+            //    categdt.DataSource = dt;
+            //}
+            //else
+            //{
+            //    string consulta = "select * from TipoDocumento where Activo = 0";
+            //    SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
+            //    DataTable dt = new DataTable();
+            //    adaptador.Fill(dt);
+            //    identdt.DataSource = dt;
+            //}
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -130,48 +130,48 @@ namespace Proyecto_restaurante
             prodpanel.BringToFront();
             prodpanel.Visible = true;
 
-            string consultaid = "SELECT TOP 1 IdProductoTipo FROM ProductoTipo ORDER BY IdProductoTipo DESC";
+            //string consultaid = "SELECT TOP 1 IdProductoTipo FROM ProductoTipo ORDER BY IdProductoTipo DESC";
 
-            using (SqlConnection con = new SqlConnection(conexionString))
-            {
-                con.Open();
-                using (SqlCommand cmd = new SqlCommand(consultaid, con))
-                {
-                    object resultado = cmd.ExecuteScalar();
+            //using (SqlConnection con = new SqlConnection(conexionString))
+            //{
+            //    con.Open();
+            //    using (SqlCommand cmd = new SqlCommand(consultaid, con))
+            //    {
+            //        object resultado = cmd.ExecuteScalar();
 
-                    if (resultado != null)
-                    {
-                        int nuevoId = Convert.ToInt32(resultado) + 1;
-                        idprod.Text = nuevoId.ToString();
-                    }
-                    else
-                    {
-                        //MessageBox.Show("No se encontraron clientes.");
-                        idprod.Text = "?";
-                    }
-                }
-            }
+            //        if (resultado != null)
+            //        {
+            //            int nuevoId = Convert.ToInt32(resultado) + 1;
+            //            idprod.Text = nuevoId.ToString();
+            //        }
+            //        else
+            //        {
+            //            //MessageBox.Show("No se encontraron clientes.");
+            //            idprod.Text = "?";
+            //        }
+            //    }
+            //}
 
-            if (categfiltrochk.Checked == true)
-            {
-                string consulta = "select * from ProductoTipo where Activo = 1";
+            //if (categfiltrochk.Checked == true)
+            //{
+            //    string consulta = "select * from ProductoTipo where Activo = 1";
 
-                SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
+            //    SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
 
-                DataTable dt = new DataTable();
+            //    DataTable dt = new DataTable();
 
-                adaptador.Fill(dt);
+            //    adaptador.Fill(dt);
 
-                prodtidt.DataSource = dt;
-            }
-            else
-            {
-                string consulta = "select * from ProductoTipo where Activo = 0";
-                SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
-                DataTable dt = new DataTable();
-                adaptador.Fill(dt);
-                prodtidt.DataSource = dt;
-            }
+            //    prodtidt.DataSource = dt;
+            //}
+            //else
+            //{
+            //    string consulta = "select * from ProductoTipo where Activo = 0";
+            //    SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
+            //    DataTable dt = new DataTable();
+            //    adaptador.Fill(dt);
+            //    prodtidt.DataSource = dt;
+            //}
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -181,48 +181,48 @@ namespace Proyecto_restaurante
             metodopanel.BringToFront();
             metodopanel.Visible = true;
 
-            string consultaid = "SELECT TOP 1 IdMetodoPago FROM MetodoPago ORDER BY IdMetodoPago DESC";
+            //string consultaid = "SELECT TOP 1 IdMetodoPago FROM MetodoPago ORDER BY IdMetodoPago DESC";
 
-            using (SqlConnection con = new SqlConnection(conexionString))
-            {
-                con.Open();
-                using (SqlCommand cmd = new SqlCommand(consultaid, con))
-                {
-                    object resultado = cmd.ExecuteScalar();
+            //using (SqlConnection con = new SqlConnection(conexionString))
+            //{
+            //    con.Open();
+            //    using (SqlCommand cmd = new SqlCommand(consultaid, con))
+            //    {
+            //        object resultado = cmd.ExecuteScalar();
 
-                    if (resultado != null)
-                    {
-                        int nuevoId = Convert.ToInt32(resultado) + 1;
-                        idmetpago.Text = nuevoId.ToString();
-                    }
-                    else
-                    {
-                        //MessageBox.Show("No se encontraron clientes.");
-                        idmetpago.Text = "?";
-                    }
-                }
-            }
+            //        if (resultado != null)
+            //        {
+            //            int nuevoId = Convert.ToInt32(resultado) + 1;
+            //            idmetpago.Text = nuevoId.ToString();
+            //        }
+            //        else
+            //        {
+            //            //MessageBox.Show("No se encontraron clientes.");
+            //            idmetpago.Text = "?";
+            //        }
+            //    }
+            //}
 
-            if (categfiltrochk.Checked == true)
-            {
-                string consulta = "select * from MetodoPago where Activo = 1";
+            //if (categfiltrochk.Checked == true)
+            //{
+            //    string consulta = "select * from MetodoPago where Activo = 1";
 
-                SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
+            //    SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
 
-                DataTable dt = new DataTable();
+            //    DataTable dt = new DataTable();
 
-                adaptador.Fill(dt);
+            //    adaptador.Fill(dt);
 
-                metododt.DataSource = dt;
-            }
-            else
-            {
-                string consulta = "select * from MetodoPago where Activo = 0";
-                SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
-                DataTable dt = new DataTable();
-                adaptador.Fill(dt);
-                metododt.DataSource = dt;
-            }
+            //    metododt.DataSource = dt;
+            //}
+            //else
+            //{
+            //    string consulta = "select * from MetodoPago where Activo = 0";
+            //    SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
+            //    DataTable dt = new DataTable();
+            //    adaptador.Fill(dt);
+            //    metododt.DataSource = dt;
+            //}
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -353,6 +353,9 @@ namespace Proyecto_restaurante
 
             motivopanel.Location = new Point(744, 428);
             motivopanel.Visible = false;
+
+            unidadpanel.Location = new Point(744, 428);
+            unidadpanel.Visible = false;
         }
 
         private void metfiltrochk_CheckedChanged(object sender, EventArgs e)
@@ -419,6 +422,14 @@ namespace Proyecto_restaurante
             textoinicial.Location = new Point(357, 875);
             motivopanel.BringToFront();
             motivopanel.Visible = true;
+        }
+
+        private void button29_Click(object sender, EventArgs e)
+        {
+            unidadpanel.Location = new Point(225, 12);
+            textoinicial.Location = new Point(357, 875);
+            unidadpanel.BringToFront();
+            unidadpanel.Visible = true;
         }
     }
 }

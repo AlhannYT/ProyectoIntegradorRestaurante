@@ -37,6 +37,7 @@
             button4 = new Button();
             button26 = new Button();
             button3 = new Button();
+            button29 = new Button();
             button25 = new Button();
             button2 = new Button();
             button1 = new Button();
@@ -121,6 +122,7 @@
             label22 = new Label();
             button19 = new Button();
             prodfiltrochk = new CheckBox();
+            ingredientechk = new CheckBox();
             estadoprod = new CheckBox();
             prodbuscar = new TextBox();
             prodtidt = new DataGridView();
@@ -169,7 +171,25 @@
             panel4 = new Panel();
             button28 = new Button();
             guardarmotivo = new Button();
-            ingredientechk = new CheckBox();
+            unidadpanel = new Panel();
+            button30 = new Button();
+            label39 = new Label();
+            button31 = new Button();
+            unidadfiltrochk = new CheckBox();
+            unidadestadochk = new CheckBox();
+            unidadbusqueda = new TextBox();
+            dataGridView2 = new DataGridView();
+            idunidad = new TextBox();
+            valorunidadtxt = new TextBox();
+            nombreunidadtxt = new TextBox();
+            label40 = new Label();
+            label44 = new Label();
+            label41 = new Label();
+            label42 = new Label();
+            label43 = new Label();
+            panel6 = new Panel();
+            button32 = new Button();
+            button33 = new Button();
             barraizq.SuspendLayout();
             metodopanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)metododt).BeginInit();
@@ -193,13 +213,16 @@
             motivopanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel4.SuspendLayout();
+            unidadpanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
+            panel6.SuspendLayout();
             SuspendLayout();
             // 
             // button5
             // 
             button5.Image = Properties.Resources.tipodepago;
             button5.ImageAlign = ContentAlignment.MiddleRight;
-            button5.Location = new Point(8, 162);
+            button5.Location = new Point(8, 145);
             button5.Margin = new Padding(2);
             button5.Name = "button5";
             button5.Size = new Size(200, 38);
@@ -213,7 +236,7 @@
             // 
             button8.Image = Properties.Resources.dni;
             button8.ImageAlign = ContentAlignment.MiddleRight;
-            button8.Location = new Point(8, 80);
+            button8.Location = new Point(8, 69);
             button8.Margin = new Padding(2);
             button8.Name = "button8";
             button8.Size = new Size(200, 38);
@@ -226,14 +249,14 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;
             label1.Image = Properties.Resources.mantenimiento1;
             label1.ImageAlign = ContentAlignment.MiddleRight;
-            label1.Location = new Point(4, 4);
+            label1.Location = new Point(4, 2);
             label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(104, 32);
+            label1.Size = new Size(80, 25);
             label1.TabIndex = 14;
             label1.Text = "Tipos    ";
             // 
@@ -245,6 +268,7 @@
             barraizq.Controls.Add(label1);
             barraizq.Controls.Add(button26);
             barraizq.Controls.Add(button3);
+            barraizq.Controls.Add(button29);
             barraizq.Controls.Add(button25);
             barraizq.Controls.Add(button2);
             barraizq.Controls.Add(button8);
@@ -254,14 +278,14 @@
             barraizq.Location = new Point(0, 0);
             barraizq.Margin = new Padding(2);
             barraizq.Name = "barraizq";
-            barraizq.Size = new Size(219, 426);
+            barraizq.Size = new Size(219, 424);
             barraizq.TabIndex = 20;
             // 
             // button4
             // 
             button4.Image = Properties.Resources.categoria;
             button4.ImageAlign = ContentAlignment.MiddleRight;
-            button4.Location = new Point(8, 39);
+            button4.Location = new Point(8, 31);
             button4.Margin = new Padding(2);
             button4.Name = "button4";
             button4.Size = new Size(200, 38);
@@ -280,7 +304,7 @@
             button26.Name = "button26";
             button26.Size = new Size(200, 38);
             button26.TabIndex = 7;
-            button26.Text = "Quitar Formulario";
+            button26.Text = "Quitar Formulario actual";
             button26.TextAlign = ContentAlignment.MiddleLeft;
             button26.UseVisualStyleBackColor = true;
             button26.Click += button26_Click;
@@ -289,7 +313,7 @@
             // 
             button3.Image = Properties.Resources.puesto;
             button3.ImageAlign = ContentAlignment.MiddleRight;
-            button3.Location = new Point(8, 203);
+            button3.Location = new Point(8, 183);
             button3.Margin = new Padding(2);
             button3.Name = "button3";
             button3.Size = new Size(200, 38);
@@ -299,11 +323,25 @@
             button3.UseVisualStyleBackColor = true;
             button3.Click += button3_Click;
             // 
+            // button29
+            // 
+            button29.Image = Properties.Resources.regla;
+            button29.ImageAlign = ContentAlignment.MiddleRight;
+            button29.Location = new Point(8, 297);
+            button29.Margin = new Padding(2);
+            button29.Name = "button29";
+            button29.Size = new Size(200, 38);
+            button29.TabIndex = 5;
+            button29.Text = "Unidad de medida";
+            button29.TextAlign = ContentAlignment.MiddleLeft;
+            button29.UseVisualStyleBackColor = true;
+            button29.Click += button29_Click;
+            // 
             // button25
             // 
             button25.Image = Properties.Resources.salirproducto1;
             button25.ImageAlign = ContentAlignment.MiddleRight;
-            button25.Location = new Point(8, 285);
+            button25.Location = new Point(8, 259);
             button25.Margin = new Padding(2);
             button25.Name = "button25";
             button25.Size = new Size(200, 38);
@@ -317,7 +355,7 @@
             // 
             button2.Image = Properties.Resources.herramientas;
             button2.ImageAlign = ContentAlignment.MiddleRight;
-            button2.Location = new Point(8, 244);
+            button2.Location = new Point(8, 221);
             button2.Margin = new Padding(2);
             button2.Name = "button2";
             button2.Size = new Size(200, 38);
@@ -331,7 +369,7 @@
             // 
             button1.Image = Properties.Resources.productonuevo1;
             button1.ImageAlign = ContentAlignment.MiddleRight;
-            button1.Location = new Point(8, 121);
+            button1.Location = new Point(8, 107);
             button1.Margin = new Padding(2);
             button1.Name = "button1";
             button1.Size = new Size(200, 38);
@@ -757,7 +795,7 @@
             puestopanel.Controls.Add(panel5);
             puestopanel.Location = new Point(225, 428);
             puestopanel.Name = "puestopanel";
-            puestopanel.Size = new Size(513, 527);
+            puestopanel.Size = new Size(513, 410);
             puestopanel.TabIndex = 21;
             puestopanel.Visible = false;
             // 
@@ -814,7 +852,7 @@
             // btndepabuscar
             // 
             btndepabuscar.Image = Properties.Resources.busqueda;
-            btndepabuscar.Location = new Point(374, 134);
+            btndepabuscar.Location = new Point(374, 133);
             btndepabuscar.Name = "btndepabuscar";
             btndepabuscar.Size = new Size(25, 24);
             btndepabuscar.TabIndex = 1;
@@ -1287,6 +1325,20 @@
             prodfiltrochk.Text = "      ";
             prodfiltrochk.UseVisualStyleBackColor = true;
             // 
+            // ingredientechk
+            // 
+            ingredientechk.AutoSize = true;
+            ingredientechk.Checked = true;
+            ingredientechk.CheckState = CheckState.Checked;
+            ingredientechk.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            ingredientechk.ForeColor = Color.White;
+            ingredientechk.Location = new Point(111, 140);
+            ingredientechk.Name = "ingredientechk";
+            ingredientechk.Size = new Size(118, 25);
+            ingredientechk.TabIndex = 6;
+            ingredientechk.Text = "Ingrediente";
+            ingredientechk.UseVisualStyleBackColor = true;
+            // 
             // estadoprod
             // 
             estadoprod.AutoSize = true;
@@ -1634,7 +1686,7 @@
             motivopanel.Controls.Add(label37);
             motivopanel.Controls.Add(label38);
             motivopanel.Controls.Add(panel4);
-            motivopanel.Location = new Point(1782, 12);
+            motivopanel.Location = new Point(1263, 844);
             motivopanel.Name = "motivopanel";
             motivopanel.Size = new Size(513, 410);
             motivopanel.TabIndex = 21;
@@ -1812,29 +1864,229 @@
             guardarmotivo.Text = "Guardar";
             guardarmotivo.UseVisualStyleBackColor = true;
             // 
-            // ingredientechk
+            // unidadpanel
             // 
-            ingredientechk.AutoSize = true;
-            ingredientechk.Checked = true;
-            ingredientechk.CheckState = CheckState.Checked;
-            ingredientechk.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            ingredientechk.ForeColor = Color.White;
-            ingredientechk.Location = new Point(111, 140);
-            ingredientechk.Name = "ingredientechk";
-            ingredientechk.Size = new Size(118, 25);
-            ingredientechk.TabIndex = 6;
-            ingredientechk.Text = "Ingrediente";
-            ingredientechk.UseVisualStyleBackColor = true;
+            unidadpanel.Controls.Add(button30);
+            unidadpanel.Controls.Add(label39);
+            unidadpanel.Controls.Add(button31);
+            unidadpanel.Controls.Add(unidadfiltrochk);
+            unidadpanel.Controls.Add(unidadestadochk);
+            unidadpanel.Controls.Add(unidadbusqueda);
+            unidadpanel.Controls.Add(dataGridView2);
+            unidadpanel.Controls.Add(idunidad);
+            unidadpanel.Controls.Add(valorunidadtxt);
+            unidadpanel.Controls.Add(nombreunidadtxt);
+            unidadpanel.Controls.Add(label40);
+            unidadpanel.Controls.Add(label44);
+            unidadpanel.Controls.Add(label41);
+            unidadpanel.Controls.Add(label42);
+            unidadpanel.Controls.Add(label43);
+            unidadpanel.Controls.Add(panel6);
+            unidadpanel.Location = new Point(744, 844);
+            unidadpanel.Name = "unidadpanel";
+            unidadpanel.Size = new Size(513, 410);
+            unidadpanel.TabIndex = 21;
+            unidadpanel.Visible = false;
+            // 
+            // button30
+            // 
+            button30.Image = Properties.Resources.seleccion;
+            button30.ImageAlign = ContentAlignment.MiddleLeft;
+            button30.Location = new Point(363, 262);
+            button30.Name = "button30";
+            button30.Size = new Size(138, 26);
+            button30.TabIndex = 1;
+            button30.Text = "Seleccionar";
+            button30.UseVisualStyleBackColor = true;
+            // 
+            // label39
+            // 
+            label39.AutoSize = true;
+            label39.BackColor = Color.White;
+            label39.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label39.ForeColor = Color.White;
+            label39.Image = Properties.Resources.busqueda;
+            label39.Location = new Point(481, 331);
+            label39.Name = "label39";
+            label39.Size = new Size(18, 21);
+            label39.TabIndex = 0;
+            label39.Text = "  ";
+            // 
+            // button31
+            // 
+            button31.Image = Properties.Resources.basura;
+            button31.Location = new Point(481, 12);
+            button31.Name = "button31";
+            button31.Size = new Size(25, 24);
+            button31.TabIndex = 1;
+            button31.UseVisualStyleBackColor = true;
+            // 
+            // unidadfiltrochk
+            // 
+            unidadfiltrochk.AutoSize = true;
+            unidadfiltrochk.Checked = true;
+            unidadfiltrochk.CheckState = CheckState.Checked;
+            unidadfiltrochk.Font = new Font("Segoe UI", 15F);
+            unidadfiltrochk.Image = Properties.Resources.sicheck;
+            unidadfiltrochk.Location = new Point(363, 359);
+            unidadfiltrochk.Name = "unidadfiltrochk";
+            unidadfiltrochk.Size = new Size(61, 32);
+            unidadfiltrochk.TabIndex = 6;
+            unidadfiltrochk.Text = "      ";
+            unidadfiltrochk.UseVisualStyleBackColor = true;
+            // 
+            // unidadestadochk
+            // 
+            unidadestadochk.AutoSize = true;
+            unidadestadochk.Checked = true;
+            unidadestadochk.CheckState = CheckState.Checked;
+            unidadestadochk.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            unidadestadochk.ForeColor = Color.Lime;
+            unidadestadochk.Location = new Point(113, 66);
+            unidadestadochk.Name = "unidadestadochk";
+            unidadestadochk.Size = new Size(78, 25);
+            unidadestadochk.TabIndex = 6;
+            unidadestadochk.Text = "Activo";
+            unidadestadochk.UseVisualStyleBackColor = true;
+            // 
+            // unidadbusqueda
+            // 
+            unidadbusqueda.Location = new Point(363, 330);
+            unidadbusqueda.Name = "unidadbusqueda";
+            unidadbusqueda.Size = new Size(138, 23);
+            unidadbusqueda.TabIndex = 5;
+            // 
+            // dataGridView2
+            // 
+            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView2.Location = new Point(13, 262);
+            dataGridView2.MultiSelect = false;
+            dataGridView2.Name = "dataGridView2";
+            dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView2.Size = new Size(344, 133);
+            dataGridView2.TabIndex = 3;
+            // 
+            // idunidad
+            // 
+            idunidad.Enabled = false;
+            idunidad.Location = new Point(36, 11);
+            idunidad.Name = "idunidad";
+            idunidad.Size = new Size(56, 23);
+            idunidad.TabIndex = 2;
+            // 
+            // valorunidadtxt
+            // 
+            valorunidadtxt.Location = new Point(200, 132);
+            valorunidadtxt.Name = "valorunidadtxt";
+            valorunidadtxt.Size = new Size(199, 23);
+            valorunidadtxt.TabIndex = 2;
+            // 
+            // nombreunidadtxt
+            // 
+            nombreunidadtxt.Location = new Point(200, 103);
+            nombreunidadtxt.Name = "nombreunidadtxt";
+            nombreunidadtxt.Size = new Size(199, 23);
+            nombreunidadtxt.TabIndex = 2;
+            // 
+            // label40
+            // 
+            label40.AutoSize = true;
+            label40.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label40.ForeColor = Color.White;
+            label40.Location = new Point(3, 12);
+            label40.Name = "label40";
+            label40.Size = new Size(27, 21);
+            label40.TabIndex = 0;
+            label40.Text = "ID";
+            // 
+            // label44
+            // 
+            label44.AutoSize = true;
+            label44.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label44.ForeColor = Color.White;
+            label44.Location = new Point(113, 133);
+            label44.Name = "label44";
+            label44.Size = new Size(50, 21);
+            label44.TabIndex = 0;
+            label44.Text = "Valor";
+            // 
+            // label41
+            // 
+            label41.AutoSize = true;
+            label41.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label41.ForeColor = Color.White;
+            label41.Image = Properties.Resources.filtrar;
+            label41.ImageAlign = ContentAlignment.MiddleRight;
+            label41.Location = new Point(363, 298);
+            label41.Name = "label41";
+            label41.Size = new Size(77, 21);
+            label41.TabIndex = 0;
+            label41.Text = "Filtros     ";
+            // 
+            // label42
+            // 
+            label42.AutoSize = true;
+            label42.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label42.ForeColor = Color.White;
+            label42.Location = new Point(113, 104);
+            label42.Name = "label42";
+            label42.Size = new Size(73, 21);
+            label42.TabIndex = 0;
+            label42.Text = "Nombre";
+            // 
+            // label43
+            // 
+            label43.AutoSize = true;
+            label43.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            label43.ForeColor = Color.White;
+            label43.Location = new Point(145, 3);
+            label43.Name = "label43";
+            label43.Size = new Size(223, 32);
+            label43.TabIndex = 0;
+            label43.Text = "Unidad de medida";
+            // 
+            // panel6
+            // 
+            panel6.BackColor = Color.FromArgb(64, 64, 64);
+            panel6.Controls.Add(button32);
+            panel6.Controls.Add(button33);
+            panel6.Location = new Point(99, 186);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(314, 57);
+            panel6.TabIndex = 4;
+            // 
+            // button32
+            // 
+            button32.Image = Properties.Resources.nuevodoc1;
+            button32.ImageAlign = ContentAlignment.MiddleLeft;
+            button32.Location = new Point(175, 9);
+            button32.Name = "button32";
+            button32.Size = new Size(127, 38);
+            button32.TabIndex = 1;
+            button32.Text = "Nuevo";
+            button32.UseVisualStyleBackColor = true;
+            // 
+            // button33
+            // 
+            button33.Image = Properties.Resources.disco;
+            button33.ImageAlign = ContentAlignment.MiddleLeft;
+            button33.Location = new Point(12, 9);
+            button33.Name = "button33";
+            button33.Size = new Size(127, 38);
+            button33.TabIndex = 1;
+            button33.Text = "Guardar";
+            button33.UseVisualStyleBackColor = true;
             // 
             // MenuTipos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.WindowFrame;
-            ClientSize = new Size(743, 426);
+            ClientSize = new Size(740, 424);
             Controls.Add(prodpanel);
             Controls.Add(categpanel);
             Controls.Add(motivopanel);
+            Controls.Add(unidadpanel);
             Controls.Add(depapanel);
             Controls.Add(puestopanel);
             Controls.Add(idenpanel);
@@ -1878,6 +2130,10 @@
             motivopanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             panel4.ResumeLayout(false);
+            unidadpanel.ResumeLayout(false);
+            unidadpanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
+            panel6.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -2024,5 +2280,25 @@
         private Button guardarmotivo;
         private Button button25;
         private CheckBox ingredientechk;
+        private Button button29;
+        private Panel unidadpanel;
+        private Button button30;
+        private Label label39;
+        private Button button31;
+        private CheckBox unidadfiltrochk;
+        private CheckBox unidadestadochk;
+        private TextBox unidadbusqueda;
+        private DataGridView dataGridView2;
+        private TextBox idunidad;
+        private TextBox valorunidadtxt;
+        private TextBox nombreunidadtxt;
+        private Label label40;
+        private Label label44;
+        private Label label41;
+        private Label label42;
+        private Label label43;
+        private Panel panel6;
+        private Button button32;
+        private Button button33;
     }
 }

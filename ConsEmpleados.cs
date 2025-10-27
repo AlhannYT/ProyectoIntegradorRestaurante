@@ -16,5 +16,15 @@ namespace Proyecto_restaurante
         {
             InitializeComponent();
         }
+
+        private void guardarbtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buscarpuesto_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

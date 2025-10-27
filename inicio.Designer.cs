@@ -45,6 +45,7 @@
             timer1 = new System.Windows.Forms.Timer(components);
             sqlbtn = new Button();
             toolTip1 = new ToolTip(components);
+            recordarchk = new CheckBox();
             conexionpanel = new Panel();
             button6 = new Button();
             button3 = new Button();
@@ -87,7 +88,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F);
             label1.ForeColor = SystemColors.ControlLightLight;
-            label1.Location = new Point(167, 230);
+            label1.Location = new Point(150, 230);
             label1.Name = "label1";
             label1.Size = new Size(64, 21);
             label1.TabIndex = 1;
@@ -98,7 +99,7 @@
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F);
             label2.ForeColor = SystemColors.ControlLightLight;
-            label2.Location = new Point(167, 278);
+            label2.Location = new Point(150, 278);
             label2.Name = "label2";
             label2.Size = new Size(89, 21);
             label2.TabIndex = 1;
@@ -106,7 +107,7 @@
             // 
             // txtusuario
             // 
-            txtusuario.Location = new Point(265, 231);
+            txtusuario.Location = new Point(248, 229);
             txtusuario.Name = "txtusuario";
             txtusuario.Size = new Size(115, 23);
             txtusuario.TabIndex = 0;
@@ -115,7 +116,7 @@
             // 
             // txtpass
             // 
-            txtpass.Location = new Point(265, 278);
+            txtpass.Location = new Point(248, 277);
             txtpass.Name = "txtpass";
             txtpass.Size = new Size(115, 23);
             txtpass.TabIndex = 1;
@@ -146,7 +147,7 @@
             // 
             passView.Appearance = Appearance.Button;
             passView.Image = Properties.Resources.ojo;
-            passView.Location = new Point(386, 279);
+            passView.Location = new Point(369, 277);
             passView.Name = "passView";
             passView.Size = new Size(27, 22);
             passView.TabIndex = 6;
@@ -212,6 +213,19 @@
             toolTip1.SetToolTip(sqlbtn, "Conexion SQL");
             sqlbtn.UseVisualStyleBackColor = true;
             sqlbtn.Click += sqlbtn_Click;
+            // 
+            // recordarchk
+            // 
+            recordarchk.AutoSize = true;
+            recordarchk.Font = new Font("Segoe UI", 14F);
+            recordarchk.Image = Properties.Resources.discoblanco;
+            recordarchk.Location = new Point(369, 226);
+            recordarchk.Name = "recordarchk";
+            recordarchk.Size = new Size(46, 29);
+            recordarchk.TabIndex = 13;
+            recordarchk.Text = "   ";
+            toolTip1.SetToolTip(recordarchk, "Recordar Usuario");
+            recordarchk.UseVisualStyleBackColor = true;
             // 
             // conexionpanel
             // 
@@ -424,6 +438,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
             ClientSize = new Size(564, 368);
+            Controls.Add(recordarchk);
             Controls.Add(conexiones);
             Controls.Add(conexionpanel);
             Controls.Add(sqlbtn);
@@ -445,6 +460,8 @@
             Name = "inicio";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Inicio De Sesion";
+            Load += inicio_Load;
+            Shown += inicio_Shown;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             conexionpanel.ResumeLayout(false);
@@ -490,5 +507,6 @@
         private Button button4;
         private Button button6;
         private Button borrarconex;
+        private CheckBox recordarchk;
     }
 }

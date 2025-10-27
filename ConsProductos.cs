@@ -269,7 +269,7 @@ namespace Proyecto_restaurante
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+
             ITBIS.Items.Clear();
             ConsProductos_Load(sender, e);
         }
@@ -334,14 +334,30 @@ namespace Proyecto_restaurante
             {
                 buscarcateg.Image = Proyecto_restaurante.Properties.Resources.cancelar1;
                 categoriapanel.Visible = true;
+                categoriapanel.BringToFront();
+                categoriapanel.Location = new Point(435, 142);
+                imagenpanel.Visible = false;
                 buscarcatedt = 0;
             }
             else
             {
                 buscarcateg.Image = Proyecto_restaurante.Properties.Resources.busqueda1;
                 categoriapanel.Visible = false;
+                imagenpanel.BringToFront();
+                categoriapanel.Location = new Point(227, 245);
+                imagenpanel.Visible = true;
                 buscarcatedt = 1;
             }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void categoriapanel_Leave(object sender, EventArgs e)
+        {
+            buscarcateg_Click(sender, e);
         }
     }
 }

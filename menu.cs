@@ -266,6 +266,7 @@ namespace Proyecto_restaurante
                         button9.Text = "Compras";
                         reservacion.Text = "Reservacion";
                         button11.Text = "Generales";
+                        button13.Text = "Empleados";
                         btn.ImageAlign = ContentAlignment.MiddleRight;
                         button12.ImageAlign = ContentAlignment.MiddleCenter;
                         label1.Text = "Mantenimientos    ";
@@ -330,6 +331,22 @@ namespace Proyecto_restaurante
             menuTipos.textoinicial.Visible = true;
             menuTipos.MdiParent = this;
             menuTipos.Show();
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            foreach (Form f in this.MdiChildren)
+            {
+                if (f is ConsEmpleados)
+                {
+                    f.BringToFront();
+                    return;
+                }
+            }
+            ConsEmpleados empleados = new ConsEmpleados();
+            empleados.Location = new Point(561, 50);
+            empleados.MdiParent = this;
+            empleados.Show();
         }
     }
 }

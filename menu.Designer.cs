@@ -436,7 +436,7 @@
             button13.Text = "Empleados";
             button13.TextAlign = ContentAlignment.MiddleLeft;
             button13.UseVisualStyleBackColor = true;
-            button13.Click += button2_Click;
+            button13.Click += button13_Click;
             // 
             // label3
             // 

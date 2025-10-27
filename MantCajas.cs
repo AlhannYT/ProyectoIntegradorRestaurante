@@ -18,7 +18,8 @@ namespace Proyecto_restaurante
             InitializeComponent();
         }
 
-        private string nombreCajaActual;
+        private string IDModificar;
+
         private int idCaja = 0;
 
         private void guardatbtn_Click(object sender, EventArgs e)
@@ -31,15 +32,15 @@ namespace Proyecto_restaurante
                 {
                     conexion.Open();
 
-                    if (string.IsNullOrEmpty(nombreCajaActual))
+                    if (string.IsNullOrEmpty(IDModificar))
                     {
                         string queryInsertar = "INSERT INTO cajas (nombre_caja, numero_caja, estado, responsable) VALUES (@nombreCaja, @numeroCaja, @estado, @responsable)";
                         using (SqlCommand insertarCommand = new SqlCommand(queryInsertar, conexion))
                         {
-                            insertarCommand.Parameters.AddWithValue("@responsable", responsablecmbx.SelectedItem.ToString());
-                            insertarCommand.Parameters.AddWithValue("@nombreCaja", txtnombrecaja.Text);
-                            insertarCommand.Parameters.AddWithValue("@numeroCaja", txtnumerocaja.Text);
-                            insertarCommand.Parameters.AddWithValue("@estado", estadochk.Checked ? 1 : 0);
+                            insertarCommand.Parameters.AddWithValue("@responsable", idresponsabletxt.Text);
+                            insertarCommand.Parameters.AddWithValue("@nombreCaja", nombrecajatxt.Text);
+                            insertarCommand.Parameters.AddWithValue("@numeroCaja", numerocajatxt.Text);
+                            insertarCommand.Parameters.AddWithValue("@estado", estadocajachk.Checked ? 1 : 0);
 
                             int rowsAffected = insertarCommand.ExecuteNonQuery();
 
@@ -61,12 +62,11 @@ namespace Proyecto_restaurante
                         string queryActualizar = "UPDATE cajas SET nombre_caja = @nuevoNombreCaja, numero_caja = @numeroCaja, estado = @estado, responsable = @responsable where nombre_caja = @nombreCajaActual and id = @idCaja";
                         using (SqlCommand actualizarCommand = new SqlCommand(queryActualizar, conexion))
                         {
-                            actualizarCommand.Parameters.AddWithValue("@nuevoNombreCaja", txtnombrecaja.Text);
-                            actualizarCommand.Parameters.AddWithValue("@numeroCaja", txtnumerocaja.Text);
-                            actualizarCommand.Parameters.AddWithValue("@nombreCajaActual", nombreCajaActual);
-                            actualizarCommand.Parameters.AddWithValue("@idCaja", idCaja);
-                            actualizarCommand.Parameters.AddWithValue("@estado", estadochk.Checked ? 1 : 0);
-                            actualizarCommand.Parameters.AddWithValue("@responsable", responsablecmbx.SelectedItem.ToString());
+                            actualizarCommand.Parameters.AddWithValue("@id", IDModificar.ToString());
+                            actualizarCommand.Parameters.AddWithValue("@numeroCaja", numerocajatxt.Text);
+                            actualizarCommand.Parameters.AddWithValue("@nombreCaja", nombrecajatxt.Text);
+                            actualizarCommand.Parameters.AddWithValue("@estado", estadocajachk.Checked ? 1 : 0);
+                            actualizarCommand.Parameters.AddWithValue("@responsable", idresponsabletxt.Text);
 
                             int rowsAffected = actualizarCommand.ExecuteNonQuery();
 
@@ -93,24 +93,26 @@ namespace Proyecto_restaurante
 
         private void limpiarbtn_Click(object sender, EventArgs e)
         {
-            txtnombrecaja.Text = "";
-            txtnumerocaja.Text = "";
-            estadochk.Checked = true;
-            this.Text = "Mantenimiento de Cajas || Creando...";
+            nombrecajatxt.Text = "";
+            numerocajatxt.Text = "";
+            idresponsabletxt.Text = "";
+            responsabletxt.Text = "";
+            responsablepanel.Visible = false;
+            estadocajachk.Checked = true;
         }
 
         private void estadochk_CheckedChanged(object sender, EventArgs e)
         {
-            if (estadochk.Checked == true)
+            if (estadocajachk.Checked == true)
             {
-                estadochk.Text = "Activo";
-                estadochk.ForeColor = Color.Lime;
+                estadocajachk.Text = "Activo";
+                estadocajachk.ForeColor = Color.Lime;
             }
-            else if (estadochk.Checked == false)
+            else if (estadocajachk.Checked == false)
             {
 
-                estadochk.Text = "Inactivo";
-                estadochk.ForeColor = Color.Red;
+                estadocajachk.Text = "Inactivo";
+                estadocajachk.ForeColor = Color.Red;
             }
         }
 
@@ -131,7 +133,7 @@ namespace Proyecto_restaurante
                         {
                             while (lector.Read())
                             {
-                                responsablecmbx.Items.Add(lector["usuario"].ToString());
+                                //responsablecmbx.Items.Add(lector["usuario"].ToString());
                             }
                         }
                     }
@@ -155,23 +157,22 @@ namespace Proyecto_restaurante
 
         private void tabladatos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            this.Text = "Mantenimiento de Cajas || Editando...";
 
-            idCaja = Convert.ToInt32(tabladatos.SelectedCells[0].Value);
-            txtnombrecaja.Text = tabladatos.SelectedCells[2].Value.ToString();
-            nombreCajaActual = tabladatos.SelectedCells[2].Value.ToString();
-            txtnumerocaja.Text = tabladatos.SelectedCells[1].Value.ToString();
-            responsablecmbx.Text = tabladatos.SelectedCells[3].Value.ToString();
-            estadochk.Checked = Convert.ToBoolean(tabladatos.SelectedCells[4].Value);
+            //idCaja = Convert.ToInt32(tabladatos.SelectedCells[0].Value);
+            //txtnombrecaja.Text = tabladatos.SelectedCells[2].Value.ToString();
+            //nombreCajaActual = tabladatos.SelectedCells[2].Value.ToString();
+            //txtnumerocaja.Text = tabladatos.SelectedCells[1].Value.ToString();
+            //responsablecmbx.Text = tabladatos.SelectedCells[3].Value.ToString();
+            //estadochk.Checked = Convert.ToBoolean(tabladatos.SelectedCells[4].Value);
         }
 
         private void txtnombrecaja_TextChanged(object sender, EventArgs e)
         {
-            int posicion = txtnombrecaja.SelectionStart;
+            int posicion = nombrecajatxt.SelectionStart;
 
-            txtnombrecaja.Text = txtnombrecaja.Text.ToUpper();
+            nombrecajatxt.Text.ToUpper();
 
-            txtnombrecaja.SelectionStart = posicion;
+            nombrecajatxt.SelectionStart = posicion;
         }
 
         private void txtbuscador_Enter(object sender, EventArgs e)
@@ -242,8 +243,18 @@ namespace Proyecto_restaurante
 
         private void recargarbtn_Click(object sender, EventArgs e)
         {
-            responsablecmbx.Items.Clear();
             MantCajas_Load(sender, e);
+        }
+
+        private void agregar_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = 1;
+            IDModificar = "";
+        }
+
+        private void buscarresponsable_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -45,7 +45,6 @@ namespace Proyecto_restaurante
                     }
                     else
                     {
-                        //MessageBox.Show("No se encontraron clientes.");
                         idclientetxt.Text = "?";
                     }
                 }
@@ -177,7 +176,7 @@ namespace Proyecto_restaurante
             Regex letrasRegex = new Regex(@"^[a-zA-Z\s]+$");
             Regex numerosRegex = new Regex(@"^[\d-]+$");
 
-            if (txtnombre.Text.Equals("") || txtapellido.Text.Equals("") || txtcedula.Text.Equals("") || txtnumero.Text.Equals(""))
+            if (txtnombre.Text.Equals("") || txtapellido.Text.Equals(""))
             {
                 MessageBox.Show("No debe dejar campos vacíos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -195,15 +194,15 @@ namespace Proyecto_restaurante
                 return;
             }
 
-            string cedulaSinGuiones = txtcedula.Text.Replace("-", "");
-            if (!numerosRegex.IsMatch(txtcedula.Text) || cedulaSinGuiones.Length != 11)
+            string cedulaSinGuiones = identtxt.Text.Replace("-", "");
+            if (!numerosRegex.IsMatch(identtxt.Text) || cedulaSinGuiones.Length != 11)
             {
                 MessageBox.Show("La cédula debe tener el formato 000-0000000-0 y contener solo números.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            string telefonoSinGuiones = txtnumero.Text.Replace("-", "");
-            if (!numerosRegex.IsMatch(txtnumero.Text) || telefonoSinGuiones.Length != 10)
+            string telefonoSinGuiones = numerotxt.Text.Replace("-", "");
+            if (!numerosRegex.IsMatch(numerotxt.Text) || telefonoSinGuiones.Length != 10)
             {
                 MessageBox.Show("El teléfono debe tener el formato 000-000-0000 y contener solo números.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -224,10 +223,7 @@ namespace Proyecto_restaurante
                         {
                             insertarCommand.Parameters.AddWithValue("@nombre_cliente", txtnombre.Text);
                             insertarCommand.Parameters.AddWithValue("@apellido_cliente", txtapellido.Text);
-                            insertarCommand.Parameters.AddWithValue("@identificacion", txtcedula.Text);
-                            insertarCommand.Parameters.AddWithValue("@telefono", txtnumero.Text);
                             insertarCommand.Parameters.AddWithValue("@estado", estadochk.Checked ? 1 : 0);
-                            insertarCommand.Parameters.AddWithValue("@direccion", txtdireccion.Text);
 
                             int rowsAffected = insertarCommand.ExecuteNonQuery();
 
@@ -252,10 +248,7 @@ namespace Proyecto_restaurante
                             actualizarCommand.Parameters.AddWithValue("@id", IDModificar);
                             actualizarCommand.Parameters.AddWithValue("@nombre", txtnombre.Text);
                             actualizarCommand.Parameters.AddWithValue("@apellido", txtapellido.Text);
-                            actualizarCommand.Parameters.AddWithValue("@identificacion", txtcedula.Text);
-                            actualizarCommand.Parameters.AddWithValue("@telefono", txtnumero.Text);
                             actualizarCommand.Parameters.AddWithValue("@estado", estadochk.Checked ? 1 : 0);
-                            actualizarCommand.Parameters.AddWithValue("@direccion", txtdireccion.Text);
 
                             int rowsAffected = actualizarCommand.ExecuteNonQuery();
 
@@ -286,11 +279,9 @@ namespace Proyecto_restaurante
 
             txtapellido.Text = "";
 
-            txtcedula.Text = "";
 
             IDModificar = "";
 
-            txtnumero.Text = "";
             estadochk.Checked = true;
             txtnombre.Focus();
         }
@@ -303,7 +294,7 @@ namespace Proyecto_restaurante
 
         private void txtcedula_TextChanged(object sender, EventArgs e)
         {
-            string posicion = txtcedula.Text;
+            string posicion = identtxt.Text;
             posicion = posicion.Replace("-", "");
 
             if (posicion.Length > 11)
@@ -321,13 +312,13 @@ namespace Proyecto_restaurante
                 posicion = posicion.Insert(11, "-");
             }
 
-            txtcedula.Text = posicion;
-            txtcedula.SelectionStart = txtcedula.Text.Length;
+            identtxt.Text = posicion;
+            identtxt.SelectionStart = identtxt.Text.Length;
         }
 
         private void txtnumero_TextChanged(object sender, EventArgs e)
         {
-            string posNum = txtnumero.Text;
+            string posNum = numerotxt.Text;
             posNum = posNum.Replace("-", "");
 
             if (posNum.Length > 10)
@@ -345,8 +336,8 @@ namespace Proyecto_restaurante
                 posNum = posNum.Insert(7, "-");
             }
 
-            txtnumero.Text = posNum;
-            txtnumero.SelectionStart = txtnumero.Text.Length;
+            numerotxt.Text = posNum;
+            numerotxt.SelectionStart = numerotxt.Text.Length;
         }
 
         private void txtnombre_KeyPress(object sender, KeyPressEventArgs e)
@@ -358,20 +349,11 @@ namespace Proyecto_restaurante
             }
         }
 
-        private void txtcedula_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Enter)
-            {
-                txtnumero.Focus();
-                e.Handled = true;
-            }
-        }
-
         private void txtapellido_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
             {
-                txtcedula.Focus();
+                tipodoccmbx.Focus();
                 e.Handled = true;
             }
         }
@@ -405,32 +387,7 @@ namespace Proyecto_restaurante
             RestablecerFormulario();
         }
 
-        private void txtnumero_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Enter)
-            {
-                txtdireccion.Focus();
-                e.Handled = true;
-            }
-        }
 
-        private void txtdireccion_TextChanged(object sender, EventArgs e)
-        {
-            int posicion = txtdireccion.SelectionStart;
-
-            txtdireccion.Text = txtdireccion.Text.ToUpper();
-
-            txtdireccion.SelectionStart = posicion;
-        }
-
-        private void txtdireccion_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Enter)
-            {
-                txtcedula.Focus();
-                e.Handled = true;
-            }
-        }
 
         private void seleccionimagenbtn_Click(object sender, EventArgs e)
         {
@@ -463,7 +420,7 @@ namespace Proyecto_restaurante
                         imagencliente.Image = Image.FromFile(nuevaRuta);
 
                         MessageBox.Show("Imagen asociada al cliente con éxito.");
-                        txtcedula.Enabled = false;
+                        identtxt.Enabled = false;
 
                     }
                     catch (Exception ex)
@@ -535,9 +492,6 @@ namespace Proyecto_restaurante
                         idclientetxt.Text = lector["id"].ToString();
                         txtnombre.Text = lector["nombre_cliente"].ToString();
                         txtapellido.Text = lector["apellido_cliente"].ToString();
-                        txtcedula.Text = lector["identificacion"].ToString();
-                        txtnumero.Text = lector["telefono"].ToString();
-                        txtdireccion.Text = lector["direccion"].ToString();
 
                         bool activo = lector["estado"] != DBNull.Value && Convert.ToBoolean(lector["estado"]);
                         estadochk.Checked = activo;
