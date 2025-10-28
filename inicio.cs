@@ -30,6 +30,7 @@ namespace Proyecto_restaurante
             using (SqlConnection conexion = new SqlConnection(conexionString))
             {
                 menu menu = new menu();
+                Configuracion config = new Configuracion();
 
                 try
                 {
@@ -50,12 +51,12 @@ namespace Proyecto_restaurante
 
                             if (privilegio == 1)
                             {
-                                menu.button1.Visible = true;
+                                menu.administrador = 1;
                                 menu.panel5.BackColor = Color.Gold;
                             }
                             else
                             {
-                                menu.button1.Visible = false;
+                                menu.administrador = 0;
                                 menu.panel5.BackColor = Color.Green;
                             }
 

@@ -24,6 +24,8 @@ namespace Proyecto_restaurante
 
         public string usuarioActual;
 
+        public int administrador = 0;
+
 
         private void cerrarbtn_Click(object sender, EventArgs e)
         {
@@ -51,9 +53,10 @@ namespace Proyecto_restaurante
         private void menu_Load(object sender, EventArgs e)
         {
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            barraizq.BringToFront();
-            barrasup.BringToFront();
+            this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
+            this.WindowState = FormWindowState.Maximized;
+            //barraizq.BringToFront();
+            //barrasup.BringToFront();
 
         }
 
@@ -93,22 +96,6 @@ namespace Proyecto_restaurante
             consClientes.Show();
         }
 
-        private void button4_Click(object sender, EventArgs e)
-        {
-            foreach (Form f in this.MdiChildren)
-            {
-                if (f is MantSalas)
-                {
-                    f.BringToFront();
-                    return;
-                }
-            }
-            MantSalas mantSalas = new MantSalas();
-            mantSalas.Location = new Point(561, 50);
-            mantSalas.MdiParent = this;
-            mantSalas.Show();
-        }
-
         private void button8_Click(object sender, EventArgs e)
         {
             foreach (Form f in this.MdiChildren)
@@ -129,13 +116,13 @@ namespace Proyecto_restaurante
         {
             foreach (Form f in this.MdiChildren)
             {
-                if (f is MantProveedor)
+                if (f is ConsProveedor)
                 {
                     f.BringToFront();
                     return;
                 }
             }
-            MantProveedor mantProv = new MantProveedor();
+            ConsProveedor mantProv = new ConsProveedor();
             mantProv.Location = new Point(561, 50);
             mantProv.MdiParent = this;
             mantProv.Show();
@@ -195,24 +182,33 @@ namespace Proyecto_restaurante
             compras.Show();
         }
 
-        private void button7_Click(object sender, EventArgs e)
+
+        private void button11_Click(object sender, EventArgs e)
         {
             foreach (Form f in this.MdiChildren)
             {
-                if (f is MantCajas)
+                if (f is Configuracion)
                 {
                     f.BringToFront();
                     return;
                 }
             }
-            MantCajas mantCaj = new MantCajas();
-            mantCaj.Location = new Point(561, 50);
-            mantCaj.MdiParent = this;
-            mantCaj.Show();
-        }
+            Configuracion config = new Configuracion();
 
-        private void button11_Click(object sender, EventArgs e)
-        {
+            if(administrador == 1)
+            {
+                config.usuarios.Visible = true;
+                config.Location = new Point(561, 50);
+                config.MdiParent = this;
+                config.Show();
+            }
+            else
+            {
+                config.usuarios.Visible = false;
+                config.Location = new Point(561, 50);
+                config.MdiParent = this;
+                config.Show();
+            }
 
         }
 
@@ -256,11 +252,8 @@ namespace Proyecto_restaurante
                         button5.Text = "Articulos";
                         button8.Text = "Mesas";
                         button2.Text = "Clientes";
-                        button7.Text = "Cajas";
-                        button4.Text = "Salas";
                         button5.Text = "Articulos";
                         button6.Text = "Proveedores";
-                        button1.Text = "Usuarios";
                         button10.Text = "Pedidos";
                         button14.Text = "Tipos";
                         button9.Text = "Compras";

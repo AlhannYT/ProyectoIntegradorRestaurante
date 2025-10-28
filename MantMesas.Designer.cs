@@ -38,6 +38,8 @@
             txtbuscador = new TextBox();
             tabControl2 = new TabControl();
             tabPage3 = new TabPage();
+            label14 = new Label();
+            filtro = new CheckBox();
             label4 = new Label();
             Editar = new Button();
             agregar = new Button();
@@ -69,6 +71,11 @@
             txtNumAsientos = new TextBox();
             button2 = new Button();
             tabPage1 = new TabPage();
+            selecmetodo = new Button();
+            metfiltrochk = new CheckBox();
+            metbuscar = new TextBox();
+            label15 = new Label();
+            tabladatos = new DataGridView();
             panel1 = new Panel();
             button3 = new Button();
             button4 = new Button();
@@ -77,13 +84,6 @@
             label11 = new Label();
             label12 = new Label();
             txtnombresala = new TextBox();
-            filtro = new CheckBox();
-            label14 = new Label();
-            tabladatos = new DataGridView();
-            selecmetodo = new Button();
-            metfiltrochk = new CheckBox();
-            metbuscar = new TextBox();
-            label15 = new Label();
             tabControl2.SuspendLayout();
             tabPage3.SuspendLayout();
             tabPage4.SuspendLayout();
@@ -91,8 +91,8 @@
             ((System.ComponentModel.ISupportInitialize)categoriaconsulta).BeginInit();
             panel3.SuspendLayout();
             tabPage1.SuspendLayout();
-            panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tabladatos).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // toolTip1
@@ -185,6 +185,34 @@
             tabPage3.Size = new Size(705, 433);
             tabPage3.TabIndex = 0;
             tabPage3.Text = "Consulta";
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.BackColor = Color.White;
+            label14.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label14.ForeColor = SystemColors.Control;
+            label14.Image = Properties.Resources.busqueda;
+            label14.Location = new Point(426, 92);
+            label14.Name = "label14";
+            label14.Size = new Size(18, 21);
+            label14.TabIndex = 66;
+            label14.Text = "  ";
+            // 
+            // filtro
+            // 
+            filtro.AutoSize = true;
+            filtro.Checked = true;
+            filtro.CheckState = CheckState.Checked;
+            filtro.Cursor = Cursors.Hand;
+            filtro.Font = new Font("Segoe UI", 13F);
+            filtro.Image = Properties.Resources.sicheck;
+            filtro.Location = new Point(459, 88);
+            filtro.Name = "filtro";
+            filtro.Size = new Size(41, 29);
+            filtro.TabIndex = 65;
+            filtro.Text = "  ";
+            filtro.UseVisualStyleBackColor = true;
             // 
             // label4
             // 
@@ -534,6 +562,64 @@
             tabPage1.TabIndex = 2;
             tabPage1.Text = "Salas";
             // 
+            // selecmetodo
+            // 
+            selecmetodo.Image = Properties.Resources.seleccion;
+            selecmetodo.ImageAlign = ContentAlignment.MiddleLeft;
+            selecmetodo.Location = new Point(277, 278);
+            selecmetodo.Name = "selecmetodo";
+            selecmetodo.Size = new Size(138, 26);
+            selecmetodo.TabIndex = 98;
+            selecmetodo.Text = "Seleccionar";
+            selecmetodo.UseVisualStyleBackColor = true;
+            // 
+            // metfiltrochk
+            // 
+            metfiltrochk.AutoSize = true;
+            metfiltrochk.Checked = true;
+            metfiltrochk.CheckState = CheckState.Checked;
+            metfiltrochk.Font = new Font("Segoe UI", 15F);
+            metfiltrochk.Image = Properties.Resources.sicheck;
+            metfiltrochk.Location = new Point(277, 375);
+            metfiltrochk.Name = "metfiltrochk";
+            metfiltrochk.Size = new Size(61, 32);
+            metfiltrochk.TabIndex = 100;
+            metfiltrochk.Text = "      ";
+            metfiltrochk.UseVisualStyleBackColor = true;
+            // 
+            // metbuscar
+            // 
+            metbuscar.Location = new Point(277, 346);
+            metbuscar.Name = "metbuscar";
+            metbuscar.Size = new Size(138, 29);
+            metbuscar.TabIndex = 99;
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label15.ForeColor = Color.White;
+            label15.Image = Properties.Resources.filtrar;
+            label15.ImageAlign = ContentAlignment.MiddleRight;
+            label15.Location = new Point(277, 314);
+            label15.Name = "label15";
+            label15.Size = new Size(77, 21);
+            label15.TabIndex = 97;
+            label15.Text = "Filtros     ";
+            // 
+            // tabladatos
+            // 
+            tabladatos.AllowUserToAddRows = false;
+            tabladatos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            tabladatos.Location = new Point(8, 278);
+            tabladatos.MultiSelect = false;
+            tabladatos.Name = "tabladatos";
+            tabladatos.ReadOnly = true;
+            tabladatos.RowHeadersWidth = 51;
+            tabladatos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            tabladatos.Size = new Size(263, 140);
+            tabladatos.TabIndex = 96;
+            // 
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(64, 64, 64);
@@ -620,92 +706,6 @@
             txtnombresala.Size = new Size(248, 29);
             txtnombresala.TabIndex = 30;
             // 
-            // filtro
-            // 
-            filtro.AutoSize = true;
-            filtro.Checked = true;
-            filtro.CheckState = CheckState.Checked;
-            filtro.Cursor = Cursors.Hand;
-            filtro.Font = new Font("Segoe UI", 13F);
-            filtro.Image = Properties.Resources.sicheck;
-            filtro.Location = new Point(459, 88);
-            filtro.Name = "filtro";
-            filtro.Size = new Size(41, 29);
-            filtro.TabIndex = 65;
-            filtro.Text = "  ";
-            filtro.UseVisualStyleBackColor = true;
-            // 
-            // label14
-            // 
-            label14.AutoSize = true;
-            label14.BackColor = Color.White;
-            label14.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label14.ForeColor = SystemColors.Control;
-            label14.Image = Properties.Resources.busqueda;
-            label14.Location = new Point(426, 92);
-            label14.Name = "label14";
-            label14.Size = new Size(18, 21);
-            label14.TabIndex = 66;
-            label14.Text = "  ";
-            // 
-            // tabladatos
-            // 
-            tabladatos.AllowUserToAddRows = false;
-            tabladatos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            tabladatos.Location = new Point(8, 290);
-            tabladatos.MultiSelect = false;
-            tabladatos.Name = "tabladatos";
-            tabladatos.ReadOnly = true;
-            tabladatos.RowHeadersWidth = 51;
-            tabladatos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tabladatos.Size = new Size(263, 140);
-            tabladatos.TabIndex = 96;
-            // 
-            // selecmetodo
-            // 
-            selecmetodo.Image = Properties.Resources.seleccion;
-            selecmetodo.ImageAlign = ContentAlignment.MiddleLeft;
-            selecmetodo.Location = new Point(277, 290);
-            selecmetodo.Name = "selecmetodo";
-            selecmetodo.Size = new Size(138, 26);
-            selecmetodo.TabIndex = 98;
-            selecmetodo.Text = "Seleccionar";
-            selecmetodo.UseVisualStyleBackColor = true;
-            // 
-            // metfiltrochk
-            // 
-            metfiltrochk.AutoSize = true;
-            metfiltrochk.Checked = true;
-            metfiltrochk.CheckState = CheckState.Checked;
-            metfiltrochk.Font = new Font("Segoe UI", 15F);
-            metfiltrochk.Image = Properties.Resources.sicheck;
-            metfiltrochk.Location = new Point(277, 387);
-            metfiltrochk.Name = "metfiltrochk";
-            metfiltrochk.Size = new Size(61, 32);
-            metfiltrochk.TabIndex = 100;
-            metfiltrochk.Text = "      ";
-            metfiltrochk.UseVisualStyleBackColor = true;
-            // 
-            // metbuscar
-            // 
-            metbuscar.Location = new Point(277, 358);
-            metbuscar.Name = "metbuscar";
-            metbuscar.Size = new Size(138, 29);
-            metbuscar.TabIndex = 99;
-            // 
-            // label15
-            // 
-            label15.AutoSize = true;
-            label15.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label15.ForeColor = Color.White;
-            label15.Image = Properties.Resources.filtrar;
-            label15.ImageAlign = ContentAlignment.MiddleRight;
-            label15.Location = new Point(277, 326);
-            label15.Name = "label15";
-            label15.Size = new Size(77, 21);
-            label15.TabIndex = 97;
-            label15.Text = "Filtros     ";
-            // 
             // MantMesas
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -713,6 +713,7 @@
             BackColor = SystemColors.WindowFrame;
             ClientSize = new Size(713, 467);
             Controls.Add(tabControl2);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MinimizeBox = false;
@@ -732,8 +733,8 @@
             panel3.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
-            panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)tabladatos).EndInit();
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 

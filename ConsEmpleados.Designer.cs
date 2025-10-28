@@ -841,7 +841,10 @@
             BackColor = SystemColors.WindowFrame;
             ClientSize = new Size(772, 652);
             Controls.Add(tabControl1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "ConsEmpleados";
             StartPosition = FormStartPosition.Manual;
             Text = "Empleados";

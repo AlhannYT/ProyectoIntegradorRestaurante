@@ -730,6 +730,7 @@
             BackColor = SystemColors.ControlDarkDark;
             ClientSize = new Size(734, 679);
             Controls.Add(tabControl1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MinimizeBox = false;
