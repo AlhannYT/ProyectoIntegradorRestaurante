@@ -131,7 +131,7 @@ namespace Proyecto_restaurante
         {
             if (e.KeyChar == (char)Keys.Enter)
             {
-                iniciobtn.Focus();
+                iniciobtn_Click(sender, e);
                 e.Handled = true;
             }
         }

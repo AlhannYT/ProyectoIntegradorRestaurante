@@ -368,6 +368,8 @@
             creacion.BackColor = SystemColors.WindowFrame;
             creacion.Controls.Add(panel6);
             creacion.Controls.Add(panel3);
+            creacion.Controls.Add(panel5);
+            creacion.Controls.Add(categoriapanel);
             creacion.Controls.Add(idregproducto);
             creacion.Controls.Add(label18);
             creacion.Controls.Add(idcategoriatxt);
@@ -394,10 +396,8 @@
             creacion.Controls.Add(estadochk);
             creacion.Controls.Add(codigobarrarandombtn);
             creacion.Controls.Add(buscarcateg);
-            creacion.Controls.Add(panel5);
             creacion.Controls.Add(unidadmedida);
             creacion.Controls.Add(ITBIS);
-            creacion.Controls.Add(categoriapanel);
             creacion.Location = new Point(4, 30);
             creacion.Name = "creacion";
             creacion.Padding = new Padding(3);
@@ -442,7 +442,7 @@
             // 
             idcategoriatxt.Location = new Point(234, 142);
             idcategoriatxt.Name = "idcategoriatxt";
-            idcategoriatxt.Size = new Size(31, 29);
+            idcategoriatxt.Size = new Size(45, 29);
             idcategoriatxt.TabIndex = 58;
             idcategoriatxt.TextChanged += txtnombre_prod_TextChanged;
             // 
@@ -559,9 +559,9 @@
             // 
             // categoriatxt
             // 
-            categoriatxt.Location = new Point(267, 142);
+            categoriatxt.Location = new Point(281, 142);
             categoriatxt.Name = "categoriatxt";
-            categoriatxt.Size = new Size(131, 29);
+            categoriatxt.Size = new Size(117, 29);
             categoriatxt.TabIndex = 58;
             categoriatxt.TextChanged += txtnombre_prod_TextChanged;
             // 

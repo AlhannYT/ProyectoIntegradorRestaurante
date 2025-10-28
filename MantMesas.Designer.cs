@@ -29,149 +29,71 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            guardarbtn = new Button();
-            label1 = new Label();
-            txtnombreMesa = new TextBox();
-            salacmbx = new ComboBox();
-            label2 = new Label();
-            label3 = new Label();
-            txtNumAsientos = new TextBox();
-            limpiarbtn = new Button();
-            label4 = new Label();
-            pictureBox1 = new PictureBox();
-            nuevaSalabtn = new Button();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MantMesas));
             toolTip1 = new ToolTip(components);
             recargarbtn = new Button();
+            button1 = new Button();
             label5 = new Label();
-            panel2 = new Panel();
             eliminarbtn = new Button();
-            label6 = new Label();
-            tabladatos = new DataGridView();
             txtbuscador = new TextBox();
-            panel1 = new Panel();
-            estadochk = new CheckBox();
+            tabControl2 = new TabControl();
+            tabPage3 = new TabPage();
+            label4 = new Label();
+            Editar = new Button();
+            agregar = new Button();
+            panelMesas = new FlowLayoutPanel();
+            tabPage4 = new TabPage();
+            idclientetxt = new TextBox();
+            label13 = new Label();
+            idcategoriatxt = new TextBox();
+            categoriatxt = new TextBox();
+            buscarpuesto = new Button();
+            categoriapanel = new Panel();
+            idconsultatxt = new TextBox();
+            categoriaconsultatxt = new TextBox();
+            button5 = new Button();
+            label8 = new Label();
+            categoriaconsulta = new DataGridView();
+            panel3 = new Panel();
+            guardarbtn = new Button();
+            limpiarbtn = new Button();
+            checkBox2 = new CheckBox();
+            checkBox1 = new CheckBox();
+            label1 = new Label();
+            label6 = new Label();
             label7 = new Label();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            label2 = new Label();
+            label10 = new Label();
+            txtnombreMesa = new TextBox();
+            label3 = new Label();
+            txtNumAsientos = new TextBox();
+            button2 = new Button();
+            tabPage1 = new TabPage();
+            panel1 = new Panel();
+            button3 = new Button();
+            button4 = new Button();
+            estadochk = new CheckBox();
+            label9 = new Label();
+            label11 = new Label();
+            label12 = new Label();
+            txtnombresala = new TextBox();
+            filtro = new CheckBox();
+            label14 = new Label();
+            tabladatos = new DataGridView();
+            selecmetodo = new Button();
+            metfiltrochk = new CheckBox();
+            metbuscar = new TextBox();
+            label15 = new Label();
+            tabControl2.SuspendLayout();
+            tabPage3.SuspendLayout();
+            tabPage4.SuspendLayout();
+            categoriapanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)categoriaconsulta).BeginInit();
+            panel3.SuspendLayout();
+            tabPage1.SuspendLayout();
+            panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tabladatos).BeginInit();
             SuspendLayout();
-            // 
-            // guardarbtn
-            // 
-            guardarbtn.Image = Properties.Resources.disco;
-            guardarbtn.ImageAlign = ContentAlignment.MiddleLeft;
-            guardarbtn.Location = new Point(56, 465);
-            guardarbtn.Margin = new Padding(3, 4, 3, 4);
-            guardarbtn.Name = "guardarbtn";
-            guardarbtn.Size = new Size(138, 57);
-            guardarbtn.TabIndex = 0;
-            guardarbtn.Text = "    Guardar";
-            guardarbtn.UseVisualStyleBackColor = true;
-            guardarbtn.Click += guardarbtn_Click;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.ForeColor = SystemColors.Control;
-            label1.Location = new Point(56, 311);
-            label1.Name = "label1";
-            label1.Size = new Size(37, 20);
-            label1.TabIndex = 1;
-            label1.Text = "Sala";
-            // 
-            // txtnombreMesa
-            // 
-            txtnombreMesa.Location = new Point(223, 355);
-            txtnombreMesa.Margin = new Padding(3, 4, 3, 4);
-            txtnombreMesa.Name = "txtnombreMesa";
-            txtnombreMesa.Size = new Size(138, 27);
-            txtnombreMesa.TabIndex = 2;
-            txtnombreMesa.TextChanged += txtnombreMesa_TextChanged;
-            // 
-            // salacmbx
-            // 
-            salacmbx.DropDownStyle = ComboBoxStyle.DropDownList;
-            salacmbx.FormattingEnabled = true;
-            salacmbx.Location = new Point(223, 307);
-            salacmbx.Margin = new Padding(3, 4, 3, 4);
-            salacmbx.Name = "salacmbx";
-            salacmbx.Size = new Size(138, 28);
-            salacmbx.TabIndex = 3;
-            toolTip1.SetToolTip(salacmbx, "En caso de no encontrar\r\nla sala que se acaba de\r\nhacer dele click al boton\r\nde \"Recargar\" arriba a la\r\nizquierda");
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.ForeColor = SystemColors.Control;
-            label2.Location = new Point(56, 359);
-            label2.Name = "label2";
-            label2.Size = new Size(103, 20);
-            label2.TabIndex = 1;
-            label2.Text = "Nombre Mesa";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.ForeColor = SystemColors.Control;
-            label3.Location = new Point(56, 409);
-            label3.Name = "label3";
-            label3.Size = new Size(142, 20);
-            label3.TabIndex = 1;
-            label3.Text = "Numero de asientos";
-            // 
-            // txtNumAsientos
-            // 
-            txtNumAsientos.Location = new Point(223, 405);
-            txtNumAsientos.Margin = new Padding(3, 4, 3, 4);
-            txtNumAsientos.Name = "txtNumAsientos";
-            txtNumAsientos.Size = new Size(138, 27);
-            txtNumAsientos.TabIndex = 2;
-            // 
-            // limpiarbtn
-            // 
-            limpiarbtn.Image = Properties.Resources.limpio;
-            limpiarbtn.ImageAlign = ContentAlignment.MiddleLeft;
-            limpiarbtn.Location = new Point(223, 465);
-            limpiarbtn.Margin = new Padding(3, 4, 3, 4);
-            limpiarbtn.Name = "limpiarbtn";
-            limpiarbtn.Size = new Size(138, 57);
-            limpiarbtn.TabIndex = 0;
-            limpiarbtn.Text = "    Limpiar";
-            limpiarbtn.UseVisualStyleBackColor = true;
-            limpiarbtn.Click += limpiarbtn_Click;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.ForeColor = SystemColors.Control;
-            label4.Location = new Point(63, 12);
-            label4.Name = "label4";
-            label4.Size = new Size(337, 50);
-            label4.TabIndex = 1;
-            label4.Text = "Registro de Mesas";
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = Properties.Resources.cena_de_bodas;
-            pictureBox1.Location = new Point(125, 83);
-            pictureBox1.Margin = new Padding(3, 4, 3, 4);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(158, 156);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 4;
-            pictureBox1.TabStop = false;
-            // 
-            // nuevaSalabtn
-            // 
-            nuevaSalabtn.Image = Properties.Resources.cuadrado_norte;
-            nuevaSalabtn.Location = new Point(368, 306);
-            nuevaSalabtn.Margin = new Padding(3, 4, 3, 4);
-            nuevaSalabtn.Name = "nuevaSalabtn";
-            nuevaSalabtn.Size = new Size(27, 31);
-            nuevaSalabtn.TabIndex = 5;
-            toolTip1.SetToolTip(nuevaSalabtn, "Agregar Nueva sala");
-            nuevaSalabtn.UseVisualStyleBackColor = true;
-            nuevaSalabtn.Click += nuevaSalabtn_Click;
             // 
             // toolTip1
             // 
@@ -180,182 +102,695 @@
             // recargarbtn
             // 
             recargarbtn.Image = Properties.Resources.actualizar;
-            recargarbtn.Location = new Point(17, 24);
-            recargarbtn.Margin = new Padding(3, 4, 3, 4);
+            recargarbtn.Location = new Point(10, 14);
             recargarbtn.Name = "recargarbtn";
-            recargarbtn.Size = new Size(28, 31);
-            recargarbtn.TabIndex = 6;
+            recargarbtn.Size = new Size(29, 29);
+            recargarbtn.TabIndex = 51;
             recargarbtn.TabStop = false;
             toolTip1.SetToolTip(recargarbtn, "Recargar Datos");
             recargarbtn.UseVisualStyleBackColor = true;
-            recargarbtn.Click += recargarbtn_Click;
+            // 
+            // button1
+            // 
+            button1.Image = Properties.Resources.actualizar;
+            button1.Location = new Point(10, 14);
+            button1.Name = "button1";
+            button1.Size = new Size(29, 29);
+            button1.TabIndex = 64;
+            button1.TabStop = false;
+            toolTip1.SetToolTip(button1, "Recargar Datos");
+            button1.UseVisualStyleBackColor = true;
             // 
             // label5
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label5.ForeColor = SystemColors.Control;
-            label5.Location = new Point(575, 12);
+            label5.Location = new Point(216, 8);
             label5.Name = "label5";
-            label5.Size = new Size(343, 50);
+            label5.Size = new Size(273, 40);
             label5.TabIndex = 24;
             label5.Text = "Consulta de Mesas";
-            // 
-            // panel2
-            // 
-            panel2.BackColor = Color.Red;
-            panel2.Location = new Point(402, 1);
-            panel2.Margin = new Padding(3, 4, 3, 4);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(11, 549);
-            panel2.TabIndex = 23;
             // 
             // eliminarbtn
             // 
             eliminarbtn.Image = Properties.Resources.limpio;
-            eliminarbtn.Location = new Point(1000, 97);
-            eliminarbtn.Margin = new Padding(3, 4, 3, 4);
+            eliminarbtn.Location = new Point(504, 88);
             eliminarbtn.Name = "eliminarbtn";
-            eliminarbtn.Size = new Size(33, 32);
+            eliminarbtn.Size = new Size(29, 29);
             eliminarbtn.TabIndex = 22;
             eliminarbtn.UseVisualStyleBackColor = true;
             eliminarbtn.Click += eliminarbtn_Click;
             // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label6.ForeColor = SystemColors.Control;
-            label6.Location = new Point(421, 99);
-            label6.Name = "label6";
-            label6.Size = new Size(89, 23);
-            label6.TabIndex = 19;
-            label6.Text = "Buscador: ";
-            // 
-            // tabladatos
-            // 
-            tabladatos.AllowUserToAddRows = false;
-            tabladatos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            tabladatos.Location = new Point(421, 164);
-            tabladatos.Margin = new Padding(3, 4, 3, 4);
-            tabladatos.MultiSelect = false;
-            tabladatos.Name = "tabladatos";
-            tabladatos.ReadOnly = true;
-            tabladatos.RowHeadersWidth = 51;
-            tabladatos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tabladatos.Size = new Size(613, 360);
-            tabladatos.TabIndex = 20;
-            tabladatos.CellClick += tabladatos_CellClick;
-            // 
             // txtbuscador
             // 
             txtbuscador.ForeColor = SystemColors.ScrollBar;
-            txtbuscador.Location = new Point(512, 97);
-            txtbuscador.Margin = new Padding(3, 4, 3, 4);
+            txtbuscador.Location = new Point(10, 88);
             txtbuscador.Name = "txtbuscador";
-            txtbuscador.Size = new Size(482, 27);
+            txtbuscador.Size = new Size(439, 29);
             txtbuscador.TabIndex = 21;
-            txtbuscador.Text = "(ID, Nombre, Sala, N° Asientos)";
             txtbuscador.TextChanged += txtbuscador_TextChanged;
             txtbuscador.Enter += txtbuscador_Enter;
             txtbuscador.Leave += txtbuscador_Leave;
             // 
+            // tabControl2
+            // 
+            tabControl2.Controls.Add(tabPage3);
+            tabControl2.Controls.Add(tabPage4);
+            tabControl2.Controls.Add(tabPage1);
+            tabControl2.Dock = DockStyle.Fill;
+            tabControl2.Font = new Font("Segoe UI", 12F);
+            tabControl2.Location = new Point(0, 0);
+            tabControl2.Name = "tabControl2";
+            tabControl2.SelectedIndex = 0;
+            tabControl2.Size = new Size(713, 467);
+            tabControl2.TabIndex = 27;
+            // 
+            // tabPage3
+            // 
+            tabPage3.BackColor = SystemColors.WindowFrame;
+            tabPage3.Controls.Add(label14);
+            tabPage3.Controls.Add(filtro);
+            tabPage3.Controls.Add(button1);
+            tabPage3.Controls.Add(label4);
+            tabPage3.Controls.Add(Editar);
+            tabPage3.Controls.Add(agregar);
+            tabPage3.Controls.Add(panelMesas);
+            tabPage3.Controls.Add(label5);
+            tabPage3.Controls.Add(eliminarbtn);
+            tabPage3.Controls.Add(txtbuscador);
+            tabPage3.Location = new Point(4, 30);
+            tabPage3.Name = "tabPage3";
+            tabPage3.Padding = new Padding(3);
+            tabPage3.Size = new Size(705, 433);
+            tabPage3.TabIndex = 0;
+            tabPage3.Text = "Consulta";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 18F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
+            label4.ForeColor = SystemColors.Control;
+            label4.Location = new Point(562, 86);
+            label4.Name = "label4";
+            label4.Size = new Size(116, 32);
+            label4.TabIndex = 63;
+            label4.Text = "Acciones";
+            // 
+            // Editar
+            // 
+            Editar.Image = Properties.Resources.editar;
+            Editar.Location = new Point(539, 201);
+            Editar.Name = "Editar";
+            Editar.Size = new Size(159, 72);
+            Editar.TabIndex = 61;
+            Editar.Text = "Editar";
+            Editar.TextAlign = ContentAlignment.BottomCenter;
+            Editar.UseVisualStyleBackColor = true;
+            // 
+            // agregar
+            // 
+            agregar.Image = Properties.Resources.mesa2;
+            agregar.Location = new Point(539, 123);
+            agregar.Name = "agregar";
+            agregar.Size = new Size(159, 72);
+            agregar.TabIndex = 62;
+            agregar.Text = "Nuevo";
+            agregar.TextAlign = ContentAlignment.BottomCenter;
+            agregar.UseVisualStyleBackColor = true;
+            // 
+            // panelMesas
+            // 
+            panelMesas.AutoScroll = true;
+            panelMesas.BackColor = Color.FromArgb(64, 64, 64);
+            panelMesas.Location = new Point(10, 123);
+            panelMesas.Name = "panelMesas";
+            panelMesas.Size = new Size(523, 302);
+            panelMesas.TabIndex = 25;
+            // 
+            // tabPage4
+            // 
+            tabPage4.BackColor = SystemColors.WindowFrame;
+            tabPage4.Controls.Add(idclientetxt);
+            tabPage4.Controls.Add(label13);
+            tabPage4.Controls.Add(idcategoriatxt);
+            tabPage4.Controls.Add(categoriatxt);
+            tabPage4.Controls.Add(buscarpuesto);
+            tabPage4.Controls.Add(categoriapanel);
+            tabPage4.Controls.Add(panel3);
+            tabPage4.Controls.Add(checkBox2);
+            tabPage4.Controls.Add(checkBox1);
+            tabPage4.Controls.Add(label1);
+            tabPage4.Controls.Add(label6);
+            tabPage4.Controls.Add(label7);
+            tabPage4.Controls.Add(label2);
+            tabPage4.Controls.Add(label10);
+            tabPage4.Controls.Add(txtnombreMesa);
+            tabPage4.Controls.Add(label3);
+            tabPage4.Controls.Add(txtNumAsientos);
+            tabPage4.Controls.Add(button2);
+            tabPage4.Controls.Add(recargarbtn);
+            tabPage4.Location = new Point(4, 30);
+            tabPage4.Name = "tabPage4";
+            tabPage4.Padding = new Padding(3);
+            tabPage4.Size = new Size(705, 433);
+            tabPage4.TabIndex = 1;
+            tabPage4.Text = "Creación";
+            // 
+            // idclientetxt
+            // 
+            idclientetxt.Enabled = false;
+            idclientetxt.Location = new Point(621, 14);
+            idclientetxt.Name = "idclientetxt";
+            idclientetxt.Size = new Size(76, 29);
+            idclientetxt.TabIndex = 105;
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label13.ForeColor = SystemColors.Control;
+            label13.Location = new Point(585, 18);
+            label13.Name = "label13";
+            label13.Size = new Size(27, 21);
+            label13.TabIndex = 106;
+            label13.Text = "ID";
+            // 
+            // idcategoriatxt
+            // 
+            idcategoriatxt.Location = new Point(356, 152);
+            idcategoriatxt.Name = "idcategoriatxt";
+            idcategoriatxt.Size = new Size(48, 29);
+            idcategoriatxt.TabIndex = 102;
+            // 
+            // categoriatxt
+            // 
+            categoriatxt.Location = new Point(406, 152);
+            categoriatxt.Name = "categoriatxt";
+            categoriatxt.Size = new Size(117, 29);
+            categoriatxt.TabIndex = 103;
+            // 
+            // buscarpuesto
+            // 
+            buscarpuesto.ForeColor = Color.Black;
+            buscarpuesto.Image = Properties.Resources.busqueda;
+            buscarpuesto.Location = new Point(526, 152);
+            buscarpuesto.Name = "buscarpuesto";
+            buscarpuesto.Size = new Size(28, 29);
+            buscarpuesto.TabIndex = 104;
+            buscarpuesto.UseVisualStyleBackColor = true;
+            // 
+            // categoriapanel
+            // 
+            categoriapanel.BackColor = Color.FromArgb(64, 64, 64);
+            categoriapanel.Controls.Add(idconsultatxt);
+            categoriapanel.Controls.Add(categoriaconsultatxt);
+            categoriapanel.Controls.Add(button5);
+            categoriapanel.Controls.Add(label8);
+            categoriapanel.Controls.Add(categoriaconsulta);
+            categoriapanel.Location = new Point(355, 186);
+            categoriapanel.Name = "categoriapanel";
+            categoriapanel.Size = new Size(204, 147);
+            categoriapanel.TabIndex = 101;
+            categoriapanel.Visible = false;
+            // 
+            // idconsultatxt
+            // 
+            idconsultatxt.Location = new Point(4, 28);
+            idconsultatxt.Name = "idconsultatxt";
+            idconsultatxt.Size = new Size(42, 29);
+            idconsultatxt.TabIndex = 58;
+            // 
+            // categoriaconsultatxt
+            // 
+            categoriaconsultatxt.Location = new Point(51, 28);
+            categoriaconsultatxt.Name = "categoriaconsultatxt";
+            categoriaconsultatxt.Size = new Size(118, 29);
+            categoriaconsultatxt.TabIndex = 58;
+            // 
+            // button5
+            // 
+            button5.ForeColor = Color.Black;
+            button5.Image = Properties.Resources.angulo_hacia_arriba;
+            button5.Location = new Point(171, 28);
+            button5.Name = "button5";
+            button5.Size = new Size(28, 29);
+            button5.TabIndex = 60;
+            button5.UseVisualStyleBackColor = true;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label8.ForeColor = Color.White;
+            label8.Location = new Point(4, 2);
+            label8.Name = "label8";
+            label8.Size = new Size(132, 21);
+            label8.TabIndex = 50;
+            label8.Text = "Seleccionar sala";
+            // 
+            // categoriaconsulta
+            // 
+            categoriaconsulta.AllowUserToAddRows = false;
+            categoriaconsulta.AllowUserToDeleteRows = false;
+            categoriaconsulta.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            categoriaconsulta.Location = new Point(4, 63);
+            categoriaconsulta.MultiSelect = false;
+            categoriaconsulta.Name = "categoriaconsulta";
+            categoriaconsulta.ReadOnly = true;
+            categoriaconsulta.RowHeadersWidth = 51;
+            categoriaconsulta.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            categoriaconsulta.Size = new Size(195, 78);
+            categoriaconsulta.TabIndex = 74;
+            // 
+            // panel3
+            // 
+            panel3.BackColor = Color.FromArgb(64, 64, 64);
+            panel3.Controls.Add(guardarbtn);
+            panel3.Controls.Add(limpiarbtn);
+            panel3.Location = new Point(148, 344);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(409, 74);
+            panel3.TabIndex = 94;
+            // 
+            // guardarbtn
+            // 
+            guardarbtn.Image = Properties.Resources.guardar;
+            guardarbtn.ImageAlign = ContentAlignment.MiddleLeft;
+            guardarbtn.Location = new Point(11, 8);
+            guardarbtn.Name = "guardarbtn";
+            guardarbtn.Size = new Size(181, 58);
+            guardarbtn.TabIndex = 27;
+            guardarbtn.Text = "Guardar";
+            guardarbtn.UseVisualStyleBackColor = true;
+            guardarbtn.Click += guardarbtn_Click;
+            // 
+            // limpiarbtn
+            // 
+            limpiarbtn.Image = Properties.Resources.nuevodoc;
+            limpiarbtn.ImageAlign = ContentAlignment.MiddleLeft;
+            limpiarbtn.Location = new Point(217, 8);
+            limpiarbtn.Name = "limpiarbtn";
+            limpiarbtn.Size = new Size(181, 58);
+            limpiarbtn.TabIndex = 28;
+            limpiarbtn.Text = "Nuevo";
+            limpiarbtn.UseVisualStyleBackColor = true;
+            limpiarbtn.Click += limpiarbtn_Click;
+            // 
+            // checkBox2
+            // 
+            checkBox2.AutoSize = true;
+            checkBox2.Checked = true;
+            checkBox2.CheckState = CheckState.Checked;
+            checkBox2.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            checkBox2.ForeColor = Color.Lime;
+            checkBox2.Location = new Point(216, 83);
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new Size(78, 25);
+            checkBox2.TabIndex = 54;
+            checkBox2.Text = "Activo";
+            checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Checked = true;
+            checkBox1.CheckState = CheckState.Checked;
+            checkBox1.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            checkBox1.ForeColor = Color.Lime;
+            checkBox1.Location = new Point(440, 83);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(43, 25);
+            checkBox1.TabIndex = 54;
+            checkBox1.Text = "Si";
+            checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label1.ForeColor = SystemColors.Control;
+            label1.Location = new Point(356, 127);
+            label1.Name = "label1";
+            label1.Size = new Size(42, 21);
+            label1.TabIndex = 40;
+            label1.Text = "Sala";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label6.ForeColor = SystemColors.Control;
+            label6.Location = new Point(148, 85);
+            label6.Name = "label6";
+            label6.Size = new Size(61, 21);
+            label6.TabIndex = 39;
+            label6.Text = "Estado";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label7.ForeColor = SystemColors.Control;
+            label7.Location = new Point(358, 85);
+            label7.Name = "label7";
+            label7.Size = new Size(78, 21);
+            label7.TabIndex = 39;
+            label7.Text = "Ocupada";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label2.ForeColor = SystemColors.Control;
+            label2.Location = new Point(148, 127);
+            label2.Name = "label2";
+            label2.Size = new Size(117, 21);
+            label2.TabIndex = 35;
+            label2.Text = "Nombre Mesa";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label10.ForeColor = SystemColors.Control;
+            label10.Location = new Point(219, 8);
+            label10.Name = "label10";
+            label10.Size = new Size(267, 40);
+            label10.TabIndex = 31;
+            label10.Text = "Registro de Mesas";
+            // 
+            // txtnombreMesa
+            // 
+            txtnombreMesa.Location = new Point(148, 152);
+            txtnombreMesa.Name = "txtnombreMesa";
+            txtnombreMesa.Size = new Size(163, 29);
+            txtnombreMesa.TabIndex = 41;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label3.ForeColor = SystemColors.Control;
+            label3.Location = new Point(148, 200);
+            label3.Name = "label3";
+            label3.Size = new Size(90, 21);
+            label3.TabIndex = 33;
+            label3.Text = "Capacidad";
+            // 
+            // txtNumAsientos
+            // 
+            txtNumAsientos.Location = new Point(148, 224);
+            txtNumAsientos.Name = "txtNumAsientos";
+            txtNumAsientos.Size = new Size(163, 29);
+            txtNumAsientos.TabIndex = 43;
+            // 
+            // button2
+            // 
+            button2.Image = Properties.Resources.mas;
+            button2.Location = new Point(556, 152);
+            button2.Name = "button2";
+            button2.Size = new Size(29, 29);
+            button2.TabIndex = 50;
+            button2.UseVisualStyleBackColor = true;
+            // 
+            // tabPage1
+            // 
+            tabPage1.BackColor = SystemColors.WindowFrame;
+            tabPage1.Controls.Add(selecmetodo);
+            tabPage1.Controls.Add(metfiltrochk);
+            tabPage1.Controls.Add(metbuscar);
+            tabPage1.Controls.Add(label15);
+            tabPage1.Controls.Add(tabladatos);
+            tabPage1.Controls.Add(panel1);
+            tabPage1.Controls.Add(estadochk);
+            tabPage1.Controls.Add(label9);
+            tabPage1.Controls.Add(label11);
+            tabPage1.Controls.Add(label12);
+            tabPage1.Controls.Add(txtnombresala);
+            tabPage1.Location = new Point(4, 30);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Size = new Size(705, 433);
+            tabPage1.TabIndex = 2;
+            tabPage1.Text = "Salas";
+            // 
             // panel1
             // 
-            panel1.BackColor = Color.Red;
-            panel1.Location = new Point(410, 141);
-            panel1.Margin = new Padding(3, 4, 3, 4);
+            panel1.BackColor = Color.FromArgb(64, 64, 64);
+            panel1.Controls.Add(button3);
+            panel1.Controls.Add(button4);
+            panel1.Location = new Point(148, 183);
             panel1.Name = "panel1";
-            panel1.Size = new Size(685, 13);
-            panel1.TabIndex = 25;
+            panel1.Size = new Size(409, 74);
+            panel1.TabIndex = 95;
+            // 
+            // button3
+            // 
+            button3.Image = Properties.Resources.guardar;
+            button3.ImageAlign = ContentAlignment.MiddleLeft;
+            button3.Location = new Point(11, 8);
+            button3.Name = "button3";
+            button3.Size = new Size(181, 58);
+            button3.TabIndex = 27;
+            button3.Text = "Guardar";
+            button3.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            button4.Image = Properties.Resources.nuevodoc;
+            button4.ImageAlign = ContentAlignment.MiddleLeft;
+            button4.Location = new Point(217, 8);
+            button4.Name = "button4";
+            button4.Size = new Size(181, 58);
+            button4.TabIndex = 28;
+            button4.Text = "Nuevo";
+            button4.UseVisualStyleBackColor = true;
             // 
             // estadochk
             // 
             estadochk.AutoSize = true;
             estadochk.Checked = true;
             estadochk.CheckState = CheckState.Checked;
+            estadochk.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             estadochk.ForeColor = Color.Lime;
-            estadochk.Location = new Point(187, 260);
-            estadochk.Margin = new Padding(3, 4, 3, 4);
+            estadochk.Location = new Point(304, 139);
             estadochk.Name = "estadochk";
-            estadochk.Size = new Size(103, 24);
-            estadochk.TabIndex = 26;
-            estadochk.Text = "Disponible";
+            estadochk.Size = new Size(78, 25);
+            estadochk.TabIndex = 35;
+            estadochk.Text = "Activo";
             estadochk.UseVisualStyleBackColor = true;
-            estadochk.CheckedChanged += estadochk_CheckedChanged;
             // 
-            // label7
+            // label9
             // 
-            label7.AutoSize = true;
-            label7.ForeColor = SystemColors.Control;
-            label7.Location = new Point(134, 261);
-            label7.Name = "label7";
-            label7.Size = new Size(57, 20);
-            label7.TabIndex = 1;
-            label7.Text = "Estado:";
+            label9.AutoSize = true;
+            label9.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label9.ForeColor = SystemColors.Control;
+            label9.Location = new Point(227, 140);
+            label9.Name = "label9";
+            label9.Size = new Size(65, 21);
+            label9.TabIndex = 31;
+            label9.Text = "Estado:";
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label11.ForeColor = SystemColors.Control;
+            label11.Location = new Point(227, 8);
+            label11.Name = "label11";
+            label11.Size = new Size(250, 40);
+            label11.TabIndex = 32;
+            label11.Text = "Registro de Salas";
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label12.ForeColor = SystemColors.Control;
+            label12.Location = new Point(227, 69);
+            label12.Name = "label12";
+            label12.Size = new Size(109, 21);
+            label12.TabIndex = 33;
+            label12.Text = "Nombre Sala";
+            // 
+            // txtnombresala
+            // 
+            txtnombresala.Location = new Point(229, 95);
+            txtnombresala.Name = "txtnombresala";
+            txtnombresala.Size = new Size(248, 29);
+            txtnombresala.TabIndex = 30;
+            // 
+            // filtro
+            // 
+            filtro.AutoSize = true;
+            filtro.Checked = true;
+            filtro.CheckState = CheckState.Checked;
+            filtro.Cursor = Cursors.Hand;
+            filtro.Font = new Font("Segoe UI", 13F);
+            filtro.Image = Properties.Resources.sicheck;
+            filtro.Location = new Point(459, 88);
+            filtro.Name = "filtro";
+            filtro.Size = new Size(41, 29);
+            filtro.TabIndex = 65;
+            filtro.Text = "  ";
+            filtro.UseVisualStyleBackColor = true;
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.BackColor = Color.White;
+            label14.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label14.ForeColor = SystemColors.Control;
+            label14.Image = Properties.Resources.busqueda;
+            label14.Location = new Point(426, 92);
+            label14.Name = "label14";
+            label14.Size = new Size(18, 21);
+            label14.TabIndex = 66;
+            label14.Text = "  ";
+            // 
+            // tabladatos
+            // 
+            tabladatos.AllowUserToAddRows = false;
+            tabladatos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            tabladatos.Location = new Point(8, 290);
+            tabladatos.MultiSelect = false;
+            tabladatos.Name = "tabladatos";
+            tabladatos.ReadOnly = true;
+            tabladatos.RowHeadersWidth = 51;
+            tabladatos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            tabladatos.Size = new Size(263, 140);
+            tabladatos.TabIndex = 96;
+            // 
+            // selecmetodo
+            // 
+            selecmetodo.Image = Properties.Resources.seleccion;
+            selecmetodo.ImageAlign = ContentAlignment.MiddleLeft;
+            selecmetodo.Location = new Point(277, 290);
+            selecmetodo.Name = "selecmetodo";
+            selecmetodo.Size = new Size(138, 26);
+            selecmetodo.TabIndex = 98;
+            selecmetodo.Text = "Seleccionar";
+            selecmetodo.UseVisualStyleBackColor = true;
+            // 
+            // metfiltrochk
+            // 
+            metfiltrochk.AutoSize = true;
+            metfiltrochk.Checked = true;
+            metfiltrochk.CheckState = CheckState.Checked;
+            metfiltrochk.Font = new Font("Segoe UI", 15F);
+            metfiltrochk.Image = Properties.Resources.sicheck;
+            metfiltrochk.Location = new Point(277, 387);
+            metfiltrochk.Name = "metfiltrochk";
+            metfiltrochk.Size = new Size(61, 32);
+            metfiltrochk.TabIndex = 100;
+            metfiltrochk.Text = "      ";
+            metfiltrochk.UseVisualStyleBackColor = true;
+            // 
+            // metbuscar
+            // 
+            metbuscar.Location = new Point(277, 358);
+            metbuscar.Name = "metbuscar";
+            metbuscar.Size = new Size(138, 29);
+            metbuscar.TabIndex = 99;
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label15.ForeColor = Color.White;
+            label15.Image = Properties.Resources.filtrar;
+            label15.ImageAlign = ContentAlignment.MiddleRight;
+            label15.Location = new Point(277, 326);
+            label15.Name = "label15";
+            label15.Size = new Size(77, 21);
+            label15.TabIndex = 97;
+            label15.Text = "Filtros     ";
             // 
             // MantMesas
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.WindowFrame;
-            ClientSize = new Size(1045, 538);
-            Controls.Add(estadochk);
-            Controls.Add(panel1);
-            Controls.Add(label5);
-            Controls.Add(panel2);
-            Controls.Add(eliminarbtn);
-            Controls.Add(label6);
-            Controls.Add(tabladatos);
-            Controls.Add(txtbuscador);
-            Controls.Add(recargarbtn);
-            Controls.Add(nuevaSalabtn);
-            Controls.Add(pictureBox1);
-            Controls.Add(salacmbx);
-            Controls.Add(txtNumAsientos);
-            Controls.Add(label3);
-            Controls.Add(txtnombreMesa);
-            Controls.Add(label2);
-            Controls.Add(label4);
-            Controls.Add(label7);
-            Controls.Add(label1);
-            Controls.Add(limpiarbtn);
-            Controls.Add(guardarbtn);
-            Margin = new Padding(3, 4, 3, 4);
+            ClientSize = new Size(713, 467);
+            Controls.Add(tabControl2);
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "MantMesas";
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.Manual;
-            Text = "Mantenimiento de Mesas || Creando...";
+            Text = "Mesas";
             Load += MantMesas_Load;
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            tabControl2.ResumeLayout(false);
+            tabPage3.ResumeLayout(false);
+            tabPage3.PerformLayout();
+            tabPage4.ResumeLayout(false);
+            tabPage4.PerformLayout();
+            categoriapanel.ResumeLayout(false);
+            categoriapanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)categoriaconsulta).EndInit();
+            panel3.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
+            tabPage1.PerformLayout();
+            panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)tabladatos).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
-
+        private ToolTip toolTip1;
+        private Label label5;
+        private Button eliminarbtn;
+        private TextBox txtbuscador;
+        private TabControl tabControl2;
+        private TabPage tabPage3;
+        private TabPage tabPage4;
+        private CheckBox checkBox1;
         private Button guardarbtn;
+        private Button limpiarbtn;
         private Label label1;
-        private TextBox txtnombreMesa;
-        private ComboBox salacmbx;
+        private Label label7;
         private Label label2;
+        private Label label10;
+        private TextBox txtnombreMesa;
         private Label label3;
         private TextBox txtNumAsientos;
-        private Button limpiarbtn;
-        private Label label4;
-        private PictureBox pictureBox1;
-        private Button nuevaSalabtn;
-        private ToolTip toolTip1;
         public Button recargarbtn;
-        private Label label5;
-        private Panel panel2;
-        private Button eliminarbtn;
+        private TabPage tabPage1;
+        private FlowLayoutPanel panelMesas;
+        public Button button1;
+        private Label label4;
+        private Button Editar;
+        private Button agregar;
+        private CheckBox checkBox2;
         private Label label6;
-        private DataGridView tabladatos;
-        private TextBox txtbuscador;
-        private Panel panel1;
+        private Panel panel3;
+        private Panel categoriapanel;
+        private TextBox idconsultatxt;
+        private TextBox categoriaconsultatxt;
+        private Button button5;
+        private Label label8;
+        private DataGridView categoriaconsulta;
+        private Button button2;
+        private TextBox idcategoriatxt;
+        private TextBox categoriatxt;
+        private Button buscarpuesto;
         private CheckBox estadochk;
-        private Label label7;
+        private Label label9;
+        private Label label11;
+        private Label label12;
+        private TextBox txtnombresala;
+        private Panel panel1;
+        private Button button3;
+        private Button button4;
+        private TextBox idclientetxt;
+        private Label label13;
+        private CheckBox filtro;
+        private Label label14;
+        private DataGridView tabladatos;
+        private Button selecmetodo;
+        private CheckBox metfiltrochk;
+        private TextBox metbuscar;
+        private Label label15;
     }
 }

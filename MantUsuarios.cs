@@ -26,14 +26,14 @@ namespace Proyecto_restaurante
             {
                 passView.Image = Proyecto_restaurante.Properties.Resources.ojos_cruzados;
                 txtRegistroPass.UseSystemPasswordChar = false;
-                txtnuevapass.UseSystemPasswordChar = false;
+                txtconfirmarpass.UseSystemPasswordChar = false;
                 txtRegistroPass.Focus();
             }
             else if (passView.Checked == false)
             {
                 passView.Image = Proyecto_restaurante.Properties.Resources.ojo;
                 txtRegistroPass.UseSystemPasswordChar = true;
-                txtnuevapass.UseSystemPasswordChar = true;
+                txtconfirmarpass.UseSystemPasswordChar = true;
                 txtRegistroPass.Focus();
             }
         }
@@ -107,16 +107,14 @@ namespace Proyecto_restaurante
                                     privilegiochk.Enabled = true;
                                     nombreUsuarioActual = txtRegistroUsuario.Text;
                                     txtRegistroPass.Enabled = true;
-                                    txtnuevapass.Visible = true;
-                                    txtnuevapass.Enabled = true;
+                                    txtconfirmarpass.Visible = true;
+                                    txtconfirmarpass.Enabled = true;
                                     confirmarpass.Text = "Confirmar Contraseña";
                                     confirmarpass.Visible = true;
                                     guardarbtn.Visible = true;
-                                    verificarbtn.Visible = false;
                                     passView.Enabled = true;
                                     txtRegistroPass.Focus();
-                                    this.Text = "Mantenimiento de Usuarios || Editando...";
-                                    checkBox1.Enabled = true;
+                                    //checkBox1.Enabled = true;
                                 }
                                 else
                                 {
@@ -132,13 +130,12 @@ namespace Proyecto_restaurante
                                 estadochk.Enabled = true;
                                 privilegiochk.Enabled = true;
                                 txtRegistroPass.Enabled = true;
-                                txtnuevapass.Visible = false;
-                                txtnuevapass.Enabled = false;
+                                txtconfirmarpass.Visible = false;
+                                txtconfirmarpass.Enabled = false;
                                 confirmarpass.Visible = false;
                                 guardarbtn.Visible = true;
-                                verificarbtn.Visible = false;
+                                //verificarbtn.Visible = false;
                                 passView.Enabled = true;
-                                this.Text = "Mantenimiento de Usuarios || Creando...";
                                 MessageBox.Show("Ingrese la contraseña y haga clic en 'Guardar Datos' para registrar el nuevo usuario.");
                                 mensajeMostrado = true;
                             }
@@ -155,16 +152,16 @@ namespace Proyecto_restaurante
 
         private void guardarbtn_Click(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == false && txtnuevapass.Visible == true)
-            {
-                if (txtRegistroPass.Text != txtnuevapass.Text)
-                {
-                    MessageBox.Show("Debe colocar la misma contraseña");
-                    txtnuevapass.Text = "";
-                    txtnuevapass.Focus();
-                    return;
-                }
-            }
+            //if (checkBox1.Checked == false && txtnuevapass.Visible == true)
+            //{
+            //    if (txtRegistroPass.Text != txtnuevapass.Text)
+            //    {
+            //        MessageBox.Show("Debe colocar la misma contraseña");
+            //        txtnuevapass.Text = "";
+            //        txtnuevapass.Focus();
+            //        return;
+            //    }
+            //}
 
             string conexionString = ConexionBD.ConexionSQL();
 
@@ -219,7 +216,7 @@ namespace Proyecto_restaurante
                         using (SqlCommand actualizarCommand = new SqlCommand(queryActualizar, conexion))
                         {
                             actualizarCommand.Parameters.AddWithValue("@nuevoNombre", txtRegistroUsuario.Text);
-                            actualizarCommand.Parameters.AddWithValue("@pass", txtnuevapass.Text);
+                            actualizarCommand.Parameters.AddWithValue("@pass", txtconfirmarpass.Text);
                             actualizarCommand.Parameters.AddWithValue("@privilegio", privilegiochk.Checked ? 1 : 0);
                             actualizarCommand.Parameters.AddWithValue("@estado", estadochk.Checked ? 1 : 0);
                             actualizarCommand.Parameters.AddWithValue("@nombreActual", nombreUsuarioActual);
@@ -270,15 +267,13 @@ namespace Proyecto_restaurante
 
             txtRegistroPass.Text = "";
 
-            txtnuevapass.Text = "";
-            txtnuevapass.Visible = false;
-            txtnuevapass.Enabled = false;
+            txtconfirmarpass.Text = "";
+            txtconfirmarpass.Visible = false;
+            txtconfirmarpass.Enabled = false;
 
-            verificarbtn.Visible = true;
 
             guardarbtn.Visible = false;
 
-            this.Text = "Mantenimiento de Usuarios || Creando...";
 
             nombreUsuarioActual = "";
 
@@ -295,13 +290,11 @@ namespace Proyecto_restaurante
             privilegiochk.Checked = false;
 
             passView.Enabled = false;
-            checkBox1.Enabled = false;
 
             passView.Checked = false;
-            checkBox1.Checked = false;
             confirmarpass.Visible = false;
 
-            button1.Enabled = false;
+            //button1.Enabled = false;
         }
 
         private void txtRegistroUsuario_KeyPress(object sender, KeyPressEventArgs e)
@@ -329,20 +322,20 @@ namespace Proyecto_restaurante
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true)
-            {
-                confirmarpass.Text = "Nueva Contraseña";
-                confirmarpass.Visible = true;
-                guardarbtn.Visible = true;
-                verificarbtn.Visible = false;
-            }
-            else if (checkBox1.Checked == false)
-            {
-                confirmarpass.Text = "Confirmar Contraseña";
-                confirmarpass.Visible = true;
-                guardarbtn.Visible = true;
-                verificarbtn.Visible = false;
-            }
+            //if (checkBox1.Checked == true)
+            //{
+            //    confirmarpass.Text = "Nueva Contraseña";
+            //    confirmarpass.Visible = true;
+            //    guardarbtn.Visible = true;
+            //    verificarbtn.Visible = false;
+            //}
+            //else if (checkBox1.Checked == false)
+            //{
+            //    confirmarpass.Text = "Confirmar Contraseña";
+            //    confirmarpass.Visible = true;
+            //    guardarbtn.Visible = true;
+            //    verificarbtn.Visible = false;
+            //}
         }
 
         private void FiltroDatosBusqueda(string busqueda)
@@ -384,9 +377,9 @@ namespace Proyecto_restaurante
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
 
-            ConfirmPanelTransp.BackColor = Color.FromArgb(100, 0, 0, 0);
+            //ConfirmPanelTransp.BackColor = Color.FromArgb(100, 0, 0, 0);
 
-            button1.Enabled = false;
+            //button1.Enabled = false;
             string conexionString = ConexionBD.ConexionSQL();
 
             string consulta = "select id, usuario, estado, privilegio from login_usuario";
@@ -437,11 +430,10 @@ namespace Proyecto_restaurante
 
             txtRegistroPass.Text = "";
 
-            txtnuevapass.Text = "";
-            txtnuevapass.Visible = false;
-            txtnuevapass.Enabled = false;
+            txtconfirmarpass.Text = "";
+            txtconfirmarpass.Visible = false;
+            txtconfirmarpass.Enabled = false;
 
-            verificarbtn.Visible = true;
 
             guardarbtn.Visible = false;
 
@@ -462,33 +454,19 @@ namespace Proyecto_restaurante
             privilegiochk.Checked = false;
 
             passView.Enabled = false;
-            checkBox1.Enabled = false;
 
             passView.Checked = false;
-            checkBox1.Checked = false;
             confirmarpass.Visible = false;
 
-            button1.Enabled = false; //Boton de eliminar usuario (olvidé cambiarle el nombre xd)
+            //button1.Enabled = false; //Boton de eliminar usuario (olvidé cambiarle el nombre xd)
 
             MantUsuarios_Load(sender, e);
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            panelconfirmacion.Location = new Point(310, 94);
-            panelconfirmacion.Visible = true;
-
-            ConfirmPanelTransp.Location = new Point(0, 0);
-            ConfirmPanelTransp.Visible = true;
-        }
-
         private void cancelarbtn_Click(object sender, EventArgs e)
         {
-            ConfirmPanelTransp.Location = new Point(764, 363);
-            ConfirmPanelTransp.Visible = false;
-
-            panelconfirmacion.Visible = false;
-            panelconfirmacion.Location = new Point(470, 363);
+            //ConfirmPanelTransp.Location = new Point(764, 363);
+            //ConfirmPanelTransp.Visible = false;
         }
 
         private void tabladatos_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -501,18 +479,15 @@ namespace Proyecto_restaurante
             privilegiochk.Enabled = true;
             nombreUsuarioActual = txtRegistroUsuario.Text;
             txtRegistroPass.Enabled = true;
-            txtnuevapass.Visible = true;
-            txtnuevapass.Enabled = true;
+            txtconfirmarpass.Visible = true;
+            txtconfirmarpass.Enabled = true;
             confirmarpass.Text = "Confirmar Contraseña";
             confirmarpass.Visible = true;
             guardarbtn.Visible = true;
-            verificarbtn.Visible = false;
             passView.Enabled = true;
             txtRegistroPass.Focus();
-            this.Text = "Mantenimiento de Usuarios || Editando...";
-            checkBox1.Enabled = true;
 
-            button1.Enabled = true;
+            //button1.Enabled = true;
         }
 
         public string UsuarioAdministrador;
@@ -529,13 +504,13 @@ namespace Proyecto_restaurante
                 using (SqlCommand verificarPassCommand = new SqlCommand(verificarPassQuery, conexion))
                 {
                     verificarPassCommand.Parameters.AddWithValue("@nombreAdmin", UsuarioAdministrador);
-                    verificarPassCommand.Parameters.AddWithValue("@pass", confirmarpasspanel.Text);
+                    //verificarPassCommand.Parameters.AddWithValue("@pass", confirmarpasspanel.Text);
                     int passCount = (int)verificarPassCommand.ExecuteScalar();
 
                     if (passCount == 0)
                     {
                         MessageBox.Show("Contraseña incorrecta.");
-                        confirmarpasspanel.Text = "";
+                        //confirmarpasspanel.Text = "";
                         return;
                     }
                 }
@@ -555,8 +530,8 @@ namespace Proyecto_restaurante
                         if (rowsAffected > 0)
                         {
                             MessageBox.Show("Usuario eliminado exitosamente.");
-                            button1.Enabled = false;
-                            confirmarpasspanel.Text = "";
+                            //button1.Enabled = false;
+                            //confirmarpasspanel.Text = "";
                             eliminarbtn_Click(sender, e);
                             limpiarbtn_Click(sender, e);
                             MantUsuarios_Load(sender, e);

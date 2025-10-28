@@ -793,6 +793,16 @@ namespace Proyecto_restaurante.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap mas {
+            get {
+                object obj = ResourceManager.GetObject("mas", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap mesa {
             get {
                 object obj = ResourceManager.GetObject("mesa", resourceCulture);
@@ -806,6 +816,26 @@ namespace Proyecto_restaurante.Properties {
         internal static System.Drawing.Bitmap mesa_redonda {
             get {
                 object obj = ResourceManager.GetObject("mesa-redonda", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mesa1 {
+            get {
+                object obj = ResourceManager.GetObject("mesa1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mesa2 {
+            get {
+                object obj = ResourceManager.GetObject("mesa2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1266,6 +1296,16 @@ namespace Proyecto_restaurante.Properties {
         internal static System.Drawing.Bitmap tipodepago {
             get {
                 object obj = ResourceManager.GetObject("tipodepago", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap tipos {
+            get {
+                object obj = ResourceManager.GetObject("tipos", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

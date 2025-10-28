@@ -27,13 +27,13 @@ namespace Proyecto_restaurante
         {
             Regex numerosRegex = new Regex(@"^[\d-]+$");
 
-            if (txtnombreMesa.Text == "" || salacmbx.SelectedItem == null)
-            {
-                MessageBox.Show("No debe dejar campos vacios.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //if (txtnombreMesa.Text == "" || salacmbx.SelectedItem == null)
+            //{
+            //    MessageBox.Show("No debe dejar campos vacios.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                salacmbx.Focus();
-                return;
-            }
+            //    salacmbx.Focus();
+            //    return;
+            //}
 
             if (!numerosRegex.IsMatch(txtNumAsientos.Text))
             {
@@ -56,10 +56,10 @@ namespace Proyecto_restaurante
                         string queryInsertar = "INSERT INTO mesas (sala, nombre_mesa, estado, num_asientos) VALUES (@sala, @nombreMesa, @estado, @numAsientos)";
                         using (SqlCommand insertarCommand = new SqlCommand(queryInsertar, conexion))
                         {
-                            insertarCommand.Parameters.AddWithValue("@sala", salacmbx.SelectedItem.ToString());
+                            //insertarCommand.Parameters.AddWithValue("@sala", salacmbx.SelectedItem.ToString());
                             insertarCommand.Parameters.AddWithValue("@nombreMesa", txtnombreMesa.Text);
                             insertarCommand.Parameters.AddWithValue("@numAsientos", txtNumAsientos.Text);
-                            insertarCommand.Parameters.AddWithValue("@estado", estadochk.Checked ? 1 : 0);
+                            //insertarCommand.Parameters.AddWithValue("@estado", estadochk.Checked ? 1 : 0);
 
                             int rowsAffected = insertarCommand.ExecuteNonQuery();
 
@@ -91,9 +91,9 @@ namespace Proyecto_restaurante
                             actualizarCommand.Parameters.AddWithValue("@IDMesa", idMesa);
                             actualizarCommand.Parameters.AddWithValue("@nombreMesaActual", nombreMesaActual);
                             actualizarCommand.Parameters.AddWithValue("@nuevoNombreMesa", txtnombreMesa.Text);
-                            actualizarCommand.Parameters.AddWithValue("@sala", salacmbx.SelectedItem.ToString());
+                            //actualizarCommand.Parameters.AddWithValue("@sala", salacmbx.SelectedItem.ToString());
                             actualizarCommand.Parameters.AddWithValue("@numAsientos", txtNumAsientos.Text);
-                            actualizarCommand.Parameters.AddWithValue("@estado", estadochk.Checked ? 1 : 0);
+                            //actualizarCommand.Parameters.AddWithValue("@estado", estadochk.Checked ? 1 : 0);
 
                             int rowsAffected = actualizarCommand.ExecuteNonQuery();
 
@@ -120,12 +120,12 @@ namespace Proyecto_restaurante
 
         private void limpiarbtn_Click(object sender, EventArgs e)
         {
-            salacmbx.SelectedIndex = -1;
+            //salacmbx.SelectedIndex = -1;
             txtnombreMesa.Text = "";
             txtNumAsientos.Text = "";
             this.Text = "Mantenimiento de Mesas || Creando...";
             MantMesas_Load(sender, e);
-            estadochk.Checked = true;
+            //estadochk.Checked = true;
             recargarbtn_Click(sender, e);
         }
 
@@ -147,45 +147,114 @@ namespace Proyecto_restaurante
 
         private void MantMesas_Load(object sender, EventArgs e)
         {
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-
             string conexionString = ConexionBD.ConexionSQL();
+
+            //using (SqlConnection conexion = new SqlConnection(conexionString))
+            //{
+            //    try
+            //    {
+            //        conexion.Open();
+
+            //        string query = "SELECT nombre_sala FROM salas WHERE estado = 1";
+            //        using (SqlCommand comando = new SqlCommand(query, conexion))
+            //        {
+            //            using (SqlDataReader lector = comando.ExecuteReader())
+            //            {
+            //                while (lector.Read())
+            //                {
+            //                    salacmbx.Items.Add(lector["nombre_sala"].ToString());
+            //                }
+            //            }
+            //        }
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        MessageBox.Show($"Ocurrió un error al cargar las salas: {ex.Message}");
+            //    }
+            //}
+
+            string consulta = "SELECT id, nombre_mesa, sala, num_asientos, estado FROM mesas";
 
             using (SqlConnection conexion = new SqlConnection(conexionString))
             {
-                try
+                conexion.Open();
+                using (SqlCommand comando = new SqlCommand(consulta, conexion))
                 {
-                    conexion.Open();
-
-                    string query = "SELECT nombre_sala FROM salas where estado = 1";
-                    using (SqlCommand comando = new SqlCommand(query, conexion))
+                    using (SqlDataReader lector = comando.ExecuteReader())
                     {
-                        using (SqlDataReader lector = comando.ExecuteReader())
+                        panelMesas.Controls.Clear();
+
+                        while (lector.Read())
                         {
-                            while (lector.Read())
+                            Panel tarjeta = new Panel();
+                            tarjeta.Width = 150;
+                            tarjeta.Height = 100;
+                            tarjeta.BorderStyle = BorderStyle.FixedSingle;
+                            tarjeta.Margin = new Padding(10);
+
+                            int estado = Convert.ToInt32(lector["estado"]);
+                            tarjeta.BackColor = (estado == 1) ? Color.LightGreen : Color.LightCoral;
+
+                            tarjeta.Tag = new
                             {
-                                salacmbx.Items.Add(lector["nombre_sala"].ToString());
-                            }
+                                Id = Convert.ToInt32(lector["id"]),
+                                Estado = estado
+                            };
+
+                            Label lblMesa = new Label();
+                            lblMesa.Text = lector["nombre_mesa"].ToString();
+                            lblMesa.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+                            lblMesa.AutoSize = false;
+                            lblMesa.TextAlign = ContentAlignment.MiddleCenter;
+                            lblMesa.Dock = DockStyle.Top;
+
+                            Label lblSala = new Label();
+                            lblSala.Text = "Sala: " + lector["sala"].ToString();
+                            lblSala.Dock = DockStyle.Top;
+                            lblSala.TextAlign = ContentAlignment.MiddleCenter;
+
+                            Label lblAsientos = new Label();
+                            lblAsientos.Text = "Asientos: " + lector["num_asientos"].ToString();
+                            lblAsientos.Dock = DockStyle.Bottom;
+                            lblAsientos.TextAlign = ContentAlignment.MiddleCenter;
+
+                            tarjeta.Controls.Add(lblAsientos);
+                            tarjeta.Controls.Add(lblSala);
+                            tarjeta.Controls.Add(lblMesa);
+
+                            tarjeta.Click += Tarjeta_Click;
+
+                            panelMesas.Controls.Add(tarjeta);
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Ocurrió un error al cargar las salas: {ex.Message}");
-                }
             }
-
-            string consulta = "select id, nombre_mesa, sala, num_asientos, estado from mesas";
-
-            SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
-
-            DataTable dt = new DataTable();
-
-            adaptador.Fill(dt);
-
-            tabladatos.DataSource = dt;
         }
+
+        private Color colorSeleccionado = Color.DodgerBlue;
+        private int idMesaSeleccionada = -1;
+        private Panel tarjetaActiva = null;
+
+        private void Tarjeta_Click(object sender, EventArgs e)
+        {
+            Panel tarjetaSeleccionada = sender as Panel;
+
+            if (tarjetaSeleccionada != null)
+            {
+                if (tarjetaActiva != null)
+                {
+                    dynamic anterior = tarjetaActiva.Tag;
+                    tarjetaActiva.BackColor = (anterior.Estado == 1) ? Color.LightGreen : Color.LightCoral;
+                }
+
+                tarjetaActiva = tarjetaSeleccionada;
+                tarjetaSeleccionada.BackColor = Color.DodgerBlue;
+
+                dynamic mesa = tarjetaSeleccionada.Tag;
+                idMesaSeleccionada = mesa.Id;
+            }
+        }
+
 
         public void RecargarClick()
         {
@@ -194,7 +263,6 @@ namespace Proyecto_restaurante
 
         private void recargarbtn_Click(object sender, EventArgs e)
         {
-            salacmbx.Items.Clear();
             MantMesas_Load(sender, e);
         }
 
@@ -223,7 +291,7 @@ namespace Proyecto_restaurante
                         DataTable dt = new DataTable();
                         da.Fill(dt);
 
-                        tabladatos.DataSource = dt;
+                        //tabladatos.DataSource = dt;
                     }
                 }
                 catch (Exception ex)
@@ -264,30 +332,29 @@ namespace Proyecto_restaurante
 
         private void estadochk_CheckedChanged(object sender, EventArgs e)
         {
-            if (estadochk.Checked == true)
-            {
-                estadochk.Text = "Disponible";
-                estadochk.ForeColor = Color.Lime;
-            }
-            else if (estadochk.Checked == false)
-            {
+            //if (estadochk.Checked == true)
+            //{
+            //    estadochk.Text = "Disponible";
+            //    estadochk.ForeColor = Color.Lime;
+            //}
+            //else if (estadochk.Checked == false)
+            //{
 
-                estadochk.Text = "Reservada";
-                estadochk.ForeColor = Color.Red;
-            }
+            //    estadochk.Text = "Reservada";
+            //    estadochk.ForeColor = Color.Red;
+            //}
         }
 
         private void tabladatos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            this.Text = "Mantenimiento de Mesas || Editando...";
+            
+            //idMesa = Convert.ToInt32(tabladatos.SelectedCells[0].Value);
+            //txtnombreMesa.Text = tabladatos.SelectedCells[1].Value.ToString();
+            //nombreMesaActual = txtnombreMesa.Text;
+            //salacmbx.Text = tabladatos.SelectedCells[2].Value.ToString();
+            //txtNumAsientos.Text = tabladatos.SelectedCells[3].Value.ToString();
 
-            idMesa = Convert.ToInt32(tabladatos.SelectedCells[0].Value);
-            txtnombreMesa.Text = tabladatos.SelectedCells[1].Value.ToString();
-            nombreMesaActual = txtnombreMesa.Text;
-            salacmbx.Text = tabladatos.SelectedCells[2].Value.ToString();
-            txtNumAsientos.Text = tabladatos.SelectedCells[3].Value.ToString();
-
-            estadochk.Checked = Convert.ToBoolean(tabladatos.SelectedCells[4].Value);
+            //estadochk.Checked = Convert.ToBoolean(tabladatos.SelectedCells[4].Value);
         }
     }
 }

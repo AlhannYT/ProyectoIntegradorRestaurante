@@ -70,7 +70,7 @@ namespace Proyecto_restaurante
 
             MantUsuarios mantUsuarios = new MantUsuarios();
             mantUsuarios.Location = new Point(561, 50);
-            mantUsuarios.adminlabel.Text = "Administrador: " + usuarioActual;
+            //mantUsuarios.adminlabel.Text = "Administrador: " + usuarioActual;
             mantUsuarios.UsuarioAdministrador = usuarioActual;
             mantUsuarios.MdiParent = this;
             mantUsuarios.Show();

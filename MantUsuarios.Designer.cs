@@ -34,53 +34,61 @@
             txtRegistroPass = new TextBox();
             label2 = new Label();
             label3 = new Label();
-            pictureBox1 = new PictureBox();
             estadochk = new CheckBox();
             passView = new CheckBox();
             label5 = new Label();
             guardarbtn = new Button();
             limpiarbtn = new Button();
-            verificarbtn = new Button();
-            txtnuevapass = new TextBox();
+            txtconfirmarpass = new TextBox();
             confirmarpass = new Label();
             privilegiochk = new CheckBox();
             label4 = new Label();
-            checkBox1 = new CheckBox();
             toolTip1 = new ToolTip(components);
-            button1 = new Button();
             instrucciones = new Button();
             label6 = new Label();
-            panel2 = new Panel();
-            panel1 = new Panel();
             eliminarbtn = new Button();
-            label7 = new Label();
             tabladatos = new DataGridView();
             txtbuscador = new TextBox();
             label1 = new Label();
-            panelconfirmacion = new Panel();
-            panel3 = new Panel();
-            confirmarpasspanel = new TextBox();
-            adminlabel = new Label();
-            label8 = new Label();
-            cancelarbtn = new Button();
-            eliminarusuariobtn = new Button();
-            ConfirmPanelTransp = new Panel();
-            pictureBox3 = new PictureBox();
-            pictureBox2 = new PictureBox();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            tabControl1 = new TabControl();
+            tabPage1 = new TabPage();
+            label11 = new Label();
+            clienteimg = new PictureBox();
+            label7 = new Label();
+            Editar = new Button();
+            agregar = new Button();
+            filtro = new CheckBox();
+            button1 = new Button();
+            tabPage2 = new TabPage();
+            idclientetxt = new TextBox();
+            label12 = new Label();
+            idcategoriatxt = new TextBox();
+            categoriatxt = new TextBox();
+            label10 = new Label();
+            buscarpuesto = new Button();
+            empleadopanel = new Panel();
+            idconsultatxt = new TextBox();
+            categoriaconsultatxt = new TextBox();
+            button5 = new Button();
+            label9 = new Label();
+            categoriaconsulta = new DataGridView();
+            panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)tabladatos).BeginInit();
-            panelconfirmacion.SuspendLayout();
-            ConfirmPanelTransp.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            tabControl1.SuspendLayout();
+            tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)clienteimg).BeginInit();
+            tabPage2.SuspendLayout();
+            empleadopanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)categoriaconsulta).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // txtRegistroUsuario
             // 
-            txtRegistroUsuario.Location = new Point(243, 293);
-            txtRegistroUsuario.Margin = new Padding(3, 4, 3, 4);
+            txtRegistroUsuario.Location = new Point(84, 179);
+            txtRegistroUsuario.Margin = new Padding(4);
             txtRegistroUsuario.Name = "txtRegistroUsuario";
-            txtRegistroUsuario.Size = new Size(135, 27);
+            txtRegistroUsuario.Size = new Size(189, 29);
             txtRegistroUsuario.TabIndex = 0;
             txtRegistroUsuario.TextChanged += txtRegistroUsuario_TextChanged;
             txtRegistroUsuario.KeyPress += txtRegistroUsuario_KeyPress;
@@ -88,45 +96,36 @@
             // txtRegistroPass
             // 
             txtRegistroPass.Enabled = false;
-            txtRegistroPass.Location = new Point(243, 332);
-            txtRegistroPass.Margin = new Padding(3, 4, 3, 4);
+            txtRegistroPass.Location = new Point(84, 257);
+            txtRegistroPass.Margin = new Padding(4);
             txtRegistroPass.Name = "txtRegistroPass";
-            txtRegistroPass.Size = new Size(135, 27);
+            txtRegistroPass.Size = new Size(189, 29);
             txtRegistroPass.TabIndex = 1;
             txtRegistroPass.UseSystemPasswordChar = true;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 11.25F);
+            label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label2.ForeColor = SystemColors.ControlLightLight;
-            label2.Location = new Point(42, 296);
+            label2.Location = new Point(84, 152);
+            label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
-            label2.Size = new Size(151, 25);
+            label2.Size = new Size(135, 21);
             label2.TabIndex = 2;
             label2.Text = "Ingresar Usuario";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 11.25F);
+            label3.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label3.ForeColor = SystemColors.ControlLightLight;
-            label3.Location = new Point(42, 335);
+            label3.Location = new Point(84, 230);
+            label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
-            label3.Size = new Size(182, 25);
+            label3.Size = new Size(162, 21);
             label3.TabIndex = 2;
             label3.Text = "Ingresar Contraseña";
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(146, 68);
-            pictureBox1.Margin = new Padding(3, 4, 3, 4);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(131, 145);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 4;
-            pictureBox1.TabStop = false;
             // 
             // estadochk
             // 
@@ -135,10 +134,10 @@
             estadochk.CheckState = CheckState.Checked;
             estadochk.Enabled = false;
             estadochk.ForeColor = Color.Lime;
-            estadochk.Location = new Point(221, 221);
-            estadochk.Margin = new Padding(3, 4, 3, 4);
+            estadochk.Location = new Point(183, 375);
+            estadochk.Margin = new Padding(4);
             estadochk.Name = "estadochk";
-            estadochk.Size = new Size(73, 24);
+            estadochk.Size = new Size(72, 25);
             estadochk.TabIndex = 6;
             estadochk.Text = "Activo";
             estadochk.UseVisualStyleBackColor = true;
@@ -149,10 +148,10 @@
             passView.Appearance = Appearance.Button;
             passView.Enabled = false;
             passView.Image = Properties.Resources.ojo;
-            passView.Location = new Point(386, 332);
-            passView.Margin = new Padding(3, 4, 3, 4);
+            passView.Location = new Point(276, 257);
+            passView.Margin = new Padding(4);
             passView.Name = "passView";
-            passView.Size = new Size(31, 30);
+            passView.Size = new Size(29, 29);
             passView.TabIndex = 7;
             toolTip1.SetToolTip(passView, "Mostrar Contraseña");
             passView.UseVisualStyleBackColor = true;
@@ -161,21 +160,23 @@
             // label5
             // 
             label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label5.ForeColor = SystemColors.ControlLightLight;
-            label5.Location = new Point(143, 223);
+            label5.Location = new Point(84, 377);
+            label5.Margin = new Padding(4, 0, 4, 0);
             label5.Name = "label5";
-            label5.Size = new Size(61, 20);
+            label5.Size = new Size(69, 21);
             label5.TabIndex = 2;
             label5.Text = "Estado: ";
             // 
             // guardarbtn
             // 
-            guardarbtn.Image = Properties.Resources.basura;
+            guardarbtn.Image = Properties.Resources.guardar;
             guardarbtn.ImageAlign = ContentAlignment.MiddleLeft;
-            guardarbtn.Location = new Point(44, 424);
-            guardarbtn.Margin = new Padding(3, 4, 3, 4);
+            guardarbtn.Location = new Point(12, 8);
+            guardarbtn.Margin = new Padding(4);
             guardarbtn.Name = "guardarbtn";
-            guardarbtn.Size = new Size(130, 59);
+            guardarbtn.Size = new Size(181, 58);
             guardarbtn.TabIndex = 8;
             guardarbtn.Text = "Guardar";
             guardarbtn.UseVisualStyleBackColor = true;
@@ -183,49 +184,37 @@
             // 
             // limpiarbtn
             // 
-            limpiarbtn.Image = Properties.Resources.limpio;
+            limpiarbtn.Image = Properties.Resources.nuevodoc;
             limpiarbtn.ImageAlign = ContentAlignment.MiddleLeft;
-            limpiarbtn.Location = new Point(248, 424);
-            limpiarbtn.Margin = new Padding(3, 4, 3, 4);
+            limpiarbtn.Location = new Point(215, 8);
+            limpiarbtn.Margin = new Padding(4);
             limpiarbtn.Name = "limpiarbtn";
-            limpiarbtn.Size = new Size(130, 59);
+            limpiarbtn.Size = new Size(181, 58);
             limpiarbtn.TabIndex = 8;
-            limpiarbtn.Text = "Limpiar";
+            limpiarbtn.Text = "Nuevo";
             limpiarbtn.UseVisualStyleBackColor = true;
             limpiarbtn.Click += limpiarbtn_Click;
             // 
-            // verificarbtn
+            // txtconfirmarpass
             // 
-            verificarbtn.Image = Properties.Resources.disco;
-            verificarbtn.ImageAlign = ContentAlignment.MiddleLeft;
-            verificarbtn.Location = new Point(43, 424);
-            verificarbtn.Margin = new Padding(3, 4, 3, 4);
-            verificarbtn.Name = "verificarbtn";
-            verificarbtn.Size = new Size(130, 59);
-            verificarbtn.TabIndex = 8;
-            verificarbtn.Text = "Verificar";
-            verificarbtn.UseVisualStyleBackColor = true;
-            verificarbtn.Click += verificarbtn_Click;
-            // 
-            // txtnuevapass
-            // 
-            txtnuevapass.Enabled = false;
-            txtnuevapass.Location = new Point(243, 370);
-            txtnuevapass.Margin = new Padding(3, 4, 3, 4);
-            txtnuevapass.Name = "txtnuevapass";
-            txtnuevapass.Size = new Size(135, 27);
-            txtnuevapass.TabIndex = 1;
-            txtnuevapass.UseSystemPasswordChar = true;
-            txtnuevapass.Visible = false;
+            txtconfirmarpass.Enabled = false;
+            txtconfirmarpass.Location = new Point(84, 338);
+            txtconfirmarpass.Margin = new Padding(4);
+            txtconfirmarpass.Name = "txtconfirmarpass";
+            txtconfirmarpass.Size = new Size(189, 29);
+            txtconfirmarpass.TabIndex = 1;
+            txtconfirmarpass.UseSystemPasswordChar = true;
+            txtconfirmarpass.Visible = false;
             // 
             // confirmarpass
             // 
             confirmarpass.AutoSize = true;
-            confirmarpass.Font = new Font("Segoe UI", 11.25F);
+            confirmarpass.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             confirmarpass.ForeColor = SystemColors.Control;
-            confirmarpass.Location = new Point(42, 373);
+            confirmarpass.Location = new Point(84, 305);
+            confirmarpass.Margin = new Padding(4, 0, 4, 0);
             confirmarpass.Name = "confirmarpass";
-            confirmarpass.Size = new Size(198, 25);
+            confirmarpass.Size = new Size(177, 21);
             confirmarpass.TabIndex = 2;
             confirmarpass.Text = "Confirmar Contraseña";
             confirmarpass.Visible = false;
@@ -235,10 +224,10 @@
             privilegiochk.AutoSize = true;
             privilegiochk.Enabled = false;
             privilegiochk.ForeColor = Color.Black;
-            privilegiochk.Location = new Point(221, 255);
-            privilegiochk.Margin = new Padding(3, 4, 3, 4);
+            privilegiochk.Location = new Point(183, 412);
+            privilegiochk.Margin = new Padding(4);
             privilegiochk.Name = "privilegiochk";
-            privilegiochk.Size = new Size(81, 24);
+            privilegiochk.Size = new Size(83, 25);
             privilegiochk.TabIndex = 6;
             privilegiochk.Text = "Usuario";
             privilegiochk.UseVisualStyleBackColor = true;
@@ -247,52 +236,27 @@
             // label4
             // 
             label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label4.ForeColor = SystemColors.ControlLightLight;
-            label4.Location = new Point(143, 255);
+            label4.Location = new Point(84, 412);
+            label4.Margin = new Padding(4, 0, 4, 0);
             label4.Name = "label4";
-            label4.Size = new Size(74, 20);
+            label4.Size = new Size(88, 21);
             label4.TabIndex = 9;
             label4.Text = "Privilegio:";
-            // 
-            // checkBox1
-            // 
-            checkBox1.Appearance = Appearance.Button;
-            checkBox1.Enabled = false;
-            checkBox1.Image = Properties.Resources.cuadrado_norte;
-            checkBox1.Location = new Point(424, 332);
-            checkBox1.Margin = new Padding(3, 4, 3, 4);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(31, 30);
-            checkBox1.TabIndex = 7;
-            toolTip1.SetToolTip(checkBox1, "Este boton sirve para alternar entre\r\ndejar la misma contraseña o\r\ncolocar una nueva contraseña\r\n\r\n");
-            checkBox1.UseVisualStyleBackColor = true;
-            checkBox1.CheckedChanged += checkBox1_CheckedChanged;
             // 
             // toolTip1
             // 
             toolTip1.ToolTipTitle = "Ayuda";
             // 
-            // button1
-            // 
-            button1.Enabled = false;
-            button1.Image = Properties.Resources.basura;
-            button1.Location = new Point(386, 292);
-            button1.Margin = new Padding(3, 4, 3, 4);
-            button1.Name = "button1";
-            button1.Size = new Size(31, 30);
-            button1.TabIndex = 35;
-            toolTip1.SetToolTip(button1, "¡Este boton elimina por\r\ncompleto al usuario que\r\nhaya sido seleccionado!");
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
-            // 
             // instrucciones
             // 
             instrucciones.BackColor = Color.White;
             instrucciones.Image = Properties.Resources.interrogatorio;
-            instrucciones.Location = new Point(1014, 12);
-            instrucciones.Margin = new Padding(3, 4, 3, 4);
+            instrucciones.Location = new Point(609, 50);
+            instrucciones.Margin = new Padding(4);
             instrucciones.Name = "instrucciones";
-            instrucciones.Size = new Size(27, 28);
+            instrucciones.Size = new Size(31, 29);
             instrucciones.TabIndex = 37;
             toolTip1.SetToolTip(instrucciones, "Instrucciones");
             instrucciones.UseVisualStyleBackColor = false;
@@ -303,76 +267,47 @@
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label6.ForeColor = SystemColors.Control;
-            label6.Location = new Point(518, 12);
+            label6.Location = new Point(125, 13);
+            label6.Margin = new Padding(4, 0, 4, 0);
             label6.Name = "label6";
-            label6.Size = new Size(386, 50);
+            label6.Size = new Size(306, 40);
             label6.TabIndex = 32;
             label6.Text = "Consulta de Usuarios";
-            // 
-            // panel2
-            // 
-            panel2.BackColor = Color.Red;
-            panel2.Location = new Point(464, -1);
-            panel2.Margin = new Padding(3, 4, 3, 4);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(11, 529);
-            panel2.TabIndex = 31;
-            // 
-            // panel1
-            // 
-            panel1.BackColor = Color.Red;
-            panel1.Location = new Point(473, 136);
-            panel1.Margin = new Padding(3, 4, 3, 4);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(593, 13);
-            panel1.TabIndex = 30;
             // 
             // eliminarbtn
             // 
             eliminarbtn.Image = Properties.Resources.limpio;
-            eliminarbtn.Location = new Point(1010, 96);
-            eliminarbtn.Margin = new Padding(3, 4, 3, 4);
+            eliminarbtn.Location = new Point(373, 78);
+            eliminarbtn.Margin = new Padding(4);
             eliminarbtn.Name = "eliminarbtn";
-            eliminarbtn.Size = new Size(31, 31);
+            eliminarbtn.Size = new Size(35, 32);
             eliminarbtn.TabIndex = 29;
             eliminarbtn.UseVisualStyleBackColor = true;
             eliminarbtn.Click += eliminarbtn_Click;
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label7.ForeColor = SystemColors.Control;
-            label7.Location = new Point(482, 99);
-            label7.Name = "label7";
-            label7.Size = new Size(89, 23);
-            label7.TabIndex = 26;
-            label7.Text = "Buscador: ";
             // 
             // tabladatos
             // 
             tabladatos.AllowUserToAddRows = false;
             tabladatos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            tabladatos.Location = new Point(481, 157);
-            tabladatos.Margin = new Padding(3, 4, 3, 4);
+            tabladatos.Location = new Point(11, 119);
+            tabladatos.Margin = new Padding(4);
             tabladatos.MultiSelect = false;
             tabladatos.Name = "tabladatos";
             tabladatos.ReadOnly = true;
             tabladatos.RowHeadersWidth = 51;
             tabladatos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tabladatos.Size = new Size(559, 325);
+            tabladatos.Size = new Size(397, 413);
             tabladatos.TabIndex = 27;
             tabladatos.CellClick += tabladatos_CellClick;
             // 
             // txtbuscador
             // 
             txtbuscador.ForeColor = SystemColors.ScrollBar;
-            txtbuscador.Location = new Point(576, 97);
-            txtbuscador.Margin = new Padding(3, 4, 3, 4);
+            txtbuscador.Location = new Point(10, 80);
+            txtbuscador.Margin = new Padding(4);
             txtbuscador.Name = "txtbuscador";
-            txtbuscador.Size = new Size(428, 27);
+            txtbuscador.Size = new Size(308, 29);
             txtbuscador.TabIndex = 28;
-            txtbuscador.Text = "(ID, Usuario)";
             txtbuscador.TextChanged += txtbuscador_TextChanged;
             txtbuscador.Enter += txtbuscador_Enter;
             txtbuscador.Leave += txtbuscador_Leave;
@@ -382,178 +317,319 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = SystemColors.Control;
-            label1.Location = new Point(37, 10);
+            label1.Location = new Point(141, 10);
+            label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(380, 50);
+            label1.Size = new Size(300, 40);
             label1.TabIndex = 33;
             label1.Text = "Registro de Usuarios";
             // 
-            // panelconfirmacion
+            // tabControl1
             // 
-            panelconfirmacion.BackColor = Color.FromArgb(192, 0, 0);
-            panelconfirmacion.Controls.Add(panel3);
-            panelconfirmacion.Controls.Add(confirmarpasspanel);
-            panelconfirmacion.Controls.Add(adminlabel);
-            panelconfirmacion.Controls.Add(label8);
-            panelconfirmacion.Controls.Add(cancelarbtn);
-            panelconfirmacion.Controls.Add(eliminarusuariobtn);
-            panelconfirmacion.Location = new Point(537, 484);
-            panelconfirmacion.Margin = new Padding(3, 4, 3, 4);
-            panelconfirmacion.Name = "panelconfirmacion";
-            panelconfirmacion.Size = new Size(287, 273);
-            panelconfirmacion.TabIndex = 34;
-            panelconfirmacion.Visible = false;
+            tabControl1.Controls.Add(tabPage1);
+            tabControl1.Controls.Add(tabPage2);
+            tabControl1.Dock = DockStyle.Fill;
+            tabControl1.Location = new Point(0, 0);
+            tabControl1.Margin = new Padding(4);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new Size(590, 575);
+            tabControl1.TabIndex = 38;
             // 
-            // panel3
+            // tabPage1
             // 
-            panel3.BackColor = Color.White;
-            panel3.Location = new Point(15, 81);
-            panel3.Margin = new Padding(3, 4, 3, 4);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(256, 8);
-            panel3.TabIndex = 3;
+            tabPage1.BackColor = SystemColors.WindowFrame;
+            tabPage1.Controls.Add(label11);
+            tabPage1.Controls.Add(clienteimg);
+            tabPage1.Controls.Add(label7);
+            tabPage1.Controls.Add(Editar);
+            tabPage1.Controls.Add(agregar);
+            tabPage1.Controls.Add(filtro);
+            tabPage1.Controls.Add(label6);
+            tabPage1.Controls.Add(instrucciones);
+            tabPage1.Controls.Add(txtbuscador);
+            tabPage1.Controls.Add(tabladatos);
+            tabPage1.Controls.Add(button1);
+            tabPage1.Controls.Add(eliminarbtn);
+            tabPage1.Location = new Point(4, 30);
+            tabPage1.Margin = new Padding(4);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Padding = new Padding(4);
+            tabPage1.Size = new Size(582, 541);
+            tabPage1.TabIndex = 0;
+            tabPage1.Text = "Consulta";
             // 
-            // confirmarpasspanel
+            // label11
             // 
-            confirmarpasspanel.Location = new Point(13, 153);
-            confirmarpasspanel.Margin = new Padding(3, 4, 3, 4);
-            confirmarpasspanel.Name = "confirmarpasspanel";
-            confirmarpasspanel.Size = new Size(263, 27);
-            confirmarpasspanel.TabIndex = 2;
-            confirmarpasspanel.UseSystemPasswordChar = true;
+            label11.AutoSize = true;
+            label11.BackColor = Color.White;
+            label11.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label11.ForeColor = SystemColors.Control;
+            label11.Image = Properties.Resources.busqueda1;
+            label11.Location = new Point(297, 84);
+            label11.Name = "label11";
+            label11.Size = new Size(18, 21);
+            label11.TabIndex = 69;
+            label11.Text = "  ";
             // 
-            // adminlabel
+            // clienteimg
             // 
-            adminlabel.AutoSize = true;
-            adminlabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            adminlabel.ForeColor = SystemColors.Control;
-            adminlabel.Location = new Point(13, 107);
-            adminlabel.Name = "adminlabel";
-            adminlabel.Size = new Size(160, 28);
-            adminlabel.TabIndex = 1;
-            adminlabel.Text = "Administrador: ";
-            adminlabel.TextAlign = ContentAlignment.MiddleCenter;
+            clienteimg.ErrorImage = Properties.Resources.perfilcliente;
+            clienteimg.Image = Properties.Resources.perfilcliente;
+            clienteimg.InitialImage = Properties.Resources.perfilcliente;
+            clienteimg.Location = new Point(416, 275);
+            clienteimg.Name = "clienteimg";
+            clienteimg.Size = new Size(158, 158);
+            clienteimg.SizeMode = PictureBoxSizeMode.StretchImage;
+            clienteimg.TabIndex = 67;
+            clienteimg.TabStop = false;
             // 
-            // label8
+            // label7
             // 
-            label8.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label8.ForeColor = SystemColors.Control;
-            label8.Location = new Point(13, 4);
-            label8.Name = "label8";
-            label8.Size = new Size(264, 69);
-            label8.TabIndex = 1;
-            label8.Text = "Coloque su contraseña para eliminar a este usuario";
-            label8.TextAlign = ContentAlignment.MiddleCenter;
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 18F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
+            label7.ForeColor = SystemColors.Control;
+            label7.Location = new Point(438, 78);
+            label7.Name = "label7";
+            label7.Size = new Size(116, 32);
+            label7.TabIndex = 66;
+            label7.Text = "Acciones";
             // 
-            // cancelarbtn
+            // Editar
             // 
-            cancelarbtn.Image = Properties.Resources.salida;
-            cancelarbtn.ImageAlign = ContentAlignment.MiddleLeft;
-            cancelarbtn.Location = new Point(157, 197);
-            cancelarbtn.Margin = new Padding(3, 4, 3, 4);
-            cancelarbtn.Name = "cancelarbtn";
-            cancelarbtn.Size = new Size(120, 59);
-            cancelarbtn.TabIndex = 0;
-            cancelarbtn.Text = "     Cancelar";
-            cancelarbtn.UseVisualStyleBackColor = true;
-            cancelarbtn.Click += cancelarbtn_Click;
+            Editar.Image = Properties.Resources.editarcliente1;
+            Editar.Location = new Point(415, 196);
+            Editar.Name = "Editar";
+            Editar.Size = new Size(159, 72);
+            Editar.TabIndex = 64;
+            Editar.Text = "Editar";
+            Editar.TextAlign = ContentAlignment.BottomCenter;
+            Editar.UseVisualStyleBackColor = true;
             // 
-            // eliminarusuariobtn
+            // agregar
             // 
-            eliminarusuariobtn.Image = Properties.Resources.basura;
-            eliminarusuariobtn.ImageAlign = ContentAlignment.MiddleLeft;
-            eliminarusuariobtn.Location = new Point(13, 197);
-            eliminarusuariobtn.Margin = new Padding(3, 4, 3, 4);
-            eliminarusuariobtn.Name = "eliminarusuariobtn";
-            eliminarusuariobtn.Size = new Size(120, 59);
-            eliminarusuariobtn.TabIndex = 0;
-            eliminarusuariobtn.Text = "      Eliminar";
-            eliminarusuariobtn.UseVisualStyleBackColor = true;
-            eliminarusuariobtn.Click += eliminarusuariobtn_Click;
+            agregar.Image = Properties.Resources.cliente1;
+            agregar.Location = new Point(415, 119);
+            agregar.Name = "agregar";
+            agregar.Size = new Size(159, 72);
+            agregar.TabIndex = 65;
+            agregar.Text = "Nuevo";
+            agregar.TextAlign = ContentAlignment.BottomCenter;
+            agregar.UseVisualStyleBackColor = true;
             // 
-            // ConfirmPanelTransp
+            // filtro
             // 
-            ConfirmPanelTransp.BackColor = Color.Silver;
-            ConfirmPanelTransp.Controls.Add(pictureBox3);
-            ConfirmPanelTransp.Controls.Add(pictureBox2);
-            ConfirmPanelTransp.Location = new Point(873, 484);
-            ConfirmPanelTransp.Margin = new Padding(3, 4, 3, 4);
-            ConfirmPanelTransp.Name = "ConfirmPanelTransp";
-            ConfirmPanelTransp.Size = new Size(1001, 495);
-            ConfirmPanelTransp.TabIndex = 36;
-            ConfirmPanelTransp.Visible = false;
+            filtro.AutoSize = true;
+            filtro.Checked = true;
+            filtro.CheckState = CheckState.Checked;
+            filtro.Cursor = Cursors.Hand;
+            filtro.Font = new Font("Segoe UI", 13F);
+            filtro.Image = Properties.Resources.sicheck;
+            filtro.Location = new Point(325, 80);
+            filtro.Name = "filtro";
+            filtro.Size = new Size(41, 29);
+            filtro.TabIndex = 68;
+            filtro.Text = "  ";
+            filtro.UseVisualStyleBackColor = true;
             // 
-            // pictureBox3
+            // button1
             // 
-            pictureBox3.Image = Properties.Resources.alerta;
-            pictureBox3.Location = new Point(685, 125);
-            pictureBox3.Margin = new Padding(3, 4, 3, 4);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(314, 275);
-            pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox3.TabIndex = 0;
-            pictureBox3.TabStop = false;
+            button1.Image = Properties.Resources.actualizar;
+            button1.Location = new Point(11, 17);
+            button1.Margin = new Padding(4);
+            button1.Name = "button1";
+            button1.Size = new Size(35, 32);
+            button1.TabIndex = 29;
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += eliminarbtn_Click;
             // 
-            // pictureBox2
+            // tabPage2
             // 
-            pictureBox2.Image = Properties.Resources.alerta;
-            pictureBox2.Location = new Point(3, 125);
-            pictureBox2.Margin = new Padding(3, 4, 3, 4);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(314, 275);
-            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox2.TabIndex = 0;
-            pictureBox2.TabStop = false;
+            tabPage2.BackColor = SystemColors.WindowFrame;
+            tabPage2.Controls.Add(idclientetxt);
+            tabPage2.Controls.Add(label12);
+            tabPage2.Controls.Add(idcategoriatxt);
+            tabPage2.Controls.Add(categoriatxt);
+            tabPage2.Controls.Add(label10);
+            tabPage2.Controls.Add(buscarpuesto);
+            tabPage2.Controls.Add(empleadopanel);
+            tabPage2.Controls.Add(panel1);
+            tabPage2.Controls.Add(label1);
+            tabPage2.Controls.Add(txtRegistroUsuario);
+            tabPage2.Controls.Add(txtRegistroPass);
+            tabPage2.Controls.Add(txtconfirmarpass);
+            tabPage2.Controls.Add(label2);
+            tabPage2.Controls.Add(label5);
+            tabPage2.Controls.Add(label3);
+            tabPage2.Controls.Add(confirmarpass);
+            tabPage2.Controls.Add(estadochk);
+            tabPage2.Controls.Add(privilegiochk);
+            tabPage2.Controls.Add(passView);
+            tabPage2.Controls.Add(label4);
+            tabPage2.Location = new Point(4, 30);
+            tabPage2.Margin = new Padding(4);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new Padding(4);
+            tabPage2.Size = new Size(582, 541);
+            tabPage2.TabIndex = 1;
+            tabPage2.Text = "Creación";
+            // 
+            // idclientetxt
+            // 
+            idclientetxt.Enabled = false;
+            idclientetxt.Location = new Point(43, 16);
+            idclientetxt.Name = "idclientetxt";
+            idclientetxt.Size = new Size(64, 29);
+            idclientetxt.TabIndex = 106;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label12.ForeColor = SystemColors.Control;
+            label12.Location = new Point(7, 20);
+            label12.Name = "label12";
+            label12.Size = new Size(27, 21);
+            label12.TabIndex = 107;
+            label12.Text = "ID";
+            // 
+            // idcategoriatxt
+            // 
+            idcategoriatxt.Location = new Point(84, 106);
+            idcategoriatxt.Name = "idcategoriatxt";
+            idcategoriatxt.Size = new Size(46, 29);
+            idcategoriatxt.TabIndex = 102;
+            // 
+            // categoriatxt
+            // 
+            categoriatxt.Location = new Point(133, 106);
+            categoriatxt.Name = "categoriatxt";
+            categoriatxt.Size = new Size(140, 29);
+            categoriatxt.TabIndex = 103;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label10.ForeColor = Color.White;
+            label10.Location = new Point(84, 82);
+            label10.Name = "label10";
+            label10.Size = new Size(87, 21);
+            label10.TabIndex = 101;
+            label10.Text = "Empleado";
+            // 
+            // buscarpuesto
+            // 
+            buscarpuesto.ForeColor = Color.Black;
+            buscarpuesto.Image = Properties.Resources.busqueda;
+            buscarpuesto.Location = new Point(276, 106);
+            buscarpuesto.Name = "buscarpuesto";
+            buscarpuesto.Size = new Size(29, 29);
+            buscarpuesto.TabIndex = 104;
+            buscarpuesto.UseVisualStyleBackColor = true;
+            // 
+            // empleadopanel
+            // 
+            empleadopanel.BackColor = Color.FromArgb(64, 64, 64);
+            empleadopanel.Controls.Add(idconsultatxt);
+            empleadopanel.Controls.Add(categoriaconsultatxt);
+            empleadopanel.Controls.Add(button5);
+            empleadopanel.Controls.Add(label9);
+            empleadopanel.Controls.Add(categoriaconsulta);
+            empleadopanel.Location = new Point(310, 106);
+            empleadopanel.Name = "empleadopanel";
+            empleadopanel.Size = new Size(256, 147);
+            empleadopanel.TabIndex = 105;
+            empleadopanel.Visible = false;
+            // 
+            // idconsultatxt
+            // 
+            idconsultatxt.Location = new Point(4, 28);
+            idconsultatxt.Name = "idconsultatxt";
+            idconsultatxt.Size = new Size(31, 29);
+            idconsultatxt.TabIndex = 58;
+            // 
+            // categoriaconsultatxt
+            // 
+            categoriaconsultatxt.Location = new Point(37, 28);
+            categoriaconsultatxt.Name = "categoriaconsultatxt";
+            categoriaconsultatxt.Size = new Size(179, 29);
+            categoriaconsultatxt.TabIndex = 58;
+            // 
+            // button5
+            // 
+            button5.ForeColor = Color.Black;
+            button5.Image = Properties.Resources.angulo_hacia_arriba;
+            button5.Location = new Point(220, 28);
+            button5.Name = "button5";
+            button5.Size = new Size(29, 29);
+            button5.TabIndex = 60;
+            button5.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label9.ForeColor = Color.White;
+            label9.Location = new Point(5, 2);
+            label9.Name = "label9";
+            label9.Size = new Size(179, 21);
+            label9.TabIndex = 50;
+            label9.Text = "Seleccionar empleado";
+            // 
+            // categoriaconsulta
+            // 
+            categoriaconsulta.AllowUserToAddRows = false;
+            categoriaconsulta.AllowUserToDeleteRows = false;
+            categoriaconsulta.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            categoriaconsulta.Location = new Point(4, 63);
+            categoriaconsulta.MultiSelect = false;
+            categoriaconsulta.Name = "categoriaconsulta";
+            categoriaconsulta.ReadOnly = true;
+            categoriaconsulta.RowHeadersWidth = 51;
+            categoriaconsulta.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            categoriaconsulta.Size = new Size(245, 78);
+            categoriaconsulta.TabIndex = 74;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(64, 64, 64);
+            panel1.Controls.Add(guardarbtn);
+            panel1.Controls.Add(limpiarbtn);
+            panel1.Location = new Point(87, 458);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(409, 74);
+            panel1.TabIndex = 76;
             // 
             // MantUsuarios
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.WindowFrame;
-            ClientSize = new Size(1051, 497);
-            Controls.Add(instrucciones);
-            Controls.Add(panelconfirmacion);
-            Controls.Add(ConfirmPanelTransp);
-            Controls.Add(button1);
-            Controls.Add(label1);
-            Controls.Add(label6);
-            Controls.Add(panel2);
-            Controls.Add(panel1);
-            Controls.Add(eliminarbtn);
-            Controls.Add(label7);
-            Controls.Add(tabladatos);
-            Controls.Add(txtbuscador);
-            Controls.Add(label4);
-            Controls.Add(limpiarbtn);
-            Controls.Add(verificarbtn);
-            Controls.Add(guardarbtn);
-            Controls.Add(checkBox1);
-            Controls.Add(passView);
-            Controls.Add(privilegiochk);
-            Controls.Add(estadochk);
-            Controls.Add(pictureBox1);
-            Controls.Add(confirmarpass);
-            Controls.Add(label3);
-            Controls.Add(label5);
-            Controls.Add(label2);
-            Controls.Add(txtnuevapass);
-            Controls.Add(txtRegistroPass);
-            Controls.Add(txtRegistroUsuario);
-            Margin = new Padding(3, 4, 3, 4);
+            ClientSize = new Size(590, 575);
+            Controls.Add(tabControl1);
+            Font = new Font("Segoe UI", 12F);
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(4);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "MantUsuarios";
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.Manual;
-            Text = "Mantenimiento de Usuarios || Creando...";
+            Text = "Usuarios";
             Load += MantUsuarios_Load;
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)tabladatos).EndInit();
-            panelconfirmacion.ResumeLayout(false);
-            panelconfirmacion.PerformLayout();
-            ConfirmPanelTransp.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            tabControl1.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
+            tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)clienteimg).EndInit();
+            tabPage2.ResumeLayout(false);
+            tabPage2.PerformLayout();
+            empleadopanel.ResumeLayout(false);
+            empleadopanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)categoriaconsulta).EndInit();
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -561,38 +637,44 @@
         private TextBox txtRegistroPass;
         private Label label2;
         private Label label3;
-        private PictureBox pictureBox1;
         private CheckBox estadochk;
         private CheckBox passView;
         private Label label5;
         private Button guardarbtn;
         private Button limpiarbtn;
-        private Button verificarbtn;
-        private TextBox txtnuevapass;
+        private TextBox txtconfirmarpass;
         private Label confirmarpass;
         private CheckBox privilegiochk;
         private Label label4;
-        private CheckBox checkBox1;
         private ToolTip toolTip1;
         private Label label6;
-        private Panel panel2;
-        private Panel panel1;
         private Button eliminarbtn;
-        private Label label7;
         private DataGridView tabladatos;
         private TextBox txtbuscador;
         private Label label1;
-        private Label label8;
-        private Button eliminarusuariobtn;
-        private TextBox confirmarpasspanel;
-        private Button cancelarbtn;
-        private Panel panel3;
-        private Button button1;
-        public Label adminlabel;
-        public Panel panelconfirmacion;
-        private Panel ConfirmPanelTransp;
-        private PictureBox pictureBox2;
-        private PictureBox pictureBox3;
         private Button instrucciones;
+        private TabControl tabControl1;
+        private TabPage tabPage1;
+        private TabPage tabPage2;
+        private Panel panel1;
+        private TextBox idcategoriatxt;
+        private TextBox categoriatxt;
+        private Label label10;
+        private Button buscarpuesto;
+        private Panel empleadopanel;
+        private TextBox idconsultatxt;
+        private TextBox categoriaconsultatxt;
+        private Button button5;
+        private Label label9;
+        private DataGridView categoriaconsulta;
+        private TextBox idclientetxt;
+        private Label label12;
+        private PictureBox clienteimg;
+        private Label label7;
+        private Button Editar;
+        private Button agregar;
+        private CheckBox filtro;
+        private Label label11;
+        private Button button1;
     }
 }

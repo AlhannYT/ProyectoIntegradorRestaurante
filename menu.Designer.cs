@@ -412,7 +412,7 @@
             // 
             // button14
             // 
-            button14.Image = Properties.Resources.types;
+            button14.Image = Properties.Resources.tipos;
             button14.ImageAlign = ContentAlignment.MiddleRight;
             button14.Location = new Point(9, 344);
             button14.Margin = new Padding(2);
@@ -469,6 +469,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             IsMdiContainer = true;
             Margin = new Padding(2, 3, 2, 3);
+            MaximizeBox = false;
             Name = "menu";
             Text = "Menu";
             WindowState = FormWindowState.Maximized;
