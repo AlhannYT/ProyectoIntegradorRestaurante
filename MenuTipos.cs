@@ -20,6 +20,8 @@ namespace Proyecto_restaurante
         }
 
         string conexionString = ConexionBD.ConexionSQL();
+        private int DepaID;
+        private int PuestoID;
 
         private void button4_Click(object sender, EventArgs e)
         {
@@ -283,48 +285,48 @@ namespace Proyecto_restaurante
             depapanel.BringToFront();
             depapanel.Visible = true;
 
-            //string consultaid = "SELECT TOP 1 IdDepartamento FROM Departamento ORDER BY IdDepartamento DESC";
+            string consultaid = "SELECT TOP 1 IdDepartamento FROM Departamento ORDER BY IdDepartamento DESC";
 
-            //using (SqlConnection con = new SqlConnection(conexionString))
-            //{
-            //    con.Open();
-            //    using (SqlCommand cmd = new SqlCommand(consultaid, con))
-            //    {
-            //        object resultado = cmd.ExecuteScalar();
+            using (SqlConnection con = new SqlConnection(conexionString))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand(consultaid, con))
+                {
+                    object resultado = cmd.ExecuteScalar();
 
-            //        if (resultado != null)
-            //        {
-            //            int nuevoId = Convert.ToInt32(resultado) + 1;
-            //            idmetpago.Text = nuevoId.ToString();
-            //        }
-            //        else
-            //        {
-            //            //MessageBox.Show("No se encontraron clientes.");
-            //            iddepa.Text = "?";
-            //        }
-            //    }
-            //}
+                    if (resultado != null)
+                    {
+                        int nuevoId = Convert.ToInt32(resultado) + 1;
+                        idmetpago.Text = nuevoId.ToString();
+                    }
+                    else
+                    {
+                        //MessageBox.Show("No se encontraron clientes.");
+                        iddepa.Text = "?";
+                    }
+                }
+            }
 
-            //if (categfiltrochk.Checked == true)
-            //{
-            //    string consulta = "select * from Departamento where Activo = 1";
+            if (categfiltrochk.Checked == true)
+            {
+                string consulta = "select * from Departamento where Activo = 1";
 
-            //    SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
+                SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
 
-            //    DataTable dt = new DataTable();
+                DataTable dt = new DataTable();
 
-            //    adaptador.Fill(dt);
+                adaptador.Fill(dt);
 
-            //    departdt.DataSource = dt;
-            //}
-            //else
-            //{
-            //    string consulta = "select * from Departamento where Activo = 0";
-            //    SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
-            //    DataTable dt = new DataTable();
-            //    adaptador.Fill(dt);
-            //    departdt.DataSource = dt;
-            //}
+                departdt.DataSource = dt;
+            }
+            else
+            {
+                string consulta = "select * from Departamento where Activo = 0";
+                SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
+                DataTable dt = new DataTable();
+                adaptador.Fill(dt);
+                departdt.DataSource = dt;
+            }
         }
 
         private void button26_Click(object sender, EventArgs e)
@@ -430,6 +432,156 @@ namespace Proyecto_restaurante
             textoinicial.Location = new Point(357, 875);
             unidadpanel.BringToFront();
             unidadpanel.Visible = true;
+        }
+
+        private void guardardepartamento_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(depatxt.Text))
+            {
+                MessageBox.Show("Error: No deje campos vacios.");
+                return;
+            }
+
+            string conexionString = ConexionBD.ConexionSQL();
+
+            using (SqlConnection conexion = new SqlConnection(conexionString))
+            {
+                try
+                {
+                    conexion.Open();
+
+                    if (string.IsNullOrEmpty(DepaID.ToString()))
+                    {
+                        string queryInsertar = "INSERT INTO departamento (nombre, Activo) VALUES (@nombre, @activo)";
+                        using (SqlCommand insertarCommand = new SqlCommand(queryInsertar, conexion))
+                        {
+                            insertarCommand.Parameters.AddWithValue("@nombre", depatxt.Text);
+                            insertarCommand.Parameters.AddWithValue("@activo", estadodepa.Checked ? 1 : 0);
+
+                            int rowsAffected = insertarCommand.ExecuteNonQuery();
+
+                            if (rowsAffected > 0)
+                            {
+                                MessageBox.Show("Departamento registrado con éxito.");
+                            }
+                            else
+                            {
+                                MessageBox.Show("No se pudo guardar los datos.");
+                            }
+                        }
+                    }
+                    else
+                    {
+
+                        string queryActualizar = "UPDATE departamento SET Nombre = @nuevoNombre, Activo= @activo where IdDepartamento= @IDDepa";
+                        using (SqlCommand actualizarCommand = new SqlCommand(queryActualizar, conexion))
+                        {
+                            actualizarCommand.Parameters.AddWithValue("@IDDepa", DepaID.ToString());
+                            actualizarCommand.Parameters.AddWithValue("@nuevoNombre", depatxt.Text);
+                            actualizarCommand.Parameters.AddWithValue("@activo", estadodepa.Checked ? 1 : 0);
+
+                            int rowsAffected = actualizarCommand.ExecuteNonQuery();
+
+                            if (rowsAffected > 0)
+                            {
+                                MessageBox.Show("Departamento actualizado con éxito.");
+                            }
+                            else
+                            {
+                                MessageBox.Show("No se pudo actualizar los datos.");
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ocurrió un error: {ex.Message}");
+                }
+            }
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(depatxt.Text))
+            {
+                MessageBox.Show("Error: No deje campos vacios.");
+                return;
+            }
+
+            string conexionString = ConexionBD.ConexionSQL();
+
+            using (SqlConnection conexion = new SqlConnection(conexionString))
+            {
+                try
+                {
+                    conexion.Open();
+
+                    if (string.IsNullOrEmpty(DepaID.ToString()))
+                    {
+                        string queryInsertar = "INSERT INTO Puesto (IdDepartamento, nombre, Activo) VALUES (@IdDepartamento, @nombre, @activo)";
+                        using (SqlCommand insertarCommand = new SqlCommand(queryInsertar, conexion))
+                        {
+                            insertarCommand.Parameters.AddWithValue("@IdDepartamento", iddepapuestotxt.Text);
+                            insertarCommand.Parameters.AddWithValue("@nombre", depapuestotxt.Text);
+                            insertarCommand.Parameters.AddWithValue("@activo", estadopuesto.Checked ? 1 : 0);
+
+                            int rowsAffected = insertarCommand.ExecuteNonQuery();
+
+                            if (rowsAffected > 0)
+                            {
+                                MessageBox.Show("Puesto registrado con éxito.");
+                            }
+                            else
+                            {
+                                MessageBox.Show("No se pudo guardar los datos.");
+                            }
+                        }
+                    }
+                    else
+                    {
+
+                        string queryActualizar = "UPDATE puesto SET IDDepa = @IDDepa, Nombre = @Nombre, Activo= @activo where IdPuesto= @IDPuesto";
+                        using (SqlCommand actualizarCommand = new SqlCommand(queryActualizar, conexion))
+                        {
+                            actualizarCommand.Parameters.AddWithValue("@IDPuesto", PuestoID.ToString());
+                            actualizarCommand.Parameters.AddWithValue("@IDDepa", iddepapuestotxt.Text);
+                            actualizarCommand.Parameters.AddWithValue("@Nombre", depatxt.Text);
+                            actualizarCommand.Parameters.AddWithValue("@activo", estadodepa.Checked ? 1 : 0);
+
+                            int rowsAffected = actualizarCommand.ExecuteNonQuery();
+
+                            if (rowsAffected > 0)
+                            {
+                                MessageBox.Show("Departamento actualizado con éxito.");
+                            }
+                            else
+                            {
+                                MessageBox.Show("No se pudo actualizar los datos.");
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ocurrió un error: {ex.Message}");
+                }
+            }
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            PuestoID = 0;
+            puestotxt.Text = "";
+            iddepapuestotxt.Text = "";
+            depapuestotxt.Text = "";
+            estadopuesto.Checked = true;
+        }
+
+        private void button17_Click(object sender, EventArgs e)
+        {
+            DepaID = 0;
+            depatxt.Text = "";
+            estadodepa.Checked = true;
         }
     }
 }

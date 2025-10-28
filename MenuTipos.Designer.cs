@@ -90,6 +90,7 @@
             departdt = new DataGridView();
             puestodt = new DataGridView();
             idpuesto = new TextBox();
+            iddepapuestotxt = new TextBox();
             depapuestotxt = new TextBox();
             puestotxt = new TextBox();
             label13 = new Label();
@@ -116,7 +117,7 @@
             label21 = new Label();
             panel7 = new Panel();
             button17 = new Button();
-            button18 = new Button();
+            guardardepartamento = new Button();
             prodpanel = new Panel();
             selecprod = new Button();
             label22 = new Label();
@@ -787,6 +788,7 @@
             puestopanel.Controls.Add(departdt);
             puestopanel.Controls.Add(puestodt);
             puestopanel.Controls.Add(idpuesto);
+            puestopanel.Controls.Add(iddepapuestotxt);
             puestopanel.Controls.Add(depapuestotxt);
             puestopanel.Controls.Add(puestotxt);
             puestopanel.Controls.Add(label13);
@@ -959,11 +961,18 @@
             idpuesto.Size = new Size(56, 23);
             idpuesto.TabIndex = 2;
             // 
+            // iddepapuestotxt
+            // 
+            iddepapuestotxt.Location = new Point(240, 134);
+            iddepapuestotxt.Name = "iddepapuestotxt";
+            iddepapuestotxt.Size = new Size(43, 23);
+            iddepapuestotxt.TabIndex = 2;
+            // 
             // depapuestotxt
             // 
-            depapuestotxt.Location = new Point(240, 134);
+            depapuestotxt.Location = new Point(285, 134);
             depapuestotxt.Name = "depapuestotxt";
-            depapuestotxt.Size = new Size(131, 23);
+            depapuestotxt.Size = new Size(86, 23);
             depapuestotxt.TabIndex = 2;
             // 
             // puestotxt
@@ -1050,6 +1059,7 @@
             button14.TabIndex = 1;
             button14.Text = "Nuevo";
             button14.UseVisualStyleBackColor = true;
+            button14.Click += button14_Click;
             // 
             // button15
             // 
@@ -1061,6 +1071,7 @@
             button15.TabIndex = 1;
             button15.Text = "Guardar";
             button15.UseVisualStyleBackColor = true;
+            button15.Click += button15_Click;
             // 
             // depapanel
             // 
@@ -1228,7 +1239,7 @@
             // 
             panel7.BackColor = Color.FromArgb(64, 64, 64);
             panel7.Controls.Add(button17);
-            panel7.Controls.Add(button18);
+            panel7.Controls.Add(guardardepartamento);
             panel7.Location = new Point(99, 186);
             panel7.Name = "panel7";
             panel7.Size = new Size(314, 57);
@@ -1244,17 +1255,19 @@
             button17.TabIndex = 1;
             button17.Text = "Nuevo";
             button17.UseVisualStyleBackColor = true;
+            button17.Click += button17_Click;
             // 
-            // button18
+            // guardardepartamento
             // 
-            button18.Image = Properties.Resources.disco;
-            button18.ImageAlign = ContentAlignment.MiddleLeft;
-            button18.Location = new Point(12, 9);
-            button18.Name = "button18";
-            button18.Size = new Size(127, 38);
-            button18.TabIndex = 1;
-            button18.Text = "Guardar";
-            button18.UseVisualStyleBackColor = true;
+            guardardepartamento.Image = Properties.Resources.disco;
+            guardardepartamento.ImageAlign = ContentAlignment.MiddleLeft;
+            guardardepartamento.Location = new Point(12, 9);
+            guardardepartamento.Name = "guardardepartamento";
+            guardardepartamento.Size = new Size(127, 38);
+            guardardepartamento.TabIndex = 1;
+            guardardepartamento.Text = "Guardar";
+            guardardepartamento.UseVisualStyleBackColor = true;
+            guardardepartamento.Click += guardardepartamento_Click;
             // 
             // prodpanel
             // 
@@ -2233,7 +2246,7 @@
         private Label label21;
         private Panel panel7;
         private Button button17;
-        private Button button18;
+        private Button guardardepartamento;
         private Panel prodpanel;
         private Label label22;
         private Button button19;
@@ -2325,5 +2338,6 @@
         private Button button33;
         private TextBox textBox1;
         private Label label45;
+        private TextBox iddepapuestotxt;
     }
 }

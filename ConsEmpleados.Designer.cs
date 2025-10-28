@@ -47,10 +47,10 @@
             estadochk = new CheckBox();
             label8 = new Label();
             panel4 = new Panel();
-            comboBox1 = new ComboBox();
+            tiposueldocmbx = new ComboBox();
             dateTimePicker1 = new DateTimePicker();
-            idcategoriatxt = new TextBox();
-            categoriatxt = new TextBox();
+            idpuestotxt = new TextBox();
+            puestotxt = new TextBox();
             label10 = new Label();
             buscarpuesto = new Button();
             categoriapanel = new Panel();
@@ -85,7 +85,7 @@
             txtcedula = new TextBox();
             txtapellido = new TextBox();
             idclientetxt = new TextBox();
-            textBox4 = new TextBox();
+            txtsueldo = new TextBox();
             txtnombre = new TextBox();
             label14 = new Label();
             label4 = new Label();
@@ -284,10 +284,10 @@
             tabPage2.Controls.Add(estadochk);
             tabPage2.Controls.Add(label8);
             tabPage2.Controls.Add(panel4);
-            tabPage2.Controls.Add(comboBox1);
+            tabPage2.Controls.Add(tiposueldocmbx);
             tabPage2.Controls.Add(dateTimePicker1);
-            tabPage2.Controls.Add(idcategoriatxt);
-            tabPage2.Controls.Add(categoriatxt);
+            tabPage2.Controls.Add(idpuestotxt);
+            tabPage2.Controls.Add(puestotxt);
             tabPage2.Controls.Add(label10);
             tabPage2.Controls.Add(buscarpuesto);
             tabPage2.Controls.Add(categoriapanel);
@@ -299,7 +299,7 @@
             tabPage2.Controls.Add(txtcedula);
             tabPage2.Controls.Add(txtapellido);
             tabPage2.Controls.Add(idclientetxt);
-            tabPage2.Controls.Add(textBox4);
+            tabPage2.Controls.Add(txtsueldo);
             tabPage2.Controls.Add(txtnombre);
             tabPage2.Controls.Add(label14);
             tabPage2.Controls.Add(label4);
@@ -346,14 +346,14 @@
             panel4.Size = new Size(289, 26);
             panel4.TabIndex = 95;
             // 
-            // comboBox1
+            // tiposueldocmbx
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Semanal", "Quincenal", "Mensual" });
-            comboBox1.Location = new Point(367, 86);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(85, 29);
-            comboBox1.TabIndex = 102;
+            tiposueldocmbx.FormattingEnabled = true;
+            tiposueldocmbx.Items.AddRange(new object[] { "Semanal", "Quincenal", "Mensual" });
+            tiposueldocmbx.Location = new Point(367, 86);
+            tiposueldocmbx.Name = "tiposueldocmbx";
+            tiposueldocmbx.Size = new Size(85, 29);
+            tiposueldocmbx.TabIndex = 102;
             // 
             // dateTimePicker1
             // 
@@ -363,19 +363,21 @@
             dateTimePicker1.Size = new Size(172, 29);
             dateTimePicker1.TabIndex = 101;
             // 
-            // idcategoriatxt
+            // idpuestotxt
             // 
-            idcategoriatxt.Location = new Point(257, 152);
-            idcategoriatxt.Name = "idcategoriatxt";
-            idcategoriatxt.Size = new Size(31, 29);
-            idcategoriatxt.TabIndex = 97;
+            idpuestotxt.Enabled = false;
+            idpuestotxt.Location = new Point(257, 152);
+            idpuestotxt.Name = "idpuestotxt";
+            idpuestotxt.Size = new Size(31, 29);
+            idpuestotxt.TabIndex = 97;
             // 
-            // categoriatxt
+            // puestotxt
             // 
-            categoriatxt.Location = new Point(290, 152);
-            categoriatxt.Name = "categoriatxt";
-            categoriatxt.Size = new Size(131, 29);
-            categoriatxt.TabIndex = 98;
+            puestotxt.Enabled = false;
+            puestotxt.Location = new Point(290, 152);
+            puestotxt.Name = "puestotxt";
+            puestotxt.Size = new Size(131, 29);
+            puestotxt.TabIndex = 98;
             // 
             // label10
             // 
@@ -743,12 +745,12 @@
             idclientetxt.Size = new Size(76, 29);
             idclientetxt.TabIndex = 81;
             // 
-            // textBox4
+            // txtsueldo
             // 
-            textBox4.Location = new Point(257, 86);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(106, 29);
-            textBox4.TabIndex = 76;
+            txtsueldo.Location = new Point(257, 86);
+            txtsueldo.Name = "txtsueldo";
+            txtsueldo.Size = new Size(106, 29);
+            txtsueldo.TabIndex = 76;
             // 
             // txtnombre
             // 
@@ -917,8 +919,8 @@
         private Button button4;
         private Panel panel4;
         private Panel panel2;
-        private TextBox idcategoriatxt;
-        private TextBox categoriatxt;
+        private TextBox idpuestotxt;
+        private TextBox puestotxt;
         private Label label10;
         private Button buscarpuesto;
         private Panel categoriapanel;
@@ -930,8 +932,8 @@
         private DateTimePicker dateTimePicker1;
         private CheckBox checkBox2;
         private Label label14;
-        private ComboBox comboBox1;
-        private TextBox textBox4;
+        private ComboBox tiposueldocmbx;
+        private TextBox txtsueldo;
         private Label label15;
         private Button button7;
         private Button button6;
