@@ -144,9 +144,11 @@
             categbuscar = new TextBox();
             categdt = new DataGridView();
             idcateg = new TextBox();
+            textBox1 = new TextBox();
             categtxt = new TextBox();
             label28 = new Label();
             label29 = new Label();
+            label45 = new Label();
             label30 = new Label();
             label31 = new Label();
             panel11 = new Panel();
@@ -190,8 +192,6 @@
             panel6 = new Panel();
             button32 = new Button();
             button33 = new Button();
-            label45 = new Label();
-            textBox1 = new TextBox();
             barraizq.SuspendLayout();
             metodopanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)metododt).BeginInit();
@@ -1576,6 +1576,13 @@
             idcateg.Size = new Size(56, 23);
             idcateg.TabIndex = 2;
             // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(221, 135);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(178, 23);
+            textBox1.TabIndex = 2;
+            // 
             // categtxt
             // 
             categtxt.Location = new Point(200, 103);
@@ -1606,6 +1613,17 @@
             label29.Size = new Size(77, 21);
             label29.TabIndex = 0;
             label29.Text = "Filtros     ";
+            // 
+            // label45
+            // 
+            label45.AutoSize = true;
+            label45.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label45.ForeColor = Color.White;
+            label45.Location = new Point(113, 136);
+            label45.Name = "label45";
+            label45.Size = new Size(102, 21);
+            label45.TabIndex = 0;
+            label45.Text = "Abreviacion";
             // 
             // label30
             // 
@@ -2081,24 +2099,6 @@
             button33.Text = "Guardar";
             button33.UseVisualStyleBackColor = true;
             // 
-            // label45
-            // 
-            label45.AutoSize = true;
-            label45.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label45.ForeColor = Color.White;
-            label45.Location = new Point(113, 136);
-            label45.Name = "label45";
-            label45.Size = new Size(102, 21);
-            label45.TabIndex = 0;
-            label45.Text = "Abreviacion";
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(221, 135);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(178, 23);
-            textBox1.TabIndex = 2;
-            // 
             // MenuTipos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -2115,6 +2115,7 @@
             Controls.Add(metodopanel);
             Controls.Add(barraizq);
             Controls.Add(textoinicial);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MinimizeBox = false;

@@ -93,11 +93,10 @@
             cerrarbtn.FlatStyle = FlatStyle.Flat;
             cerrarbtn.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             cerrarbtn.Image = Properties.Resources.salida;
-            cerrarbtn.ImageAlign = ContentAlignment.TopCenter;
-            cerrarbtn.Location = new Point(161, 0);
+            cerrarbtn.Location = new Point(161, -22);
             cerrarbtn.Margin = new Padding(2, 3, 2, 3);
             cerrarbtn.Name = "cerrarbtn";
-            cerrarbtn.Size = new Size(111, 61);
+            cerrarbtn.Size = new Size(113, 85);
             cerrarbtn.TabIndex = 0;
             cerrarbtn.TabStop = false;
             cerrarbtn.Text = "Cerrar Sesión";
@@ -339,7 +338,7 @@
             // 
             // button11
             // 
-            button11.Anchor = AnchorStyles.Bottom;
+            button11.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             button11.Cursor = Cursors.Hand;
             button11.Image = Properties.Resources.ajuste;
             button11.ImageAlign = ContentAlignment.MiddleRight;
@@ -355,7 +354,7 @@
             // 
             // ajustestxt
             // 
-            ajustestxt.Anchor = AnchorStyles.Bottom;
+            ajustestxt.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             ajustestxt.AutoSize = true;
             ajustestxt.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             ajustestxt.ForeColor = Color.White;
@@ -426,9 +425,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             IsMdiContainer = true;
             Margin = new Padding(2, 3, 2, 3);
-            MaximizeBox = false;
             Name = "menu";
-            StartPosition = FormStartPosition.CenterScreen;
             Text = "Menu";
             WindowState = FormWindowState.Maximized;
             Load += menu_Load;

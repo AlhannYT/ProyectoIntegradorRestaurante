@@ -1079,6 +1079,7 @@
             Controls.Add(panelproducto);
             Controls.Add(panelmesas);
             Controls.Add(tabControl1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MinimizeBox = false;
