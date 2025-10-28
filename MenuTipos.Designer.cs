@@ -825,6 +825,7 @@
             selecpuest.TabIndex = 1;
             selecpuest.Text = "Seleccionar";
             selecpuest.UseVisualStyleBackColor = true;
+            selecpuest.Click += selecpuest_Click;
             // 
             // label34
             // 
@@ -952,6 +953,7 @@
             puestodt.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             puestodt.Size = new Size(344, 133);
             puestodt.TabIndex = 3;
+            puestodt.CellDoubleClick += puestodt_CellDoubleClick;
             // 
             // idpuesto
             // 

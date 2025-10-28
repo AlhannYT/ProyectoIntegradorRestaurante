@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConsEmpleados));
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
@@ -48,17 +49,17 @@
             label8 = new Label();
             panel4 = new Panel();
             tiposueldocmbx = new ComboBox();
-            dateTimePicker1 = new DateTimePicker();
+            fechaingreso = new DateTimePicker();
             idpuestotxt = new TextBox();
             puestotxt = new TextBox();
             label10 = new Label();
             buscarpuesto = new Button();
-            categoriapanel = new Panel();
+            puestopanel = new Panel();
             idconsultatxt = new TextBox();
-            categoriaconsultatxt = new TextBox();
+            puestoconsultatxt = new TextBox();
             button5 = new Button();
             label5 = new Label();
-            categoriaconsulta = new DataGridView();
+            puestoconsulta = new DataGridView();
             panel2 = new Panel();
             panel5 = new Panel();
             label19 = new Label();
@@ -82,25 +83,28 @@
             seleccionimagenbtn = new Button();
             imagencliente = new PictureBox();
             button2 = new Button();
+            textBox4 = new TextBox();
             txtcedula = new TextBox();
             txtapellido = new TextBox();
             idclientetxt = new TextBox();
             txtsueldo = new TextBox();
             txtnombre = new TextBox();
             label14 = new Label();
+            label16 = new Label();
             label4 = new Label();
             label6 = new Label();
             label7 = new Label();
             label12 = new Label();
             label15 = new Label();
             label9 = new Label();
+            toolTip1 = new ToolTip(components);
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)clienteimg).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tabladatos).BeginInit();
             tabPage2.SuspendLayout();
-            categoriapanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)categoriaconsulta).BeginInit();
+            puestopanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)puestoconsulta).BeginInit();
             panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ingredientesconsulta).BeginInit();
@@ -285,23 +289,25 @@
             tabPage2.Controls.Add(label8);
             tabPage2.Controls.Add(panel4);
             tabPage2.Controls.Add(tiposueldocmbx);
-            tabPage2.Controls.Add(dateTimePicker1);
+            tabPage2.Controls.Add(fechaingreso);
             tabPage2.Controls.Add(idpuestotxt);
             tabPage2.Controls.Add(puestotxt);
             tabPage2.Controls.Add(label10);
             tabPage2.Controls.Add(buscarpuesto);
-            tabPage2.Controls.Add(categoriapanel);
+            tabPage2.Controls.Add(puestopanel);
             tabPage2.Controls.Add(panel2);
             tabPage2.Controls.Add(panel5);
             tabPage2.Controls.Add(panel3);
             tabPage2.Controls.Add(panel1);
             tabPage2.Controls.Add(button2);
+            tabPage2.Controls.Add(textBox4);
             tabPage2.Controls.Add(txtcedula);
             tabPage2.Controls.Add(txtapellido);
             tabPage2.Controls.Add(idclientetxt);
             tabPage2.Controls.Add(txtsueldo);
             tabPage2.Controls.Add(txtnombre);
             tabPage2.Controls.Add(label14);
+            tabPage2.Controls.Add(label16);
             tabPage2.Controls.Add(label4);
             tabPage2.Controls.Add(label6);
             tabPage2.Controls.Add(label7);
@@ -350,23 +356,23 @@
             // 
             tiposueldocmbx.FormattingEnabled = true;
             tiposueldocmbx.Items.AddRange(new object[] { "Semanal", "Quincenal", "Mensual" });
-            tiposueldocmbx.Location = new Point(367, 86);
+            tiposueldocmbx.Location = new Point(358, 75);
             tiposueldocmbx.Name = "tiposueldocmbx";
-            tiposueldocmbx.Size = new Size(85, 29);
+            tiposueldocmbx.Size = new Size(87, 29);
             tiposueldocmbx.TabIndex = 102;
             // 
-            // dateTimePicker1
+            // fechaingreso
             // 
-            dateTimePicker1.Format = DateTimePickerFormat.Short;
-            dateTimePicker1.Location = new Point(15, 281);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(172, 29);
-            dateTimePicker1.TabIndex = 101;
+            fechaingreso.Format = DateTimePickerFormat.Short;
+            fechaingreso.Location = new Point(15, 293);
+            fechaingreso.Name = "fechaingreso";
+            fechaingreso.Size = new Size(172, 29);
+            fechaingreso.TabIndex = 101;
             // 
             // idpuestotxt
             // 
             idpuestotxt.Enabled = false;
-            idpuestotxt.Location = new Point(257, 152);
+            idpuestotxt.Location = new Point(257, 129);
             idpuestotxt.Name = "idpuestotxt";
             idpuestotxt.Size = new Size(31, 29);
             idpuestotxt.TabIndex = 97;
@@ -374,9 +380,9 @@
             // puestotxt
             // 
             puestotxt.Enabled = false;
-            puestotxt.Location = new Point(290, 152);
+            puestotxt.Location = new Point(290, 129);
             puestotxt.Name = "puestotxt";
-            puestotxt.Size = new Size(131, 29);
+            puestotxt.Size = new Size(155, 29);
             puestotxt.TabIndex = 98;
             // 
             // label10
@@ -384,7 +390,7 @@
             label10.AutoSize = true;
             label10.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label10.ForeColor = Color.White;
-            label10.Location = new Point(257, 128);
+            label10.Location = new Point(257, 107);
             label10.Name = "label10";
             label10.Size = new Size(144, 21);
             label10.TabIndex = 96;
@@ -394,26 +400,27 @@
             // 
             buscarpuesto.ForeColor = Color.Black;
             buscarpuesto.Image = Properties.Resources.busqueda;
-            buscarpuesto.Location = new Point(424, 152);
+            buscarpuesto.Location = new Point(451, 129);
             buscarpuesto.Name = "buscarpuesto";
             buscarpuesto.Size = new Size(28, 29);
             buscarpuesto.TabIndex = 99;
+            toolTip1.SetToolTip(buscarpuesto, "Buscar Puesto");
             buscarpuesto.UseVisualStyleBackColor = true;
             buscarpuesto.Click += buscarpuesto_Click;
             // 
-            // categoriapanel
+            // puestopanel
             // 
-            categoriapanel.BackColor = Color.FromArgb(64, 64, 64);
-            categoriapanel.Controls.Add(idconsultatxt);
-            categoriapanel.Controls.Add(categoriaconsultatxt);
-            categoriapanel.Controls.Add(button5);
-            categoriapanel.Controls.Add(label5);
-            categoriapanel.Controls.Add(categoriaconsulta);
-            categoriapanel.Location = new Point(255, 187);
-            categoriapanel.Name = "categoriapanel";
-            categoriapanel.Size = new Size(204, 147);
-            categoriapanel.TabIndex = 100;
-            categoriapanel.Visible = false;
+            puestopanel.BackColor = Color.FromArgb(64, 64, 64);
+            puestopanel.Controls.Add(idconsultatxt);
+            puestopanel.Controls.Add(puestoconsultatxt);
+            puestopanel.Controls.Add(button5);
+            puestopanel.Controls.Add(label5);
+            puestopanel.Controls.Add(puestoconsulta);
+            puestopanel.Location = new Point(255, 163);
+            puestopanel.Name = "puestopanel";
+            puestopanel.Size = new Size(227, 159);
+            puestopanel.TabIndex = 100;
+            puestopanel.Visible = false;
             // 
             // idconsultatxt
             // 
@@ -422,18 +429,18 @@
             idconsultatxt.Size = new Size(31, 29);
             idconsultatxt.TabIndex = 58;
             // 
-            // categoriaconsultatxt
+            // puestoconsultatxt
             // 
-            categoriaconsultatxt.Location = new Point(37, 28);
-            categoriaconsultatxt.Name = "categoriaconsultatxt";
-            categoriaconsultatxt.Size = new Size(131, 29);
-            categoriaconsultatxt.TabIndex = 58;
+            puestoconsultatxt.Location = new Point(37, 28);
+            puestoconsultatxt.Name = "puestoconsultatxt";
+            puestoconsultatxt.Size = new Size(153, 29);
+            puestoconsultatxt.TabIndex = 58;
             // 
             // button5
             // 
             button5.ForeColor = Color.Black;
             button5.Image = Properties.Resources.angulo_hacia_arriba;
-            button5.Location = new Point(171, 28);
+            button5.Location = new Point(196, 28);
             button5.Name = "button5";
             button5.Size = new Size(28, 29);
             button5.TabIndex = 60;
@@ -450,19 +457,20 @@
             label5.TabIndex = 50;
             label5.Text = "Seleccionar puesto";
             // 
-            // categoriaconsulta
+            // puestoconsulta
             // 
-            categoriaconsulta.AllowUserToAddRows = false;
-            categoriaconsulta.AllowUserToDeleteRows = false;
-            categoriaconsulta.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            categoriaconsulta.Location = new Point(4, 63);
-            categoriaconsulta.MultiSelect = false;
-            categoriaconsulta.Name = "categoriaconsulta";
-            categoriaconsulta.ReadOnly = true;
-            categoriaconsulta.RowHeadersWidth = 51;
-            categoriaconsulta.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            categoriaconsulta.Size = new Size(195, 78);
-            categoriaconsulta.TabIndex = 74;
+            puestoconsulta.AllowUserToAddRows = false;
+            puestoconsulta.AllowUserToDeleteRows = false;
+            puestoconsulta.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            puestoconsulta.Location = new Point(4, 63);
+            puestoconsulta.MultiSelect = false;
+            puestoconsulta.Name = "puestoconsulta";
+            puestoconsulta.ReadOnly = true;
+            puestoconsulta.RowHeadersWidth = 51;
+            puestoconsulta.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            puestoconsulta.Size = new Size(220, 90);
+            puestoconsulta.TabIndex = 74;
+            puestoconsulta.CellContentDoubleClick += puestoconsulta_CellContentDoubleClick;
             // 
             // panel2
             // 
@@ -723,16 +731,23 @@
             button2.TextAlign = ContentAlignment.MiddleRight;
             button2.UseVisualStyleBackColor = true;
             // 
+            // textBox4
+            // 
+            textBox4.Location = new Point(15, 237);
+            textBox4.Name = "textBox4";
+            textBox4.Size = new Size(172, 29);
+            textBox4.TabIndex = 78;
+            // 
             // txtcedula
             // 
-            txtcedula.Location = new Point(15, 216);
+            txtcedula.Location = new Point(15, 183);
             txtcedula.Name = "txtcedula";
             txtcedula.Size = new Size(172, 29);
             txtcedula.TabIndex = 78;
             // 
             // txtapellido
             // 
-            txtapellido.Location = new Point(15, 151);
+            txtapellido.Location = new Point(15, 129);
             txtapellido.Name = "txtapellido";
             txtapellido.Size = new Size(172, 29);
             txtapellido.TabIndex = 77;
@@ -747,14 +762,14 @@
             // 
             // txtsueldo
             // 
-            txtsueldo.Location = new Point(257, 86);
+            txtsueldo.Location = new Point(257, 75);
             txtsueldo.Name = "txtsueldo";
-            txtsueldo.Size = new Size(106, 29);
+            txtsueldo.Size = new Size(98, 29);
             txtsueldo.TabIndex = 76;
             // 
             // txtnombre
             // 
-            txtnombre.Location = new Point(15, 86);
+            txtnombre.Location = new Point(15, 75);
             txtnombre.Name = "txtnombre";
             txtnombre.Size = new Size(172, 29);
             txtnombre.TabIndex = 76;
@@ -764,18 +779,29 @@
             label14.AutoSize = true;
             label14.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label14.ForeColor = SystemColors.Control;
-            label14.Location = new Point(15, 260);
+            label14.Location = new Point(15, 272);
             label14.Name = "label14";
             label14.Size = new Size(138, 21);
             label14.TabIndex = 82;
             label14.Text = "Fecha de ingreso";
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label16.ForeColor = SystemColors.Control;
+            label16.Location = new Point(15, 217);
+            label16.Name = "label16";
+            label16.Size = new Size(151, 21);
+            label16.TabIndex = 82;
+            label16.Text = "Correo electronico";
             // 
             // label4
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label4.ForeColor = SystemColors.Control;
-            label4.Location = new Point(15, 194);
+            label4.Location = new Point(15, 162);
             label4.Name = "label4";
             label4.Size = new Size(63, 21);
             label4.TabIndex = 82;
@@ -786,7 +812,7 @@
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label6.ForeColor = SystemColors.Control;
-            label6.Location = new Point(15, 128);
+            label6.Location = new Point(15, 107);
             label6.Name = "label6";
             label6.Size = new Size(75, 21);
             label6.TabIndex = 84;
@@ -819,7 +845,7 @@
             label15.AutoSize = true;
             label15.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label15.ForeColor = SystemColors.Control;
-            label15.Location = new Point(257, 62);
+            label15.Location = new Point(257, 52);
             label15.Name = "label15";
             label15.Size = new Size(63, 21);
             label15.TabIndex = 88;
@@ -830,7 +856,7 @@
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label9.ForeColor = SystemColors.Control;
-            label9.Location = new Point(15, 62);
+            label9.Location = new Point(15, 52);
             label9.Name = "label9";
             label9.Size = new Size(73, 21);
             label9.TabIndex = 88;
@@ -850,6 +876,7 @@
             Name = "ConsEmpleados";
             StartPosition = FormStartPosition.Manual;
             Text = "Empleados";
+            Load += ConsEmpleados_Load;
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
@@ -857,9 +884,9 @@
             ((System.ComponentModel.ISupportInitialize)tabladatos).EndInit();
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
-            categoriapanel.ResumeLayout(false);
-            categoriapanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)categoriaconsulta).EndInit();
+            puestopanel.ResumeLayout(false);
+            puestopanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)puestoconsulta).EndInit();
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
@@ -923,13 +950,13 @@
         private TextBox puestotxt;
         private Label label10;
         private Button buscarpuesto;
-        private Panel categoriapanel;
+        private Panel puestopanel;
         private TextBox idconsultatxt;
-        private TextBox categoriaconsultatxt;
+        private TextBox puestoconsultatxt;
         private Button button5;
         private Label label5;
-        private DataGridView categoriaconsulta;
-        private DateTimePicker dateTimePicker1;
+        private DataGridView puestoconsulta;
+        private DateTimePicker fechaingreso;
         private CheckBox checkBox2;
         private Label label14;
         private ComboBox tiposueldocmbx;
@@ -937,5 +964,8 @@
         private Label label15;
         private Button button7;
         private Button button6;
+        private TextBox textBox4;
+        private Label label16;
+        private ToolTip toolTip1;
     }
 }

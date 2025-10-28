@@ -20,8 +20,8 @@ namespace Proyecto_restaurante
         }
 
         string conexionString = ConexionBD.ConexionSQL();
-        private int DepaID;
-        private int PuestoID;
+        private string DepaID = "";
+        private string PuestoID = "";
 
         private void button4_Click(object sender, EventArgs e)
         {
@@ -452,11 +452,11 @@ namespace Proyecto_restaurante
 
                     if (string.IsNullOrEmpty(DepaID.ToString()))
                     {
-                        string queryInsertar = "INSERT INTO departamento (nombre, Activo) VALUES (@nombre, @activo)";
+                        string queryInsertar = "INSERT INTO Departamento (Nombre, Activo) VALUES (@Nombre, @activo)";
                         using (SqlCommand insertarCommand = new SqlCommand(queryInsertar, conexion))
                         {
-                            insertarCommand.Parameters.AddWithValue("@nombre", depatxt.Text);
-                            insertarCommand.Parameters.AddWithValue("@activo", estadodepa.Checked ? 1 : 0);
+                            insertarCommand.Parameters.AddWithValue("@Nombre", depatxt.Text);
+                            insertarCommand.Parameters.AddWithValue("@Activo", estadodepa.Checked ? 1 : 0);
 
                             int rowsAffected = insertarCommand.ExecuteNonQuery();
 
@@ -476,7 +476,7 @@ namespace Proyecto_restaurante
                         string queryActualizar = "UPDATE departamento SET Nombre = @nuevoNombre, Activo= @activo where IdDepartamento= @IDDepa";
                         using (SqlCommand actualizarCommand = new SqlCommand(queryActualizar, conexion))
                         {
-                            actualizarCommand.Parameters.AddWithValue("@IDDepa", DepaID.ToString());
+                            actualizarCommand.Parameters.AddWithValue("@IDDepa", DepaID);
                             actualizarCommand.Parameters.AddWithValue("@nuevoNombre", depatxt.Text);
                             actualizarCommand.Parameters.AddWithValue("@activo", estadodepa.Checked ? 1 : 0);
 
@@ -518,12 +518,12 @@ namespace Proyecto_restaurante
 
                     if (string.IsNullOrEmpty(DepaID.ToString()))
                     {
-                        string queryInsertar = "INSERT INTO Puesto (IdDepartamento, nombre, Activo) VALUES (@IdDepartamento, @nombre, @activo)";
+                        string queryInsertar = "INSERT INTO Puesto (IdDepartamento, Nombre, Activo) VALUES (@IdDepartamento, @Nombre, @Activo)";
                         using (SqlCommand insertarCommand = new SqlCommand(queryInsertar, conexion))
                         {
                             insertarCommand.Parameters.AddWithValue("@IdDepartamento", iddepapuestotxt.Text);
-                            insertarCommand.Parameters.AddWithValue("@nombre", depapuestotxt.Text);
-                            insertarCommand.Parameters.AddWithValue("@activo", estadopuesto.Checked ? 1 : 0);
+                            insertarCommand.Parameters.AddWithValue("@Nombre", depapuestotxt.Text);
+                            insertarCommand.Parameters.AddWithValue("@Activo", estadopuesto.Checked ? 1 : 0);
 
                             int rowsAffected = insertarCommand.ExecuteNonQuery();
 
@@ -540,10 +540,10 @@ namespace Proyecto_restaurante
                     else
                     {
 
-                        string queryActualizar = "UPDATE puesto SET IDDepa = @IDDepa, Nombre = @Nombre, Activo= @activo where IdPuesto= @IDPuesto";
+                        string queryActualizar = "UPDATE Puesto SET IDDepa = @IDDepa, Nombre = @Nombre, Activo= @activo where IdPuesto= @IDPuesto";
                         using (SqlCommand actualizarCommand = new SqlCommand(queryActualizar, conexion))
                         {
-                            actualizarCommand.Parameters.AddWithValue("@IDPuesto", PuestoID.ToString());
+                            actualizarCommand.Parameters.AddWithValue("@IDPuesto", PuestoID);
                             actualizarCommand.Parameters.AddWithValue("@IDDepa", iddepapuestotxt.Text);
                             actualizarCommand.Parameters.AddWithValue("@Nombre", depatxt.Text);
                             actualizarCommand.Parameters.AddWithValue("@activo", estadodepa.Checked ? 1 : 0);
@@ -570,7 +570,7 @@ namespace Proyecto_restaurante
 
         private void button14_Click(object sender, EventArgs e)
         {
-            PuestoID = 0;
+            PuestoID = "";
             puestotxt.Text = "";
             iddepapuestotxt.Text = "";
             depapuestotxt.Text = "";
@@ -579,9 +579,21 @@ namespace Proyecto_restaurante
 
         private void button17_Click(object sender, EventArgs e)
         {
-            DepaID = 0;
+            DepaID = "";
             depatxt.Text = "";
             estadodepa.Checked = true;
+        }
+
+
+        private void selecpuest_Click(object sender, EventArgs e)
+        {
+            //puestodt_CellContentDoubleClick(sender, e);
+        }
+
+        private void puestodt_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            iddepapuestotxt.Text = puestodt.SelectedCells[0].Value.ToString();
+            depapuestotxt.Text = puestodt.SelectedCells[1].Value.ToString();
         }
     }
 }
