@@ -19,27 +19,23 @@ namespace Proyecto_restaurante
             InitializeComponent();
         }
 
-        private string nombreMesaActual;
+        public int MesaID;
+        private int SalaID;
 
-        private int idMesa = 0;
 
         private void guardarbtn_Click(object sender, EventArgs e)
         {
-            Regex numerosRegex = new Regex(@"^[\d-]+$");
-
-            //if (txtnombreMesa.Text == "" || salacmbx.SelectedItem == null)
-            //{
-            //    MessageBox.Show("No debe dejar campos vacios.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-            //    salacmbx.Focus();
-            //    return;
-            //}
-
-            if (!numerosRegex.IsMatch(txtNumAsientos.Text))
+            if (string.IsNullOrWhiteSpace(txtnombreMesa.Text) || string.IsNullOrWhiteSpace(capacidadtxt.Text) || string.IsNullOrWhiteSpace(txtIdSala.Text))
             {
-                MessageBox.Show("Numero de asientos solo admite números.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtNumAsientos.Text = "";
-                txtNumAsientos.Focus();
+                MessageBox.Show("No debe dejar campos vacíos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!int.TryParse(txtcapacidad.Text, out int capacidad))
+            {
+                MessageBox.Show("La capacidad solo admite números.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtcapacidad.Clear();
+                txtcapacidad.Focus();
                 return;
             }
 
@@ -51,69 +47,70 @@ namespace Proyecto_restaurante
                 {
                     conexion.Open();
 
-                    if (string.IsNullOrEmpty(nombreMesaActual))
+                    if (MesaID == 0)
                     {
-                        string queryInsertar = "INSERT INTO mesas (sala, nombre_mesa, estado, num_asientos) VALUES (@sala, @nombreMesa, @estado, @numAsientos)";
+                        // Insertar nueva mesa
+                        string queryInsertar = @"
+                        INSERT INTO Mesa (IdSala, Numero, Capacidad, Estado, Ocupado)
+                        VALUES (@IdSala, @Numero, @Capacidad, @Estado, @Ocupado)";
+
                         using (SqlCommand insertarCommand = new SqlCommand(queryInsertar, conexion))
                         {
-                            //insertarCommand.Parameters.AddWithValue("@sala", salacmbx.SelectedItem.ToString());
-                            insertarCommand.Parameters.AddWithValue("@nombreMesa", txtnombreMesa.Text);
-                            insertarCommand.Parameters.AddWithValue("@numAsientos", txtNumAsientos.Text);
-                            //insertarCommand.Parameters.AddWithValue("@estado", estadochk.Checked ? 1 : 0);
+                            insertarCommand.Parameters.AddWithValue("@IdSala", Convert.ToInt32(txtids.Text));
+                            insertarCommand.Parameters.AddWithValue("@Numero", numero);
+                            insertarCommand.Parameters.AddWithValue("@Capacidad", capacidad);
+                            insertarCommand.Parameters.AddWithValue("@Estado", estadochk.Checked ? 1 : 0);
+                            insertarCommand.Parameters.AddWithValue("@Ocupado", ocupadocheck.Checked ? 1 : 0);
 
                             int rowsAffected = insertarCommand.ExecuteNonQuery();
 
                             if (rowsAffected > 0)
                             {
-                                MessageBox.Show("Mesa registrada con éxito.");
-                                recargarbtn_Click(sender, e);
-                                limpiarbtn_Click(sender, e);
-                                MantMesas_Load(sender, e);
+                                MessageBox.Show("Mesa registrada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                limpiarCampos();
+                                cargarMesas();
                             }
                             else
                             {
-                                MessageBox.Show("No se pudo guardar los datos.");
+                                MessageBox.Show("No se pudo guardar la mesa.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                         }
                     }
                     else
                     {
-                        string verificarQuery = "SELECT COUNT(*) FROM mesas WHERE nombre_mesa = @nombreMesaActual and id=@IDMesaActual";
-                        using (SqlCommand verificarCommand = new SqlCommand(verificarQuery, conexion))
-                        {
-                            verificarCommand.Parameters.AddWithValue("@nombreMesaActual", nombreMesaActual);
-                            verificarCommand.Parameters.AddWithValue("@IDMesaActual", idMesa);
-                        }
+                        // Actualizar mesa existente
+                        string queryActualizar = @"
+                    UPDATE Mesa
+                    SET IdSala = @IdSala, Numero = @Numero, Capacidad = @Capacidad, Estado = @Estado, Ocupado = @Ocupado
+                    WHERE IdMesa = @IdMesa";
 
-                        string queryActualizar = "UPDATE mesas SET sala = @sala, nombre_mesa = @nuevoNombreMesa, estado = @estado, num_asientos = @numAsientos WHERE id = @IDMesa and nombre_mesa = @nombreMesaActual";
                         using (SqlCommand actualizarCommand = new SqlCommand(queryActualizar, conexion))
                         {
-                            actualizarCommand.Parameters.AddWithValue("@IDMesa", idMesa);
-                            actualizarCommand.Parameters.AddWithValue("@nombreMesaActual", nombreMesaActual);
-                            actualizarCommand.Parameters.AddWithValue("@nuevoNombreMesa", txtnombreMesa.Text);
-                            //actualizarCommand.Parameters.AddWithValue("@sala", salacmbx.SelectedItem.ToString());
-                            actualizarCommand.Parameters.AddWithValue("@numAsientos", txtNumAsientos.Text);
-                            //actualizarCommand.Parameters.AddWithValue("@estado", estadochk.Checked ? 1 : 0);
+                            actualizarCommand.Parameters.AddWithValue("@IdMesa", MesaID);
+                            actualizarCommand.Parameters.AddWithValue("@IdSala", Convert.ToInt32(txtIdSala.Text));
+                            actualizarCommand.Parameters.AddWithValue("@Numero", numero);
+                            actualizarCommand.Parameters.AddWithValue("@Capacidad", capacidad);
+                            actualizarCommand.Parameters.AddWithValue("@Estado", estadochk.Checked ? 1 : 0);
+                            actualizarCommand.Parameters.AddWithValue("@Ocupado", ocupadocheck.Checked ? 1 : 0);
 
                             int rowsAffected = actualizarCommand.ExecuteNonQuery();
 
                             if (rowsAffected > 0)
                             {
-                                MessageBox.Show("Mesa actualizada con éxito.");
-                                limpiarbtn_Click(sender, e);
-                                MantMesas_Load(sender, e);
-                                recargarbtn_Click(sender, e);
+                                MessageBox.Show("Mesa actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                limpiarCampos();
+                                cargarMesas();
                             }
                             else
                             {
-                                MessageBox.Show("No se pudo actualizar los datos.");
+                                MessageBox.Show("No se pudo actualizar la mesa.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Ocurrió un error: {ex.Message}");
+                    MessageBox.Show($"Ocurrió un error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -122,8 +119,7 @@ namespace Proyecto_restaurante
         {
             //salacmbx.SelectedIndex = -1;
             txtnombreMesa.Text = "";
-            txtNumAsientos.Text = "";
-            this.Text = "Mantenimiento de Mesas || Creando...";
+            txtcapacidad.Text = "";
             MantMesas_Load(sender, e);
             //estadochk.Checked = true;
             recargarbtn_Click(sender, e);
@@ -136,13 +132,6 @@ namespace Proyecto_restaurante
             txtnombreMesa.Text = txtnombreMesa.Text.ToUpper();
 
             txtnombreMesa.SelectionStart = posicion;
-        }
-
-
-        private void nuevaSalabtn_Click(object sender, EventArgs e)
-        {
-            MantSalas salas = new MantSalas();
-            salas.Show();
         }
 
         private void MantMesas_Load(object sender, EventArgs e)
@@ -173,7 +162,7 @@ namespace Proyecto_restaurante
             //    }
             //}
 
-            string consulta = "SELECT id, nombre_mesa, sala, num_asientos, estado FROM mesas";
+            string consulta = "select IdMesa, IdSala, Numero, Capacidad, Estado from Mesa";
 
             using (SqlConnection conexion = new SqlConnection(conexionString))
             {
@@ -255,7 +244,6 @@ namespace Proyecto_restaurante
             }
         }
 
-
         public void RecargarClick()
         {
             recargarbtn.PerformClick();
@@ -308,21 +296,21 @@ namespace Proyecto_restaurante
 
         private void txtbuscador_Enter(object sender, EventArgs e)
         {
-            if (txtbuscador.Text == "(ID, Nombre, Sala, N° Asientos)")
-            {
-                txtbuscador.Text = "";
-                txtbuscador.ForeColor = Color.Black;
-            }
+            //if (txtbuscador.Text == "(ID, Nombre, Sala, N° Asientos)")
+            //{
+            //    txtbuscador.Text = "";
+            //    txtbuscador.ForeColor = Color.Black;
+            //}
         }
 
         private void txtbuscador_Leave(object sender, EventArgs e)
         {
-            if (txtbuscador.Text == "")
-            {
-                txtbuscador.Text = "(ID, Nombre, Sala, N° Asientos)";
-                txtbuscador.ForeColor = Color.Gray;
-                MantMesas_Load(sender, e);
-            }
+            //if (txtbuscador.Text == "")
+            //{
+            //    txtbuscador.Text = "(ID, Nombre, Sala, N° Asientos)";
+            //    txtbuscador.ForeColor = Color.Gray;
+            //    MantMesas_Load(sender, e);
+            //}
         }
 
         private void eliminarbtn_Click(object sender, EventArgs e)
@@ -347,7 +335,7 @@ namespace Proyecto_restaurante
 
         private void tabladatos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+
             //idMesa = Convert.ToInt32(tabladatos.SelectedCells[0].Value);
             //txtnombreMesa.Text = tabladatos.SelectedCells[1].Value.ToString();
             //nombreMesaActual = txtnombreMesa.Text;
@@ -355,6 +343,78 @@ namespace Proyecto_restaurante
             //txtNumAsientos.Text = tabladatos.SelectedCells[3].Value.ToString();
 
             //estadochk.Checked = Convert.ToBoolean(tabladatos.SelectedCells[4].Value);
+        }
+
+        private void agregar_Click(object sender, EventArgs e)
+        {
+            tabControl2.SelectedIndex = 1;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            tabControl2.SelectedIndex = 2;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtnombresala.Text) || string.IsNullOrEmpty(capacidadtxt.Text))
+            {
+                MessageBox.Show("Error: No deje campos vacíos.");
+                return;
+            }
+
+            string conexionString = ConexionBD.ConexionSQL();
+
+            using (SqlConnection conexion = new SqlConnection(conexionString))
+            {
+                conexion.Open();
+                SqlTransaction trans = conexion.BeginTransaction();
+
+                try
+                {
+                    if (SalaID == 0)
+                    {
+                        string nuevaSala = @"
+                        INSERT INTO Sala (Nombre, Capacidad, Activo)
+                        VALUES (@Nombre, @Capacidad, @Activo);
+                        SELECT SCOPE_IDENTITY();";
+
+                        using (SqlCommand insertarPersona = new SqlCommand(nuevaSala, conexion, trans))
+                        {
+                            insertarPersona.Parameters.AddWithValue("@Nombre", txtnombresala.Text);
+                            insertarPersona.Parameters.AddWithValue("@Capacidad", capacidadtxt.Text);
+                            insertarPersona.Parameters.AddWithValue("@Activo", estadochk.Checked ? 1 : 0);
+                        }
+
+                        trans.Commit();
+                        MessageBox.Show("Sala registrada con éxito.");
+                    }
+                    else
+                    {
+                        string actualizarSala = @"
+                        UPDATE Sala 
+                        SET Nombre = @Nombre, Capacidad = @Capacidad, Activo = @Activo,
+                        WHERE IdSala = @IdSala";
+
+                        using (SqlCommand actualizarCommand = new SqlCommand(actualizarSala, conexion, trans))
+                        {
+                            actualizarCommand.Parameters.AddWithValue("@IdSala", SalaID);
+                            actualizarCommand.Parameters.AddWithValue("@Nombre", txtnombreMesa.Text);
+                            actualizarCommand.Parameters.AddWithValue("@Capacidad", capacidadtxt.Text);
+                            actualizarCommand.Parameters.AddWithValue("@Activo", estadochk.Checked ? 1 : 0);
+                            actualizarCommand.ExecuteNonQuery();
+                        }
+
+                        trans.Commit();
+                        MessageBox.Show("Sala actualizada con éxito.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+                    MessageBox.Show($"Ocurrió un error: {ex.Message}");
+                }
+            }
         }
     }
 }

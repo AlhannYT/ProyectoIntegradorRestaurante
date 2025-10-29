@@ -297,7 +297,7 @@ namespace Proyecto_restaurante
                     if (resultado != null)
                     {
                         int nuevoId = Convert.ToInt32(resultado) + 1;
-                        idmetpago.Text = nuevoId.ToString();
+                        iddepa.Text = nuevoId.ToString();
                     }
                     else
                     {

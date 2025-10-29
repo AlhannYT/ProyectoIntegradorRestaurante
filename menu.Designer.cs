@@ -53,6 +53,7 @@
             button14 = new Button();
             button13 = new Button();
             label3 = new Label();
+            cuadre = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -140,10 +141,10 @@
             button2.Cursor = Cursors.Hand;
             button2.Image = Properties.Resources.cliente31;
             button2.ImageAlign = ContentAlignment.MiddleRight;
-            button2.Location = new Point(9, 148);
+            button2.Location = new Point(9, 152);
             button2.Margin = new Padding(2);
             button2.Name = "button2";
-            button2.Size = new Size(217, 36);
+            button2.Size = new Size(217, 38);
             button2.TabIndex = 4;
             button2.Text = "Clientes";
             button2.TextAlign = ContentAlignment.MiddleLeft;
@@ -158,7 +159,7 @@
             button5.Location = new Point(9, 76);
             button5.Margin = new Padding(2);
             button5.Name = "button5";
-            button5.Size = new Size(217, 36);
+            button5.Size = new Size(217, 38);
             button5.TabIndex = 2;
             button5.Text = "Articulos";
             button5.TextAlign = ContentAlignment.MiddleLeft;
@@ -170,10 +171,10 @@
             button6.Cursor = Cursors.Hand;
             button6.Image = Properties.Resources.proveedor2;
             button6.ImageAlign = ContentAlignment.MiddleRight;
-            button6.Location = new Point(9, 185);
+            button6.Location = new Point(9, 190);
             button6.Margin = new Padding(2);
             button6.Name = "button6";
-            button6.Size = new Size(217, 36);
+            button6.Size = new Size(217, 38);
             button6.TabIndex = 8;
             button6.Text = "Proveedores";
             button6.TextAlign = ContentAlignment.MiddleLeft;
@@ -185,10 +186,10 @@
             button8.Cursor = Cursors.Hand;
             button8.Image = Properties.Resources.mesa;
             button8.ImageAlign = ContentAlignment.MiddleRight;
-            button8.Location = new Point(9, 112);
+            button8.Location = new Point(9, 114);
             button8.Margin = new Padding(2);
             button8.Name = "button8";
-            button8.Size = new Size(217, 36);
+            button8.Size = new Size(217, 38);
             button8.TabIndex = 3;
             button8.Text = "Mesas";
             button8.TextAlign = ContentAlignment.MiddleLeft;
@@ -215,10 +216,10 @@
             button9.Cursor = Cursors.Hand;
             button9.Image = Properties.Resources.carrito32x;
             button9.ImageAlign = ContentAlignment.MiddleRight;
-            button9.Location = new Point(9, 398);
+            button9.Location = new Point(9, 400);
             button9.Margin = new Padding(2);
             button9.Name = "button9";
-            button9.Size = new Size(217, 36);
+            button9.Size = new Size(217, 38);
             button9.TabIndex = 11;
             button9.Text = "Compras";
             button9.TextAlign = ContentAlignment.MiddleLeft;
@@ -234,7 +235,7 @@
             button10.Location = new Point(9, 362);
             button10.Margin = new Padding(2);
             button10.Name = "button10";
-            button10.Size = new Size(217, 36);
+            button10.Size = new Size(217, 38);
             button10.TabIndex = 10;
             button10.Text = "Pedidos";
             button10.TextAlign = ContentAlignment.MiddleLeft;
@@ -264,6 +265,7 @@
             barrasup.Controls.Add(panel1);
             barrasup.Controls.Add(panel2);
             barrasup.Controls.Add(pictureBox1);
+            barrasup.Controls.Add(cuadre);
             barrasup.Dock = DockStyle.Top;
             barrasup.Location = new Point(239, 0);
             barrasup.Margin = new Padding(2);
@@ -326,10 +328,10 @@
             reservacion.Cursor = Cursors.Hand;
             reservacion.Image = Properties.Resources.calendario_reloj;
             reservacion.ImageAlign = ContentAlignment.MiddleRight;
-            reservacion.Location = new Point(9, 434);
+            reservacion.Location = new Point(9, 438);
             reservacion.Margin = new Padding(2);
             reservacion.Name = "reservacion";
-            reservacion.Size = new Size(217, 36);
+            reservacion.Size = new Size(217, 38);
             reservacion.TabIndex = 12;
             reservacion.Text = "Reservación";
             reservacion.TextAlign = ContentAlignment.MiddleLeft;
@@ -345,7 +347,7 @@
             button11.Location = new Point(9, 648);
             button11.Margin = new Padding(2);
             button11.Name = "button11";
-            button11.Size = new Size(217, 36);
+            button11.Size = new Size(217, 38);
             button11.TabIndex = 13;
             button11.Text = "Generales";
             button11.TextAlign = ContentAlignment.MiddleLeft;
@@ -372,10 +374,10 @@
             button14.Cursor = Cursors.Hand;
             button14.Image = Properties.Resources.tipos;
             button14.ImageAlign = ContentAlignment.MiddleRight;
-            button14.Location = new Point(9, 257);
+            button14.Location = new Point(9, 266);
             button14.Margin = new Padding(2);
             button14.Name = "button14";
-            button14.Size = new Size(217, 36);
+            button14.Size = new Size(217, 38);
             button14.TabIndex = 4;
             button14.Text = "Tipos";
             button14.TextAlign = ContentAlignment.MiddleLeft;
@@ -387,10 +389,10 @@
             button13.Cursor = Cursors.Hand;
             button13.Image = Properties.Resources.empleado;
             button13.ImageAlign = ContentAlignment.MiddleRight;
-            button13.Location = new Point(9, 221);
+            button13.Location = new Point(9, 228);
             button13.Margin = new Padding(2);
             button13.Name = "button13";
-            button13.Size = new Size(217, 36);
+            button13.Size = new Size(217, 38);
             button13.TabIndex = 4;
             button13.Text = "Empleados";
             button13.TextAlign = ContentAlignment.MiddleLeft;
@@ -409,6 +411,21 @@
             label3.Size = new Size(331, 21);
             label3.TabIndex = 2;
             label3.Text = "Wilder (2-21-0179) / Alhann (2-21-0018) ©";
+            // 
+            // cuadre
+            // 
+            cuadre.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            cuadre.Cursor = Cursors.Hand;
+            cuadre.Image = Properties.Resources.dinero1;
+            cuadre.ImageAlign = ContentAlignment.MiddleRight;
+            cuadre.Location = new Point(542, 9);
+            cuadre.Margin = new Padding(2);
+            cuadre.Name = "cuadre";
+            cuadre.Size = new Size(133, 51);
+            cuadre.TabIndex = 2;
+            cuadre.Text = "Cuadre de caja";
+            cuadre.TextAlign = ContentAlignment.MiddleLeft;
+            cuadre.UseVisualStyleBackColor = true;
             // 
             // menu
             // 
@@ -466,5 +483,6 @@
         private Button button13;
         private Button button14;
         private PictureBox pictureBox1;
+        private Button cuadre;
     }
 }
