@@ -210,6 +210,7 @@
             agregar.Text = "Nuevo";
             agregar.TextAlign = ContentAlignment.BottomCenter;
             agregar.UseVisualStyleBackColor = true;
+            agregar.Click += agregar_Click;
             // 
             // recargarbtn
             // 

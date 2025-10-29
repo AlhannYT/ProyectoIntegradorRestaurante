@@ -502,7 +502,7 @@ namespace Proyecto_restaurante
 
         private void button15_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(depatxt.Text))
+            if (string.IsNullOrEmpty(puestotxt.Text) || string.IsNullOrEmpty(iddepapuestotxt.Text) || string.IsNullOrEmpty(depapuestotxt.Text))
             {
                 MessageBox.Show("Error: No deje campos vacios.");
                 return;
@@ -594,6 +594,17 @@ namespace Proyecto_restaurante
         {
             iddepapuestotxt.Text = puestodt.SelectedCells[0].Value.ToString();
             depapuestotxt.Text = puestodt.SelectedCells[1].Value.ToString();
+        }
+
+        private void puestodt_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void departdt_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            iddepapuestotxt.Text = departdt.SelectedCells[0].Value.ToString();
+            depapuestotxt.Text = departdt.SelectedCells[1].Value.ToString();
         }
     }
 }

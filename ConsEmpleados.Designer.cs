@@ -33,7 +33,7 @@
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
             label11 = new Label();
-            clienteimg = new PictureBox();
+            empleadoimg = new PictureBox();
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
@@ -81,12 +81,12 @@
             limpiarbtn = new Button();
             panel1 = new Panel();
             seleccionimagenbtn = new Button();
-            imagencliente = new PictureBox();
+            imagenempleado = new PictureBox();
             button2 = new Button();
-            textBox4 = new TextBox();
+            emailtxt = new TextBox();
             txtcedula = new TextBox();
             txtapellido = new TextBox();
-            idclientetxt = new TextBox();
+            ultimoID = new TextBox();
             txtsueldo = new TextBox();
             txtnombre = new TextBox();
             label14 = new Label();
@@ -100,7 +100,7 @@
             toolTip1 = new ToolTip(components);
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)clienteimg).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)empleadoimg).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tabladatos).BeginInit();
             tabPage2.SuspendLayout();
             puestopanel.SuspendLayout();
@@ -110,7 +110,7 @@
             ((System.ComponentModel.ISupportInitialize)ingredientesconsulta).BeginInit();
             panel3.SuspendLayout();
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)imagencliente).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)imagenempleado).BeginInit();
             SuspendLayout();
             // 
             // tabControl1
@@ -129,7 +129,7 @@
             // 
             tabPage1.BackColor = SystemColors.WindowFrame;
             tabPage1.Controls.Add(label11);
-            tabPage1.Controls.Add(clienteimg);
+            tabPage1.Controls.Add(empleadoimg);
             tabPage1.Controls.Add(label1);
             tabPage1.Controls.Add(label2);
             tabPage1.Controls.Add(label3);
@@ -158,17 +158,17 @@
             label11.TabIndex = 62;
             label11.Text = "Cedula:";
             // 
-            // clienteimg
+            // empleadoimg
             // 
-            clienteimg.ErrorImage = Properties.Resources.perfilcliente;
-            clienteimg.Image = Properties.Resources.perfilcliente;
-            clienteimg.InitialImage = Properties.Resources.perfilcliente;
-            clienteimg.Location = new Point(593, 254);
-            clienteimg.Name = "clienteimg";
-            clienteimg.Size = new Size(158, 158);
-            clienteimg.SizeMode = PictureBoxSizeMode.StretchImage;
-            clienteimg.TabIndex = 61;
-            clienteimg.TabStop = false;
+            empleadoimg.ErrorImage = Properties.Resources.perfilcliente;
+            empleadoimg.Image = Properties.Resources.perfilcliente;
+            empleadoimg.InitialImage = Properties.Resources.perfilcliente;
+            empleadoimg.Location = new Point(593, 254);
+            empleadoimg.Name = "empleadoimg";
+            empleadoimg.Size = new Size(158, 158);
+            empleadoimg.SizeMode = PictureBoxSizeMode.StretchImage;
+            empleadoimg.TabIndex = 61;
+            empleadoimg.TabStop = false;
             // 
             // label1
             // 
@@ -237,6 +237,7 @@
             tabladatos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             tabladatos.Size = new Size(575, 510);
             tabladatos.TabIndex = 54;
+            tabladatos.CellClick += tabladatos_CellClick;
             // 
             // agregar
             // 
@@ -248,6 +249,7 @@
             agregar.Text = "Nuevo";
             agregar.TextAlign = ContentAlignment.BottomCenter;
             agregar.UseVisualStyleBackColor = true;
+            agregar.Click += agregar_Click;
             // 
             // button1
             // 
@@ -300,10 +302,10 @@
             tabPage2.Controls.Add(panel3);
             tabPage2.Controls.Add(panel1);
             tabPage2.Controls.Add(button2);
-            tabPage2.Controls.Add(textBox4);
+            tabPage2.Controls.Add(emailtxt);
             tabPage2.Controls.Add(txtcedula);
             tabPage2.Controls.Add(txtapellido);
-            tabPage2.Controls.Add(idclientetxt);
+            tabPage2.Controls.Add(ultimoID);
             tabPage2.Controls.Add(txtsueldo);
             tabPage2.Controls.Add(txtnombre);
             tabPage2.Controls.Add(label14);
@@ -364,7 +366,7 @@
             // fechaingreso
             // 
             fechaingreso.Format = DateTimePickerFormat.Short;
-            fechaingreso.Location = new Point(15, 293);
+            fechaingreso.Location = new Point(19, 293);
             fechaingreso.Name = "fechaingreso";
             fechaingreso.Size = new Size(172, 29);
             fechaingreso.TabIndex = 101;
@@ -433,7 +435,7 @@
             // 
             puestoconsultatxt.Location = new Point(37, 28);
             puestoconsultatxt.Name = "puestoconsultatxt";
-            puestoconsultatxt.Size = new Size(153, 29);
+            puestoconsultatxt.Size = new Size(154, 29);
             puestoconsultatxt.TabIndex = 58;
             // 
             // button5
@@ -445,6 +447,7 @@
             button5.Size = new Size(28, 29);
             button5.TabIndex = 60;
             button5.UseVisualStyleBackColor = true;
+            button5.Click += button5_Click;
             // 
             // label5
             // 
@@ -461,6 +464,8 @@
             // 
             puestoconsulta.AllowUserToAddRows = false;
             puestoconsulta.AllowUserToDeleteRows = false;
+            puestoconsulta.AllowUserToResizeRows = false;
+            puestoconsulta.ClipboardCopyMode = DataGridViewClipboardCopyMode.Disable;
             puestoconsulta.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             puestoconsulta.Location = new Point(4, 63);
             puestoconsulta.MultiSelect = false;
@@ -468,13 +473,14 @@
             puestoconsulta.ReadOnly = true;
             puestoconsulta.RowHeadersWidth = 51;
             puestoconsulta.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            puestoconsulta.Size = new Size(220, 90);
+            puestoconsulta.Size = new Size(219, 90);
             puestoconsulta.TabIndex = 74;
+            puestoconsulta.CellClick += puestoconsulta_CellClick;
             puestoconsulta.CellContentDoubleClick += puestoconsulta_CellContentDoubleClick;
             // 
             // panel2
             // 
-            panel2.Location = new Point(215, 338);
+            panel2.Location = new Point(221, 338);
             panel2.Name = "panel2";
             panel2.Size = new Size(134, 26);
             panel2.TabIndex = 95;
@@ -496,7 +502,7 @@
             panel5.Controls.Add(button3);
             panel5.Controls.Add(textBox2);
             panel5.Controls.Add(txtcodigo);
-            panel5.Location = new Point(15, 338);
+            panel5.Location = new Point(19, 338);
             panel5.Name = "panel5";
             panel5.Size = new Size(727, 206);
             panel5.TabIndex = 94;
@@ -656,7 +662,7 @@
             panel3.BackColor = Color.FromArgb(64, 64, 64);
             panel3.Controls.Add(guardarbtn);
             panel3.Controls.Add(limpiarbtn);
-            panel3.Location = new Point(159, 541);
+            panel3.Location = new Point(178, 541);
             panel3.Name = "panel3";
             panel3.Size = new Size(409, 74);
             panel3.TabIndex = 93;
@@ -683,12 +689,13 @@
             limpiarbtn.TabIndex = 19;
             limpiarbtn.Text = "Nuevo";
             limpiarbtn.UseVisualStyleBackColor = true;
+            limpiarbtn.Click += limpiarbtn_Click;
             // 
             // panel1
             // 
             panel1.BackColor = Color.Gray;
             panel1.Controls.Add(seleccionimagenbtn);
-            panel1.Controls.Add(imagencliente);
+            panel1.Controls.Add(imagenempleado);
             panel1.Location = new Point(543, 61);
             panel1.Name = "panel1";
             panel1.Size = new Size(199, 255);
@@ -706,18 +713,19 @@
             seleccionimagenbtn.Text = "Buscar Imagen";
             seleccionimagenbtn.TextAlign = ContentAlignment.BottomCenter;
             seleccionimagenbtn.UseVisualStyleBackColor = false;
+            seleccionimagenbtn.Click += seleccionimagenbtn_Click;
             // 
-            // imagencliente
+            // imagenempleado
             // 
-            imagencliente.ErrorImage = Properties.Resources.perfilcliente;
-            imagencliente.Image = Properties.Resources.perfilcliente;
-            imagencliente.InitialImage = Properties.Resources.perfilcliente;
-            imagencliente.Location = new Point(9, 6);
-            imagencliente.Name = "imagencliente";
-            imagencliente.Size = new Size(181, 181);
-            imagencliente.SizeMode = PictureBoxSizeMode.StretchImage;
-            imagencliente.TabIndex = 27;
-            imagencliente.TabStop = false;
+            imagenempleado.ErrorImage = Properties.Resources.perfilcliente;
+            imagenempleado.Image = Properties.Resources.perfilcliente;
+            imagenempleado.InitialImage = Properties.Resources.perfilcliente;
+            imagenempleado.Location = new Point(9, 6);
+            imagenempleado.Name = "imagenempleado";
+            imagenempleado.Size = new Size(181, 181);
+            imagenempleado.SizeMode = PictureBoxSizeMode.StretchImage;
+            imagenempleado.TabIndex = 27;
+            imagenempleado.TabStop = false;
             // 
             // button2
             // 
@@ -730,35 +738,37 @@
             button2.Text = " Volver";
             button2.TextAlign = ContentAlignment.MiddleRight;
             button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
-            // textBox4
+            // emailtxt
             // 
-            textBox4.Location = new Point(15, 237);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(172, 29);
-            textBox4.TabIndex = 78;
+            emailtxt.Location = new Point(19, 237);
+            emailtxt.Name = "emailtxt";
+            emailtxt.Size = new Size(172, 29);
+            emailtxt.TabIndex = 78;
             // 
             // txtcedula
             // 
-            txtcedula.Location = new Point(15, 183);
+            txtcedula.Location = new Point(19, 183);
             txtcedula.Name = "txtcedula";
             txtcedula.Size = new Size(172, 29);
             txtcedula.TabIndex = 78;
+            txtcedula.TextChanged += txtcedula_TextChanged;
             // 
             // txtapellido
             // 
-            txtapellido.Location = new Point(15, 129);
+            txtapellido.Location = new Point(19, 129);
             txtapellido.Name = "txtapellido";
             txtapellido.Size = new Size(172, 29);
             txtapellido.TabIndex = 77;
             // 
-            // idclientetxt
+            // ultimoID
             // 
-            idclientetxt.Enabled = false;
-            idclientetxt.Location = new Point(51, 14);
-            idclientetxt.Name = "idclientetxt";
-            idclientetxt.Size = new Size(76, 29);
-            idclientetxt.TabIndex = 81;
+            ultimoID.Enabled = false;
+            ultimoID.Location = new Point(51, 14);
+            ultimoID.Name = "ultimoID";
+            ultimoID.Size = new Size(76, 29);
+            ultimoID.TabIndex = 81;
             // 
             // txtsueldo
             // 
@@ -769,7 +779,7 @@
             // 
             // txtnombre
             // 
-            txtnombre.Location = new Point(15, 75);
+            txtnombre.Location = new Point(19, 75);
             txtnombre.Name = "txtnombre";
             txtnombre.Size = new Size(172, 29);
             txtnombre.TabIndex = 76;
@@ -779,7 +789,7 @@
             label14.AutoSize = true;
             label14.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label14.ForeColor = SystemColors.Control;
-            label14.Location = new Point(15, 272);
+            label14.Location = new Point(19, 272);
             label14.Name = "label14";
             label14.Size = new Size(138, 21);
             label14.TabIndex = 82;
@@ -790,7 +800,7 @@
             label16.AutoSize = true;
             label16.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label16.ForeColor = SystemColors.Control;
-            label16.Location = new Point(15, 217);
+            label16.Location = new Point(19, 217);
             label16.Name = "label16";
             label16.Size = new Size(151, 21);
             label16.TabIndex = 82;
@@ -801,7 +811,7 @@
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label4.ForeColor = SystemColors.Control;
-            label4.Location = new Point(15, 162);
+            label4.Location = new Point(19, 162);
             label4.Name = "label4";
             label4.Size = new Size(63, 21);
             label4.TabIndex = 82;
@@ -812,7 +822,7 @@
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label6.ForeColor = SystemColors.Control;
-            label6.Location = new Point(15, 107);
+            label6.Location = new Point(19, 107);
             label6.Name = "label6";
             label6.Size = new Size(75, 21);
             label6.TabIndex = 84;
@@ -856,7 +866,7 @@
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label9.ForeColor = SystemColors.Control;
-            label9.Location = new Point(15, 52);
+            label9.Location = new Point(19, 52);
             label9.Name = "label9";
             label9.Size = new Size(73, 21);
             label9.TabIndex = 88;
@@ -880,7 +890,7 @@
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)clienteimg).EndInit();
+            ((System.ComponentModel.ISupportInitialize)empleadoimg).EndInit();
             ((System.ComponentModel.ISupportInitialize)tabladatos).EndInit();
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
@@ -893,7 +903,7 @@
             ((System.ComponentModel.ISupportInitialize)ingredientesconsulta).EndInit();
             panel3.ResumeLayout(false);
             panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)imagencliente).EndInit();
+            ((System.ComponentModel.ISupportInitialize)imagenempleado).EndInit();
             ResumeLayout(false);
         }
 
@@ -903,7 +913,7 @@
         private TabPage tabPage1;
         private TabPage tabPage2;
         private Label label11;
-        private PictureBox clienteimg;
+        private PictureBox empleadoimg;
         private Label label1;
         private Label label2;
         private Label label3;
@@ -919,12 +929,12 @@
         private Button limpiarbtn;
         private Panel panel1;
         private Button seleccionimagenbtn;
-        private PictureBox imagencliente;
+        private PictureBox imagenempleado;
         private Button button2;
         private CheckBox estadochk;
         private TextBox txtcedula;
         private TextBox txtapellido;
-        private TextBox idclientetxt;
+        private TextBox ultimoID;
         private TextBox txtnombre;
         private Label label4;
         private Label label6;
@@ -964,7 +974,7 @@
         private Label label15;
         private Button button7;
         private Button button6;
-        private TextBox textBox4;
+        private TextBox emailtxt;
         private Label label16;
         private ToolTip toolTip1;
     }

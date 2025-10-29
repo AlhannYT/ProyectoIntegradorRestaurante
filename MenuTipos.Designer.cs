@@ -494,6 +494,7 @@
             // 
             // metodotxt
             // 
+            metodotxt.Anchor = AnchorStyles.None;
             metodotxt.Location = new Point(200, 103);
             metodotxt.Name = "metodotxt";
             metodotxt.Size = new Size(199, 23);
@@ -943,9 +944,13 @@
             departdt.Size = new Size(344, 133);
             departdt.TabIndex = 3;
             departdt.Visible = false;
+            departdt.CellClick += departdt_CellClick;
             // 
             // puestodt
             // 
+            puestodt.AllowUserToAddRows = false;
+            puestodt.AllowUserToDeleteRows = false;
+            puestodt.Anchor = AnchorStyles.None;
             puestodt.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             puestodt.Location = new Point(13, 262);
             puestodt.MultiSelect = false;
@@ -953,6 +958,7 @@
             puestodt.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             puestodt.Size = new Size(344, 133);
             puestodt.TabIndex = 3;
+            puestodt.CellClick += puestodt_CellClick;
             puestodt.CellDoubleClick += puestodt_CellDoubleClick;
             // 
             // idpuesto
@@ -965,6 +971,8 @@
             // 
             // iddepapuestotxt
             // 
+            iddepapuestotxt.Anchor = AnchorStyles.None;
+            iddepapuestotxt.Enabled = false;
             iddepapuestotxt.Location = new Point(240, 134);
             iddepapuestotxt.Name = "iddepapuestotxt";
             iddepapuestotxt.Size = new Size(43, 23);
@@ -972,6 +980,8 @@
             // 
             // depapuestotxt
             // 
+            depapuestotxt.Anchor = AnchorStyles.None;
+            depapuestotxt.Enabled = false;
             depapuestotxt.Location = new Point(285, 134);
             depapuestotxt.Name = "depapuestotxt";
             depapuestotxt.Size = new Size(86, 23);
@@ -979,6 +989,7 @@
             // 
             // puestotxt
             // 
+            puestotxt.Anchor = AnchorStyles.None;
             puestotxt.Location = new Point(200, 103);
             puestotxt.Name = "puestotxt";
             puestotxt.Size = new Size(199, 23);

@@ -16,5 +16,10 @@ namespace Proyecto_restaurante
         {
             InitializeComponent();
         }
+
+        private void agregar_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = 1;
+        }
     }
 }

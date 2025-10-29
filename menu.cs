@@ -45,7 +45,7 @@ namespace Proyecto_restaurante
                 }
             }
             MantMedidas medidas = new MantMedidas();
-            medidas.Location = new Point(561, 50);
+            medidas.Location = new Point(200, 50);
             medidas.MdiParent = this;
             medidas.Show();
         }
@@ -91,7 +91,7 @@ namespace Proyecto_restaurante
             }
 
             ConsClientes consClientes = new ConsClientes();
-            consClientes.Location = new Point(561, 50);
+            consClientes.Location = new Point(200, 50);
             consClientes.MdiParent = this;
             consClientes.Show();
         }
@@ -107,7 +107,7 @@ namespace Proyecto_restaurante
                 }
             }
             MantMesas mantMesas = new MantMesas();
-            mantMesas.Location = new Point(561, 50);
+            mantMesas.Location = new Point(200, 50);
             mantMesas.MdiParent = this;
             mantMesas.Show();
         }
@@ -123,7 +123,7 @@ namespace Proyecto_restaurante
                 }
             }
             ConsProveedor mantProv = new ConsProveedor();
-            mantProv.Location = new Point(561, 50);
+            mantProv.Location = new Point(200, 50);
             mantProv.MdiParent = this;
             mantProv.Show();
         }
@@ -140,7 +140,7 @@ namespace Proyecto_restaurante
                 }
             }
             ConsProductos ConsProductos = new ConsProductos();
-            ConsProductos.Location = new Point(561, 50);
+            ConsProductos.Location = new Point(200, 50);
             ConsProductos.MdiParent = this;
 
             ConsProductos.Show();
@@ -160,7 +160,7 @@ namespace Proyecto_restaurante
 
             Pedidos pedidos = new Pedidos();
             pedidos.NombreResponsable = usuarioActual;
-            pedidos.Location = new Point(561, 50);
+            pedidos.Location = new Point(200, 50); ;
             pedidos.MdiParent = this;
             pedidos.Show();
         }
@@ -177,7 +177,7 @@ namespace Proyecto_restaurante
             }
             Compras compras = new Compras();
             compras.responsableCompra = usuarioActual;
-            compras.Location = new Point(561, 50);
+            compras.Location = new Point(200, 50);
             compras.MdiParent = this;
             compras.Show();
         }
@@ -197,15 +197,15 @@ namespace Proyecto_restaurante
 
             if(administrador == 1)
             {
-                config.usuarios.Visible = true;
-                config.Location = new Point(561, 50);
+                //config.usuarios.Visible = true;
+                config.Location = new Point(200, 50);
                 config.MdiParent = this;
                 config.Show();
             }
             else
             {
-                config.usuarios.Visible = false;
-                config.Location = new Point(561, 50);
+                //config.usuarios.Visible = false;
+                config.Location = new Point(200, 50);
                 config.MdiParent = this;
                 config.Show();
             }
@@ -276,21 +276,6 @@ namespace Proyecto_restaurante
         }
 
 
-        public void agregarproducto(object sender, EventArgs e)
-        {
-            foreach (Form f in this.MdiChildren)
-            {
-                if (f is MantProductos)
-                {
-                    f.BringToFront();
-                    return;
-                }
-            }
-
-            MantProductos mantProductos = new MantProductos();
-            mantProductos.Location = new Point(561, 70);
-            mantProductos.Show();
-        }
 
         private void reservacion_Click(object sender, EventArgs e)
         {
@@ -303,7 +288,7 @@ namespace Proyecto_restaurante
                 }
             }
             Reservacion reservacion = new Reservacion();
-            reservacion.Location = new Point(561, 50);
+            reservacion.Location = new Point(200, 50);
             reservacion.MdiParent = this;
             reservacion.Show();
         }
@@ -319,7 +304,7 @@ namespace Proyecto_restaurante
                 }
             }
             MenuTipos menuTipos = new MenuTipos();
-            menuTipos.Location = new Point(561, 50);
+            menuTipos.Location = new Point(200, 50);
             menuTipos.textoinicial.Location = new Point(396, 150);
             menuTipos.textoinicial.Visible = true;
             menuTipos.MdiParent = this;
@@ -337,7 +322,7 @@ namespace Proyecto_restaurante
                 }
             }
             ConsEmpleados empleados = new ConsEmpleados();
-            empleados.Location = new Point(561, 50);
+            empleados.Location = new Point(200, 50);
             empleados.MdiParent = this;
             empleados.Show();
         }

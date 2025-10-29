@@ -73,7 +73,7 @@
             tabControl2 = new TabControl();
             tabPage3 = new TabPage();
             label6 = new Label();
-            clienteimg = new PictureBox();
+            usuarioimg = new PictureBox();
             label7 = new Label();
             button3 = new Button();
             button6 = new Button();
@@ -81,25 +81,25 @@
             label13 = new Label();
             instrucciones = new Button();
             textBox1 = new TextBox();
-            dataGridView1 = new DataGridView();
+            tablausuarios = new DataGridView();
             button8 = new Button();
             button9 = new Button();
             tabPage4 = new TabPage();
             idclientetxt = new TextBox();
             label14 = new Label();
-            idcategoriatxt = new TextBox();
-            categoriatxt = new TextBox();
+            idempleadotxt = new TextBox();
+            nombreempleadotxt = new TextBox();
             label15 = new Label();
-            buscarpuesto = new Button();
+            buscarempleado = new Button();
             empleadopanel = new Panel();
-            textBox2 = new TextBox();
-            textBox3 = new TextBox();
+            idempleadoconsulta = new TextBox();
+            nombreempleadoconsulta = new TextBox();
             button10 = new Button();
             label16 = new Label();
-            dataGridView2 = new DataGridView();
+            empleadousuariodt = new DataGridView();
             panel2 = new Panel();
             guardarbtn = new Button();
-            button11 = new Button();
+            limpiar = new Button();
             label17 = new Label();
             txtRegistroUsuario = new TextBox();
             txtRegistroPass = new TextBox();
@@ -108,7 +108,7 @@
             label19 = new Label();
             label20 = new Label();
             confirmarpass = new Label();
-            estadochk = new CheckBox();
+            estadoempleadochk = new CheckBox();
             privilegiochk = new CheckBox();
             passView = new CheckBox();
             label21 = new Label();
@@ -124,11 +124,11 @@
             usuariospanel.SuspendLayout();
             tabControl2.SuspendLayout();
             tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)clienteimg).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)usuarioimg).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)tablausuarios).BeginInit();
             tabPage4.SuspendLayout();
             empleadopanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)empleadousuariodt).BeginInit();
             panel2.SuspendLayout();
             SuspendLayout();
             // 
@@ -161,7 +161,6 @@
             usuarios.Text = "Usuarios";
             usuarios.TextAlign = ContentAlignment.MiddleLeft;
             usuarios.UseVisualStyleBackColor = false;
-            usuarios.Visible = false;
             usuarios.Click += button2_Click;
             // 
             // button7
@@ -252,7 +251,7 @@
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label2.ForeColor = SystemColors.Control;
             label2.Image = Properties.Resources.busqueda;
-            label2.Location = new Point(299, 78);
+            label2.Location = new Point(353, 75);
             label2.Name = "label2";
             label2.Size = new Size(18, 21);
             label2.TabIndex = 57;
@@ -619,7 +618,7 @@
             // 
             tabPage3.BackColor = SystemColors.WindowFrame;
             tabPage3.Controls.Add(label6);
-            tabPage3.Controls.Add(clienteimg);
+            tabPage3.Controls.Add(usuarioimg);
             tabPage3.Controls.Add(label7);
             tabPage3.Controls.Add(button3);
             tabPage3.Controls.Add(button6);
@@ -627,7 +626,7 @@
             tabPage3.Controls.Add(label13);
             tabPage3.Controls.Add(instrucciones);
             tabPage3.Controls.Add(textBox1);
-            tabPage3.Controls.Add(dataGridView1);
+            tabPage3.Controls.Add(tablausuarios);
             tabPage3.Controls.Add(button8);
             tabPage3.Controls.Add(button9);
             tabPage3.Location = new Point(4, 30);
@@ -651,17 +650,17 @@
             label6.TabIndex = 69;
             label6.Text = "  ";
             // 
-            // clienteimg
+            // usuarioimg
             // 
-            clienteimg.ErrorImage = Properties.Resources.perfilcliente;
-            clienteimg.Image = Properties.Resources.perfilcliente;
-            clienteimg.InitialImage = Properties.Resources.perfilcliente;
-            clienteimg.Location = new Point(463, 266);
-            clienteimg.Name = "clienteimg";
-            clienteimg.Size = new Size(158, 158);
-            clienteimg.SizeMode = PictureBoxSizeMode.StretchImage;
-            clienteimg.TabIndex = 67;
-            clienteimg.TabStop = false;
+            usuarioimg.ErrorImage = Properties.Resources.perfilcliente;
+            usuarioimg.Image = Properties.Resources.perfilcliente;
+            usuarioimg.InitialImage = Properties.Resources.perfilcliente;
+            usuarioimg.Location = new Point(463, 266);
+            usuarioimg.Name = "usuarioimg";
+            usuarioimg.Size = new Size(158, 158);
+            usuarioimg.SizeMode = PictureBoxSizeMode.StretchImage;
+            usuarioimg.TabIndex = 67;
+            usuarioimg.TabStop = false;
             // 
             // label7
             // 
@@ -695,6 +694,7 @@
             button6.Text = "Nuevo";
             button6.TextAlign = ContentAlignment.BottomCenter;
             button6.UseVisualStyleBackColor = true;
+            button6.Click += button6_Click;
             // 
             // checkBox1
             // 
@@ -743,19 +743,20 @@
             textBox1.Size = new Size(367, 29);
             textBox1.TabIndex = 28;
             // 
-            // dataGridView1
+            // tablausuarios
             // 
-            dataGridView1.AllowUserToAddRows = false;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(8, 106);
-            dataGridView1.Margin = new Padding(4);
-            dataGridView1.MultiSelect = false;
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.ReadOnly = true;
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView1.Size = new Size(449, 410);
-            dataGridView1.TabIndex = 27;
+            tablausuarios.AllowUserToAddRows = false;
+            tablausuarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            tablausuarios.Location = new Point(8, 106);
+            tablausuarios.Margin = new Padding(4);
+            tablausuarios.MultiSelect = false;
+            tablausuarios.Name = "tablausuarios";
+            tablausuarios.ReadOnly = true;
+            tablausuarios.RowHeadersWidth = 51;
+            tablausuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            tablausuarios.Size = new Size(449, 410);
+            tablausuarios.TabIndex = 27;
+            tablausuarios.CellClick += tablausuarios_CellClick;
             // 
             // button8
             // 
@@ -782,10 +783,10 @@
             tabPage4.BackColor = SystemColors.WindowFrame;
             tabPage4.Controls.Add(idclientetxt);
             tabPage4.Controls.Add(label14);
-            tabPage4.Controls.Add(idcategoriatxt);
-            tabPage4.Controls.Add(categoriatxt);
+            tabPage4.Controls.Add(idempleadotxt);
+            tabPage4.Controls.Add(nombreempleadotxt);
             tabPage4.Controls.Add(label15);
-            tabPage4.Controls.Add(buscarpuesto);
+            tabPage4.Controls.Add(buscarempleado);
             tabPage4.Controls.Add(empleadopanel);
             tabPage4.Controls.Add(panel2);
             tabPage4.Controls.Add(label17);
@@ -796,7 +797,7 @@
             tabPage4.Controls.Add(label19);
             tabPage4.Controls.Add(label20);
             tabPage4.Controls.Add(confirmarpass);
-            tabPage4.Controls.Add(estadochk);
+            tabPage4.Controls.Add(estadoempleadochk);
             tabPage4.Controls.Add(privilegiochk);
             tabPage4.Controls.Add(passView);
             tabPage4.Controls.Add(label21);
@@ -827,19 +828,21 @@
             label14.TabIndex = 107;
             label14.Text = "ID";
             // 
-            // idcategoriatxt
+            // idempleadotxt
             // 
-            idcategoriatxt.Location = new Point(114, 89);
-            idcategoriatxt.Name = "idcategoriatxt";
-            idcategoriatxt.Size = new Size(46, 29);
-            idcategoriatxt.TabIndex = 102;
+            idempleadotxt.Enabled = false;
+            idempleadotxt.Location = new Point(114, 89);
+            idempleadotxt.Name = "idempleadotxt";
+            idempleadotxt.Size = new Size(46, 29);
+            idempleadotxt.TabIndex = 102;
             // 
-            // categoriatxt
+            // nombreempleadotxt
             // 
-            categoriatxt.Location = new Point(163, 89);
-            categoriatxt.Name = "categoriatxt";
-            categoriatxt.Size = new Size(140, 29);
-            categoriatxt.TabIndex = 103;
+            nombreempleadotxt.Enabled = false;
+            nombreempleadotxt.Location = new Point(163, 89);
+            nombreempleadotxt.Name = "nombreempleadotxt";
+            nombreempleadotxt.Size = new Size(140, 29);
+            nombreempleadotxt.TabIndex = 103;
             // 
             // label15
             // 
@@ -852,53 +855,55 @@
             label15.TabIndex = 101;
             label15.Text = "Empleado";
             // 
-            // buscarpuesto
+            // buscarempleado
             // 
-            buscarpuesto.ForeColor = Color.Black;
-            buscarpuesto.Image = Properties.Resources.busqueda;
-            buscarpuesto.Location = new Point(305, 89);
-            buscarpuesto.Name = "buscarpuesto";
-            buscarpuesto.Size = new Size(29, 29);
-            buscarpuesto.TabIndex = 104;
-            buscarpuesto.UseVisualStyleBackColor = true;
+            buscarempleado.ForeColor = Color.Black;
+            buscarempleado.Image = Properties.Resources.busqueda;
+            buscarempleado.Location = new Point(305, 89);
+            buscarempleado.Name = "buscarempleado";
+            buscarempleado.Size = new Size(29, 29);
+            buscarempleado.TabIndex = 104;
+            buscarempleado.UseVisualStyleBackColor = true;
+            buscarempleado.Click += buscarempleado_Click;
             // 
             // empleadopanel
             // 
             empleadopanel.BackColor = Color.FromArgb(64, 64, 64);
-            empleadopanel.Controls.Add(textBox2);
-            empleadopanel.Controls.Add(textBox3);
+            empleadopanel.Controls.Add(idempleadoconsulta);
+            empleadopanel.Controls.Add(nombreempleadoconsulta);
             empleadopanel.Controls.Add(button10);
             empleadopanel.Controls.Add(label16);
-            empleadopanel.Controls.Add(dataGridView2);
-            empleadopanel.Location = new Point(346, 89);
+            empleadopanel.Controls.Add(empleadousuariodt);
+            empleadopanel.Location = new Point(336, 89);
             empleadopanel.Name = "empleadopanel";
-            empleadopanel.Size = new Size(256, 147);
+            empleadopanel.Size = new Size(294, 195);
             empleadopanel.TabIndex = 105;
             empleadopanel.Visible = false;
             // 
-            // textBox2
+            // idempleadoconsulta
             // 
-            textBox2.Location = new Point(4, 28);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(31, 29);
-            textBox2.TabIndex = 58;
+            idempleadoconsulta.Location = new Point(4, 28);
+            idempleadoconsulta.Name = "idempleadoconsulta";
+            idempleadoconsulta.Size = new Size(31, 29);
+            idempleadoconsulta.TabIndex = 58;
             // 
-            // textBox3
+            // nombreempleadoconsulta
             // 
-            textBox3.Location = new Point(37, 28);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(179, 29);
-            textBox3.TabIndex = 58;
+            nombreempleadoconsulta.Location = new Point(37, 28);
+            nombreempleadoconsulta.Name = "nombreempleadoconsulta";
+            nombreempleadoconsulta.Size = new Size(217, 29);
+            nombreempleadoconsulta.TabIndex = 58;
             // 
             // button10
             // 
             button10.ForeColor = Color.Black;
             button10.Image = Properties.Resources.angulo_hacia_arriba;
-            button10.Location = new Point(220, 28);
+            button10.Location = new Point(259, 28);
             button10.Name = "button10";
             button10.Size = new Size(29, 29);
             button10.TabIndex = 60;
             button10.UseVisualStyleBackColor = true;
+            button10.Click += button10_Click;
             // 
             // label16
             // 
@@ -911,25 +916,26 @@
             label16.TabIndex = 50;
             label16.Text = "Seleccionar empleado";
             // 
-            // dataGridView2
+            // empleadousuariodt
             // 
-            dataGridView2.AllowUserToAddRows = false;
-            dataGridView2.AllowUserToDeleteRows = false;
-            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView2.Location = new Point(4, 63);
-            dataGridView2.MultiSelect = false;
-            dataGridView2.Name = "dataGridView2";
-            dataGridView2.ReadOnly = true;
-            dataGridView2.RowHeadersWidth = 51;
-            dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView2.Size = new Size(245, 78);
-            dataGridView2.TabIndex = 74;
+            empleadousuariodt.AllowUserToAddRows = false;
+            empleadousuariodt.AllowUserToDeleteRows = false;
+            empleadousuariodt.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            empleadousuariodt.Location = new Point(4, 63);
+            empleadousuariodt.MultiSelect = false;
+            empleadousuariodt.Name = "empleadousuariodt";
+            empleadousuariodt.ReadOnly = true;
+            empleadousuariodt.RowHeadersWidth = 51;
+            empleadousuariodt.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            empleadousuariodt.Size = new Size(284, 125);
+            empleadousuariodt.TabIndex = 74;
+            empleadousuariodt.CellClick += empleadousuariodt_CellClick;
             // 
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(64, 64, 64);
             panel2.Controls.Add(guardarbtn);
-            panel2.Controls.Add(button11);
+            panel2.Controls.Add(limpiar);
             panel2.Location = new Point(114, 440);
             panel2.Name = "panel2";
             panel2.Size = new Size(409, 74);
@@ -946,18 +952,19 @@
             guardarbtn.TabIndex = 8;
             guardarbtn.Text = "Guardar";
             guardarbtn.UseVisualStyleBackColor = true;
+            guardarbtn.Click += guardarbtn_Click;
             // 
-            // button11
+            // limpiar
             // 
-            button11.Image = Properties.Resources.nuevodoc;
-            button11.ImageAlign = ContentAlignment.MiddleLeft;
-            button11.Location = new Point(215, 8);
-            button11.Margin = new Padding(4);
-            button11.Name = "button11";
-            button11.Size = new Size(181, 58);
-            button11.TabIndex = 8;
-            button11.Text = "Nuevo";
-            button11.UseVisualStyleBackColor = true;
+            limpiar.Image = Properties.Resources.nuevodoc;
+            limpiar.ImageAlign = ContentAlignment.MiddleLeft;
+            limpiar.Location = new Point(215, 8);
+            limpiar.Margin = new Padding(4);
+            limpiar.Name = "limpiar";
+            limpiar.Size = new Size(181, 58);
+            limpiar.TabIndex = 8;
+            limpiar.Text = "Nuevo";
+            limpiar.UseVisualStyleBackColor = true;
             // 
             // label17
             // 
@@ -978,10 +985,10 @@
             txtRegistroUsuario.Name = "txtRegistroUsuario";
             txtRegistroUsuario.Size = new Size(189, 29);
             txtRegistroUsuario.TabIndex = 0;
+            txtRegistroUsuario.TextChanged += txtRegistroUsuario_TextChanged;
             // 
             // txtRegistroPass
             // 
-            txtRegistroPass.Enabled = false;
             txtRegistroPass.Location = new Point(114, 240);
             txtRegistroPass.Margin = new Padding(4);
             txtRegistroPass.Name = "txtRegistroPass";
@@ -1006,9 +1013,9 @@
             label18.Location = new Point(114, 139);
             label18.Margin = new Padding(4, 0, 4, 0);
             label18.Name = "label18";
-            label18.Size = new Size(135, 21);
+            label18.Size = new Size(69, 21);
             label18.TabIndex = 2;
-            label18.Text = "Ingresar Usuario";
+            label18.Text = "Usuario";
             // 
             // label19
             // 
@@ -1046,25 +1053,23 @@
             confirmarpass.TabIndex = 2;
             confirmarpass.Text = "Confirmar Contraseña";
             // 
-            // estadochk
+            // estadoempleadochk
             // 
-            estadochk.AutoSize = true;
-            estadochk.Checked = true;
-            estadochk.CheckState = CheckState.Checked;
-            estadochk.Enabled = false;
-            estadochk.ForeColor = Color.Lime;
-            estadochk.Location = new Point(214, 362);
-            estadochk.Margin = new Padding(4);
-            estadochk.Name = "estadochk";
-            estadochk.Size = new Size(72, 25);
-            estadochk.TabIndex = 6;
-            estadochk.Text = "Activo";
-            estadochk.UseVisualStyleBackColor = true;
+            estadoempleadochk.AutoSize = true;
+            estadoempleadochk.Checked = true;
+            estadoempleadochk.CheckState = CheckState.Checked;
+            estadoempleadochk.ForeColor = Color.Lime;
+            estadoempleadochk.Location = new Point(214, 362);
+            estadoempleadochk.Margin = new Padding(4);
+            estadoempleadochk.Name = "estadoempleadochk";
+            estadoempleadochk.Size = new Size(72, 25);
+            estadoempleadochk.TabIndex = 6;
+            estadoempleadochk.Text = "Activo";
+            estadoempleadochk.UseVisualStyleBackColor = true;
             // 
             // privilegiochk
             // 
             privilegiochk.AutoSize = true;
-            privilegiochk.Enabled = false;
             privilegiochk.ForeColor = Color.Black;
             privilegiochk.Location = new Point(214, 399);
             privilegiochk.Margin = new Padding(4);
@@ -1132,13 +1137,13 @@
             tabControl2.ResumeLayout(false);
             tabPage3.ResumeLayout(false);
             tabPage3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)clienteimg).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)usuarioimg).EndInit();
+            ((System.ComponentModel.ISupportInitialize)tablausuarios).EndInit();
             tabPage4.ResumeLayout(false);
             tabPage4.PerformLayout();
             empleadopanel.ResumeLayout(false);
             empleadopanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)empleadousuariodt).EndInit();
             panel2.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -1189,7 +1194,7 @@
         private TabControl tabControl2;
         private TabPage tabPage3;
         private Label label6;
-        private PictureBox clienteimg;
+        private PictureBox usuarioimg;
         private Label label7;
         private Button button3;
         private Button button6;
@@ -1197,25 +1202,25 @@
         private Label label13;
         private Button instrucciones;
         private TextBox textBox1;
-        private DataGridView dataGridView1;
+        private DataGridView tablausuarios;
         private Button button8;
         private Button button9;
         private TabPage tabPage4;
         private TextBox idclientetxt;
         private Label label14;
-        private TextBox idcategoriatxt;
-        private TextBox categoriatxt;
+        private TextBox idempleadotxt;
+        private TextBox nombreempleadotxt;
         private Label label15;
-        private Button buscarpuesto;
+        private Button buscarempleado;
         private Panel empleadopanel;
-        private TextBox textBox2;
-        private TextBox textBox3;
+        private TextBox idempleadoconsulta;
+        private TextBox nombreempleadoconsulta;
         private Button button10;
         private Label label16;
-        private DataGridView dataGridView2;
+        private DataGridView empleadousuariodt;
         private Panel panel2;
         private Button guardarbtn;
-        private Button button11;
+        private Button limpiar;
         private Label label17;
         private TextBox txtRegistroUsuario;
         private TextBox txtRegistroPass;
@@ -1224,7 +1229,7 @@
         private Label label19;
         private Label label20;
         private Label confirmarpass;
-        private CheckBox estadochk;
+        private CheckBox estadoempleadochk;
         private CheckBox privilegiochk;
         private CheckBox passView;
         private Label label21;
