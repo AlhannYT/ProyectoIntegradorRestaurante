@@ -291,7 +291,7 @@
             tipodoccmbx.DropDownStyle = ComboBoxStyle.DropDownList;
             tipodoccmbx.FormattingEnabled = true;
             tipodoccmbx.Items.AddRange(new object[] { "RNC", "Cedula" });
-            tipodoccmbx.Location = new Point(21, 175);
+            tipodoccmbx.Location = new Point(33, 175);
             tipodoccmbx.Name = "tipodoccmbx";
             tipodoccmbx.Size = new Size(70, 29);
             tipodoccmbx.TabIndex = 103;
@@ -314,7 +314,7 @@
             label14.AutoSize = true;
             label14.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label14.ForeColor = SystemColors.Control;
-            label14.Location = new Point(18, 151);
+            label14.Location = new Point(33, 151);
             label14.Name = "label14";
             label14.Size = new Size(211, 21);
             label14.TabIndex = 102;
@@ -322,7 +322,7 @@
             // 
             // identtxt
             // 
-            identtxt.Location = new Point(94, 175);
+            identtxt.Location = new Point(109, 175);
             identtxt.Name = "identtxt";
             identtxt.Size = new Size(132, 29);
             identtxt.TabIndex = 101;
@@ -343,7 +343,7 @@
             panel1.BackColor = Color.Gray;
             panel1.Controls.Add(seleccionimagenbtn);
             panel1.Controls.Add(imagencliente);
-            panel1.Location = new Point(663, 53);
+            panel1.Location = new Point(675, 53);
             panel1.Name = "panel1";
             panel1.Size = new Size(199, 255);
             panel1.TabIndex = 101;
@@ -377,7 +377,7 @@
             // 
             button2.Image = Properties.Resources.atrás;
             button2.ImageAlign = ContentAlignment.MiddleLeft;
-            button2.Location = new Point(765, 9);
+            button2.Location = new Point(777, 9);
             button2.Name = "button2";
             button2.Size = new Size(97, 29);
             button2.TabIndex = 100;
@@ -430,14 +430,14 @@
             // 
             // panel4
             // 
-            panel4.Location = new Point(468, 339);
+            panel4.Location = new Point(480, 339);
             panel4.Name = "panel4";
             panel4.Size = new Size(394, 26);
             panel4.TabIndex = 98;
             // 
             // panel2
             // 
-            panel2.Location = new Point(224, 339);
+            panel2.Location = new Point(236, 339);
             panel2.Name = "panel2";
             panel2.Size = new Size(129, 26);
             panel2.TabIndex = 97;
@@ -459,7 +459,7 @@
             panel5.Controls.Add(button3);
             panel5.Controls.Add(textBox2);
             panel5.Controls.Add(txtcodigo);
-            panel5.Location = new Point(21, 339);
+            panel5.Location = new Point(33, 339);
             panel5.Name = "panel5";
             panel5.Size = new Size(841, 206);
             panel5.TabIndex = 96;
@@ -623,7 +623,7 @@
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label9.ForeColor = SystemColors.Control;
-            label9.Location = new Point(18, 226);
+            label9.Location = new Point(33, 226);
             label9.Name = "label9";
             label9.Size = new Size(151, 21);
             label9.TabIndex = 64;
@@ -645,7 +645,7 @@
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label7.ForeColor = SystemColors.Control;
-            label7.Location = new Point(18, 76);
+            label7.Location = new Point(33, 76);
             label7.Name = "label7";
             label7.Size = new Size(150, 21);
             label7.TabIndex = 60;
@@ -661,14 +661,14 @@
             // 
             // txtcorreo
             // 
-            txtcorreo.Location = new Point(21, 250);
+            txtcorreo.Location = new Point(33, 250);
             txtcorreo.Name = "txtcorreo";
             txtcorreo.Size = new Size(330, 29);
             txtcorreo.TabIndex = 54;
             // 
             // txtnombre_prov
             // 
-            txtnombre_prov.Location = new Point(21, 100);
+            txtnombre_prov.Location = new Point(33, 100);
             txtnombre_prov.Name = "txtnombre_prov";
             txtnombre_prov.Size = new Size(330, 29);
             txtnombre_prov.TabIndex = 57;

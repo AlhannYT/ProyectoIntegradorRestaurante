@@ -22,16 +22,23 @@ namespace Proyecto_restaurante
         public int MesaID;
         private int SalaID;
 
-
         private void guardarbtn_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtnombreMesa.Text) || string.IsNullOrWhiteSpace(capacidadtxt.Text) || string.IsNullOrWhiteSpace(txtIdSala.Text))
+            if (string.IsNullOrWhiteSpace(txtnumeroMesa.Text) || string.IsNullOrWhiteSpace(capacidadtxt.Text) || string.IsNullOrWhiteSpace(idsalaconsulta.Text))
             {
                 MessageBox.Show("No debe dejar campos vacíos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (!int.TryParse(txtcapacidad.Text, out int capacidad))
+            {
+                MessageBox.Show("La capacidad solo admite números.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtcapacidad.Clear();
+                txtcapacidad.Focus();
+                return;
+            }
+
+            if (!int.TryParse(txtnumeroMesa.Text, out int numeromesa))
             {
                 MessageBox.Show("La capacidad solo admite números.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtcapacidad.Clear();
@@ -49,26 +56,25 @@ namespace Proyecto_restaurante
 
                     if (MesaID == 0)
                     {
-                        // Insertar nueva mesa
                         string queryInsertar = @"
                         INSERT INTO Mesa (IdSala, Numero, Capacidad, Estado, Ocupado)
                         VALUES (@IdSala, @Numero, @Capacidad, @Estado, @Ocupado)";
 
                         using (SqlCommand insertarCommand = new SqlCommand(queryInsertar, conexion))
                         {
-                            insertarCommand.Parameters.AddWithValue("@IdSala", Convert.ToInt32(txtids.Text));
-                            insertarCommand.Parameters.AddWithValue("@Numero", numero);
+                            insertarCommand.Parameters.AddWithValue("@IdSala", Convert.ToInt32(idsalaconsulta.Text));
+                            insertarCommand.Parameters.AddWithValue("@Numero", numeromesa);
                             insertarCommand.Parameters.AddWithValue("@Capacidad", capacidad);
                             insertarCommand.Parameters.AddWithValue("@Estado", estadochk.Checked ? 1 : 0);
-                            insertarCommand.Parameters.AddWithValue("@Ocupado", ocupadocheck.Checked ? 1 : 0);
+                            insertarCommand.Parameters.AddWithValue("@Ocupado", ocupadochk.Checked ? 1 : 0);
 
                             int rowsAffected = insertarCommand.ExecuteNonQuery();
 
                             if (rowsAffected > 0)
                             {
                                 MessageBox.Show("Mesa registrada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                limpiarCampos();
-                                cargarMesas();
+                                limpiarbtn_Click(sender, e);
+                                recargarbtn_Click(sender, e);
                             }
                             else
                             {
@@ -78,28 +84,27 @@ namespace Proyecto_restaurante
                     }
                     else
                     {
-                        // Actualizar mesa existente
                         string queryActualizar = @"
-                    UPDATE Mesa
-                    SET IdSala = @IdSala, Numero = @Numero, Capacidad = @Capacidad, Estado = @Estado, Ocupado = @Ocupado
-                    WHERE IdMesa = @IdMesa";
+                        UPDATE Mesa
+                        SET IdSala = @IdSala, Numero = @Numero, Capacidad = @Capacidad, Estado = @Estado, Ocupado = @Ocupado
+                        WHERE IdMesa = @IdMesa";
 
                         using (SqlCommand actualizarCommand = new SqlCommand(queryActualizar, conexion))
                         {
                             actualizarCommand.Parameters.AddWithValue("@IdMesa", MesaID);
-                            actualizarCommand.Parameters.AddWithValue("@IdSala", Convert.ToInt32(txtIdSala.Text));
-                            actualizarCommand.Parameters.AddWithValue("@Numero", numero);
+                            actualizarCommand.Parameters.AddWithValue("@IdSala", Convert.ToInt32(idsalaconsulta.Text));
+                            actualizarCommand.Parameters.AddWithValue("@Numero", numeromesa);
                             actualizarCommand.Parameters.AddWithValue("@Capacidad", capacidad);
                             actualizarCommand.Parameters.AddWithValue("@Estado", estadochk.Checked ? 1 : 0);
-                            actualizarCommand.Parameters.AddWithValue("@Ocupado", ocupadocheck.Checked ? 1 : 0);
+                            actualizarCommand.Parameters.AddWithValue("@Ocupado", ocupadochk.Checked ? 1 : 0);
 
                             int rowsAffected = actualizarCommand.ExecuteNonQuery();
 
                             if (rowsAffected > 0)
                             {
                                 MessageBox.Show("Mesa actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                limpiarCampos();
-                                cargarMesas();
+                                limpiarbtn_Click(sender, e);
+                                recargarbtn_Click(sender, e);
                             }
                             else
                             {
@@ -117,52 +122,57 @@ namespace Proyecto_restaurante
 
         private void limpiarbtn_Click(object sender, EventArgs e)
         {
-            //salacmbx.SelectedIndex = -1;
-            txtnombreMesa.Text = "";
+            txtnumeroMesa.Text = "";
             txtcapacidad.Text = "";
             MantMesas_Load(sender, e);
-            //estadochk.Checked = true;
             recargarbtn_Click(sender, e);
-        }
-
-        private void txtnombreMesa_TextChanged(object sender, EventArgs e)
-        {
-            int posicion = txtnombreMesa.SelectionStart;
-
-            txtnombreMesa.Text = txtnombreMesa.Text.ToUpper();
-
-            txtnombreMesa.SelectionStart = posicion;
         }
 
         private void MantMesas_Load(object sender, EventArgs e)
         {
             string conexionString = ConexionBD.ConexionSQL();
 
-            //using (SqlConnection conexion = new SqlConnection(conexionString))
-            //{
-            //    try
-            //    {
-            //        conexion.Open();
+            string consultaIdMesa = "SELECT ISNULL(MAX(IdMesa), 0) + 1 FROM Mesa";
 
-            //        string query = "SELECT nombre_sala FROM salas WHERE estado = 1";
-            //        using (SqlCommand comando = new SqlCommand(query, conexion))
-            //        {
-            //            using (SqlDataReader lector = comando.ExecuteReader())
-            //            {
-            //                while (lector.Read())
-            //                {
-            //                    salacmbx.Items.Add(lector["nombre_sala"].ToString());
-            //                }
-            //            }
-            //        }
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        MessageBox.Show($"Ocurrió un error al cargar las salas: {ex.Message}");
-            //    }
-            //}
+            using (SqlConnection conexion = new SqlConnection(conexionString))
+            {
+                conexion.Open();
+                using (SqlCommand cmd = new SqlCommand(consultaIdMesa, conexion))
+                {
+                    object resultado = cmd.ExecuteScalar();
 
-            string consulta = "select IdMesa, IdSala, Numero, Capacidad, Estado from Mesa";
+                    if (resultado != null && resultado != DBNull.Value)
+                    {
+                        idmesatxt.Text = resultado.ToString();
+                    }
+                    else
+                    {
+                        idmesatxt.Text = "?";
+                    }
+                }
+            }
+
+            string consultaIdSala = "SELECT ISNULL(MAX(IdSala), 0) + 1 FROM Sala";
+
+            using (SqlConnection conexion = new SqlConnection(conexionString))
+            {
+                conexion.Open();
+                using (SqlCommand cmd = new SqlCommand(consultaIdSala, conexion))
+                {
+                    object resultado = cmd.ExecuteScalar();
+
+                    if (resultado != null && resultado != DBNull.Value)
+                    {
+                        idsalatxt.Text = resultado.ToString();
+                    }
+                    else
+                    {
+                        idsalatxt.Text = "?";
+                    }
+                }
+            }
+
+            string consulta = "select IdMesa, IdSala, Numero, Capacidad, Ocupado, Estado from Mesa";
 
             using (SqlConnection conexion = new SqlConnection(conexionString))
             {
@@ -181,29 +191,29 @@ namespace Proyecto_restaurante
                             tarjeta.BorderStyle = BorderStyle.FixedSingle;
                             tarjeta.Margin = new Padding(10);
 
-                            int estado = Convert.ToInt32(lector["estado"]);
-                            tarjeta.BackColor = (estado == 1) ? Color.LightGreen : Color.LightCoral;
+                            int estado = Convert.ToInt32(lector["Ocupado"]);
+                            tarjeta.BackColor = (estado == 1) ? Color.LightCoral : Color.LightGreen;
 
                             tarjeta.Tag = new
                             {
-                                Id = Convert.ToInt32(lector["id"]),
+                                Id = Convert.ToInt32(lector["IdMesa"]),
                                 Estado = estado
                             };
 
                             Label lblMesa = new Label();
-                            lblMesa.Text = lector["nombre_mesa"].ToString();
+                            lblMesa.Text = "Mesa # " + lector["Numero"].ToString();
                             lblMesa.Font = new Font("Segoe UI", 12, FontStyle.Bold);
                             lblMesa.AutoSize = false;
                             lblMesa.TextAlign = ContentAlignment.MiddleCenter;
                             lblMesa.Dock = DockStyle.Top;
 
                             Label lblSala = new Label();
-                            lblSala.Text = "Sala: " + lector["sala"].ToString();
+                            lblSala.Text = "Sala: " + lector["IdSala"].ToString();
                             lblSala.Dock = DockStyle.Top;
                             lblSala.TextAlign = ContentAlignment.MiddleCenter;
 
                             Label lblAsientos = new Label();
-                            lblAsientos.Text = "Asientos: " + lector["num_asientos"].ToString();
+                            lblAsientos.Text = "Asientos: " + lector["Capacidad"].ToString();
                             lblAsientos.Dock = DockStyle.Bottom;
                             lblAsientos.TextAlign = ContentAlignment.MiddleCenter;
 
@@ -244,11 +254,6 @@ namespace Proyecto_restaurante
             }
         }
 
-        public void RecargarClick()
-        {
-            recargarbtn.PerformClick();
-        }
-
         private void recargarbtn_Click(object sender, EventArgs e)
         {
             MantMesas_Load(sender, e);
@@ -265,11 +270,11 @@ namespace Proyecto_restaurante
                     conectar.Open();
 
                     string query = @"
-                        SELECT * FROM mesas
-                        WHERE CAST(id AS VARCHAR) LIKE @buscar OR
-                        sala LIKE @buscar OR
-                        nombre_mesa LIKE @buscar OR
-                        num_asientos LIKE @buscar";
+                        SELECT * FROM Mesa
+                        WHERE CAST(IdMesa AS VARCHAR) LIKE @buscar OR
+                        IdSala LIKE @buscar OR
+                        Numero LIKE @buscar OR
+                        Capacidad LIKE @buscar";
 
                     using (SqlCommand comando = new SqlCommand(query, conectar))
                     {
@@ -279,7 +284,7 @@ namespace Proyecto_restaurante
                         DataTable dt = new DataTable();
                         da.Fill(dt);
 
-                        //tabladatos.DataSource = dt;
+                        tabladatos.DataSource = dt;
                     }
                 }
                 catch (Exception ex)
@@ -294,60 +299,15 @@ namespace Proyecto_restaurante
             FiltroDatosBusqueda(txtbuscador.Text);
         }
 
-        private void txtbuscador_Enter(object sender, EventArgs e)
-        {
-            //if (txtbuscador.Text == "(ID, Nombre, Sala, N° Asientos)")
-            //{
-            //    txtbuscador.Text = "";
-            //    txtbuscador.ForeColor = Color.Black;
-            //}
-        }
-
-        private void txtbuscador_Leave(object sender, EventArgs e)
-        {
-            //if (txtbuscador.Text == "")
-            //{
-            //    txtbuscador.Text = "(ID, Nombre, Sala, N° Asientos)";
-            //    txtbuscador.ForeColor = Color.Gray;
-            //    MantMesas_Load(sender, e);
-            //}
-        }
-
         private void eliminarbtn_Click(object sender, EventArgs e)
         {
             limpiarbtn_Click(sender, e);
         }
 
-        private void estadochk_CheckedChanged(object sender, EventArgs e)
-        {
-            //if (estadochk.Checked == true)
-            //{
-            //    estadochk.Text = "Disponible";
-            //    estadochk.ForeColor = Color.Lime;
-            //}
-            //else if (estadochk.Checked == false)
-            //{
-
-            //    estadochk.Text = "Reservada";
-            //    estadochk.ForeColor = Color.Red;
-            //}
-        }
-
-        private void tabladatos_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-            //idMesa = Convert.ToInt32(tabladatos.SelectedCells[0].Value);
-            //txtnombreMesa.Text = tabladatos.SelectedCells[1].Value.ToString();
-            //nombreMesaActual = txtnombreMesa.Text;
-            //salacmbx.Text = tabladatos.SelectedCells[2].Value.ToString();
-            //txtNumAsientos.Text = tabladatos.SelectedCells[3].Value.ToString();
-
-            //estadochk.Checked = Convert.ToBoolean(tabladatos.SelectedCells[4].Value);
-        }
-
         private void agregar_Click(object sender, EventArgs e)
         {
             tabControl2.SelectedIndex = 1;
+            txtnumeroMesa.Focus();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -363,12 +323,19 @@ namespace Proyecto_restaurante
                 return;
             }
 
+            if (!int.TryParse(capacidadtxt.Text, out int capacidad))
+            {
+                MessageBox.Show("La capacidad solo admite números.");
+                capacidadtxt.Clear();
+                capacidadtxt.Focus();
+                return;
+            }
+
             string conexionString = ConexionBD.ConexionSQL();
 
             using (SqlConnection conexion = new SqlConnection(conexionString))
             {
                 conexion.Open();
-                SqlTransaction trans = conexion.BeginTransaction();
 
                 try
                 {
@@ -379,42 +346,155 @@ namespace Proyecto_restaurante
                         VALUES (@Nombre, @Capacidad, @Activo);
                         SELECT SCOPE_IDENTITY();";
 
-                        using (SqlCommand insertarPersona = new SqlCommand(nuevaSala, conexion, trans))
+                        using (SqlCommand insertarSala = new SqlCommand(nuevaSala, conexion))
                         {
-                            insertarPersona.Parameters.AddWithValue("@Nombre", txtnombresala.Text);
-                            insertarPersona.Parameters.AddWithValue("@Capacidad", capacidadtxt.Text);
-                            insertarPersona.Parameters.AddWithValue("@Activo", estadochk.Checked ? 1 : 0);
-                        }
+                            insertarSala.Parameters.AddWithValue("@Nombre", txtnombresala.Text);
+                            insertarSala.Parameters.AddWithValue("@Capacidad", capacidad);
+                            insertarSala.Parameters.AddWithValue("@Activo", estadochk.Checked ? 1 : 0);
 
-                        trans.Commit();
-                        MessageBox.Show("Sala registrada con éxito.");
+                            object resultado = insertarSala.ExecuteScalar();
+
+                            if (resultado != null)
+                            {
+                                SalaID = Convert.ToInt32(resultado);
+                                MessageBox.Show("Sala registrada con éxito (ID: " + SalaID + ").");
+                            }
+                            else
+                            {
+                                MessageBox.Show("No se pudo registrar la sala.");
+                            }
+                        }
                     }
                     else
                     {
                         string actualizarSala = @"
                         UPDATE Sala 
-                        SET Nombre = @Nombre, Capacidad = @Capacidad, Activo = @Activo,
-                        WHERE IdSala = @IdSala";
+                        SET Nombre = @Nombre, Capacidad = @Capacidad, Activo = @Activo
+                        WHERE IdSala = @IdSala;";
 
-                        using (SqlCommand actualizarCommand = new SqlCommand(actualizarSala, conexion, trans))
+                        using (SqlCommand actualizarCommand = new SqlCommand(actualizarSala, conexion))
                         {
                             actualizarCommand.Parameters.AddWithValue("@IdSala", SalaID);
-                            actualizarCommand.Parameters.AddWithValue("@Nombre", txtnombreMesa.Text);
-                            actualizarCommand.Parameters.AddWithValue("@Capacidad", capacidadtxt.Text);
+                            actualizarCommand.Parameters.AddWithValue("@Nombre", txtnombresala.Text);
+                            actualizarCommand.Parameters.AddWithValue("@Capacidad", capacidad);
                             actualizarCommand.Parameters.AddWithValue("@Activo", estadochk.Checked ? 1 : 0);
-                            actualizarCommand.ExecuteNonQuery();
-                        }
 
-                        trans.Commit();
-                        MessageBox.Show("Sala actualizada con éxito.");
+                            int rowsAffected = actualizarCommand.ExecuteNonQuery();
+
+                            if (rowsAffected > 0)
+                            {
+                                MessageBox.Show("Sala actualizada con éxito.");
+                            }
+                            else
+                            {
+                                MessageBox.Show("No se pudo actualizar la sala.");
+                            }
+                        }
                     }
                 }
                 catch (Exception ex)
                 {
-                    trans.Rollback();
                     MessageBox.Show($"Ocurrió un error: {ex.Message}");
                 }
             }
+        }
+
+        private void ocupadochk_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ocupadochk.Checked == true)
+            {
+                ocupadochk.Text = "Si";
+                ocupadochk.ForeColor = Color.Red;
+            }
+            else
+            {
+                ocupadochk.Text = "No";
+                ocupadochk.ForeColor = Color.Lime;
+            }
+        }
+
+        private void estadomesa_CheckedChanged(object sender, EventArgs e)
+        {
+            if (estadomesa.Checked == true)
+            {
+                estadomesa.Text = "Activo";
+                estadomesa.ForeColor = Color.Lime;
+            }
+            else
+            {
+                estadomesa.Text = "Inactivo";
+                estadomesa.ForeColor = Color.Red;
+            }
+        }
+
+        private void estadochk_CheckedChanged_1(object sender, EventArgs e)
+        {
+            if (estadochk.Checked == true)
+            {
+                estadochk.Text = "Activo";
+                estadochk.ForeColor = Color.Lime;
+            }
+            else
+            {
+                estadochk.Text = "Inactivo";
+                estadochk.ForeColor = Color.Red;
+            }
+        }
+
+        public int Estadobuscarsala = 1;
+
+        private void buscarsala_Click(object sender, EventArgs e)
+        {
+            string conexionString = ConexionBD.ConexionSQL();
+            string puesto = "select IdSala, Nombre from Sala";
+
+            SqlDataAdapter adaptador = new SqlDataAdapter(puesto, conexionString);
+
+            DataTable dt = new DataTable();
+
+            adaptador.Fill(dt);
+
+            salaconsultadt.DataSource = dt;
+
+            if (Estadobuscarsala == 1)
+            {
+                buscarsala.Image = Proyecto_restaurante.Properties.Resources.cancelar1;
+                toolTip1.SetToolTip(buscarsala, "Cancelar búsqueda");
+                salapanel.Visible = true;
+
+                Estadobuscarsala = 0;
+            }
+            else
+            {
+                buscarsala.Image = Proyecto_restaurante.Properties.Resources.busqueda1;
+                toolTip1.SetToolTip(buscarsala, "Buscar sala");
+                salapanel.Visible = false;
+
+                Estadobuscarsala = 1;
+            }
+        }
+
+        private void salaconsulta_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            idconsultatxt.Text = salaconsultadt.SelectedCells[0].Value.ToString();
+            salaconsultatxt.Text = salaconsultadt.SelectedCells[1].Value.ToString();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            idsalaconsulta.Text = idconsultatxt.Text;
+            salatxt.Text = salaconsultatxt.Text;
+            buscarsala_Click(sender, e);
+            guardarbtn.Focus();
+        }
+
+        private void txtnombresala_TextChanged(object sender, EventArgs e)
+        {
+            //int posicion = txtnombresala.SelectionStart;
+
+            //txtnombresala.Text = txtnumeroMesa.Text.ToUpper();
+
+            //txtnombresala.SelectionStart = posicion;
         }
     }
 }

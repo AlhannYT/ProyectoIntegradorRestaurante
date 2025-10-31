@@ -53,7 +53,7 @@ namespace Proyecto_restaurante
                             if (rowsAffected > 0)
                             {
                                 MessageBox.Show("Sala registrada con éxito.");
-                                mesas.RecargarClick();
+                                //mesas.RecargarClick();
                                 MantSalas_Load(sender, e);
                                 limpiarbtn_Click(sender, e);
                             }
@@ -83,7 +83,7 @@ namespace Proyecto_restaurante
                             if (rowsAffected > 0)
                             {
                                 MessageBox.Show("Sala actualizada con éxito.");
-                                mesas.RecargarClick();
+                                //mesas.RecargarClick();
                                 MantSalas_Load(sender, e);
                                 limpiarbtn_Click(sender, e);
                             }

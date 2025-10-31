@@ -23,116 +23,150 @@ namespace Proyecto_restaurante
             this.UpdateStyles();
         }
 
-        private string IDModificar;
+        public int ClienteID;
+        public int PersonaID;
 
         private void ConsultaClientes_Load(object sender, EventArgs e)
         {
             string conexionString = ConexionBD.ConexionSQL();
 
-            string consultaid = "SELECT TOP 1 id FROM cliente ORDER BY id DESC";
+            string consultaId = "SELECT ISNULL(MAX(IdCliente), 0) + 1 FROM Cliente";
 
             using (SqlConnection con = new SqlConnection(conexionString))
             {
                 con.Open();
-                using (SqlCommand cmd = new SqlCommand(consultaid, con))
+                using (SqlCommand cmd = new SqlCommand(consultaId, con))
                 {
-                    object resultado = cmd.ExecuteScalar();
-
-                    if (resultado != null)
-                    {
-                        int nuevoId = Convert.ToInt32(resultado) + 1;
-                        idclientetxt.Text = nuevoId.ToString();
-                    }
-                    else
-                    {
-                        idclientetxt.Text = "?";
-                    }
+                    idclientetxt.Text = cmd.ExecuteScalar()?.ToString() ?? "?";
                 }
             }
-            if (filtro.Checked == true)
+
+            using (SqlConnection con = new SqlConnection(conexionString))
             {
-                string consulta = "select id, nombre_cliente, apellido_cliente, identificacion, telefono from cliente where estado = 1";
+                con.Open();
 
-                SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
+                string consultaTipoDoc = "SELECT IdTipoDocumento, Nombre FROM TipoDocumento";
 
+                SqlDataAdapter da = new SqlDataAdapter(consultaTipoDoc, con);
                 DataTable dt = new DataTable();
+                da.Fill(dt);
 
-                adaptador.Fill(dt);
+                tipodoccmbx.DataSource = null;
+                tipodoccmbx.DataSource = dt;
+                tipodoccmbx.DisplayMember = "Nombre";
+                tipodoccmbx.ValueMember = "IdTipoDocumento";
 
-                tabladatos.DataSource = dt;
+                if (dt.Rows.Count > 0)
+                    tipodoccmbx.SelectedIndex = 0;
             }
-            else
+
+            try
             {
-                string consulta = "select id, nombre_cliente, apellido_cliente, identificacion, telefono from cliente where estado = 0";
-                SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
-                DataTable dt = new DataTable();
-                adaptador.Fill(dt);
-                tabladatos.DataSource = dt;
+                string consultaEmpleados = @"
+                SELECT 
+                    e.IdCliente,
+                    p.NombreCompleto,
+                    pd.Numero AS Cedula
+                FROM Cliente e
+                LEFT JOIN Persona p ON e.IdPersona = p.IdPersona
+                LEFT JOIN PersonaDocumento pd ON p.IdPersona = pd.IdPersona
+                WHERE e.Activo = 1 AND p.Activo = 1;";
+
+                using (SqlDataAdapter adaptador = new SqlDataAdapter(consultaEmpleados, conexionString))
+                {
+                    DataTable dt = new DataTable();
+                    adaptador.Fill(dt);
+                    tabladatos.DataSource = dt;
+                }
+
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ocurrió un error al cargar los datos: {ex.Message}");
+            }
+
+            //if (filtrochk.Checked == true)
+            //{
+            //    string consulta = "select id, nombre_cliente, apellido_cliente, identificacion, telefono from cliente where estado = 1";
+
+            //    SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
+
+            //    DataTable dt = new DataTable();
+
+            //    adaptador.Fill(dt);
+
+            //    tabladatos.DataSource = dt;
+            //}
+            //else
+            //{
+            //    string consulta = "select id, nombre_cliente, apellido_cliente, identificacion, telefono from cliente where estado = 0";
+            //    SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
+            //    DataTable dt = new DataTable();
+            //    adaptador.Fill(dt);
+            //    tabladatos.DataSource = dt;
+            //}
         }
 
-        private void FiltroDatosBusqueda(string busqueda)
-        {
-            string conexionString = ConexionBD.ConexionSQL();
+        //private void FiltroDatosBusqueda(string busqueda)
+        //{
+        //    string conexionString = ConexionBD.ConexionSQL();
 
-            using (SqlConnection conectar = new SqlConnection(conexionString))
-            {
-                if (filtro.Checked == true)
-                {
-                    try
-                    {
-                        conectar.Open();
+        //    using (SqlConnection conectar = new SqlConnection(conexionString))
+        //    {
+        //        if (filtrochk.Checked == true)
+        //        {
+        //            try
+        //            {
+        //                conectar.Open();
 
-                        string query = @"
-                        SELECT id, nombre_cliente, apellido_cliente, identificacion, telefono FROM cliente
-                        WHERE CAST(id AS VARCHAR) LIKE @buscar OR
-                        nombre_cliente LIKE @buscar OR
-                        apellido_cliente LIKE @buscar and estado = 1";
+        //                string query = @"
+        //                SELECT id, nombre_cliente, apellido_cliente, identificacion, telefono FROM cliente
+        //                WHERE CAST(id AS VARCHAR) LIKE @buscar OR
+        //                nombre_cliente LIKE @buscar OR
+        //                apellido_cliente LIKE @buscar and estado = 1";
 
-                        using (SqlCommand comando = new SqlCommand(query, conectar))
-                        {
-                            comando.Parameters.AddWithValue("@buscar", "%" + busqueda + "%");
+        //                using (SqlCommand comando = new SqlCommand(query, conectar))
+        //                {
+        //                    comando.Parameters.AddWithValue("@buscar", "%" + busqueda + "%");
 
-                            SqlDataAdapter da = new SqlDataAdapter(comando);
-                            DataTable dt = new DataTable();
-                            da.Fill(dt);
+        //                    SqlDataAdapter da = new SqlDataAdapter(comando);
+        //                    DataTable dt = new DataTable();
+        //                    da.Fill(dt);
 
-                            tabladatos.DataSource = dt;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Error: {ex.Message}");
-                    }
-                }
-                else if (filtro.Checked == false)
-                {
-                    try
-                    {
-                        conectar.Open();
-                        string query = @"
-                        SELECT id, nombre_cliente, apellido_cliente, identificacion, telefono FROM cliente
-                        WHERE CAST(id AS VARCHAR) LIKE @buscar OR
-                        nombre_cliente LIKE @buscar OR
-                        apellido_cliente LIKE @buscar and estado = 0";
-                        using (SqlCommand comando = new SqlCommand(query, conectar))
-                        {
-                            comando.Parameters.AddWithValue("@buscar", "%" + busqueda + "%");
-                            SqlDataAdapter da = new SqlDataAdapter(comando);
-                            DataTable dt = new DataTable();
-                            da.Fill(dt);
-                            tabladatos.DataSource = dt;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Error: {ex.Message}");
-                    }
-                }
-
-
-            }
-        }
+        //                    tabladatos.DataSource = dt;
+        //                }
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                MessageBox.Show($"Error: {ex.Message}");
+        //            }
+        //        }
+        //        else if (filtrochk.Checked == false)
+        //        {
+        //            try
+        //            {
+        //                conectar.Open();
+        //                string query = @"
+        //                SELECT id, nombre_cliente, apellido_cliente, identificacion, telefono FROM cliente
+        //                WHERE CAST(id AS VARCHAR) LIKE @buscar OR
+        //                nombre_cliente LIKE @buscar OR
+        //                apellido_cliente LIKE @buscar and estado = 0";
+        //                using (SqlCommand comando = new SqlCommand(query, conectar))
+        //                {
+        //                    comando.Parameters.AddWithValue("@buscar", "%" + busqueda + "%");
+        //                    SqlDataAdapter da = new SqlDataAdapter(comando);
+        //                    DataTable dt = new DataTable();
+        //                    da.Fill(dt);
+        //                    tabladatos.DataSource = dt;
+        //                }
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                MessageBox.Show($"Error: {ex.Message}");
+        //            }
+        //        }
+        //    }
+        //}
 
         private void eliminarbtn_Click(object sender, EventArgs e)
         {
@@ -162,13 +196,13 @@ namespace Proyecto_restaurante
 
         private void txtbuscador_TextChanged(object sender, EventArgs e)
         {
-            FiltroDatosBusqueda(txtbuscador.Text);
+            //FiltroDatosBusqueda(txtbuscador.Text);
         }
 
         private void agregar_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedIndex = 1;
-            IDModificar = "";
+            //IDModificar = "";
         }
 
         private void guardarbtn_Click(object sender, EventArgs e)
@@ -176,9 +210,9 @@ namespace Proyecto_restaurante
             Regex letrasRegex = new Regex(@"^[a-zA-Z\s]+$");
             Regex numerosRegex = new Regex(@"^[\d-]+$");
 
-            if (txtnombre.Text.Equals("") || txtapellido.Text.Equals(""))
+            if (string.IsNullOrWhiteSpace(txtnombre.Text) || string.IsNullOrWhiteSpace(txtapellido.Text) || string.IsNullOrWhiteSpace(emailtxt.Text))
             {
-                MessageBox.Show("No debe dejar campos vacíos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No debe dejar campos vacíos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -194,80 +228,88 @@ namespace Proyecto_restaurante
                 return;
             }
 
-            string cedulaSinGuiones = identtxt.Text.Replace("-", "");
-            if (!numerosRegex.IsMatch(identtxt.Text) || cedulaSinGuiones.Length != 11)
-            {
-                MessageBox.Show("La cédula debe tener el formato 000-0000000-0 y contener solo números.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            string telefonoSinGuiones = numerotxt.Text.Replace("-", "");
-            if (!numerosRegex.IsMatch(numerotxt.Text) || telefonoSinGuiones.Length != 10)
-            {
-                MessageBox.Show("El teléfono debe tener el formato 000-000-0000 y contener solo números.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
             string conexionString = ConexionBD.ConexionSQL();
 
             using (SqlConnection conexion = new SqlConnection(conexionString))
             {
+                conexion.Open();
+                SqlTransaction trans = conexion.BeginTransaction();
+
                 try
                 {
-                    conexion.Open();
-
-                    if (string.IsNullOrEmpty(IDModificar))
+                    if (ClienteID == 0)
                     {
-                        string queryInsertar = "INSERT INTO cliente (nombre_cliente, apellido_cliente, identificacion, telefono, estado, direccion) VALUES (@nombre_cliente, @apellido_cliente, @identificacion, @telefono, @estado, @direccion)";
-                        using (SqlCommand insertarCommand = new SqlCommand(queryInsertar, conexion))
+                        string nuevaPersona = @"
+                        INSERT INTO Persona (Nombre, Apellido, Email, Activo, CreadoEn)
+                        VALUES (@Nombre, @Apellido, @Email, @Activo, GETDATE());
+                        SELECT SCOPE_IDENTITY();";
+
+                        using (SqlCommand insertarPersona = new SqlCommand(nuevaPersona, conexion, trans))
                         {
-                            insertarCommand.Parameters.AddWithValue("@nombre_cliente", txtnombre.Text);
-                            insertarCommand.Parameters.AddWithValue("@apellido_cliente", txtapellido.Text);
-                            insertarCommand.Parameters.AddWithValue("@estado", estadochk.Checked ? 1 : 0);
+                            insertarPersona.Parameters.AddWithValue("@Nombre", txtnombre.Text);
+                            insertarPersona.Parameters.AddWithValue("@Apellido", txtapellido.Text);
+                            insertarPersona.Parameters.AddWithValue("@Email", emailtxt.Text);
+                            insertarPersona.Parameters.AddWithValue("@Activo", estadochk.Checked ? 1 : 0);
 
-                            int rowsAffected = insertarCommand.ExecuteNonQuery();
-
-                            if (rowsAffected > 0)
-                            {
-                                MessageBox.Show("Cliente registrado con éxito.");
-                                limpiarbtn_Click(sender, e);
-                                RestablecerFormulario();
-                            }
-                            else
-                            {
-                                MessageBox.Show("No se pudo guardar los datos.");
-                            }
+                            PersonaID = Convert.ToInt32(insertarPersona.ExecuteScalar());
                         }
+
+                        string nuevoCliente = @"
+                        INSERT INTO Cliente (IdPersona, IdTipoDoc)
+                        VALUES (@IdPersona, @IdTipoDoc)";
+
+                        using (SqlCommand insertarCliente = new SqlCommand(nuevoCliente, conexion, trans))
+                        {
+                            insertarCliente.Parameters.AddWithValue("@IdPersona", PersonaID);
+                            insertarCliente.Parameters.AddWithValue("@IdTipoDoc", Convert.ToInt32(tipodoccmbx.SelectedValue));
+
+                            insertarCliente.ExecuteNonQuery();
+                        }
+
+                        trans.Commit();
+                        MessageBox.Show("Cliente registrado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        RestablecerFormulario();
+                        ConsultaClientes_Load(sender, e);
                     }
                     else
                     {
-                        string queryActualizar = "UPDATE cliente SET nombre_cliente = @nombre, apellido_cliente = @apellido, identificacion= @identificacion, telefono = @telefono, estado= @estado, direccion= @direccion WHERE id = @id";
-                        using (SqlCommand actualizarCommand = new SqlCommand(queryActualizar, conexion))
+                        string actualizarPersona = @"
+                        UPDATE Persona 
+                        SET Nombre = @Nombre, Apellido = @Apellido, Email = @Email, Activo = @Activo
+                        WHERE IdPersona = @IdPersona";
+
+                        using (SqlCommand actualizarCommand = new SqlCommand(actualizarPersona, conexion, trans))
                         {
-
-                            actualizarCommand.Parameters.AddWithValue("@id", IDModificar);
-                            actualizarCommand.Parameters.AddWithValue("@nombre", txtnombre.Text);
-                            actualizarCommand.Parameters.AddWithValue("@apellido", txtapellido.Text);
-                            actualizarCommand.Parameters.AddWithValue("@estado", estadochk.Checked ? 1 : 0);
-
-                            int rowsAffected = actualizarCommand.ExecuteNonQuery();
-
-                            if (rowsAffected > 0)
-                            {
-                                MessageBox.Show("Cliente actualizado con éxito.");
-                                limpiarbtn_Click(sender, e);
-                                RestablecerFormulario();
-                            }
-                            else
-                            {
-                                MessageBox.Show("No se pudo actualizar los datos.");
-                            }
+                            actualizarCommand.Parameters.AddWithValue("@IdPersona", PersonaID);
+                            actualizarCommand.Parameters.AddWithValue("@Nombre", txtnombre.Text);
+                            actualizarCommand.Parameters.AddWithValue("@Apellido", txtapellido.Text);
+                            actualizarCommand.Parameters.AddWithValue("@Email", emailtxt.Text);
+                            actualizarCommand.Parameters.AddWithValue("@Activo", estadochk.Checked ? 1 : 0);
+                            actualizarCommand.ExecuteNonQuery();
                         }
+
+                        string actualizarCliente = @"
+                        UPDATE Cliente
+                        SET IdTipoDoc = @IdTipoDoc
+                        WHERE IdCliente = @IdCliente";
+
+                        using (SqlCommand actualizarClienteCmd = new SqlCommand(actualizarCliente, conexion, trans))
+                        {
+                            actualizarClienteCmd.Parameters.AddWithValue("@IdCliente", ClienteID);
+                            actualizarClienteCmd.Parameters.AddWithValue("@IdTipoDoc", Convert.ToInt32(tipodoccmbx.SelectedValue));
+                            actualizarClienteCmd.ExecuteNonQuery();
+                        }
+
+                        trans.Commit();
+                        MessageBox.Show("Cliente actualizado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        RestablecerFormulario();
+                        ConsultaClientes_Load(sender, e);
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Ocurrió un error: {ex.Message}");
+                    trans.Rollback();
+                    MessageBox.Show($"Ocurrió un error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -279,8 +321,8 @@ namespace Proyecto_restaurante
 
             txtapellido.Text = "";
 
-
-            IDModificar = "";
+            ClienteID = -1;
+            PersonaID = -1;
 
             estadochk.Checked = true;
             txtnombre.Focus();
@@ -292,29 +334,6 @@ namespace Proyecto_restaurante
             ConsultaClientes_Load(sender, e);
         }
 
-        private void txtcedula_TextChanged(object sender, EventArgs e)
-        {
-            string posicion = identtxt.Text;
-            posicion = posicion.Replace("-", "");
-
-            if (posicion.Length > 11)
-            {
-                posicion = posicion.Substring(0, 11);
-            }
-
-            if (posicion.Length > 3)
-            {
-                posicion = posicion.Insert(3, "-");
-            }
-
-            if (posicion.Length > 11)
-            {
-                posicion = posicion.Insert(11, "-");
-            }
-
-            identtxt.Text = posicion;
-            identtxt.SelectionStart = identtxt.Text.Length;
-        }
 
         private void txtnumero_TextChanged(object sender, EventArgs e)
         {
@@ -438,7 +457,7 @@ namespace Proyecto_restaurante
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow fila = tabladatos.Rows[e.RowIndex];
-                int idCliente = Convert.ToInt32(fila.Cells["id"].Value);
+                int idCliente = Convert.ToInt32(fila.Cells["IdCliente"].Value);
 
                 string rutaImagenes = @"C:\SistemaArchivos\Clientes\";
                 string rutaImagenCliente = Path.Combine(rutaImagenes, idCliente + ".jpg");
@@ -454,6 +473,8 @@ namespace Proyecto_restaurante
             }
         }
 
+        public string IDModificar = "";
+
         private void Editar_Click(object sender, EventArgs e)
         {
             if (tabladatos.SelectedRows.Count > 0)
@@ -462,7 +483,7 @@ namespace Proyecto_restaurante
 
                 IDModificar = idCliente.ToString();
 
-                CargarDatosCliente(idCliente);
+                //CargarDatosCliente(idCliente);
 
                 tabControl1.SelectedIndex = 1;
             }
@@ -525,15 +546,15 @@ namespace Proyecto_restaurante
 
         private void filtro_CheckedChanged(object sender, EventArgs e)
         {
-            if (filtro.Checked)
+            if (filtrochk.Checked)
             {
                 ConsultaClientes_Load(sender, e);
-                filtro.Image = Proyecto_restaurante.Properties.Resources.sicheck;
+                filtrochk.Image = Proyecto_restaurante.Properties.Resources.sicheck;
             }
             else
             {
                 ConsultaClientes_Load(sender, e);
-                filtro.Image = Proyecto_restaurante.Properties.Resources.nocheck;
+                filtrochk.Image = Proyecto_restaurante.Properties.Resources.nocheck;
             }
         }
 
@@ -550,6 +571,32 @@ namespace Proyecto_restaurante
                 estadochk.Text = "Inactivo";
                 estadochk.ForeColor = Color.Red;
             }
+        }
+
+        private void identtxt_TextChanged(object sender, EventArgs e)
+        {
+            string posicion = identtxt.Text; posicion = posicion.Replace("-", ""); 
+            
+            if (posicion.Length > 11) 
+            { 
+                posicion = posicion.Substring(0, 11); 
+            }
+
+            if (posicion.Length > 3) 
+            { 
+                posicion = posicion.Insert(3, "-"); 
+            }
+            if (posicion.Length > 11)
+            { 
+                posicion = posicion.Insert(11, "-"); 
+            }
+
+            identtxt.Text = posicion; identtxt.SelectionStart = identtxt.Text.Length;
+        }
+
+        private void tipodoccmbx_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            identtxt_TextChanged(null, null);
         }
     }
 }
