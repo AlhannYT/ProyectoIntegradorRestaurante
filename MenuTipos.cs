@@ -22,6 +22,7 @@ namespace Proyecto_restaurante
         string conexionString = ConexionBD.ConexionSQL();
         private string DepaID = "";
         private string PuestoID = "";
+        private string TipoDocID = "";
 
         private void button4_Click(object sender, EventArgs e)
         {
@@ -605,6 +606,71 @@ namespace Proyecto_restaurante
         {
             iddepapuestotxt.Text = departdt.SelectedCells[0].Value.ToString();
             depapuestotxt.Text = departdt.SelectedCells[1].Value.ToString();
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(identtxt.Text))
+            {
+                MessageBox.Show("Error: No deje campos vacios.");
+                return;
+            }
+
+            string conexionString = ConexionBD.ConexionSQL();
+
+            using (SqlConnection conexion = new SqlConnection(conexionString))
+            {
+                try
+                {
+                    conexion.Open();
+
+                    if (string.IsNullOrEmpty(DepaID.ToString()))
+                    {
+                        string queryInsertar = "INSERT INTO TipoDocumento (Nombre, Activo) VALUES (@Nombre, @Activo)";
+                        using (SqlCommand insertarCommand = new SqlCommand(queryInsertar, conexion))
+                        {
+                            insertarCommand.Parameters.AddWithValue("@Nombre", identtxt.Text);
+                            insertarCommand.Parameters.AddWithValue("@Activo", estadopuesto.Checked ? 1 : 0);
+
+                            int rowsAffected = insertarCommand.ExecuteNonQuery();
+
+                            if (rowsAffected > 0)
+                            {
+                                MessageBox.Show("Documento registrado con éxito.");
+                            }
+                            else
+                            {
+                                MessageBox.Show("No se pudo guardar los datos.");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        string queryActualizar = "UPDATE TipoDocumento SET Nombre = @Nombre, Activo= @Activo where IdTipoDocumento= @IdTipoDoc";
+                        using (SqlCommand actualizarCommand = new SqlCommand(queryActualizar, conexion))
+                        {
+                            actualizarCommand.Parameters.AddWithValue("@IdTipoDoc", TipoDocID);
+                            actualizarCommand.Parameters.AddWithValue("@Nombre", identtxt.Text);
+                            actualizarCommand.Parameters.AddWithValue("@Activo", estadoiden.Checked ? 1 : 0);
+
+                            int rowsAffected = actualizarCommand.ExecuteNonQuery();
+
+                            if (rowsAffected > 0)
+                            {
+                                MessageBox.Show("Tipo de documento actualizado con éxito.");
+                            }
+                            else
+                            {
+                                MessageBox.Show("No se pudo actualizar los datos.");
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ocurrió un error: {ex.Message}");
+                }
+            }
         }
     }
 }

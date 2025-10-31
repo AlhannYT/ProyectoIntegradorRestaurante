@@ -739,7 +739,7 @@
             label11.Name = "label11";
             label11.Size = new Size(171, 32);
             label11.TabIndex = 0;
-            label11.Text = "Idenfiticación";
+            label11.Text = "Identificación";
             // 
             // panel3
             // 
@@ -772,6 +772,7 @@
             button12.TabIndex = 1;
             button12.Text = "Guardar";
             button12.UseVisualStyleBackColor = true;
+            button12.Click += button12_Click;
             // 
             // puestopanel
             // 

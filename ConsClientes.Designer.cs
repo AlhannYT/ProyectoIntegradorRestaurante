@@ -44,7 +44,7 @@
             idenlabel = new Label();
             clienteimg = new PictureBox();
             button1 = new Button();
-            filtro = new CheckBox();
+            filtrochk = new CheckBox();
             tabPage2 = new TabPage();
             tipodoccmbx = new ComboBox();
             label14 = new Label();
@@ -73,10 +73,12 @@
             imagencliente = new PictureBox();
             button2 = new Button();
             estadochk = new CheckBox();
+            emailtxt = new TextBox();
             txtapellido = new TextBox();
             idclientetxt = new TextBox();
             identtxt = new TextBox();
             txtnombre = new TextBox();
+            label4 = new Label();
             label6 = new Label();
             label8 = new Label();
             label7 = new Label();
@@ -218,7 +220,7 @@
             tabPage1.Controls.Add(agregar);
             tabPage1.Controls.Add(button1);
             tabPage1.Controls.Add(eliminarbtn);
-            tabPage1.Controls.Add(filtro);
+            tabPage1.Controls.Add(filtrochk);
             tabPage1.Font = new Font("Segoe UI", 12F);
             tabPage1.Location = new Point(4, 30);
             tabPage1.Name = "tabPage1";
@@ -282,21 +284,21 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
-            // filtro
+            // filtrochk
             // 
-            filtro.AutoSize = true;
-            filtro.Checked = true;
-            filtro.CheckState = CheckState.Checked;
-            filtro.Cursor = Cursors.Hand;
-            filtro.Font = new Font("Segoe UI", 13F);
-            filtro.Image = Properties.Resources.sicheck;
-            filtro.Location = new Point(476, 64);
-            filtro.Name = "filtro";
-            filtro.Size = new Size(41, 29);
-            filtro.TabIndex = 51;
-            filtro.Text = "  ";
-            filtro.UseVisualStyleBackColor = true;
-            filtro.CheckedChanged += filtro_CheckedChanged;
+            filtrochk.AutoSize = true;
+            filtrochk.Checked = true;
+            filtrochk.CheckState = CheckState.Checked;
+            filtrochk.Cursor = Cursors.Hand;
+            filtrochk.Font = new Font("Segoe UI", 13F);
+            filtrochk.Image = Properties.Resources.sicheck;
+            filtrochk.Location = new Point(476, 64);
+            filtrochk.Name = "filtrochk";
+            filtrochk.Size = new Size(41, 29);
+            filtrochk.TabIndex = 51;
+            filtrochk.Text = "  ";
+            filtrochk.UseVisualStyleBackColor = true;
+            filtrochk.CheckedChanged += filtro_CheckedChanged;
             // 
             // tabPage2
             // 
@@ -310,10 +312,12 @@
             tabPage2.Controls.Add(panel1);
             tabPage2.Controls.Add(button2);
             tabPage2.Controls.Add(estadochk);
+            tabPage2.Controls.Add(emailtxt);
             tabPage2.Controls.Add(txtapellido);
             tabPage2.Controls.Add(idclientetxt);
             tabPage2.Controls.Add(identtxt);
             tabPage2.Controls.Add(txtnombre);
+            tabPage2.Controls.Add(label4);
             tabPage2.Controls.Add(label6);
             tabPage2.Controls.Add(label8);
             tabPage2.Controls.Add(label7);
@@ -332,17 +336,18 @@
             tipodoccmbx.DropDownStyle = ComboBoxStyle.DropDownList;
             tipodoccmbx.FormattingEnabled = true;
             tipodoccmbx.Items.AddRange(new object[] { "RNC", "Cedula" });
-            tipodoccmbx.Location = new Point(11, 259);
+            tipodoccmbx.Location = new Point(11, 93);
             tipodoccmbx.Name = "tipodoccmbx";
             tipodoccmbx.Size = new Size(70, 29);
             tipodoccmbx.TabIndex = 100;
+            tipodoccmbx.SelectedIndexChanged += tipodoccmbx_SelectedIndexChanged;
             // 
             // label14
             // 
             label14.AutoSize = true;
             label14.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label14.ForeColor = SystemColors.Control;
-            label14.Location = new Point(11, 236);
+            label14.Location = new Point(11, 68);
             label14.Name = "label14";
             label14.Size = new Size(211, 21);
             label14.TabIndex = 99;
@@ -424,7 +429,7 @@
             label13.Name = "label13";
             label13.Size = new Size(185, 21);
             label13.TabIndex = 55;
-            label13.Text = "Numero de telefono     ";
+            label13.Text = "Número de telefono     ";
             // 
             // checkBox2
             // 
@@ -631,11 +636,20 @@
             estadochk.UseVisualStyleBackColor = true;
             estadochk.CheckedChanged += estadochk_CheckedChanged;
             // 
+            // emailtxt
+            // 
+            emailtxt.Location = new Point(11, 309);
+            emailtxt.Name = "emailtxt";
+            emailtxt.Size = new Size(211, 29);
+            emailtxt.TabIndex = 2;
+            emailtxt.TextChanged += txtapellido_TextChanged;
+            emailtxt.KeyPress += txtapellido_KeyPress;
+            // 
             // txtapellido
             // 
-            txtapellido.Location = new Point(11, 188);
+            txtapellido.Location = new Point(11, 237);
             txtapellido.Name = "txtapellido";
-            txtapellido.Size = new Size(363, 29);
+            txtapellido.Size = new Size(211, 29);
             txtapellido.TabIndex = 2;
             txtapellido.TextChanged += txtapellido_TextChanged;
             txtapellido.KeyPress += txtapellido_KeyPress;
@@ -652,28 +666,39 @@
             // 
             // identtxt
             // 
-            identtxt.Location = new Point(87, 259);
+            identtxt.Location = new Point(87, 93);
             identtxt.Name = "identtxt";
-            identtxt.Size = new Size(132, 29);
+            identtxt.Size = new Size(135, 29);
             identtxt.TabIndex = 1;
-            identtxt.TextChanged += txtcedula_TextChanged;
+            identtxt.TextChanged += identtxt_TextChanged;
             identtxt.KeyPress += txtnombre_KeyPress;
             // 
             // txtnombre
             // 
-            txtnombre.Location = new Point(11, 117);
+            txtnombre.Location = new Point(11, 165);
             txtnombre.Name = "txtnombre";
-            txtnombre.Size = new Size(363, 29);
+            txtnombre.Size = new Size(211, 29);
             txtnombre.TabIndex = 1;
             txtnombre.TextChanged += txtnombre_TextChanged;
             txtnombre.KeyPress += txtnombre_KeyPress;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label4.ForeColor = SystemColors.Control;
+            label4.Location = new Point(11, 284);
+            label4.Name = "label4";
+            label4.Size = new Size(53, 21);
+            label4.TabIndex = 15;
+            label4.Text = "Email";
             // 
             // label6
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label6.ForeColor = SystemColors.Control;
-            label6.Location = new Point(11, 163);
+            label6.Location = new Point(11, 212);
             label6.Name = "label6";
             label6.Size = new Size(94, 21);
             label6.TabIndex = 15;
@@ -717,7 +742,7 @@
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label9.ForeColor = SystemColors.Control;
-            label9.Location = new Point(11, 90);
+            label9.Location = new Point(11, 140);
             label9.Name = "label9";
             label9.Size = new Size(92, 21);
             label9.TabIndex = 18;
@@ -787,7 +812,7 @@
         private PictureBox clienteimg;
         private TextBox idclientetxt;
         private Label label12;
-        private CheckBox filtro;
+        private CheckBox filtrochk;
         private Panel panel4;
         private Panel panel2;
         private Panel panel5;
@@ -810,5 +835,7 @@
         private ComboBox tipodoccmbx;
         private Label label14;
         private TextBox identtxt;
+        private TextBox emailtxt;
+        private Label label4;
     }
 }

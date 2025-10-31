@@ -57,7 +57,7 @@ namespace Proyecto_restaurante
             string conexionString = ConexionBD.ConexionSQL();
 
 
-            string consulta = "select id, codigo_producto, nombre_producto, categoria, precio_venta, existencia from productos";
+            string consulta = "select IdProducto, CodigoBarra, Nombre, PrecioVenta, Existencia, Activo from ProductoVenta";
 
             SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
 
@@ -67,12 +67,12 @@ namespace Proyecto_restaurante
 
             tabladatos.DataSource = dt;
 
-            tabladatos.Columns["id"].HeaderText = "ID";
-            tabladatos.Columns["codigo_producto"].HeaderText = "Código";
-            tabladatos.Columns["nombre_producto"].HeaderText = "Nombre";
-            tabladatos.Columns["categoria"].HeaderText = "Categoría";
-            tabladatos.Columns["precio_venta"].HeaderText = "Precio";
-            tabladatos.Columns["existencia"].HeaderText = "Existencia";
+            tabladatos.Columns["IdProducto"].HeaderText = "ID";
+            tabladatos.Columns["CodigoBarra"].HeaderText = "Código";
+            tabladatos.Columns["Nombre"].HeaderText = "Nombre";
+            tabladatos.Columns["PrecioVenta"].HeaderText = "Precio";
+            tabladatos.Columns["Existencia"].HeaderText = "Existencia";
+            tabladatos.Columns["Activo"].HeaderText = "Estado";
 
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;

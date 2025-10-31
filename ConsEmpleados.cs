@@ -208,7 +208,7 @@ namespace Proyecto_restaurante
 
         private void puestoconsulta_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            puestoconsulta_CellClick(sender, e);
         }
 
         private void txtcedula_TextChanged(object sender, EventArgs e)

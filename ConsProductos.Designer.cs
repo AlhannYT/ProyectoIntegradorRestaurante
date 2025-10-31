@@ -407,16 +407,16 @@
             // 
             // panel6
             // 
-            panel6.Location = new Point(455, 372);
+            panel6.Location = new Point(455, 380);
             panel6.Name = "panel6";
-            panel6.Size = new Size(386, 34);
+            panel6.Size = new Size(386, 25);
             panel6.TabIndex = 85;
             // 
             // panel3
             // 
-            panel3.Location = new Point(155, 374);
+            panel3.Location = new Point(155, 380);
             panel3.Name = "panel3";
-            panel3.Size = new Size(194, 34);
+            panel3.Size = new Size(194, 25);
             panel3.TabIndex = 85;
             // 
             // panel5
