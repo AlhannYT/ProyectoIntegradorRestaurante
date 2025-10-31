@@ -933,16 +933,6 @@ namespace Proyecto_restaurante.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ocupado {
-            get {
-                object obj = ResourceManager.GetObject("ocupado", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap ojo {
             get {
                 object obj = ResourceManager.GetObject("ojo", resourceCulture);
@@ -1156,16 +1146,6 @@ namespace Proyecto_restaurante.Properties {
         internal static System.Drawing.Bitmap regla {
             get {
                 object obj = ResourceManager.GetObject("regla", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap reservado {
-            get {
-                object obj = ResourceManager.GetObject("reservado", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
