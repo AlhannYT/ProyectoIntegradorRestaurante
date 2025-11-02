@@ -40,10 +40,10 @@
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
             nombrelabel = new Label();
-            direccionlabel = new Label();
+            telefonolabel = new Label();
             idenlabel = new Label();
             clienteimg = new PictureBox();
-            button1 = new Button();
+            recargarbtn = new Button();
             filtrochk = new CheckBox();
             tabPage2 = new TabPage();
             tipodoccmbx = new ComboBox();
@@ -208,7 +208,7 @@
             // 
             tabPage1.BackColor = SystemColors.WindowFrame;
             tabPage1.Controls.Add(nombrelabel);
-            tabPage1.Controls.Add(direccionlabel);
+            tabPage1.Controls.Add(telefonolabel);
             tabPage1.Controls.Add(idenlabel);
             tabPage1.Controls.Add(clienteimg);
             tabPage1.Controls.Add(label1);
@@ -218,7 +218,7 @@
             tabPage1.Controls.Add(Editar);
             tabPage1.Controls.Add(tabladatos);
             tabPage1.Controls.Add(agregar);
-            tabPage1.Controls.Add(button1);
+            tabPage1.Controls.Add(recargarbtn);
             tabPage1.Controls.Add(eliminarbtn);
             tabPage1.Controls.Add(filtrochk);
             tabPage1.Font = new Font("Segoe UI", 12F);
@@ -240,16 +240,16 @@
             nombrelabel.TabIndex = 50;
             nombrelabel.Text = "Nombre completo:";
             // 
-            // direccionlabel
+            // telefonolabel
             // 
-            direccionlabel.AutoSize = true;
-            direccionlabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            direccionlabel.ForeColor = Color.White;
-            direccionlabel.Location = new Point(558, 564);
-            direccionlabel.Name = "direccionlabel";
-            direccionlabel.Size = new Size(155, 21);
-            direccionlabel.TabIndex = 50;
-            direccionlabel.Text = "Direccion principal";
+            telefonolabel.AutoSize = true;
+            telefonolabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            telefonolabel.ForeColor = Color.White;
+            telefonolabel.Location = new Point(558, 564);
+            telefonolabel.Name = "telefonolabel";
+            telefonolabel.Size = new Size(149, 21);
+            telefonolabel.TabIndex = 50;
+            telefonolabel.Text = "Teléfono principal";
             // 
             // idenlabel
             // 
@@ -260,7 +260,7 @@
             idenlabel.Name = "idenlabel";
             idenlabel.Size = new Size(107, 21);
             idenlabel.TabIndex = 50;
-            idenlabel.Text = "Cedula/RNC:";
+            idenlabel.Text = "Cédula/RNC:";
             // 
             // clienteimg
             // 
@@ -274,15 +274,15 @@
             clienteimg.TabIndex = 49;
             clienteimg.TabStop = false;
             // 
-            // button1
+            // recargarbtn
             // 
-            button1.Image = Properties.Resources.actualizar;
-            button1.Location = new Point(10, 12);
-            button1.Name = "button1";
-            button1.Size = new Size(29, 29);
-            button1.TabIndex = 2;
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            recargarbtn.Image = Properties.Resources.actualizar;
+            recargarbtn.Location = new Point(10, 12);
+            recargarbtn.Name = "recargarbtn";
+            recargarbtn.Size = new Size(29, 29);
+            recargarbtn.TabIndex = 2;
+            recargarbtn.UseVisualStyleBackColor = true;
+            recargarbtn.Click += button1_Click;
             // 
             // filtrochk
             // 
@@ -292,7 +292,7 @@
             filtrochk.Cursor = Cursors.Hand;
             filtrochk.Font = new Font("Segoe UI", 13F);
             filtrochk.Image = Properties.Resources.sicheck;
-            filtrochk.Location = new Point(476, 64);
+            filtrochk.Location = new Point(474, 64);
             filtrochk.Name = "filtrochk";
             filtrochk.Size = new Size(41, 29);
             filtrochk.TabIndex = 51;
@@ -338,7 +338,7 @@
             tipodoccmbx.Items.AddRange(new object[] { "RNC", "Cedula" });
             tipodoccmbx.Location = new Point(11, 93);
             tipodoccmbx.Name = "tipodoccmbx";
-            tipodoccmbx.Size = new Size(70, 29);
+            tipodoccmbx.Size = new Size(78, 29);
             tipodoccmbx.TabIndex = 100;
             tipodoccmbx.SelectedIndexChanged += tipodoccmbx_SelectedIndexChanged;
             // 
@@ -404,16 +404,14 @@
             // 
             // textBox3
             // 
-            textBox3.Enabled = false;
-            textBox3.Location = new Point(411, 36);
+            textBox3.Location = new Point(408, 36);
             textBox3.Name = "textBox3";
-            textBox3.Size = new Size(158, 29);
+            textBox3.Size = new Size(166, 29);
             textBox3.TabIndex = 79;
             // 
             // numerotxt
             // 
-            numerotxt.Enabled = false;
-            numerotxt.Location = new Point(81, 36);
+            numerotxt.Location = new Point(78, 36);
             numerotxt.Name = "numerotxt";
             numerotxt.Size = new Size(113, 29);
             numerotxt.TabIndex = 79;
@@ -435,7 +433,7 @@
             // 
             checkBox2.AutoSize = true;
             checkBox2.ForeColor = Color.White;
-            checkBox2.Location = new Point(575, 38);
+            checkBox2.Location = new Point(580, 38);
             checkBox2.Name = "checkBox2";
             checkBox2.Size = new Size(89, 25);
             checkBox2.TabIndex = 90;
@@ -446,7 +444,7 @@
             // 
             checkBox1.AutoSize = true;
             checkBox1.ForeColor = Color.White;
-            checkBox1.Location = new Point(201, 38);
+            checkBox1.Location = new Point(199, 38);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(89, 25);
             checkBox1.TabIndex = 90;
@@ -464,7 +462,7 @@
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView1.Size = new Size(324, 129);
+            dataGridView1.Size = new Size(329, 129);
             dataGridView1.TabIndex = 74;
             // 
             // ingredientesconsulta
@@ -486,7 +484,7 @@
             button7.BackColor = Color.Red;
             button7.Enabled = false;
             button7.Image = Properties.Resources.basurablanco;
-            button7.Location = new Point(669, 171);
+            button7.Location = new Point(673, 171);
             button7.Name = "button7";
             button7.Size = new Size(28, 29);
             button7.TabIndex = 77;
@@ -494,9 +492,8 @@
             // 
             // button4
             // 
-            button4.Enabled = false;
             button4.Image = Properties.Resources.angulo_hacia_abajo;
-            button4.Location = new Point(669, 36);
+            button4.Location = new Point(673, 36);
             button4.Name = "button4";
             button4.Size = new Size(28, 29);
             button4.TabIndex = 77;
@@ -507,7 +504,7 @@
             button6.BackColor = Color.Red;
             button6.Enabled = false;
             button6.Image = Properties.Resources.basurablanco;
-            button6.Location = new Point(295, 169);
+            button6.Location = new Point(293, 169);
             button6.Name = "button6";
             button6.Size = new Size(28, 29);
             button6.TabIndex = 77;
@@ -515,9 +512,8 @@
             // 
             // button3
             // 
-            button3.Enabled = false;
             button3.Image = Properties.Resources.angulo_hacia_abajo;
-            button3.Location = new Point(295, 36);
+            button3.Location = new Point(293, 36);
             button3.Name = "button3";
             button3.Size = new Size(28, 29);
             button3.TabIndex = 77;
@@ -525,7 +521,6 @@
             // 
             // nombredirecciontxt
             // 
-            nombredirecciontxt.Enabled = false;
             nombredirecciontxt.Location = new Point(339, 36);
             nombredirecciontxt.Name = "nombredirecciontxt";
             nombredirecciontxt.Size = new Size(66, 29);
@@ -533,7 +528,6 @@
             // 
             // nombrenumerotxt
             // 
-            nombrenumerotxt.Enabled = false;
             nombrenumerotxt.Location = new Point(9, 36);
             nombrenumerotxt.Name = "nombrenumerotxt";
             nombrenumerotxt.Size = new Size(66, 29);
@@ -578,7 +572,7 @@
             panel1.BackColor = Color.Gray;
             panel1.Controls.Add(seleccionimagenbtn);
             panel1.Controls.Add(imagencliente);
-            panel1.Location = new Point(509, 68);
+            panel1.Location = new Point(517, 68);
             panel1.Name = "panel1";
             panel1.Size = new Size(199, 255);
             panel1.TabIndex = 28;
@@ -628,7 +622,7 @@
             estadochk.Checked = true;
             estadochk.CheckState = CheckState.Checked;
             estadochk.ForeColor = Color.Lime;
-            estadochk.Location = new Point(596, 328);
+            estadochk.Location = new Point(617, 328);
             estadochk.Name = "estadochk";
             estadochk.Size = new Size(72, 25);
             estadochk.TabIndex = 25;
@@ -640,7 +634,7 @@
             // 
             emailtxt.Location = new Point(11, 309);
             emailtxt.Name = "emailtxt";
-            emailtxt.Size = new Size(211, 29);
+            emailtxt.Size = new Size(229, 29);
             emailtxt.TabIndex = 2;
             emailtxt.TextChanged += txtapellido_TextChanged;
             emailtxt.KeyPress += txtapellido_KeyPress;
@@ -649,7 +643,7 @@
             // 
             txtapellido.Location = new Point(11, 237);
             txtapellido.Name = "txtapellido";
-            txtapellido.Size = new Size(211, 29);
+            txtapellido.Size = new Size(229, 29);
             txtapellido.TabIndex = 2;
             txtapellido.TextChanged += txtapellido_TextChanged;
             txtapellido.KeyPress += txtapellido_KeyPress;
@@ -666,9 +660,9 @@
             // 
             // identtxt
             // 
-            identtxt.Location = new Point(87, 93);
+            identtxt.Location = new Point(92, 93);
             identtxt.Name = "identtxt";
-            identtxt.Size = new Size(135, 29);
+            identtxt.Size = new Size(148, 29);
             identtxt.TabIndex = 1;
             identtxt.TextChanged += identtxt_TextChanged;
             identtxt.KeyPress += txtnombre_KeyPress;
@@ -677,7 +671,7 @@
             // 
             txtnombre.Location = new Point(11, 165);
             txtnombre.Name = "txtnombre";
-            txtnombre.Size = new Size(211, 29);
+            txtnombre.Size = new Size(229, 29);
             txtnombre.TabIndex = 1;
             txtnombre.TextChanged += txtnombre_TextChanged;
             txtnombre.KeyPress += txtnombre_KeyPress;
@@ -709,7 +703,7 @@
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label8.ForeColor = SystemColors.Control;
-            label8.Location = new Point(525, 330);
+            label8.Location = new Point(546, 330);
             label8.Name = "label8";
             label8.Size = new Size(65, 21);
             label8.TabIndex = 16;
@@ -802,7 +796,7 @@
         private Label label8;
         private Label label7;
         private Label label9;
-        private Button button1;
+        private Button recargarbtn;
         private Button button2;
         private PictureBox imagencliente;
         private Panel panel1;
@@ -831,7 +825,7 @@
         private TextBox nombredirecciontxt;
         private TextBox nombrenumerotxt;
         private Label nombrelabel;
-        private Label direccionlabel;
+        private Label telefonolabel;
         private ComboBox tipodoccmbx;
         private Label label14;
         private TextBox identtxt;

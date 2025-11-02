@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Configuracion));
             barraizq = new Panel();
             usuarios = new Button();
+            button2 = new Button();
             button7 = new Button();
             label1 = new Label();
             button26 = new Button();
@@ -75,6 +76,7 @@
             label6 = new Label();
             usuarioimg = new PictureBox();
             label7 = new Label();
+            button29 = new Button();
             button3 = new Button();
             button6 = new Button();
             checkBox1 = new CheckBox();
@@ -112,6 +114,51 @@
             privilegiochk = new CheckBox();
             passView = new CheckBox();
             label21 = new Label();
+            colores = new Panel();
+            vistaprevia = new Panel();
+            pictureBox2 = new PictureBox();
+            pictureBox1 = new PictureBox();
+            panel6 = new Panel();
+            panel5 = new Panel();
+            button28 = new Button();
+            button22 = new Button();
+            button12 = new Button();
+            label23 = new Label();
+            button21 = new Button();
+            button27 = new Button();
+            button11 = new Button();
+            button18 = new Button();
+            button15 = new Button();
+            button17 = new Button();
+            button13 = new Button();
+            button20 = new Button();
+            button24 = new Button();
+            button25 = new Button();
+            button19 = new Button();
+            button14 = new Button();
+            button16 = new Button();
+            label24 = new Label();
+            panel4 = new Panel();
+            button23 = new Button();
+            label22 = new Label();
+            permisospanel = new Panel();
+            button32 = new Button();
+            panel8 = new Panel();
+            idusuariopermiso = new TextBox();
+            panel7 = new Panel();
+            tabControl3 = new TabControl();
+            tabPage5 = new TabPage();
+            admin = new CheckBox();
+            tabPage6 = new TabPage();
+            tabPage7 = new TabPage();
+            tabPage8 = new TabPage();
+            label28 = new Label();
+            usuariologin = new TextBox();
+            panel1 = new Panel();
+            guardarpermisosbtn = new Button();
+            label26 = new Label();
+            label25 = new Label();
+            label27 = new Label();
             barraizq.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
@@ -130,6 +177,17 @@
             empleadopanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)empleadousuariodt).BeginInit();
             panel2.SuspendLayout();
+            colores.SuspendLayout();
+            vistaprevia.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            panel5.SuspendLayout();
+            panel4.SuspendLayout();
+            permisospanel.SuspendLayout();
+            panel7.SuspendLayout();
+            tabControl3.SuspendLayout();
+            tabPage5.SuspendLayout();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // barraizq
@@ -137,6 +195,7 @@
             barraizq.BackColor = Color.FromArgb(64, 64, 64);
             barraizq.BorderStyle = BorderStyle.FixedSingle;
             barraizq.Controls.Add(usuarios);
+            barraizq.Controls.Add(button2);
             barraizq.Controls.Add(button7);
             barraizq.Controls.Add(label1);
             barraizq.Controls.Add(button26);
@@ -153,7 +212,7 @@
             usuarios.Cursor = Cursors.Hand;
             usuarios.Image = Properties.Resources.usuario;
             usuarios.ImageAlign = ContentAlignment.MiddleRight;
-            usuarios.Location = new Point(7, 85);
+            usuarios.Location = new Point(7, 127);
             usuarios.Margin = new Padding(2);
             usuarios.Name = "usuarios";
             usuarios.Size = new Size(202, 38);
@@ -162,6 +221,20 @@
             usuarios.TextAlign = ContentAlignment.MiddleLeft;
             usuarios.UseVisualStyleBackColor = false;
             usuarios.Click += button2_Click;
+            // 
+            // button2
+            // 
+            button2.Image = Properties.Resources.llenar;
+            button2.ImageAlign = ContentAlignment.MiddleRight;
+            button2.Location = new Point(7, 85);
+            button2.Margin = new Padding(2);
+            button2.Name = "button2";
+            button2.Size = new Size(202, 38);
+            button2.TabIndex = 15;
+            button2.Text = "Color de fondo";
+            button2.TextAlign = ContentAlignment.MiddleLeft;
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click_1;
             // 
             // button7
             // 
@@ -203,6 +276,7 @@
             button26.Text = "Quitar Formulario actual";
             button26.TextAlign = ContentAlignment.MiddleLeft;
             button26.UseVisualStyleBackColor = true;
+            button26.Click += button26_Click;
             // 
             // tabControl1
             // 
@@ -314,6 +388,7 @@
             agregar.Text = "Nuevo";
             agregar.TextAlign = ContentAlignment.BottomCenter;
             agregar.UseVisualStyleBackColor = true;
+            agregar.Click += agregar_Click_1;
             // 
             // label5
             // 
@@ -620,6 +695,7 @@
             tabPage3.Controls.Add(label6);
             tabPage3.Controls.Add(usuarioimg);
             tabPage3.Controls.Add(label7);
+            tabPage3.Controls.Add(button29);
             tabPage3.Controls.Add(button3);
             tabPage3.Controls.Add(button6);
             tabPage3.Controls.Add(checkBox1);
@@ -655,7 +731,7 @@
             usuarioimg.ErrorImage = Properties.Resources.perfilcliente;
             usuarioimg.Image = Properties.Resources.perfilcliente;
             usuarioimg.InitialImage = Properties.Resources.perfilcliente;
-            usuarioimg.Location = new Point(463, 266);
+            usuarioimg.Location = new Point(463, 348);
             usuarioimg.Name = "usuarioimg";
             usuarioimg.Size = new Size(158, 158);
             usuarioimg.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -672,6 +748,18 @@
             label7.Size = new Size(116, 32);
             label7.TabIndex = 66;
             label7.Text = "Acciones";
+            // 
+            // button29
+            // 
+            button29.Image = Properties.Resources.permisos;
+            button29.Location = new Point(463, 259);
+            button29.Name = "button29";
+            button29.Size = new Size(159, 72);
+            button29.TabIndex = 64;
+            button29.Text = "Permisos";
+            button29.TextAlign = ContentAlignment.BottomCenter;
+            button29.UseVisualStyleBackColor = true;
+            button29.Click += button29_Click;
             // 
             // button3
             // 
@@ -849,7 +937,7 @@
             label15.AutoSize = true;
             label15.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label15.ForeColor = Color.White;
-            label15.Location = new Point(114, 69);
+            label15.Location = new Point(114, 66);
             label15.Name = "label15";
             label15.Size = new Size(87, 21);
             label15.TabIndex = 101;
@@ -1103,12 +1191,492 @@
             label21.TabIndex = 9;
             label21.Text = "Privilegio:";
             // 
+            // colores
+            // 
+            colores.Controls.Add(vistaprevia);
+            colores.Controls.Add(pictureBox1);
+            colores.Controls.Add(panel6);
+            colores.Controls.Add(panel5);
+            colores.Controls.Add(label24);
+            colores.Controls.Add(panel4);
+            colores.Controls.Add(label22);
+            colores.Location = new Point(221, 580);
+            colores.Name = "colores";
+            colores.Size = new Size(659, 570);
+            colores.TabIndex = 46;
+            colores.Visible = false;
+            // 
+            // vistaprevia
+            // 
+            vistaprevia.BackColor = Color.Silver;
+            vistaprevia.Controls.Add(pictureBox2);
+            vistaprevia.Location = new Point(350, 174);
+            vistaprevia.Name = "vistaprevia";
+            vistaprevia.Size = new Size(303, 200);
+            vistaprevia.TabIndex = 79;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.Image = Properties.Resources.tenedor1;
+            pictureBox2.Location = new Point(112, 59);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(78, 74);
+            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox2.TabIndex = 0;
+            pictureBox2.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = Properties.Resources.vista_previa;
+            pictureBox1.Location = new Point(307, 159);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(346, 215);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 78;
+            pictureBox1.TabStop = false;
+            // 
+            // panel6
+            // 
+            panel6.Location = new Point(178, 133);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(125, 25);
+            panel6.TabIndex = 77;
+            // 
+            // panel5
+            // 
+            panel5.BackColor = Color.FromArgb(64, 64, 64);
+            panel5.Controls.Add(button28);
+            panel5.Controls.Add(button22);
+            panel5.Controls.Add(button12);
+            panel5.Controls.Add(label23);
+            panel5.Controls.Add(button21);
+            panel5.Controls.Add(button27);
+            panel5.Controls.Add(button11);
+            panel5.Controls.Add(button18);
+            panel5.Controls.Add(button15);
+            panel5.Controls.Add(button17);
+            panel5.Controls.Add(button13);
+            panel5.Controls.Add(button20);
+            panel5.Controls.Add(button24);
+            panel5.Controls.Add(button25);
+            panel5.Controls.Add(button19);
+            panel5.Controls.Add(button14);
+            panel5.Controls.Add(button16);
+            panel5.Location = new Point(5, 133);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(298, 305);
+            panel5.TabIndex = 76;
+            // 
+            // button28
+            // 
+            button28.BackColor = Color.FromArgb(192, 192, 0);
+            button28.Location = new Point(239, 188);
+            button28.Name = "button28";
+            button28.Size = new Size(45, 45);
+            button28.TabIndex = 0;
+            button28.UseVisualStyleBackColor = false;
+            // 
+            // button22
+            // 
+            button22.BackColor = Color.FromArgb(192, 0, 192);
+            button22.Location = new Point(183, 188);
+            button22.Name = "button22";
+            button22.Size = new Size(45, 45);
+            button22.TabIndex = 0;
+            button22.UseVisualStyleBackColor = false;
+            // 
+            // button12
+            // 
+            button12.BackColor = Color.White;
+            button12.Location = new Point(15, 42);
+            button12.Name = "button12";
+            button12.Size = new Size(45, 45);
+            button12.TabIndex = 0;
+            button12.UseVisualStyleBackColor = false;
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label23.ForeColor = SystemColors.Control;
+            label23.Image = Properties.Resources.paleta;
+            label23.ImageAlign = ContentAlignment.MiddleRight;
+            label23.Location = new Point(4, 5);
+            label23.Name = "label23";
+            label23.Size = new Size(164, 21);
+            label23.TabIndex = 39;
+            label23.Text = "Paleta de colores      ";
+            // 
+            // button21
+            // 
+            button21.BackColor = Color.FromArgb(0, 0, 192);
+            button21.Location = new Point(127, 188);
+            button21.Name = "button21";
+            button21.Size = new Size(45, 45);
+            button21.TabIndex = 0;
+            button21.UseVisualStyleBackColor = false;
+            // 
+            // button27
+            // 
+            button27.BackColor = Color.FromArgb(255, 255, 128);
+            button27.Location = new Point(239, 115);
+            button27.Name = "button27";
+            button27.Size = new Size(45, 45);
+            button27.TabIndex = 0;
+            button27.UseVisualStyleBackColor = false;
+            // 
+            // button11
+            // 
+            button11.BackColor = Color.FromArgb(255, 192, 192);
+            button11.Location = new Point(71, 42);
+            button11.Name = "button11";
+            button11.Size = new Size(45, 45);
+            button11.TabIndex = 0;
+            button11.UseVisualStyleBackColor = false;
+            // 
+            // button18
+            // 
+            button18.BackColor = Color.FromArgb(255, 128, 255);
+            button18.Location = new Point(183, 115);
+            button18.Name = "button18";
+            button18.Size = new Size(45, 45);
+            button18.TabIndex = 0;
+            button18.UseVisualStyleBackColor = false;
+            // 
+            // button15
+            // 
+            button15.BackColor = Color.FromArgb(255, 128, 128);
+            button15.Location = new Point(71, 115);
+            button15.Name = "button15";
+            button15.Size = new Size(45, 45);
+            button15.TabIndex = 0;
+            button15.UseVisualStyleBackColor = false;
+            // 
+            // button17
+            // 
+            button17.BackColor = Color.FromArgb(128, 128, 255);
+            button17.Location = new Point(127, 115);
+            button17.Name = "button17";
+            button17.Size = new Size(45, 45);
+            button17.TabIndex = 0;
+            button17.UseVisualStyleBackColor = false;
+            // 
+            // button13
+            // 
+            button13.BackColor = Color.FromArgb(192, 192, 255);
+            button13.Location = new Point(127, 42);
+            button13.Name = "button13";
+            button13.Size = new Size(45, 45);
+            button13.TabIndex = 0;
+            button13.UseVisualStyleBackColor = false;
+            // 
+            // button20
+            // 
+            button20.BackColor = Color.FromArgb(192, 0, 0);
+            button20.Location = new Point(71, 188);
+            button20.Name = "button20";
+            button20.Size = new Size(45, 45);
+            button20.TabIndex = 0;
+            button20.UseVisualStyleBackColor = false;
+            // 
+            // button24
+            // 
+            button24.BackColor = Color.Silver;
+            button24.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button24.ForeColor = Color.Black;
+            button24.Location = new Point(88, 258);
+            button24.Name = "button24";
+            button24.Size = new Size(118, 37);
+            button24.TabIndex = 0;
+            button24.Text = "Defecto";
+            button24.UseVisualStyleBackColor = false;
+            // 
+            // button25
+            // 
+            button25.BackColor = Color.FromArgb(255, 255, 192);
+            button25.Location = new Point(239, 42);
+            button25.Name = "button25";
+            button25.Size = new Size(45, 45);
+            button25.TabIndex = 0;
+            button25.UseVisualStyleBackColor = false;
+            // 
+            // button19
+            // 
+            button19.BackColor = Color.Gray;
+            button19.Location = new Point(15, 188);
+            button19.Name = "button19";
+            button19.Size = new Size(45, 45);
+            button19.TabIndex = 0;
+            button19.UseVisualStyleBackColor = false;
+            // 
+            // button14
+            // 
+            button14.BackColor = Color.FromArgb(255, 192, 255);
+            button14.Location = new Point(183, 42);
+            button14.Name = "button14";
+            button14.Size = new Size(45, 45);
+            button14.TabIndex = 0;
+            button14.UseVisualStyleBackColor = false;
+            // 
+            // button16
+            // 
+            button16.BackColor = Color.Silver;
+            button16.Location = new Point(15, 115);
+            button16.Name = "button16";
+            button16.Size = new Size(45, 45);
+            button16.TabIndex = 0;
+            button16.UseVisualStyleBackColor = false;
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label24.ForeColor = SystemColors.Control;
+            label24.Image = Properties.Resources.check22;
+            label24.ImageAlign = ContentAlignment.MiddleRight;
+            label24.Location = new Point(430, 135);
+            label24.Name = "label24";
+            label24.Size = new Size(124, 21);
+            label24.TabIndex = 39;
+            label24.Text = "Vista previa      ";
+            // 
+            // panel4
+            // 
+            panel4.BackColor = Color.FromArgb(64, 64, 64);
+            panel4.Controls.Add(button23);
+            panel4.Location = new Point(219, 474);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(220, 74);
+            panel4.TabIndex = 76;
+            // 
+            // button23
+            // 
+            button23.Image = Properties.Resources.guardar;
+            button23.ImageAlign = ContentAlignment.MiddleLeft;
+            button23.Location = new Point(15, 8);
+            button23.Margin = new Padding(4);
+            button23.Name = "button23";
+            button23.Size = new Size(191, 58);
+            button23.TabIndex = 8;
+            button23.Text = "Guardar selección";
+            button23.UseVisualStyleBackColor = true;
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold);
+            label22.ForeColor = SystemColors.Control;
+            label22.Location = new Point(137, 36);
+            label22.Name = "label22";
+            label22.Size = new Size(384, 40);
+            label22.TabIndex = 39;
+            label22.Text = "Seleccionar color de fondo";
+            // 
+            // permisospanel
+            // 
+            permisospanel.Controls.Add(button32);
+            permisospanel.Controls.Add(panel8);
+            permisospanel.Controls.Add(idusuariopermiso);
+            permisospanel.Controls.Add(panel7);
+            permisospanel.Controls.Add(usuariologin);
+            permisospanel.Controls.Add(panel1);
+            permisospanel.Controls.Add(label26);
+            permisospanel.Controls.Add(label25);
+            permisospanel.Controls.Add(label27);
+            permisospanel.Location = new Point(886, 580);
+            permisospanel.Name = "permisospanel";
+            permisospanel.Size = new Size(659, 570);
+            permisospanel.TabIndex = 47;
+            // 
+            // button32
+            // 
+            button32.Font = new Font("Segoe UI", 12F);
+            button32.Image = Properties.Resources.atrás;
+            button32.ImageAlign = ContentAlignment.MiddleLeft;
+            button32.Location = new Point(553, 14);
+            button32.Name = "button32";
+            button32.Size = new Size(97, 29);
+            button32.TabIndex = 104;
+            button32.Text = " Volver";
+            button32.TextAlign = ContentAlignment.MiddleRight;
+            button32.UseVisualStyleBackColor = true;
+            button32.Click += button32_Click;
+            // 
+            // panel8
+            // 
+            panel8.Location = new Point(225, 128);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(430, 30);
+            panel8.TabIndex = 77;
+            // 
+            // idusuariopermiso
+            // 
+            idusuariopermiso.Enabled = false;
+            idusuariopermiso.Font = new Font("Segoe UI", 12F);
+            idusuariopermiso.Location = new Point(7, 87);
+            idusuariopermiso.Name = "idusuariopermiso";
+            idusuariopermiso.Size = new Size(46, 29);
+            idusuariopermiso.TabIndex = 102;
+            // 
+            // panel7
+            // 
+            panel7.BackColor = Color.FromArgb(64, 64, 64);
+            panel7.Controls.Add(tabControl3);
+            panel7.Controls.Add(label28);
+            panel7.Location = new Point(7, 128);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(648, 437);
+            panel7.TabIndex = 76;
+            // 
+            // tabControl3
+            // 
+            tabControl3.Controls.Add(tabPage5);
+            tabControl3.Controls.Add(tabPage6);
+            tabControl3.Controls.Add(tabPage7);
+            tabControl3.Controls.Add(tabPage8);
+            tabControl3.Font = new Font("Segoe UI", 12F);
+            tabControl3.Location = new Point(4, 37);
+            tabControl3.Name = "tabControl3";
+            tabControl3.SelectedIndex = 0;
+            tabControl3.Size = new Size(639, 388);
+            tabControl3.TabIndex = 106;
+            // 
+            // tabPage5
+            // 
+            tabPage5.BackColor = SystemColors.WindowFrame;
+            tabPage5.Controls.Add(admin);
+            tabPage5.Location = new Point(4, 30);
+            tabPage5.Name = "tabPage5";
+            tabPage5.Padding = new Padding(3);
+            tabPage5.Size = new Size(631, 354);
+            tabPage5.TabIndex = 0;
+            tabPage5.Text = "Sistema";
+            // 
+            // admin
+            // 
+            admin.AutoSize = true;
+            admin.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            admin.ForeColor = Color.Gold;
+            admin.Location = new Point(15, 44);
+            admin.Name = "admin";
+            admin.Size = new Size(139, 25);
+            admin.TabIndex = 0;
+            admin.Text = "Administrador";
+            admin.UseVisualStyleBackColor = true;
+            // 
+            // tabPage6
+            // 
+            tabPage6.BackColor = SystemColors.WindowFrame;
+            tabPage6.Location = new Point(4, 30);
+            tabPage6.Name = "tabPage6";
+            tabPage6.Padding = new Padding(3);
+            tabPage6.Size = new Size(631, 354);
+            tabPage6.TabIndex = 1;
+            tabPage6.Text = "Pedidos";
+            // 
+            // tabPage7
+            // 
+            tabPage7.BackColor = SystemColors.WindowFrame;
+            tabPage7.Location = new Point(4, 30);
+            tabPage7.Name = "tabPage7";
+            tabPage7.Size = new Size(631, 354);
+            tabPage7.TabIndex = 2;
+            tabPage7.Text = "Compras";
+            // 
+            // tabPage8
+            // 
+            tabPage8.BackColor = SystemColors.WindowFrame;
+            tabPage8.Location = new Point(4, 30);
+            tabPage8.Name = "tabPage8";
+            tabPage8.Size = new Size(631, 354);
+            tabPage8.TabIndex = 3;
+            tabPage8.Text = "Reservaciones";
+            // 
+            // label28
+            // 
+            label28.AutoSize = true;
+            label28.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label28.ForeColor = SystemColors.Control;
+            label28.Image = Properties.Resources.llave;
+            label28.ImageAlign = ContentAlignment.MiddleRight;
+            label28.Location = new Point(4, 4);
+            label28.Name = "label28";
+            label28.Size = new Size(211, 21);
+            label28.TabIndex = 39;
+            label28.Text = "Categorías de permisos      ";
+            // 
+            // usuariologin
+            // 
+            usuariologin.Enabled = false;
+            usuariologin.Font = new Font("Segoe UI", 12F);
+            usuariologin.Location = new Point(56, 87);
+            usuariologin.Name = "usuariologin";
+            usuariologin.Size = new Size(140, 29);
+            usuariologin.TabIndex = 103;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(64, 64, 64);
+            panel1.Controls.Add(guardarpermisosbtn);
+            panel1.Location = new Point(444, 54);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(206, 74);
+            panel1.TabIndex = 76;
+            // 
+            // guardarpermisosbtn
+            // 
+            guardarpermisosbtn.Image = Properties.Resources.procesar1;
+            guardarpermisosbtn.ImageAlign = ContentAlignment.MiddleLeft;
+            guardarpermisosbtn.Location = new Point(13, 8);
+            guardarpermisosbtn.Name = "guardarpermisosbtn";
+            guardarpermisosbtn.Size = new Size(181, 58);
+            guardarpermisosbtn.TabIndex = 43;
+            guardarpermisosbtn.Text = "      Procesar Permisos";
+            guardarpermisosbtn.UseVisualStyleBackColor = true;
+            guardarpermisosbtn.Click += guardarpermisosbtn_Click;
+            // 
+            // label26
+            // 
+            label26.AutoSize = true;
+            label26.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label26.ForeColor = Color.White;
+            label26.Location = new Point(7, 63);
+            label26.Name = "label26";
+            label26.Size = new Size(27, 21);
+            label26.TabIndex = 101;
+            label26.Text = "ID";
+            // 
+            // label25
+            // 
+            label25.AutoSize = true;
+            label25.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label25.ForeColor = Color.White;
+            label25.Location = new Point(56, 63);
+            label25.Name = "label25";
+            label25.Size = new Size(116, 21);
+            label25.TabIndex = 101;
+            label25.Text = "Usuario Login";
+            // 
+            // label27
+            // 
+            label27.AutoSize = true;
+            label27.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label27.ForeColor = SystemColors.Control;
+            label27.Location = new Point(174, 8);
+            label27.Margin = new Padding(4, 0, 4, 0);
+            label27.Name = "label27";
+            label27.Size = new Size(310, 40);
+            label27.TabIndex = 33;
+            label27.Text = "Permisos de Usuarios";
+            // 
             // Configuracion
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.WindowFrame;
             ClientSize = new Size(884, 579);
+            Controls.Add(permisospanel);
+            Controls.Add(colores);
             Controls.Add(usuariospanel);
             Controls.Add(cajaspanel);
             Controls.Add(barraizq);
@@ -1145,6 +1713,22 @@
             empleadopanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)empleadousuariodt).EndInit();
             panel2.ResumeLayout(false);
+            colores.ResumeLayout(false);
+            colores.PerformLayout();
+            vistaprevia.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            panel5.ResumeLayout(false);
+            panel5.PerformLayout();
+            panel4.ResumeLayout(false);
+            permisospanel.ResumeLayout(false);
+            permisospanel.PerformLayout();
+            panel7.ResumeLayout(false);
+            panel7.PerformLayout();
+            tabControl3.ResumeLayout(false);
+            tabPage5.ResumeLayout(false);
+            tabPage5.PerformLayout();
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -1233,5 +1817,52 @@
         private CheckBox privilegiochk;
         private CheckBox passView;
         private Label label21;
+        private Button button2;
+        private Panel colores;
+        private Button button22;
+        private Button button21;
+        private Button button18;
+        private Button button17;
+        private Button button20;
+        private Button button14;
+        private Button button16;
+        private Button button19;
+        private Button button13;
+        private Button button15;
+        private Button button12;
+        private Button button11;
+        private Panel panel5;
+        private Panel panel4;
+        private Button button23;
+        private Label label22;
+        private Panel panel6;
+        private Label label23;
+        private Label label24;
+        private PictureBox pictureBox1;
+        private Panel vistaprevia;
+        private Button button24;
+        private PictureBox pictureBox2;
+        private Button button28;
+        private Button button27;
+        private Button button25;
+        private Button button29;
+        private Panel permisospanel;
+        private TabControl tabControl3;
+        private TabPage tabPage5;
+        private TabPage tabPage6;
+        private TextBox idusuariopermiso;
+        private TextBox usuariologin;
+        private Label label25;
+        private Label label27;
+        private Panel panel8;
+        private Panel panel7;
+        private Label label28;
+        private Label label26;
+        private Panel panel1;
+        private Button guardarpermisosbtn;
+        private CheckBox admin;
+        private TabPage tabPage7;
+        private TabPage tabPage8;
+        private Button button32;
     }
 }

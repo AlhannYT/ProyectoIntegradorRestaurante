@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PdfSharp.Pdf.Filters;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,6 +10,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Proyecto_restaurante
 {
@@ -26,8 +28,15 @@ namespace Proyecto_restaurante
         public int ClienteID;
         public int PersonaID;
 
+        private System.Windows.Forms.ToolTip toolTip1;
+
         private void ConsultaClientes_Load(object sender, EventArgs e)
         {
+            toolTip1 = new System.Windows.Forms.ToolTip();
+            toolTip1.SetToolTip(recargarbtn, "Recargar");
+            toolTip1.SetToolTip(filtrochk, "Estado");
+            toolTip1.SetToolTip(eliminarbtn, "Limpiar filtros");
+
             string conexionString = ConexionBD.ConexionSQL();
 
             string consultaId = "SELECT ISNULL(MAX(IdCliente), 0) + 1 FROM Cliente";
@@ -37,7 +46,7 @@ namespace Proyecto_restaurante
                 con.Open();
                 using (SqlCommand cmd = new SqlCommand(consultaId, con))
                 {
-                    idclientetxt.Text = cmd.ExecuteScalar()?.ToString() ?? "?";
+                    idclientetxt.Text = cmd.ExecuteScalar()?.ToString() ?? "1";
                 }
             }
 
@@ -318,11 +327,12 @@ namespace Proyecto_restaurante
         {
             imagencliente.Image = Proyecto_restaurante.Properties.Resources.perfilcliente;
             txtnombre.Text = "";
+            identtxt.Text = "";
 
             txtapellido.Text = "";
 
-            ClienteID = -1;
-            PersonaID = -1;
+            ClienteID = 0;
+            PersonaID = 0;
 
             estadochk.Checked = true;
             txtnombre.Focus();
@@ -406,8 +416,6 @@ namespace Proyecto_restaurante
             RestablecerFormulario();
         }
 
-
-
         private void seleccionimagenbtn_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -490,57 +498,6 @@ namespace Proyecto_restaurante
             else
             {
                 MessageBox.Show("Seleccione un cliente para editar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
-
-        private void CargarDatosCliente(int idCliente)
-        {
-            try
-            {
-                string conexionString = ConexionBD.ConexionSQL();
-                string query = "SELECT id, nombre_cliente, apellido_cliente, identificacion, telefono, direccion, estado FROM cliente WHERE id = @id";
-
-                using (SqlConnection conexion = new SqlConnection(conexionString))
-                using (SqlCommand comando = new SqlCommand(query, conexion))
-                {
-                    comando.Parameters.AddWithValue("@id", idCliente);
-                    conexion.Open();
-
-                    SqlDataReader lector = comando.ExecuteReader();
-
-                    if (lector.Read())
-                    {
-                        idclientetxt.Text = lector["id"].ToString();
-                        txtnombre.Text = lector["nombre_cliente"].ToString();
-                        txtapellido.Text = lector["apellido_cliente"].ToString();
-
-                        bool activo = lector["estado"] != DBNull.Value && Convert.ToBoolean(lector["estado"]);
-                        estadochk.Checked = activo;
-                    }
-                    else
-                    {
-                        MessageBox.Show("No se encontró información del cliente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-
-                    lector.Close();
-                }
-
-                string rutaImagen = Path.Combine(@"C:\SistemaArchivos\Clientes\", idCliente + ".jpg");
-                if (File.Exists(rutaImagen))
-                {
-                    using (var fs = new FileStream(rutaImagen, FileMode.Open, FileAccess.Read))
-                    {
-                        clienteimg.Image = Image.FromStream(fs);
-                    }
-                }
-                else
-                {
-                    imagencliente.Image = Proyecto_restaurante.Properties.Resources.perfilcliente;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al cargar los datos del cliente: " + ex.Message);
             }
         }
 

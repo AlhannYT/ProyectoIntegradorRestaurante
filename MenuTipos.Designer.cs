@@ -578,6 +578,7 @@
             button6.TabIndex = 1;
             button6.Text = "Guardar";
             button6.UseVisualStyleBackColor = true;
+            button6.Click += button6_Click;
             // 
             // idenpanel
             // 

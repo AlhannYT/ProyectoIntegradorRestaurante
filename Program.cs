@@ -14,7 +14,7 @@ namespace Proyecto_restaurante
             Application.SetCompatibleTextRenderingDefault(false);
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             ApplicationConfiguration.Initialize();
-            Application.Run(new menu());
+            Application.Run(new inicio());
         }
     }
 }

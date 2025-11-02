@@ -41,8 +41,6 @@
             limpiarbtn = new Button();
             txtconfirmarpass = new TextBox();
             confirmarpass = new Label();
-            privilegiochk = new CheckBox();
-            label4 = new Label();
             toolTip1 = new ToolTip(components);
             instrucciones = new Button();
             label6 = new Label();
@@ -73,6 +71,8 @@
             label9 = new Label();
             categoriaconsulta = new DataGridView();
             panel1 = new Panel();
+            label4 = new Label();
+            privilegiochk = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)tabladatos).BeginInit();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
@@ -218,32 +218,6 @@
             confirmarpass.TabIndex = 2;
             confirmarpass.Text = "Confirmar Contraseña";
             confirmarpass.Visible = false;
-            // 
-            // privilegiochk
-            // 
-            privilegiochk.AutoSize = true;
-            privilegiochk.Enabled = false;
-            privilegiochk.ForeColor = Color.Black;
-            privilegiochk.Location = new Point(183, 412);
-            privilegiochk.Margin = new Padding(4);
-            privilegiochk.Name = "privilegiochk";
-            privilegiochk.Size = new Size(83, 25);
-            privilegiochk.TabIndex = 6;
-            privilegiochk.Text = "Usuario";
-            privilegiochk.UseVisualStyleBackColor = true;
-            privilegiochk.CheckedChanged += privilegiochk_CheckedChanged;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label4.ForeColor = SystemColors.ControlLightLight;
-            label4.Location = new Point(84, 412);
-            label4.Margin = new Padding(4, 0, 4, 0);
-            label4.Name = "label4";
-            label4.Size = new Size(88, 21);
-            label4.TabIndex = 9;
-            label4.Text = "Privilegio:";
             // 
             // toolTip1
             // 
@@ -601,6 +575,32 @@
             panel1.Size = new Size(409, 74);
             panel1.TabIndex = 76;
             // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label4.ForeColor = SystemColors.ControlLightLight;
+            label4.Location = new Point(84, 412);
+            label4.Margin = new Padding(4, 0, 4, 0);
+            label4.Name = "label4";
+            label4.Size = new Size(88, 21);
+            label4.TabIndex = 9;
+            label4.Text = "Privilegio:";
+            // 
+            // privilegiochk
+            // 
+            privilegiochk.AutoSize = true;
+            privilegiochk.Enabled = false;
+            privilegiochk.ForeColor = Color.Black;
+            privilegiochk.Location = new Point(183, 412);
+            privilegiochk.Margin = new Padding(4);
+            privilegiochk.Name = "privilegiochk";
+            privilegiochk.Size = new Size(83, 25);
+            privilegiochk.TabIndex = 6;
+            privilegiochk.Text = "Usuario";
+            privilegiochk.UseVisualStyleBackColor = true;
+            privilegiochk.CheckedChanged += privilegiochk_CheckedChanged;
+            // 
             // MantUsuarios
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
@@ -644,8 +644,6 @@
         private Button limpiarbtn;
         private TextBox txtconfirmarpass;
         private Label confirmarpass;
-        private CheckBox privilegiochk;
-        private Label label4;
         private ToolTip toolTip1;
         private Label label6;
         private Button eliminarbtn;
@@ -676,5 +674,7 @@
         private CheckBox filtro;
         private Label label11;
         private Button button1;
+        private CheckBox privilegiochk;
+        private Label label4;
     }
 }

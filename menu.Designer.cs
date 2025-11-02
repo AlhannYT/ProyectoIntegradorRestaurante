@@ -45,6 +45,7 @@
             label2 = new Label();
             barrasup = new Panel();
             pictureBox1 = new PictureBox();
+            cuadre = new Button();
             barraizq = new Panel();
             button12 = new Button();
             reservacion = new Button();
@@ -53,7 +54,6 @@
             button14 = new Button();
             button13 = new Button();
             label3 = new Label();
-            cuadre = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -286,6 +286,21 @@
             pictureBox1.TabIndex = 6;
             pictureBox1.TabStop = false;
             // 
+            // cuadre
+            // 
+            cuadre.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            cuadre.Cursor = Cursors.Hand;
+            cuadre.Image = Properties.Resources.dinero1;
+            cuadre.ImageAlign = ContentAlignment.MiddleRight;
+            cuadre.Location = new Point(542, 9);
+            cuadre.Margin = new Padding(2);
+            cuadre.Name = "cuadre";
+            cuadre.Size = new Size(133, 51);
+            cuadre.TabIndex = 2;
+            cuadre.Text = "Cuadre de caja";
+            cuadre.TextAlign = ContentAlignment.MiddleLeft;
+            cuadre.UseVisualStyleBackColor = true;
+            // 
             // barraizq
             // 
             barraizq.BackColor = SystemColors.WindowFrame;
@@ -411,21 +426,6 @@
             label3.Size = new Size(331, 21);
             label3.TabIndex = 2;
             label3.Text = "Wilder (2-21-0179) / Alhann (2-21-0018) ©";
-            // 
-            // cuadre
-            // 
-            cuadre.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            cuadre.Cursor = Cursors.Hand;
-            cuadre.Image = Properties.Resources.dinero1;
-            cuadre.ImageAlign = ContentAlignment.MiddleRight;
-            cuadre.Location = new Point(542, 9);
-            cuadre.Margin = new Padding(2);
-            cuadre.Name = "cuadre";
-            cuadre.Size = new Size(133, 51);
-            cuadre.TabIndex = 2;
-            cuadre.Text = "Cuadre de caja";
-            cuadre.TextAlign = ContentAlignment.MiddleLeft;
-            cuadre.UseVisualStyleBackColor = true;
             // 
             // menu
             // 

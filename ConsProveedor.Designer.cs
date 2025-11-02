@@ -32,6 +32,7 @@
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
             label2 = new Label();
+            informalfiltro = new CheckBox();
             filtro = new CheckBox();
             label11 = new Label();
             clienteimg = new PictureBox();
@@ -42,8 +43,9 @@
             label12 = new Label();
             eliminarbtn = new Button();
             txtbuscador = new TextBox();
-            dataGridView1 = new DataGridView();
+            provdt = new DataGridView();
             tabPage2 = new TabPage();
+            informalchk = new CheckBox();
             tipodoccmbx = new ComboBox();
             estadochk = new CheckBox();
             label14 = new Label();
@@ -51,7 +53,7 @@
             label8 = new Label();
             panel1 = new Panel();
             seleccionimagenbtn = new Button();
-            imagencliente = new PictureBox();
+            imagenprov = new PictureBox();
             button2 = new Button();
             label1 = new Label();
             panel3 = new Panel();
@@ -77,16 +79,16 @@
             label9 = new Label();
             label4 = new Label();
             label7 = new Label();
-            textBox4 = new TextBox();
-            txtcorreo = new TextBox();
-            txtnombre_prov = new TextBox();
+            idprovtxt = new TextBox();
+            correotxt = new TextBox();
+            nombreprovtxt = new TextBox();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)clienteimg).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)provdt).BeginInit();
             tabPage2.SuspendLayout();
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)imagencliente).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)imagenprov).BeginInit();
             panel3.SuspendLayout();
             panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
@@ -102,6 +104,7 @@
             tabControl1.Location = new Point(0, 0);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
+            tabControl1.ShowToolTips = true;
             tabControl1.Size = new Size(914, 653);
             tabControl1.TabIndex = 0;
             // 
@@ -109,6 +112,7 @@
             // 
             tabPage1.BackColor = SystemColors.WindowFrame;
             tabPage1.Controls.Add(label2);
+            tabPage1.Controls.Add(informalfiltro);
             tabPage1.Controls.Add(filtro);
             tabPage1.Controls.Add(label11);
             tabPage1.Controls.Add(clienteimg);
@@ -119,13 +123,13 @@
             tabPage1.Controls.Add(label12);
             tabPage1.Controls.Add(eliminarbtn);
             tabPage1.Controls.Add(txtbuscador);
-            tabPage1.Controls.Add(dataGridView1);
+            tabPage1.Controls.Add(provdt);
             tabPage1.Location = new Point(4, 30);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
             tabPage1.Size = new Size(906, 619);
             tabPage1.TabIndex = 0;
-            tabPage1.Text = "Consultar";
+            tabPage1.Text = "Consulta";
             // 
             // label2
             // 
@@ -134,11 +138,24 @@
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label2.ForeColor = SystemColors.Control;
             label2.Image = Properties.Resources.busqueda;
-            label2.Location = new Point(619, 66);
+            label2.Location = new Point(572, 66);
             label2.Name = "label2";
             label2.Size = new Size(18, 21);
             label2.TabIndex = 63;
             label2.Text = "  ";
+            // 
+            // informalfiltro
+            // 
+            informalfiltro.AutoSize = true;
+            informalfiltro.Cursor = Cursors.Hand;
+            informalfiltro.Font = new Font("Segoe UI", 13F);
+            informalfiltro.Image = Properties.Resources.informal;
+            informalfiltro.Location = new Point(604, 62);
+            informalfiltro.Name = "informalfiltro";
+            informalfiltro.Size = new Size(41, 29);
+            informalfiltro.TabIndex = 62;
+            informalfiltro.Text = "  ";
+            informalfiltro.UseVisualStyleBackColor = true;
             // 
             // filtro
             // 
@@ -247,20 +264,22 @@
             txtbuscador.ForeColor = SystemColors.ScrollBar;
             txtbuscador.Location = new Point(8, 62);
             txtbuscador.Name = "txtbuscador";
-            txtbuscador.Size = new Size(634, 29);
+            txtbuscador.Size = new Size(586, 29);
             txtbuscador.TabIndex = 53;
             // 
-            // dataGridView1
+            // provdt
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(6, 101);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(729, 512);
-            dataGridView1.TabIndex = 0;
+            provdt.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            provdt.Location = new Point(6, 101);
+            provdt.Name = "provdt";
+            provdt.Size = new Size(729, 512);
+            provdt.TabIndex = 0;
+            provdt.CellClick += provdt_CellClick;
             // 
             // tabPage2
             // 
             tabPage2.BackColor = SystemColors.WindowFrame;
+            tabPage2.Controls.Add(informalchk);
             tabPage2.Controls.Add(tipodoccmbx);
             tabPage2.Controls.Add(estadochk);
             tabPage2.Controls.Add(label14);
@@ -276,9 +295,9 @@
             tabPage2.Controls.Add(label9);
             tabPage2.Controls.Add(label4);
             tabPage2.Controls.Add(label7);
-            tabPage2.Controls.Add(textBox4);
-            tabPage2.Controls.Add(txtcorreo);
-            tabPage2.Controls.Add(txtnombre_prov);
+            tabPage2.Controls.Add(idprovtxt);
+            tabPage2.Controls.Add(correotxt);
+            tabPage2.Controls.Add(nombreprovtxt);
             tabPage2.Location = new Point(4, 30);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
@@ -286,14 +305,26 @@
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Creación";
             // 
+            // informalchk
+            // 
+            informalchk.AutoSize = true;
+            informalchk.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            informalchk.ForeColor = Color.White;
+            informalchk.Location = new Point(300, 111);
+            informalchk.Name = "informalchk";
+            informalchk.Size = new Size(95, 25);
+            informalchk.TabIndex = 104;
+            informalchk.Text = "Informal";
+            informalchk.UseVisualStyleBackColor = true;
+            // 
             // tipodoccmbx
             // 
             tipodoccmbx.DropDownStyle = ComboBoxStyle.DropDownList;
             tipodoccmbx.FormattingEnabled = true;
             tipodoccmbx.Items.AddRange(new object[] { "RNC", "Cedula" });
-            tipodoccmbx.Location = new Point(33, 175);
+            tipodoccmbx.Location = new Point(33, 109);
             tipodoccmbx.Name = "tipodoccmbx";
-            tipodoccmbx.Size = new Size(70, 29);
+            tipodoccmbx.Size = new Size(76, 29);
             tipodoccmbx.TabIndex = 103;
             // 
             // estadochk
@@ -302,7 +333,7 @@
             estadochk.Checked = true;
             estadochk.CheckState = CheckState.Checked;
             estadochk.ForeColor = Color.Lime;
-            estadochk.Location = new Point(752, 311);
+            estadochk.Location = new Point(771, 311);
             estadochk.Name = "estadochk";
             estadochk.Size = new Size(72, 25);
             estadochk.TabIndex = 103;
@@ -314,7 +345,7 @@
             label14.AutoSize = true;
             label14.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label14.ForeColor = SystemColors.Control;
-            label14.Location = new Point(33, 151);
+            label14.Location = new Point(33, 85);
             label14.Name = "label14";
             label14.Size = new Size(211, 21);
             label14.TabIndex = 102;
@@ -322,17 +353,18 @@
             // 
             // identtxt
             // 
-            identtxt.Location = new Point(109, 175);
+            identtxt.Location = new Point(112, 109);
             identtxt.Name = "identtxt";
-            identtxt.Size = new Size(132, 29);
+            identtxt.Size = new Size(178, 29);
             identtxt.TabIndex = 101;
+            identtxt.TextChanged += identtxt_TextChanged;
             // 
             // label8
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label8.ForeColor = SystemColors.Control;
-            label8.Location = new Point(681, 313);
+            label8.Location = new Point(700, 313);
             label8.Name = "label8";
             label8.Size = new Size(65, 21);
             label8.TabIndex = 102;
@@ -342,7 +374,7 @@
             // 
             panel1.BackColor = Color.Gray;
             panel1.Controls.Add(seleccionimagenbtn);
-            panel1.Controls.Add(imagencliente);
+            panel1.Controls.Add(imagenprov);
             panel1.Location = new Point(675, 53);
             panel1.Name = "panel1";
             panel1.Size = new Size(199, 255);
@@ -360,18 +392,19 @@
             seleccionimagenbtn.Text = "Buscar Imagen";
             seleccionimagenbtn.TextAlign = ContentAlignment.BottomCenter;
             seleccionimagenbtn.UseVisualStyleBackColor = false;
+            seleccionimagenbtn.Click += seleccionimagenbtn_Click;
             // 
-            // imagencliente
+            // imagenprov
             // 
-            imagencliente.ErrorImage = Properties.Resources.perfilcliente;
-            imagencliente.Image = Properties.Resources.perfilcliente;
-            imagencliente.InitialImage = Properties.Resources.perfilcliente;
-            imagencliente.Location = new Point(9, 6);
-            imagencliente.Name = "imagencliente";
-            imagencliente.Size = new Size(181, 181);
-            imagencliente.SizeMode = PictureBoxSizeMode.StretchImage;
-            imagencliente.TabIndex = 27;
-            imagencliente.TabStop = false;
+            imagenprov.ErrorImage = Properties.Resources.perfilcliente;
+            imagenprov.Image = Properties.Resources.perfilcliente;
+            imagenprov.InitialImage = Properties.Resources.perfilcliente;
+            imagenprov.Location = new Point(9, 6);
+            imagenprov.Name = "imagenprov";
+            imagenprov.Size = new Size(181, 181);
+            imagenprov.SizeMode = PictureBoxSizeMode.StretchImage;
+            imagenprov.TabIndex = 27;
+            imagenprov.TabStop = false;
             // 
             // button2
             // 
@@ -384,6 +417,7 @@
             button2.Text = " Volver";
             button2.TextAlign = ContentAlignment.MiddleRight;
             button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
             // label1
             // 
@@ -416,6 +450,7 @@
             guardarbtn.TabIndex = 20;
             guardarbtn.Text = "Guardar";
             guardarbtn.UseVisualStyleBackColor = true;
+            guardarbtn.Click += guardarbtn_Click;
             // 
             // limpiarbtn
             // 
@@ -471,7 +506,7 @@
             label19.ForeColor = Color.White;
             label19.Image = Properties.Resources.ubicacion;
             label19.ImageAlign = ContentAlignment.MiddleRight;
-            label19.Location = new Point(339, 5);
+            label19.Location = new Point(339, 4);
             label19.Name = "label19";
             label19.Size = new Size(103, 21);
             label19.TabIndex = 55;
@@ -479,18 +514,16 @@
             // 
             // textBox3
             // 
-            textBox3.Enabled = false;
-            textBox3.Location = new Point(411, 36);
+            textBox3.Location = new Point(407, 36);
             textBox3.Name = "textBox3";
-            textBox3.Size = new Size(289, 29);
+            textBox3.Size = new Size(291, 29);
             textBox3.TabIndex = 79;
             // 
             // textBox1
             // 
-            textBox1.Enabled = false;
-            textBox1.Location = new Point(81, 36);
+            textBox1.Location = new Point(77, 36);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(113, 29);
+            textBox1.Size = new Size(115, 29);
             textBox1.TabIndex = 79;
             // 
             // label15
@@ -500,17 +533,15 @@
             label15.ForeColor = Color.White;
             label15.Image = Properties.Resources.telefonoblanco;
             label15.ImageAlign = ContentAlignment.MiddleRight;
-            label15.Location = new Point(9, 5);
+            label15.Location = new Point(9, 4);
             label15.Name = "label15";
             label15.Size = new Size(185, 21);
             label15.TabIndex = 55;
-            label15.Text = "Numero de telefono     ";
+            label15.Text = "Numero de teléfono     ";
             // 
             // checkBox2
             // 
             checkBox2.AutoSize = true;
-            checkBox2.Checked = true;
-            checkBox2.CheckState = CheckState.Checked;
             checkBox2.ForeColor = Color.White;
             checkBox2.Location = new Point(708, 38);
             checkBox2.Name = "checkBox2";
@@ -522,10 +553,8 @@
             // checkBox1
             // 
             checkBox1.AutoSize = true;
-            checkBox1.Checked = true;
-            checkBox1.CheckState = CheckState.Checked;
             checkBox1.ForeColor = Color.White;
-            checkBox1.Location = new Point(200, 38);
+            checkBox1.Location = new Point(201, 38);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(89, 25);
             checkBox1.TabIndex = 90;
@@ -567,17 +596,16 @@
             button7.Image = Properties.Resources.basurablanco;
             button7.Location = new Point(803, 171);
             button7.Name = "button7";
-            button7.Size = new Size(28, 29);
+            button7.Size = new Size(29, 29);
             button7.TabIndex = 77;
             button7.UseVisualStyleBackColor = false;
             // 
             // button4
             // 
-            button4.Enabled = false;
             button4.Image = Properties.Resources.angulo_hacia_abajo;
             button4.Location = new Point(803, 36);
             button4.Name = "button4";
-            button4.Size = new Size(28, 29);
+            button4.Size = new Size(29, 29);
             button4.TabIndex = 77;
             button4.UseVisualStyleBackColor = true;
             // 
@@ -588,23 +616,21 @@
             button6.Image = Properties.Resources.basurablanco;
             button6.Location = new Point(295, 169);
             button6.Name = "button6";
-            button6.Size = new Size(28, 29);
+            button6.Size = new Size(29, 29);
             button6.TabIndex = 77;
             button6.UseVisualStyleBackColor = false;
             // 
             // button3
             // 
-            button3.Enabled = false;
             button3.Image = Properties.Resources.angulo_hacia_abajo;
             button3.Location = new Point(295, 36);
             button3.Name = "button3";
-            button3.Size = new Size(28, 29);
+            button3.Size = new Size(29, 29);
             button3.TabIndex = 77;
             button3.UseVisualStyleBackColor = true;
             // 
             // textBox2
             // 
-            textBox2.Enabled = false;
             textBox2.Location = new Point(339, 36);
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(66, 29);
@@ -612,7 +638,6 @@
             // 
             // txtcodigo
             // 
-            txtcodigo.Enabled = false;
             txtcodigo.Location = new Point(9, 36);
             txtcodigo.Name = "txtcodigo";
             txtcodigo.Size = new Size(66, 29);
@@ -623,11 +648,11 @@
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label9.ForeColor = SystemColors.Control;
-            label9.Location = new Point(33, 226);
+            label9.Location = new Point(33, 237);
             label9.Name = "label9";
-            label9.Size = new Size(151, 21);
+            label9.Size = new Size(53, 21);
             label9.TabIndex = 64;
-            label9.Text = "Correo electronico";
+            label9.Text = "Email";
             // 
             // label4
             // 
@@ -645,33 +670,33 @@
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label7.ForeColor = SystemColors.Control;
-            label7.Location = new Point(33, 76);
+            label7.Location = new Point(33, 161);
             label7.Name = "label7";
             label7.Size = new Size(150, 21);
             label7.TabIndex = 60;
             label7.Text = "Nombre completo";
             // 
-            // textBox4
+            // idprovtxt
             // 
-            textBox4.Enabled = false;
-            textBox4.Location = new Point(54, 9);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(73, 29);
-            textBox4.TabIndex = 57;
+            idprovtxt.Enabled = false;
+            idprovtxt.Location = new Point(54, 9);
+            idprovtxt.Name = "idprovtxt";
+            idprovtxt.Size = new Size(73, 29);
+            idprovtxt.TabIndex = 57;
             // 
-            // txtcorreo
+            // correotxt
             // 
-            txtcorreo.Location = new Point(33, 250);
-            txtcorreo.Name = "txtcorreo";
-            txtcorreo.Size = new Size(330, 29);
-            txtcorreo.TabIndex = 54;
+            correotxt.Location = new Point(33, 261);
+            correotxt.Name = "correotxt";
+            correotxt.Size = new Size(355, 29);
+            correotxt.TabIndex = 54;
             // 
-            // txtnombre_prov
+            // nombreprovtxt
             // 
-            txtnombre_prov.Location = new Point(33, 100);
-            txtnombre_prov.Name = "txtnombre_prov";
-            txtnombre_prov.Size = new Size(330, 29);
-            txtnombre_prov.TabIndex = 57;
+            nombreprovtxt.Location = new Point(33, 185);
+            nombreprovtxt.Name = "nombreprovtxt";
+            nombreprovtxt.Size = new Size(355, 29);
+            nombreprovtxt.TabIndex = 57;
             // 
             // ConsProveedor
             // 
@@ -687,15 +712,16 @@
             Name = "ConsProveedor";
             StartPosition = FormStartPosition.Manual;
             Text = "Proveedores";
+            Load += ConsProveedor_Load;
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)clienteimg).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)provdt).EndInit();
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
             panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)imagencliente).EndInit();
+            ((System.ComponentModel.ISupportInitialize)imagenprov).EndInit();
             panel3.ResumeLayout(false);
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
@@ -708,7 +734,7 @@
 
         private TabControl tabControl1;
         private TabPage tabPage1;
-        private DataGridView dataGridView1;
+        private DataGridView provdt;
         private TabPage tabPage2;
         public Button recargarbtn;
         private Label label12;
@@ -723,8 +749,8 @@
         private Label label2;
         private Label label9;
         private Label label7;
-        private TextBox txtcorreo;
-        private TextBox txtnombre_prov;
+        private TextBox correotxt;
+        private TextBox nombreprovtxt;
         private Panel panel4;
         private Panel panel2;
         private Panel panel5;
@@ -747,15 +773,17 @@
         private Button guardarbtn;
         private Button limpiarbtn;
         private Label label4;
-        private TextBox textBox4;
+        private TextBox idprovtxt;
         private Panel panel1;
         private Button seleccionimagenbtn;
-        private PictureBox imagencliente;
+        private PictureBox imagenprov;
         private Button button2;
         private CheckBox estadochk;
         private Label label8;
         private ComboBox tipodoccmbx;
         private Label label14;
         private TextBox identtxt;
+        private CheckBox informalchk;
+        private CheckBox informalfiltro;
     }
 }

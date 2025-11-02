@@ -80,7 +80,7 @@
             guardarbtn = new Button();
             limpiarbtn = new Button();
             button1 = new Button();
-            comboBox1 = new ComboBox();
+            tipoproductocmbx = new ComboBox();
             label13 = new Label();
             txtprecio_compra = new TextBox();
             categoriatxt = new TextBox();
@@ -376,7 +376,7 @@
             creacion.Controls.Add(imagenpanel);
             creacion.Controls.Add(panel4);
             creacion.Controls.Add(button1);
-            creacion.Controls.Add(comboBox1);
+            creacion.Controls.Add(tipoproductocmbx);
             creacion.Controls.Add(label13);
             creacion.Controls.Add(txtprecio_compra);
             creacion.Controls.Add(categoriatxt);
@@ -414,9 +414,9 @@
             // 
             // panel3
             // 
-            panel3.Location = new Point(155, 380);
+            panel3.Location = new Point(159, 380);
             panel3.Name = "panel3";
-            panel3.Size = new Size(194, 25);
+            panel3.Size = new Size(190, 25);
             panel3.TabIndex = 85;
             // 
             // panel5
@@ -455,9 +455,9 @@
             // textBox1
             // 
             textBox1.Enabled = false;
-            textBox1.Location = new Point(39, 37);
+            textBox1.Location = new Point(37, 37);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(273, 29);
+            textBox1.Size = new Size(275, 29);
             textBox1.TabIndex = 79;
             // 
             // numCantidad
@@ -652,7 +652,7 @@
             // 
             // idcategoriatxt
             // 
-            idcategoriatxt.Location = new Point(234, 142);
+            idcategoriatxt.Location = new Point(234, 140);
             idcategoriatxt.Name = "idcategoriatxt";
             idcategoriatxt.Size = new Size(45, 29);
             idcategoriatxt.TabIndex = 58;
@@ -742,14 +742,14 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
-            // comboBox1
+            // tipoproductocmbx
             // 
-            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(16, 77);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(163, 29);
-            comboBox1.TabIndex = 64;
+            tipoproductocmbx.DropDownStyle = ComboBoxStyle.DropDownList;
+            tipoproductocmbx.FormattingEnabled = true;
+            tipoproductocmbx.Location = new Point(16, 75);
+            tipoproductocmbx.Name = "tipoproductocmbx";
+            tipoproductocmbx.Size = new Size(163, 29);
+            tipoproductocmbx.TabIndex = 64;
             // 
             // label13
             // 
@@ -764,14 +764,14 @@
             // 
             // txtprecio_compra
             // 
-            txtprecio_compra.Location = new Point(16, 272);
+            txtprecio_compra.Location = new Point(16, 270);
             txtprecio_compra.Name = "txtprecio_compra";
             txtprecio_compra.Size = new Size(163, 29);
             txtprecio_compra.TabIndex = 61;
             // 
             // categoriatxt
             // 
-            categoriatxt.Location = new Point(281, 142);
+            categoriatxt.Location = new Point(281, 140);
             categoriatxt.Name = "categoriatxt";
             categoriatxt.Size = new Size(117, 29);
             categoriatxt.TabIndex = 58;
@@ -779,7 +779,7 @@
             // 
             // txtnombre_prod
             // 
-            txtnombre_prod.Location = new Point(16, 207);
+            txtnombre_prod.Location = new Point(16, 205);
             txtnombre_prod.Name = "txtnombre_prod";
             txtnombre_prod.Size = new Size(163, 29);
             txtnombre_prod.TabIndex = 58;
@@ -787,14 +787,14 @@
             // 
             // txtcodigo_barras
             // 
-            txtcodigo_barras.Location = new Point(16, 142);
+            txtcodigo_barras.Location = new Point(16, 140);
             txtcodigo_barras.Name = "txtcodigo_barras";
             txtcodigo_barras.Size = new Size(163, 29);
             txtcodigo_barras.TabIndex = 65;
             // 
             // txtprecio_venta
             // 
-            txtprecio_venta.Location = new Point(16, 337);
+            txtprecio_venta.Location = new Point(16, 335);
             txtprecio_venta.Name = "txtprecio_venta";
             txtprecio_venta.Size = new Size(163, 29);
             txtprecio_venta.TabIndex = 62;
@@ -804,7 +804,7 @@
             label16.AutoSize = true;
             label16.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label16.ForeColor = Color.White;
-            label16.Location = new Point(16, 53);
+            label16.Location = new Point(16, 51);
             label16.Name = "label16";
             label16.Size = new Size(141, 21);
             label16.TabIndex = 55;
@@ -815,7 +815,7 @@
             label21.AutoSize = true;
             label21.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label21.ForeColor = Color.White;
-            label21.Location = new Point(234, 183);
+            label21.Location = new Point(234, 179);
             label21.Name = "label21";
             label21.Size = new Size(151, 21);
             label21.TabIndex = 55;
@@ -826,7 +826,7 @@
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label8.ForeColor = Color.White;
-            label8.Location = new Point(234, 53);
+            label8.Location = new Point(234, 51);
             label8.Name = "label8";
             label8.Size = new Size(52, 21);
             label8.TabIndex = 55;
@@ -837,7 +837,7 @@
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label4.ForeColor = Color.White;
-            label4.Location = new Point(13, 245);
+            label4.Location = new Point(13, 243);
             label4.Name = "label4";
             label4.Size = new Size(149, 21);
             label4.TabIndex = 54;
@@ -848,7 +848,7 @@
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label7.ForeColor = Color.White;
-            label7.Location = new Point(16, 117);
+            label7.Location = new Point(16, 115);
             label7.Name = "label7";
             label7.Size = new Size(143, 21);
             label7.TabIndex = 53;
@@ -859,7 +859,7 @@
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label5.ForeColor = Color.White;
-            label5.Location = new Point(13, 309);
+            label5.Location = new Point(13, 307);
             label5.Name = "label5";
             label5.Size = new Size(133, 21);
             label5.TabIndex = 52;
@@ -870,7 +870,7 @@
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label3.ForeColor = Color.White;
-            label3.Location = new Point(13, 181);
+            label3.Location = new Point(13, 179);
             label3.Name = "label3";
             label3.Size = new Size(77, 21);
             label3.TabIndex = 51;
@@ -882,7 +882,7 @@
             label17.BackColor = Color.Transparent;
             label17.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             label17.ForeColor = Color.White;
-            label17.Location = new Point(310, 79);
+            label17.Location = new Point(310, 77);
             label17.Name = "label17";
             label17.Size = new Size(28, 25);
             label17.TabIndex = 50;
@@ -927,7 +927,7 @@
             // 
             codigobarrarandombtn.ForeColor = Color.Black;
             codigobarrarandombtn.Image = Properties.Resources.barajar;
-            codigobarrarandombtn.Location = new Point(182, 142);
+            codigobarrarandombtn.Location = new Point(180, 140);
             codigobarrarandombtn.Name = "codigobarrarandombtn";
             codigobarrarandombtn.Size = new Size(28, 29);
             codigobarrarandombtn.TabIndex = 66;
@@ -938,7 +938,7 @@
             // 
             buscarcateg.ForeColor = Color.Black;
             buscarcateg.Image = Properties.Resources.busqueda;
-            buscarcateg.Location = new Point(401, 142);
+            buscarcateg.Location = new Point(399, 140);
             buscarcateg.Name = "buscarcateg";
             buscarcateg.Size = new Size(28, 29);
             buscarcateg.TabIndex = 60;
@@ -949,7 +949,7 @@
             // 
             unidadmedida.DropDownStyle = ComboBoxStyle.DropDownList;
             unidadmedida.FormattingEnabled = true;
-            unidadmedida.Location = new Point(234, 207);
+            unidadmedida.Location = new Point(234, 205);
             unidadmedida.Name = "unidadmedida";
             unidadmedida.Size = new Size(163, 29);
             unidadmedida.TabIndex = 64;
@@ -959,7 +959,7 @@
             ITBIS.DropDownStyle = ComboBoxStyle.DropDownList;
             ITBIS.FormattingEnabled = true;
             ITBIS.Items.AddRange(new object[] { "18", "16" });
-            ITBIS.Location = new Point(234, 77);
+            ITBIS.Location = new Point(234, 75);
             ITBIS.Name = "ITBIS";
             ITBIS.Size = new Size(70, 29);
             ITBIS.TabIndex = 64;
@@ -1043,7 +1043,7 @@
         private Button buscarcateg;
         private PictureBox imagenprod;
         private DataGridView recetaingredientes;
-        private ComboBox comboBox1;
+        private ComboBox tipoproductocmbx;
         private Label label6;
         private Label label16;
         private NumericUpDown numCantidad;

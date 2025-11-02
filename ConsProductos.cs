@@ -95,6 +95,7 @@ namespace Proyecto_restaurante
         private void agregar_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedIndex = 1;
+            tipoproductocmbx.Focus();
         }
 
         private void recargarbtn_Click(object sender, EventArgs e)

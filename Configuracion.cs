@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace Proyecto_restaurante
 {
@@ -28,7 +29,7 @@ namespace Proyecto_restaurante
 
         private string IDModificar;
         public int PersonaID;
-        private int EmpleadoID;
+        public int PermisosUsuarioID;
 
         private void guardatbtn_Click(object sender, EventArgs e)
         {
@@ -241,6 +242,7 @@ namespace Proyecto_restaurante
             string consulta = @"
             SELECT 
                 u.IdUsuario,
+                u.Login,
                 p.NombreCompleto,
                 e.IdEmpleado
             FROM Usuario u
@@ -418,6 +420,10 @@ namespace Proyecto_restaurante
                 if (fila.Cells["IdEmpleado"].Value != DBNull.Value)
                 {
                     int idEmpleado = Convert.ToInt32(fila.Cells["IdEmpleado"].Value);
+                    PermisosUsuarioID = Convert.ToInt32(fila.Cells["IdUsuario"].Value);
+
+                    idusuariopermiso.Text = fila.Cells["IdUsuario"].Value.ToString();
+                    usuariologin.Text = fila.Cells["Login"].Value.ToString();
 
                     string rutaImagenes = @"C:\SistemaArchivos\Empleados\";
                     string rutaImagenEmpleado = Path.Combine(rutaImagenes, idEmpleado + ".jpg");
@@ -441,6 +447,107 @@ namespace Proyecto_restaurante
                     }
                 }
             }
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            colores.Location = new Point(221, 4);
+            colores.BringToFront();
+            colores.Visible = true;
+        }
+
+        public int UsuarioID;
+
+        private void guardarpermisosbtn_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(idusuariopermiso.Text))
+            {
+                MessageBox.Show("Error: No deje campos vacíos.");
+                return;
+            }
+
+            string conexionString = ConexionBD.ConexionSQL();
+            int idUsuario = Convert.ToInt32(idusuariopermiso.Text);
+
+            using (SqlConnection conexion = new SqlConnection(conexionString))
+            {
+                try
+                {
+                    conexion.Open();
+
+                    string verificarQuery = "SELECT COUNT(*) FROM PermisosUsuario WHERE IdUsuario = @IdUsuario";
+                    int existe = 0;
+
+                    using (SqlCommand cmdVerificar = new SqlCommand(verificarQuery, conexion))
+                    {
+                        cmdVerificar.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                        existe = Convert.ToInt32(cmdVerificar.ExecuteScalar());
+                    }
+
+                    if (existe == 0)
+                    {
+                        string queryInsertar = "INSERT INTO PermisosUsuario (IdUsuario, Admin) VALUES (@IdUsuario, @Admin)";
+                        using (SqlCommand cmdInsertar = new SqlCommand(queryInsertar, conexion))
+                        {
+                            cmdInsertar.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                            cmdInsertar.Parameters.AddWithValue("@Admin", admin.Checked ? 1 : 0);
+                            cmdInsertar.ExecuteNonQuery();
+                        }
+
+                        MessageBox.Show("Permisos asignados con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        string queryActualizar = "UPDATE PermisosUsuario SET Admin = @Admin WHERE IdUsuario = @IdUsuario";
+                        using (SqlCommand cmdActualizar = new SqlCommand(queryActualizar, conexion))
+                        {
+                            cmdActualizar.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                            cmdActualizar.Parameters.AddWithValue("@Admin", admin.Checked ? 1 : 0);
+                            cmdActualizar.ExecuteNonQuery();
+                        }
+
+                        MessageBox.Show("Permisos actualizados con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ocurrió un error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void button29_Click(object sender, EventArgs e)
+        {
+            permisospanel.Location = new Point(221, 4);
+            permisospanel.BringToFront();
+
+            usuariospanel.Visible = false;
+
+            permisospanel.Visible = true;
+        }
+
+        private void button32_Click(object sender, EventArgs e)
+        {
+            usuariospanel.Location = new Point(221, 4);
+            usuariospanel.BringToFront();
+
+            permisospanel.Visible = false;
+
+            usuariospanel.Visible = true;
+        }
+
+        private void button26_Click(object sender, EventArgs e)
+        {
+            cajaspanel.Visible = false;
+            usuariospanel.Visible = false;
+            colores.Visible = false;
+            permisospanel.Visible = false;
+        }
+
+        private void agregar_Click_1(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = 1;
+            numerocajatxt.Focus();
         }
     }
 }

@@ -38,11 +38,9 @@
             iniciobtn = new Button();
             panel1 = new Panel();
             passView = new CheckBox();
-            pictureBox2 = new PictureBox();
             button1 = new Button();
             iniciolabel = new Label();
             button2 = new Button();
-            timer1 = new System.Windows.Forms.Timer(components);
             sqlbtn = new Button();
             toolTip1 = new ToolTip(components);
             recordarchk = new CheckBox();
@@ -64,19 +62,21 @@
             borrarconex = new Button();
             button5 = new Button();
             button4 = new Button();
+            pictureBox2 = new PictureBox();
+            alerta = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             conexionpanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)txtsql).BeginInit();
             conexiones.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)alerta).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
             // 
             pictureBox1.BackColor = Color.Transparent;
-            pictureBox1.BorderStyle = BorderStyle.FixedSingle;
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(211, 58);
+            pictureBox1.Image = Properties.Resources.comidapedido2;
+            pictureBox1.Location = new Point(296, 44);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(142, 132);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
@@ -86,28 +86,28 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 12F);
+            label1.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label1.ForeColor = SystemColors.ControlLightLight;
-            label1.Location = new Point(150, 230);
+            label1.Location = new Point(147, 225);
             label1.Name = "label1";
-            label1.Size = new Size(64, 21);
+            label1.Size = new Size(69, 21);
             label1.TabIndex = 1;
             label1.Text = "Usuario";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 12F);
+            label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label2.ForeColor = SystemColors.ControlLightLight;
-            label2.Location = new Point(150, 278);
+            label2.Location = new Point(147, 267);
             label2.Name = "label2";
-            label2.Size = new Size(89, 21);
+            label2.Size = new Size(96, 21);
             label2.TabIndex = 1;
             label2.Text = "Contraseña";
             // 
             // txtusuario
             // 
-            txtusuario.Location = new Point(248, 229);
+            txtusuario.Location = new Point(250, 224);
             txtusuario.Name = "txtusuario";
             txtusuario.Size = new Size(115, 23);
             txtusuario.TabIndex = 0;
@@ -116,7 +116,7 @@
             // 
             // txtpass
             // 
-            txtpass.Location = new Point(248, 277);
+            txtpass.Location = new Point(250, 266);
             txtpass.Name = "txtpass";
             txtpass.Size = new Size(115, 23);
             txtpass.TabIndex = 1;
@@ -127,7 +127,7 @@
             // 
             iniciobtn.Image = Properties.Resources.entrar1;
             iniciobtn.ImageAlign = ContentAlignment.MiddleLeft;
-            iniciobtn.Location = new Point(211, 325);
+            iniciobtn.Location = new Point(211, 321);
             iniciobtn.Name = "iniciobtn";
             iniciobtn.Size = new Size(142, 29);
             iniciobtn.TabIndex = 3;
@@ -138,7 +138,7 @@
             // panel1
             // 
             panel1.BackColor = SystemColors.Highlight;
-            panel1.Location = new Point(99, 201);
+            panel1.Location = new Point(99, 194);
             panel1.Name = "panel1";
             panel1.Size = new Size(366, 6);
             panel1.TabIndex = 4;
@@ -147,22 +147,12 @@
             // 
             passView.Appearance = Appearance.Button;
             passView.Image = Properties.Resources.ojo;
-            passView.Location = new Point(369, 277);
+            passView.Location = new Point(371, 266);
             passView.Name = "passView";
             passView.Size = new Size(27, 22);
             passView.TabIndex = 6;
             passView.UseVisualStyleBackColor = true;
             passView.CheckedChanged += passView_CheckedChanged;
-            // 
-            // pictureBox2
-            // 
-            pictureBox2.Image = Properties.Resources.restaurantes_moda_barcelona_roka_6475ba03ee8bc;
-            pictureBox2.Location = new Point(-15, 33);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(601, 396);
-            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox2.TabIndex = 7;
-            pictureBox2.TabStop = false;
             // 
             // button1
             // 
@@ -181,13 +171,13 @@
             // iniciolabel
             // 
             iniciolabel.AutoSize = true;
-            iniciolabel.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            iniciolabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             iniciolabel.ForeColor = Color.White;
-            iniciolabel.Location = new Point(226, 7);
+            iniciolabel.Location = new Point(217, 7);
             iniciolabel.Name = "iniciolabel";
-            iniciolabel.Size = new Size(113, 20);
+            iniciolabel.Size = new Size(130, 21);
             iniciolabel.TabIndex = 8;
-            iniciolabel.Text = "Inicio de Sesion";
+            iniciolabel.Text = "Inicio de Sesión";
             // 
             // button2
             // 
@@ -219,7 +209,7 @@
             recordarchk.AutoSize = true;
             recordarchk.Font = new Font("Segoe UI", 14F);
             recordarchk.Image = Properties.Resources.discoblanco;
-            recordarchk.Location = new Point(369, 226);
+            recordarchk.Location = new Point(371, 221);
             recordarchk.Name = "recordarchk";
             recordarchk.Size = new Size(46, 29);
             recordarchk.TabIndex = 13;
@@ -432,16 +422,39 @@
             button4.UseVisualStyleBackColor = true;
             button4.Click += button4_Click;
             // 
+            // pictureBox2
+            // 
+            pictureBox2.BackColor = Color.Transparent;
+            pictureBox2.Image = Properties.Resources.textocentrado;
+            pictureBox2.Location = new Point(126, 63);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(175, 95);
+            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox2.TabIndex = 0;
+            pictureBox2.TabStop = false;
+            // 
+            // alerta
+            // 
+            alerta.Image = Properties.Resources.exclamacion;
+            alerta.Location = new Point(51, 50);
+            alerta.Name = "alerta";
+            alerta.Size = new Size(24, 24);
+            alerta.SizeMode = PictureBoxSizeMode.AutoSize;
+            alerta.TabIndex = 14;
+            alerta.TabStop = false;
+            // 
             // inicio
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
             ClientSize = new Size(564, 368);
+            Controls.Add(alerta);
             Controls.Add(recordarchk);
             Controls.Add(conexiones);
             Controls.Add(conexionpanel);
             Controls.Add(sqlbtn);
+            Controls.Add(pictureBox2);
             Controls.Add(pictureBox1);
             Controls.Add(iniciolabel);
             Controls.Add(passView);
@@ -453,7 +466,6 @@
             Controls.Add(txtusuario);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(pictureBox2);
             ForeColor = SystemColors.ControlText;
             FormBorderStyle = FormBorderStyle.None;
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -463,11 +475,12 @@
             Load += inicio_Load;
             Shown += inicio_Shown;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             conexionpanel.ResumeLayout(false);
             conexionpanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)txtsql).EndInit();
             conexiones.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)alerta).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -482,11 +495,9 @@
         private Button iniciobtn;
         private Panel panel1;
         private CheckBox passView;
-        private PictureBox pictureBox2;
         private Button button1;
         private Label iniciolabel;
         private Button button2;
-        private System.Windows.Forms.Timer timer1;
         private Button sqlbtn;
         private ToolTip toolTip1;
         private Panel conexionpanel;
@@ -508,5 +519,7 @@
         private Button button6;
         private Button borrarconex;
         private CheckBox recordarchk;
+        private PictureBox pictureBox2;
+        private PictureBox alerta;
     }
 }

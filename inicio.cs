@@ -11,7 +11,7 @@ namespace Proyecto_restaurante
         public inicio()
         {
             InitializeComponent();
-            timer1.Start();
+            //timer1.Start();
         }
 
         private static string rutaUsuario = @"C:\SistemaArchivos\Usuarios\Usuarios.txt";
@@ -29,78 +29,95 @@ namespace Proyecto_restaurante
 
             using (SqlConnection conexion = new SqlConnection(conexionString))
             {
-                menu menu = new menu();
-                Configuracion config = new Configuracion();
-
                 try
                 {
                     conexion.Open();
 
-                    string query = "SELECT privilegio FROM login_usuario WHERE usuario = @usuario AND pass = @pass AND estado = 1";
+                    string queryUsuario = @"
+                    SELECT IdUsuario 
+                    FROM Usuario 
+                    WHERE Login = @usuario AND Contrasena = @pass AND Activo = 1";
 
-                    using (SqlCommand comando = new SqlCommand(query, conexion))
+                    int idUsuario = 0;
+                    using (SqlCommand cmd = new SqlCommand(queryUsuario, conexion))
                     {
-                        comando.Parameters.AddWithValue("@usuario", txtusuario.Text);
-                        comando.Parameters.AddWithValue("@pass", txtpass.Text);
+                        cmd.Parameters.AddWithValue("@usuario", txtusuario.Text);
+                        cmd.Parameters.AddWithValue("@pass", txtpass.Text);
 
-                        object result = comando.ExecuteScalar();
+                        object resultado = cmd.ExecuteScalar();
 
-                        if (result != null)
+                        if (resultado == null)
                         {
-                            int privilegio = Convert.ToInt32(result);
-
-                            if (privilegio == 1)
-                            {
-                                menu.administrador = 1;
-                                menu.panel5.BackColor = Color.Gold;
-                            }
-                            else
-                            {
-                                menu.administrador = 0;
-                                menu.panel5.BackColor = Color.Green;
-                            }
-
-                            menu.usuariolabel.Text = "USUARIO ACTUAL: \n" + txtusuario.Text;
-                            menu.usuarioActual = txtusuario.Text;
-
-                            Directory.CreateDirectory(Path.GetDirectoryName(rutaUsuario));
-
-                            if (recordarchk.Checked)
-                            {
-                                try
-                                {
-                                    File.WriteAllText(rutaUsuario, txtusuario.Text);
-                                }
-                                catch (Exception ex)
-                                {
-                                    MessageBox.Show("No se pudo guardar el usuario recordado: " + ex.Message);
-                                }
-                            }
-                            else
-                            {
-                                try
-                                {
-                                    if (File.Exists(rutaUsuario))
-                                        File.Delete(rutaUsuario);
-                                }
-                                catch (Exception ex)
-                                {
-                                    MessageBox.Show("No se pudo eliminar el archivo del usuario recordado: " + ex.Message);
-                                }
-                            }
-
-                            menu.Show();
-                            this.Hide();
+                            MessageBox.Show("Usuario o contraseña incorrectos / Inactivo.");
+                            return;
                         }
-                        else
+
+                        idUsuario = Convert.ToInt32(resultado);
+                    }
+
+                    string queryPermiso = @"
+                    SELECT Admin 
+                    FROM PermisosUsuario 
+                    WHERE IdUsuario = @IdUsuario";
+
+                    bool esAdmin = false;
+                    using (SqlCommand cmdPermiso = new SqlCommand(queryPermiso, conexion))
+                    {
+                        cmdPermiso.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                        object adminResult = cmdPermiso.ExecuteScalar();
+
+                        if (adminResult != null)
+                            esAdmin = Convert.ToBoolean(adminResult);
+                    }
+
+                    menu menu = new menu();
+
+                    if (esAdmin)
+                    {
+                        menu.administrador = 1;
+                        menu.panel5.BackColor = Color.Gold;
+                    }
+                    else
+                    {
+                        menu.administrador = 0;
+                        menu.panel5.BackColor = Color.Green;
+                    }
+
+                    menu.usuariolabel.Text = $"USUARIO ACTUAL:\n{txtusuario.Text}";
+                    menu.usuarioActual = txtusuario.Text;
+
+                    Directory.CreateDirectory(Path.GetDirectoryName(rutaUsuario));
+
+                    if (recordarchk.Checked)
+                    {
+                        try
                         {
-                            MessageBox.Show("Usuario o contraseña incorrectos o usuario inactivo.");
+                            File.WriteAllText(rutaUsuario, txtusuario.Text);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("No se pudo guardar el usuario recordado: " + ex.Message);
                         }
                     }
+                    else
+                    {
+                        try
+                        {
+                            if (File.Exists(rutaUsuario))
+                                File.Delete(rutaUsuario);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("No se pudo eliminar el archivo del usuario recordado: " + ex.Message);
+                        }
+                    }
+
+                    menu.Show();
+                    this.Hide();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Ocurrió un error: {ex.Message}");
+                    MessageBox.Show($"Ocurrió un error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -224,6 +241,7 @@ namespace Proyecto_restaurante
             File.WriteAllLines(rutaArchivo, lineas);
 
             MessageBox.Show(actualizada ? "Conexión actualizada correctamente." : "Conexión guardada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            iniciobtn.Enabled = true;
             button6_Click(sender, e);
         }
 
@@ -329,6 +347,69 @@ namespace Proyecto_restaurante
 
         private void inicio_Load(object sender, EventArgs e)
         {
+            string rutaBase = @"C:\SistemaArchivos";
+            string rutaConexion = Path.Combine(rutaBase, "Conexion", "ConexionesSQL.txt");
+
+            string[] carpetas = {
+                "Clientes",
+                "Conexion",
+                "Configuracion",
+                "Empleados",
+                "Facturas",
+                "Productos",
+                "Proveedor",
+                "Usuarios"
+            };
+
+            try
+            {
+                if (!Directory.Exists(rutaBase))
+                    Directory.CreateDirectory(rutaBase);
+
+                foreach (string carpeta in carpetas)
+                {
+                    string rutaCompleta = Path.Combine(rutaBase, carpeta);
+                    if (!Directory.Exists(rutaCompleta))
+                        Directory.CreateDirectory(rutaCompleta);
+                }
+
+                Console.WriteLine("Verificación de carpetas completada.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al crear las carpetas requeridas: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            if (!File.Exists(rutaConexion))
+            {
+                iniciobtn.Enabled = false;
+
+                alerta.Visible = true;
+
+                System.Windows.Forms.Timer timerParpadeo = new System.Windows.Forms.Timer();
+                timerParpadeo.Interval = 500;
+                int contador = 0;
+
+                timerParpadeo.Tick += (s, args) =>
+                {
+                    alerta.Visible = !alerta.Visible;
+                    contador++;
+
+                    if (contador >= 10)
+                    {
+                        timerParpadeo.Stop();
+                        alerta.Visible = true;
+                    }
+                };
+
+                timerParpadeo.Start();
+            }
+            else
+            {
+                alerta.Visible = false;
+                iniciobtn.Enabled = true;
+            }
+
             try
             {
                 if (File.Exists(rutaUsuario))

@@ -24,8 +24,7 @@ namespace Proyecto_restaurante
 
         public string usuarioActual;
 
-        public int administrador = 0;
-
+        public int administrador;
 
         private void cerrarbtn_Click(object sender, EventArgs e)
         {
@@ -55,9 +54,6 @@ namespace Proyecto_restaurante
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
             this.WindowState = FormWindowState.Maximized;
-            //barraizq.BringToFront();
-            //barrasup.BringToFront();
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -73,7 +69,6 @@ namespace Proyecto_restaurante
 
             MantUsuarios mantUsuarios = new MantUsuarios();
             mantUsuarios.Location = new Point(561, 50);
-            //mantUsuarios.adminlabel.Text = "Administrador: " + usuarioActual;
             mantUsuarios.UsuarioAdministrador = usuarioActual;
             mantUsuarios.MdiParent = this;
             mantUsuarios.Show();
@@ -197,14 +192,14 @@ namespace Proyecto_restaurante
 
             if(administrador == 1)
             {
-                //config.usuarios.Visible = true;
+                config.usuarios.Visible = true;
                 config.Location = new Point(200, 50);
                 config.MdiParent = this;
                 config.Show();
             }
             else
             {
-                //config.usuarios.Visible = false;
+                config.usuarios.Visible = false;
                 config.Location = new Point(200, 50);
                 config.MdiParent = this;
                 config.Show();
