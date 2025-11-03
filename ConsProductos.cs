@@ -231,7 +231,6 @@ namespace Proyecto_restaurante
 
         private void limpiarbtn_Click(object sender, EventArgs e)
         {
-            //this.Text = "Mantenimiento de Productos || Creando...";
             imagenprod.Image = Proyecto_restaurante.Properties.Resources.paisaje;
 
             txtcodigo_barras.Text = "";

@@ -25,6 +25,8 @@ namespace Proyecto_restaurante
         private void agregar_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedIndex = 1;
+            PersonaID = 0;
+            ProveedorID = 0;
         }
 
         private System.Windows.Forms.ToolTip toolTip1;
@@ -38,6 +40,50 @@ namespace Proyecto_restaurante
             toolTip1.SetToolTip(eliminarbtn, "Limpiar filtros");
 
             string conexionString = ConexionBD.ConexionSQL();
+
+            try
+            {
+                string consultaEmpleados = @"
+                SELECT 
+                    pr.IdProveedor,
+                    p.NombreCompleto,
+                    pd.Numero AS Cedula
+                FROM Proveedor pr
+                LEFT JOIN Persona p ON pr.IdPersona = p.IdPersona
+                LEFT JOIN PersonaDocumento pd ON p.IdPersona = pd.IdPersona
+                WHERE pr.Activo = 1 AND p.Activo = 1;";
+
+                using (SqlDataAdapter adaptador = new SqlDataAdapter(consultaEmpleados, conexionString))
+                {
+                    DataTable dt = new DataTable();
+                    adaptador.Fill(dt);
+                    provdt.DataSource = dt;
+                }
+
+                string consultaUltimoID = "SELECT ISNULL(MAX(IdEmpleado) + 1, 0) FROM Empleado";
+
+                using (SqlConnection conexion = new SqlConnection(conexionString))
+                {
+                    conexion.Open();
+                    using (SqlCommand cmd = new SqlCommand(consultaUltimoID, conexion))
+                    {
+                        object resultado = cmd.ExecuteScalar();
+
+                        if (resultado != null && resultado != DBNull.Value)
+                        {
+                            idprovtxt.Text = resultado.ToString();
+                        }
+                        else
+                        {
+                            idprovtxt.Text = "?";
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ocurrió un error al cargar los datos: {ex.Message}");
+            }
 
             string consultaId = "SELECT ISNULL(MAX(IdProveedor), 0) + 1 FROM Proveedor";
 

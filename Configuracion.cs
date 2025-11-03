@@ -550,89 +550,9 @@ namespace Proyecto_restaurante
             numerocajatxt.Focus();
         }
 
-        private void blanco_Click(object sender, EventArgs e)
+        private void guardarcolorbtn_Click(object sender, EventArgs e)
         {
-            vistaprevia.BackColor = Color.White;
-        }
 
-        private void rojopastel_Click(object sender, EventArgs e)
-        {
-            vistaprevia.BackColor = Color.FromArgb(255, 192, 192);
-        }
-
-        private void azulpastel_Click(object sender, EventArgs e)
-        {
-            vistaprevia.BackColor = Color.FromArgb(192, 192, 255);
-        }
-
-        private void moradopastel_Click(object sender, EventArgs e)
-        {
-            vistaprevia.BackColor = Color.FromArgb(255, 192, 255);
-        }
-
-        private void amarillopastel_Click(object sender, EventArgs e)
-        {
-            vistaprevia.BackColor = Color.FromArgb(255, 255, 192);
-        }
-
-        private void grisclaro_Click(object sender, EventArgs e)
-        {
-            vistaprevia.BackColor = Color.FromArgb(224, 224, 224);
-        }
-
-        private void rojoclaro_Click(object sender, EventArgs e)
-        {
-            vistaprevia.BackColor = Color.FromArgb(255, 128, 128);
-        }
-
-        private void azulclaro_Click(object sender, EventArgs e)
-        {
-            vistaprevia.BackColor = Color.FromArgb(128, 128, 255);
-        }
-
-        private void moradoclaro_Click(object sender, EventArgs e)
-        {
-            vistaprevia.BackColor = Color.FromArgb(255, 128, 255);
-
-        }
-
-        private void amarilloclaro_Click(object sender, EventArgs e)
-        {
-            vistaprevia.BackColor = Color.FromArgb(255, 255, 128);
-
-        }
-
-        private void gris_Click(object sender, EventArgs e)
-        {
-            vistaprevia.BackColor = Color.Gray;
-        }
-
-        private void rojooscuro_Click(object sender, EventArgs e)
-        {
-            vistaprevia.BackColor = Color.FromArgb(192, 0, 0);
-
-        }
-
-        private void azuloscuro_Click(object sender, EventArgs e)
-        {
-            vistaprevia.BackColor = Color.FromArgb(0, 0, 192);
-
-        }
-
-        private void moradooscuro_Click(object sender, EventArgs e)
-        {
-            vistaprevia.BackColor = Color.FromArgb(192, 0, 192);
-
-        }
-
-        private void amarillooscuro_Click(object sender, EventArgs e)
-        {
-            vistaprevia.BackColor = Color.FromArgb(192, 192, 0);
-        }
-
-        private void plateado_Click(object sender, EventArgs e)
-        {
-            vistaprevia.BackColor = Color.Silver;
         }
     }
 }

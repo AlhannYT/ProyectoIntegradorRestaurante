@@ -115,33 +115,17 @@
             passView = new CheckBox();
             label21 = new Label();
             colores = new Panel();
-            panel10 = new Panel();
             panel6 = new Panel();
-            panel9 = new Panel();
+            panel5 = new Panel();
+            label24 = new Label();
             vistaprevia = new Panel();
             pictureBox2 = new PictureBox();
-            label24 = new Label();
             pictureBox1 = new PictureBox();
-            panel5 = new Panel();
-            amarillooscuro = new Button();
-            moradooscuro = new Button();
-            blanco = new Button();
-            label23 = new Label();
-            azuloscuro = new Button();
-            amarilloclaro = new Button();
-            rojopastel = new Button();
-            moradoclaro = new Button();
-            rojoclaro = new Button();
-            azulclaro = new Button();
-            azulpastel = new Button();
-            rojooscuro = new Button();
             plateado = new Button();
-            amarillopastel = new Button();
-            gris = new Button();
-            moradopastel = new Button();
-            grisclaro = new Button();
+            panel9 = new Panel();
+            button11 = new Button();
             panel4 = new Panel();
-            button23 = new Button();
+            guardarcolorbtn = new Button();
             label22 = new Label();
             permisospanel = new Panel();
             button32 = new Button();
@@ -180,11 +164,11 @@
             ((System.ComponentModel.ISupportInitialize)empleadousuariodt).BeginInit();
             panel2.SuspendLayout();
             colores.SuspendLayout();
-            panel9.SuspendLayout();
+            panel5.SuspendLayout();
             vistaprevia.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            panel5.SuspendLayout();
+            panel9.SuspendLayout();
             panel4.SuspendLayout();
             permisospanel.SuspendLayout();
             panel7.SuspendLayout();
@@ -1196,10 +1180,9 @@
             // 
             // colores
             // 
-            colores.Controls.Add(panel10);
             colores.Controls.Add(panel6);
-            colores.Controls.Add(panel9);
             colores.Controls.Add(panel5);
+            colores.Controls.Add(panel9);
             colores.Controls.Add(panel4);
             colores.Controls.Add(label22);
             colores.Location = new Point(221, 580);
@@ -1208,49 +1191,24 @@
             colores.TabIndex = 46;
             colores.Visible = false;
             // 
-            // panel10
-            // 
-            panel10.Location = new Point(431, 133);
-            panel10.Name = "panel10";
-            panel10.Size = new Size(225, 26);
-            panel10.TabIndex = 77;
-            // 
             // panel6
             // 
-            panel6.Location = new Point(175, 133);
+            panel6.Location = new Point(186, 72);
             panel6.Name = "panel6";
-            panel6.Size = new Size(125, 26);
+            panel6.Size = new Size(426, 25);
             panel6.TabIndex = 77;
             // 
-            // panel9
+            // panel5
             // 
-            panel9.BackColor = SystemColors.ButtonShadow;
-            panel9.Controls.Add(vistaprevia);
-            panel9.Controls.Add(label24);
-            panel9.Controls.Add(pictureBox1);
-            panel9.Location = new Point(302, 133);
-            panel9.Name = "panel9";
-            panel9.Size = new Size(354, 250);
-            panel9.TabIndex = 80;
-            // 
-            // vistaprevia
-            // 
-            vistaprevia.BackColor = Color.Silver;
-            vistaprevia.Controls.Add(pictureBox2);
-            vistaprevia.Location = new Point(47, 45);
-            vistaprevia.Name = "vistaprevia";
-            vistaprevia.Size = new Size(303, 202);
-            vistaprevia.TabIndex = 79;
-            // 
-            // pictureBox2
-            // 
-            pictureBox2.Image = Properties.Resources.tenedor1;
-            pictureBox2.Location = new Point(112, 59);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(78, 74);
-            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox2.TabIndex = 0;
-            pictureBox2.TabStop = false;
+            panel5.BackColor = Color.FromArgb(64, 64, 64);
+            panel5.Controls.Add(label24);
+            panel5.Controls.Add(vistaprevia);
+            panel5.Controls.Add(pictureBox1);
+            panel5.Controls.Add(plateado);
+            panel5.Location = new Point(48, 72);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(563, 357);
+            panel5.TabIndex = 76;
             // 
             // label24
             // 
@@ -1259,169 +1217,40 @@
             label24.ForeColor = Color.White;
             label24.Image = Properties.Resources.check22;
             label24.ImageAlign = ContentAlignment.MiddleRight;
-            label24.Location = new Point(4, 4);
+            label24.Location = new Point(8, 5);
             label24.Name = "label24";
             label24.Size = new Size(124, 21);
             label24.TabIndex = 39;
             label24.Text = "Vista previa      ";
             // 
+            // vistaprevia
+            // 
+            vistaprevia.BackColor = Color.Silver;
+            vistaprevia.Controls.Add(pictureBox2);
+            vistaprevia.Location = new Point(78, 54);
+            vistaprevia.Name = "vistaprevia";
+            vistaprevia.Size = new Size(475, 295);
+            vistaprevia.TabIndex = 79;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.Image = Properties.Resources.tenedor1;
+            pictureBox2.Location = new Point(175, 94);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(124, 107);
+            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox2.TabIndex = 0;
+            pictureBox2.TabStop = false;
+            // 
             // pictureBox1
             // 
             pictureBox1.Image = Properties.Resources.vista_previa;
-            pictureBox1.Location = new Point(4, 32);
+            pictureBox1.Location = new Point(9, 34);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(346, 215);
+            pictureBox1.Size = new Size(545, 315);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 78;
             pictureBox1.TabStop = false;
-            // 
-            // panel5
-            // 
-            panel5.BackColor = Color.FromArgb(64, 64, 64);
-            panel5.Controls.Add(amarillooscuro);
-            panel5.Controls.Add(moradooscuro);
-            panel5.Controls.Add(blanco);
-            panel5.Controls.Add(label23);
-            panel5.Controls.Add(azuloscuro);
-            panel5.Controls.Add(amarilloclaro);
-            panel5.Controls.Add(rojopastel);
-            panel5.Controls.Add(moradoclaro);
-            panel5.Controls.Add(rojoclaro);
-            panel5.Controls.Add(azulclaro);
-            panel5.Controls.Add(azulpastel);
-            panel5.Controls.Add(rojooscuro);
-            panel5.Controls.Add(plateado);
-            panel5.Controls.Add(amarillopastel);
-            panel5.Controls.Add(gris);
-            panel5.Controls.Add(moradopastel);
-            panel5.Controls.Add(grisclaro);
-            panel5.Location = new Point(2, 133);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(298, 273);
-            panel5.TabIndex = 76;
-            // 
-            // amarillooscuro
-            // 
-            amarillooscuro.BackColor = Color.FromArgb(192, 192, 0);
-            amarillooscuro.Location = new Point(239, 160);
-            amarillooscuro.Name = "amarillooscuro";
-            amarillooscuro.Size = new Size(45, 45);
-            amarillooscuro.TabIndex = 0;
-            amarillooscuro.UseVisualStyleBackColor = false;
-            amarillooscuro.Click += amarillooscuro_Click;
-            // 
-            // moradooscuro
-            // 
-            moradooscuro.BackColor = Color.FromArgb(192, 0, 192);
-            moradooscuro.Location = new Point(183, 160);
-            moradooscuro.Name = "moradooscuro";
-            moradooscuro.Size = new Size(45, 45);
-            moradooscuro.TabIndex = 0;
-            moradooscuro.UseVisualStyleBackColor = false;
-            moradooscuro.Click += moradooscuro_Click;
-            // 
-            // blanco
-            // 
-            blanco.BackColor = Color.White;
-            blanco.Location = new Point(15, 42);
-            blanco.Name = "blanco";
-            blanco.Size = new Size(45, 45);
-            blanco.TabIndex = 0;
-            blanco.UseVisualStyleBackColor = false;
-            blanco.Click += blanco_Click;
-            // 
-            // label23
-            // 
-            label23.AutoSize = true;
-            label23.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label23.ForeColor = SystemColors.Control;
-            label23.Image = Properties.Resources.paleta;
-            label23.ImageAlign = ContentAlignment.MiddleRight;
-            label23.Location = new Point(4, 5);
-            label23.Name = "label23";
-            label23.Size = new Size(164, 21);
-            label23.TabIndex = 39;
-            label23.Text = "Paleta de colores      ";
-            // 
-            // azuloscuro
-            // 
-            azuloscuro.BackColor = Color.FromArgb(0, 0, 192);
-            azuloscuro.Location = new Point(127, 160);
-            azuloscuro.Name = "azuloscuro";
-            azuloscuro.Size = new Size(45, 45);
-            azuloscuro.TabIndex = 0;
-            azuloscuro.UseVisualStyleBackColor = false;
-            azuloscuro.Click += azuloscuro_Click;
-            // 
-            // amarilloclaro
-            // 
-            amarilloclaro.BackColor = Color.FromArgb(255, 255, 128);
-            amarilloclaro.Location = new Point(239, 101);
-            amarilloclaro.Name = "amarilloclaro";
-            amarilloclaro.Size = new Size(45, 45);
-            amarilloclaro.TabIndex = 0;
-            amarilloclaro.UseVisualStyleBackColor = false;
-            amarilloclaro.Click += amarilloclaro_Click;
-            // 
-            // rojopastel
-            // 
-            rojopastel.BackColor = Color.FromArgb(255, 192, 192);
-            rojopastel.Location = new Point(71, 42);
-            rojopastel.Name = "rojopastel";
-            rojopastel.Size = new Size(45, 45);
-            rojopastel.TabIndex = 0;
-            rojopastel.UseVisualStyleBackColor = false;
-            rojopastel.Click += rojopastel_Click;
-            // 
-            // moradoclaro
-            // 
-            moradoclaro.BackColor = Color.FromArgb(255, 128, 255);
-            moradoclaro.Location = new Point(183, 101);
-            moradoclaro.Name = "moradoclaro";
-            moradoclaro.Size = new Size(45, 45);
-            moradoclaro.TabIndex = 0;
-            moradoclaro.UseVisualStyleBackColor = false;
-            moradoclaro.Click += moradoclaro_Click;
-            // 
-            // rojoclaro
-            // 
-            rojoclaro.BackColor = Color.FromArgb(255, 128, 128);
-            rojoclaro.Location = new Point(71, 101);
-            rojoclaro.Name = "rojoclaro";
-            rojoclaro.Size = new Size(45, 45);
-            rojoclaro.TabIndex = 0;
-            rojoclaro.UseVisualStyleBackColor = false;
-            rojoclaro.Click += rojoclaro_Click;
-            // 
-            // azulclaro
-            // 
-            azulclaro.BackColor = Color.FromArgb(128, 128, 255);
-            azulclaro.Location = new Point(127, 101);
-            azulclaro.Name = "azulclaro";
-            azulclaro.Size = new Size(45, 45);
-            azulclaro.TabIndex = 0;
-            azulclaro.UseVisualStyleBackColor = false;
-            azulclaro.Click += azulclaro_Click;
-            // 
-            // azulpastel
-            // 
-            azulpastel.BackColor = Color.FromArgb(192, 192, 255);
-            azulpastel.Location = new Point(127, 42);
-            azulpastel.Name = "azulpastel";
-            azulpastel.Size = new Size(45, 45);
-            azulpastel.TabIndex = 0;
-            azulpastel.UseVisualStyleBackColor = false;
-            azulpastel.Click += azulpastel_Click;
-            // 
-            // rojooscuro
-            // 
-            rojooscuro.BackColor = Color.FromArgb(192, 0, 0);
-            rojooscuro.Location = new Point(71, 160);
-            rojooscuro.Name = "rojooscuro";
-            rojooscuro.Size = new Size(45, 45);
-            rojooscuro.TabIndex = 0;
-            rojooscuro.UseVisualStyleBackColor = false;
-            rojooscuro.Click += rojooscuro_Click;
             // 
             // plateado
             // 
@@ -1434,75 +1263,57 @@
             plateado.TabIndex = 0;
             plateado.Text = "Defecto";
             plateado.UseVisualStyleBackColor = false;
-            plateado.Click += plateado_Click;
             // 
-            // amarillopastel
+            // panel9
             // 
-            amarillopastel.BackColor = Color.FromArgb(255, 255, 192);
-            amarillopastel.Location = new Point(239, 42);
-            amarillopastel.Name = "amarillopastel";
-            amarillopastel.Size = new Size(45, 45);
-            amarillopastel.TabIndex = 0;
-            amarillopastel.UseVisualStyleBackColor = false;
-            amarillopastel.Click += amarillopastel_Click;
+            panel9.BackColor = Color.FromArgb(64, 64, 64);
+            panel9.Controls.Add(button11);
+            panel9.Location = new Point(48, 429);
+            panel9.Name = "panel9";
+            panel9.Size = new Size(220, 74);
+            panel9.TabIndex = 76;
             // 
-            // gris
+            // button11
             // 
-            gris.BackColor = Color.Gray;
-            gris.Location = new Point(15, 160);
-            gris.Name = "gris";
-            gris.Size = new Size(45, 45);
-            gris.TabIndex = 0;
-            gris.UseVisualStyleBackColor = false;
-            gris.Click += gris_Click;
-            // 
-            // moradopastel
-            // 
-            moradopastel.BackColor = Color.FromArgb(255, 192, 255);
-            moradopastel.Location = new Point(183, 42);
-            moradopastel.Name = "moradopastel";
-            moradopastel.Size = new Size(45, 45);
-            moradopastel.TabIndex = 0;
-            moradopastel.UseVisualStyleBackColor = false;
-            moradopastel.Click += moradopastel_Click;
-            // 
-            // grisclaro
-            // 
-            grisclaro.BackColor = Color.FromArgb(224, 224, 224);
-            grisclaro.Location = new Point(15, 101);
-            grisclaro.Name = "grisclaro";
-            grisclaro.Size = new Size(45, 45);
-            grisclaro.TabIndex = 0;
-            grisclaro.UseVisualStyleBackColor = false;
-            grisclaro.Click += grisclaro_Click;
+            button11.Image = Properties.Resources.paletacolor;
+            button11.ImageAlign = ContentAlignment.MiddleLeft;
+            button11.Location = new Point(15, 8);
+            button11.Margin = new Padding(4);
+            button11.Name = "button11";
+            button11.Size = new Size(191, 58);
+            button11.TabIndex = 8;
+            button11.Text = "Cambiar color";
+            button11.UseVisualStyleBackColor = true;
+            button11.Click += guardarcolorbtn_Click;
             // 
             // panel4
             // 
             panel4.BackColor = Color.FromArgb(64, 64, 64);
-            panel4.Controls.Add(button23);
-            panel4.Location = new Point(219, 474);
+            panel4.Controls.Add(guardarcolorbtn);
+            panel4.Location = new Point(391, 429);
             panel4.Name = "panel4";
             panel4.Size = new Size(220, 74);
             panel4.TabIndex = 76;
             // 
-            // button23
+            // guardarcolorbtn
             // 
-            button23.Image = Properties.Resources.guardar;
-            button23.ImageAlign = ContentAlignment.MiddleLeft;
-            button23.Location = new Point(15, 8);
-            button23.Margin = new Padding(4);
-            button23.Name = "button23";
-            button23.Size = new Size(191, 58);
-            button23.TabIndex = 8;
-            button23.Text = "Guardar selección";
-            button23.UseVisualStyleBackColor = true;
+            guardarcolorbtn.Image = Properties.Resources.guardar;
+            guardarcolorbtn.ImageAlign = ContentAlignment.MiddleLeft;
+            guardarcolorbtn.Location = new Point(15, 8);
+            guardarcolorbtn.Margin = new Padding(4);
+            guardarcolorbtn.Name = "guardarcolorbtn";
+            guardarcolorbtn.Size = new Size(191, 58);
+            guardarcolorbtn.TabIndex = 8;
+            guardarcolorbtn.Text = "Guardar selección";
+            guardarcolorbtn.UseVisualStyleBackColor = true;
+            guardarcolorbtn.Click += guardarcolorbtn_Click;
             // 
             // label22
             // 
             label22.AutoSize = true;
             label22.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold);
             label22.ForeColor = SystemColors.Control;
-            label22.Location = new Point(137, 36);
+            label22.Location = new Point(137, 12);
             label22.Name = "label22";
             label22.Size = new Size(384, 40);
             label22.TabIndex = 39;
@@ -1751,13 +1562,12 @@
             panel2.ResumeLayout(false);
             colores.ResumeLayout(false);
             colores.PerformLayout();
-            panel9.ResumeLayout(false);
-            panel9.PerformLayout();
+            panel5.ResumeLayout(false);
+            panel5.PerformLayout();
             vistaprevia.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            panel5.ResumeLayout(false);
-            panel5.PerformLayout();
+            panel9.ResumeLayout(false);
             panel4.ResumeLayout(false);
             permisospanel.ResumeLayout(false);
             permisospanel.PerformLayout();
@@ -1857,32 +1667,16 @@
         private Label label21;
         private Button button2;
         private Panel colores;
-        private Button moradooscuro;
-        private Button azuloscuro;
-        private Button moradoclaro;
-        private Button azulclaro;
-        private Button rojooscuro;
-        private Button moradopastel;
-        private Button grisclaro;
-        private Button gris;
-        private Button azulpastel;
-        private Button rojoclaro;
-        private Button blanco;
-        private Button rojopastel;
         private Panel panel5;
         private Panel panel4;
-        private Button button23;
+        private Button guardarcolorbtn;
         private Label label22;
         private Panel panel6;
-        private Label label23;
         private Label label24;
         private PictureBox pictureBox1;
         private Panel vistaprevia;
         private Button plateado;
         private PictureBox pictureBox2;
-        private Button amarillooscuro;
-        private Button amarilloclaro;
-        private Button amarillopastel;
         private Button button29;
         private Panel permisospanel;
         private TabControl tabControl3;
@@ -1903,6 +1697,6 @@
         private TabPage tabPage8;
         private Button button32;
         private Panel panel9;
-        private Panel panel10;
+        private Button button11;
     }
 }

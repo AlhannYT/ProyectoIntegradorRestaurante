@@ -29,7 +29,6 @@ namespace Proyecto_restaurante
         private string MotivoId = "";
         private string UnidadID = "";
 
-
         private void button4_Click(object sender, EventArgs e)
         {
             categpanel.Location = new Point(225, 12);
@@ -84,7 +83,6 @@ namespace Proyecto_restaurante
             //}
         }
 
-
         private void CP_CargarGrid()
         {
             string textoFiltro = categbuscar?.Text?.Trim() ?? "";
@@ -125,7 +123,6 @@ namespace Proyecto_restaurante
             }
         }
 
-
         private void CP_Limpiar()
         {
             CategoriaId = "";
@@ -134,7 +131,6 @@ namespace Proyecto_restaurante
             if (estadocateg != null) estadocateg.Checked = true;
             categtxt?.Focus();
         }
-
 
         private bool CP_Validar()
         {
@@ -153,7 +149,6 @@ namespace Proyecto_restaurante
             }
             return true;
         }
-
 
         private bool CP_ExisteNombre(string nombre, string idActual)
         {
@@ -185,7 +180,6 @@ namespace Proyecto_restaurante
 
                 if (string.IsNullOrEmpty(CategoriaId))
                 {
-                    // INSERT
                     string sql = "INSERT INTO dbo.CategoriaProducto (Nombre, Activo) VALUES (@Nombre, @Activo);";
                     using (var cmd = new SqlCommand(sql, cn))
                     {
@@ -199,7 +193,6 @@ namespace Proyecto_restaurante
                 }
                 else
                 {
-                    // UPDATE
                     string sql = "UPDATE dbo.CategoriaProducto SET Nombre=@Nombre, Activo=@Activo WHERE IdCategoria=@Id;";
                     using (var cmd = new SqlCommand(sql, cn))
                     {
@@ -217,7 +210,6 @@ namespace Proyecto_restaurante
             CP_Limpiar();
             CP_CargarGrid();
         }
-
 
         private void CP_CargarDesdeGridRow(int rowIndex)
         {
@@ -244,8 +236,6 @@ namespace Proyecto_restaurante
                 estadocateg.Checked = true;
             }
         }
-
-
 
         private void button8_Click(object sender, EventArgs e)
         {
@@ -479,7 +469,6 @@ namespace Proyecto_restaurante
             PT_CargarGrid();
         }
 
-
         private void PT_CargarDesdeGridRow(int rowIndex)
         {
             if (rowIndex < 0) return;
@@ -591,7 +580,6 @@ namespace Proyecto_restaurante
                 metododt.AutoGenerateColumns = true;
                 metododt.DataSource = dt;
 
-                // Encabezados amigables
                 if (metododt.Columns.Contains("IdMetodoPago"))
                 {
                     var c = metododt.Columns["IdMetodoPago"];
@@ -635,7 +623,6 @@ namespace Proyecto_restaurante
             return true;
         }
 
-        // Verifica nombre unico 
         private bool MP_ExisteNombre(string nombre, string idActual)
         {
             string sql = @"SELECT COUNT(1) FROM dbo.MetodoPago
@@ -666,7 +653,6 @@ namespace Proyecto_restaurante
 
                 if (string.IsNullOrEmpty(MetodoPagoId))
                 {
-                    // INSERT
                     string sql = "INSERT INTO dbo.MetodoPago (Nombre, Activo) VALUES (@Nombre, @Activo);";
                     using (var cmd = new SqlCommand(sql, cn))
                     {
@@ -680,7 +666,6 @@ namespace Proyecto_restaurante
                 }
                 else
                 {
-                    // UPDATE
                     string sql = "UPDATE dbo.MetodoPago SET Nombre=@Nombre, Activo=@Activo WHERE IdMetodoPago=@Id;";
                     using (var cmd = new SqlCommand(sql, cn))
                     {

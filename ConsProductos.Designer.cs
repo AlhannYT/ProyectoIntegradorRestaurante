@@ -122,11 +122,11 @@
             // label11
             // 
             label11.AutoSize = true;
-            label11.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            label11.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold);
             label11.ForeColor = SystemColors.Control;
-            label11.Location = new Point(283, 8);
+            label11.Location = new Point(256, 4);
             label11.Name = "label11";
-            label11.Size = new Size(273, 32);
+            label11.Size = new Size(327, 40);
             label11.TabIndex = 42;
             label11.Text = "Consulta de Productos";
             // 
@@ -754,11 +754,11 @@
             // label13
             // 
             label13.AutoSize = true;
-            label13.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            label13.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold);
             label13.ForeColor = SystemColors.Control;
-            label13.Location = new Point(283, 8);
+            label13.Location = new Point(259, 4);
             label13.Name = "label13";
-            label13.Size = new Size(268, 32);
+            label13.Size = new Size(321, 40);
             label13.TabIndex = 68;
             label13.Text = "Registro de Productos";
             // 

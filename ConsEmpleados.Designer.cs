@@ -41,7 +41,7 @@
             Editar = new Button();
             tabladatos = new DataGridView();
             agregar = new Button();
-            button1 = new Button();
+            recargarbtn = new Button();
             eliminarbtn = new Button();
             filtro = new CheckBox();
             tabPage2 = new TabPage();
@@ -137,7 +137,7 @@
             tabPage1.Controls.Add(Editar);
             tabPage1.Controls.Add(tabladatos);
             tabPage1.Controls.Add(agregar);
-            tabPage1.Controls.Add(button1);
+            tabPage1.Controls.Add(recargarbtn);
             tabPage1.Controls.Add(eliminarbtn);
             tabPage1.Controls.Add(filtro);
             tabPage1.Location = new Point(4, 30);
@@ -251,14 +251,14 @@
             agregar.UseVisualStyleBackColor = true;
             agregar.Click += agregar_Click;
             // 
-            // button1
+            // recargarbtn
             // 
-            button1.Image = Properties.Resources.actualizar;
-            button1.Location = new Point(11, 14);
-            button1.Name = "button1";
-            button1.Size = new Size(29, 29);
-            button1.TabIndex = 55;
-            button1.UseVisualStyleBackColor = true;
+            recargarbtn.Image = Properties.Resources.actualizar;
+            recargarbtn.Location = new Point(11, 14);
+            recargarbtn.Name = "recargarbtn";
+            recargarbtn.Size = new Size(29, 29);
+            recargarbtn.TabIndex = 55;
+            recargarbtn.UseVisualStyleBackColor = true;
             // 
             // eliminarbtn
             // 
@@ -923,7 +923,7 @@
         private Button Editar;
         private DataGridView tabladatos;
         private Button agregar;
-        private Button button1;
+        private Button recargarbtn;
         private Button eliminarbtn;
         private CheckBox filtro;
         private Panel panel3;

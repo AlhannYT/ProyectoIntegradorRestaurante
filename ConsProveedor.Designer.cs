@@ -310,11 +310,13 @@
             informalchk.AutoSize = true;
             informalchk.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             informalchk.ForeColor = Color.White;
-            informalchk.Location = new Point(300, 111);
+            informalchk.Image = Properties.Resources.informal;
+            informalchk.ImageAlign = ContentAlignment.MiddleRight;
+            informalchk.Location = new Point(297, 111);
             informalchk.Name = "informalchk";
-            informalchk.Size = new Size(95, 25);
+            informalchk.Size = new Size(111, 25);
             informalchk.TabIndex = 104;
-            informalchk.Text = "Informal";
+            informalchk.Text = "Informal    ";
             informalchk.UseVisualStyleBackColor = true;
             // 
             // tipodoccmbx
@@ -474,7 +476,7 @@
             // 
             panel2.Location = new Point(236, 339);
             panel2.Name = "panel2";
-            panel2.Size = new Size(129, 26);
+            panel2.Size = new Size(130, 26);
             panel2.TabIndex = 97;
             // 
             // panel5

@@ -18,6 +18,11 @@ namespace Proyecto_restaurante
         public ConsEmpleados()
         {
             InitializeComponent();
+
+            toolTip1 = new System.Windows.Forms.ToolTip();
+            toolTip1.SetToolTip(recargarbtn, "Recargar");
+            toolTip1.SetToolTip(filtro, "Estado");
+            toolTip1.SetToolTip(eliminarbtn, "Limpiar filtros");
         }
 
         public int PersonaID;
@@ -156,6 +161,7 @@ namespace Proyecto_restaurante
                 Estadobuscarpuesto = 1;
             }
         }
+
 
         private void ConsEmpleados_Load(object sender, EventArgs e)
         {
