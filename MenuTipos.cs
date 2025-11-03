@@ -20,9 +20,15 @@ namespace Proyecto_restaurante
         }
 
         string conexionString = ConexionBD.ConexionSQL();
+        private string CategoriaId = "";
+        private string ProductoTipoId = "";
         private string DepaID = "";
         private string PuestoID = "";
         private string TipoDocID = "";
+        private string MetodoPagoId = "";
+        private string MotivoId = "";
+        private string UnidadID = "";
+
 
         private void button4_Click(object sender, EventArgs e)
         {
@@ -30,6 +36,9 @@ namespace Proyecto_restaurante
             textoinicial.Location = new Point(357, 875);
             categpanel.BringToFront();
             categpanel.Visible = true;
+
+            CP_CargarGrid();
+            CP_Limpiar();
 
             //string consultaid = "SELECT TOP 1 IdCategoria FROM CategoriaProducto ORDER BY IdCategoria DESC";
 
@@ -74,6 +83,169 @@ namespace Proyecto_restaurante
             //    categdt.DataSource = dt;
             //}
         }
+
+
+        private void CP_CargarGrid()
+        {
+            string textoFiltro = categbuscar?.Text?.Trim() ?? "";
+            bool soloActivos = (categfiltrochk != null && categfiltrochk.Checked);
+
+
+            string sql = @"
+                            SELECT IdCategoria, Nombre, Activo
+                            FROM dbo.CategoriaProducto
+                            WHERE (@f = '' OR Nombre LIKE '%' + @f + '%')"
+                                        + (soloActivos ? " AND Activo = 1" : "") +
+                                    @"
+                            ORDER BY Activo DESC, Nombre;";
+
+            using (var cn = new SqlConnection(conexionString))
+            using (var da = new SqlDataAdapter(sql, cn))
+            {
+                da.SelectCommand.Parameters.AddWithValue("@f", textoFiltro);
+
+                var dt = new DataTable();
+                da.Fill(dt);
+
+                categdt.AutoGenerateColumns = true;
+                categdt.DataSource = dt;
+
+
+                if (categdt.Columns.Contains("IdCategoria"))
+                {
+                    var c = categdt.Columns["IdCategoria"];
+                    c.HeaderText = "ID";
+                    c.Width = 70;
+                    c.ReadOnly = true;
+                }
+                if (categdt.Columns.Contains("Nombre"))
+                    categdt.Columns["Nombre"].HeaderText = "Categoría";
+                if (categdt.Columns.Contains("Activo"))
+                    categdt.Columns["Activo"].HeaderText = "Activo";
+            }
+        }
+
+
+        private void CP_Limpiar()
+        {
+            CategoriaId = "";
+            if (idcateg != null) idcateg.Text = "";
+            if (categtxt != null) categtxt.Text = "";
+            if (estadocateg != null) estadocateg.Checked = true;
+            categtxt?.Focus();
+        }
+
+
+        private bool CP_Validar()
+        {
+            if (categtxt == null || string.IsNullOrWhiteSpace(categtxt.Text))
+            {
+                MessageBox.Show("El nombre es obligatorio.");
+                categtxt?.Focus();
+                return false;
+            }
+
+            if (CP_ExisteNombre(categtxt.Text, CategoriaId))
+            {
+                MessageBox.Show("Ya existe una categoría con ese nombre.");
+                categtxt?.Focus();
+                return false;
+            }
+            return true;
+        }
+
+
+        private bool CP_ExisteNombre(string nombre, string idActual)
+        {
+            string sql = @"SELECT COUNT(1) FROM dbo.CategoriaProducto
+                   WHERE Nombre = @n AND (@id = '' OR IdCategoria <> @idint);";
+
+            using (var cn = new SqlConnection(conexionString))
+            using (var cmd = new SqlCommand(sql, cn))
+            {
+                cmd.Parameters.AddWithValue("@n", (nombre ?? "").Trim());
+                int idint = 0; int.TryParse(idActual, out idint);
+                cmd.Parameters.AddWithValue("@id", idActual ?? "");
+                cmd.Parameters.AddWithValue("@idint", idint);
+
+                cn.Open();
+                int n = Convert.ToInt32(cmd.ExecuteScalar());
+                return n > 0;
+            }
+        }
+
+
+        private void CP_Guardar()
+        {
+            if (!CP_Validar()) return;
+
+            using (var cn = new SqlConnection(conexionString))
+            {
+                cn.Open();
+
+                if (string.IsNullOrEmpty(CategoriaId))
+                {
+                    // INSERT
+                    string sql = "INSERT INTO dbo.CategoriaProducto (Nombre, Activo) VALUES (@Nombre, @Activo);";
+                    using (var cmd = new SqlCommand(sql, cn))
+                    {
+                        cmd.Parameters.AddWithValue("@Nombre", categtxt.Text.Trim());
+                        cmd.Parameters.AddWithValue("@Activo", (estadocateg != null && estadocateg.Checked) ? 1 : 0);
+
+                        MessageBox.Show(cmd.ExecuteNonQuery() > 0
+                            ? "Categoría registrada con éxito."
+                            : "No se pudo guardar.");
+                    }
+                }
+                else
+                {
+                    // UPDATE
+                    string sql = "UPDATE dbo.CategoriaProducto SET Nombre=@Nombre, Activo=@Activo WHERE IdCategoria=@Id;";
+                    using (var cmd = new SqlCommand(sql, cn))
+                    {
+                        cmd.Parameters.AddWithValue("@Id", int.Parse(CategoriaId));
+                        cmd.Parameters.AddWithValue("@Nombre", categtxt.Text.Trim());
+                        cmd.Parameters.AddWithValue("@Activo", (estadocateg != null && estadocateg.Checked) ? 1 : 0);
+
+                        MessageBox.Show(cmd.ExecuteNonQuery() > 0
+                            ? "Categoría actualizada con éxito."
+                            : "No se pudo actualizar.");
+                    }
+                }
+            }
+
+            CP_Limpiar();
+            CP_CargarGrid();
+        }
+
+
+        private void CP_CargarDesdeGridRow(int rowIndex)
+        {
+            if (rowIndex < 0) return;
+            var row = categdt.Rows[rowIndex];
+            if (row == null) return;
+
+            var idObj = row.Cells["IdCategoria"]?.Value;
+            CategoriaId = (idObj == null || idObj == DBNull.Value) ? "" : idObj.ToString();
+            if (idcateg != null) idcateg.Text = CategoriaId;
+
+            if (categtxt != null)
+                categtxt.Text = row.Cells["Nombre"]?.Value?.ToString() ?? "";
+
+            if (estadocateg != null && categdt.Columns.Contains("Activo"))
+            {
+                var actObj = row.Cells["Activo"]?.Value;
+                bool activo = false;
+                if (actObj != null && actObj != DBNull.Value) activo = Convert.ToBoolean(actObj);
+                estadocateg.Checked = activo;
+            }
+            else if (estadocateg != null)
+            {
+                estadocateg.Checked = true;
+            }
+        }
+
+
 
         private void button8_Click(object sender, EventArgs e)
         {
@@ -177,12 +349,177 @@ namespace Proyecto_restaurante
             //}
         }
 
+        private void PT_CargarGrid()
+        {
+            string texto = prodbuscar?.Text?.Trim() ?? "";
+            bool soloActivos = prodfiltrochk != null && prodfiltrochk.Checked;
+
+            string sql = @"
+                            SELECT IdProductoTipo, Nombre, Activo, Ingrediente
+                            FROM dbo.ProductoTipo
+                            WHERE (@f = '' OR Nombre LIKE '%' + @f + '%')"
+                                        + (soloActivos ? " AND Activo = 1" : "") +
+                                    @"
+                            ORDER BY Activo DESC, Nombre;";
+
+            using (var cn = new SqlConnection(conexionString))
+            using (var da = new SqlDataAdapter(sql, cn))
+            {
+                da.SelectCommand.Parameters.AddWithValue("@f", texto);
+
+                var dt = new DataTable();
+                da.Fill(dt);
+
+                prodtidt.AutoGenerateColumns = true;
+                prodtidt.DataSource = dt;
+
+                if (prodtidt.Columns.Contains("IdProductoTipo"))
+                {
+                    var c = prodtidt.Columns["IdProductoTipo"];
+                    c.HeaderText = "ID";
+                    c.Width = 70;
+                    c.ReadOnly = true;
+                }
+                if (prodtidt.Columns.Contains("Nombre"))
+                    prodtidt.Columns["Nombre"].HeaderText = "Tipo";
+                if (prodtidt.Columns.Contains("Activo"))
+                    prodtidt.Columns["Activo"].HeaderText = "Activo";
+                if (prodtidt.Columns.Contains("Ingrediente"))
+                    prodtidt.Columns["Ingrediente"].HeaderText = "¿Ingrediente?";
+            }
+        }
+
+        private void PT_Limpiar()
+        {
+            ProductoTipoId = "";
+            if (idprod != null) idprod.Text = "";
+            if (prodtxt != null) prodtxt.Text = "";
+            if (estadoprod != null) estadoprod.Checked = true;
+            if (ingredientechk != null) ingredientechk.Checked = true; // por tu DEFAULT (1)
+            prodtxt?.Focus();
+        }
+
+        private bool PT_Validar()
+        {
+            if (prodtxt == null || string.IsNullOrWhiteSpace(prodtxt.Text))
+            {
+                MessageBox.Show("El nombre es obligatorio.");
+                prodtxt?.Focus();
+                return false;
+            }
+            if (PT_ExisteNombre(prodtxt.Text, ProductoTipoId))
+            {
+                MessageBox.Show("Ya existe un tipo con ese nombre.");
+                prodtxt?.Focus();
+                return false;
+            }
+            return true;
+        }
+
+        private bool PT_ExisteNombre(string nombre, string idActual)
+        {
+            string sql = @"SELECT COUNT(1) FROM dbo.ProductoTipo
+                   WHERE Nombre = @n AND (@id = '' OR IdProductoTipo <> @idint);";
+            using (var cn = new SqlConnection(conexionString))
+            using (var cmd = new SqlCommand(sql, cn))
+            {
+                cmd.Parameters.AddWithValue("@n", (nombre ?? "").Trim());
+                int idint = 0; int.TryParse(idActual, out idint);
+                cmd.Parameters.AddWithValue("@id", idActual ?? "");
+                cmd.Parameters.AddWithValue("@idint", idint);
+
+                cn.Open();
+                return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
+            }
+        }
+
+        private void PT_Guardar()
+        {
+            if (!PT_Validar()) return;
+
+            bool activo = estadoprod != null && estadoprod.Checked;
+            bool ingrediente = ingredientechk != null && ingredientechk.Checked;
+
+            using (var cn = new SqlConnection(conexionString))
+            {
+                cn.Open();
+
+                if (string.IsNullOrEmpty(ProductoTipoId))
+                {
+                    string sql = "INSERT INTO dbo.ProductoTipo (Nombre, Activo, Ingrediente) VALUES (@Nombre, @Activo, @Ingrediente);";
+                    using (var cmd = new SqlCommand(sql, cn))
+                    {
+                        cmd.Parameters.AddWithValue("@Nombre", prodtxt.Text.Trim());
+                        cmd.Parameters.AddWithValue("@Activo", activo ? 1 : 0);
+                        cmd.Parameters.AddWithValue("@Ingrediente", ingrediente ? 1 : 0);
+
+                        MessageBox.Show(cmd.ExecuteNonQuery() > 0
+                            ? "Tipo registrado con éxito."
+                            : "No se pudo guardar.");
+                    }
+                }
+                else
+                {
+                    string sql = "UPDATE dbo.ProductoTipo SET Nombre=@Nombre, Activo=@Activo, Ingrediente=@Ingrediente WHERE IdProductoTipo=@Id;";
+                    using (var cmd = new SqlCommand(sql, cn))
+                    {
+                        cmd.Parameters.AddWithValue("@Id", int.Parse(ProductoTipoId));
+                        cmd.Parameters.AddWithValue("@Nombre", prodtxt.Text.Trim());
+                        cmd.Parameters.AddWithValue("@Activo", activo ? 1 : 0);
+                        cmd.Parameters.AddWithValue("@Ingrediente", ingrediente ? 1 : 0);
+
+                        MessageBox.Show(cmd.ExecuteNonQuery() > 0
+                            ? "Tipo actualizado con éxito."
+                            : "No se pudo actualizar.");
+                    }
+                }
+            }
+
+            PT_Limpiar();
+            PT_CargarGrid();
+        }
+
+
+        private void PT_CargarDesdeGridRow(int rowIndex)
+        {
+            if (rowIndex < 0) return;
+            var row = prodtidt.Rows[rowIndex];
+            if (row == null) return;
+
+            var idObj = row.Cells["IdProductoTipo"]?.Value;
+            ProductoTipoId = (idObj == null || idObj == DBNull.Value) ? "" : idObj.ToString();
+            if (idprod != null) idprod.Text = ProductoTipoId;
+
+            if (prodtxt != null)
+                prodtxt.Text = row.Cells["Nombre"]?.Value?.ToString() ?? "";
+
+            if (estadoprod != null)
+            {
+                bool act = false;
+                var actObj = row.Cells["Activo"]?.Value;
+                if (actObj != null && actObj != DBNull.Value) act = Convert.ToBoolean(actObj);
+                estadoprod.Checked = act;
+            }
+
+            if (ingredientechk != null)
+            {
+                bool ing = true;
+                var ingObj = row.Cells["Ingrediente"]?.Value;
+                if (ingObj != null && ingObj != DBNull.Value) ing = Convert.ToBoolean(ingObj);
+                ingredientechk.Checked = ing;
+            }
+        }
+
+
         private void button5_Click(object sender, EventArgs e)
         {
             metodopanel.Location = new Point(225, 12);
             textoinicial.Location = new Point(357, 875);
             metodopanel.BringToFront();
             metodopanel.Visible = true;
+
+            MP_CargarGrid();
+            MP_Limpiar();
 
             //string consultaid = "SELECT TOP 1 IdMetodoPago FROM MetodoPago ORDER BY IdMetodoPago DESC";
 
@@ -226,6 +563,166 @@ namespace Proyecto_restaurante
             //    adaptador.Fill(dt);
             //    metododt.DataSource = dt;
             //}
+        }
+
+
+        private void MP_CargarGrid()
+        {
+            string textoFiltro = metbuscar?.Text?.Trim() ?? "";
+            bool soloActivos = (metfiltrochk != null && metfiltrochk.Checked);
+
+
+            string sql = @"
+                        SELECT IdMetodoPago, Nombre, Activo
+                        FROM dbo.MetodoPago
+                        WHERE (@f = '' OR Nombre LIKE '%' + @f + '%')"
+                                    + (soloActivos ? " AND Activo = 1" : "") +
+                                @"
+                        ORDER BY Activo DESC, Nombre;";
+
+            using (var cn = new SqlConnection(conexionString))
+            using (var da = new SqlDataAdapter(sql, cn))
+            {
+                da.SelectCommand.Parameters.AddWithValue("@f", textoFiltro);
+
+                var dt = new DataTable();
+                da.Fill(dt);
+
+                metododt.AutoGenerateColumns = true;
+                metododt.DataSource = dt;
+
+                // Encabezados amigables
+                if (metododt.Columns.Contains("IdMetodoPago"))
+                {
+                    var c = metododt.Columns["IdMetodoPago"];
+                    c.HeaderText = "ID";
+                    c.Width = 70;
+                    c.ReadOnly = true;
+                }
+                if (metododt.Columns.Contains("Nombre"))
+                    metododt.Columns["Nombre"].HeaderText = "Método";
+                if (metododt.Columns.Contains("Activo"))
+                    metododt.Columns["Activo"].HeaderText = "Activo";
+            }
+        }
+
+
+        private void MP_Limpiar()
+        {
+            MetodoPagoId = "";
+            idmetpago.Text = "";
+            metodotxt.Text = "";
+            if (estadometodo != null) estadometodo.Checked = true;
+            metodotxt.Focus();
+        }
+
+
+        private bool MP_Validar()
+        {
+            if (string.IsNullOrWhiteSpace(metodotxt.Text))
+            {
+                MessageBox.Show("El nombre es obligatorio.");
+                metodotxt.Focus();
+                return false;
+            }
+
+            if (MP_ExisteNombre(metodotxt.Text, MetodoPagoId))
+            {
+                MessageBox.Show("Ya existe un método con ese nombre.");
+                metodotxt.Focus();
+                return false;
+            }
+            return true;
+        }
+
+        // Verifica nombre unico 
+        private bool MP_ExisteNombre(string nombre, string idActual)
+        {
+            string sql = @"SELECT COUNT(1) FROM dbo.MetodoPago
+                   WHERE Nombre = @n AND (@id = '' OR IdMetodoPago <> @idint);";
+
+            using (var cn = new SqlConnection(conexionString))
+            using (var cmd = new SqlCommand(sql, cn))
+            {
+                cmd.Parameters.AddWithValue("@n", (nombre ?? "").Trim());
+                int idint = 0; int.TryParse(idActual, out idint);
+                cmd.Parameters.AddWithValue("@id", idActual ?? "");
+                cmd.Parameters.AddWithValue("@idint", idint);
+
+                cn.Open();
+                int n = Convert.ToInt32(cmd.ExecuteScalar());
+                return n > 0;
+            }
+        }
+
+
+        private void MP_Guardar()
+        {
+            if (!MP_Validar()) return;
+
+            using (var cn = new SqlConnection(conexionString))
+            {
+                cn.Open();
+
+                if (string.IsNullOrEmpty(MetodoPagoId))
+                {
+                    // INSERT
+                    string sql = "INSERT INTO dbo.MetodoPago (Nombre, Activo) VALUES (@Nombre, @Activo);";
+                    using (var cmd = new SqlCommand(sql, cn))
+                    {
+                        cmd.Parameters.AddWithValue("@Nombre", metodotxt.Text.Trim());
+                        cmd.Parameters.AddWithValue("@Activo", (estadometodo != null && estadometodo.Checked) ? 1 : 0);
+
+                        MessageBox.Show(cmd.ExecuteNonQuery() > 0
+                            ? "Método registrado con éxito."
+                            : "No se pudo guardar.");
+                    }
+                }
+                else
+                {
+                    // UPDATE
+                    string sql = "UPDATE dbo.MetodoPago SET Nombre=@Nombre, Activo=@Activo WHERE IdMetodoPago=@Id;";
+                    using (var cmd = new SqlCommand(sql, cn))
+                    {
+                        cmd.Parameters.AddWithValue("@Id", int.Parse(MetodoPagoId));
+                        cmd.Parameters.AddWithValue("@Nombre", metodotxt.Text.Trim());
+                        cmd.Parameters.AddWithValue("@Activo", (estadometodo != null && estadometodo.Checked) ? 1 : 0);
+
+                        MessageBox.Show(cmd.ExecuteNonQuery() > 0
+                            ? "Método actualizado con éxito."
+                            : "No se pudo actualizar.");
+                    }
+                }
+            }
+
+            MP_Limpiar();
+            MP_CargarGrid();
+        }
+
+
+        private void MP_CargarDesdeGridRow(int rowIndex)
+        {
+            if (rowIndex < 0) return;
+            var row = metododt.Rows[rowIndex];
+            if (row == null) return;
+
+            var idObj = row.Cells["IdMetodoPago"]?.Value;
+            MetodoPagoId = (idObj == null || idObj == DBNull.Value) ? "" : idObj.ToString();
+            idmetpago.Text = MetodoPagoId;
+
+            metodotxt.Text = row.Cells["Nombre"]?.Value?.ToString() ?? "";
+
+            if (metododt.Columns.Contains("Activo") && estadometodo != null)
+            {
+                var actObj = row.Cells["Activo"]?.Value;
+                bool activo = false;
+                if (actObj != null && actObj != DBNull.Value) activo = Convert.ToBoolean(actObj);
+                estadometodo.Checked = activo;
+            }
+            else if (estadometodo != null)
+            {
+                estadometodo.Checked = true;
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -363,6 +860,7 @@ namespace Proyecto_restaurante
 
         private void metfiltrochk_CheckedChanged(object sender, EventArgs e)
         {
+            MP_CargarGrid();
 
         }
 
@@ -425,6 +923,9 @@ namespace Proyecto_restaurante
             textoinicial.Location = new Point(357, 875);
             motivopanel.BringToFront();
             motivopanel.Visible = true;
+
+            MSI_CargarGrid();
+            MSI_Limpiar();
         }
 
         private void button29_Click(object sender, EventArgs e)
@@ -433,6 +934,9 @@ namespace Proyecto_restaurante
             textoinicial.Location = new Point(357, 875);
             unidadpanel.BringToFront();
             unidadpanel.Visible = true;
+
+            UM_CargarGrid();
+            UM_Limpiar();
         }
 
         private void guardardepartamento_Click(object sender, EventArgs e)
@@ -674,6 +1178,699 @@ namespace Proyecto_restaurante
         }
 
         private void button6_Click(object sender, EventArgs e)
+        {
+            MP_Guardar();
+        }
+
+
+        private void UM_CargarGrid()
+        {
+
+            string filtro = unidadbusqueda?.Text?.Trim() ?? "";
+            bool? soloActivos = (unidadfiltrochk != null && unidadfiltrochk.Checked) ? true : (bool?)null;
+
+            string sql = @"
+                            SELECT IdUnidadMedida, Nombre, Valor, Activo
+                            FROM UnidadMedida
+                            WHERE (@f = '' OR Nombre LIKE '%' + @f + '%')
+                            AND (@act IS NULL OR Activo = @act)
+                            -- Activos primero cuando NO se filtra por activos
+                            ORDER BY 
+                            CASE WHEN @act IS NULL THEN CASE WHEN Activo = 1 THEN 0 ELSE 1 END ELSE 0 END, Nombre;";
+
+            using (SqlConnection con = new SqlConnection(conexionString))
+            using (SqlDataAdapter da = new SqlDataAdapter(sql, con))
+            {
+                da.SelectCommand.Parameters.AddWithValue("@f", filtro);
+                da.SelectCommand.Parameters.AddWithValue(
+                    "@act",
+                    (object?)(soloActivos.HasValue ? (soloActivos.Value ? 1 : 0) : null) ?? DBNull.Value
+                );
+
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                // Auto columnas por nombres de BD
+                dataGridView2.AutoGenerateColumns = true;
+                dataGridView2.DataSource = dt;
+
+
+                if (dataGridView2.Columns.Contains("IdUnidadMedida"))
+                {
+                    var c = dataGridView2.Columns["IdUnidadMedida"];
+                    c.HeaderText = "ID";
+                    c.Width = 80;
+                    c.ReadOnly = true;
+                }
+                if (dataGridView2.Columns.Contains("Nombre"))
+                {
+                    var c = dataGridView2.Columns["Nombre"];
+                    c.HeaderText = "Unidad";
+                }
+                if (dataGridView2.Columns.Contains("Valor"))
+                {
+                    var c = dataGridView2.Columns["Valor"];
+                    c.HeaderText = "Valor";
+                    c.DefaultCellStyle.Format = "0.####"; // hasta 4 decimales, sin ceros de mas
+                    c.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    c.Width = 110;
+                }
+
+            }
+        }
+
+        private void UM_Limpiar()
+        {
+            UnidadID = "";
+            idunidad.Text = "";
+            nombreunidadtxt.Clear();
+            valorunidadtxt.Clear();
+            unidadestadochk.Checked = true;
+            nombreunidadtxt.Focus();
+        }
+
+        // Validaciones 
+        private bool UM_Validar(out decimal valor)
+        {
+            valor = 0m;
+
+            if (string.IsNullOrWhiteSpace(nombreunidadtxt.Text))
+            { MessageBox.Show("El nombre es obligatorio."); nombreunidadtxt.Focus(); return false; }
+
+            // Acepta coma o punto
+            string txt = (valorunidadtxt.Text ?? "").Replace(',', '.');
+            if (!decimal.TryParse(txt, System.Globalization.NumberStyles.Number,
+                System.Globalization.CultureInfo.InvariantCulture, out valor) || valor <= 0)
+            { MessageBox.Show("El valor debe ser > 0 (ej: 1 o 0.001)"); valorunidadtxt.Focus(); return false; }
+
+            // Duplicados por nombre (excluyendo el mismo ID si estás editando)
+            if (UM_ExisteNombre(nombreunidadtxt.Text, UnidadID))
+            { MessageBox.Show("Ya existe una unidad con ese nombre."); nombreunidadtxt.Focus(); return false; }
+
+            return true;
+        }
+
+        // Chequea si ya existe el nombre
+        private bool UM_ExisteNombre(string nombre, string idActual)
+        {
+            string sql = @"SELECT COUNT(1) FROM UnidadMedida 
+                   WHERE Nombre = @n AND (@id = '' OR IdUnidadMedida <> @idint);";
+            using (SqlConnection con = new SqlConnection(conexionString))
+            using (SqlCommand cmd = new SqlCommand(sql, con))
+            {
+                cmd.Parameters.AddWithValue("@n", (nombre ?? "").Trim());
+                int idint = 0; int.TryParse(idActual, out idint);
+                cmd.Parameters.AddWithValue("@id", idActual ?? "");
+                cmd.Parameters.AddWithValue("@idint", idint);
+                con.Open();
+                int n = Convert.ToInt32(cmd.ExecuteScalar());
+                return n > 0;
+            }
+        }
+
+        // INSERT / UPDATE
+        private void UM_Guardar()
+        {
+            if (!UM_Validar(out decimal valor)) return;
+
+            using (SqlConnection conexion = new SqlConnection(conexionString))
+            {
+                try
+                {
+                    conexion.Open();
+
+                    if (string.IsNullOrEmpty(UnidadID))
+                    {
+                        // INSERT
+                        string q = @"INSERT INTO UnidadMedida (Nombre, Valor, Activo)
+                             VALUES (@Nombre, @Valor, @Activo)";
+                        using (SqlCommand cmd = new SqlCommand(q, conexion))
+                        {
+                            cmd.Parameters.AddWithValue("@Nombre", nombreunidadtxt.Text.Trim());
+
+                            // Valor como decimal(10,4)
+                            var pValor = cmd.Parameters.Add("@Valor", SqlDbType.Decimal);
+                            pValor.Precision = 10; pValor.Scale = 4;
+                            pValor.Value = Math.Round(valor, 4);
+
+                            cmd.Parameters.AddWithValue("@Activo", unidadestadochk.Checked ? 1 : 0);
+
+                            MessageBox.Show(cmd.ExecuteNonQuery() > 0
+                                ? "Unidad registrada con éxito." : "No se pudo guardar.");
+                        }
+                    }
+                    else
+                    {
+                        // UPDATE
+                        string q = @"UPDATE UnidadMedida
+                             SET Nombre=@Nombre, Valor=@Valor, Activo=@Activo
+                             WHERE IdUnidadMedida=@Id";
+                        using (SqlCommand cmd = new SqlCommand(q, conexion))
+                        {
+                            cmd.Parameters.AddWithValue("@Id", int.Parse(UnidadID));
+                            cmd.Parameters.AddWithValue("@Nombre", nombreunidadtxt.Text.Trim());
+
+                            var pValor = cmd.Parameters.Add("@Valor", SqlDbType.Decimal);
+                            pValor.Precision = 10; pValor.Scale = 4;
+                            pValor.Value = Math.Round(valor, 4);
+
+                            cmd.Parameters.AddWithValue("@Activo", unidadestadochk.Checked ? 1 : 0);
+
+                            MessageBox.Show(cmd.ExecuteNonQuery() > 0
+                                ? "Unidad actualizada con éxito." : "No se pudo actualizar.");
+                        }
+                    }
+
+                    UM_Limpiar();
+                    UM_CargarGrid();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+            }
+        }
+
+        // Carga una fila del grid a los campos 
+        private void UM_CargarDesdeGridRow(int rowIndex)
+        {
+            if (rowIndex < 0) return;
+            var row = dataGridView2.Rows[rowIndex];
+            if (row == null) return;
+
+            var idObj = row.Cells["IdUnidadMedida"]?.Value;
+            UnidadID = (idObj == null || idObj == DBNull.Value) ? "" : idObj.ToString();
+            idunidad.Text = UnidadID;
+
+            nombreunidadtxt.Text = row.Cells["Nombre"]?.Value?.ToString() ?? "";
+
+            var valObj = row.Cells["Valor"]?.Value;
+            decimal valDec = 0m;
+            if (valObj != null && valObj != DBNull.Value) decimal.TryParse(valObj.ToString(), out valDec);
+            valorunidadtxt.Text = valDec.ToString("0.####");
+
+            var actObj = row.Cells["Activo"]?.Value;
+            bool activo = false;
+            if (actObj != null && actObj != DBNull.Value) activo = Convert.ToBoolean(actObj);
+            unidadestadochk.Checked = activo;
+        }
+
+
+        private void MSI_CargarGrid()
+        {
+            string textoFiltro = movitobusqueda?.Text?.Trim() ?? "";
+            bool soloActivos = (motivofiltrochk != null && motivofiltrochk.Checked);
+
+            string sql = @"
+                            SELECT IdMotivo, Nombre, Activo
+                            FROM dbo.MotivoSalidaInventario
+                            WHERE (@f = '' OR Nombre LIKE '%' + @f + '%')
+                            AND (@soloAct = 0 OR Activo = 1)
+                            ORDER BY 
+                            CASE WHEN @soloAct = 0 THEN CASE WHEN Activo = 1 THEN 0 ELSE 1 END ELSE 0 END, Nombre;";
+
+            using (var cn = new SqlConnection(conexionString))
+            using (var da = new SqlDataAdapter(sql, cn))
+            {
+                da.SelectCommand.Parameters.AddWithValue("@f", textoFiltro);
+                da.SelectCommand.Parameters.AddWithValue("@soloAct", soloActivos ? 1 : 0);
+
+                var dt = new DataTable();
+                da.Fill(dt);
+
+                dataGridView1.AutoGenerateColumns = true;
+                dataGridView1.DataSource = dt;
+
+                // Encabezados y formato
+                if (dataGridView1.Columns.Contains("IdMotivo"))
+                {
+                    var c = dataGridView1.Columns["IdMotivo"];
+                    c.HeaderText = "ID";
+                    c.Width = 70;
+                    c.ReadOnly = true;
+                }
+                if (dataGridView1.Columns.Contains("Nombre"))
+                    dataGridView1.Columns["Nombre"].HeaderText = "Motivo";
+                if (dataGridView1.Columns.Contains("Activo"))
+                    dataGridView1.Columns["Activo"].HeaderText = "Activo";
+            }
+        }
+
+
+        private void MSI_Limpiar()
+        {
+            MotivoId = "";
+            if (textBox2 != null) textBox2.Text = "";
+            motivotxt.Text = "";
+            if (estadomotivo != null) estadomotivo.Checked = true;
+            motivotxt.Focus();
+        }
+
+        // Validacion
+        private bool MSI_Validar()
+        {
+            if (string.IsNullOrWhiteSpace(motivotxt.Text))
+            {
+                MessageBox.Show("El nombre es obligatorio.");
+                motivotxt.Focus();
+                return false;
+            }
+
+            if (MSI_ExisteNombre(motivotxt.Text, MotivoId))
+            {
+                MessageBox.Show("Ya existe un motivo con ese nombre.");
+                motivotxt.Focus();
+                return false;
+            }
+            return true;
+        }
+
+
+        private bool MSI_ExisteNombre(string nombre, string idActual)
+        {
+            string sql = @"SELECT COUNT(1) FROM dbo.MotivoSalidaInventario
+                   WHERE Nombre = @n AND (@id = '' OR IdMotivo <> @idint);";
+            using (var cn = new SqlConnection(conexionString))
+            using (var cmd = new SqlCommand(sql, cn))
+            {
+                cmd.Parameters.AddWithValue("@n", (nombre ?? "").Trim());
+                int idint = 0; int.TryParse(idActual, out idint);
+                cmd.Parameters.AddWithValue("@id", idActual ?? "");
+                cmd.Parameters.AddWithValue("@idint", idint);
+
+                cn.Open();
+                int n = Convert.ToInt32(cmd.ExecuteScalar());
+                return n > 0;
+            }
+        }
+
+        // INSERT / UPDATE
+        private void MSI_Guardar()
+        {
+            if (!MSI_Validar()) return;
+
+            using (var cn = new SqlConnection(conexionString))
+            {
+                cn.Open();
+
+                if (string.IsNullOrEmpty(MotivoId))
+                {
+                    // INSERT
+                    string sql = "INSERT INTO dbo.MotivoSalidaInventario (Nombre, Activo) VALUES (@Nombre, @Activo);";
+                    using (var cmd = new SqlCommand(sql, cn))
+                    {
+                        cmd.Parameters.AddWithValue("@Nombre", motivotxt.Text.Trim());
+                        cmd.Parameters.AddWithValue("@Activo", (estadomotivo != null && estadomotivo.Checked) ? 1 : 0);
+
+                        MessageBox.Show(cmd.ExecuteNonQuery() > 0
+                            ? "Motivo registrado con éxito."
+                            : "No se pudo guardar.");
+                    }
+                }
+                else
+                {
+                    // UPDATE
+                    string sql = "UPDATE dbo.MotivoSalidaInventario SET Nombre=@Nombre, Activo=@Activo WHERE IdMotivo=@Id;";
+                    using (var cmd = new SqlCommand(sql, cn))
+                    {
+                        cmd.Parameters.AddWithValue("@Id", int.Parse(MotivoId));
+                        cmd.Parameters.AddWithValue("@Nombre", motivotxt.Text.Trim());
+                        cmd.Parameters.AddWithValue("@Activo", (estadomotivo != null && estadomotivo.Checked) ? 1 : 0);
+
+                        MessageBox.Show(cmd.ExecuteNonQuery() > 0
+                            ? "Motivo actualizado con éxito."
+                            : "No se pudo actualizar.");
+                    }
+                }
+            }
+
+            MSI_Limpiar();
+            MSI_CargarGrid();
+        }
+
+        private void MSI_CargarDesdeGridRow(int rowIndex)
+        {
+            if (rowIndex < 0) return;
+            var row = dataGridView1.Rows[rowIndex];
+            if (row == null) return;
+
+            var idObj = row.Cells["IdMotivo"]?.Value;
+            MotivoId = (idObj == null || idObj == DBNull.Value) ? "" : idObj.ToString();
+            if (textBox2 != null) textBox2.Text = MotivoId;
+
+            motivotxt.Text = row.Cells["Nombre"]?.Value?.ToString() ?? "";
+
+            if (estadomotivo != null && dataGridView1.Columns.Contains("Activo"))
+            {
+                var actObj = row.Cells["Activo"]?.Value;
+                bool activo = false;
+                if (actObj != null && actObj != DBNull.Value) activo = Convert.ToBoolean(actObj);
+                estadomotivo.Checked = activo;
+            }
+            else if (estadomotivo != null)
+            {
+                estadomotivo.Checked = true;
+            }
+        }
+
+
+        private void puestopanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void unidadpanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void nombreunidadtxt_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void puestotxt_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void depapuestotxt_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void idunidad_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void idpuesto_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void depapanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            MP_Limpiar();
+        }
+
+        private void depatxt_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void metodotxt_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void idenpanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void selecdepa_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button32_Click(object sender, EventArgs e)
+        {
+            UM_Limpiar();
+        }
+
+        private void button33_Click(object sender, EventArgs e)
+        {
+            UM_Guardar();
+        }
+
+        private void unidadbusqueda_TextChanged(object sender, EventArgs e)
+        {
+            UM_CargarGrid();
+        }
+
+        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            UM_CargarDesdeGridRow(e.RowIndex);
+        }
+
+        private void valorunidadtxt_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button31_Click(object sender, EventArgs e)
+        {
+            UM_Limpiar();
+        }
+
+        private void unidadestadochk_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button30_Click(object sender, EventArgs e)
+        {
+            if (dataGridView2.CurrentRow != null)
+                UM_CargarDesdeGridRow(dataGridView2.CurrentRow.Index);
+        }
+
+        private void puestodt_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void unidadfiltrochk_CheckedChanged(object sender, EventArgs e)
+        {
+            UM_CargarGrid();
+        }
+
+        private void motivopanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void guardarmotivo_Click(object sender, EventArgs e)
+        {
+            MSI_Guardar();
+        }
+
+        private void motivotxt_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void motivofiltrochk_CheckedChanged(object sender, EventArgs e)
+        {
+            MSI_CargarGrid();
+        }
+
+        private void button28_Click(object sender, EventArgs e)
+        {
+            MSI_Limpiar();
+        }
+
+        private void selecmotivo_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentRow != null)
+                MSI_CargarDesdeGridRow(dataGridView1.CurrentRow.Index);
+        }
+
+        private void movitobusqueda_TextChanged(object sender, EventArgs e)
+        {
+            MSI_CargarGrid();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            MSI_CargarDesdeGridRow(e.RowIndex);
+        }
+
+        private void button27_Click(object sender, EventArgs e)
+        {
+            MSI_Limpiar();
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void estadomotivo_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void idmetpago_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            MP_Limpiar();
+        }
+
+        private void estadometodo_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void selecmetodo_Click(object sender, EventArgs e)
+        {
+            if (metododt.CurrentRow != null)
+                MP_CargarDesdeGridRow(metododt.CurrentRow.Index);
+        }
+
+        private void metbuscar_TextChanged(object sender, EventArgs e)
+        {
+            MP_CargarGrid();
+        }
+
+        private void metododt_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            MP_CargarDesdeGridRow(e.RowIndex);
+        }
+
+        private void categpanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void categtxt_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void idcateg_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button22_Click(object sender, EventArgs e)
+        {
+            CP_Limpiar();
+        }
+
+
+        private void panel11_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void button24_Click(object sender, EventArgs e)
+        {
+            CP_Guardar();
+        }
+
+        private void button23_Click(object sender, EventArgs e)
+        {
+            CP_Limpiar();
+        }
+
+        private void seleccateg_Click(object sender, EventArgs e)
+        {
+            if (categdt.CurrentRow != null)
+                CP_CargarDesdeGridRow(categdt.CurrentRow.Index);
+        }
+
+        private void categbuscar_TextChanged(object sender, EventArgs e)
+        {
+            CP_CargarGrid();
+        }
+
+        private void categfiltrochk_CheckedChanged(object sender, EventArgs e)
+        {
+            CP_CargarGrid();
+        }
+
+        private void categdt_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            CP_CargarDesdeGridRow(e.RowIndex);
+        }
+
+        private void estadocateg_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label26_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void idprod_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void estadoprod_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ingredientechk_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button19_Click(object sender, EventArgs e)
+        {
+            PT_Limpiar();
+        }
+
+        private void button21_Click(object sender, EventArgs e)
+        {
+            PT_Guardar();
+        }
+
+        private void button20_Click(object sender, EventArgs e)
+        {
+            PT_Limpiar();
+        }
+
+        private void selecprod_Click(object sender, EventArgs e)
+        {
+            if (prodtidt.CurrentRow != null)
+                PT_CargarDesdeGridRow(prodtidt.CurrentRow.Index);
+        }
+
+        private void prodbuscar_TextChanged(object sender, EventArgs e)
+        {
+            PT_CargarGrid();
+        }
+
+        private void prodfiltrochk_CheckedChanged(object sender, EventArgs e)
+        {
+            PT_CargarGrid();
+        }
+
+        private void prodtidt_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            PT_CargarDesdeGridRow(e.RowIndex);
+        }
+
+        private void prodtxt_TextChanged(object sender, EventArgs e)
         {
 
         }

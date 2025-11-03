@@ -145,11 +145,9 @@
             categbuscar = new TextBox();
             categdt = new DataGridView();
             idcateg = new TextBox();
-            textBox1 = new TextBox();
             categtxt = new TextBox();
             label28 = new Label();
             label29 = new Label();
-            label45 = new Label();
             label30 = new Label();
             label31 = new Label();
             panel11 = new Panel();
@@ -414,6 +412,7 @@
             selecmetodo.TabIndex = 1;
             selecmetodo.Text = "Seleccionar";
             selecmetodo.UseVisualStyleBackColor = true;
+            selecmetodo.Click += selecmetodo_Click;
             // 
             // label5
             // 
@@ -437,6 +436,7 @@
             button9.TabIndex = 1;
             toolTip1.SetToolTip(button9, "Eliminar");
             button9.UseVisualStyleBackColor = true;
+            button9.Click += button9_Click;
             // 
             // metfiltrochk
             // 
@@ -445,7 +445,7 @@
             metfiltrochk.CheckState = CheckState.Checked;
             metfiltrochk.Font = new Font("Segoe UI", 15F);
             metfiltrochk.Image = Properties.Resources.sicheck;
-            metfiltrochk.Location = new Point(363, 359);
+            metfiltrochk.Location = new Point(364, 359);
             metfiltrochk.Name = "metfiltrochk";
             metfiltrochk.Size = new Size(61, 32);
             metfiltrochk.TabIndex = 6;
@@ -466,6 +466,7 @@
             estadometodo.TabIndex = 6;
             estadometodo.Text = "Activo";
             estadometodo.UseVisualStyleBackColor = true;
+            estadometodo.CheckedChanged += estadometodo_CheckedChanged;
             // 
             // metbuscar
             // 
@@ -473,6 +474,7 @@
             metbuscar.Name = "metbuscar";
             metbuscar.Size = new Size(138, 23);
             metbuscar.TabIndex = 5;
+            metbuscar.TextChanged += metbuscar_TextChanged;
             // 
             // metododt
             // 
@@ -483,6 +485,7 @@
             metododt.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             metododt.Size = new Size(344, 133);
             metododt.TabIndex = 3;
+            metododt.CellContentClick += metododt_CellContentClick;
             // 
             // idmetpago
             // 
@@ -491,6 +494,7 @@
             idmetpago.Name = "idmetpago";
             idmetpago.Size = new Size(56, 23);
             idmetpago.TabIndex = 2;
+            idmetpago.TextChanged += idmetpago_TextChanged;
             // 
             // metodotxt
             // 
@@ -499,6 +503,7 @@
             metodotxt.Name = "metodotxt";
             metodotxt.Size = new Size(199, 23);
             metodotxt.TabIndex = 2;
+            metodotxt.TextChanged += metodotxt_TextChanged;
             metodotxt.KeyPress += metodotxt_KeyPress;
             // 
             // label4
@@ -567,6 +572,7 @@
             button7.TabIndex = 1;
             button7.Text = "Nuevo";
             button7.UseVisualStyleBackColor = true;
+            button7.Click += button7_Click;
             // 
             // button6
             // 
@@ -601,6 +607,7 @@
             idenpanel.Size = new Size(513, 410);
             idenpanel.TabIndex = 21;
             idenpanel.Visible = false;
+            idenpanel.Paint += idenpanel_Paint;
             // 
             // seleciden
             // 
@@ -635,6 +642,7 @@
             button10.TabIndex = 1;
             toolTip1.SetToolTip(button10, "Eliminar");
             button10.UseVisualStyleBackColor = true;
+            button10.Click += button10_Click;
             // 
             // identfiltrochk
             // 
@@ -805,6 +813,7 @@
             puestopanel.Size = new Size(513, 410);
             puestopanel.TabIndex = 21;
             puestopanel.Visible = false;
+            puestopanel.Paint += puestopanel_Paint;
             // 
             // selectdepapuest
             // 
@@ -877,6 +886,7 @@
             button13.TabIndex = 1;
             toolTip1.SetToolTip(button13, "Eliminar");
             button13.UseVisualStyleBackColor = true;
+            button13.Click += button13_Click;
             // 
             // puestodepafiltrochk
             // 
@@ -961,6 +971,7 @@
             puestodt.Size = new Size(344, 133);
             puestodt.TabIndex = 3;
             puestodt.CellClick += puestodt_CellClick;
+            puestodt.CellContentClick += puestodt_CellContentClick;
             puestodt.CellDoubleClick += puestodt_CellDoubleClick;
             // 
             // idpuesto
@@ -970,6 +981,7 @@
             idpuesto.Name = "idpuesto";
             idpuesto.Size = new Size(56, 23);
             idpuesto.TabIndex = 2;
+            idpuesto.TextChanged += idpuesto_TextChanged;
             // 
             // iddepapuestotxt
             // 
@@ -988,6 +1000,7 @@
             depapuestotxt.Name = "depapuestotxt";
             depapuestotxt.Size = new Size(86, 23);
             depapuestotxt.TabIndex = 2;
+            depapuestotxt.TextChanged += depapuestotxt_TextChanged;
             // 
             // puestotxt
             // 
@@ -996,6 +1009,7 @@
             puestotxt.Name = "puestotxt";
             puestotxt.Size = new Size(199, 23);
             puestotxt.TabIndex = 2;
+            puestotxt.TextChanged += puestotxt_TextChanged;
             // 
             // label13
             // 
@@ -1109,17 +1123,19 @@
             depapanel.Size = new Size(513, 410);
             depapanel.TabIndex = 21;
             depapanel.Visible = false;
+            depapanel.Paint += depapanel_Paint;
             // 
             // selecdepa
             // 
             selecdepa.Image = Properties.Resources.seleccion;
             selecdepa.ImageAlign = ContentAlignment.MiddleLeft;
-            selecdepa.Location = new Point(363, 262);
+            selecdepa.Location = new Point(375, 269);
             selecdepa.Name = "selecdepa";
             selecdepa.Size = new Size(138, 26);
             selecdepa.TabIndex = 1;
             selecdepa.Text = "Seleccionar";
             selecdepa.UseVisualStyleBackColor = true;
+            selecdepa.Click += selecdepa_Click;
             // 
             // label17
             // 
@@ -1203,6 +1219,7 @@
             depatxt.Name = "depatxt";
             depatxt.Size = new Size(199, 23);
             depatxt.TabIndex = 2;
+            depatxt.TextChanged += depatxt_TextChanged;
             // 
             // label18
             // 
@@ -1317,6 +1334,7 @@
             selecprod.TabIndex = 1;
             selecprod.Text = "Seleccionar";
             selecprod.UseVisualStyleBackColor = true;
+            selecprod.Click += selecprod_Click;
             // 
             // label22
             // 
@@ -1340,6 +1358,7 @@
             button19.TabIndex = 1;
             toolTip1.SetToolTip(button19, "Eliminar");
             button19.UseVisualStyleBackColor = true;
+            button19.Click += button19_Click;
             // 
             // prodfiltrochk
             // 
@@ -1354,6 +1373,7 @@
             prodfiltrochk.TabIndex = 6;
             prodfiltrochk.Text = "      ";
             prodfiltrochk.UseVisualStyleBackColor = true;
+            prodfiltrochk.CheckedChanged += prodfiltrochk_CheckedChanged;
             // 
             // ingredientechk
             // 
@@ -1368,6 +1388,7 @@
             ingredientechk.TabIndex = 6;
             ingredientechk.Text = "Ingrediente";
             ingredientechk.UseVisualStyleBackColor = true;
+            ingredientechk.CheckedChanged += ingredientechk_CheckedChanged;
             // 
             // estadoprod
             // 
@@ -1382,6 +1403,7 @@
             estadoprod.TabIndex = 6;
             estadoprod.Text = "Activo";
             estadoprod.UseVisualStyleBackColor = true;
+            estadoprod.CheckedChanged += estadoprod_CheckedChanged;
             // 
             // prodbuscar
             // 
@@ -1389,6 +1411,7 @@
             prodbuscar.Name = "prodbuscar";
             prodbuscar.Size = new Size(138, 23);
             prodbuscar.TabIndex = 5;
+            prodbuscar.TextChanged += prodbuscar_TextChanged;
             // 
             // prodtidt
             // 
@@ -1399,6 +1422,7 @@
             prodtidt.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             prodtidt.Size = new Size(344, 133);
             prodtidt.TabIndex = 3;
+            prodtidt.CellContentClick += prodtidt_CellContentClick;
             // 
             // idprod
             // 
@@ -1407,6 +1431,7 @@
             idprod.Name = "idprod";
             idprod.Size = new Size(56, 23);
             idprod.TabIndex = 2;
+            idprod.TextChanged += idprod_TextChanged;
             // 
             // prodtxt
             // 
@@ -1414,6 +1439,7 @@
             prodtxt.Name = "prodtxt";
             prodtxt.Size = new Size(199, 23);
             prodtxt.TabIndex = 2;
+            prodtxt.TextChanged += prodtxt_TextChanged;
             // 
             // label23
             // 
@@ -1460,6 +1486,7 @@
             label26.Size = new Size(120, 32);
             label26.TabIndex = 0;
             label26.Text = "Producto";
+            label26.Click += label26_Click;
             // 
             // panel9
             // 
@@ -1481,6 +1508,7 @@
             button20.TabIndex = 1;
             button20.Text = "Nuevo";
             button20.UseVisualStyleBackColor = true;
+            button20.Click += button20_Click;
             // 
             // button21
             // 
@@ -1492,6 +1520,7 @@
             button21.TabIndex = 1;
             button21.Text = "Guardar";
             button21.UseVisualStyleBackColor = true;
+            button21.Click += button21_Click;
             // 
             // categpanel
             // 
@@ -1503,11 +1532,9 @@
             categpanel.Controls.Add(categbuscar);
             categpanel.Controls.Add(categdt);
             categpanel.Controls.Add(idcateg);
-            categpanel.Controls.Add(textBox1);
             categpanel.Controls.Add(categtxt);
             categpanel.Controls.Add(label28);
             categpanel.Controls.Add(label29);
-            categpanel.Controls.Add(label45);
             categpanel.Controls.Add(label30);
             categpanel.Controls.Add(label31);
             categpanel.Controls.Add(panel11);
@@ -1516,6 +1543,7 @@
             categpanel.Size = new Size(513, 410);
             categpanel.TabIndex = 21;
             categpanel.Visible = false;
+            categpanel.Paint += categpanel_Paint;
             // 
             // seleccateg
             // 
@@ -1527,6 +1555,7 @@
             seleccateg.TabIndex = 1;
             seleccateg.Text = "Seleccionar";
             seleccateg.UseVisualStyleBackColor = true;
+            seleccateg.Click += seleccateg_Click;
             // 
             // label27
             // 
@@ -1550,6 +1579,7 @@
             button22.TabIndex = 1;
             toolTip1.SetToolTip(button22, "Eliminar");
             button22.UseVisualStyleBackColor = true;
+            button22.Click += button22_Click;
             // 
             // categfiltrochk
             // 
@@ -1564,6 +1594,7 @@
             categfiltrochk.TabIndex = 6;
             categfiltrochk.Text = "      ";
             categfiltrochk.UseVisualStyleBackColor = true;
+            categfiltrochk.CheckedChanged += categfiltrochk_CheckedChanged;
             // 
             // estadocateg
             // 
@@ -1578,6 +1609,7 @@
             estadocateg.TabIndex = 6;
             estadocateg.Text = "Activo";
             estadocateg.UseVisualStyleBackColor = true;
+            estadocateg.CheckedChanged += estadocateg_CheckedChanged;
             // 
             // categbuscar
             // 
@@ -1585,6 +1617,7 @@
             categbuscar.Name = "categbuscar";
             categbuscar.Size = new Size(138, 23);
             categbuscar.TabIndex = 5;
+            categbuscar.TextChanged += categbuscar_TextChanged;
             // 
             // categdt
             // 
@@ -1595,6 +1628,7 @@
             categdt.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             categdt.Size = new Size(344, 133);
             categdt.TabIndex = 3;
+            categdt.CellContentClick += categdt_CellContentClick;
             // 
             // idcateg
             // 
@@ -1603,13 +1637,7 @@
             idcateg.Name = "idcateg";
             idcateg.Size = new Size(56, 23);
             idcateg.TabIndex = 2;
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(221, 135);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(178, 23);
-            textBox1.TabIndex = 2;
+            idcateg.TextChanged += idcateg_TextChanged;
             // 
             // categtxt
             // 
@@ -1617,6 +1645,7 @@
             categtxt.Name = "categtxt";
             categtxt.Size = new Size(199, 23);
             categtxt.TabIndex = 2;
+            categtxt.TextChanged += categtxt_TextChanged;
             // 
             // label28
             // 
@@ -1641,17 +1670,6 @@
             label29.Size = new Size(77, 21);
             label29.TabIndex = 0;
             label29.Text = "Filtros     ";
-            // 
-            // label45
-            // 
-            label45.AutoSize = true;
-            label45.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label45.ForeColor = Color.White;
-            label45.Location = new Point(113, 136);
-            label45.Name = "label45";
-            label45.Size = new Size(102, 21);
-            label45.TabIndex = 0;
-            label45.Text = "Abreviacion";
             // 
             // label30
             // 
@@ -1684,6 +1702,7 @@
             panel11.Name = "panel11";
             panel11.Size = new Size(314, 57);
             panel11.TabIndex = 4;
+            panel11.Paint += panel11_Paint;
             // 
             // button23
             // 
@@ -1695,6 +1714,7 @@
             button23.TabIndex = 1;
             button23.Text = "Nuevo";
             button23.UseVisualStyleBackColor = true;
+            button23.Click += button23_Click;
             // 
             // button24
             // 
@@ -1706,6 +1726,7 @@
             button24.TabIndex = 1;
             button24.Text = "Guardar";
             button24.UseVisualStyleBackColor = true;
+            button24.Click += button24_Click;
             // 
             // textoinicial
             // 
@@ -1741,6 +1762,7 @@
             motivopanel.Size = new Size(513, 410);
             motivopanel.TabIndex = 21;
             motivopanel.Visible = false;
+            motivopanel.Paint += motivopanel_Paint;
             // 
             // selecmotivo
             // 
@@ -1752,6 +1774,7 @@
             selecmotivo.TabIndex = 1;
             selecmotivo.Text = "Seleccionar";
             selecmotivo.UseVisualStyleBackColor = true;
+            selecmotivo.Click += selecmotivo_Click;
             // 
             // label33
             // 
@@ -1774,6 +1797,7 @@
             button27.Size = new Size(25, 24);
             button27.TabIndex = 1;
             button27.UseVisualStyleBackColor = true;
+            button27.Click += button27_Click;
             // 
             // motivofiltrochk
             // 
@@ -1788,6 +1812,7 @@
             motivofiltrochk.TabIndex = 6;
             motivofiltrochk.Text = "      ";
             motivofiltrochk.UseVisualStyleBackColor = true;
+            motivofiltrochk.CheckedChanged += motivofiltrochk_CheckedChanged;
             // 
             // estadomotivo
             // 
@@ -1802,6 +1827,7 @@
             estadomotivo.TabIndex = 6;
             estadomotivo.Text = "Activo";
             estadomotivo.UseVisualStyleBackColor = true;
+            estadomotivo.CheckedChanged += estadomotivo_CheckedChanged;
             // 
             // movitobusqueda
             // 
@@ -1809,6 +1835,7 @@
             movitobusqueda.Name = "movitobusqueda";
             movitobusqueda.Size = new Size(138, 23);
             movitobusqueda.TabIndex = 5;
+            movitobusqueda.TextChanged += movitobusqueda_TextChanged;
             // 
             // dataGridView1
             // 
@@ -1819,6 +1846,7 @@
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.Size = new Size(344, 133);
             dataGridView1.TabIndex = 3;
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // textBox2
             // 
@@ -1827,6 +1855,7 @@
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(56, 23);
             textBox2.TabIndex = 2;
+            textBox2.TextChanged += textBox2_TextChanged;
             // 
             // motivotxt
             // 
@@ -1834,6 +1863,7 @@
             motivotxt.Name = "motivotxt";
             motivotxt.Size = new Size(199, 23);
             motivotxt.TabIndex = 2;
+            motivotxt.TextChanged += motivotxt_TextChanged;
             // 
             // label35
             // 
@@ -1902,6 +1932,7 @@
             button28.TabIndex = 1;
             button28.Text = "Nuevo";
             button28.UseVisualStyleBackColor = true;
+            button28.Click += button28_Click;
             // 
             // guardarmotivo
             // 
@@ -1913,6 +1944,7 @@
             guardarmotivo.TabIndex = 1;
             guardarmotivo.Text = "Guardar";
             guardarmotivo.UseVisualStyleBackColor = true;
+            guardarmotivo.Click += guardarmotivo_Click;
             // 
             // unidadpanel
             // 
@@ -1937,6 +1969,7 @@
             unidadpanel.Size = new Size(513, 410);
             unidadpanel.TabIndex = 21;
             unidadpanel.Visible = false;
+            unidadpanel.Paint += unidadpanel_Paint;
             // 
             // button30
             // 
@@ -1948,6 +1981,7 @@
             button30.TabIndex = 1;
             button30.Text = "Seleccionar";
             button30.UseVisualStyleBackColor = true;
+            button30.Click += button30_Click;
             // 
             // label39
             // 
@@ -1970,6 +2004,7 @@
             button31.Size = new Size(25, 24);
             button31.TabIndex = 1;
             button31.UseVisualStyleBackColor = true;
+            button31.Click += button31_Click;
             // 
             // unidadfiltrochk
             // 
@@ -1984,6 +2019,7 @@
             unidadfiltrochk.TabIndex = 6;
             unidadfiltrochk.Text = "      ";
             unidadfiltrochk.UseVisualStyleBackColor = true;
+            unidadfiltrochk.CheckedChanged += unidadfiltrochk_CheckedChanged;
             // 
             // unidadestadochk
             // 
@@ -1998,6 +2034,7 @@
             unidadestadochk.TabIndex = 6;
             unidadestadochk.Text = "Activo";
             unidadestadochk.UseVisualStyleBackColor = true;
+            unidadestadochk.CheckedChanged += unidadestadochk_CheckedChanged;
             // 
             // unidadbusqueda
             // 
@@ -2005,6 +2042,7 @@
             unidadbusqueda.Name = "unidadbusqueda";
             unidadbusqueda.Size = new Size(138, 23);
             unidadbusqueda.TabIndex = 5;
+            unidadbusqueda.TextChanged += unidadbusqueda_TextChanged;
             // 
             // dataGridView2
             // 
@@ -2015,6 +2053,7 @@
             dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView2.Size = new Size(344, 133);
             dataGridView2.TabIndex = 3;
+            dataGridView2.CellContentClick += dataGridView2_CellContentClick;
             // 
             // idunidad
             // 
@@ -2023,6 +2062,7 @@
             idunidad.Name = "idunidad";
             idunidad.Size = new Size(56, 23);
             idunidad.TabIndex = 2;
+            idunidad.TextChanged += idunidad_TextChanged;
             // 
             // valorunidadtxt
             // 
@@ -2030,6 +2070,7 @@
             valorunidadtxt.Name = "valorunidadtxt";
             valorunidadtxt.Size = new Size(199, 23);
             valorunidadtxt.TabIndex = 2;
+            valorunidadtxt.TextChanged += valorunidadtxt_TextChanged;
             // 
             // nombreunidadtxt
             // 
@@ -2037,6 +2078,7 @@
             nombreunidadtxt.Name = "nombreunidadtxt";
             nombreunidadtxt.Size = new Size(199, 23);
             nombreunidadtxt.TabIndex = 2;
+            nombreunidadtxt.TextChanged += nombreunidadtxt_TextChanged;
             // 
             // label40
             // 
@@ -2115,6 +2157,7 @@
             button32.TabIndex = 1;
             button32.Text = "Nuevo";
             button32.UseVisualStyleBackColor = true;
+            button32.Click += button32_Click;
             // 
             // button33
             // 
@@ -2126,6 +2169,7 @@
             button33.TabIndex = 1;
             button33.Text = "Guardar";
             button33.UseVisualStyleBackColor = true;
+            button33.Click += button33_Click;
             // 
             // MenuTipos
             // 
@@ -2351,8 +2395,6 @@
         private Panel panel6;
         private Button button32;
         private Button button33;
-        private TextBox textBox1;
-        private Label label45;
         private TextBox iddepapuestotxt;
     }
 }
