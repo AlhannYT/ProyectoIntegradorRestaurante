@@ -53,7 +53,7 @@
             ajustestxt = new Label();
             button14 = new Button();
             button13 = new Button();
-            label3 = new Label();
+            creditoslabel = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -414,18 +414,18 @@
             button13.UseVisualStyleBackColor = true;
             button13.Click += button13_Click;
             // 
-            // label3
+            // creditoslabel
             // 
-            label3.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            label3.AutoSize = true;
-            label3.BackColor = Color.Transparent;
-            label3.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(932, 673);
-            label3.Margin = new Padding(2, 0, 2, 0);
-            label3.Name = "label3";
-            label3.Size = new Size(331, 21);
-            label3.TabIndex = 2;
-            label3.Text = "Wilder (2-21-0179) / Alhann (2-21-0018) ©";
+            creditoslabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            creditoslabel.AutoSize = true;
+            creditoslabel.BackColor = Color.Transparent;
+            creditoslabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            creditoslabel.Location = new Point(932, 673);
+            creditoslabel.Margin = new Padding(2, 0, 2, 0);
+            creditoslabel.Name = "creditoslabel";
+            creditoslabel.Size = new Size(331, 21);
+            creditoslabel.TabIndex = 2;
+            creditoslabel.Text = "Wilder (2-21-0179) / Alhann (2-21-0018) ©";
             // 
             // menu
             // 
@@ -436,7 +436,7 @@
             ClientSize = new Size(1266, 703);
             Controls.Add(barrasup);
             Controls.Add(barraizq);
-            Controls.Add(label3);
+            Controls.Add(creditoslabel);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -478,7 +478,7 @@
         private Button reservacion;
         public Panel barrasup;
         public Panel barraizq;
-        public Label label3;
+        public Label creditoslabel;
         private Button button12;
         private Button button13;
         private Button button14;

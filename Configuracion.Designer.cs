@@ -115,6 +115,7 @@
             passView = new CheckBox();
             label21 = new Label();
             colores = new Panel();
+            defaultcolor = new Button();
             panel6 = new Panel();
             panel5 = new Panel();
             label24 = new Label();
@@ -123,7 +124,7 @@
             pictureBox1 = new PictureBox();
             plateado = new Button();
             panel9 = new Panel();
-            button11 = new Button();
+            buscarcolor = new Button();
             panel4 = new Panel();
             guardarcolorbtn = new Button();
             label22 = new Label();
@@ -1180,6 +1181,7 @@
             // 
             // colores
             // 
+            colores.Controls.Add(defaultcolor);
             colores.Controls.Add(panel6);
             colores.Controls.Add(panel5);
             colores.Controls.Add(panel9);
@@ -1190,6 +1192,20 @@
             colores.Size = new Size(659, 570);
             colores.TabIndex = 46;
             colores.Visible = false;
+            // 
+            // defaultcolor
+            // 
+            defaultcolor.Image = Properties.Resources.por_defecto1;
+            defaultcolor.ImageAlign = ContentAlignment.BottomLeft;
+            defaultcolor.Location = new Point(557, 13);
+            defaultcolor.Margin = new Padding(4);
+            defaultcolor.Name = "defaultcolor";
+            defaultcolor.Size = new Size(85, 39);
+            defaultcolor.TabIndex = 8;
+            defaultcolor.Text = "Default";
+            defaultcolor.TextAlign = ContentAlignment.MiddleRight;
+            defaultcolor.UseVisualStyleBackColor = true;
+            defaultcolor.Click += defaultcolor_Click;
             // 
             // panel6
             // 
@@ -1229,13 +1245,13 @@
             vistaprevia.Controls.Add(pictureBox2);
             vistaprevia.Location = new Point(78, 54);
             vistaprevia.Name = "vistaprevia";
-            vistaprevia.Size = new Size(475, 295);
+            vistaprevia.Size = new Size(476, 295);
             vistaprevia.TabIndex = 79;
             // 
             // pictureBox2
             // 
             pictureBox2.Image = Properties.Resources.tenedor1;
-            pictureBox2.Location = new Point(175, 94);
+            pictureBox2.Location = new Point(176, 94);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(124, 107);
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
@@ -1267,30 +1283,30 @@
             // panel9
             // 
             panel9.BackColor = Color.FromArgb(64, 64, 64);
-            panel9.Controls.Add(button11);
-            panel9.Location = new Point(48, 429);
+            panel9.Controls.Add(buscarcolor);
+            panel9.Location = new Point(48, 427);
             panel9.Name = "panel9";
             panel9.Size = new Size(220, 74);
             panel9.TabIndex = 76;
             // 
-            // button11
+            // buscarcolor
             // 
-            button11.Image = Properties.Resources.paletacolor;
-            button11.ImageAlign = ContentAlignment.MiddleLeft;
-            button11.Location = new Point(15, 8);
-            button11.Margin = new Padding(4);
-            button11.Name = "button11";
-            button11.Size = new Size(191, 58);
-            button11.TabIndex = 8;
-            button11.Text = "Cambiar color";
-            button11.UseVisualStyleBackColor = true;
-            button11.Click += guardarcolorbtn_Click;
+            buscarcolor.Image = Properties.Resources.paletacolor;
+            buscarcolor.ImageAlign = ContentAlignment.MiddleLeft;
+            buscarcolor.Location = new Point(15, 8);
+            buscarcolor.Margin = new Padding(4);
+            buscarcolor.Name = "buscarcolor";
+            buscarcolor.Size = new Size(191, 58);
+            buscarcolor.TabIndex = 8;
+            buscarcolor.Text = "Cambiar color";
+            buscarcolor.UseVisualStyleBackColor = true;
+            buscarcolor.Click += buscarcolor_Click;
             // 
             // panel4
             // 
             panel4.BackColor = Color.FromArgb(64, 64, 64);
             panel4.Controls.Add(guardarcolorbtn);
-            panel4.Location = new Point(391, 429);
+            panel4.Location = new Point(391, 427);
             panel4.Name = "panel4";
             panel4.Size = new Size(220, 74);
             panel4.TabIndex = 76;
@@ -1697,6 +1713,7 @@
         private TabPage tabPage8;
         private Button button32;
         private Panel panel9;
-        private Button button11;
+        private Button buscarcolor;
+        private Button defaultcolor;
     }
 }

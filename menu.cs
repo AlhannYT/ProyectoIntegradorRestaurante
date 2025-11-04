@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -16,6 +17,7 @@ namespace Proyecto_restaurante
         public menu()
         {
             InitializeComponent();
+
             this.SetStyle(ControlStyles.AllPaintingInWmPaint |
                           ControlStyles.UserPaint |
                           ControlStyles.OptimizedDoubleBuffer, true);
@@ -33,45 +35,62 @@ namespace Proyecto_restaurante
             this.Close();
         }
 
-        private void medidasToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CambiarColorMDI(Color color)
         {
-            foreach (Form f in this.MdiChildren)
+            foreach (Control ctrl in this.Controls)
             {
-                if (f is MantMedidas)
+                if (ctrl is MdiClient)
                 {
-                    f.BringToFront();
-                    return;
+                    ctrl.BackColor = color;
+                    break;
                 }
             }
-            MantMedidas medidas = new MantMedidas();
-            medidas.Location = new Point(200, 50);
-            medidas.MdiParent = this;
-            medidas.Show();
         }
 
         private void menu_Load(object sender, EventArgs e)
         {
+            string conexionString = ConexionBD.ConexionSQL();
+            string nombrePC = Environment.MachineName;
+            Color colorPanel = Color.Silver;
+
+            try
+            {
+                using (SqlConnection conexion = new SqlConnection(conexionString))
+                {
+                    conexion.Open();
+
+                    string query = "SELECT ColorPanel FROM Configuracion WHERE NombrePC = @NombrePC";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conexion))
+                    {
+                        cmd.Parameters.AddWithValue("@NombrePC", nombrePC);
+                        object result = cmd.ExecuteScalar();
+
+                        if (result != null && result != DBNull.Value && !string.IsNullOrWhiteSpace(result.ToString()))
+                        {
+                            string[] rgb = result.ToString().Split(',');
+                            if (rgb.Length == 3 &&
+                                int.TryParse(rgb[0].Trim(), out int r) &&
+                                int.TryParse(rgb[1].Trim(), out int g) &&
+                                int.TryParse(rgb[2].Trim(), out int b))
+                            {
+                                colorPanel = Color.FromArgb(r, g, b);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar el color del menú: {ex.Message}",
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
             this.WindowState = FormWindowState.Maximized;
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            foreach (Form f in this.MdiChildren)
-            {
-                if (f is MantUsuarios)
-                {
-                    f.BringToFront();
-                    return;
-                }
-            }
-
-            MantUsuarios mantUsuarios = new MantUsuarios();
-            mantUsuarios.Location = new Point(561, 50);
-            mantUsuarios.UsuarioAdministrador = usuarioActual;
-            mantUsuarios.MdiParent = this;
-            mantUsuarios.Show();
+            creditoslabel.BackColor = colorPanel;
+            this.CambiarColorMDI(colorPanel);
         }
 
         private void button2_Click(object sender, EventArgs e)

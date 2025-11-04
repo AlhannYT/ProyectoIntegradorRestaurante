@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PdfSharp.Snippets.Drawing;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -550,9 +551,63 @@ namespace Proyecto_restaurante
             numerocajatxt.Focus();
         }
 
+        private string colorRGB = "";
+        private string nombrePC = Environment.MachineName;
+        private string conexionString = ConexionBD.ConexionSQL();
+
         private void guardarcolorbtn_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(colorRGB))
+            {
+                MessageBox.Show("Debe seleccionar un color antes de guardar.",
+                                "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
+            using (SqlConnection conexion = new SqlConnection(conexionString))
+            {
+                conexion.Open();
+
+                string query = @"
+                IF EXISTS (SELECT 1 FROM Configuracion WHERE NombrePC = @NombrePC)
+                    UPDATE Configuracion SET ColorPanel = @ColorPanel WHERE NombrePC = @NombrePC
+                ELSE
+                    INSERT INTO Configuracion (NombrePC, ColorPanel) VALUES (@NombrePC, @ColorPanel);";
+
+                using (SqlCommand cmd = new SqlCommand(query, conexion))
+                {
+                    cmd.Parameters.AddWithValue("@NombrePC", nombrePC);
+                    cmd.Parameters.AddWithValue("@ColorPanel", colorRGB);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
+            MessageBox.Show("Exito, reinicie el sistema para que se apliquen los cambios!.",
+                            "Configuración", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void buscarcolor_Click(object sender, EventArgs e)
+        {
+            using (ColorDialog colorDialog = new ColorDialog())
+            {
+                if (colorDialog.ShowDialog() == DialogResult.OK)
+                {
+                    Color colorSeleccionado = colorDialog.Color;
+
+                    vistaprevia.BackColor = colorSeleccionado;
+
+                    colorRGB = $"{colorSeleccionado.R},{colorSeleccionado.G},{colorSeleccionado.B}";
+                }
+            }
+        }
+
+        private void defaultcolor_Click(object sender, EventArgs e)
+        {
+            Color colorDefault = Color.Silver;
+
+            vistaprevia.BackColor = colorDefault;
+
+            colorRGB = $"{colorDefault.R},{colorDefault.G},{colorDefault.B}";
         }
     }
 }
