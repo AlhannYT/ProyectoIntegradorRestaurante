@@ -45,21 +45,26 @@
             label2 = new Label();
             barrasup = new Panel();
             pictureBox1 = new PictureBox();
-            cuadre = new Button();
             barraizq = new Panel();
+            logoarroz = new PictureBox();
             button12 = new Button();
             reservacion = new Button();
             button11 = new Button();
             ajustestxt = new Label();
+            label3 = new Label();
             button14 = new Button();
             button13 = new Button();
+            reportesbtn = new Button();
             creditoslabel = new Label();
+            abrirtTV = new Button();
+            abrirTablet = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             barrasup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             barraizq.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)logoarroz).BeginInit();
             SuspendLayout();
             // 
             // usuariolabel
@@ -141,7 +146,7 @@
             button2.Cursor = Cursors.Hand;
             button2.Image = Properties.Resources.cliente31;
             button2.ImageAlign = ContentAlignment.MiddleRight;
-            button2.Location = new Point(9, 152);
+            button2.Location = new Point(9, 187);
             button2.Margin = new Padding(2);
             button2.Name = "button2";
             button2.Size = new Size(217, 38);
@@ -156,7 +161,7 @@
             button5.Cursor = Cursors.Hand;
             button5.Image = Properties.Resources.productonuevo1;
             button5.ImageAlign = ContentAlignment.MiddleRight;
-            button5.Location = new Point(9, 76);
+            button5.Location = new Point(9, 111);
             button5.Margin = new Padding(2);
             button5.Name = "button5";
             button5.Size = new Size(217, 38);
@@ -171,7 +176,7 @@
             button6.Cursor = Cursors.Hand;
             button6.Image = Properties.Resources.proveedor2;
             button6.ImageAlign = ContentAlignment.MiddleRight;
-            button6.Location = new Point(9, 190);
+            button6.Location = new Point(9, 225);
             button6.Margin = new Padding(2);
             button6.Name = "button6";
             button6.Size = new Size(217, 38);
@@ -186,7 +191,7 @@
             button8.Cursor = Cursors.Hand;
             button8.Image = Properties.Resources.mesa;
             button8.ImageAlign = ContentAlignment.MiddleRight;
-            button8.Location = new Point(9, 114);
+            button8.Location = new Point(9, 149);
             button8.Margin = new Padding(2);
             button8.Name = "button8";
             button8.Size = new Size(217, 38);
@@ -203,7 +208,7 @@
             label1.ForeColor = Color.White;
             label1.Image = Properties.Resources.mantenimiento1;
             label1.ImageAlign = ContentAlignment.MiddleRight;
-            label1.Location = new Point(5, 38);
+            label1.Location = new Point(5, 73);
             label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
             label1.Size = new Size(229, 32);
@@ -216,7 +221,7 @@
             button9.Cursor = Cursors.Hand;
             button9.Image = Properties.Resources.carrito32x;
             button9.ImageAlign = ContentAlignment.MiddleRight;
-            button9.Location = new Point(9, 400);
+            button9.Location = new Point(9, 452);
             button9.Margin = new Padding(2);
             button9.Name = "button9";
             button9.Size = new Size(217, 38);
@@ -230,9 +235,9 @@
             // 
             button10.Anchor = AnchorStyles.Left;
             button10.Cursor = Cursors.Hand;
-            button10.Image = Properties.Resources.pedido;
+            button10.Image = Properties.Resources.recepcion;
             button10.ImageAlign = ContentAlignment.MiddleRight;
-            button10.Location = new Point(9, 362);
+            button10.Location = new Point(9, 414);
             button10.Margin = new Padding(2);
             button10.Name = "button10";
             button10.Size = new Size(217, 38);
@@ -250,7 +255,7 @@
             label2.ForeColor = Color.White;
             label2.Image = Properties.Resources.proceso;
             label2.ImageAlign = ContentAlignment.MiddleRight;
-            label2.Location = new Point(5, 322);
+            label2.Location = new Point(5, 374);
             label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
             label2.Size = new Size(144, 32);
@@ -265,7 +270,6 @@
             barrasup.Controls.Add(panel1);
             barrasup.Controls.Add(panel2);
             barrasup.Controls.Add(pictureBox1);
-            barrasup.Controls.Add(cuadre);
             barrasup.Dock = DockStyle.Top;
             barrasup.Location = new Point(239, 0);
             barrasup.Margin = new Padding(2);
@@ -277,7 +281,7 @@
             // 
             pictureBox1.BackColor = Color.Transparent;
             pictureBox1.Dock = DockStyle.Left;
-            pictureBox1.Image = Properties.Resources.logo_completo;
+            pictureBox1.Image = Properties.Resources.logo;
             pictureBox1.Location = new Point(0, 0);
             pictureBox1.Margin = new Padding(2);
             pictureBox1.Name = "pictureBox1";
@@ -286,34 +290,22 @@
             pictureBox1.TabIndex = 6;
             pictureBox1.TabStop = false;
             // 
-            // cuadre
-            // 
-            cuadre.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            cuadre.Cursor = Cursors.Hand;
-            cuadre.Image = Properties.Resources.dinero1;
-            cuadre.ImageAlign = ContentAlignment.MiddleRight;
-            cuadre.Location = new Point(542, 9);
-            cuadre.Margin = new Padding(2);
-            cuadre.Name = "cuadre";
-            cuadre.Size = new Size(133, 51);
-            cuadre.TabIndex = 2;
-            cuadre.Text = "Cuadre de caja";
-            cuadre.TextAlign = ContentAlignment.MiddleLeft;
-            cuadre.UseVisualStyleBackColor = true;
-            // 
             // barraizq
             // 
             barraizq.BackColor = SystemColors.WindowFrame;
             barraizq.BorderStyle = BorderStyle.FixedSingle;
             barraizq.Controls.Add(button12);
+            barraizq.Controls.Add(logoarroz);
             barraizq.Controls.Add(reservacion);
             barraizq.Controls.Add(button11);
             barraizq.Controls.Add(ajustestxt);
             barraizq.Controls.Add(label1);
+            barraizq.Controls.Add(label3);
             barraizq.Controls.Add(label2);
             barraizq.Controls.Add(button14);
             barraizq.Controls.Add(button13);
             barraizq.Controls.Add(button2);
+            barraizq.Controls.Add(reportesbtn);
             barraizq.Controls.Add(button9);
             barraizq.Controls.Add(button10);
             barraizq.Controls.Add(button8);
@@ -323,14 +315,27 @@
             barraizq.Location = new Point(0, 0);
             barraizq.Margin = new Padding(2);
             barraizq.Name = "barraizq";
-            barraizq.Size = new Size(239, 703);
+            barraizq.Size = new Size(239, 839);
             barraizq.TabIndex = 19;
+            // 
+            // logoarroz
+            // 
+            logoarroz.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            logoarroz.BackColor = Color.Transparent;
+            logoarroz.Image = Properties.Resources._001_arroz;
+            logoarroz.Location = new Point(164, 0);
+            logoarroz.Margin = new Padding(2);
+            logoarroz.Name = "logoarroz";
+            logoarroz.Size = new Size(74, 71);
+            logoarroz.SizeMode = PictureBoxSizeMode.StretchImage;
+            logoarroz.TabIndex = 21;
+            logoarroz.TabStop = false;
             // 
             // button12
             // 
             button12.Cursor = Cursors.Hand;
             button12.Image = Properties.Resources._3_rayas;
-            button12.Location = new Point(9, 6);
+            button12.Location = new Point(9, 42);
             button12.Name = "button12";
             button12.Size = new Size(42, 29);
             button12.TabIndex = 1;
@@ -343,7 +348,7 @@
             reservacion.Cursor = Cursors.Hand;
             reservacion.Image = Properties.Resources.calendario_reloj;
             reservacion.ImageAlign = ContentAlignment.MiddleRight;
-            reservacion.Location = new Point(9, 438);
+            reservacion.Location = new Point(9, 490);
             reservacion.Margin = new Padding(2);
             reservacion.Name = "reservacion";
             reservacion.Size = new Size(217, 38);
@@ -359,7 +364,7 @@
             button11.Cursor = Cursors.Hand;
             button11.Image = Properties.Resources.ajuste;
             button11.ImageAlign = ContentAlignment.MiddleRight;
-            button11.Location = new Point(9, 648);
+            button11.Location = new Point(9, 784);
             button11.Margin = new Padding(2);
             button11.Name = "button11";
             button11.Size = new Size(217, 38);
@@ -377,19 +382,34 @@
             ajustestxt.ForeColor = Color.White;
             ajustestxt.Image = Properties.Resources.opciones;
             ajustestxt.ImageAlign = ContentAlignment.MiddleRight;
-            ajustestxt.Location = new Point(5, 606);
+            ajustestxt.Location = new Point(5, 742);
             ajustestxt.Margin = new Padding(2, 0, 2, 0);
             ajustestxt.Name = "ajustestxt";
             ajustestxt.Size = new Size(125, 32);
             ajustestxt.TabIndex = 19;
             ajustestxt.Text = "Ajustes    ";
             // 
+            // label3
+            // 
+            label3.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.ForeColor = Color.White;
+            label3.Image = Properties.Resources.formularios1;
+            label3.ImageAlign = ContentAlignment.MiddleRight;
+            label3.Location = new Point(5, 599);
+            label3.Margin = new Padding(2, 0, 2, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(145, 32);
+            label3.TabIndex = 17;
+            label3.Text = "Informes    ";
+            // 
             // button14
             // 
             button14.Cursor = Cursors.Hand;
             button14.Image = Properties.Resources.tipos;
             button14.ImageAlign = ContentAlignment.MiddleRight;
-            button14.Location = new Point(9, 266);
+            button14.Location = new Point(9, 301);
             button14.Margin = new Padding(2);
             button14.Name = "button14";
             button14.Size = new Size(217, 38);
@@ -404,7 +424,7 @@
             button13.Cursor = Cursors.Hand;
             button13.Image = Properties.Resources.empleado;
             button13.ImageAlign = ContentAlignment.MiddleRight;
-            button13.Location = new Point(9, 228);
+            button13.Location = new Point(9, 263);
             button13.Margin = new Padding(2);
             button13.Name = "button13";
             button13.Size = new Size(217, 38);
@@ -414,18 +434,59 @@
             button13.UseVisualStyleBackColor = true;
             button13.Click += button13_Click;
             // 
+            // reportesbtn
+            // 
+            reportesbtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            reportesbtn.Cursor = Cursors.Hand;
+            reportesbtn.Image = Properties.Resources.pedido;
+            reportesbtn.ImageAlign = ContentAlignment.MiddleRight;
+            reportesbtn.Location = new Point(9, 639);
+            reportesbtn.Margin = new Padding(2);
+            reportesbtn.Name = "reportesbtn";
+            reportesbtn.Size = new Size(217, 38);
+            reportesbtn.TabIndex = 10;
+            reportesbtn.Text = "Reportes";
+            reportesbtn.TextAlign = ContentAlignment.MiddleLeft;
+            reportesbtn.UseVisualStyleBackColor = true;
+            // 
             // creditoslabel
             // 
             creditoslabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             creditoslabel.AutoSize = true;
             creditoslabel.BackColor = Color.Transparent;
             creditoslabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            creditoslabel.Location = new Point(932, 673);
+            creditoslabel.Location = new Point(928, 809);
             creditoslabel.Margin = new Padding(2, 0, 2, 0);
             creditoslabel.Name = "creditoslabel";
             creditoslabel.Size = new Size(331, 21);
             creditoslabel.TabIndex = 2;
             creditoslabel.Text = "Wilder (2-21-0179) / Alhann (2-21-0018) ©";
+            // 
+            // abrirtTV
+            // 
+            abrirtTV.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            abrirtTV.Cursor = Cursors.Hand;
+            abrirtTV.Image = Properties.Resources.tv;
+            abrirtTV.Location = new Point(1215, 760);
+            abrirtTV.Margin = new Padding(2);
+            abrirtTV.Name = "abrirtTV";
+            abrirtTV.Size = new Size(44, 38);
+            abrirtTV.TabIndex = 0;
+            abrirtTV.TextAlign = ContentAlignment.MiddleLeft;
+            abrirtTV.UseVisualStyleBackColor = true;
+            // 
+            // abrirTablet
+            // 
+            abrirTablet.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            abrirTablet.Cursor = Cursors.Hand;
+            abrirTablet.Image = Properties.Resources.tablet;
+            abrirTablet.Location = new Point(1215, 716);
+            abrirTablet.Margin = new Padding(2);
+            abrirTablet.Name = "abrirTablet";
+            abrirTablet.Size = new Size(44, 38);
+            abrirTablet.TabIndex = 0;
+            abrirTablet.TextAlign = ContentAlignment.MiddleLeft;
+            abrirTablet.UseVisualStyleBackColor = true;
             // 
             // menu
             // 
@@ -433,9 +494,11 @@
             BackColor = Color.Silver;
             BackgroundImage = Properties.Resources.tenedor1;
             BackgroundImageLayout = ImageLayout.Center;
-            ClientSize = new Size(1266, 703);
+            ClientSize = new Size(1266, 839);
             Controls.Add(barrasup);
             Controls.Add(barraizq);
+            Controls.Add(abrirTablet);
+            Controls.Add(abrirtTV);
             Controls.Add(creditoslabel);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -454,6 +517,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             barraizq.ResumeLayout(false);
             barraizq.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)logoarroz).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -483,6 +547,10 @@
         private Button button13;
         private Button button14;
         private PictureBox pictureBox1;
-        private Button cuadre;
+        private Label label3;
+        private Button reportesbtn;
+        public Button abrirtTV;
+        public Button abrirTablet;
+        private PictureBox logoarroz;
     }
 }

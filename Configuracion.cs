@@ -44,26 +44,28 @@ namespace Proyecto_restaurante
 
                     if (string.IsNullOrEmpty(IDModificar))
                     {
-                        string queryInsertar = "INSERT INTO cajas (nombre_caja, numero_caja, estado, responsable) VALUES (@nombreCaja, @numeroCaja, @estado, @responsable)";
+                        string queryInsertar = "INSERT INTO Caja (Nombre, Numero, Activo) OUTPUT INSERTED.IdCaja VALUES (@Nombre, @Numero, @Activo)";
+                        int nuevoIdCaja = 0;
+
                         using (SqlCommand insertarCommand = new SqlCommand(queryInsertar, conexion))
                         {
-                            insertarCommand.Parameters.AddWithValue("@responsable", idresponsabletxt.Text);
-                            insertarCommand.Parameters.AddWithValue("@nombreCaja", nombrecajatxt.Text);
-                            insertarCommand.Parameters.AddWithValue("@numeroCaja", numerocajatxt.Text);
-                            insertarCommand.Parameters.AddWithValue("@estado", estadocajachk.Checked ? 1 : 0);
+                            insertarCommand.Parameters.AddWithValue("@Nombre", nombrecajatxt.Text);
+                            insertarCommand.Parameters.AddWithValue("@Numero", Convert.ToInt32(numerocajatxt.Text));
+                            insertarCommand.Parameters.AddWithValue("@Activo", estadocajachk.Checked ? 1 : 0);
+
 
                             int rowsAffected = insertarCommand.ExecuteNonQuery();
 
                             if (rowsAffected > 0)
                             {
-                                MessageBox.Show("Caja registrada con éxito.");
+                                MessageBox.Show("Caja creada con exito!.");
                                 limpiarbtn_Click(sender, e);
                                 MantCajas_Load(sender, e);
                                 recargarbtn_Click(sender, e);
                             }
                             else
                             {
-                                MessageBox.Show("No se pudo guardar los datos.");
+                                MessageBox.Show("No se encontró la configuración de esta PC para actualizar.");
                             }
                         }
                     }
@@ -76,7 +78,7 @@ namespace Proyecto_restaurante
                             actualizarCommand.Parameters.AddWithValue("@numeroCaja", numerocajatxt.Text);
                             actualizarCommand.Parameters.AddWithValue("@nombreCaja", nombrecajatxt.Text);
                             actualizarCommand.Parameters.AddWithValue("@estado", estadocajachk.Checked ? 1 : 0);
-                            actualizarCommand.Parameters.AddWithValue("@responsable", idresponsabletxt.Text);
+                            actualizarCommand.Parameters.AddWithValue("@responsable", idPCtxt.Text);
 
                             int rowsAffected = actualizarCommand.ExecuteNonQuery();
 
@@ -105,9 +107,9 @@ namespace Proyecto_restaurante
         {
             nombrecajatxt.Text = "";
             numerocajatxt.Text = "";
-            idresponsabletxt.Text = "";
-            responsabletxt.Text = "";
-            responsablepanel.Visible = false;
+            idPCtxt.Text = "";
+            //PCtxt.Text = "";
+            pcpanel.Visible = false;
             estadocajachk.Checked = true;
         }
 
@@ -222,11 +224,6 @@ namespace Proyecto_restaurante
         {
             tabControl1.SelectedIndex = 1;
             IDModificar = "";
-        }
-
-        private void buscarresponsable_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void Configuracion_Load(object sender, EventArgs e)
@@ -348,7 +345,7 @@ namespace Proyecto_restaurante
             }
         }
 
-        public int Estadobuscarpuesto = 1;
+        public int EstadobuscarEmpleado = 1;
 
         private void buscarempleado_Click(object sender, EventArgs e)
         {
@@ -363,13 +360,13 @@ namespace Proyecto_restaurante
 
             empleadousuariodt.DataSource = dt;
 
-            if (Estadobuscarpuesto == 1)
+            if (EstadobuscarEmpleado == 1)
             {
                 buscarempleado.Image = Proyecto_restaurante.Properties.Resources.cancelar1;
                 //toolTip1.SetToolTip(buscarpuesto, "Cancelar búsqueda");
                 empleadopanel.Visible = true;
 
-                Estadobuscarpuesto = 0;
+                EstadobuscarEmpleado = 0;
             }
             else
             {
@@ -377,7 +374,7 @@ namespace Proyecto_restaurante
                 //toolTip1.SetToolTip(buscarpuesto, "Buscar departamento");
                 empleadopanel.Visible = false;
 
-                Estadobuscarpuesto = 1;
+                EstadobuscarEmpleado = 1;
             }
         }
 
@@ -608,6 +605,152 @@ namespace Proyecto_restaurante
             vistaprevia.BackColor = colorDefault;
 
             colorRGB = $"{colorDefault.R},{colorDefault.G},{colorDefault.B}";
+        }
+
+        private void numerocajatxt_TextChanged(object sender, EventArgs e)
+        {
+            nombrecajatxt.Text = "Caja #" + numerocajatxt.Text;
+        }
+
+        public int EstadobuscarPC = 1;
+
+        private void buscarPC_Click(object sender, EventArgs e)
+        {
+            string conexionString = ConexionBD.ConexionSQL();
+            string puesto = "select Id, NombrePC from Configuracion";
+
+            SqlDataAdapter adaptador = new SqlDataAdapter(puesto, conexionString);
+
+            DataTable dt = new DataTable();
+
+            adaptador.Fill(dt);
+
+            pcDT.DataSource = dt;
+
+            if (EstadobuscarPC == 1)
+            {
+                buscarPC.Image = Proyecto_restaurante.Properties.Resources.cancelar1;
+                //toolTip1.SetToolTip(buscarpuesto, "Cancelar búsqueda");
+                pcpanel.Visible = true;
+
+                EstadobuscarPC = 0;
+            }
+            else
+            {
+                buscarPC.Image = Proyecto_restaurante.Properties.Resources.busqueda1;
+                //toolTip1.SetToolTip(buscarpuesto, "Buscar departamento");
+                pcpanel.Visible = false;
+
+                EstadobuscarPC = 1;
+            }
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            idPCtxt.Text = idpcconsultatxt.Text;
+            nombrepctxt.Text = nombrepcconsultatxt.Text;
+            buscarPC_Click(sender, e);
+        }
+
+        private void pcDT_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            idpcconsultatxt.Text = pcDT.SelectedCells[0].Value.ToString();
+            nombrepcconsultatxt.Text = pcDT.SelectedCells[1].Value.ToString();
+        }
+
+        public int EstadobuscarCaja = 1;
+
+        private void buscarCaja_Click(object sender, EventArgs e)
+        {
+            string conexionString = ConexionBD.ConexionSQL();
+            string puesto = "select Numero, Nombre from Caja";
+
+            SqlDataAdapter adaptador = new SqlDataAdapter(puesto, conexionString);
+
+            DataTable dt = new DataTable();
+
+            adaptador.Fill(dt);
+
+            cajaDT.DataSource = dt;
+
+            if (EstadobuscarCaja == 1)
+            {
+                buscarCaja.Image = Proyecto_restaurante.Properties.Resources.cancelar1;
+                //toolTip1.SetToolTip(buscarpuesto, "Cancelar búsqueda");
+                cajapanel.Visible = true;
+
+                EstadobuscarCaja = 0;
+            }
+            else
+            {
+                buscarCaja.Image = Proyecto_restaurante.Properties.Resources.busqueda1;
+                //toolTip1.SetToolTip(buscarpuesto, "Buscar departamento");
+                cajapanel.Visible = false;
+
+                EstadobuscarCaja = 1;
+            }
+        }
+
+        private void guardarasigpc_Click(object sender, EventArgs e)
+        {
+            string conexionString = ConexionBD.ConexionSQL();
+
+            using (SqlConnection conexion = new SqlConnection(conexionString))
+            {
+                try
+                {
+                    conexion.Open();
+
+                    if (string.IsNullOrEmpty(IDModificar))
+                    {
+                        string queryInsertar = "Update Configuracion set IdCaja = @IdCaja where Id= @IdPC";
+
+                        using (SqlCommand insertarCommand = new SqlCommand(queryInsertar, conexion))
+                        {
+                            insertarCommand.Parameters.AddWithValue("@IdCaja", idCajatxt.Text);
+                            insertarCommand.Parameters.AddWithValue("@IdPC", idPCtxt.Text);
+
+                            int rowsAffected = insertarCommand.ExecuteNonQuery();
+
+                            if (rowsAffected > 0)
+                            {
+                                MessageBox.Show("Caja asignada con exito!.");
+                                limpiarbtn_Click(sender, e);
+                                MantCajas_Load(sender, e);
+                                recargarbtn_Click(sender, e);
+                            }
+                            else
+                            {
+                                MessageBox.Show("No se encontró la configuración de esta PC para actualizar.");
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ocurrió un error: {ex.Message}");
+                }
+            }
+        }
+
+        private void asignarcaja_Click(object sender, EventArgs e)
+        {
+            asignarPCPanel.Location = new Point(221, 4);
+            asignarPCPanel.BringToFront();
+            asignarPCPanel.Visible = true;
+        }
+
+        private void cajaDT_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            idconsultacajatxt.Text = cajaDT.SelectedCells[0].Value.ToString();
+            nombreconsultacajatxt.Text = cajaDT.SelectedCells[1].Value.ToString();
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            idCajatxt.Text = idconsultacajatxt.Text;
+            nombrecajaPCtxt.Text = nombreconsultacajatxt.Text;
+            buscarCaja_Click(sender, e);
         }
     }
 }

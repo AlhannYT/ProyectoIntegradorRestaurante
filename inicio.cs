@@ -70,6 +70,25 @@ namespace Proyecto_restaurante
                             esAdmin = Convert.ToBoolean(adminResult);
                     }
 
+                    string nombrePC = Environment.MachineName;
+
+                    string queryExiste = "SELECT COUNT(*) FROM Configuracion WHERE NombrePC = @NombrePC";
+                    using (SqlCommand cmdExiste = new SqlCommand(queryExiste, conexion))
+                    {
+                        cmdExiste.Parameters.AddWithValue("@NombrePC", nombrePC);
+                        int existe = (int)cmdExiste.ExecuteScalar();
+
+                        if (existe == 0)
+                        {
+                            string insertarQuery = "INSERT INTO Configuracion (NombrePC) VALUES (@NombrePC)";
+                            using (SqlCommand cmdInsertar = new SqlCommand(insertarQuery, conexion))
+                            {
+                                cmdInsertar.Parameters.AddWithValue("@NombrePC", nombrePC);
+                                cmdInsertar.ExecuteNonQuery();
+                            }
+                        }
+                    }
+
                     menu menu = new menu();
 
                     if (esAdmin)
@@ -180,7 +199,6 @@ namespace Proyecto_restaurante
             conexionpanel.BringToFront();
             conexionpanel.Visible = true;
         }
-
 
         private void salirsqlbtn_Click(object sender, EventArgs e)
         {

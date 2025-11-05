@@ -32,6 +32,7 @@
             barraizq = new Panel();
             usuarios = new Button();
             button2 = new Button();
+            asignarcaja = new Button();
             button7 = new Button();
             label1 = new Label();
             button26 = new Button();
@@ -48,15 +49,8 @@
             tabladatos = new DataGridView();
             txtbuscador = new TextBox();
             tabPage2 = new TabPage();
-            responsablepanel = new Panel();
-            idconsultatxt = new TextBox();
-            categoriaconsultatxt = new TextBox();
-            button5 = new Button();
-            label4 = new Label();
-            categoriaconsulta = new DataGridView();
-            idresponsabletxt = new TextBox();
-            responsabletxt = new TextBox();
-            buscarresponsable = new Button();
+            ultimoID = new TextBox();
+            label23 = new Label();
             panel3 = new Panel();
             guardatbtn = new Button();
             limpiarbtn = new Button();
@@ -66,7 +60,6 @@
             label9 = new Label();
             label10 = new Label();
             label11 = new Label();
-            label12 = new Label();
             nombrecajatxt = new TextBox();
             numerocajatxt = new TextBox();
             cajaspanel = new Panel();
@@ -146,13 +139,36 @@
             label26 = new Label();
             label25 = new Label();
             label27 = new Label();
+            asignarPCPanel = new Panel();
+            cajapanel = new Panel();
+            idconsultacajatxt = new TextBox();
+            nombreconsultacajatxt = new TextBox();
+            button11 = new Button();
+            label29 = new Label();
+            cajaDT = new DataGridView();
+            idCajatxt = new TextBox();
+            panel13 = new Panel();
+            guardarasigpc = new Button();
+            button21 = new Button();
+            nombrecajaPCtxt = new TextBox();
+            pcpanel = new Panel();
+            idpcconsultatxt = new TextBox();
+            nombrepcconsultatxt = new TextBox();
+            button15 = new Button();
+            label33 = new Label();
+            pcDT = new DataGridView();
+            buscarCaja = new Button();
+            idPCtxt = new TextBox();
+            label31 = new Label();
+            label30 = new Label();
+            nombrepctxt = new TextBox();
+            buscarPC = new Button();
+            label38 = new Label();
             barraizq.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tabladatos).BeginInit();
             tabPage2.SuspendLayout();
-            responsablepanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)categoriaconsulta).BeginInit();
             panel3.SuspendLayout();
             cajaspanel.SuspendLayout();
             usuariospanel.SuspendLayout();
@@ -176,6 +192,12 @@
             tabControl3.SuspendLayout();
             tabPage5.SuspendLayout();
             panel1.SuspendLayout();
+            asignarPCPanel.SuspendLayout();
+            cajapanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)cajaDT).BeginInit();
+            panel13.SuspendLayout();
+            pcpanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pcDT).BeginInit();
             SuspendLayout();
             // 
             // barraizq
@@ -184,6 +206,7 @@
             barraizq.BorderStyle = BorderStyle.FixedSingle;
             barraizq.Controls.Add(usuarios);
             barraizq.Controls.Add(button2);
+            barraizq.Controls.Add(asignarcaja);
             barraizq.Controls.Add(button7);
             barraizq.Controls.Add(label1);
             barraizq.Controls.Add(button26);
@@ -200,7 +223,7 @@
             usuarios.Cursor = Cursors.Hand;
             usuarios.Image = Properties.Resources.usuario;
             usuarios.ImageAlign = ContentAlignment.MiddleRight;
-            usuarios.Location = new Point(7, 127);
+            usuarios.Location = new Point(7, 169);
             usuarios.Margin = new Padding(2);
             usuarios.Name = "usuarios";
             usuarios.Size = new Size(202, 38);
@@ -214,7 +237,7 @@
             // 
             button2.Image = Properties.Resources.llenar;
             button2.ImageAlign = ContentAlignment.MiddleRight;
-            button2.Location = new Point(7, 85);
+            button2.Location = new Point(7, 127);
             button2.Margin = new Padding(2);
             button2.Name = "button2";
             button2.Size = new Size(202, 38);
@@ -223,6 +246,20 @@
             button2.TextAlign = ContentAlignment.MiddleLeft;
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click_1;
+            // 
+            // asignarcaja
+            // 
+            asignarcaja.Image = Properties.Resources.cajero2;
+            asignarcaja.ImageAlign = ContentAlignment.MiddleRight;
+            asignarcaja.Location = new Point(7, 85);
+            asignarcaja.Margin = new Padding(2);
+            asignarcaja.Name = "asignarcaja";
+            asignarcaja.Size = new Size(202, 38);
+            asignarcaja.TabIndex = 15;
+            asignarcaja.Text = "Asignar Caja";
+            asignarcaja.TextAlign = ContentAlignment.MiddleLeft;
+            asignarcaja.UseVisualStyleBackColor = true;
+            asignarcaja.Click += asignarcaja_Click;
             // 
             // button7
             // 
@@ -300,7 +337,7 @@
             // eliminarbtn
             // 
             eliminarbtn.Image = Properties.Resources.limpio;
-            eliminarbtn.Location = new Point(428, 71);
+            eliminarbtn.Location = new Point(439, 71);
             eliminarbtn.Name = "eliminarbtn";
             eliminarbtn.Size = new Size(29, 29);
             eliminarbtn.TabIndex = 36;
@@ -313,7 +350,7 @@
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label2.ForeColor = SystemColors.Control;
             label2.Image = Properties.Resources.busqueda;
-            label2.Location = new Point(353, 75);
+            label2.Location = new Point(357, 75);
             label2.Name = "label2";
             label2.Size = new Size(18, 21);
             label2.TabIndex = 57;
@@ -327,7 +364,7 @@
             filtro.Cursor = Cursors.Hand;
             filtro.Font = new Font("Segoe UI", 13F);
             filtro.Image = Properties.Resources.sicheck;
-            filtro.Location = new Point(385, 71);
+            filtro.Location = new Point(393, 71);
             filtro.Name = "filtro";
             filtro.Size = new Size(41, 29);
             filtro.TabIndex = 58;
@@ -349,7 +386,7 @@
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 18F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
             label3.ForeColor = SystemColors.Control;
-            label3.Location = new Point(484, 69);
+            label3.Location = new Point(493, 69);
             label3.Name = "label3";
             label3.Size = new Size(116, 32);
             label3.TabIndex = 51;
@@ -358,7 +395,7 @@
             // Editar
             // 
             Editar.Image = Properties.Resources.editar;
-            Editar.Location = new Point(463, 183);
+            Editar.Location = new Point(472, 183);
             Editar.Name = "Editar";
             Editar.Size = new Size(159, 72);
             Editar.TabIndex = 49;
@@ -369,7 +406,7 @@
             // agregar
             // 
             agregar.Image = Properties.Resources.cajero;
-            agregar.Location = new Point(463, 106);
+            agregar.Location = new Point(472, 106);
             agregar.Name = "agregar";
             agregar.Size = new Size(159, 72);
             agregar.TabIndex = 50;
@@ -398,7 +435,7 @@
             tabladatos.ReadOnly = true;
             tabladatos.RowHeadersWidth = 51;
             tabladatos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tabladatos.Size = new Size(449, 410);
+            tabladatos.Size = new Size(460, 410);
             tabladatos.TabIndex = 34;
             // 
             // txtbuscador
@@ -406,16 +443,14 @@
             txtbuscador.ForeColor = SystemColors.ScrollBar;
             txtbuscador.Location = new Point(8, 71);
             txtbuscador.Name = "txtbuscador";
-            txtbuscador.Size = new Size(367, 29);
+            txtbuscador.Size = new Size(371, 29);
             txtbuscador.TabIndex = 35;
             // 
             // tabPage2
             // 
             tabPage2.BackColor = SystemColors.WindowFrame;
-            tabPage2.Controls.Add(responsablepanel);
-            tabPage2.Controls.Add(idresponsabletxt);
-            tabPage2.Controls.Add(responsabletxt);
-            tabPage2.Controls.Add(buscarresponsable);
+            tabPage2.Controls.Add(ultimoID);
+            tabPage2.Controls.Add(label23);
             tabPage2.Controls.Add(panel3);
             tabPage2.Controls.Add(label8);
             tabPage2.Controls.Add(button1);
@@ -423,7 +458,6 @@
             tabPage2.Controls.Add(label9);
             tabPage2.Controls.Add(label10);
             tabPage2.Controls.Add(label11);
-            tabPage2.Controls.Add(label12);
             tabPage2.Controls.Add(nombrecajatxt);
             tabPage2.Controls.Add(numerocajatxt);
             tabPage2.Location = new Point(4, 30);
@@ -433,100 +467,31 @@
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Creación";
             // 
-            // responsablepanel
+            // ultimoID
             // 
-            responsablepanel.BackColor = Color.FromArgb(64, 64, 64);
-            responsablepanel.Controls.Add(idconsultatxt);
-            responsablepanel.Controls.Add(categoriaconsultatxt);
-            responsablepanel.Controls.Add(button5);
-            responsablepanel.Controls.Add(label4);
-            responsablepanel.Controls.Add(categoriaconsulta);
-            responsablepanel.Location = new Point(306, 140);
-            responsablepanel.Name = "responsablepanel";
-            responsablepanel.Size = new Size(217, 170);
-            responsablepanel.TabIndex = 82;
-            responsablepanel.Visible = false;
+            ultimoID.Enabled = false;
+            ultimoID.Location = new Point(545, 14);
+            ultimoID.Name = "ultimoID";
+            ultimoID.Size = new Size(76, 29);
+            ultimoID.TabIndex = 90;
             // 
-            // idconsultatxt
+            // label23
             // 
-            idconsultatxt.Location = new Point(4, 28);
-            idconsultatxt.Name = "idconsultatxt";
-            idconsultatxt.Size = new Size(40, 29);
-            idconsultatxt.TabIndex = 58;
-            // 
-            // categoriaconsultatxt
-            // 
-            categoriaconsultatxt.Location = new Point(49, 28);
-            categoriaconsultatxt.Name = "categoriaconsultatxt";
-            categoriaconsultatxt.Size = new Size(133, 29);
-            categoriaconsultatxt.TabIndex = 58;
-            // 
-            // button5
-            // 
-            button5.ForeColor = Color.Black;
-            button5.Image = Properties.Resources.angulo_hacia_arriba;
-            button5.Location = new Point(185, 28);
-            button5.Name = "button5";
-            button5.Size = new Size(28, 29);
-            button5.TabIndex = 60;
-            button5.UseVisualStyleBackColor = true;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label4.ForeColor = Color.White;
-            label4.Location = new Point(5, 2);
-            label4.Name = "label4";
-            label4.Size = new Size(198, 21);
-            label4.TabIndex = 50;
-            label4.Text = "Seleccionar Responsable";
-            // 
-            // categoriaconsulta
-            // 
-            categoriaconsulta.AllowUserToAddRows = false;
-            categoriaconsulta.AllowUserToDeleteRows = false;
-            categoriaconsulta.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            categoriaconsulta.Location = new Point(4, 63);
-            categoriaconsulta.MultiSelect = false;
-            categoriaconsulta.Name = "categoriaconsulta";
-            categoriaconsulta.ReadOnly = true;
-            categoriaconsulta.RowHeadersWidth = 51;
-            categoriaconsulta.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            categoriaconsulta.Size = new Size(208, 101);
-            categoriaconsulta.TabIndex = 74;
-            // 
-            // idresponsabletxt
-            // 
-            idresponsabletxt.Location = new Point(308, 101);
-            idresponsabletxt.Name = "idresponsabletxt";
-            idresponsabletxt.Size = new Size(42, 29);
-            idresponsabletxt.TabIndex = 78;
-            // 
-            // responsabletxt
-            // 
-            responsabletxt.Location = new Point(355, 101);
-            responsabletxt.Name = "responsabletxt";
-            responsabletxt.Size = new Size(133, 29);
-            responsabletxt.TabIndex = 79;
-            // 
-            // buscarresponsable
-            // 
-            buscarresponsable.ForeColor = Color.Black;
-            buscarresponsable.Image = Properties.Resources.busqueda;
-            buscarresponsable.Location = new Point(491, 101);
-            buscarresponsable.Name = "buscarresponsable";
-            buscarresponsable.Size = new Size(28, 29);
-            buscarresponsable.TabIndex = 80;
-            buscarresponsable.UseVisualStyleBackColor = true;
-            buscarresponsable.Click += buscarresponsable_Click;
+            label23.AutoSize = true;
+            label23.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label23.ForeColor = SystemColors.Control;
+            label23.Location = new Point(509, 18);
+            label23.Name = "label23";
+            label23.Size = new Size(27, 21);
+            label23.TabIndex = 91;
+            label23.Text = "ID";
             // 
             // panel3
             // 
             panel3.BackColor = Color.FromArgb(64, 64, 64);
             panel3.Controls.Add(guardatbtn);
             panel3.Controls.Add(limpiarbtn);
-            panel3.Location = new Point(114, 440);
+            panel3.Location = new Point(117, 409);
             panel3.Name = "panel3";
             panel3.Size = new Size(409, 74);
             panel3.TabIndex = 76;
@@ -560,7 +525,7 @@
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold);
             label8.ForeColor = SystemColors.Control;
-            label8.Location = new Point(192, 15);
+            label8.Location = new Point(192, 8);
             label8.Name = "label8";
             label8.Size = new Size(252, 40);
             label8.TabIndex = 53;
@@ -582,7 +547,7 @@
             estadocajachk.Checked = true;
             estadocajachk.CheckState = CheckState.Checked;
             estadocajachk.ForeColor = Color.Lime;
-            estadocajachk.Location = new Point(203, 288);
+            estadocajachk.Location = new Point(327, 305);
             estadocajachk.Name = "estadocajachk";
             estadocajachk.Size = new Size(72, 25);
             estadocajachk.TabIndex = 45;
@@ -594,7 +559,7 @@
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label9.ForeColor = Color.White;
-            label9.Location = new Point(117, 183);
+            label9.Location = new Point(172, 200);
             label9.Name = "label9";
             label9.Size = new Size(133, 21);
             label9.TabIndex = 46;
@@ -605,7 +570,7 @@
             label10.AutoSize = true;
             label10.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label10.ForeColor = Color.White;
-            label10.Location = new Point(117, 290);
+            label10.Location = new Point(241, 307);
             label10.Name = "label10";
             label10.Size = new Size(65, 21);
             label10.TabIndex = 47;
@@ -616,36 +581,27 @@
             label11.AutoSize = true;
             label11.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label11.ForeColor = Color.White;
-            label11.Location = new Point(117, 76);
+            label11.Location = new Point(172, 93);
             label11.Name = "label11";
             label11.Size = new Size(91, 21);
             label11.TabIndex = 48;
             label11.Text = "N° De Caja";
             // 
-            // label12
-            // 
-            label12.AutoSize = true;
-            label12.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label12.ForeColor = Color.White;
-            label12.Location = new Point(309, 76);
-            label12.Name = "label12";
-            label12.Size = new Size(106, 21);
-            label12.TabIndex = 49;
-            label12.Text = "Responsable";
-            // 
             // nombrecajatxt
             // 
-            nombrecajatxt.Location = new Point(114, 207);
+            nombrecajatxt.Location = new Point(169, 224);
             nombrecajatxt.Name = "nombrecajatxt";
-            nombrecajatxt.Size = new Size(158, 29);
+            nombrecajatxt.Size = new Size(298, 29);
             nombrecajatxt.TabIndex = 51;
+            nombrecajatxt.Text = "Caja #";
             // 
             // numerocajatxt
             // 
-            numerocajatxt.Location = new Point(114, 101);
+            numerocajatxt.Location = new Point(169, 118);
             numerocajatxt.Name = "numerocajatxt";
-            numerocajatxt.Size = new Size(158, 29);
+            numerocajatxt.Size = new Size(298, 29);
             numerocajatxt.TabIndex = 52;
+            numerocajatxt.TextChanged += numerocajatxt_TextChanged;
             // 
             // cajaspanel
             // 
@@ -1532,6 +1488,284 @@
             label27.TabIndex = 33;
             label27.Text = "Permisos de Usuarios";
             // 
+            // asignarPCPanel
+            // 
+            asignarPCPanel.Controls.Add(cajapanel);
+            asignarPCPanel.Controls.Add(idCajatxt);
+            asignarPCPanel.Controls.Add(panel13);
+            asignarPCPanel.Controls.Add(nombrecajaPCtxt);
+            asignarPCPanel.Controls.Add(pcpanel);
+            asignarPCPanel.Controls.Add(buscarCaja);
+            asignarPCPanel.Controls.Add(idPCtxt);
+            asignarPCPanel.Controls.Add(label31);
+            asignarPCPanel.Controls.Add(label30);
+            asignarPCPanel.Controls.Add(nombrepctxt);
+            asignarPCPanel.Controls.Add(buscarPC);
+            asignarPCPanel.Controls.Add(label38);
+            asignarPCPanel.Location = new Point(1551, 3);
+            asignarPCPanel.Name = "asignarPCPanel";
+            asignarPCPanel.Size = new Size(659, 570);
+            asignarPCPanel.TabIndex = 45;
+            asignarPCPanel.Visible = false;
+            // 
+            // cajapanel
+            // 
+            cajapanel.BackColor = Color.FromArgb(64, 64, 64);
+            cajapanel.Controls.Add(idconsultacajatxt);
+            cajapanel.Controls.Add(nombreconsultacajatxt);
+            cajapanel.Controls.Add(button11);
+            cajapanel.Controls.Add(label29);
+            cajapanel.Controls.Add(cajaDT);
+            cajapanel.Location = new Point(335, 195);
+            cajapanel.Name = "cajapanel";
+            cajapanel.Size = new Size(277, 214);
+            cajapanel.TabIndex = 93;
+            cajapanel.Visible = false;
+            // 
+            // idconsultacajatxt
+            // 
+            idconsultacajatxt.Font = new Font("Segoe UI", 12F);
+            idconsultacajatxt.Location = new Point(4, 28);
+            idconsultacajatxt.Name = "idconsultacajatxt";
+            idconsultacajatxt.Size = new Size(41, 29);
+            idconsultacajatxt.TabIndex = 58;
+            // 
+            // nombreconsultacajatxt
+            // 
+            nombreconsultacajatxt.Font = new Font("Segoe UI", 12F);
+            nombreconsultacajatxt.Location = new Point(49, 28);
+            nombreconsultacajatxt.Name = "nombreconsultacajatxt";
+            nombreconsultacajatxt.Size = new Size(193, 29);
+            nombreconsultacajatxt.TabIndex = 58;
+            // 
+            // button11
+            // 
+            button11.ForeColor = Color.Black;
+            button11.Image = Properties.Resources.angulo_hacia_arriba;
+            button11.Location = new Point(245, 28);
+            button11.Name = "button11";
+            button11.Size = new Size(28, 29);
+            button11.TabIndex = 60;
+            button11.UseVisualStyleBackColor = true;
+            button11.Click += button11_Click;
+            // 
+            // label29
+            // 
+            label29.AutoSize = true;
+            label29.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label29.ForeColor = Color.White;
+            label29.Location = new Point(5, 2);
+            label29.Name = "label29";
+            label29.Size = new Size(135, 21);
+            label29.TabIndex = 50;
+            label29.Text = "Seleccionar Caja";
+            // 
+            // cajaDT
+            // 
+            cajaDT.AllowUserToAddRows = false;
+            cajaDT.AllowUserToDeleteRows = false;
+            cajaDT.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            cajaDT.Location = new Point(4, 63);
+            cajaDT.MultiSelect = false;
+            cajaDT.Name = "cajaDT";
+            cajaDT.ReadOnly = true;
+            cajaDT.RowHeadersWidth = 51;
+            cajaDT.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            cajaDT.Size = new Size(269, 146);
+            cajaDT.TabIndex = 74;
+            cajaDT.CellClick += cajaDT_CellClick;
+            // 
+            // idCajatxt
+            // 
+            idCajatxt.Enabled = false;
+            idCajatxt.Font = new Font("Segoe UI", 12F);
+            idCajatxt.Location = new Point(337, 156);
+            idCajatxt.Name = "idCajatxt";
+            idCajatxt.Size = new Size(43, 29);
+            idCajatxt.TabIndex = 90;
+            // 
+            // panel13
+            // 
+            panel13.BackColor = Color.FromArgb(64, 64, 64);
+            panel13.Controls.Add(guardarasigpc);
+            panel13.Controls.Add(button21);
+            panel13.Location = new Point(125, 444);
+            panel13.Name = "panel13";
+            panel13.Size = new Size(409, 74);
+            panel13.TabIndex = 89;
+            // 
+            // guardarasigpc
+            // 
+            guardarasigpc.Image = Properties.Resources.guardar;
+            guardarasigpc.ImageAlign = ContentAlignment.MiddleLeft;
+            guardarasigpc.Location = new Point(12, 8);
+            guardarasigpc.Name = "guardarasigpc";
+            guardarasigpc.Size = new Size(181, 58);
+            guardarasigpc.TabIndex = 43;
+            guardarasigpc.Text = "Guardar";
+            guardarasigpc.UseVisualStyleBackColor = true;
+            guardarasigpc.Click += guardarasigpc_Click;
+            // 
+            // button21
+            // 
+            button21.Image = Properties.Resources.nuevodoc;
+            button21.ImageAlign = ContentAlignment.MiddleLeft;
+            button21.Location = new Point(216, 8);
+            button21.Name = "button21";
+            button21.Size = new Size(181, 58);
+            button21.TabIndex = 44;
+            button21.Text = "Nuevo";
+            button21.UseVisualStyleBackColor = true;
+            // 
+            // nombrecajaPCtxt
+            // 
+            nombrecajaPCtxt.Enabled = false;
+            nombrecajaPCtxt.Font = new Font("Segoe UI", 12F);
+            nombrecajaPCtxt.Location = new Point(384, 156);
+            nombrecajaPCtxt.Name = "nombrecajaPCtxt";
+            nombrecajaPCtxt.Size = new Size(193, 29);
+            nombrecajaPCtxt.TabIndex = 91;
+            // 
+            // pcpanel
+            // 
+            pcpanel.BackColor = Color.FromArgb(64, 64, 64);
+            pcpanel.Controls.Add(idpcconsultatxt);
+            pcpanel.Controls.Add(nombrepcconsultatxt);
+            pcpanel.Controls.Add(button15);
+            pcpanel.Controls.Add(label33);
+            pcpanel.Controls.Add(pcDT);
+            pcpanel.Location = new Point(47, 195);
+            pcpanel.Name = "pcpanel";
+            pcpanel.Size = new Size(277, 214);
+            pcpanel.TabIndex = 88;
+            pcpanel.Visible = false;
+            // 
+            // idpcconsultatxt
+            // 
+            idpcconsultatxt.Font = new Font("Segoe UI", 12F);
+            idpcconsultatxt.Location = new Point(4, 28);
+            idpcconsultatxt.Name = "idpcconsultatxt";
+            idpcconsultatxt.Size = new Size(41, 29);
+            idpcconsultatxt.TabIndex = 58;
+            // 
+            // nombrepcconsultatxt
+            // 
+            nombrepcconsultatxt.Font = new Font("Segoe UI", 12F);
+            nombrepcconsultatxt.Location = new Point(49, 28);
+            nombrepcconsultatxt.Name = "nombrepcconsultatxt";
+            nombrepcconsultatxt.Size = new Size(193, 29);
+            nombrepcconsultatxt.TabIndex = 58;
+            // 
+            // button15
+            // 
+            button15.ForeColor = Color.Black;
+            button15.Image = Properties.Resources.angulo_hacia_arriba;
+            button15.Location = new Point(245, 28);
+            button15.Name = "button15";
+            button15.Size = new Size(28, 29);
+            button15.TabIndex = 60;
+            button15.UseVisualStyleBackColor = true;
+            button15.Click += button15_Click;
+            // 
+            // label33
+            // 
+            label33.AutoSize = true;
+            label33.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label33.ForeColor = Color.White;
+            label33.Location = new Point(5, 2);
+            label33.Name = "label33";
+            label33.Size = new Size(122, 21);
+            label33.TabIndex = 50;
+            label33.Text = "Seleccionar PC";
+            // 
+            // pcDT
+            // 
+            pcDT.AllowUserToAddRows = false;
+            pcDT.AllowUserToDeleteRows = false;
+            pcDT.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            pcDT.Location = new Point(4, 63);
+            pcDT.MultiSelect = false;
+            pcDT.Name = "pcDT";
+            pcDT.ReadOnly = true;
+            pcDT.RowHeadersWidth = 51;
+            pcDT.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            pcDT.Size = new Size(269, 146);
+            pcDT.TabIndex = 74;
+            pcDT.CellClick += pcDT_CellClick;
+            // 
+            // buscarCaja
+            // 
+            buscarCaja.ForeColor = Color.Black;
+            buscarCaja.Image = Properties.Resources.busqueda;
+            buscarCaja.Location = new Point(580, 156);
+            buscarCaja.Name = "buscarCaja";
+            buscarCaja.Size = new Size(28, 29);
+            buscarCaja.TabIndex = 92;
+            buscarCaja.UseVisualStyleBackColor = true;
+            buscarCaja.Click += buscarCaja_Click;
+            // 
+            // idPCtxt
+            // 
+            idPCtxt.Enabled = false;
+            idPCtxt.Font = new Font("Segoe UI", 12F);
+            idPCtxt.Location = new Point(49, 156);
+            idPCtxt.Name = "idPCtxt";
+            idPCtxt.Size = new Size(43, 29);
+            idPCtxt.TabIndex = 85;
+            // 
+            // label31
+            // 
+            label31.AutoSize = true;
+            label31.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold);
+            label31.ForeColor = SystemColors.Control;
+            label31.Location = new Point(173, 35);
+            label31.Name = "label31";
+            label31.Size = new Size(312, 40);
+            label31.TabIndex = 39;
+            label31.Text = "Asignar caja a equipo";
+            // 
+            // label30
+            // 
+            label30.AutoSize = true;
+            label30.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label30.ForeColor = Color.White;
+            label30.Location = new Point(337, 131);
+            label30.Name = "label30";
+            label30.Size = new Size(43, 21);
+            label30.TabIndex = 89;
+            label30.Text = "Caja";
+            // 
+            // nombrepctxt
+            // 
+            nombrepctxt.Enabled = false;
+            nombrepctxt.Font = new Font("Segoe UI", 12F);
+            nombrepctxt.Location = new Point(96, 156);
+            nombrepctxt.Name = "nombrepctxt";
+            nombrepctxt.Size = new Size(193, 29);
+            nombrepctxt.TabIndex = 86;
+            // 
+            // buscarPC
+            // 
+            buscarPC.ForeColor = Color.Black;
+            buscarPC.Image = Properties.Resources.busqueda;
+            buscarPC.Location = new Point(292, 156);
+            buscarPC.Name = "buscarPC";
+            buscarPC.Size = new Size(28, 29);
+            buscarPC.TabIndex = 87;
+            buscarPC.UseVisualStyleBackColor = true;
+            buscarPC.Click += buscarPC_Click;
+            // 
+            // label38
+            // 
+            label38.AutoSize = true;
+            label38.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label38.ForeColor = Color.White;
+            label38.Location = new Point(49, 131);
+            label38.Name = "label38";
+            label38.Size = new Size(64, 21);
+            label38.TabIndex = 84;
+            label38.Text = "Equipo";
+            // 
             // Configuracion
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1541,6 +1775,7 @@
             Controls.Add(permisospanel);
             Controls.Add(colores);
             Controls.Add(usuariospanel);
+            Controls.Add(asignarPCPanel);
             Controls.Add(cajaspanel);
             Controls.Add(barraizq);
             FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -1559,9 +1794,6 @@
             ((System.ComponentModel.ISupportInitialize)tabladatos).EndInit();
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
-            responsablepanel.ResumeLayout(false);
-            responsablepanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)categoriaconsulta).EndInit();
             panel3.ResumeLayout(false);
             cajaspanel.ResumeLayout(false);
             usuariospanel.ResumeLayout(false);
@@ -1593,6 +1825,15 @@
             tabPage5.ResumeLayout(false);
             tabPage5.PerformLayout();
             panel1.ResumeLayout(false);
+            asignarPCPanel.ResumeLayout(false);
+            asignarPCPanel.PerformLayout();
+            cajapanel.ResumeLayout(false);
+            cajapanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)cajaDT).EndInit();
+            panel13.ResumeLayout(false);
+            pcpanel.ResumeLayout(false);
+            pcpanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pcDT).EndInit();
             ResumeLayout(false);
         }
 
@@ -1615,15 +1856,6 @@
         private DataGridView tabladatos;
         private TextBox txtbuscador;
         private TabPage tabPage2;
-        private Panel responsablepanel;
-        private TextBox idconsultatxt;
-        private TextBox categoriaconsultatxt;
-        private Button button5;
-        private Label label4;
-        private DataGridView categoriaconsulta;
-        private TextBox idresponsabletxt;
-        private TextBox responsabletxt;
-        private Button buscarresponsable;
         private Panel panel3;
         private Button guardatbtn;
         private Button limpiarbtn;
@@ -1633,7 +1865,6 @@
         private Label label9;
         private Label label10;
         private Label label11;
-        private Label label12;
         private TextBox nombrecajatxt;
         private TextBox numerocajatxt;
         private Panel cajaspanel;
@@ -1715,5 +1946,33 @@
         private Panel panel9;
         private Button buscarcolor;
         private Button defaultcolor;
+        private TextBox ultimoID;
+        private Label label23;
+        private Button asignarcaja;
+        private Panel asignarPCPanel;
+        private Panel cajapanel;
+        private TextBox idconsultacajatxt;
+        private TextBox nombreconsultacajatxt;
+        private Button button11;
+        private Label label29;
+        private DataGridView cajaDT;
+        private TextBox idCajatxt;
+        private Panel panel13;
+        private Button guardarasigpc;
+        private Button button21;
+        private TextBox nombrecajaPCtxt;
+        private Panel pcpanel;
+        private TextBox idpcconsultatxt;
+        private TextBox nombrepcconsultatxt;
+        private Button button15;
+        private Label label33;
+        private DataGridView pcDT;
+        private Button buscarCaja;
+        private TextBox idPCtxt;
+        private Label label30;
+        private TextBox nombrepctxt;
+        private Button buscarPC;
+        private Label label38;
+        private Label label31;
     }
 }

@@ -89,7 +89,6 @@ namespace Proyecto_restaurante
             {
                 //MessageBox.Show("Imagen no encontrada para el producto seleccionado.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-
         }
 
         private void agregar_Click(object sender, EventArgs e)
@@ -273,7 +272,6 @@ namespace Proyecto_restaurante
             ITBIS.Items.Clear();
             ConsProductos_Load(sender, e);
         }
-
 
         private void txtnombre_prod_TextChanged(object sender, EventArgs e)
         {

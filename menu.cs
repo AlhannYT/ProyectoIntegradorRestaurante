@@ -53,6 +53,8 @@ namespace Proyecto_restaurante
             string nombrePC = Environment.MachineName;
             Color colorPanel = Color.Silver;
 
+            button5.Focus();
+
             try
             {
                 using (SqlConnection conexion = new SqlConnection(conexionString))
@@ -244,10 +246,12 @@ namespace Proyecto_restaurante
                         btn.ImageAlign = ContentAlignment.MiddleCenter;
                         label1.Text = "  ";
                         label2.Text = "  ";
+                        label3.Text = "  ";
                         ajustestxt.Text = "  ";
                         label1.ImageAlign = ContentAlignment.MiddleCenter;
                         label2.ImageAlign = ContentAlignment.MiddleCenter;
                         ajustestxt.ImageAlign = ContentAlignment.MiddleCenter;
+                        logoarroz.Visible = false;
                     }
                 }
 
@@ -274,14 +278,17 @@ namespace Proyecto_restaurante
                         reservacion.Text = "Reservacion";
                         button11.Text = "Generales";
                         button13.Text = "Empleados";
+                        reportesbtn.Text = "Reportes";
                         btn.ImageAlign = ContentAlignment.MiddleRight;
                         button12.ImageAlign = ContentAlignment.MiddleCenter;
                         label1.Text = "Mantenimientos    ";
                         label2.Text = "Procesos    ";
+                        label3.Text = "Informes    ";
                         ajustestxt.Text = "Ajustes    ";
                         label1.ImageAlign = ContentAlignment.MiddleRight;
                         label2.ImageAlign = ContentAlignment.MiddleRight;
                         ajustestxt.ImageAlign = ContentAlignment.MiddleRight;
+                        logoarroz.Visible = true;
                     }
                 }
 
