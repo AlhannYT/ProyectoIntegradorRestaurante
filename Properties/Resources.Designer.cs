@@ -173,9 +173,39 @@ namespace Proyecto_restaurante.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap angulo_hacia_izquierda {
+            get {
+                object obj = ResourceManager.GetObject("angulo-hacia-izquierda", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap angulo_izquierdo_blanco {
+            get {
+                object obj = ResourceManager.GetObject("angulo-izquierdo blanco", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap atrás {
             get {
                 object obj = ResourceManager.GetObject("atrás", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap back {
+            get {
+                object obj = ResourceManager.GetObject("back", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1036,6 +1066,16 @@ namespace Proyecto_restaurante.Properties {
         internal static System.Drawing.Bitmap mundoblanco {
             get {
                 object obj = ResourceManager.GetObject("mundoblanco", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap next {
+            get {
+                object obj = ResourceManager.GetObject("next", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

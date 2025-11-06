@@ -269,9 +269,11 @@
             // 
             // provdt
             // 
+            provdt.AllowUserToResizeRows = false;
             provdt.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             provdt.Location = new Point(6, 101);
             provdt.Name = "provdt";
+            provdt.RowHeadersVisible = false;
             provdt.Size = new Size(729, 512);
             provdt.TabIndex = 0;
             provdt.CellClick += provdt_CellClick;

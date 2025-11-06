@@ -89,7 +89,9 @@
             estadochk = new CheckBox();
             label9 = new Label();
             label11 = new Label();
+            label18 = new Label();
             label17 = new Label();
+            pisotxt = new TextBox();
             capacidadtxt = new TextBox();
             label12 = new Label();
             txtnombresala = new TextBox();
@@ -635,7 +637,9 @@
             tabPage1.Controls.Add(estadochk);
             tabPage1.Controls.Add(label9);
             tabPage1.Controls.Add(label11);
+            tabPage1.Controls.Add(label18);
             tabPage1.Controls.Add(label17);
+            tabPage1.Controls.Add(pisotxt);
             tabPage1.Controls.Add(capacidadtxt);
             tabPage1.Controls.Add(label12);
             tabPage1.Controls.Add(txtnombresala);
@@ -668,7 +672,7 @@
             // 
             selecmetodo.Image = Properties.Resources.seleccion;
             selecmetodo.ImageAlign = ContentAlignment.MiddleLeft;
-            selecmetodo.Location = new Point(389, 306);
+            selecmetodo.Location = new Point(474, 306);
             selecmetodo.Name = "selecmetodo";
             selecmetodo.Size = new Size(138, 26);
             selecmetodo.TabIndex = 98;
@@ -682,7 +686,7 @@
             metfiltrochk.CheckState = CheckState.Checked;
             metfiltrochk.Font = new Font("Segoe UI", 15F);
             metfiltrochk.Image = Properties.Resources.sicheck;
-            metfiltrochk.Location = new Point(389, 396);
+            metfiltrochk.Location = new Point(474, 396);
             metfiltrochk.Name = "metfiltrochk";
             metfiltrochk.Size = new Size(61, 32);
             metfiltrochk.TabIndex = 100;
@@ -691,7 +695,7 @@
             // 
             // metbuscar
             // 
-            metbuscar.Location = new Point(389, 365);
+            metbuscar.Location = new Point(474, 365);
             metbuscar.Name = "metbuscar";
             metbuscar.Size = new Size(138, 29);
             metbuscar.TabIndex = 99;
@@ -703,7 +707,7 @@
             label15.ForeColor = Color.White;
             label15.Image = Properties.Resources.filtrar;
             label15.ImageAlign = ContentAlignment.MiddleRight;
-            label15.Location = new Point(389, 338);
+            label15.Location = new Point(474, 338);
             label15.Name = "label15";
             label15.Size = new Size(77, 21);
             label15.TabIndex = 97;
@@ -713,7 +717,7 @@
             // 
             tabladatos.AllowUserToAddRows = false;
             tabladatos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            tabladatos.Location = new Point(8, 306);
+            tabladatos.Location = new Point(93, 306);
             tabladatos.MultiSelect = false;
             tabladatos.Name = "tabladatos";
             tabladatos.ReadOnly = true;
@@ -727,7 +731,7 @@
             panel1.BackColor = Color.FromArgb(64, 64, 64);
             panel1.Controls.Add(button3);
             panel1.Controls.Add(button4);
-            panel1.Location = new Point(148, 222);
+            panel1.Location = new Point(148, 217);
             panel1.Name = "panel1";
             panel1.Size = new Size(409, 74);
             panel1.TabIndex = 95;
@@ -762,7 +766,7 @@
             estadochk.CheckState = CheckState.Checked;
             estadochk.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             estadochk.ForeColor = Color.Lime;
-            estadochk.Location = new Point(304, 181);
+            estadochk.Location = new Point(438, 154);
             estadochk.Name = "estadochk";
             estadochk.Size = new Size(78, 25);
             estadochk.TabIndex = 35;
@@ -775,7 +779,7 @@
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label9.ForeColor = SystemColors.Control;
-            label9.Location = new Point(227, 182);
+            label9.Location = new Point(361, 156);
             label9.Name = "label9";
             label9.Size = new Size(65, 21);
             label9.TabIndex = 31;
@@ -792,20 +796,38 @@
             label11.TabIndex = 32;
             label11.Text = "Registro de Salas";
             // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label18.ForeColor = SystemColors.Control;
+            label18.Location = new Point(359, 65);
+            label18.Name = "label18";
+            label18.Size = new Size(42, 21);
+            label18.TabIndex = 33;
+            label18.Text = "Piso";
+            // 
             // label17
             // 
             label17.AutoSize = true;
             label17.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label17.ForeColor = SystemColors.Control;
-            label17.Location = new Point(227, 122);
+            label17.Location = new Point(95, 127);
             label17.Name = "label17";
             label17.Size = new Size(156, 21);
             label17.TabIndex = 33;
             label17.Text = "Capacidad maxima";
             // 
+            // pisotxt
+            // 
+            pisotxt.Location = new Point(361, 91);
+            pisotxt.Name = "pisotxt";
+            pisotxt.Size = new Size(248, 29);
+            pisotxt.TabIndex = 30;
+            // 
             // capacidadtxt
             // 
-            capacidadtxt.Location = new Point(229, 148);
+            capacidadtxt.Location = new Point(97, 153);
             capacidadtxt.Name = "capacidadtxt";
             capacidadtxt.Size = new Size(248, 29);
             capacidadtxt.TabIndex = 30;
@@ -815,7 +837,7 @@
             label12.AutoSize = true;
             label12.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label12.ForeColor = SystemColors.Control;
-            label12.Location = new Point(227, 62);
+            label12.Location = new Point(95, 67);
             label12.Name = "label12";
             label12.Size = new Size(109, 21);
             label12.TabIndex = 33;
@@ -823,7 +845,7 @@
             // 
             // txtnombresala
             // 
-            txtnombresala.Location = new Point(229, 86);
+            txtnombresala.Location = new Point(97, 91);
             txtnombresala.Name = "txtnombresala";
             txtnombresala.Size = new Size(248, 29);
             txtnombresala.TabIndex = 30;
@@ -925,5 +947,7 @@
         private TextBox textBox3;
         private CheckBox checkBox2;
         private CheckBox checkBox1;
+        private Label label18;
+        private TextBox pisotxt;
     }
 }

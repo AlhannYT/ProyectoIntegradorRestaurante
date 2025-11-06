@@ -43,6 +43,7 @@
             recargarbtn = new Button();
             tabControl1 = new TabControl();
             consulta = new TabPage();
+            panel2 = new Panel();
             filtroingredientes = new CheckBox();
             filtroplatos = new CheckBox();
             filtrotodos = new CheckBox();
@@ -51,18 +52,17 @@
             creacion = new TabPage();
             panel6 = new Panel();
             panel3 = new Panel();
-            panel5 = new Panel();
+            seleccionpanel = new Panel();
+            label20 = new Label();
             label19 = new Label();
             textBox1 = new TextBox();
             numCantidad = new NumericUpDown();
             label6 = new Label();
             txtnombre = new TextBox();
             recetaingredientes = new DataGridView();
-            buscarprodbtn = new Button();
             ingredientesconsulta = new DataGridView();
             button3 = new Button();
             textBox2 = new TextBox();
-            txtcodigo = new TextBox();
             agregarbtn = new Button();
             categoriapanel = new Panel();
             idconsultatxt = new TextBox();
@@ -70,7 +70,7 @@
             button4 = new Button();
             label9 = new Label();
             categoriaconsulta = new DataGridView();
-            idregproducto = new TextBox();
+            ultimoID = new TextBox();
             label18 = new Label();
             idcategoriatxt = new TextBox();
             imagenpanel = new Panel();
@@ -107,8 +107,9 @@
             ((System.ComponentModel.ISupportInitialize)imagenproducto).BeginInit();
             tabControl1.SuspendLayout();
             consulta.SuspendLayout();
+            panel2.SuspendLayout();
             creacion.SuspendLayout();
-            panel5.SuspendLayout();
+            seleccionpanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numCantidad).BeginInit();
             ((System.ComponentModel.ISupportInitialize)recetaingredientes).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ingredientesconsulta).BeginInit();
@@ -146,7 +147,7 @@
             label12.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label12.ForeColor = SystemColors.Control;
             label12.Image = Properties.Resources.busqueda1;
-            label12.Location = new Point(352, 59);
+            label12.Location = new Point(357, 59);
             label12.Name = "label12";
             label12.Size = new Size(18, 21);
             label12.TabIndex = 38;
@@ -156,6 +157,7 @@
             // 
             tabladatos.AllowUserToAddRows = false;
             tabladatos.AllowUserToDeleteRows = false;
+            tabladatos.AllowUserToResizeRows = false;
             tabladatos.Anchor = AnchorStyles.None;
             tabladatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             tabladatos.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
@@ -164,6 +166,7 @@
             tabladatos.MultiSelect = false;
             tabladatos.Name = "tabladatos";
             tabladatos.ReadOnly = true;
+            tabladatos.RowHeadersVisible = false;
             tabladatos.RowHeadersWidth = 51;
             tabladatos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             tabladatos.Size = new Size(656, 558);
@@ -175,7 +178,7 @@
             txtbuscador.ForeColor = SystemColors.ScrollBar;
             txtbuscador.Location = new Point(8, 55);
             txtbuscador.Name = "txtbuscador";
-            txtbuscador.Size = new Size(366, 29);
+            txtbuscador.Size = new Size(374, 29);
             txtbuscador.TabIndex = 1;
             // 
             // agregar
@@ -272,11 +275,7 @@
             // consulta
             // 
             consulta.BackColor = SystemColors.WindowFrame;
-            consulta.Controls.Add(filtroingredientes);
-            consulta.Controls.Add(filtroplatos);
-            consulta.Controls.Add(filtrotodos);
-            consulta.Controls.Add(filtro);
-            consulta.Controls.Add(label15);
+            consulta.Controls.Add(panel2);
             consulta.Controls.Add(label12);
             consulta.Controls.Add(recargarbtn);
             consulta.Controls.Add(panel1);
@@ -294,18 +293,32 @@
             consulta.TabIndex = 0;
             consulta.Text = "Consulta";
             // 
+            // panel2
+            // 
+            panel2.BackColor = Color.FromArgb(64, 64, 64);
+            panel2.Controls.Add(filtroingredientes);
+            panel2.Controls.Add(filtroplatos);
+            panel2.Controls.Add(filtrotodos);
+            panel2.Controls.Add(filtro);
+            panel2.Controls.Add(label15);
+            panel2.Location = new Point(389, 54);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(241, 30);
+            panel2.TabIndex = 47;
+            // 
             // filtroingredientes
             // 
             filtroingredientes.AutoSize = true;
             filtroingredientes.Cursor = Cursors.Hand;
             filtroingredientes.Font = new Font("Segoe UI", 13F);
             filtroingredientes.Image = Properties.Resources.saleroblanco;
-            filtroingredientes.Location = new Point(525, 55);
+            filtroingredientes.Location = new Point(143, 1);
             filtroingredientes.Name = "filtroingredientes";
             filtroingredientes.Size = new Size(41, 29);
             filtroingredientes.TabIndex = 0;
             filtroingredientes.Text = "  ";
             filtroingredientes.UseVisualStyleBackColor = true;
+            filtroingredientes.CheckedChanged += filtroingredientes_CheckedChanged;
             // 
             // filtroplatos
             // 
@@ -313,12 +326,13 @@
             filtroplatos.Cursor = Cursors.Hand;
             filtroplatos.Font = new Font("Segoe UI", 13F);
             filtroplatos.Image = Properties.Resources.cuchilloblanco;
-            filtroplatos.Location = new Point(470, 55);
+            filtroplatos.Location = new Point(88, 1);
             filtroplatos.Name = "filtroplatos";
             filtroplatos.Size = new Size(41, 29);
             filtroplatos.TabIndex = 0;
             filtroplatos.Text = "  ";
             filtroplatos.UseVisualStyleBackColor = true;
+            filtroplatos.CheckedChanged += filtroplatos_CheckedChanged;
             // 
             // filtrotodos
             // 
@@ -328,12 +342,13 @@
             filtrotodos.Cursor = Cursors.Hand;
             filtrotodos.Font = new Font("Segoe UI", 13F);
             filtrotodos.Image = Properties.Resources.mundoblanco;
-            filtrotodos.Location = new Point(415, 55);
+            filtrotodos.Location = new Point(33, 1);
             filtrotodos.Name = "filtrotodos";
             filtrotodos.Size = new Size(41, 29);
             filtrotodos.TabIndex = 0;
             filtrotodos.Text = "  ";
             filtrotodos.UseVisualStyleBackColor = true;
+            filtrotodos.CheckedChanged += filtrotodos_CheckedChanged;
             // 
             // filtro
             // 
@@ -343,7 +358,7 @@
             filtro.Cursor = Cursors.Hand;
             filtro.Font = new Font("Segoe UI", 13F);
             filtro.Image = Properties.Resources.sicheck;
-            filtro.Location = new Point(580, 55);
+            filtro.Location = new Point(198, 1);
             filtro.Name = "filtro";
             filtro.Size = new Size(41, 29);
             filtro.TabIndex = 0;
@@ -357,7 +372,7 @@
             label15.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label15.ForeColor = SystemColors.WindowFrame;
             label15.Image = Properties.Resources.filtroblanco;
-            label15.Location = new Point(388, 59);
+            label15.Location = new Point(1, 5);
             label15.Name = "label15";
             label15.Size = new Size(18, 21);
             label15.TabIndex = 38;
@@ -368,9 +383,9 @@
             creacion.BackColor = SystemColors.WindowFrame;
             creacion.Controls.Add(panel6);
             creacion.Controls.Add(panel3);
-            creacion.Controls.Add(panel5);
+            creacion.Controls.Add(seleccionpanel);
             creacion.Controls.Add(categoriapanel);
-            creacion.Controls.Add(idregproducto);
+            creacion.Controls.Add(ultimoID);
             creacion.Controls.Add(label18);
             creacion.Controls.Add(idcategoriatxt);
             creacion.Controls.Add(imagenpanel);
@@ -419,25 +434,38 @@
             panel3.Size = new Size(190, 25);
             panel3.TabIndex = 85;
             // 
-            // panel5
+            // seleccionpanel
             // 
-            panel5.BackColor = Color.FromArgb(64, 64, 64);
-            panel5.Controls.Add(label19);
-            panel5.Controls.Add(textBox1);
-            panel5.Controls.Add(numCantidad);
-            panel5.Controls.Add(label6);
-            panel5.Controls.Add(txtnombre);
-            panel5.Controls.Add(recetaingredientes);
-            panel5.Controls.Add(buscarprodbtn);
-            panel5.Controls.Add(ingredientesconsulta);
-            panel5.Controls.Add(button3);
-            panel5.Controls.Add(textBox2);
-            panel5.Controls.Add(txtcodigo);
-            panel5.Controls.Add(agregarbtn);
-            panel5.Location = new Point(3, 380);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(834, 206);
-            panel5.TabIndex = 82;
+            seleccionpanel.BackColor = Color.FromArgb(64, 64, 64);
+            seleccionpanel.Controls.Add(label20);
+            seleccionpanel.Controls.Add(label19);
+            seleccionpanel.Controls.Add(textBox1);
+            seleccionpanel.Controls.Add(numCantidad);
+            seleccionpanel.Controls.Add(label6);
+            seleccionpanel.Controls.Add(txtnombre);
+            seleccionpanel.Controls.Add(recetaingredientes);
+            seleccionpanel.Controls.Add(ingredientesconsulta);
+            seleccionpanel.Controls.Add(button3);
+            seleccionpanel.Controls.Add(textBox2);
+            seleccionpanel.Controls.Add(agregarbtn);
+            seleccionpanel.Enabled = false;
+            seleccionpanel.Location = new Point(3, 380);
+            seleccionpanel.Name = "seleccionpanel";
+            seleccionpanel.Size = new Size(834, 206);
+            seleccionpanel.TabIndex = 82;
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.BackColor = Color.White;
+            label20.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label20.ForeColor = SystemColors.Control;
+            label20.Image = Properties.Resources.busqueda;
+            label20.Location = new Point(290, 41);
+            label20.Name = "label20";
+            label20.Size = new Size(18, 21);
+            label20.TabIndex = 81;
+            label20.Text = "  ";
             // 
             // label19
             // 
@@ -455,16 +483,16 @@
             // textBox1
             // 
             textBox1.Enabled = false;
-            textBox1.Location = new Point(37, 37);
+            textBox1.Location = new Point(5, 37);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(275, 29);
+            textBox1.Size = new Size(307, 29);
             textBox1.TabIndex = 79;
             // 
             // numCantidad
             // 
+            numCantidad.DecimalPlaces = 2;
             numCantidad.Location = new Point(685, 37);
-            numCantidad.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
-            numCantidad.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numCantidad.Minimum = new decimal(new int[] { 1, 0, 0, 131072 });
             numCantidad.Name = "numCantidad";
             numCantidad.Size = new Size(108, 29);
             numCantidad.TabIndex = 80;
@@ -486,9 +514,9 @@
             // txtnombre
             // 
             txtnombre.Enabled = false;
-            txtnombre.Location = new Point(438, 37);
+            txtnombre.Location = new Point(351, 37);
             txtnombre.Name = "txtnombre";
-            txtnombre.Size = new Size(154, 29);
+            txtnombre.Size = new Size(241, 29);
             txtnombre.TabIndex = 75;
             // 
             // recetaingredientes
@@ -504,15 +532,6 @@
             recetaingredientes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             recetaingredientes.Size = new Size(477, 129);
             recetaingredientes.TabIndex = 74;
-            // 
-            // buscarprodbtn
-            // 
-            buscarprodbtn.Image = Properties.Resources.busqueda1;
-            buscarprodbtn.Location = new Point(5, 37);
-            buscarprodbtn.Name = "buscarprodbtn";
-            buscarprodbtn.Size = new Size(28, 29);
-            buscarprodbtn.TabIndex = 76;
-            buscarprodbtn.UseVisualStyleBackColor = true;
             // 
             // ingredientesconsulta
             // 
@@ -530,7 +549,6 @@
             // 
             // button3
             // 
-            button3.Enabled = false;
             button3.Image = Properties.Resources.angulo_hacia_derecha;
             button3.Location = new Point(315, 37);
             button3.Name = "button3";
@@ -546,17 +564,8 @@
             textBox2.Size = new Size(81, 29);
             textBox2.TabIndex = 79;
             // 
-            // txtcodigo
-            // 
-            txtcodigo.Enabled = false;
-            txtcodigo.Location = new Point(351, 37);
-            txtcodigo.Name = "txtcodigo";
-            txtcodigo.Size = new Size(81, 29);
-            txtcodigo.TabIndex = 79;
-            // 
             // agregarbtn
             // 
-            agregarbtn.Enabled = false;
             agregarbtn.Image = Properties.Resources.angulo_hacia_abajo;
             agregarbtn.Location = new Point(799, 37);
             agregarbtn.Name = "agregarbtn";
@@ -574,13 +583,14 @@
             categoriapanel.Controls.Add(categoriaconsulta);
             categoriapanel.Location = new Point(227, 245);
             categoriapanel.Name = "categoriapanel";
-            categoriapanel.Size = new Size(204, 170);
+            categoriapanel.Size = new Size(204, 242);
             categoriapanel.TabIndex = 81;
             categoriapanel.Visible = false;
             categoriapanel.Leave += categoriapanel_Leave;
             // 
             // idconsultatxt
             // 
+            idconsultatxt.Enabled = false;
             idconsultatxt.Location = new Point(4, 28);
             idconsultatxt.Name = "idconsultatxt";
             idconsultatxt.Size = new Size(31, 29);
@@ -589,6 +599,7 @@
             // 
             // categoriaconsultatxt
             // 
+            categoriaconsultatxt.Enabled = false;
             categoriaconsultatxt.Location = new Point(37, 28);
             categoriaconsultatxt.Name = "categoriaconsultatxt";
             categoriaconsultatxt.Size = new Size(131, 29);
@@ -598,7 +609,7 @@
             // button4
             // 
             button4.ForeColor = Color.Black;
-            button4.Image = Properties.Resources.angulo_hacia_arriba;
+            button4.Image = Properties.Resources.angulo_hacia_izquierda;
             button4.Location = new Point(171, 28);
             button4.Name = "button4";
             button4.Size = new Size(28, 29);
@@ -621,23 +632,27 @@
             // 
             categoriaconsulta.AllowUserToAddRows = false;
             categoriaconsulta.AllowUserToDeleteRows = false;
+            categoriaconsulta.AllowUserToResizeRows = false;
+            categoriaconsulta.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             categoriaconsulta.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             categoriaconsulta.Location = new Point(4, 63);
             categoriaconsulta.MultiSelect = false;
             categoriaconsulta.Name = "categoriaconsulta";
             categoriaconsulta.ReadOnly = true;
-            categoriaconsulta.RowHeadersWidth = 51;
+            categoriaconsulta.RowHeadersVisible = false;
+            categoriaconsulta.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             categoriaconsulta.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            categoriaconsulta.Size = new Size(195, 101);
+            categoriaconsulta.Size = new Size(195, 171);
             categoriaconsulta.TabIndex = 74;
+            categoriaconsulta.CellClick += categoriaconsulta_CellClick;
             // 
-            // idregproducto
+            // ultimoID
             // 
-            idregproducto.Enabled = false;
-            idregproducto.Location = new Point(773, 10);
-            idregproducto.Name = "idregproducto";
-            idregproducto.Size = new Size(56, 29);
-            idregproducto.TabIndex = 84;
+            ultimoID.Enabled = false;
+            ultimoID.Location = new Point(773, 10);
+            ultimoID.Name = "ultimoID";
+            ultimoID.Size = new Size(56, 29);
+            ultimoID.TabIndex = 84;
             // 
             // label18
             // 
@@ -652,6 +667,7 @@
             // 
             // idcategoriatxt
             // 
+            idcategoriatxt.Enabled = false;
             idcategoriatxt.Location = new Point(234, 140);
             idcategoriatxt.Name = "idcategoriatxt";
             idcategoriatxt.Size = new Size(45, 29);
@@ -683,7 +699,6 @@
             // seleccionimagenbtn
             // 
             seleccionimagenbtn.BackColor = Color.Lime;
-            seleccionimagenbtn.Enabled = false;
             seleccionimagenbtn.ForeColor = Color.Black;
             seleccionimagenbtn.Image = Properties.Resources.subir1;
             seleccionimagenbtn.Location = new Point(9, 198);
@@ -707,6 +722,7 @@
             // 
             // guardarbtn
             // 
+            guardarbtn.Enabled = false;
             guardarbtn.ForeColor = Color.Black;
             guardarbtn.Image = Properties.Resources.disco;
             guardarbtn.ImageAlign = ContentAlignment.MiddleLeft;
@@ -720,6 +736,7 @@
             // 
             // limpiarbtn
             // 
+            limpiarbtn.Enabled = false;
             limpiarbtn.ForeColor = Color.Black;
             limpiarbtn.Image = Properties.Resources.limpio;
             limpiarbtn.ImageAlign = ContentAlignment.MiddleLeft;
@@ -750,6 +767,7 @@
             tipoproductocmbx.Name = "tipoproductocmbx";
             tipoproductocmbx.Size = new Size(163, 29);
             tipoproductocmbx.TabIndex = 64;
+            tipoproductocmbx.SelectedIndexChanged += tipoproductocmbx_SelectedIndexChanged;
             // 
             // label13
             // 
@@ -764,6 +782,7 @@
             // 
             // txtprecio_compra
             // 
+            txtprecio_compra.Enabled = false;
             txtprecio_compra.Location = new Point(16, 270);
             txtprecio_compra.Name = "txtprecio_compra";
             txtprecio_compra.Size = new Size(163, 29);
@@ -771,6 +790,7 @@
             // 
             // categoriatxt
             // 
+            categoriatxt.Enabled = false;
             categoriatxt.Location = new Point(281, 140);
             categoriatxt.Name = "categoriatxt";
             categoriatxt.Size = new Size(117, 29);
@@ -779,6 +799,7 @@
             // 
             // txtnombre_prod
             // 
+            txtnombre_prod.Enabled = false;
             txtnombre_prod.Location = new Point(16, 205);
             txtnombre_prod.Name = "txtnombre_prod";
             txtnombre_prod.Size = new Size(163, 29);
@@ -787,6 +808,7 @@
             // 
             // txtcodigo_barras
             // 
+            txtcodigo_barras.Enabled = false;
             txtcodigo_barras.Location = new Point(16, 140);
             txtcodigo_barras.Name = "txtcodigo_barras";
             txtcodigo_barras.Size = new Size(163, 29);
@@ -794,6 +816,7 @@
             // 
             // txtprecio_venta
             // 
+            txtprecio_venta.Enabled = false;
             txtprecio_venta.Location = new Point(16, 335);
             txtprecio_venta.Name = "txtprecio_venta";
             txtprecio_venta.Size = new Size(163, 29);
@@ -925,9 +948,10 @@
             // 
             // codigobarrarandombtn
             // 
+            codigobarrarandombtn.Enabled = false;
             codigobarrarandombtn.ForeColor = Color.Black;
             codigobarrarandombtn.Image = Properties.Resources.barajar;
-            codigobarrarandombtn.Location = new Point(180, 140);
+            codigobarrarandombtn.Location = new Point(181, 140);
             codigobarrarandombtn.Name = "codigobarrarandombtn";
             codigobarrarandombtn.Size = new Size(28, 29);
             codigobarrarandombtn.TabIndex = 66;
@@ -936,9 +960,10 @@
             // 
             // buscarcateg
             // 
+            buscarcateg.Enabled = false;
             buscarcateg.ForeColor = Color.Black;
             buscarcateg.Image = Properties.Resources.busqueda;
-            buscarcateg.Location = new Point(399, 140);
+            buscarcateg.Location = new Point(400, 140);
             buscarcateg.Name = "buscarcateg";
             buscarcateg.Size = new Size(28, 29);
             buscarcateg.TabIndex = 60;
@@ -948,6 +973,7 @@
             // unidadmedida
             // 
             unidadmedida.DropDownStyle = ComboBoxStyle.DropDownList;
+            unidadmedida.Enabled = false;
             unidadmedida.FormattingEnabled = true;
             unidadmedida.Location = new Point(234, 205);
             unidadmedida.Name = "unidadmedida";
@@ -957,6 +983,7 @@
             // ITBIS
             // 
             ITBIS.DropDownStyle = ComboBoxStyle.DropDownList;
+            ITBIS.Enabled = false;
             ITBIS.FormattingEnabled = true;
             ITBIS.Items.AddRange(new object[] { "18", "16" });
             ITBIS.Location = new Point(234, 75);
@@ -986,10 +1013,12 @@
             tabControl1.ResumeLayout(false);
             consulta.ResumeLayout(false);
             consulta.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             creacion.ResumeLayout(false);
             creacion.PerformLayout();
-            panel5.ResumeLayout(false);
-            panel5.PerformLayout();
+            seleccionpanel.ResumeLayout(false);
+            seleccionpanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numCantidad).EndInit();
             ((System.ComponentModel.ISupportInitialize)recetaingredientes).EndInit();
             ((System.ComponentModel.ISupportInitialize)ingredientesconsulta).EndInit();
@@ -1048,16 +1077,14 @@
         private Label label16;
         private NumericUpDown numCantidad;
         private TextBox txtnombre;
-        private Button buscarprodbtn;
         private Button agregarbtn;
         private TextBox textBox1;
-        private TextBox txtcodigo;
         private DataGridView ingredientesconsulta;
         private Button button3;
         private Panel categoriapanel;
         private TextBox categoriaconsultatxt;
         private TextBox categoriatxt;
-        private Panel panel5;
+        private Panel seleccionpanel;
         private Button button4;
         private Label label9;
         private DataGridView categoriaconsulta;
@@ -1069,7 +1096,7 @@
         private TextBox idcategoriatxt;
         private TextBox idconsultatxt;
         private Label label17;
-        private TextBox idregproducto;
+        private TextBox ultimoID;
         private Label label18;
         private Panel panel3;
         private Panel panel6;
@@ -1077,5 +1104,7 @@
         private Label label21;
         private TextBox textBox2;
         private ComboBox unidadmedida;
+        private Label label20;
+        private Panel panel2;
     }
 }

@@ -317,7 +317,7 @@ namespace Proyecto_restaurante
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtnombresala.Text) || string.IsNullOrEmpty(capacidadtxt.Text))
+            if (string.IsNullOrEmpty(txtnombresala.Text) || string.IsNullOrEmpty(capacidadtxt.Text) || string.IsNullOrEmpty(pisotxt.Text))
             {
                 MessageBox.Show("Error: No deje campos vacíos.");
                 return;
@@ -326,6 +326,14 @@ namespace Proyecto_restaurante
             if (!int.TryParse(capacidadtxt.Text, out int capacidad))
             {
                 MessageBox.Show("La capacidad solo admite números.");
+                capacidadtxt.Clear();
+                capacidadtxt.Focus();
+                return;
+            }
+
+            if (!int.TryParse(pisotxt.Text, out int piso))
+            {
+                MessageBox.Show("Piso solo admite números.");
                 capacidadtxt.Clear();
                 capacidadtxt.Focus();
                 return;
@@ -342,14 +350,15 @@ namespace Proyecto_restaurante
                     if (SalaID == 0)
                     {
                         string nuevaSala = @"
-                        INSERT INTO Sala (Nombre, Capacidad, Activo)
-                        VALUES (@Nombre, @Capacidad, @Activo);
+                        INSERT INTO Sala (Nombre, Capacidad, Piso, Activo)
+                        VALUES (@Nombre, @Capacidad, @Piso, @Activo);
                         SELECT SCOPE_IDENTITY();";
 
                         using (SqlCommand insertarSala = new SqlCommand(nuevaSala, conexion))
                         {
                             insertarSala.Parameters.AddWithValue("@Nombre", txtnombresala.Text);
                             insertarSala.Parameters.AddWithValue("@Capacidad", capacidad);
+                            insertarSala.Parameters.AddWithValue("@Piso", piso);
                             insertarSala.Parameters.AddWithValue("@Activo", estadochk.Checked ? 1 : 0);
 
                             object resultado = insertarSala.ExecuteScalar();
@@ -369,7 +378,7 @@ namespace Proyecto_restaurante
                     {
                         string actualizarSala = @"
                         UPDATE Sala 
-                        SET Nombre = @Nombre, Capacidad = @Capacidad, Activo = @Activo
+                        SET Nombre = @Nombre, Capacidad = @Capacidad, Piso = @Piso, Activo = @Activo
                         WHERE IdSala = @IdSala;";
 
                         using (SqlCommand actualizarCommand = new SqlCommand(actualizarSala, conexion))
@@ -377,6 +386,7 @@ namespace Proyecto_restaurante
                             actualizarCommand.Parameters.AddWithValue("@IdSala", SalaID);
                             actualizarCommand.Parameters.AddWithValue("@Nombre", txtnombresala.Text);
                             actualizarCommand.Parameters.AddWithValue("@Capacidad", capacidad);
+                            actualizarCommand.Parameters.AddWithValue("@Piso", piso);
                             actualizarCommand.Parameters.AddWithValue("@Activo", estadochk.Checked ? 1 : 0);
 
                             int rowsAffected = actualizarCommand.ExecuteNonQuery();

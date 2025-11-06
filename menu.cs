@@ -92,6 +92,9 @@ namespace Proyecto_restaurante
             this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
             this.WindowState = FormWindowState.Maximized;
             creditoslabel.BackColor = colorPanel;
+            label5.BackColor = colorPanel;
+            label4.BackColor = colorPanel;
+            oculto.BackColor = colorPanel;
             this.CambiarColorMDI(colorPanel);
         }
 
@@ -211,7 +214,7 @@ namespace Proyecto_restaurante
             }
             Configuracion config = new Configuracion();
 
-            if(administrador == 1)
+            if (administrador == 1)
             {
                 config.usuarios.Visible = true;
                 config.Location = new Point(200, 50);
@@ -347,5 +350,48 @@ namespace Proyecto_restaurante
             empleados.MdiParent = this;
             empleados.Show();
         }
+
+        private void abrirTablet_Click(object sender, EventArgs e)
+        {
+            foreach (Form f in this.MdiChildren)
+            {
+                if (f is TabletSistema)
+                {
+                    f.BringToFront();
+                    return;
+                }
+            }
+            TabletSistema tablet = new TabletSistema();
+            tablet.Location = new Point(200, 50);
+            tablet.MdiParent = this;
+            tablet.Show();
+        }
+
+        private void abrirtTV_Click(object sender, EventArgs e)
+        {
+            foreach (Form f in this.MdiChildren)
+            {
+                if (f is TelevisionSistema)
+                {
+                    f.BringToFront();
+                    return;
+                }
+            }
+            TelevisionSistema TV = new TelevisionSistema();
+            TV.Location = new Point(200, 50);
+            TV.Show();
+        }
+
+        private void recargarbtn_Click(object sender, EventArgs e)
+        {
+            menu_Load(sender, e);
+            recargarbtn.Visible = false;
+        }
+
+        private void oculto_MouseHover(object sender, EventArgs e)
+        {
+            recargarbtn.Visible = true;
+        }
+
     }
 }

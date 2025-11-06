@@ -46,8 +46,8 @@
             barrasup = new Panel();
             pictureBox1 = new PictureBox();
             barraizq = new Panel();
-            logoarroz = new PictureBox();
             button12 = new Button();
+            logoarroz = new PictureBox();
             reservacion = new Button();
             button11 = new Button();
             ajustestxt = new Label();
@@ -58,6 +58,10 @@
             creditoslabel = new Label();
             abrirtTV = new Button();
             abrirTablet = new Button();
+            label4 = new Label();
+            label5 = new Label();
+            oculto = new Panel();
+            recargarbtn = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -65,6 +69,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             barraizq.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)logoarroz).BeginInit();
+            oculto.SuspendLayout();
             SuspendLayout();
             // 
             // usuariolabel
@@ -318,19 +323,6 @@
             barraizq.Size = new Size(239, 839);
             barraizq.TabIndex = 19;
             // 
-            // logoarroz
-            // 
-            logoarroz.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            logoarroz.BackColor = Color.Transparent;
-            logoarroz.Image = Properties.Resources._001_arroz;
-            logoarroz.Location = new Point(164, 0);
-            logoarroz.Margin = new Padding(2);
-            logoarroz.Name = "logoarroz";
-            logoarroz.Size = new Size(74, 71);
-            logoarroz.SizeMode = PictureBoxSizeMode.StretchImage;
-            logoarroz.TabIndex = 21;
-            logoarroz.TabStop = false;
-            // 
             // button12
             // 
             button12.Cursor = Cursors.Hand;
@@ -341,6 +333,19 @@
             button12.TabIndex = 1;
             button12.UseVisualStyleBackColor = true;
             button12.Click += button12_Click;
+            // 
+            // logoarroz
+            // 
+            logoarroz.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            logoarroz.BackColor = Color.Transparent;
+            logoarroz.Image = Properties.Resources._001_arroz;
+            logoarroz.Location = new Point(164, 0);
+            logoarroz.Margin = new Padding(2);
+            logoarroz.Name = "logoarroz";
+            logoarroz.Size = new Size(74, 67);
+            logoarroz.SizeMode = PictureBoxSizeMode.StretchImage;
+            logoarroz.TabIndex = 21;
+            logoarroz.TabStop = false;
             // 
             // reservacion
             // 
@@ -397,7 +402,7 @@
             label3.ForeColor = Color.White;
             label3.Image = Properties.Resources.formularios1;
             label3.ImageAlign = ContentAlignment.MiddleRight;
-            label3.Location = new Point(5, 599);
+            label3.Location = new Point(5, 575);
             label3.Margin = new Padding(2, 0, 2, 0);
             label3.Name = "label3";
             label3.Size = new Size(145, 32);
@@ -440,7 +445,7 @@
             reportesbtn.Cursor = Cursors.Hand;
             reportesbtn.Image = Properties.Resources.pedido;
             reportesbtn.ImageAlign = ContentAlignment.MiddleRight;
-            reportesbtn.Location = new Point(9, 639);
+            reportesbtn.Location = new Point(9, 615);
             reportesbtn.Margin = new Padding(2);
             reportesbtn.Name = "reportesbtn";
             reportesbtn.Size = new Size(217, 38);
@@ -474,6 +479,7 @@
             abrirtTV.TabIndex = 0;
             abrirtTV.TextAlign = ContentAlignment.MiddleLeft;
             abrirtTV.UseVisualStyleBackColor = true;
+            abrirtTV.Click += abrirtTV_Click;
             // 
             // abrirTablet
             // 
@@ -487,6 +493,55 @@
             abrirTablet.TabIndex = 0;
             abrirTablet.TextAlign = ContentAlignment.MiddleLeft;
             abrirTablet.UseVisualStyleBackColor = true;
+            abrirTablet.Click += abrirTablet_Click;
+            // 
+            // label4
+            // 
+            label4.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            label4.AutoSize = true;
+            label4.BackColor = Color.Transparent;
+            label4.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.Location = new Point(1117, 769);
+            label4.Margin = new Padding(2, 0, 2, 0);
+            label4.Name = "label4";
+            label4.Size = new Size(94, 21);
+            label4.TabIndex = 2;
+            label4.Text = "Sistema TV";
+            // 
+            // label5
+            // 
+            label5.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            label5.AutoSize = true;
+            label5.BackColor = Color.Transparent;
+            label5.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.Location = new Point(1090, 725);
+            label5.Margin = new Padding(2, 0, 2, 0);
+            label5.Name = "label5";
+            label5.Size = new Size(121, 21);
+            label5.TabIndex = 2;
+            label5.Text = "Sistema Tablet";
+            // 
+            // oculto
+            // 
+            oculto.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            oculto.Controls.Add(recargarbtn);
+            oculto.Location = new Point(1227, 74);
+            oculto.Name = "oculto";
+            oculto.Size = new Size(36, 37);
+            oculto.TabIndex = 21;
+            oculto.MouseHover += oculto_MouseHover;
+            // 
+            // recargarbtn
+            // 
+            recargarbtn.Image = Properties.Resources.actualizar;
+            recargarbtn.Location = new Point(4, 4);
+            recargarbtn.Name = "recargarbtn";
+            recargarbtn.Size = new Size(29, 29);
+            recargarbtn.TabIndex = 57;
+            recargarbtn.TabStop = false;
+            recargarbtn.UseVisualStyleBackColor = true;
+            recargarbtn.Visible = false;
+            recargarbtn.Click += recargarbtn_Click;
             // 
             // menu
             // 
@@ -495,10 +550,13 @@
             BackgroundImage = Properties.Resources.tenedor1;
             BackgroundImageLayout = ImageLayout.Center;
             ClientSize = new Size(1266, 839);
+            Controls.Add(oculto);
             Controls.Add(barrasup);
             Controls.Add(barraizq);
             Controls.Add(abrirTablet);
             Controls.Add(abrirtTV);
+            Controls.Add(label5);
+            Controls.Add(label4);
             Controls.Add(creditoslabel);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -518,6 +576,7 @@
             barraizq.ResumeLayout(false);
             barraizq.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)logoarroz).EndInit();
+            oculto.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -552,5 +611,9 @@
         public Button abrirtTV;
         public Button abrirTablet;
         private PictureBox logoarroz;
+        public Label label4;
+        public Label label5;
+        private Panel oculto;
+        public Button recargarbtn;
     }
 }
