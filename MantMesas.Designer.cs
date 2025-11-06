@@ -213,6 +213,7 @@
             txtbuscador.ForeColor = SystemColors.ScrollBar;
             txtbuscador.Location = new Point(10, 88);
             txtbuscador.Name = "txtbuscador";
+            txtbuscador.PlaceholderText = "Buscar Mesas";
             txtbuscador.Size = new Size(332, 29);
             txtbuscador.TabIndex = 21;
             txtbuscador.TextChanged += txtbuscador_TextChanged;

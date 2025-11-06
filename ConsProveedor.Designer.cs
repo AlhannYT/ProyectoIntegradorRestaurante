@@ -264,6 +264,7 @@
             txtbuscador.ForeColor = SystemColors.ScrollBar;
             txtbuscador.Location = new Point(8, 62);
             txtbuscador.Name = "txtbuscador";
+            txtbuscador.PlaceholderText = "Buscar Proveedor";
             txtbuscador.Size = new Size(586, 29);
             txtbuscador.TabIndex = 53;
             // 
@@ -520,6 +521,7 @@
             // 
             textBox3.Location = new Point(407, 36);
             textBox3.Name = "textBox3";
+            textBox3.PlaceholderText = "Direccion completa";
             textBox3.Size = new Size(291, 29);
             textBox3.TabIndex = 79;
             // 
@@ -527,6 +529,7 @@
             // 
             textBox1.Location = new Point(77, 36);
             textBox1.Name = "textBox1";
+            textBox1.PlaceholderText = "Telefono";
             textBox1.Size = new Size(115, 29);
             textBox1.TabIndex = 79;
             // 
@@ -637,6 +640,7 @@
             // 
             textBox2.Location = new Point(339, 36);
             textBox2.Name = "textBox2";
+            textBox2.PlaceholderText = "Nombre";
             textBox2.Size = new Size(66, 29);
             textBox2.TabIndex = 79;
             // 
@@ -644,6 +648,7 @@
             // 
             txtcodigo.Location = new Point(9, 36);
             txtcodigo.Name = "txtcodigo";
+            txtcodigo.PlaceholderText = "Nombre";
             txtcodigo.Size = new Size(66, 29);
             txtcodigo.TabIndex = 79;
             // 

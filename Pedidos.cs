@@ -691,22 +691,9 @@ namespace Proyecto_restaurante
             }
         }
 
-        private void buscarclientebtn_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                MantClientes clientes = new MantClientes();
-                clientes.Show();
-            }
-        }
-
         private void buscarproductobtn_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
-            {
-                MantProductos prod = new MantProductos();
-                prod.Show();
-            }
+            
         }
 
         private void txtbusquedafactura_TextChanged(object sender, EventArgs e)

@@ -288,7 +288,7 @@
             labeltotal.AutoSize = true;
             labeltotal.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             labeltotal.ForeColor = SystemColors.Control;
-            labeltotal.Location = new Point(80, 64);
+            labeltotal.Location = new Point(82, 64);
             labeltotal.Name = "labeltotal";
             labeltotal.Size = new Size(27, 32);
             labeltotal.TabIndex = 3;
@@ -299,7 +299,7 @@
             labelcantidadarticulos.AutoSize = true;
             labelcantidadarticulos.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             labelcantidadarticulos.ForeColor = SystemColors.Control;
-            labelcantidadarticulos.Location = new Point(267, 0);
+            labelcantidadarticulos.Location = new Point(273, 2);
             labelcantidadarticulos.Name = "labelcantidadarticulos";
             labelcantidadarticulos.Size = new Size(27, 32);
             labelcantidadarticulos.TabIndex = 3;
@@ -415,6 +415,7 @@
             txtnombreproducto.Enabled = false;
             txtnombreproducto.Location = new Point(156, 11);
             txtnombreproducto.Name = "txtnombreproducto";
+            txtnombreproducto.PlaceholderText = "Nombre";
             txtnombreproducto.Size = new Size(285, 29);
             txtnombreproducto.TabIndex = 0;
             // 
@@ -423,6 +424,7 @@
             txtiva.Enabled = false;
             txtiva.Location = new Point(582, 11);
             txtiva.Name = "txtiva";
+            txtiva.PlaceholderText = "ITBIS";
             txtiva.Size = new Size(51, 29);
             txtiva.TabIndex = 0;
             // 
@@ -431,6 +433,7 @@
             txtprecioproducto.Enabled = false;
             txtprecioproducto.Location = new Point(447, 11);
             txtprecioproducto.Name = "txtprecioproducto";
+            txtprecioproducto.PlaceholderText = "Precio";
             txtprecioproducto.Size = new Size(129, 29);
             txtprecioproducto.TabIndex = 0;
             // 
@@ -439,6 +442,7 @@
             txtcodigoproducto.Enabled = false;
             txtcodigoproducto.Location = new Point(46, 11);
             txtcodigoproducto.Name = "txtcodigoproducto";
+            txtcodigoproducto.PlaceholderText = "Codigo";
             txtcodigoproducto.Size = new Size(104, 29);
             txtcodigoproducto.TabIndex = 0;
             // 
@@ -536,6 +540,7 @@
             // 
             txtnumero_cliente.Location = new Point(327, 98);
             txtnumero_cliente.Name = "txtnumero_cliente";
+            txtnumero_cliente.PlaceholderText = "Numero de telefono";
             txtnumero_cliente.Size = new Size(147, 29);
             txtnumero_cliente.TabIndex = 0;
             // 
@@ -568,7 +573,7 @@
             label20.AutoSize = true;
             label20.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label20.ForeColor = SystemColors.Control;
-            label20.Location = new Point(5, 10);
+            label20.Location = new Point(6, 9);
             label20.Name = "label20";
             label20.Size = new Size(29, 21);
             label20.TabIndex = 3;
@@ -597,12 +602,11 @@
             toolTip1.SetToolTip(buscarclientebtn, "Click derecho para\r\nregistrar un nuevo\r\ncliente");
             buscarclientebtn.UseVisualStyleBackColor = true;
             buscarclientebtn.Click += buscarclientebtn_Click;
-            buscarclientebtn.MouseDown += buscarclientebtn_MouseDown;
             // 
             // txtidpedido
             // 
             txtidpedido.Enabled = false;
-            txtidpedido.Location = new Point(38, 6);
+            txtidpedido.Location = new Point(39, 5);
             txtidpedido.Name = "txtidpedido";
             txtidpedido.Size = new Size(87, 29);
             txtidpedido.TabIndex = 0;
@@ -612,6 +616,7 @@
             // 
             txtnombrecompleto.Location = new Point(41, 98);
             txtnombrecompleto.Name = "txtnombrecompleto";
+            txtnombrecompleto.PlaceholderText = "Nombre del cliente";
             txtnombrecompleto.Size = new Size(241, 29);
             txtnombrecompleto.TabIndex = 0;
             txtnombrecompleto.TextChanged += txtnombrecompleto_TextChanged;

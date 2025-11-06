@@ -211,6 +211,7 @@
             txtbuscador.ForeColor = SystemColors.ScrollBar;
             txtbuscador.Location = new Point(11, 65);
             txtbuscador.Name = "txtbuscador";
+            txtbuscador.PlaceholderText = "Buscar Empleado";
             txtbuscador.Size = new Size(479, 29);
             txtbuscador.TabIndex = 53;
             // 

@@ -58,11 +58,11 @@
             textBox1 = new TextBox();
             numCantidad = new NumericUpDown();
             label6 = new Label();
-            txtnombre = new TextBox();
+            nombreprodreceta = new TextBox();
             recetaingredientes = new DataGridView();
             ingredientesconsulta = new DataGridView();
-            button3 = new Button();
-            textBox2 = new TextBox();
+            idprodreceta = new TextBox();
+            unimedidareceta = new TextBox();
             agregarbtn = new Button();
             categoriapanel = new Panel();
             idconsultatxt = new TextBox();
@@ -102,6 +102,7 @@
             buscarcateg = new Button();
             unidadmedida = new ComboBox();
             ITBIS = new ComboBox();
+            button7 = new Button();
             ((System.ComponentModel.ISupportInitialize)tabladatos).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)imagenproducto).BeginInit();
@@ -178,6 +179,7 @@
             txtbuscador.ForeColor = SystemColors.ScrollBar;
             txtbuscador.Location = new Point(8, 55);
             txtbuscador.Name = "txtbuscador";
+            txtbuscador.PlaceholderText = "Buscar Producto";
             txtbuscador.Size = new Size(374, 29);
             txtbuscador.TabIndex = 1;
             // 
@@ -301,9 +303,9 @@
             panel2.Controls.Add(filtrotodos);
             panel2.Controls.Add(filtro);
             panel2.Controls.Add(label15);
-            panel2.Location = new Point(389, 54);
+            panel2.Location = new Point(385, 53);
             panel2.Name = "panel2";
-            panel2.Size = new Size(241, 30);
+            panel2.Size = new Size(244, 32);
             panel2.TabIndex = 47;
             // 
             // filtroingredientes
@@ -312,7 +314,7 @@
             filtroingredientes.Cursor = Cursors.Hand;
             filtroingredientes.Font = new Font("Segoe UI", 13F);
             filtroingredientes.Image = Properties.Resources.saleroblanco;
-            filtroingredientes.Location = new Point(143, 1);
+            filtroingredientes.Location = new Point(145, 2);
             filtroingredientes.Name = "filtroingredientes";
             filtroingredientes.Size = new Size(41, 29);
             filtroingredientes.TabIndex = 0;
@@ -326,7 +328,7 @@
             filtroplatos.Cursor = Cursors.Hand;
             filtroplatos.Font = new Font("Segoe UI", 13F);
             filtroplatos.Image = Properties.Resources.cuchilloblanco;
-            filtroplatos.Location = new Point(88, 1);
+            filtroplatos.Location = new Point(90, 2);
             filtroplatos.Name = "filtroplatos";
             filtroplatos.Size = new Size(41, 29);
             filtroplatos.TabIndex = 0;
@@ -342,7 +344,7 @@
             filtrotodos.Cursor = Cursors.Hand;
             filtrotodos.Font = new Font("Segoe UI", 13F);
             filtrotodos.Image = Properties.Resources.mundoblanco;
-            filtrotodos.Location = new Point(33, 1);
+            filtrotodos.Location = new Point(35, 2);
             filtrotodos.Name = "filtrotodos";
             filtrotodos.Size = new Size(41, 29);
             filtrotodos.TabIndex = 0;
@@ -358,7 +360,7 @@
             filtro.Cursor = Cursors.Hand;
             filtro.Font = new Font("Segoe UI", 13F);
             filtro.Image = Properties.Resources.sicheck;
-            filtro.Location = new Point(198, 1);
+            filtro.Location = new Point(200, 2);
             filtro.Name = "filtro";
             filtro.Size = new Size(41, 29);
             filtro.TabIndex = 0;
@@ -372,7 +374,7 @@
             label15.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label15.ForeColor = SystemColors.WindowFrame;
             label15.Image = Properties.Resources.filtroblanco;
-            label15.Location = new Point(1, 5);
+            label15.Location = new Point(3, 6);
             label15.Name = "label15";
             label15.Size = new Size(18, 21);
             label15.TabIndex = 38;
@@ -431,22 +433,23 @@
             // 
             panel3.Location = new Point(159, 380);
             panel3.Name = "panel3";
-            panel3.Size = new Size(190, 25);
+            panel3.Size = new Size(189, 25);
             panel3.TabIndex = 85;
             // 
             // seleccionpanel
             // 
             seleccionpanel.BackColor = Color.FromArgb(64, 64, 64);
+            seleccionpanel.Controls.Add(button7);
             seleccionpanel.Controls.Add(label20);
             seleccionpanel.Controls.Add(label19);
             seleccionpanel.Controls.Add(textBox1);
             seleccionpanel.Controls.Add(numCantidad);
             seleccionpanel.Controls.Add(label6);
-            seleccionpanel.Controls.Add(txtnombre);
+            seleccionpanel.Controls.Add(nombreprodreceta);
             seleccionpanel.Controls.Add(recetaingredientes);
             seleccionpanel.Controls.Add(ingredientesconsulta);
-            seleccionpanel.Controls.Add(button3);
-            seleccionpanel.Controls.Add(textBox2);
+            seleccionpanel.Controls.Add(idprodreceta);
+            seleccionpanel.Controls.Add(unimedidareceta);
             seleccionpanel.Controls.Add(agregarbtn);
             seleccionpanel.Enabled = false;
             seleccionpanel.Location = new Point(3, 380);
@@ -461,7 +464,7 @@
             label20.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label20.ForeColor = SystemColors.Control;
             label20.Image = Properties.Resources.busqueda;
-            label20.Location = new Point(290, 41);
+            label20.Location = new Point(321, 41);
             label20.Name = "label20";
             label20.Size = new Size(18, 21);
             label20.TabIndex = 81;
@@ -485,13 +488,14 @@
             textBox1.Enabled = false;
             textBox1.Location = new Point(5, 37);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(307, 29);
+            textBox1.PlaceholderText = "Buscar ingrediente";
+            textBox1.Size = new Size(338, 29);
             textBox1.TabIndex = 79;
             // 
             // numCantidad
             // 
             numCantidad.DecimalPlaces = 2;
-            numCantidad.Location = new Point(685, 37);
+            numCantidad.Location = new Point(686, 37);
             numCantidad.Minimum = new decimal(new int[] { 1, 0, 0, 131072 });
             numCantidad.Name = "numCantidad";
             numCantidad.Size = new Size(108, 29);
@@ -511,58 +515,65 @@
             label6.TabIndex = 55;
             label6.Text = "1. Ingredientes      ";
             // 
-            // txtnombre
+            // nombreprodreceta
             // 
-            txtnombre.Enabled = false;
-            txtnombre.Location = new Point(351, 37);
-            txtnombre.Name = "txtnombre";
-            txtnombre.Size = new Size(241, 29);
-            txtnombre.TabIndex = 75;
+            nombreprodreceta.Enabled = false;
+            nombreprodreceta.Location = new Point(413, 37);
+            nombreprodreceta.Name = "nombreprodreceta";
+            nombreprodreceta.PlaceholderText = "Ingrediente";
+            nombreprodreceta.Size = new Size(182, 29);
+            nombreprodreceta.TabIndex = 75;
             // 
             // recetaingredientes
             // 
             recetaingredientes.AllowUserToAddRows = false;
             recetaingredientes.AllowUserToDeleteRows = false;
+            recetaingredientes.AllowUserToResizeRows = false;
             recetaingredientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             recetaingredientes.Location = new Point(351, 69);
             recetaingredientes.MultiSelect = false;
             recetaingredientes.Name = "recetaingredientes";
             recetaingredientes.ReadOnly = true;
+            recetaingredientes.RowHeadersVisible = false;
             recetaingredientes.RowHeadersWidth = 51;
             recetaingredientes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            recetaingredientes.Size = new Size(477, 129);
+            recetaingredientes.Size = new Size(445, 129);
             recetaingredientes.TabIndex = 74;
             // 
             // ingredientesconsulta
             // 
             ingredientesconsulta.AllowUserToAddRows = false;
             ingredientesconsulta.AllowUserToDeleteRows = false;
+            ingredientesconsulta.AllowUserToResizeRows = false;
             ingredientesconsulta.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             ingredientesconsulta.Location = new Point(5, 69);
             ingredientesconsulta.MultiSelect = false;
             ingredientesconsulta.Name = "ingredientesconsulta";
             ingredientesconsulta.ReadOnly = true;
+            ingredientesconsulta.RowHeadersVisible = false;
             ingredientesconsulta.RowHeadersWidth = 51;
             ingredientesconsulta.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             ingredientesconsulta.Size = new Size(338, 129);
             ingredientesconsulta.TabIndex = 74;
+            ingredientesconsulta.CellClick += ingredientesconsulta_CellClick;
             // 
-            // button3
+            // idprodreceta
             // 
-            button3.Image = Properties.Resources.angulo_hacia_derecha;
-            button3.Location = new Point(315, 37);
-            button3.Name = "button3";
-            button3.Size = new Size(28, 29);
-            button3.TabIndex = 77;
-            button3.UseVisualStyleBackColor = true;
+            idprodreceta.Enabled = false;
+            idprodreceta.Location = new Point(351, 37);
+            idprodreceta.Name = "idprodreceta";
+            idprodreceta.PlaceholderText = "ID";
+            idprodreceta.Size = new Size(58, 29);
+            idprodreceta.TabIndex = 79;
             // 
-            // textBox2
+            // unimedidareceta
             // 
-            textBox2.Enabled = false;
-            textBox2.Location = new Point(598, 37);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(81, 29);
-            textBox2.TabIndex = 79;
+            unimedidareceta.Enabled = false;
+            unimedidareceta.Location = new Point(600, 37);
+            unimedidareceta.Name = "unimedidareceta";
+            unimedidareceta.PlaceholderText = "Medida";
+            unimedidareceta.Size = new Size(81, 29);
+            unimedidareceta.TabIndex = 79;
             // 
             // agregarbtn
             // 
@@ -572,6 +583,7 @@
             agregarbtn.Size = new Size(28, 29);
             agregarbtn.TabIndex = 77;
             agregarbtn.UseVisualStyleBackColor = true;
+            agregarbtn.Click += agregarbtn_Click;
             // 
             // categoriapanel
             // 
@@ -726,7 +738,7 @@
             guardarbtn.ForeColor = Color.Black;
             guardarbtn.Image = Properties.Resources.disco;
             guardarbtn.ImageAlign = ContentAlignment.MiddleLeft;
-            guardarbtn.Location = new Point(12, 8);
+            guardarbtn.Location = new Point(12, 9);
             guardarbtn.Name = "guardarbtn";
             guardarbtn.Size = new Size(181, 58);
             guardarbtn.TabIndex = 13;
@@ -740,7 +752,7 @@
             limpiarbtn.ForeColor = Color.Black;
             limpiarbtn.Image = Properties.Resources.limpio;
             limpiarbtn.ImageAlign = ContentAlignment.MiddleLeft;
-            limpiarbtn.Location = new Point(233, 8);
+            limpiarbtn.Location = new Point(233, 9);
             limpiarbtn.Name = "limpiarbtn";
             limpiarbtn.Size = new Size(181, 58);
             limpiarbtn.TabIndex = 14;
@@ -991,6 +1003,17 @@
             ITBIS.Size = new Size(70, 29);
             ITBIS.TabIndex = 64;
             // 
+            // button7
+            // 
+            button7.BackColor = Color.Red;
+            button7.Enabled = false;
+            button7.Image = Properties.Resources.basurablanco;
+            button7.Location = new Point(799, 169);
+            button7.Name = "button7";
+            button7.Size = new Size(28, 29);
+            button7.TabIndex = 82;
+            button7.UseVisualStyleBackColor = false;
+            // 
             // ConsProductos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1076,11 +1099,10 @@
         private Label label6;
         private Label label16;
         private NumericUpDown numCantidad;
-        private TextBox txtnombre;
+        private TextBox nombreprodreceta;
         private Button agregarbtn;
         private TextBox textBox1;
         private DataGridView ingredientesconsulta;
-        private Button button3;
         private Panel categoriapanel;
         private TextBox categoriaconsultatxt;
         private TextBox categoriatxt;
@@ -1102,9 +1124,11 @@
         private Panel panel6;
         private Label label19;
         private Label label21;
-        private TextBox textBox2;
+        private TextBox unimedidareceta;
         private ComboBox unidadmedida;
         private Label label20;
         private Panel panel2;
+        private TextBox idprodreceta;
+        private Button button7;
     }
 }

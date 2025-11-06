@@ -443,6 +443,7 @@
             txtbuscador.ForeColor = SystemColors.ScrollBar;
             txtbuscador.Location = new Point(8, 71);
             txtbuscador.Name = "txtbuscador";
+            txtbuscador.PlaceholderText = "Buscar cajas";
             txtbuscador.Size = new Size(371, 29);
             txtbuscador.TabIndex = 35;
             // 
@@ -772,6 +773,7 @@
             textBox1.Location = new Point(10, 71);
             textBox1.Margin = new Padding(4);
             textBox1.Name = "textBox1";
+            textBox1.PlaceholderText = "Buscar usuarios";
             textBox1.Size = new Size(367, 29);
             textBox1.TabIndex = 28;
             // 

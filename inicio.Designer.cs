@@ -31,8 +31,6 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(inicio));
             pictureBox1 = new PictureBox();
-            label1 = new Label();
-            label2 = new Label();
             txtusuario = new TextBox();
             txtpass = new TextBox();
             iniciobtn = new Button();
@@ -64,12 +62,16 @@
             button4 = new Button();
             pictureBox2 = new PictureBox();
             alerta = new PictureBox();
+            usuarioimagen = new PictureBox();
+            contraimagen = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             conexionpanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)txtsql).BeginInit();
             conexiones.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)alerta).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)usuarioimagen).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)contraimagen).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
@@ -83,42 +85,22 @@
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label1.ForeColor = SystemColors.ControlLightLight;
-            label1.Location = new Point(147, 225);
-            label1.Name = "label1";
-            label1.Size = new Size(69, 21);
-            label1.TabIndex = 1;
-            label1.Text = "Usuario";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label2.ForeColor = SystemColors.ControlLightLight;
-            label2.Location = new Point(147, 267);
-            label2.Name = "label2";
-            label2.Size = new Size(96, 21);
-            label2.TabIndex = 1;
-            label2.Text = "Contraseña";
-            // 
             // txtusuario
             // 
-            txtusuario.Location = new Point(250, 224);
+            txtusuario.Location = new Point(186, 224);
             txtusuario.Name = "txtusuario";
-            txtusuario.Size = new Size(115, 23);
+            txtusuario.PlaceholderText = "Usuario";
+            txtusuario.Size = new Size(193, 23);
             txtusuario.TabIndex = 0;
             txtusuario.TextChanged += txtusuario_TextChanged;
             txtusuario.KeyPress += txtusuario_KeyPress;
             // 
             // txtpass
             // 
-            txtpass.Location = new Point(250, 266);
+            txtpass.Location = new Point(186, 266);
             txtpass.Name = "txtpass";
-            txtpass.Size = new Size(115, 23);
+            txtpass.PlaceholderText = "Contraseña";
+            txtpass.Size = new Size(193, 23);
             txtpass.TabIndex = 1;
             txtpass.UseSystemPasswordChar = true;
             txtpass.KeyPress += txtpass_KeyPress;
@@ -147,7 +129,7 @@
             // 
             passView.Appearance = Appearance.Button;
             passView.Image = Properties.Resources.ojo;
-            passView.Location = new Point(371, 266);
+            passView.Location = new Point(386, 266);
             passView.Name = "passView";
             passView.Size = new Size(27, 22);
             passView.TabIndex = 6;
@@ -209,7 +191,7 @@
             recordarchk.AutoSize = true;
             recordarchk.Font = new Font("Segoe UI", 14F);
             recordarchk.Image = Properties.Resources.discoblanco;
-            recordarchk.Location = new Point(371, 221);
+            recordarchk.Location = new Point(386, 221);
             recordarchk.Name = "recordarchk";
             recordarchk.Size = new Size(46, 29);
             recordarchk.TabIndex = 13;
@@ -443,12 +425,34 @@
             alerta.TabIndex = 14;
             alerta.TabStop = false;
             // 
+            // usuarioimagen
+            // 
+            usuarioimagen.Image = Properties.Resources.persona2;
+            usuarioimagen.Location = new Point(161, 225);
+            usuarioimagen.Name = "usuarioimagen";
+            usuarioimagen.Size = new Size(22, 21);
+            usuarioimagen.SizeMode = PictureBoxSizeMode.Zoom;
+            usuarioimagen.TabIndex = 14;
+            usuarioimagen.TabStop = false;
+            // 
+            // contraimagen
+            // 
+            contraimagen.Image = Properties.Resources.clave;
+            contraimagen.Location = new Point(161, 267);
+            contraimagen.Name = "contraimagen";
+            contraimagen.Size = new Size(22, 21);
+            contraimagen.SizeMode = PictureBoxSizeMode.Zoom;
+            contraimagen.TabIndex = 14;
+            contraimagen.TabStop = false;
+            // 
             // inicio
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
             ClientSize = new Size(564, 368);
+            Controls.Add(contraimagen);
+            Controls.Add(usuarioimagen);
             Controls.Add(alerta);
             Controls.Add(recordarchk);
             Controls.Add(conexiones);
@@ -464,8 +468,6 @@
             Controls.Add(iniciobtn);
             Controls.Add(txtpass);
             Controls.Add(txtusuario);
-            Controls.Add(label2);
-            Controls.Add(label1);
             ForeColor = SystemColors.ControlText;
             FormBorderStyle = FormBorderStyle.None;
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -481,6 +483,8 @@
             conexiones.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)alerta).EndInit();
+            ((System.ComponentModel.ISupportInitialize)usuarioimagen).EndInit();
+            ((System.ComponentModel.ISupportInitialize)contraimagen).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -488,8 +492,6 @@
         #endregion
 
         private PictureBox pictureBox1;
-        private Label label1;
-        private Label label2;
         private TextBox txtusuario;
         private TextBox txtpass;
         private Button iniciobtn;
@@ -521,5 +523,7 @@
         private CheckBox recordarchk;
         private PictureBox pictureBox2;
         private PictureBox alerta;
+        private PictureBox usuarioimagen;
+        private PictureBox contraimagen;
     }
 }

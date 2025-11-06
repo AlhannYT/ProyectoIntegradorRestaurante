@@ -172,6 +172,11 @@ namespace Proyecto_restaurante
                 limpiarbtn.Enabled = true;
 
                 seleccionpanel.Enabled = false;
+
+                ingredientesconsulta.DataSource = null;
+
+                recetaingredientes.Columns.Clear();
+                recetaingredientes.Rows.Clear();
             }
             else
             {
@@ -188,6 +193,26 @@ namespace Proyecto_restaurante
 
                 seleccionpanel.Enabled = true;
                 txtprecio_venta.Enabled = true;
+
+                using (SqlConnection conexion = new SqlConnection(conexionString))
+                {
+                    string consulta = "SELECT \r\n    PV.IdProducto,\r\n    PV.Nombre,\r\n    UM.Nombre as Medida\r\nFROM ProductoVenta PV\r\nINNER JOIN ProductoTipo PT\r\n    ON PV.IdProductoTipo = PT.IdProductoTipo\r\nINNER JOIN UnidadMedida UM\r\n    ON PV.IdUnidadMedida = UM.IdUnidadMedida\r\nWHERE PT.Ingrediente = 1;";
+                    SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
+                    DataTable dt = new DataTable();
+                    adaptador.Fill(dt);
+                    ingredientesconsulta.DataSource = dt;
+
+                    ingredientesconsulta.Columns["IdProducto"].HeaderText = "ID";
+                    ingredientesconsulta.Columns["Nombre"].HeaderText = "Nombre";
+                    ingredientesconsulta.Columns["Medida"].HeaderText = "Medida";
+
+                    recetaingredientes.Columns.Clear();
+
+                    recetaingredientes.Columns.Add("ID", "ID");
+                    recetaingredientes.Columns.Add("Ingrediente", "Ingrediente");
+                    recetaingredientes.Columns.Add("Medida", "Medida");
+                    recetaingredientes.Columns.Add("Cantidad", "Cantidad");
+                }
             }
         }
 
@@ -205,20 +230,6 @@ namespace Proyecto_restaurante
         private void Editar_Click(object sender, EventArgs e)
         {
 
-            idProducto = Convert.ToInt32(tabladatos.SelectedCells[0].Value);
-            CodigoProductoActual = idProducto.ToString();
-
-            foreach (Form f in this.MdiChildren)
-            {
-                if (f is MantProductos)
-                {
-                    f.BringToFront();
-                    return;
-                }
-            }
-            MantProductos mantProductos = new MantProductos();
-            mantProductos.Location = new Point(561, 50);
-            mantProductos.Show();
         }
 
         private void guardarbtn_Click(object sender, EventArgs e)
@@ -288,11 +299,19 @@ namespace Proyecto_restaurante
                             insertarCommand.Parameters.AddWithValue("@IdProductoTipo", Convert.ToInt32(tipoproductocmbx.SelectedValue));
                             insertarCommand.Parameters.AddWithValue("@Activo", estadochk.Checked ? 1 : 0);
                             insertarCommand.Parameters.AddWithValue("@PrecioCompra", Convert.ToDecimal(txtprecio_compra.Text));
-                            insertarCommand.Parameters.AddWithValue("@PrecioVenta", txtprecio_venta.Text);
-                            insertarCommand.Parameters.AddWithValue("@Itbis", Convert.ToDecimal(ITBIS.SelectedItem.ToString()));
                             insertarCommand.Parameters.AddWithValue("@CodigoBarra", txtcodigo_barras.Text);
                             insertarCommand.Parameters.AddWithValue("@IdUnidadMedida", Convert.ToInt32(unidadmedida.SelectedValue));
                             insertarCommand.Parameters.AddWithValue("@Existencia", 0);
+
+                            insertarCommand.Parameters.AddWithValue("@PrecioVenta",
+                                string.IsNullOrWhiteSpace(txtprecio_venta.Text)
+                                ? (object)DBNull.Value
+                                : Convert.ToDecimal(txtprecio_venta.Text));
+
+                            insertarCommand.Parameters.AddWithValue("@Itbis",
+                                ITBIS.SelectedItem == null
+                                ? (object)DBNull.Value
+                                : Convert.ToDecimal(ITBIS.SelectedItem.ToString()));
 
                             int rowsAffected = insertarCommand.ExecuteNonQuery();
 
@@ -420,6 +439,8 @@ namespace Proyecto_restaurante
 
         private void seleccionimagenbtn_Click(object sender, EventArgs e)
         {
+            buscarcatedt = 0;
+
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.Filter = "Archivos de imagen (*.jpg, *.jpeg, *.png)|*.jpg;*.jpeg;*.png";
@@ -464,6 +485,7 @@ namespace Proyecto_restaurante
 
         private void buscarcateg_Click(object sender, EventArgs e)
         {
+
             if (buscarcatedt == 1)
             {
                 string conexionString = ConexionBD.ConexionSQL();
@@ -532,6 +554,35 @@ namespace Proyecto_restaurante
         {
             idconsultatxt.Text = categoriaconsulta.SelectedCells[0].Value.ToString();
             categoriaconsulta.Text = categoriaconsulta.SelectedCells[1].Value.ToString();
+        }
+
+        private void ingredientesconsulta_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            idprodreceta.Text = ingredientesconsulta.SelectedCells[0].Value.ToString();
+            nombreprodreceta.Text = ingredientesconsulta.SelectedCells[1].Value.ToString();
+            unimedidareceta.Text = ingredientesconsulta.SelectedCells[2].Value.ToString();
+        }
+
+        private void agregarbtn_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(idprodreceta.Text) ||
+            string.IsNullOrWhiteSpace(nombreprodreceta.Text))
+            {
+                MessageBox.Show("Seleccione el ingrediente para agregar.");
+                return;
+            }
+
+            string id = idprodreceta.Text.Trim();
+            string ingrediente = nombreprodreceta.Text.Trim();
+            string medida = unimedidareceta.Text.Trim();
+            decimal cantidad = numCantidad.Value;
+
+            recetaingredientes.Rows.Add(id, ingrediente, medida, cantidad);
+
+            idprodreceta.Clear();
+            nombreprodreceta.Clear();
+            unimedidareceta.Clear();
+            numCantidad.Value = 1;
         }
     }
 }

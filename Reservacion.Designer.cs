@@ -296,6 +296,7 @@
             txtnumero_cliente.Font = new Font("Segoe UI", 12F);
             txtnumero_cliente.Location = new Point(41, 107);
             txtnumero_cliente.Name = "txtnumero_cliente";
+            txtnumero_cliente.PlaceholderText = "Numero de telefono";
             txtnumero_cliente.Size = new Size(147, 29);
             txtnumero_cliente.TabIndex = 0;
             // 
@@ -367,6 +368,7 @@
             txtnombrecompleto.Font = new Font("Segoe UI", 12F);
             txtnombrecompleto.Location = new Point(41, 75);
             txtnombrecompleto.Name = "txtnombrecompleto";
+            txtnombrecompleto.PlaceholderText = "Nombre de Cliente";
             txtnombrecompleto.Size = new Size(314, 29);
             txtnombrecompleto.TabIndex = 0;
             // 
@@ -460,9 +462,9 @@
             txtbusquedafactura.ForeColor = Color.Gray;
             txtbusquedafactura.Location = new Point(7, 134);
             txtbusquedafactura.Name = "txtbusquedafactura";
+            txtbusquedafactura.PlaceholderText = "Buscar Reservaciones";
             txtbusquedafactura.Size = new Size(485, 29);
             txtbusquedafactura.TabIndex = 8;
-            txtbusquedafactura.Text = "(ID Reservacion, Cliente, Mesa, Total)";
             // 
             // panel3
             // 

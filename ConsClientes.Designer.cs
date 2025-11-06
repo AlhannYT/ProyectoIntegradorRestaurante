@@ -103,6 +103,7 @@
             txtbuscador.ForeColor = SystemColors.ScrollBar;
             txtbuscador.Location = new Point(10, 63);
             txtbuscador.Name = "txtbuscador";
+            txtbuscador.PlaceholderText = "Buscar Cliente";
             txtbuscador.Size = new Size(452, 29);
             txtbuscador.TabIndex = 1;
             txtbuscador.TextChanged += txtbuscador_TextChanged;
