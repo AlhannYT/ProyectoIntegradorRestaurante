@@ -467,11 +467,14 @@
             // 
             salaconsultadt.AllowUserToAddRows = false;
             salaconsultadt.AllowUserToDeleteRows = false;
+            salaconsultadt.AllowUserToResizeRows = false;
+            salaconsultadt.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             salaconsultadt.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             salaconsultadt.Location = new Point(4, 63);
             salaconsultadt.MultiSelect = false;
             salaconsultadt.Name = "salaconsultadt";
             salaconsultadt.ReadOnly = true;
+            salaconsultadt.RowHeadersVisible = false;
             salaconsultadt.RowHeadersWidth = 51;
             salaconsultadt.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             salaconsultadt.Size = new Size(259, 86);

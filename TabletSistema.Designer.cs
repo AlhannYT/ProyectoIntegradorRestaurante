@@ -31,12 +31,20 @@
             panelMesas = new FlowLayoutPanel();
             label5 = new Label();
             seleccionarmesapanel = new Panel();
+            panel2 = new Panel();
+            checkBox2 = new CheckBox();
+            checkBox1 = new CheckBox();
+            label15 = new Label();
+            label12 = new Label();
+            eliminarbtn = new Button();
+            txtbuscador = new TextBox();
             button1 = new Button();
             button2 = new Button();
             panel3 = new Panel();
             guardarbtn = new Button();
             limpiarbtn = new Button();
             seleccionarmesapanel.SuspendLayout();
+            panel2.SuspendLayout();
             panel3.SuspendLayout();
             SuspendLayout();
             // 
@@ -44,9 +52,9 @@
             // 
             panelMesas.AutoScroll = true;
             panelMesas.BackColor = Color.FromArgb(64, 64, 64);
-            panelMesas.Location = new Point(6, 54);
+            panelMesas.Location = new Point(6, 109);
             panelMesas.Name = "panelMesas";
-            panelMesas.Size = new Size(646, 636);
+            panelMesas.Size = new Size(646, 581);
             panelMesas.TabIndex = 26;
             // 
             // label5
@@ -62,6 +70,10 @@
             // 
             // seleccionarmesapanel
             // 
+            seleccionarmesapanel.Controls.Add(panel2);
+            seleccionarmesapanel.Controls.Add(label12);
+            seleccionarmesapanel.Controls.Add(eliminarbtn);
+            seleccionarmesapanel.Controls.Add(txtbuscador);
             seleccionarmesapanel.Controls.Add(panelMesas);
             seleccionarmesapanel.Controls.Add(button1);
             seleccionarmesapanel.Controls.Add(button2);
@@ -71,6 +83,92 @@
             seleccionarmesapanel.Name = "seleccionarmesapanel";
             seleccionarmesapanel.Size = new Size(659, 800);
             seleccionarmesapanel.TabIndex = 28;
+            // 
+            // panel2
+            // 
+            panel2.BackColor = Color.FromArgb(64, 64, 64);
+            panel2.Controls.Add(checkBox2);
+            panel2.Controls.Add(checkBox1);
+            panel2.Controls.Add(label15);
+            panel2.Location = new Point(343, 71);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(273, 32);
+            panel2.TabIndex = 100;
+            // 
+            // checkBox2
+            // 
+            checkBox2.AutoSize = true;
+            checkBox2.Cursor = Cursors.Hand;
+            checkBox2.Font = new Font("Segoe UI", 12F);
+            checkBox2.ForeColor = Color.White;
+            checkBox2.Image = Properties.Resources.ocupado;
+            checkBox2.ImageAlign = ContentAlignment.MiddleLeft;
+            checkBox2.Location = new Point(35, 4);
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new Size(107, 25);
+            checkBox2.TabIndex = 66;
+            checkBox2.Text = "    Ocupada";
+            checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Cursor = Cursors.Hand;
+            checkBox1.Font = new Font("Segoe UI", 12F);
+            checkBox1.ForeColor = Color.White;
+            checkBox1.Image = Properties.Resources.reservado;
+            checkBox1.ImageAlign = ContentAlignment.MiddleLeft;
+            checkBox1.Location = new Point(159, 4);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(113, 25);
+            checkBox1.TabIndex = 67;
+            checkBox1.Text = "   Reservada";
+            checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.BackColor = Color.Transparent;
+            label15.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label15.ForeColor = SystemColors.WindowFrame;
+            label15.Image = Properties.Resources.filtroblanco;
+            label15.Location = new Point(5, 6);
+            label15.Name = "label15";
+            label15.Size = new Size(18, 21);
+            label15.TabIndex = 38;
+            label15.Text = "  ";
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.BackColor = Color.White;
+            label12.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label12.ForeColor = SystemColors.Control;
+            label12.Image = Properties.Resources.busqueda1;
+            label12.Location = new Point(313, 75);
+            label12.Name = "label12";
+            label12.Size = new Size(18, 21);
+            label12.TabIndex = 98;
+            label12.Text = "  ";
+            // 
+            // eliminarbtn
+            // 
+            eliminarbtn.Image = Properties.Resources.limpio;
+            eliminarbtn.Location = new Point(620, 71);
+            eliminarbtn.Name = "eliminarbtn";
+            eliminarbtn.Size = new Size(32, 32);
+            eliminarbtn.TabIndex = 99;
+            eliminarbtn.UseVisualStyleBackColor = true;
+            // 
+            // txtbuscador
+            // 
+            txtbuscador.Font = new Font("Segoe UI", 14F);
+            txtbuscador.ForeColor = SystemColors.ScrollBar;
+            txtbuscador.Location = new Point(9, 71);
+            txtbuscador.Name = "txtbuscador";
+            txtbuscador.PlaceholderText = "Buscar Mesa";
+            txtbuscador.Size = new Size(328, 32);
+            txtbuscador.TabIndex = 97;
             // 
             // button1
             // 
@@ -143,8 +241,11 @@
             Name = "TabletSistema";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Sistema de tablet";
+            Load += TabletSistema_Load;
             seleccionarmesapanel.ResumeLayout(false);
             seleccionarmesapanel.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             panel3.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -159,5 +260,12 @@
         private Button limpiarbtn;
         private Button button2;
         private Button button1;
+        private Panel panel2;
+        private Label label15;
+        private Label label12;
+        private Button eliminarbtn;
+        private TextBox txtbuscador;
+        private CheckBox checkBox2;
+        private CheckBox checkBox1;
     }
 }

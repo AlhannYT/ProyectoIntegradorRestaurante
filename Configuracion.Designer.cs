@@ -33,6 +33,7 @@
             usuarios = new Button();
             button2 = new Button();
             asignarcaja = new Button();
+            sistema = new Button();
             button7 = new Button();
             label1 = new Label();
             button26 = new Button();
@@ -104,9 +105,7 @@
             label20 = new Label();
             confirmarpass = new Label();
             estadoempleadochk = new CheckBox();
-            privilegiochk = new CheckBox();
             passView = new CheckBox();
-            label21 = new Label();
             colores = new Panel();
             defaultcolor = new Button();
             panel6 = new Panel();
@@ -164,6 +163,15 @@
             nombrepctxt = new TextBox();
             buscarPC = new Button();
             label38 = new Label();
+            sistemaconfiguracion = new Panel();
+            tabControl4 = new TabControl();
+            tabPage9 = new TabPage();
+            label4 = new Label();
+            tabPage10 = new TabPage();
+            label12 = new Label();
+            label32 = new Label();
+            panel10 = new Panel();
+            button12 = new Button();
             barraizq.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
@@ -198,6 +206,11 @@
             panel13.SuspendLayout();
             pcpanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pcDT).BeginInit();
+            sistemaconfiguracion.SuspendLayout();
+            tabControl4.SuspendLayout();
+            tabPage9.SuspendLayout();
+            tabPage10.SuspendLayout();
+            panel10.SuspendLayout();
             SuspendLayout();
             // 
             // barraizq
@@ -207,6 +220,7 @@
             barraizq.Controls.Add(usuarios);
             barraizq.Controls.Add(button2);
             barraizq.Controls.Add(asignarcaja);
+            barraizq.Controls.Add(sistema);
             barraizq.Controls.Add(button7);
             barraizq.Controls.Add(label1);
             barraizq.Controls.Add(button26);
@@ -223,7 +237,7 @@
             usuarios.Cursor = Cursors.Hand;
             usuarios.Image = Properties.Resources.usuario;
             usuarios.ImageAlign = ContentAlignment.MiddleRight;
-            usuarios.Location = new Point(7, 169);
+            usuarios.Location = new Point(7, 157);
             usuarios.Margin = new Padding(2);
             usuarios.Name = "usuarios";
             usuarios.Size = new Size(202, 38);
@@ -237,7 +251,7 @@
             // 
             button2.Image = Properties.Resources.llenar;
             button2.ImageAlign = ContentAlignment.MiddleRight;
-            button2.Location = new Point(7, 127);
+            button2.Location = new Point(7, 117);
             button2.Margin = new Padding(2);
             button2.Name = "button2";
             button2.Size = new Size(202, 38);
@@ -251,7 +265,7 @@
             // 
             asignarcaja.Image = Properties.Resources.cajero2;
             asignarcaja.ImageAlign = ContentAlignment.MiddleRight;
-            asignarcaja.Location = new Point(7, 85);
+            asignarcaja.Location = new Point(7, 77);
             asignarcaja.Margin = new Padding(2);
             asignarcaja.Name = "asignarcaja";
             asignarcaja.Size = new Size(202, 38);
@@ -261,11 +275,26 @@
             asignarcaja.UseVisualStyleBackColor = true;
             asignarcaja.Click += asignarcaja_Click;
             // 
+            // sistema
+            // 
+            sistema.BackColor = Color.Gold;
+            sistema.Image = Properties.Resources.herramientas1;
+            sistema.ImageAlign = ContentAlignment.MiddleRight;
+            sistema.Location = new Point(7, 197);
+            sistema.Margin = new Padding(2);
+            sistema.Name = "sistema";
+            sistema.Size = new Size(202, 38);
+            sistema.TabIndex = 15;
+            sistema.Text = "Sistema";
+            sistema.TextAlign = ContentAlignment.MiddleLeft;
+            sistema.UseVisualStyleBackColor = false;
+            sistema.Click += button5_Click;
+            // 
             // button7
             // 
             button7.Image = Properties.Resources.caja;
             button7.ImageAlign = ContentAlignment.MiddleRight;
-            button7.Location = new Point(7, 43);
+            button7.Location = new Point(7, 37);
             button7.Margin = new Padding(2);
             button7.Name = "button7";
             button7.Size = new Size(202, 38);
@@ -429,10 +458,12 @@
             // tabladatos
             // 
             tabladatos.AllowUserToAddRows = false;
+            tabladatos.AllowUserToResizeRows = false;
             tabladatos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tabladatos.Location = new Point(8, 106);
             tabladatos.Name = "tabladatos";
             tabladatos.ReadOnly = true;
+            tabladatos.RowHeadersVisible = false;
             tabladatos.RowHeadersWidth = 51;
             tabladatos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             tabladatos.Size = new Size(460, 410);
@@ -780,12 +811,14 @@
             // tablausuarios
             // 
             tablausuarios.AllowUserToAddRows = false;
+            tablausuarios.AllowUserToResizeRows = false;
             tablausuarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tablausuarios.Location = new Point(8, 106);
             tablausuarios.Margin = new Padding(4);
             tablausuarios.MultiSelect = false;
             tablausuarios.Name = "tablausuarios";
             tablausuarios.ReadOnly = true;
+            tablausuarios.RowHeadersVisible = false;
             tablausuarios.RowHeadersWidth = 51;
             tablausuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             tablausuarios.Size = new Size(449, 410);
@@ -832,9 +865,7 @@
             tabPage4.Controls.Add(label20);
             tabPage4.Controls.Add(confirmarpass);
             tabPage4.Controls.Add(estadoempleadochk);
-            tabPage4.Controls.Add(privilegiochk);
             tabPage4.Controls.Add(passView);
-            tabPage4.Controls.Add(label21);
             tabPage4.Location = new Point(4, 30);
             tabPage4.Margin = new Padding(4);
             tabPage4.Name = "tabPage4";
@@ -918,14 +949,14 @@
             // 
             idempleadoconsulta.Location = new Point(4, 28);
             idempleadoconsulta.Name = "idempleadoconsulta";
-            idempleadoconsulta.Size = new Size(31, 29);
+            idempleadoconsulta.Size = new Size(43, 29);
             idempleadoconsulta.TabIndex = 58;
             // 
             // nombreempleadoconsulta
             // 
-            nombreempleadoconsulta.Location = new Point(37, 28);
+            nombreempleadoconsulta.Location = new Point(51, 28);
             nombreempleadoconsulta.Name = "nombreempleadoconsulta";
-            nombreempleadoconsulta.Size = new Size(217, 29);
+            nombreempleadoconsulta.Size = new Size(203, 29);
             nombreempleadoconsulta.TabIndex = 58;
             // 
             // button10
@@ -954,11 +985,13 @@
             // 
             empleadousuariodt.AllowUserToAddRows = false;
             empleadousuariodt.AllowUserToDeleteRows = false;
+            empleadousuariodt.AllowUserToResizeRows = false;
             empleadousuariodt.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             empleadousuariodt.Location = new Point(4, 63);
             empleadousuariodt.MultiSelect = false;
             empleadousuariodt.Name = "empleadousuariodt";
             empleadousuariodt.ReadOnly = true;
+            empleadousuariodt.RowHeadersVisible = false;
             empleadousuariodt.RowHeadersWidth = 51;
             empleadousuariodt.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             empleadousuariodt.Size = new Size(284, 125);
@@ -970,7 +1003,7 @@
             panel2.BackColor = Color.FromArgb(64, 64, 64);
             panel2.Controls.Add(guardarbtn);
             panel2.Controls.Add(limpiar);
-            panel2.Location = new Point(114, 440);
+            panel2.Location = new Point(114, 409);
             panel2.Name = "panel2";
             panel2.Size = new Size(409, 74);
             panel2.TabIndex = 76;
@@ -1101,18 +1134,6 @@
             estadoempleadochk.Text = "Activo";
             estadoempleadochk.UseVisualStyleBackColor = true;
             // 
-            // privilegiochk
-            // 
-            privilegiochk.AutoSize = true;
-            privilegiochk.ForeColor = Color.Black;
-            privilegiochk.Location = new Point(214, 399);
-            privilegiochk.Margin = new Padding(4);
-            privilegiochk.Name = "privilegiochk";
-            privilegiochk.Size = new Size(83, 25);
-            privilegiochk.TabIndex = 6;
-            privilegiochk.Text = "Usuario";
-            privilegiochk.UseVisualStyleBackColor = true;
-            // 
             // passView
             // 
             passView.Appearance = Appearance.Button;
@@ -1124,18 +1145,6 @@
             passView.Size = new Size(29, 29);
             passView.TabIndex = 7;
             passView.UseVisualStyleBackColor = true;
-            // 
-            // label21
-            // 
-            label21.AutoSize = true;
-            label21.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label21.ForeColor = SystemColors.ControlLightLight;
-            label21.Location = new Point(114, 399);
-            label21.Margin = new Padding(4, 0, 4, 0);
-            label21.Name = "label21";
-            label21.Size = new Size(88, 21);
-            label21.TabIndex = 9;
-            label21.Text = "Privilegio:";
             // 
             // colores
             // 
@@ -1566,11 +1575,13 @@
             // 
             cajaDT.AllowUserToAddRows = false;
             cajaDT.AllowUserToDeleteRows = false;
+            cajaDT.AllowUserToResizeRows = false;
             cajaDT.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             cajaDT.Location = new Point(4, 63);
             cajaDT.MultiSelect = false;
             cajaDT.Name = "cajaDT";
             cajaDT.ReadOnly = true;
+            cajaDT.RowHeadersVisible = false;
             cajaDT.RowHeadersWidth = 51;
             cajaDT.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             cajaDT.Size = new Size(269, 146);
@@ -1591,7 +1602,7 @@
             panel13.BackColor = Color.FromArgb(64, 64, 64);
             panel13.Controls.Add(guardarasigpc);
             panel13.Controls.Add(button21);
-            panel13.Location = new Point(125, 444);
+            panel13.Location = new Point(125, 445);
             panel13.Name = "panel13";
             panel13.Size = new Size(409, 74);
             panel13.TabIndex = 89;
@@ -1684,11 +1695,13 @@
             // 
             pcDT.AllowUserToAddRows = false;
             pcDT.AllowUserToDeleteRows = false;
+            pcDT.AllowUserToResizeRows = false;
             pcDT.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             pcDT.Location = new Point(4, 63);
             pcDT.MultiSelect = false;
             pcDT.Name = "pcDT";
             pcDT.ReadOnly = true;
+            pcDT.RowHeadersVisible = false;
             pcDT.RowHeadersWidth = 51;
             pcDT.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             pcDT.Size = new Size(269, 146);
@@ -1768,6 +1781,103 @@
             label38.TabIndex = 84;
             label38.Text = "Equipo";
             // 
+            // sistemaconfiguracion
+            // 
+            sistemaconfiguracion.Controls.Add(tabControl4);
+            sistemaconfiguracion.Controls.Add(label32);
+            sistemaconfiguracion.Controls.Add(panel10);
+            sistemaconfiguracion.Location = new Point(1551, 580);
+            sistemaconfiguracion.Name = "sistemaconfiguracion";
+            sistemaconfiguracion.Size = new Size(659, 570);
+            sistemaconfiguracion.TabIndex = 45;
+            sistemaconfiguracion.Visible = false;
+            // 
+            // tabControl4
+            // 
+            tabControl4.Controls.Add(tabPage9);
+            tabControl4.Controls.Add(tabPage10);
+            tabControl4.Font = new Font("Segoe UI", 12F);
+            tabControl4.Location = new Point(7, 61);
+            tabControl4.Name = "tabControl4";
+            tabControl4.SelectedIndex = 0;
+            tabControl4.Size = new Size(645, 401);
+            tabControl4.TabIndex = 40;
+            // 
+            // tabPage9
+            // 
+            tabPage9.BackColor = SystemColors.WindowFrame;
+            tabPage9.Controls.Add(label4);
+            tabPage9.Location = new Point(4, 30);
+            tabPage9.Name = "tabPage9";
+            tabPage9.Padding = new Padding(3);
+            tabPage9.Size = new Size(637, 367);
+            tabPage9.TabIndex = 0;
+            tabPage9.Text = "Productos";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold);
+            label4.ForeColor = SystemColors.Control;
+            label4.Location = new Point(202, 163);
+            label4.Name = "label4";
+            label4.Size = new Size(233, 40);
+            label4.TabIndex = 39;
+            label4.Text = "Nada por ahora";
+            // 
+            // tabPage10
+            // 
+            tabPage10.BackColor = SystemColors.WindowFrame;
+            tabPage10.Controls.Add(label12);
+            tabPage10.Location = new Point(4, 30);
+            tabPage10.Name = "tabPage10";
+            tabPage10.Padding = new Padding(3);
+            tabPage10.Size = new Size(637, 367);
+            tabPage10.TabIndex = 1;
+            tabPage10.Text = "Pedidos";
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold);
+            label12.ForeColor = SystemColors.Control;
+            label12.Location = new Point(202, 163);
+            label12.Name = "label12";
+            label12.Size = new Size(233, 40);
+            label12.TabIndex = 40;
+            label12.Text = "Nada por ahora";
+            // 
+            // label32
+            // 
+            label32.AutoSize = true;
+            label32.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold);
+            label32.ForeColor = SystemColors.Control;
+            label32.Location = new Point(142, 13);
+            label32.Name = "label32";
+            label32.Size = new Size(374, 40);
+            label32.TabIndex = 39;
+            label32.Text = "Configuracion del sistema";
+            // 
+            // panel10
+            // 
+            panel10.BackColor = Color.FromArgb(64, 64, 64);
+            panel10.Controls.Add(button12);
+            panel10.Location = new Point(226, 475);
+            panel10.Name = "panel10";
+            panel10.Size = new Size(206, 74);
+            panel10.TabIndex = 76;
+            // 
+            // button12
+            // 
+            button12.Image = Properties.Resources.procesar1;
+            button12.ImageAlign = ContentAlignment.MiddleLeft;
+            button12.Location = new Point(13, 8);
+            button12.Name = "button12";
+            button12.Size = new Size(181, 58);
+            button12.TabIndex = 43;
+            button12.Text = "      Procesar cambios";
+            button12.UseVisualStyleBackColor = true;
+            // 
             // Configuracion
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1777,6 +1887,7 @@
             Controls.Add(permisospanel);
             Controls.Add(colores);
             Controls.Add(usuariospanel);
+            Controls.Add(sistemaconfiguracion);
             Controls.Add(asignarPCPanel);
             Controls.Add(cajaspanel);
             Controls.Add(barraizq);
@@ -1836,6 +1947,14 @@
             pcpanel.ResumeLayout(false);
             pcpanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pcDT).EndInit();
+            sistemaconfiguracion.ResumeLayout(false);
+            sistemaconfiguracion.PerformLayout();
+            tabControl4.ResumeLayout(false);
+            tabPage9.ResumeLayout(false);
+            tabPage9.PerformLayout();
+            tabPage10.ResumeLayout(false);
+            tabPage10.PerformLayout();
+            panel10.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -1911,9 +2030,7 @@
         private Label label20;
         private Label confirmarpass;
         private CheckBox estadoempleadochk;
-        private CheckBox privilegiochk;
         private CheckBox passView;
-        private Label label21;
         private Button button2;
         private Panel colores;
         private Panel panel5;
@@ -1976,5 +2093,15 @@
         private Button buscarPC;
         private Label label38;
         private Label label31;
+        private Panel sistemaconfiguracion;
+        private TabControl tabControl4;
+        private TabPage tabPage9;
+        private TabPage tabPage10;
+        private Label label32;
+        private Label label4;
+        private Label label12;
+        private Panel panel10;
+        private Button button12;
+        public Button sistema;
     }
 }

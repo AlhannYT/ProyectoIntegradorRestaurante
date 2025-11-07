@@ -217,6 +217,7 @@ namespace Proyecto_restaurante
             if (administrador == 1)
             {
                 config.usuarios.Visible = true;
+                config.sistema.Visible = true;
                 config.Location = new Point(200, 50);
                 config.MdiParent = this;
                 config.Show();
@@ -224,6 +225,7 @@ namespace Proyecto_restaurante
             else
             {
                 config.usuarios.Visible = false;
+                config.sistema.Visible = false;
                 config.Location = new Point(200, 50);
                 config.MdiParent = this;
                 config.Show();

@@ -514,10 +514,41 @@ namespace Proyecto_restaurante
             }
         }
 
+        private void cargarPermisos(object sender, EventArgs e)
+        {
+            string conexionString = ConexionBD.ConexionSQL();
+
+            using (SqlConnection conexion = new SqlConnection(conexionString))
+            {
+                conexion.Open();
+
+                string query = "SELECT Admin FROM PermisosUsuario WHERE IdUsuario = @IdUsuario";
+
+                using (SqlCommand cmd = new SqlCommand(query, conexion))
+                {
+                    cmd.Parameters.AddWithValue("@IdUsuario", Convert.ToInt32(idusuariopermiso.Text));
+
+                    object result = cmd.ExecuteScalar();
+
+                    if (result != null && result != DBNull.Value)
+                    {
+                        int adminValor = Convert.ToInt32(result);
+
+                        admin.Checked = adminValor == 1;
+                    }
+                    else
+                    {
+                        admin.Checked = false;
+                    }
+                }
+            }
+        }
+
         private void button29_Click(object sender, EventArgs e)
         {
             permisospanel.Location = new Point(221, 4);
             permisospanel.BringToFront();
+            cargarPermisos(sender, e);
 
             usuariospanel.Visible = false;
 
@@ -540,6 +571,7 @@ namespace Proyecto_restaurante
             usuariospanel.Visible = false;
             colores.Visible = false;
             permisospanel.Visible = false;
+            sistemaconfiguracion.Visible = false;
         }
 
         private void agregar_Click_1(object sender, EventArgs e)
@@ -751,6 +783,13 @@ namespace Proyecto_restaurante
             idCajatxt.Text = idconsultacajatxt.Text;
             nombrecajaPCtxt.Text = nombreconsultacajatxt.Text;
             buscarCaja_Click(sender, e);
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            sistemaconfiguracion.Location = new Point(221, 4);
+            sistemaconfiguracion.BringToFront();
+            sistemaconfiguracion.Visible = true;
         }
     }
 }

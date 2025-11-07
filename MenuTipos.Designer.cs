@@ -354,7 +354,7 @@
             // 
             // button2
             // 
-            button2.Image = Properties.Resources.herramientas;
+            button2.Image = Properties.Resources.puesto1;
             button2.ImageAlign = ContentAlignment.MiddleRight;
             button2.Location = new Point(7, 221);
             button2.Margin = new Padding(2);
@@ -478,13 +478,18 @@
             // 
             // metododt
             // 
+            metododt.AllowUserToResizeRows = false;
+            metododt.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             metododt.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             metododt.Location = new Point(13, 262);
             metododt.MultiSelect = false;
             metododt.Name = "metododt";
+            metododt.ReadOnly = true;
+            metododt.RowHeadersVisible = false;
             metododt.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             metododt.Size = new Size(344, 133);
             metododt.TabIndex = 3;
+            metododt.TabStop = false;
             metododt.CellContentClick += metododt_CellContentClick;
             // 
             // idmetpago
@@ -681,13 +686,18 @@
             // 
             // identdt
             // 
+            identdt.AllowUserToResizeRows = false;
+            identdt.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             identdt.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             identdt.Location = new Point(13, 262);
             identdt.MultiSelect = false;
             identdt.Name = "identdt";
+            identdt.ReadOnly = true;
+            identdt.RowHeadersVisible = false;
             identdt.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             identdt.Size = new Size(344, 133);
             identdt.TabIndex = 3;
+            identdt.TabStop = false;
             // 
             // iddocid
             // 
@@ -948,13 +958,18 @@
             // 
             // departdt
             // 
+            departdt.AllowUserToResizeRows = false;
+            departdt.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             departdt.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             departdt.Location = new Point(13, 401);
             departdt.MultiSelect = false;
             departdt.Name = "departdt";
+            departdt.ReadOnly = true;
+            departdt.RowHeadersVisible = false;
             departdt.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             departdt.Size = new Size(344, 133);
             departdt.TabIndex = 3;
+            departdt.TabStop = false;
             departdt.Visible = false;
             departdt.CellClick += departdt_CellClick;
             // 
@@ -962,14 +977,19 @@
             // 
             puestodt.AllowUserToAddRows = false;
             puestodt.AllowUserToDeleteRows = false;
+            puestodt.AllowUserToResizeRows = false;
             puestodt.Anchor = AnchorStyles.None;
+            puestodt.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             puestodt.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             puestodt.Location = new Point(13, 262);
             puestodt.MultiSelect = false;
             puestodt.Name = "puestodt";
+            puestodt.ReadOnly = true;
+            puestodt.RowHeadersVisible = false;
             puestodt.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             puestodt.Size = new Size(344, 133);
             puestodt.TabIndex = 3;
+            puestodt.TabStop = false;
             puestodt.CellClick += puestodt_CellClick;
             puestodt.CellContentClick += puestodt_CellContentClick;
             puestodt.CellDoubleClick += puestodt_CellDoubleClick;
@@ -1197,13 +1217,18 @@
             // 
             // depdt
             // 
+            depdt.AllowUserToResizeRows = false;
+            depdt.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             depdt.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             depdt.Location = new Point(13, 262);
             depdt.MultiSelect = false;
             depdt.Name = "depdt";
+            depdt.ReadOnly = true;
+            depdt.RowHeadersVisible = false;
             depdt.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             depdt.Size = new Size(344, 133);
             depdt.TabIndex = 3;
+            depdt.TabStop = false;
             // 
             // iddepa
             // 
@@ -1415,13 +1440,18 @@
             // 
             // prodtidt
             // 
+            prodtidt.AllowUserToResizeRows = false;
+            prodtidt.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             prodtidt.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             prodtidt.Location = new Point(13, 262);
             prodtidt.MultiSelect = false;
             prodtidt.Name = "prodtidt";
+            prodtidt.ReadOnly = true;
+            prodtidt.RowHeadersVisible = false;
             prodtidt.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             prodtidt.Size = new Size(344, 133);
             prodtidt.TabIndex = 3;
+            prodtidt.TabStop = false;
             prodtidt.CellContentClick += prodtidt_CellContentClick;
             // 
             // idprod
@@ -1621,13 +1651,18 @@
             // 
             // categdt
             // 
+            categdt.AllowUserToResizeRows = false;
+            categdt.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             categdt.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             categdt.Location = new Point(13, 262);
             categdt.MultiSelect = false;
             categdt.Name = "categdt";
+            categdt.ReadOnly = true;
+            categdt.RowHeadersVisible = false;
             categdt.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             categdt.Size = new Size(344, 133);
             categdt.TabIndex = 3;
+            categdt.TabStop = false;
             categdt.CellContentClick += categdt_CellContentClick;
             // 
             // idcateg
@@ -1839,13 +1874,18 @@
             // 
             // dataGridView1
             // 
+            dataGridView1.AllowUserToResizeRows = false;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Location = new Point(13, 262);
             dataGridView1.MultiSelect = false;
             dataGridView1.Name = "dataGridView1";
+            dataGridView1.ReadOnly = true;
+            dataGridView1.RowHeadersVisible = false;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.Size = new Size(344, 133);
             dataGridView1.TabIndex = 3;
+            dataGridView1.TabStop = false;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // textBox2
@@ -2046,13 +2086,18 @@
             // 
             // dataGridView2
             // 
+            dataGridView2.AllowUserToResizeRows = false;
+            dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView2.Location = new Point(13, 262);
             dataGridView2.MultiSelect = false;
             dataGridView2.Name = "dataGridView2";
+            dataGridView2.ReadOnly = true;
+            dataGridView2.RowHeadersVisible = false;
             dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView2.Size = new Size(344, 133);
             dataGridView2.TabIndex = 3;
+            dataGridView2.TabStop = false;
             dataGridView2.CellContentClick += dataGridView2_CellContentClick;
             // 
             // idunidad

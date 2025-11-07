@@ -271,6 +271,7 @@
             // provdt
             // 
             provdt.AllowUserToResizeRows = false;
+            provdt.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             provdt.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             provdt.Location = new Point(6, 101);
             provdt.Name = "provdt";

@@ -43,7 +43,7 @@ namespace Proyecto_restaurante
             }
             else
             {
-                imagenproducto.Image = null;
+                imagenproducto.Image = Proyecto_restaurante.Properties.Resources.paisaje;
             }
         }
 
@@ -76,7 +76,7 @@ namespace Proyecto_restaurante
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
 
-            string consulta = "SELECT IdProducto, CodigoBarra, Nombre, PrecioVenta, Existencia, Activo FROM ProductoVenta";
+            string consulta = "SELECT IdProducto, CodigoBarra, Nombre, PrecioCompra, PrecioVenta, Existencia FROM ProductoVenta";
             SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
             DataTable dt = new DataTable();
             adaptador.Fill(dt);
@@ -85,9 +85,9 @@ namespace Proyecto_restaurante
             tabladatos.Columns["IdProducto"].HeaderText = "ID";
             tabladatos.Columns["CodigoBarra"].HeaderText = "Código";
             tabladatos.Columns["Nombre"].HeaderText = "Nombre";
-            tabladatos.Columns["PrecioVenta"].HeaderText = "Precio";
+            tabladatos.Columns["PrecioCompra"].HeaderText = "Compra";
+            tabladatos.Columns["PrecioVenta"].HeaderText = "Venta";
             tabladatos.Columns["Existencia"].HeaderText = "Existencia";
-            tabladatos.Columns["Activo"].HeaderText = "Estado";
 
             CargarTiposProducto(conexionString);
 
@@ -229,7 +229,20 @@ namespace Proyecto_restaurante
 
         private void Editar_Click(object sender, EventArgs e)
         {
+            //Pal futuro
+        }
 
+        private int ObtenerIdUnidadMedida(SqlConnection conexion, string nombreUM)
+        {
+            string query = "SELECT IdUnidadMedida FROM UnidadMedida WHERE Nombre = @Nombre";
+
+            using (SqlCommand cmd = new SqlCommand(query, conexion))
+            {
+                cmd.Parameters.AddWithValue("@Nombre", nombreUM);
+                object result = cmd.ExecuteScalar();
+
+                return result != null ? Convert.ToInt32(result) : 0;
+            }
         }
 
         private void guardarbtn_Click(object sender, EventArgs e)
@@ -240,7 +253,6 @@ namespace Proyecto_restaurante
             {
                 if (string.IsNullOrWhiteSpace(txtcodigo_barras.Text) ||
                     string.IsNullOrWhiteSpace(txtnombre_prod.Text) ||
-                    string.IsNullOrWhiteSpace(txtprecio_compra.Text) ||
                     ITBIS.SelectedItem == null ||
                     string.IsNullOrWhiteSpace(idcategoriatxt.Text) ||
                     unidadmedida.SelectedValue == null)
@@ -259,8 +271,6 @@ namespace Proyecto_restaurante
             {
                 if (string.IsNullOrWhiteSpace(txtcodigo_barras.Text) ||
                     string.IsNullOrWhiteSpace(txtnombre_prod.Text) ||
-                    string.IsNullOrWhiteSpace(txtprecio_compra.Text) ||
-                    string.IsNullOrWhiteSpace(txtprecio_venta.Text) ||
                     ITBIS.SelectedItem == null ||
                     string.IsNullOrWhiteSpace(idcategoriatxt.Text) ||
                     unidadmedida.SelectedValue == null)
@@ -287,9 +297,22 @@ namespace Proyecto_restaurante
 
                     if (string.IsNullOrEmpty(CodigoProductoActual))
                     {
+
+                        decimal valorItbis;
+
+                        if (ITBIS.SelectedIndex == 3)
+                        {
+                            valorItbis = 0;
+                        }
+                        else
+                        {
+                            valorItbis = Convert.ToDecimal(ITBIS.SelectedItem.ToString());
+                        }
+
                         string queryInsertar = @"
                         INSERT INTO ProductoVenta
                         (Nombre, IdCategoria, IdProductoTipo, Activo, PrecioCompra, PrecioVenta, Itbis, CodigoBarra, IdUnidadMedida, Existencia)
+                        OUTPUT INSERTED.IdProducto
                         VALUES (@Nombre, @IdCategoria, @IdProductoTipo, @Activo, @PrecioCompra, @PrecioVenta, @Itbis, @CodigoBarra, @IdUnidadMedida, @Existencia)";
 
                         using (SqlCommand insertarCommand = new SqlCommand(queryInsertar, conexion))
@@ -302,29 +325,44 @@ namespace Proyecto_restaurante
                             insertarCommand.Parameters.AddWithValue("@CodigoBarra", txtcodigo_barras.Text);
                             insertarCommand.Parameters.AddWithValue("@IdUnidadMedida", Convert.ToInt32(unidadmedida.SelectedValue));
                             insertarCommand.Parameters.AddWithValue("@Existencia", 0);
+                            insertarCommand.Parameters.AddWithValue("@Itbis", valorItbis);
 
                             insertarCommand.Parameters.AddWithValue("@PrecioVenta",
                                 string.IsNullOrWhiteSpace(txtprecio_venta.Text)
                                 ? (object)DBNull.Value
                                 : Convert.ToDecimal(txtprecio_venta.Text));
 
-                            insertarCommand.Parameters.AddWithValue("@Itbis",
-                                ITBIS.SelectedItem == null
-                                ? (object)DBNull.Value
-                                : Convert.ToDecimal(ITBIS.SelectedItem.ToString()));
+                            int nuevoIdProducto = (int)insertarCommand.ExecuteScalar();
 
-                            int rowsAffected = insertarCommand.ExecuteNonQuery();
+                            foreach (DataGridViewRow fila in recetaingredientes.Rows)
+                            {
+                                if (fila.IsNewRow) continue;
 
-                            if (rowsAffected > 0)
-                            {
-                                MessageBox.Show("Producto registrado con éxito.");
-                                limpiarbtn_Click(sender, e);
-                                ConsProductos_Load(sender, e);
+                                int idIngrediente = Convert.ToInt32(fila.Cells[0].Value);
+                                string medidaTexto = fila.Cells[2].Value.ToString();
+                                decimal cantidad = Convert.ToDecimal(fila.Cells[3].Value);
+
+                                int idUnidadMedida = ObtenerIdUnidadMedida(conexion, medidaTexto);
+
+                                string queryReceta = @"
+                                INSERT INTO Receta (IdProducto, IdIngrediente, IdUnidadMedida, Cantidad, Activo)
+                                VALUES (@IdProducto, @IdIngrediente, @IdUnidadMedida, @Cantidad, 1)";
+
+                                using (SqlCommand cmdReceta = new SqlCommand(queryReceta, conexion))
+                                {
+                                    cmdReceta.Parameters.AddWithValue("@IdProducto", nuevoIdProducto);
+                                    cmdReceta.Parameters.AddWithValue("@IdIngrediente", idIngrediente);
+                                    cmdReceta.Parameters.AddWithValue("@IdUnidadMedida", idUnidadMedida);
+                                    cmdReceta.Parameters.AddWithValue("@Cantidad", cantidad);
+
+                                    cmdReceta.ExecuteNonQuery();
+                                }
                             }
-                            else
-                            {
-                                MessageBox.Show("No se pudo guardar el producto.");
-                            }
+
+                            MessageBox.Show("Producto registrado con éxito.");
+
+                            limpiarbtn_Click(sender, e);
+                            ConsProductos_Load(sender, e);
                         }
                     }
                     else
@@ -380,6 +418,7 @@ namespace Proyecto_restaurante
         private void limpiarbtn_Click(object sender, EventArgs e)
         {
             imagenproducto.Image = Proyecto_restaurante.Properties.Resources.paisaje;
+            categoriaconsultatxt.Text = "";
 
             txtcodigo_barras.Text = "";
             txtnombre_prod.Text = "";
@@ -523,12 +562,7 @@ namespace Proyecto_restaurante
         private void button4_Click(object sender, EventArgs e)
         {
             idcategoriatxt.Text = idconsultatxt.Text;
-            categoriatxt.Text = categoriaconsulta.Text;
-            buscarcateg_Click(sender, e);
-        }
-
-        private void categoriapanel_Leave(object sender, EventArgs e)
-        {
+            categoriatxt.Text = categoriaconsultatxt.Text;
             buscarcateg_Click(sender, e);
         }
 
@@ -553,7 +587,7 @@ namespace Proyecto_restaurante
         private void categoriaconsulta_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             idconsultatxt.Text = categoriaconsulta.SelectedCells[0].Value.ToString();
-            categoriaconsulta.Text = categoriaconsulta.SelectedCells[1].Value.ToString();
+            categoriaconsultatxt.Text = categoriaconsulta.SelectedCells[1].Value.ToString();
         }
 
         private void ingredientesconsulta_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -583,6 +617,15 @@ namespace Proyecto_restaurante
             nombreprodreceta.Clear();
             unimedidareceta.Clear();
             numCantidad.Value = 1;
+        }
+
+        private void numCantidad_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                agregarbtn_Click(sender, e);
+                e.Handled = true;
+            }
         }
     }
 }
