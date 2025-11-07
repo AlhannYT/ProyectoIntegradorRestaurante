@@ -47,10 +47,12 @@ namespace Proyecto_restaurante
             }
         }
 
+        string nombrePC = Environment.MachineName;
+
         private void menu_Load(object sender, EventArgs e)
         {
             string conexionString = ConexionBD.ConexionSQL();
-            string nombrePC = Environment.MachineName;
+            
             Color colorPanel = Color.Silver;
 
             button5.Focus();
@@ -178,7 +180,7 @@ namespace Proyecto_restaurante
             }
 
             Pedidos pedidos = new Pedidos();
-            pedidos.NombreResponsable = usuarioActual;
+            pedidos.NombrePC = nombrePC;
             pedidos.Location = new Point(200, 50); ;
             pedidos.MdiParent = this;
             pedidos.Show();
@@ -256,7 +258,6 @@ namespace Proyecto_restaurante
                         label1.ImageAlign = ContentAlignment.MiddleCenter;
                         label2.ImageAlign = ContentAlignment.MiddleCenter;
                         ajustestxt.ImageAlign = ContentAlignment.MiddleCenter;
-                        logoarroz.Visible = false;
                     }
                 }
 
@@ -273,6 +274,7 @@ namespace Proyecto_restaurante
                         btn.Width = 217;
                         button12.Width = 42;
                         button5.Text = "Articulos";
+                        button1.Text = "Delivery";
                         button8.Text = "Mesas";
                         button2.Text = "Clientes";
                         button5.Text = "Articulos";
@@ -293,7 +295,6 @@ namespace Proyecto_restaurante
                         label1.ImageAlign = ContentAlignment.MiddleRight;
                         label2.ImageAlign = ContentAlignment.MiddleRight;
                         ajustestxt.ImageAlign = ContentAlignment.MiddleRight;
-                        logoarroz.Visible = true;
                     }
                 }
 

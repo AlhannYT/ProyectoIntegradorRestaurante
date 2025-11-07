@@ -528,6 +528,7 @@
             textBox3.Enabled = false;
             textBox3.Location = new Point(411, 36);
             textBox3.Name = "textBox3";
+            textBox3.PlaceholderText = "Direccion";
             textBox3.Size = new Size(179, 29);
             textBox3.TabIndex = 79;
             // 
@@ -536,6 +537,7 @@
             textBox1.Enabled = false;
             textBox1.Location = new Point(81, 36);
             textBox1.Name = "textBox1";
+            textBox1.PlaceholderText = "Numero";
             textBox1.Size = new Size(113, 29);
             textBox1.TabIndex = 79;
             // 
@@ -649,6 +651,7 @@
             textBox2.Enabled = false;
             textBox2.Location = new Point(339, 36);
             textBox2.Name = "textBox2";
+            textBox2.PlaceholderText = "Etiqueta";
             textBox2.Size = new Size(66, 29);
             textBox2.TabIndex = 79;
             // 
@@ -657,6 +660,7 @@
             txtcodigo.Enabled = false;
             txtcodigo.Location = new Point(9, 36);
             txtcodigo.Name = "txtcodigo";
+            txtcodigo.PlaceholderText = "Etiqueta";
             txtcodigo.Size = new Size(66, 29);
             txtcodigo.TabIndex = 79;
             // 

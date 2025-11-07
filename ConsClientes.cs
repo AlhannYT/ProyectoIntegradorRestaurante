@@ -71,7 +71,7 @@ namespace Proyecto_restaurante
 
             try
             {
-                string consultaEmpleados = @"
+                string consultaCliente = @"
                 SELECT 
                     e.IdCliente,
                     p.NombreCompleto,
@@ -81,7 +81,7 @@ namespace Proyecto_restaurante
                 LEFT JOIN PersonaDocumento pd ON p.IdPersona = pd.IdPersona
                 WHERE e.Activo = 1 AND p.Activo = 1;";
 
-                using (SqlDataAdapter adaptador = new SqlDataAdapter(consultaEmpleados, conexionString))
+                using (SqlDataAdapter adaptador = new SqlDataAdapter(consultaCliente, conexionString))
                 {
                     DataTable dt = new DataTable();
                     adaptador.Fill(dt);

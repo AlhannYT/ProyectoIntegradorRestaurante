@@ -464,7 +464,7 @@
             button7.Image = Properties.Resources.basurablanco;
             button7.Location = new Point(799, 169);
             button7.Name = "button7";
-            button7.Size = new Size(28, 29);
+            button7.Size = new Size(29, 29);
             button7.TabIndex = 82;
             button7.UseVisualStyleBackColor = false;
             // 
@@ -593,7 +593,7 @@
             agregarbtn.Image = Properties.Resources.angulo_hacia_abajo;
             agregarbtn.Location = new Point(799, 37);
             agregarbtn.Name = "agregarbtn";
-            agregarbtn.Size = new Size(28, 29);
+            agregarbtn.Size = new Size(29, 29);
             agregarbtn.TabIndex = 77;
             agregarbtn.UseVisualStyleBackColor = true;
             agregarbtn.Click += agregarbtn_Click;

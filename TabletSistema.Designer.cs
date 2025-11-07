@@ -43,16 +43,18 @@
             panel3 = new Panel();
             guardarbtn = new Button();
             limpiarbtn = new Button();
+            mesapanel = new Panel();
             seleccionarmesapanel.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
+            mesapanel.SuspendLayout();
             SuspendLayout();
             // 
             // panelMesas
             // 
             panelMesas.AutoScroll = true;
             panelMesas.BackColor = Color.FromArgb(64, 64, 64);
-            panelMesas.Location = new Point(6, 109);
+            panelMesas.Location = new Point(3, 43);
             panelMesas.Name = "panelMesas";
             panelMesas.Size = new Size(646, 581);
             panelMesas.TabIndex = 26;
@@ -70,15 +72,11 @@
             // 
             // seleccionarmesapanel
             // 
-            seleccionarmesapanel.Controls.Add(panel2);
-            seleccionarmesapanel.Controls.Add(label12);
-            seleccionarmesapanel.Controls.Add(eliminarbtn);
-            seleccionarmesapanel.Controls.Add(txtbuscador);
-            seleccionarmesapanel.Controls.Add(panelMesas);
             seleccionarmesapanel.Controls.Add(button1);
             seleccionarmesapanel.Controls.Add(button2);
-            seleccionarmesapanel.Controls.Add(panel3);
             seleccionarmesapanel.Controls.Add(label5);
+            seleccionarmesapanel.Controls.Add(mesapanel);
+            seleccionarmesapanel.Controls.Add(panel3);
             seleccionarmesapanel.Location = new Point(6, 5);
             seleccionarmesapanel.Name = "seleccionarmesapanel";
             seleccionarmesapanel.Size = new Size(659, 800);
@@ -90,7 +88,7 @@
             panel2.Controls.Add(checkBox2);
             panel2.Controls.Add(checkBox1);
             panel2.Controls.Add(label15);
-            panel2.Location = new Point(343, 71);
+            panel2.Location = new Point(338, 5);
             panel2.Name = "panel2";
             panel2.Size = new Size(273, 32);
             panel2.TabIndex = 100;
@@ -145,7 +143,7 @@
             label12.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label12.ForeColor = SystemColors.Control;
             label12.Image = Properties.Resources.busqueda1;
-            label12.Location = new Point(313, 75);
+            label12.Location = new Point(307, 9);
             label12.Name = "label12";
             label12.Size = new Size(18, 21);
             label12.TabIndex = 98;
@@ -154,7 +152,7 @@
             // eliminarbtn
             // 
             eliminarbtn.Image = Properties.Resources.limpio;
-            eliminarbtn.Location = new Point(620, 71);
+            eliminarbtn.Location = new Point(617, 5);
             eliminarbtn.Name = "eliminarbtn";
             eliminarbtn.Size = new Size(32, 32);
             eliminarbtn.TabIndex = 99;
@@ -164,7 +162,7 @@
             // 
             txtbuscador.Font = new Font("Segoe UI", 14F);
             txtbuscador.ForeColor = SystemColors.ScrollBar;
-            txtbuscador.Location = new Point(9, 71);
+            txtbuscador.Location = new Point(3, 5);
             txtbuscador.Name = "txtbuscador";
             txtbuscador.PlaceholderText = "Buscar Mesa";
             txtbuscador.Size = new Size(328, 32);
@@ -203,9 +201,9 @@
             panel3.BackColor = Color.FromArgb(64, 64, 64);
             panel3.Controls.Add(guardarbtn);
             panel3.Controls.Add(limpiarbtn);
-            panel3.Location = new Point(6, 687);
+            panel3.Location = new Point(6, 694);
             panel3.Name = "panel3";
-            panel3.Size = new Size(646, 109);
+            panel3.Size = new Size(646, 102);
             panel3.TabIndex = 95;
             // 
             // guardarbtn
@@ -230,6 +228,18 @@
             limpiarbtn.Text = "Atrás";
             limpiarbtn.UseVisualStyleBackColor = true;
             // 
+            // mesapanel
+            // 
+            mesapanel.Controls.Add(panelMesas);
+            mesapanel.Controls.Add(panel2);
+            mesapanel.Controls.Add(label12);
+            mesapanel.Controls.Add(eliminarbtn);
+            mesapanel.Controls.Add(txtbuscador);
+            mesapanel.Location = new Point(3, 64);
+            mesapanel.Name = "mesapanel";
+            mesapanel.Size = new Size(652, 629);
+            mesapanel.TabIndex = 101;
+            // 
             // TabletSistema
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -247,6 +257,8 @@
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             panel3.ResumeLayout(false);
+            mesapanel.ResumeLayout(false);
+            mesapanel.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -267,5 +279,6 @@
         private TextBox txtbuscador;
         private CheckBox checkBox2;
         private CheckBox checkBox1;
+        private Panel mesapanel;
     }
 }

@@ -172,6 +172,10 @@
             label32 = new Label();
             panel10 = new Panel();
             button12 = new Button();
+            checkBox2 = new CheckBox();
+            precminimo = new CheckBox();
+            precmaximo = new TextBox();
+            label21 = new Label();
             barraizq.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
@@ -199,6 +203,7 @@
             panel7.SuspendLayout();
             tabControl3.SuspendLayout();
             tabPage5.SuspendLayout();
+            tabPage6.SuspendLayout();
             panel1.SuspendLayout();
             asignarPCPanel.SuspendLayout();
             cajapanel.SuspendLayout();
@@ -1387,7 +1392,7 @@
             admin.AutoSize = true;
             admin.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             admin.ForeColor = Color.Gold;
-            admin.Location = new Point(15, 44);
+            admin.Location = new Point(15, 23);
             admin.Name = "admin";
             admin.Size = new Size(139, 25);
             admin.TabIndex = 0;
@@ -1397,6 +1402,10 @@
             // tabPage6
             // 
             tabPage6.BackColor = SystemColors.WindowFrame;
+            tabPage6.Controls.Add(precmaximo);
+            tabPage6.Controls.Add(precminimo);
+            tabPage6.Controls.Add(checkBox2);
+            tabPage6.Controls.Add(label21);
             tabPage6.Location = new Point(4, 30);
             tabPage6.Name = "tabPage6";
             tabPage6.Padding = new Padding(3);
@@ -1878,6 +1887,48 @@
             button12.Text = "      Procesar cambios";
             button12.UseVisualStyleBackColor = true;
             // 
+            // checkBox2
+            // 
+            checkBox2.AutoSize = true;
+            checkBox2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            checkBox2.ForeColor = Color.White;
+            checkBox2.Location = new Point(15, 17);
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new Size(226, 25);
+            checkBox2.TabIndex = 1;
+            checkBox2.Text = "Cambiar precio en pedido";
+            checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // precminimo
+            // 
+            precminimo.AutoSize = true;
+            precminimo.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            precminimo.ForeColor = Color.White;
+            precminimo.Location = new Point(15, 59);
+            precminimo.Name = "precminimo";
+            precminimo.Size = new Size(141, 25);
+            precminimo.TabIndex = 1;
+            precminimo.Text = "Precio Mínimo";
+            precminimo.UseVisualStyleBackColor = true;
+            // 
+            // precmaximo
+            // 
+            precmaximo.Location = new Point(112, 95);
+            precmaximo.Name = "precmaximo";
+            precmaximo.Size = new Size(69, 29);
+            precmaximo.TabIndex = 2;
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label21.ForeColor = Color.White;
+            label21.Location = new Point(15, 99);
+            label21.Name = "label21";
+            label21.Size = new Size(91, 21);
+            label21.TabIndex = 101;
+            label21.Text = "% Máximo";
+            // 
             // Configuracion
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1937,6 +1988,8 @@
             tabControl3.ResumeLayout(false);
             tabPage5.ResumeLayout(false);
             tabPage5.PerformLayout();
+            tabPage6.ResumeLayout(false);
+            tabPage6.PerformLayout();
             panel1.ResumeLayout(false);
             asignarPCPanel.ResumeLayout(false);
             asignarPCPanel.PerformLayout();
@@ -2103,5 +2156,9 @@
         private Panel panel10;
         private Button button12;
         public Button sistema;
+        private CheckBox checkBox2;
+        private TextBox precmaximo;
+        private CheckBox precminimo;
+        private Label label21;
     }
 }

@@ -641,7 +641,7 @@
             // 
             textBox2.Location = new Point(339, 36);
             textBox2.Name = "textBox2";
-            textBox2.PlaceholderText = "Nombre";
+            textBox2.PlaceholderText = "Etiqueta";
             textBox2.Size = new Size(66, 29);
             textBox2.TabIndex = 79;
             // 
@@ -649,7 +649,7 @@
             // 
             txtcodigo.Location = new Point(9, 36);
             txtcodigo.Name = "txtcodigo";
-            txtcodigo.PlaceholderText = "Nombre";
+            txtcodigo.PlaceholderText = "Etiqueta";
             txtcodigo.Size = new Size(66, 29);
             txtcodigo.TabIndex = 79;
             // 

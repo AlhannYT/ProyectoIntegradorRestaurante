@@ -25,25 +25,34 @@ namespace Proyecto_restaurante
         private int cantidadProd = 0;
         private string pedidoActual;
         private string nombreMesa;
-        public string NombreResponsable;
+        public string NombrePC;
         private int IDMesa = 0;
+
+        string conexionString = ConexionBD.ConexionSQL();
 
         private void buscarclientebtn_Click(object sender, EventArgs e)
         {
             panelclientes.Location = new Point(0, 0);
             panelclientes.Visible = true;
 
-            string conexionString = ConexionBD.ConexionSQL();
+            string consultaCliente = @"
+                SELECT 
+                    e.IdCliente,
+                    p.NombreCompleto,
+                    pd.Numero AS Cedula
+                FROM Cliente e
+                LEFT JOIN Persona p ON e.IdPersona = p.IdPersona
+                LEFT JOIN PersonaDocumento pd ON p.IdPersona = pd.IdPersona
+                WHERE e.Activo = 1 AND p.Activo = 1;";
 
-            string consulta = "select id, nombre_cliente, apellido_cliente, identificacion, telefono from cliente";
+            using (SqlDataAdapter adaptador = new SqlDataAdapter(consultaCliente, conexionString))
+            {
+                DataTable dt = new DataTable();
 
-            SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
+                adaptador.Fill(dt);
 
-            DataTable dt = new DataTable();
-
-            adaptador.Fill(dt);
-
-            tablaclientes.DataSource = dt;
+                tablaclientes.DataSource = dt;
+            }
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -63,35 +72,38 @@ namespace Proyecto_restaurante
             panelproducto.Location = new Point(0, 0);
             panelproducto.Visible = true;
 
-            string conexionString = ConexionBD.ConexionSQL();
-
-            string consulta = "select id, codigo_producto, nombre_producto, categoria, precio_venta, iva, existencia, codigo_de_barra from productos where existencia > 0";
-
+            string consulta = "SELECT \r\n    pv.IdProducto,\r\n    pv.CodigoBarra,\r\n    pv.Nombre,\r\n    pv.PrecioVenta,\r\n    pv.Itbis,\r\n    pv.Existencia\r\nFROM ProductoVenta pv\r\nINNER JOIN ProductoTipo pt\r\n    ON pv.IdProductoTipo = pt.IdProductoTipo\r\nWHERE \r\n    pv.Activo = 1\r\n    AND pt.Ingrediente = 0;";
             SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
-
             DataTable dt = new DataTable();
-
             adaptador.Fill(dt);
-
             tablapanelproducto.DataSource = dt;
+
+            tablapanelproducto.Columns["IdProducto"].HeaderText = "ID";
+            tablapanelproducto.Columns["CodigoBarra"].HeaderText = "Código";
+            tablapanelproducto.Columns["Nombre"].HeaderText = "Nombre";
+            tablapanelproducto.Columns["PrecioVenta"].HeaderText = "Venta";
+            tablapanelproducto.Columns["ITBIS"].HeaderText = "ITBIS";
+            tablapanelproducto.Columns["Existencia"].HeaderText = "Existencia";
+
         }
 
         private void asignarmesabtn_Click(object sender, EventArgs e)
         {
-            panelmesas.Location = new Point(0, 0);
-            panelmesas.Visible = true;
+            detallepagopanel.Visible = true;
+            detallepagopanel.Location = new Point(466, 0);
+            panelmesas.Visible = false;
 
-            string conexionString = ConexionBD.ConexionSQL();
+            //string conexionString = ConexionBD.ConexionSQL();
 
-            string consulta = "select id, sala, nombre_mesa, num_asientos, estado from mesas";
+            //string consulta = "select id, sala, nombre_mesa, num_asientos, estado from mesas";
 
-            SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
+            //SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
 
-            DataTable dt = new DataTable();
+            //DataTable dt = new DataTable();
 
-            adaptador.Fill(dt);
+            //adaptador.Fill(dt);
 
-            tablaseleccionmesas.DataSource = dt;
+            //tablaseleccionmesas.DataSource = dt;
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -116,10 +128,10 @@ namespace Proyecto_restaurante
             {
                 DataGridViewRow row = tablapanelproducto.Rows[e.RowIndex];
 
-                txtcodigoproducto.Text = row.Cells["codigo_producto"].Value.ToString();
-                txtnombreproducto.Text = row.Cells["nombre_producto"].Value.ToString();
-                txtprecioproducto.Text = row.Cells["precio_venta"].Value.ToString();
-                txtiva.Text = row.Cells["iva"].Value.ToString();
+                txtcodigoproducto.Text = row.Cells["IdProducto"].Value.ToString();
+                txtnombreproducto.Text = row.Cells["Nombre"].Value.ToString();
+                txtprecioproducto.Text = row.Cells["PrecioVenta"].Value.ToString();
+                txtiva.Text = row.Cells["ITBIS"].Value.ToString();
             }
 
             panelproducto.Visible = false;
@@ -144,65 +156,11 @@ namespace Proyecto_restaurante
             habilitarbotones(sender, e);
         }
 
-        private void tablaseleccionmesas_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0)
-            {
-                DataGridViewRow row = tablaseleccionmesas.Rows[e.RowIndex];
-                IDMesa = Convert.ToInt32(row.Cells["id"].Value);
-
-                string conexionString = ConexionBD.ConexionSQL();
-
-                using (SqlConnection conexion = new SqlConnection(conexionString))
-                {
-                    try
-                    {
-                        conexion.Open();
-
-                        string query = "SELECT estado FROM mesas WHERE id = @idMesa";
-                        using (SqlCommand command = new SqlCommand(query, conexion))
-                        {
-                            command.Parameters.AddWithValue("@idMesa", IDMesa);
-
-                            bool estadoMesa = (bool)command.ExecuteScalar();
-
-                            if (!estadoMesa)
-                            {
-                                MessageBox.Show("La mesa está ocupada.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                return;
-                            }
-                            else
-                            {
-                                labelmesa.Text = row.Cells["nombre_mesa"].Value.ToString();
-                                labelsalamesa.Text = row.Cells["sala"].Value.ToString();
-
-                                panelmesas.Visible = false;
-                                panelmesas.Location = new Point(803, 33);
-                                guardarpedidobtn.Enabled = true;
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Ocurrió un error al verificar la mesa: {ex.Message}");
-                    }
-                }
-            }
-        }
-
         private decimal totalAcumulado = 0;
         private decimal subtotalAcumulado = 0;
 
         private void bajarproductobtn_Click(object sender, EventArgs e)
         {
-            if (tabladatosconsultaprod.ColumnCount == 0)
-            {
-                tabladatosconsultaprod.Columns.Add("codigoProducto", "Codigo");
-                tabladatosconsultaprod.Columns.Add("nombreProducto", "Nombre");
-                tabladatosconsultaprod.Columns.Add("precio", "Precio");
-                tabladatosconsultaprod.Columns.Add("cantidad", "Cantidad");
-            }
-
             string codigoProducto = txtcodigoproducto.Text;
             string nombreProducto = txtnombreproducto.Text;
             decimal precio;
@@ -222,7 +180,7 @@ namespace Proyecto_restaurante
             }
 
             decimal subtotal = precio * cantidad;
-            decimal total = subtotal + (subtotal * iva);
+            decimal total = subtotal + (subtotal * (iva / 100));
 
             subtotalAcumulado += subtotal;
             totalAcumulado += total;
@@ -235,7 +193,8 @@ namespace Proyecto_restaurante
             row.Cells[0].Value = codigoProducto;
             row.Cells[1].Value = nombreProducto;
             row.Cells[2].Value = precio;
-            row.Cells[3].Value = cantidad;
+            row.Cells[3].Value = iva;
+            row.Cells[4].Value = cantidad;
 
             tabladatosconsultaprod.Rows.Add(row);
 
@@ -243,10 +202,10 @@ namespace Proyecto_restaurante
 
             labelcantidadarticulos.Text = cantidadProd.ToString();
 
-            txtcodigoproducto.Text = "";
-            txtnombreproducto.Text = "";
-            txtprecioproducto.Text = "";
-            txtiva.Text = "";
+            txtcodigoproducto.Clear();
+            txtnombreproducto.Clear();
+            txtprecioproducto.Clear();
+            txtiva.Clear();
             numCantidad.Value = numCantidad.Minimum;
 
             asignarmesabtn.Enabled = true;
@@ -254,116 +213,97 @@ namespace Proyecto_restaurante
 
         private void tabladatosconsultaprod_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            string codigoProducto = tabladatosconsultaprod.SelectedCells[0].Value.ToString();
 
-            string rutaImagenes = @"C:\SistemaArchivos\Productos\";
-            string rutaImagenProducto = Path.Combine(rutaImagenes, codigoProducto + ".jpg");
+        }
 
-            if (File.Exists(rutaImagenProducto))
+        private Color colorSeleccionado = Color.DodgerBlue;
+        private int idMesaSeleccionada = -1;
+        private Panel tarjetaActiva = null;
+
+        private void Tarjeta_Click(object sender, EventArgs e)
+        {
+            Panel tarjetaSeleccionada = sender as Panel;
+
+            if (tarjetaSeleccionada != null)
             {
-                imagenproducto.Image = System.Drawing.Image.FromFile(rutaImagenProducto);
-            }
-            else
-            {
-                imagenproducto.Image = null;
-                MessageBox.Show("Imagen no encontrada para el producto seleccionado.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                if (tarjetaActiva != null)
+                {
+                    dynamic anterior = tarjetaActiva.Tag;
+                    tarjetaActiva.BackColor = (anterior.Estado == 1) ? Color.LightGreen : Color.LightCoral;
+                }
+
+                tarjetaActiva = tarjetaSeleccionada;
+                tarjetaSeleccionada.BackColor = Color.DodgerBlue;
+
+                dynamic mesa = tarjetaSeleccionada.Tag;
+                idMesaSeleccionada = mesa.Id;
             }
         }
 
         private void guardarpedidobtn_Click(object sender, EventArgs e)
         {
-            Regex numerosRegex = new Regex(@"^[\d.-]+$");
+            panelmesas.Visible = true;
+            panelmesas.Location = new Point(0, 0);
 
-            if (txtnombrecompleto.Text.Equals("") ||
-                txtnumero_cliente.Text.Equals(""))
-            {
-                MessageBox.Show("No debe dejar campos vacíos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            string conexionString = ConexionBD.ConexionSQL();
+            string consulta = "select IdMesa, IdSala, Numero, Capacidad, Ocupado, Estado from Mesa";
 
             using (SqlConnection conexion = new SqlConnection(conexionString))
             {
-                try
+                conexion.Open();
+                using (SqlCommand comando = new SqlCommand(consulta, conexion))
                 {
-                    conexion.Open();
-
-                    if (string.IsNullOrEmpty(pedidoActual))
+                    using (SqlDataReader lector = comando.ExecuteReader())
                     {
-                        string queryInsertar = "INSERT INTO facturas (id_pedido, nombre_cliente, mesa, fecha, total, estado) VALUES (@idPedido, @nombreCliente, @mesa, @fecha, @total, 'Pendiente')";
-                        using (SqlCommand insertarCommand = new SqlCommand(queryInsertar, conexion))
+                        flowmesas.Controls.Clear();
+
+                        while (lector.Read())
                         {
-                            decimal totalValor;
+                            Panel tarjeta = new Panel();
+                            tarjeta.Width = 150;
+                            tarjeta.Height = 100;
+                            tarjeta.BorderStyle = BorderStyle.FixedSingle;
+                            tarjeta.Margin = new Padding(10);
 
-                            insertarCommand.Parameters.AddWithValue("@idPedido", txtidpedido.Text);
-                            insertarCommand.Parameters.AddWithValue("@nombreCliente", txtnombrecompleto.Text);
-                            insertarCommand.Parameters.AddWithValue("@mesa", labelmesa.Text);
-                            insertarCommand.Parameters.AddWithValue("@fecha", fechapedido.Value.ToString());
+                            int estado = Convert.ToInt32(lector["Ocupado"]);
+                            tarjeta.BackColor = (estado == 1) ? Color.LightCoral : Color.LightGreen;
 
-                            if (decimal.TryParse(labeltotal.Text, out totalValor))
+                            tarjeta.Tag = new
                             {
-                                insertarCommand.Parameters.AddWithValue("@total", totalValor);
-                            }
-                            else
-                            {
-                                MessageBox.Show("El valor en el label 'Total' no es un número válido.");
-                                return;
-                            }
+                                Id = Convert.ToInt32(lector["IdMesa"]),
+                                Estado = estado
+                            };
 
-                            int rowsAffected = insertarCommand.ExecuteNonQuery();
+                            Label lblMesa = new Label();
+                            lblMesa.Text = "Mesa # " + lector["Numero"].ToString();
+                            lblMesa.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+                            lblMesa.AutoSize = false;
+                            lblMesa.TextAlign = ContentAlignment.MiddleCenter;
+                            lblMesa.Dock = DockStyle.Top;
 
-                            if (rowsAffected > 0)
-                            {
-                                MessageBox.Show("Pedido registrado con éxito.");
-                                imagenproducto.Image = Proyecto_restaurante.Properties.Resources.paisaje;
+                            Label lblSala = new Label();
+                            lblSala.Text = "Sala: " + lector["IdSala"].ToString();
+                            lblSala.Dock = DockStyle.Top;
+                            lblSala.TextAlign = ContentAlignment.MiddleCenter;
 
-                                foreach (DataGridViewRow row in tabladatosconsultaprod.Rows)
-                                {
-                                    string codigoProducto = row.Cells["codigoProducto"].Value.ToString();
-                                    int cantidadPedida = Convert.ToInt32(row.Cells["cantidad"].Value);
+                            Label lblAsientos = new Label();
+                            lblAsientos.Text = "Asientos: " + lector["Capacidad"].ToString();
+                            lblAsientos.Dock = DockStyle.Bottom;
+                            lblAsientos.TextAlign = ContentAlignment.MiddleCenter;
 
-                                    string queryActualizarExistencia = "UPDATE productos SET existencia = existencia - @cantidadPedida WHERE codigo_producto = @codigoProducto";
-                                    using (SqlCommand actualizarExistenciaCommand = new SqlCommand(queryActualizarExistencia, conexion))
-                                    {
-                                        actualizarExistenciaCommand.Parameters.AddWithValue("@cantidadPedida", cantidadPedida);
-                                        actualizarExistenciaCommand.Parameters.AddWithValue("@codigoProducto", codigoProducto);
+                            tarjeta.Controls.Add(lblAsientos);
+                            tarjeta.Controls.Add(lblSala);
+                            tarjeta.Controls.Add(lblMesa);
 
-                                        actualizarExistenciaCommand.ExecuteNonQuery();
-                                    }
-                                }
+                            tarjeta.Click += Tarjeta_Click;
 
-                                string queryActualizarMesa = "UPDATE mesas SET estado = 0 WHERE nombre_mesa = @mesa";
-                                using (SqlCommand actualizarMesaCommand = new SqlCommand(queryActualizarMesa, conexion))
-                                {
-                                    actualizarMesaCommand.Parameters.AddWithValue("@mesa", labelmesa.Text);
-
-                                    int rowsAffectedMesa = actualizarMesaCommand.ExecuteNonQuery();
-
-                                    if (rowsAffected > 0)
-                                    {
-                                        buscarclientebtn.Focus();
-                                        limpiarbtn_Click(sender, e);
-                                        Pedidos_Load(sender, e);
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("No se pudo Actualizar la mesa.");
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                MessageBox.Show("No se pudo guardar los datos.");
-                            }
+                            flowmesas.Controls.Add(tarjeta);
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Ocurrió un error: {ex.Message}");
-                }
             }
+
+            panelmesas.Visible = true;
+            panelmesas.Location = new Point(0, 0);
         }
 
         private void Pedidos_Load(object sender, EventArgs e)
@@ -373,8 +313,15 @@ namespace Proyecto_restaurante
 
             string conexionString = ConexionBD.ConexionSQL();
 
-            string consulta = "SELECT TOP 1 id FROM facturas ORDER BY id DESC";
-            string busquedaCaja = "SELECT nombre_caja, numero_caja from cajas where responsable = @responsable";
+            string consulta = "SELECT TOP 1 IdPedido FROM Pedido ORDER BY IdPedido DESC";
+            string busquedaCaja = @"
+            SELECT 
+                c.Nombre AS nombre_caja,
+                c.Numero AS numero_caja
+            FROM Configuracion conf
+            INNER JOIN Caja c
+                ON conf.IdCaja = c.IdCaja
+            WHERE conf.NombrePC = @NombrePC";
 
             using (SqlConnection con = new SqlConnection(conexionString))
             {
@@ -401,15 +348,14 @@ namespace Proyecto_restaurante
                 con.Open();
                 using (SqlCommand cmdBusCaja = new SqlCommand(busquedaCaja, con))
                 {
-                    cmdBusCaja.Parameters.AddWithValue("@responsable", NombreResponsable);
+                    cmdBusCaja.Parameters.AddWithValue("@NombrePC", NombrePC);
 
                     using (SqlDataReader reader = cmdBusCaja.ExecuteReader())
                     {
                         if (reader.Read())
                         {
                             string nombreCaja = reader["nombre_caja"].ToString();
-                            string numeroCaja = reader["numero_caja"].ToString();
-                            labelcaja.Text = $"Caja: {nombreCaja} - {numeroCaja}";
+                            labelcaja.Text = $"{nombreCaja}";
                         }
                         else
                         {
@@ -418,36 +364,43 @@ namespace Proyecto_restaurante
                     }
                 }
             }
+
+            if (tabladatosconsultaprod.ColumnCount == 0)
+            {
+                tabladatosconsultaprod.Columns.Add("codigoProducto", "Codigo");
+                tabladatosconsultaprod.Columns.Add("nombreProducto", "Nombre");
+                tabladatosconsultaprod.Columns.Add("precio", "Precio");
+                tabladatosconsultaprod.Columns.Add("ITBIS", "ITBIS");
+                tabladatosconsultaprod.Columns.Add("cantidad", "Cantidad");
+            }
+
+            if (tablareceta.ColumnCount == 0)
+            {
+                tablareceta.Columns.Add("IdIngrediente", "ID");
+                tablareceta.Columns.Add("nombreIngrediente", "Ingrediente");
+                tablareceta.Columns.Add("cantidad", "Cantidad");
+            }
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             string conexionString = ConexionBD.ConexionSQL();
 
-            string consultaBase = "select id_pedido, nombre_cliente, mesa, fecha, total, estado from facturas";
+            string consultaBase = "select IdPedido, IdClientePersona, IdMesa, Fecha, Estado from Pedido";
             string filtro = "";
 
             if (facturadochk.Checked)
-            {
                 filtro = " where estado = 'Facturado'";
-            }
             else if (pendientechk.Checked)
-            {
                 filtro = " where estado = 'Pendiente'";
-            }
             else if (canceladochk.Checked)
-            {
                 filtro = " where estado = 'Cancelado'";
-            }
             else if (todoschk.Checked)
-            {
                 filtro = "";
-            }
 
             string consultaFinal = consultaBase + filtro;
 
             SqlDataAdapter adaptador = new SqlDataAdapter(consultaFinal, conexionString);
-
             DataTable dt = new DataTable();
             adaptador.Fill(dt);
 
@@ -462,7 +415,6 @@ namespace Proyecto_restaurante
             txtnombrecompleto.Clear();
             txtnumero_cliente.Clear();
 
-            imagenproducto.Image = Proyecto_restaurante.Properties.Resources.paisaje;
 
             txtcodigoproducto.Clear();
             txtnombreproducto.Clear();
@@ -693,7 +645,7 @@ namespace Proyecto_restaurante
 
         private void buscarproductobtn_MouseDown(object sender, MouseEventArgs e)
         {
-            
+
         }
 
         private void txtbusquedafactura_TextChanged(object sender, EventArgs e)
@@ -734,28 +686,6 @@ namespace Proyecto_restaurante
                     MessageBox.Show($"Error: {ex.Message}");
                 }
 
-            }
-        }
-
-        private void txtbusquedafactura_Enter(object sender, EventArgs e)
-        {
-            todoschk.Checked = true;
-            if (txtbusquedafactura.Text == "(ID Pedido, Cliente, Mesa, Total)")
-            {
-                txtbusquedafactura.Text = "";
-                txtbusquedafactura.ForeColor = Color.Black;
-            }
-        }
-
-        private void txtbusquedafactura_Leave(object sender, EventArgs e)
-        {
-            pendientechk.Checked = true;
-
-            if (txtbusquedafactura.Text == "")
-            {
-                txtbusquedafactura.Text = "(ID Pedido, Cliente, Mesa, Total)";
-                txtbusquedafactura.ForeColor = Color.Gray;
-                tabControl1_SelectedIndexChanged(sender, e);
             }
         }
 
@@ -1053,10 +983,28 @@ namespace Proyecto_restaurante
 
         private void txtnombrecompleto_TextChanged(object sender, EventArgs e)
         {
-            if(!string.IsNullOrEmpty(txtnombrecompleto.Text))
+            if (!string.IsNullOrEmpty(txtnombrecompleto.Text))
             {
                 habilitarbotones(sender, e);
             }
+        }
+
+        private void tabPage2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pagarefectivo_Click(object sender, EventArgs e)
+        {
+            detallepagopanel.Visible = false;
+            detallepagopanel.Location = new Point(1617, 6);
+            devueltapanel.Visible = true;
+            devueltapanel.Location = new Point(466, 0);
+        }
+
+        private void txtnumero_cliente_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
