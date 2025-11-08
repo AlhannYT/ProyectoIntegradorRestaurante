@@ -275,6 +275,26 @@ namespace Proyecto_restaurante
                             insertarCliente.ExecuteNonQuery();
                         }
 
+                        foreach (DataGridViewRow fila in telefonocliente.Rows)
+                        {
+                            if (fila.IsNewRow) continue;
+
+                            string queryReceta = @"
+                                INSERT INTO Receta (IdProducto, IdIngrediente, IdUnidadMedida, Cantidad, Activo)
+                                VALUES (@IdProducto, @IdIngrediente, @IdUnidadMedida, @Cantidad, 1)";
+
+                            using (SqlCommand cmdReceta = new SqlCommand(queryReceta, conexion))
+                            {
+                                //cmdReceta.Parameters.AddWithValue("@IdProducto", nuevoIdProducto);
+                                //cmdReceta.Parameters.AddWithValue("@IdIngrediente", idIngrediente);
+                                //cmdReceta.Parameters.AddWithValue("@IdUnidadMedida", idUnidadMedida);
+                                //cmdReceta.Parameters.AddWithValue("@Cantidad", cantidad);
+
+                                cmdReceta.ExecuteNonQuery();
+                            }
+                        }
+
+
                         trans.Commit();
                         MessageBox.Show("Cliente registrado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         RestablecerFormulario();

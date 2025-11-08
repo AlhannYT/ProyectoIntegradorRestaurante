@@ -57,8 +57,8 @@
             label13 = new Label();
             checkBox2 = new CheckBox();
             checkBox1 = new CheckBox();
-            dataGridView1 = new DataGridView();
-            ingredientesconsulta = new DataGridView();
+            direccioncliente = new DataGridView();
+            telefonocliente = new DataGridView();
             button7 = new Button();
             button4 = new Button();
             button6 = new Button();
@@ -90,8 +90,8 @@
             ((System.ComponentModel.ISupportInitialize)clienteimg).BeginInit();
             tabPage2.SuspendLayout();
             panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)ingredientesconsulta).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)direccioncliente).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)telefonocliente).BeginInit();
             panel3.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)imagencliente).BeginInit();
@@ -377,8 +377,8 @@
             panel5.Controls.Add(label13);
             panel5.Controls.Add(checkBox2);
             panel5.Controls.Add(checkBox1);
-            panel5.Controls.Add(dataGridView1);
-            panel5.Controls.Add(ingredientesconsulta);
+            panel5.Controls.Add(direccioncliente);
+            panel5.Controls.Add(telefonocliente);
             panel5.Controls.Add(button7);
             panel5.Controls.Add(button4);
             panel5.Controls.Add(button6);
@@ -407,6 +407,7 @@
             // 
             textBox3.Location = new Point(408, 36);
             textBox3.Name = "textBox3";
+            textBox3.PlaceholderText = "Dirección";
             textBox3.Size = new Size(166, 29);
             textBox3.TabIndex = 79;
             // 
@@ -414,6 +415,7 @@
             // 
             numerotxt.Location = new Point(78, 36);
             numerotxt.Name = "numerotxt";
+            numerotxt.PlaceholderText = "Número";
             numerotxt.Size = new Size(113, 29);
             numerotxt.TabIndex = 79;
             // 
@@ -452,33 +454,39 @@
             checkBox1.Text = "Principal";
             checkBox1.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // direccioncliente
             // 
-            dataGridView1.AllowUserToAddRows = false;
-            dataGridView1.AllowUserToDeleteRows = false;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(339, 71);
-            dataGridView1.MultiSelect = false;
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.ReadOnly = true;
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView1.Size = new Size(329, 129);
-            dataGridView1.TabIndex = 74;
+            direccioncliente.AllowUserToAddRows = false;
+            direccioncliente.AllowUserToDeleteRows = false;
+            direccioncliente.AllowUserToResizeRows = false;
+            direccioncliente.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            direccioncliente.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            direccioncliente.Location = new Point(339, 71);
+            direccioncliente.MultiSelect = false;
+            direccioncliente.Name = "direccioncliente";
+            direccioncliente.ReadOnly = true;
+            direccioncliente.RowHeadersVisible = false;
+            direccioncliente.RowHeadersWidth = 51;
+            direccioncliente.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            direccioncliente.Size = new Size(329, 129);
+            direccioncliente.TabIndex = 74;
             // 
-            // ingredientesconsulta
+            // telefonocliente
             // 
-            ingredientesconsulta.AllowUserToAddRows = false;
-            ingredientesconsulta.AllowUserToDeleteRows = false;
-            ingredientesconsulta.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            ingredientesconsulta.Location = new Point(9, 69);
-            ingredientesconsulta.MultiSelect = false;
-            ingredientesconsulta.Name = "ingredientesconsulta";
-            ingredientesconsulta.ReadOnly = true;
-            ingredientesconsulta.RowHeadersWidth = 51;
-            ingredientesconsulta.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            ingredientesconsulta.Size = new Size(281, 129);
-            ingredientesconsulta.TabIndex = 74;
+            telefonocliente.AllowUserToAddRows = false;
+            telefonocliente.AllowUserToDeleteRows = false;
+            telefonocliente.AllowUserToResizeRows = false;
+            telefonocliente.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            telefonocliente.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            telefonocliente.Location = new Point(9, 69);
+            telefonocliente.MultiSelect = false;
+            telefonocliente.Name = "telefonocliente";
+            telefonocliente.ReadOnly = true;
+            telefonocliente.RowHeadersVisible = false;
+            telefonocliente.RowHeadersWidth = 51;
+            telefonocliente.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            telefonocliente.Size = new Size(281, 129);
+            telefonocliente.TabIndex = 74;
             // 
             // button7
             // 
@@ -524,6 +532,7 @@
             // 
             nombredirecciontxt.Location = new Point(339, 36);
             nombredirecciontxt.Name = "nombredirecciontxt";
+            nombredirecciontxt.PlaceholderText = "Etiqueta";
             nombredirecciontxt.Size = new Size(66, 29);
             nombredirecciontxt.TabIndex = 79;
             // 
@@ -531,6 +540,7 @@
             // 
             nombrenumerotxt.Location = new Point(9, 36);
             nombrenumerotxt.Name = "nombrenumerotxt";
+            nombrenumerotxt.PlaceholderText = "Etiqueta";
             nombrenumerotxt.Size = new Size(66, 29);
             nombrenumerotxt.TabIndex = 79;
             // 
@@ -767,8 +777,8 @@
             tabPage2.PerformLayout();
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)ingredientesconsulta).EndInit();
+            ((System.ComponentModel.ISupportInitialize)direccioncliente).EndInit();
+            ((System.ComponentModel.ISupportInitialize)telefonocliente).EndInit();
             panel3.ResumeLayout(false);
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)imagencliente).EndInit();
@@ -817,8 +827,8 @@
         private Label label13;
         private CheckBox checkBox2;
         private CheckBox checkBox1;
-        private DataGridView dataGridView1;
-        private DataGridView ingredientesconsulta;
+        private DataGridView direccioncliente;
+        private DataGridView telefonocliente;
         private Button button7;
         private Button button4;
         private Button button6;

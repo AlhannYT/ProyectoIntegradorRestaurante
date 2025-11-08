@@ -40,73 +40,61 @@ namespace Proyecto_restaurante
 
                         while (lector.Read())
                         {
-                            Panel tarjeta = new Panel();
-                            tarjeta.Width = 150;
-                            tarjeta.Height = 100;
-                            tarjeta.BorderStyle = BorderStyle.FixedSingle;
-                            tarjeta.Margin = new Padding(10);
+                            Button btnMesa = new Button();
+                            btnMesa.Width = 150;
+                            btnMesa.Height = 100;
+                            btnMesa.Margin = new Padding(10);
+                            btnMesa.TextAlign = ContentAlignment.MiddleCenter;
+                            btnMesa.Font = new Font("Segoe UI", 10, FontStyle.Bold);
 
                             int estado = Convert.ToInt32(lector["Ocupado"]);
-                            tarjeta.BackColor = (estado == 1) ? Color.LightCoral : Color.LightGreen;
 
-                            tarjeta.Tag = new
+                            btnMesa.BackColor = (estado == 1) ? Color.LightCoral : Color.LightGreen;
+
+                            btnMesa.Tag = new
                             {
                                 Id = Convert.ToInt32(lector["IdMesa"]),
                                 Estado = estado
                             };
 
-                            Label lblMesa = new Label();
-                            lblMesa.Text = "Mesa # " + lector["Numero"].ToString();
-                            lblMesa.Font = new Font("Segoe UI", 12, FontStyle.Bold);
-                            lblMesa.AutoSize = false;
-                            lblMesa.TextAlign = ContentAlignment.MiddleCenter;
-                            lblMesa.Dock = DockStyle.Top;
+                            string numero = lector["Numero"].ToString();
+                            string sala = lector["IdSala"].ToString();
+                            string capacidad = lector["Capacidad"].ToString();
 
-                            Label lblSala = new Label();
-                            lblSala.Text = "Sala: " + lector["IdSala"].ToString();
-                            lblSala.Dock = DockStyle.Top;
-                            lblSala.TextAlign = ContentAlignment.MiddleCenter;
+                            btnMesa.Text =
+                                "Mesa #" + numero +
+                                "\nSala: " + sala +
+                                "\nAsientos: " + capacidad;
 
-                            Label lblAsientos = new Label();
-                            lblAsientos.Text = "Asientos: " + lector["Capacidad"].ToString();
-                            lblAsientos.Dock = DockStyle.Bottom;
-                            lblAsientos.TextAlign = ContentAlignment.MiddleCenter;
+                            btnMesa.Click += BtnMesa_Click;
 
-                            tarjeta.Controls.Add(lblAsientos);
-                            tarjeta.Controls.Add(lblSala);
-                            tarjeta.Controls.Add(lblMesa);
-
-                            tarjeta.Click += Tarjeta_Click;
-
-                            panelMesas.Controls.Add(tarjeta);
+                            panelMesas.Controls.Add(btnMesa);
                         }
+
                     }
                 }
             }
         }
 
-        private Color colorSeleccionado = Color.DodgerBlue;
+        private Button botonActivo = null;
         private int idMesaSeleccionada = -1;
-        private Panel tarjetaActiva = null;
 
-        private void Tarjeta_Click(object sender, EventArgs e)
+        private void BtnMesa_Click(object sender, EventArgs e)
         {
-            Panel tarjetaSeleccionada = sender as Panel;
+            Button btnSeleccionado = sender as Button;
 
-            if (tarjetaSeleccionada != null)
+            if (botonActivo != null)
             {
-                if (tarjetaActiva != null)
-                {
-                    dynamic anterior = tarjetaActiva.Tag;
-                    tarjetaActiva.BackColor = (anterior.Estado == 1) ? Color.LightGreen : Color.LightCoral;
-                }
-
-                tarjetaActiva = tarjetaSeleccionada;
-                tarjetaSeleccionada.BackColor = Color.DodgerBlue;
-
-                dynamic mesa = tarjetaSeleccionada.Tag;
-                idMesaSeleccionada = mesa.Id;
+                dynamic anterior = botonActivo.Tag;
+                botonActivo.BackColor = (anterior.Estado == 1) ?
+                    Color.LightCoral : Color.LightGreen;
             }
+
+            botonActivo = btnSeleccionado;
+            btnSeleccionado.BackColor = Color.DodgerBlue;
+
+            dynamic mesa = btnSeleccionado.Tag;
+            idMesaSeleccionada = mesa.Id;
         }
 
     }

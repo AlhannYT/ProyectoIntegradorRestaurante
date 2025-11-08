@@ -246,7 +246,7 @@
             button10.Name = "button10";
             button10.Size = new Size(217, 38);
             button10.TabIndex = 10;
-            button10.Text = "Pedidos";
+            button10.Text = "Ordenes (Local)";
             button10.TextAlign = ContentAlignment.MiddleLeft;
             button10.UseVisualStyleBackColor = true;
             button10.Click += button10_Click;
@@ -451,7 +451,7 @@
             button1.Name = "button1";
             button1.Size = new Size(217, 38);
             button1.TabIndex = 10;
-            button1.Text = "Delivery";
+            button1.Text = "Pedidos (Delivery)";
             button1.TextAlign = ContentAlignment.MiddleLeft;
             button1.UseVisualStyleBackColor = true;
             button1.Click += button10_Click;
