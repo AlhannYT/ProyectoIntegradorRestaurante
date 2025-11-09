@@ -546,7 +546,7 @@ namespace Proyecto_restaurante
             {
                 efectivodt.Columns.Add("TipoDetalle", "Tipo");
                 efectivodt.Columns.Add("Total", "Monto");
-                efectivodt.Columns.Add("Efectivo", "Monto Aplicado");
+                efectivodt.Columns.Add("Efectivo", "Aplicado");
 
                 TotalPedido = Convert.ToDecimal(labeltotal.Text);
                 totalrealef.Text = TotalPedido.ToString("N2");
