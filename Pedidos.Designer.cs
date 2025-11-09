@@ -32,61 +32,15 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Pedidos));
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
-            detallepanelcompleto = new Panel();
-            detallepagopanel = new Panel();
-            tabControl2 = new TabControl();
-            tabPage3 = new TabPage();
-            dataGridView2 = new DataGridView();
-            label18 = new Label();
-            label16 = new Label();
-            button3 = new Button();
-            button2 = new Button();
-            button1 = new Button();
-            textBox4 = new TextBox();
-            textBox3 = new TextBox();
-            tabPage5 = new TabPage();
-            comboBox1 = new ComboBox();
-            dataGridView3 = new DataGridView();
-            label27 = new Label();
-            label23 = new Label();
-            label24 = new Label();
-            button6 = new Button();
-            pagarefectivo = new Button();
-            button9 = new Button();
-            textBox5 = new TextBox();
-            textBox6 = new TextBox();
-            tabPage4 = new TabPage();
-            comboBox2 = new ComboBox();
-            label28 = new Label();
-            dataGridView4 = new DataGridView();
-            label25 = new Label();
-            label26 = new Label();
-            button10 = new Button();
-            button11 = new Button();
-            button12 = new Button();
-            textBox7 = new TextBox();
-            textBox8 = new TextBox();
-            label15 = new Label();
-            devueltapanel = new Panel();
-            textBox11 = new TextBox();
-            label32 = new Label();
-            label31 = new Label();
-            button13 = new Button();
-            panel12 = new Panel();
-            textBox10 = new TextBox();
-            label30 = new Label();
-            textBox9 = new TextBox();
-            label29 = new Label();
+            notapanel = new Panel();
+            notatxt = new TextBox();
             panelmesas = new Panel();
             flowmesas = new FlowLayoutPanel();
             panel8 = new Panel();
-            labelsalamesa = new Label();
-            asignarmesabtn = new Button();
-            label5 = new Label();
-            label4 = new Label();
-            labelmesa = new Label();
+            guardarordenbtn = new Button();
             txtmesabusqueda = new TextBox();
             button7 = new Button();
+            label22 = new Label();
             label14 = new Label();
             panelclientes = new Panel();
             txtclientebusqueda = new TextBox();
@@ -100,8 +54,9 @@
             tablapanelproducto = new DataGridView();
             panel2 = new Panel();
             label6 = new Label();
-            tabladatosconsultaprod = new DataGridView();
+            detalleorden = new DataGridView();
             label21 = new Label();
+            nota = new Button();
             labelcantidadarticulos = new Label();
             panel3 = new Panel();
             bajarproductobtn = new Button();
@@ -121,7 +76,7 @@
             fechapedido = new DateTimePicker();
             limpiarbtn = new Button();
             label11 = new Label();
-            guardarpedidobtn = new Button();
+            pasosiguiente = new Button();
             panel1 = new Panel();
             textBox2 = new TextBox();
             txtnumero_cliente = new TextBox();
@@ -131,13 +86,58 @@
             label20 = new Label();
             label1 = new Label();
             buscarclientebtn = new Button();
-            textBox1 = new TextBox();
+            idclientetxt = new TextBox();
             txtidpedido = new TextBox();
             txtnombrecompleto = new TextBox();
-            panel6 = new Panel();
-            tablareceta = new DataGridView();
-            label22 = new Label();
             tabPage2 = new TabPage();
+            detallepanelcompleto = new Panel();
+            bloqueopanel = new Panel();
+            pictureBox3 = new PictureBox();
+            label4 = new Label();
+            devueltapanel = new Panel();
+            devueltatxt = new TextBox();
+            label32 = new Label();
+            label31 = new Label();
+            button13 = new Button();
+            panel12 = new Panel();
+            pagadotxt = new TextBox();
+            label30 = new Label();
+            totalpagar = new TextBox();
+            label29 = new Label();
+            detallepagopanel = new Panel();
+            tabControl2 = new TabControl();
+            tabPage3 = new TabPage();
+            efectivodt = new DataGridView();
+            label18 = new Label();
+            label16 = new Label();
+            button3 = new Button();
+            pagarefectivo = new Button();
+            aplicarefectivo = new Button();
+            totalrealef = new TextBox();
+            efectivotxt = new TextBox();
+            tabPage5 = new TabPage();
+            tarjetacmbx = new ComboBox();
+            tarjetadt = new DataGridView();
+            label27 = new Label();
+            label23 = new Label();
+            label24 = new Label();
+            button6 = new Button();
+            pagartarjeta = new Button();
+            aplicartarjeta = new Button();
+            totalrealtar = new TextBox();
+            tarjetaref = new TextBox();
+            tabPage4 = new TabPage();
+            transferenciadt = new DataGridView();
+            bancocmbx = new ComboBox();
+            label28 = new Label();
+            label25 = new Label();
+            label26 = new Label();
+            button10 = new Button();
+            pagartransf = new Button();
+            aplicartransf = new Button();
+            totalrealtransf = new TextBox();
+            bancoref = new TextBox();
+            label15 = new Label();
             label13 = new Label();
             txtbusquedafactura = new TextBox();
             label10 = new Label();
@@ -162,17 +162,7 @@
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
-            detallepanelcompleto.SuspendLayout();
-            detallepagopanel.SuspendLayout();
-            tabControl2.SuspendLayout();
-            tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
-            tabPage5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView3).BeginInit();
-            tabPage4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView4).BeginInit();
-            devueltapanel.SuspendLayout();
-            panel12.SuspendLayout();
+            notapanel.SuspendLayout();
             panelmesas.SuspendLayout();
             panel8.SuspendLayout();
             panelclientes.SuspendLayout();
@@ -180,7 +170,7 @@
             panelproducto.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tablapanelproducto).BeginInit();
             panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)tabladatosconsultaprod).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)detalleorden).BeginInit();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numCantidad).BeginInit();
             panel4.SuspendLayout();
@@ -188,9 +178,20 @@
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            panel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)tablareceta).BeginInit();
             tabPage2.SuspendLayout();
+            detallepanelcompleto.SuspendLayout();
+            bloqueopanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            devueltapanel.SuspendLayout();
+            panel12.SuspendLayout();
+            detallepagopanel.SuspendLayout();
+            tabControl2.SuspendLayout();
+            tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)efectivodt).BeginInit();
+            tabPage5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)tarjetadt).BeginInit();
+            tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)transferenciadt).BeginInit();
             panel7.SuspendLayout();
             panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tabladatospedidos).BeginInit();
@@ -206,15 +207,14 @@
             tabControl1.Location = new Point(0, 0);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(815, 571);
+            tabControl1.Size = new Size(812, 571);
             tabControl1.TabIndex = 0;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
             // 
             // tabPage1
             // 
             tabPage1.BackColor = Color.FromArgb(87, 128, 87);
-            tabPage1.Controls.Add(detallepanelcompleto);
-            tabPage1.Controls.Add(devueltapanel);
+            tabPage1.Controls.Add(notapanel);
             tabPage1.Controls.Add(panelmesas);
             tabPage1.Controls.Add(panelclientes);
             tabPage1.Controls.Add(panelproducto);
@@ -222,495 +222,31 @@
             tabPage1.Controls.Add(panel3);
             tabPage1.Controls.Add(panel4);
             tabPage1.Controls.Add(panel1);
-            tabPage1.Controls.Add(panel6);
             tabPage1.Location = new Point(4, 30);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(807, 537);
+            tabPage1.Size = new Size(804, 537);
             tabPage1.TabIndex = 0;
-            tabPage1.Text = "Realizar Pedido";
-            // 
-            // detallepanelcompleto
-            // 
-            detallepanelcompleto.BackColor = Color.Gray;
-            detallepanelcompleto.Controls.Add(detallepagopanel);
-            detallepanelcompleto.Location = new Point(880, 3);
-            detallepanelcompleto.Name = "detallepanelcompleto";
-            detallepanelcompleto.Size = new Size(810, 536);
-            detallepanelcompleto.TabIndex = 4;
-            // 
-            // detallepagopanel
-            // 
-            detallepagopanel.BackColor = Color.FromArgb(64, 64, 64);
-            detallepagopanel.Controls.Add(tabControl2);
-            detallepagopanel.Controls.Add(label15);
-            detallepagopanel.Location = new Point(476, 1);
-            detallepagopanel.Name = "detallepagopanel";
-            detallepagopanel.Size = new Size(333, 402);
-            detallepagopanel.TabIndex = 2;
-            // 
-            // tabControl2
-            // 
-            tabControl2.Controls.Add(tabPage3);
-            tabControl2.Controls.Add(tabPage5);
-            tabControl2.Controls.Add(tabPage4);
-            tabControl2.Location = new Point(3, 51);
-            tabControl2.Name = "tabControl2";
-            tabControl2.SelectedIndex = 0;
-            tabControl2.Size = new Size(327, 346);
-            tabControl2.TabIndex = 0;
-            // 
-            // tabPage3
-            // 
-            tabPage3.BackColor = SystemColors.WindowFrame;
-            tabPage3.Controls.Add(dataGridView2);
-            tabPage3.Controls.Add(label18);
-            tabPage3.Controls.Add(label16);
-            tabPage3.Controls.Add(button3);
-            tabPage3.Controls.Add(button2);
-            tabPage3.Controls.Add(button1);
-            tabPage3.Controls.Add(textBox4);
-            tabPage3.Controls.Add(textBox3);
-            tabPage3.Location = new Point(4, 30);
-            tabPage3.Name = "tabPage3";
-            tabPage3.Padding = new Padding(3);
-            tabPage3.RightToLeft = RightToLeft.No;
-            tabPage3.Size = new Size(319, 312);
-            tabPage3.TabIndex = 0;
-            tabPage3.Text = "Efectivo";
-            // 
-            // dataGridView2
-            // 
-            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView2.Location = new Point(6, 138);
-            dataGridView2.Name = "dataGridView2";
-            dataGridView2.Size = new Size(307, 116);
-            dataGridView2.TabIndex = 5;
-            // 
-            // label18
-            // 
-            label18.AutoSize = true;
-            label18.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label18.ForeColor = SystemColors.Control;
-            label18.Location = new Point(6, 81);
-            label18.Name = "label18";
-            label18.Size = new Size(72, 21);
-            label18.TabIndex = 4;
-            label18.Text = "Efectivo";
-            // 
-            // label16
-            // 
-            label16.AutoSize = true;
-            label16.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label16.ForeColor = SystemColors.Control;
-            label16.Location = new Point(134, 11);
-            label16.Name = "label16";
-            label16.Size = new Size(52, 21);
-            label16.TabIndex = 4;
-            label16.Text = "Total:";
-            // 
-            // button3
-            // 
-            button3.Image = Properties.Resources.atrás;
-            button3.ImageAlign = ContentAlignment.MiddleLeft;
-            button3.Location = new Point(6, 258);
-            button3.Name = "button3";
-            button3.Size = new Size(152, 46);
-            button3.TabIndex = 1;
-            button3.Text = "Volver";
-            button3.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            button2.Image = Properties.Resources.pagar;
-            button2.ImageAlign = ContentAlignment.MiddleLeft;
-            button2.Location = new Point(161, 258);
-            button2.Name = "button2";
-            button2.Size = new Size(152, 46);
-            button2.TabIndex = 1;
-            button2.Text = "Procesar";
-            button2.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            button1.Image = Properties.Resources.dinero2;
-            button1.ImageAlign = ContentAlignment.MiddleLeft;
-            button1.Location = new Point(190, 105);
-            button1.Name = "button1";
-            button1.Size = new Size(123, 29);
-            button1.TabIndex = 1;
-            button1.Text = "Aplicar";
-            button1.UseVisualStyleBackColor = true;
-            // 
-            // textBox4
-            // 
-            textBox4.Enabled = false;
-            textBox4.Location = new Point(190, 8);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(123, 29);
-            textBox4.TabIndex = 0;
-            // 
-            // textBox3
-            // 
-            textBox3.Location = new Point(6, 105);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(178, 29);
-            textBox3.TabIndex = 0;
-            // 
-            // tabPage5
-            // 
-            tabPage5.BackColor = SystemColors.WindowFrame;
-            tabPage5.Controls.Add(comboBox1);
-            tabPage5.Controls.Add(dataGridView3);
-            tabPage5.Controls.Add(label27);
-            tabPage5.Controls.Add(label23);
-            tabPage5.Controls.Add(label24);
-            tabPage5.Controls.Add(button6);
-            tabPage5.Controls.Add(pagarefectivo);
-            tabPage5.Controls.Add(button9);
-            tabPage5.Controls.Add(textBox5);
-            tabPage5.Controls.Add(textBox6);
-            tabPage5.Location = new Point(4, 30);
-            tabPage5.Name = "tabPage5";
-            tabPage5.Size = new Size(319, 312);
-            tabPage5.TabIndex = 2;
-            tabPage5.Text = "Tarjeta";
-            // 
-            // comboBox1
-            // 
-            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "1. VISA", "2. MASTERCARD", "3. AMERICAN EXPRESS" });
-            comboBox1.Location = new Point(74, 44);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(239, 29);
-            comboBox1.TabIndex = 14;
-            // 
-            // dataGridView3
-            // 
-            dataGridView3.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView3.Location = new Point(6, 138);
-            dataGridView3.Name = "dataGridView3";
-            dataGridView3.Size = new Size(307, 116);
-            dataGridView3.TabIndex = 13;
-            // 
-            // label27
-            // 
-            label27.AutoSize = true;
-            label27.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label27.ForeColor = SystemColors.Control;
-            label27.Location = new Point(6, 48);
-            label27.Name = "label27";
-            label27.Size = new Size(62, 21);
-            label27.TabIndex = 11;
-            label27.Text = "Tarjeta";
-            // 
-            // label23
-            // 
-            label23.AutoSize = true;
-            label23.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label23.ForeColor = SystemColors.Control;
-            label23.Location = new Point(6, 81);
-            label23.Name = "label23";
-            label23.Size = new Size(91, 21);
-            label23.TabIndex = 11;
-            label23.Text = "Referencia";
-            // 
-            // label24
-            // 
-            label24.AutoSize = true;
-            label24.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label24.ForeColor = SystemColors.Control;
-            label24.Location = new Point(134, 11);
-            label24.Name = "label24";
-            label24.Size = new Size(52, 21);
-            label24.TabIndex = 12;
-            label24.Text = "Total:";
-            // 
-            // button6
-            // 
-            button6.Image = Properties.Resources.atrás;
-            button6.ImageAlign = ContentAlignment.MiddleLeft;
-            button6.Location = new Point(6, 258);
-            button6.Name = "button6";
-            button6.Size = new Size(152, 46);
-            button6.TabIndex = 8;
-            button6.Text = "Volver";
-            button6.UseVisualStyleBackColor = true;
-            // 
-            // pagarefectivo
-            // 
-            pagarefectivo.Image = Properties.Resources.pagar;
-            pagarefectivo.ImageAlign = ContentAlignment.MiddleLeft;
-            pagarefectivo.Location = new Point(161, 258);
-            pagarefectivo.Name = "pagarefectivo";
-            pagarefectivo.Size = new Size(152, 46);
-            pagarefectivo.TabIndex = 9;
-            pagarefectivo.Text = "Procesar";
-            pagarefectivo.UseVisualStyleBackColor = true;
-            pagarefectivo.Click += pagarefectivo_Click;
-            // 
-            // button9
-            // 
-            button9.Image = Properties.Resources.tarjeta_de_credito__1_;
-            button9.ImageAlign = ContentAlignment.MiddleLeft;
-            button9.Location = new Point(190, 105);
-            button9.Name = "button9";
-            button9.Size = new Size(123, 29);
-            button9.TabIndex = 10;
-            button9.Text = "Aplicar";
-            button9.UseVisualStyleBackColor = true;
-            // 
-            // textBox5
-            // 
-            textBox5.Enabled = false;
-            textBox5.Location = new Point(190, 8);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(123, 29);
-            textBox5.TabIndex = 6;
-            // 
-            // textBox6
-            // 
-            textBox6.Location = new Point(6, 105);
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(178, 29);
-            textBox6.TabIndex = 7;
-            // 
-            // tabPage4
-            // 
-            tabPage4.BackColor = SystemColors.WindowFrame;
-            tabPage4.Controls.Add(comboBox2);
-            tabPage4.Controls.Add(label28);
-            tabPage4.Controls.Add(dataGridView4);
-            tabPage4.Controls.Add(label25);
-            tabPage4.Controls.Add(label26);
-            tabPage4.Controls.Add(button10);
-            tabPage4.Controls.Add(button11);
-            tabPage4.Controls.Add(button12);
-            tabPage4.Controls.Add(textBox7);
-            tabPage4.Controls.Add(textBox8);
-            tabPage4.Location = new Point(4, 30);
-            tabPage4.Name = "tabPage4";
-            tabPage4.Padding = new Padding(3);
-            tabPage4.Size = new Size(319, 312);
-            tabPage4.TabIndex = 1;
-            tabPage4.Text = "Transferencia";
-            // 
-            // comboBox2
-            // 
-            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Items.AddRange(new object[] { "1. BANCO POPULAR DOMINICANO", "2. BANCO DE RESERVAS (BANRESERVAS)", "3. BANCO BHD LEÓN", "4. SCOTIABANK REPÚBLICA DOMINICANA", "5. BANCO SANTA CRUZ", "6. BANCO CARIBE", "7. BANCO VIMENCA", "8. BANCO ADEMI" });
-            comboBox2.Location = new Point(74, 44);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(239, 29);
-            comboBox2.TabIndex = 16;
-            // 
-            // label28
-            // 
-            label28.AutoSize = true;
-            label28.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label28.ForeColor = SystemColors.Control;
-            label28.Location = new Point(6, 48);
-            label28.Name = "label28";
-            label28.Size = new Size(57, 21);
-            label28.TabIndex = 15;
-            label28.Text = "Banco";
-            // 
-            // dataGridView4
-            // 
-            dataGridView4.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView4.Location = new Point(6, 138);
-            dataGridView4.Name = "dataGridView4";
-            dataGridView4.Size = new Size(307, 116);
-            dataGridView4.TabIndex = 13;
-            // 
-            // label25
-            // 
-            label25.AutoSize = true;
-            label25.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label25.ForeColor = SystemColors.Control;
-            label25.Location = new Point(6, 81);
-            label25.Name = "label25";
-            label25.Size = new Size(91, 21);
-            label25.TabIndex = 11;
-            label25.Text = "Referencia";
-            // 
-            // label26
-            // 
-            label26.AutoSize = true;
-            label26.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label26.ForeColor = SystemColors.Control;
-            label26.Location = new Point(134, 11);
-            label26.Name = "label26";
-            label26.Size = new Size(52, 21);
-            label26.TabIndex = 12;
-            label26.Text = "Total:";
-            // 
-            // button10
-            // 
-            button10.Image = Properties.Resources.atrás;
-            button10.ImageAlign = ContentAlignment.MiddleLeft;
-            button10.Location = new Point(6, 258);
-            button10.Name = "button10";
-            button10.Size = new Size(152, 46);
-            button10.TabIndex = 8;
-            button10.Text = "Volver";
-            button10.UseVisualStyleBackColor = true;
-            // 
-            // button11
-            // 
-            button11.Image = Properties.Resources.pagar;
-            button11.ImageAlign = ContentAlignment.MiddleLeft;
-            button11.Location = new Point(161, 258);
-            button11.Name = "button11";
-            button11.Size = new Size(152, 46);
-            button11.TabIndex = 9;
-            button11.Text = "Procesar";
-            button11.UseVisualStyleBackColor = true;
-            // 
-            // button12
-            // 
-            button12.Image = Properties.Resources.banco__1_;
-            button12.ImageAlign = ContentAlignment.MiddleLeft;
-            button12.Location = new Point(190, 105);
-            button12.Name = "button12";
-            button12.Size = new Size(123, 29);
-            button12.TabIndex = 10;
-            button12.Text = "Aplicar";
-            button12.UseVisualStyleBackColor = true;
-            // 
-            // textBox7
-            // 
-            textBox7.Enabled = false;
-            textBox7.Location = new Point(190, 8);
-            textBox7.Name = "textBox7";
-            textBox7.Size = new Size(123, 29);
-            textBox7.TabIndex = 6;
-            // 
-            // textBox8
-            // 
-            textBox8.Location = new Point(6, 105);
-            textBox8.Name = "textBox8";
-            textBox8.Size = new Size(178, 29);
-            textBox8.TabIndex = 7;
-            // 
-            // label15
-            // 
-            label15.AutoSize = true;
-            label15.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label15.ForeColor = SystemColors.Control;
-            label15.Location = new Point(69, 5);
-            label15.Name = "label15";
-            label15.Size = new Size(194, 32);
-            label15.TabIndex = 3;
-            label15.Text = "Detalle de pago";
-            // 
-            // devueltapanel
-            // 
-            devueltapanel.BackColor = SystemColors.WindowFrame;
-            devueltapanel.Controls.Add(textBox11);
-            devueltapanel.Controls.Add(label32);
-            devueltapanel.Controls.Add(label31);
-            devueltapanel.Controls.Add(button13);
-            devueltapanel.Controls.Add(panel12);
-            devueltapanel.Location = new Point(1613, 425);
-            devueltapanel.Name = "devueltapanel";
-            devueltapanel.Size = new Size(333, 258);
-            devueltapanel.TabIndex = 3;
-            devueltapanel.Visible = false;
-            // 
-            // textBox11
-            // 
-            textBox11.Enabled = false;
-            textBox11.Font = new Font("Segoe UI", 14F);
-            textBox11.Location = new Point(153, 153);
-            textBox11.Name = "textBox11";
-            textBox11.Size = new Size(159, 32);
-            textBox11.TabIndex = 6;
-            // 
-            // label32
-            // 
-            label32.AutoSize = true;
-            label32.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label32.ForeColor = SystemColors.Control;
-            label32.Location = new Point(21, 150);
-            label32.Name = "label32";
-            label32.Size = new Size(124, 32);
-            label32.TabIndex = 3;
-            label32.Text = "Devolver:";
-            // 
-            // label31
-            // 
-            label31.AutoSize = true;
-            label31.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label31.ForeColor = SystemColors.Control;
-            label31.Location = new Point(51, 7);
-            label31.Name = "label31";
-            label31.Size = new Size(231, 32);
-            label31.TabIndex = 3;
-            label31.Text = "Devuelta (Efectivo)";
-            // 
-            // button13
-            // 
-            button13.Image = Properties.Resources.check;
-            button13.ImageAlign = ContentAlignment.MiddleLeft;
-            button13.Location = new Point(90, 202);
-            button13.Name = "button13";
-            button13.Size = new Size(152, 46);
-            button13.TabIndex = 9;
-            button13.Text = "Finalizar";
-            button13.UseVisualStyleBackColor = true;
-            // 
-            // panel12
-            // 
-            panel12.BackColor = Color.FromArgb(64, 64, 64);
-            panel12.Controls.Add(textBox10);
-            panel12.Controls.Add(label30);
-            panel12.Controls.Add(textBox9);
-            panel12.Controls.Add(label29);
-            panel12.Location = new Point(21, 52);
-            panel12.Name = "panel12";
-            panel12.Size = new Size(291, 78);
-            panel12.TabIndex = 13;
-            // 
-            // textBox10
-            // 
-            textBox10.Enabled = false;
-            textBox10.Location = new Point(114, 42);
-            textBox10.Name = "textBox10";
-            textBox10.Size = new Size(153, 29);
-            textBox10.TabIndex = 6;
-            // 
-            // label30
-            // 
-            label30.AutoSize = true;
-            label30.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label30.ForeColor = SystemColors.Control;
-            label30.Location = new Point(24, 45);
-            label30.Name = "label30";
-            label30.Size = new Size(72, 21);
-            label30.TabIndex = 12;
-            label30.Text = "Pagado:";
-            // 
-            // textBox9
-            // 
-            textBox9.Enabled = false;
-            textBox9.Location = new Point(114, 7);
-            textBox9.Name = "textBox9";
-            textBox9.Size = new Size(153, 29);
-            textBox9.TabIndex = 6;
-            // 
-            // label29
-            // 
-            label29.AutoSize = true;
-            label29.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label29.ForeColor = SystemColors.Control;
-            label29.Location = new Point(24, 10);
-            label29.Name = "label29";
-            label29.Size = new Size(52, 21);
-            label29.TabIndex = 12;
-            label29.Text = "Total:";
+            tabPage1.Text = "Ordenar";
+            // 
+            // notapanel
+            // 
+            notapanel.BackColor = Color.Gray;
+            notapanel.Controls.Add(notatxt);
+            notapanel.Location = new Point(1617, 50);
+            notapanel.Name = "notapanel";
+            notapanel.Size = new Size(281, 159);
+            notapanel.TabIndex = 2;
+            notapanel.Visible = false;
+            // 
+            // notatxt
+            // 
+            notatxt.Location = new Point(8, 10);
+            notatxt.Multiline = true;
+            notatxt.Name = "notatxt";
+            notatxt.PlaceholderText = "Escribir nota aquí...";
+            notatxt.Size = new Size(265, 139);
+            notatxt.TabIndex = 0;
             // 
             // panelmesas
             // 
@@ -719,6 +255,7 @@
             panelmesas.Controls.Add(panel8);
             panelmesas.Controls.Add(txtmesabusqueda);
             panelmesas.Controls.Add(button7);
+            panelmesas.Controls.Add(label22);
             panelmesas.Controls.Add(label14);
             panelmesas.Location = new Point(801, 9);
             panelmesas.Name = "panelmesas";
@@ -730,81 +267,36 @@
             // 
             flowmesas.AutoScroll = true;
             flowmesas.BackColor = SystemColors.ControlDark;
-            flowmesas.Location = new Point(15, 113);
+            flowmesas.Location = new Point(15, 149);
             flowmesas.Name = "flowmesas";
-            flowmesas.Size = new Size(596, 403);
+            flowmesas.Size = new Size(596, 372);
             flowmesas.TabIndex = 27;
             // 
             // panel8
             // 
             panel8.BackColor = Color.Gray;
-            panel8.Controls.Add(labelsalamesa);
-            panel8.Controls.Add(asignarmesabtn);
-            panel8.Controls.Add(label5);
-            panel8.Controls.Add(label4);
-            panel8.Controls.Add(labelmesa);
-            panel8.Location = new Point(617, 113);
+            panel8.Controls.Add(guardarordenbtn);
+            panel8.Location = new Point(617, 149);
             panel8.Name = "panel8";
-            panel8.Size = new Size(178, 171);
+            panel8.Size = new Size(178, 117);
             panel8.TabIndex = 1;
             // 
-            // labelsalamesa
+            // guardarordenbtn
             // 
-            labelsalamesa.AutoSize = true;
-            labelsalamesa.Font = new Font("Segoe UI", 9.75F);
-            labelsalamesa.ForeColor = SystemColors.Control;
-            labelsalamesa.Location = new Point(57, 129);
-            labelsalamesa.Name = "labelsalamesa";
-            labelsalamesa.Size = new Size(0, 17);
-            labelsalamesa.TabIndex = 3;
-            // 
-            // asignarmesabtn
-            // 
-            asignarmesabtn.Enabled = false;
-            asignarmesabtn.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            asignarmesabtn.Image = Properties.Resources.mesa_redonda;
-            asignarmesabtn.Location = new Point(9, 10);
-            asignarmesabtn.Name = "asignarmesabtn";
-            asignarmesabtn.Size = new Size(157, 81);
-            asignarmesabtn.TabIndex = 0;
-            asignarmesabtn.Text = "Asignar Mesa";
-            asignarmesabtn.TextAlign = ContentAlignment.BottomCenter;
-            toolTip1.SetToolTip(asignarmesabtn, "Click derecho para\r\nregistrar una nueva\r\nmesa\r\n");
-            asignarmesabtn.UseVisualStyleBackColor = true;
-            asignarmesabtn.Click += asignarmesabtn_Click;
-            asignarmesabtn.MouseDown += asignarmesabtn_MouseDown;
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.ForeColor = SystemColors.Control;
-            label5.Location = new Point(9, 127);
-            label5.Name = "label5";
-            label5.Size = new Size(45, 20);
-            label5.TabIndex = 3;
-            label5.Text = "Sala: ";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.ForeColor = SystemColors.Control;
-            label4.Location = new Point(9, 102);
-            label4.Name = "label4";
-            label4.Size = new Size(50, 20);
-            label4.TabIndex = 3;
-            label4.Text = "Mesa:";
-            // 
-            // labelmesa
-            // 
-            labelmesa.AutoSize = true;
-            labelmesa.Font = new Font("Segoe UI", 9.75F);
-            labelmesa.ForeColor = SystemColors.Control;
-            labelmesa.Location = new Point(68, 105);
-            labelmesa.Name = "labelmesa";
-            labelmesa.Size = new Size(0, 17);
-            labelmesa.TabIndex = 3;
+            guardarordenbtn.Enabled = false;
+            guardarordenbtn.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            guardarordenbtn.Image = Properties.Resources.pedir_comida_online1;
+            guardarordenbtn.ImageAlign = ContentAlignment.TopCenter;
+            guardarordenbtn.Location = new Point(11, 12);
+            guardarordenbtn.Name = "guardarordenbtn";
+            guardarordenbtn.Size = new Size(157, 92);
+            guardarordenbtn.TabIndex = 0;
+            guardarordenbtn.Text = "Guardar Orden";
+            guardarordenbtn.TextAlign = ContentAlignment.BottomCenter;
+            toolTip1.SetToolTip(guardarordenbtn, "Click derecho para\r\nregistrar una nueva\r\nmesa\r\n");
+            guardarordenbtn.UseVisualStyleBackColor = true;
+            guardarordenbtn.Click += guardarordenbtn_Click;
+            guardarordenbtn.MouseDown += asignarmesabtn_MouseDown;
             // 
             // txtmesabusqueda
             // 
@@ -825,12 +317,23 @@
             button7.UseVisualStyleBackColor = true;
             button7.Click += button7_Click;
             // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label22.ForeColor = SystemColors.Control;
+            label22.Location = new Point(15, 111);
+            label22.Name = "label22";
+            label22.Size = new Size(168, 32);
+            label22.TabIndex = 3;
+            label22.Text = "Asignar mesa";
+            // 
             // label14
             // 
             label14.AutoSize = true;
             label14.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label14.ForeColor = SystemColors.Control;
-            label14.Location = new Point(289, 10);
+            label14.Location = new Point(289, 16);
             label14.Name = "label14";
             label14.Size = new Size(233, 32);
             label14.TabIndex = 3;
@@ -874,7 +377,7 @@
             label19.AutoSize = true;
             label19.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label19.ForeColor = SystemColors.Control;
-            label19.Location = new Point(280, 13);
+            label19.Location = new Point(280, 18);
             label19.Name = "label19";
             label19.Size = new Size(250, 32);
             label19.TabIndex = 3;
@@ -893,7 +396,7 @@
             tablaclientes.RowHeadersVisible = false;
             tablaclientes.RowHeadersWidth = 51;
             tablaclientes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tablaclientes.Size = new Size(782, 334);
+            tablaclientes.Size = new Size(782, 411);
             tablaclientes.TabIndex = 6;
             tablaclientes.CellDoubleClick += tablaclientes_CellDoubleClick;
             // 
@@ -904,7 +407,7 @@
             panelproducto.Controls.Add(button4);
             panelproducto.Controls.Add(label17);
             panelproducto.Controls.Add(tablapanelproducto);
-            panelproducto.Location = new Point(-2, 547);
+            panelproducto.Location = new Point(-2, 548);
             panelproducto.Name = "panelproducto";
             panelproducto.Size = new Size(810, 536);
             panelproducto.TabIndex = 1;
@@ -934,7 +437,7 @@
             label17.AutoSize = true;
             label17.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label17.ForeColor = SystemColors.Control;
-            label17.Location = new Point(294, 14);
+            label17.Location = new Point(294, 20);
             label17.Name = "label17";
             label17.Size = new Size(222, 32);
             label17.TabIndex = 3;
@@ -953,7 +456,7 @@
             tablapanelproducto.RowHeadersVisible = false;
             tablapanelproducto.RowHeadersWidth = 51;
             tablapanelproducto.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tablapanelproducto.Size = new Size(782, 334);
+            tablapanelproducto.Size = new Size(782, 411);
             tablapanelproducto.TabIndex = 6;
             tablapanelproducto.CellDoubleClick += tablapanelproducto_CellDoubleClick;
             // 
@@ -961,12 +464,13 @@
             // 
             panel2.BackColor = Color.FromArgb(64, 64, 64);
             panel2.Controls.Add(label6);
-            panel2.Controls.Add(tabladatosconsultaprod);
+            panel2.Controls.Add(detalleorden);
             panel2.Controls.Add(label21);
+            panel2.Controls.Add(nota);
             panel2.Controls.Add(labelcantidadarticulos);
             panel2.Location = new Point(6, 242);
             panel2.Name = "panel2";
-            panel2.Size = new Size(476, 290);
+            panel2.Size = new Size(793, 290);
             panel2.TabIndex = 1;
             // 
             // label6
@@ -974,47 +478,59 @@
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label6.ForeColor = SystemColors.Control;
-            label6.Location = new Point(5, 259);
+            label6.Location = new Point(5, 265);
             label6.Name = "label6";
             label6.Size = new Size(152, 21);
             label6.TabIndex = 3;
             label6.Text = "Cantidad de Items:";
             // 
-            // tabladatosconsultaprod
+            // detalleorden
             // 
-            tabladatosconsultaprod.AllowUserToAddRows = false;
-            tabladatosconsultaprod.AllowUserToDeleteRows = false;
-            tabladatosconsultaprod.AllowUserToResizeRows = false;
-            tabladatosconsultaprod.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            tabladatosconsultaprod.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            tabladatosconsultaprod.Location = new Point(4, 43);
-            tabladatosconsultaprod.MultiSelect = false;
-            tabladatosconsultaprod.Name = "tabladatosconsultaprod";
-            tabladatosconsultaprod.ReadOnly = true;
-            tabladatosconsultaprod.RowHeadersVisible = false;
-            tabladatosconsultaprod.RowHeadersWidth = 51;
-            tabladatosconsultaprod.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tabladatosconsultaprod.Size = new Size(468, 213);
-            tabladatosconsultaprod.TabIndex = 5;
-            tabladatosconsultaprod.CellClick += tabladatosconsultaprod_CellClick;
+            detalleorden.AllowUserToAddRows = false;
+            detalleorden.AllowUserToDeleteRows = false;
+            detalleorden.AllowUserToResizeRows = false;
+            detalleorden.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            detalleorden.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            detalleorden.Location = new Point(4, 33);
+            detalleorden.MultiSelect = false;
+            detalleorden.Name = "detalleorden";
+            detalleorden.ReadOnly = true;
+            detalleorden.RowHeadersVisible = false;
+            detalleorden.RowHeadersWidth = 51;
+            detalleorden.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            detalleorden.Size = new Size(784, 230);
+            detalleorden.TabIndex = 5;
             // 
             // label21
             // 
             label21.AutoSize = true;
             label21.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label21.ForeColor = SystemColors.Control;
-            label21.Location = new Point(196, 6);
+            label21.Location = new Point(293, -1);
             label21.Name = "label21";
-            label21.Size = new Size(85, 32);
+            label21.Size = new Size(207, 32);
             label21.TabIndex = 3;
-            label21.Text = "Orden";
+            label21.Text = "Detalle de Orden";
+            // 
+            // nota
+            // 
+            nota.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            nota.Image = Properties.Resources.nota;
+            nota.ImageAlign = ContentAlignment.MiddleLeft;
+            nota.Location = new Point(689, 3);
+            nota.Name = "nota";
+            nota.Size = new Size(98, 28);
+            nota.TabIndex = 0;
+            nota.Text = "Nota";
+            nota.UseVisualStyleBackColor = true;
+            nota.Click += nota_Click;
             // 
             // labelcantidadarticulos
             // 
             labelcantidadarticulos.AutoSize = true;
             labelcantidadarticulos.Font = new Font("Segoe UI", 12F);
             labelcantidadarticulos.ForeColor = SystemColors.Control;
-            labelcantidadarticulos.Location = new Point(161, 259);
+            labelcantidadarticulos.Location = new Point(161, 265);
             labelcantidadarticulos.Name = "labelcantidadarticulos";
             labelcantidadarticulos.Size = new Size(19, 21);
             labelcantidadarticulos.TabIndex = 3;
@@ -1110,7 +626,7 @@
             panel4.Controls.Add(fechapedido);
             panel4.Controls.Add(limpiarbtn);
             panel4.Controls.Add(label11);
-            panel4.Controls.Add(guardarpedidobtn);
+            panel4.Controls.Add(pasosiguiente);
             panel4.Location = new Point(518, 6);
             panel4.Name = "panel4";
             panel4.Size = new Size(281, 179);
@@ -1216,19 +732,19 @@
             label11.TabIndex = 3;
             label11.Text = "Fecha de pedido:";
             // 
-            // guardarpedidobtn
+            // pasosiguiente
             // 
-            guardarpedidobtn.BackColor = Color.FromArgb(128, 255, 128);
-            guardarpedidobtn.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            guardarpedidobtn.Image = Properties.Resources.next;
-            guardarpedidobtn.ImageAlign = ContentAlignment.MiddleLeft;
-            guardarpedidobtn.Location = new Point(6, 64);
-            guardarpedidobtn.Name = "guardarpedidobtn";
-            guardarpedidobtn.Size = new Size(128, 52);
-            guardarpedidobtn.TabIndex = 0;
-            guardarpedidobtn.Text = "Siguiente";
-            guardarpedidobtn.UseVisualStyleBackColor = false;
-            guardarpedidobtn.Click += guardarpedidobtn_Click;
+            pasosiguiente.BackColor = Color.FromArgb(128, 255, 128);
+            pasosiguiente.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            pasosiguiente.Image = Properties.Resources.next;
+            pasosiguiente.ImageAlign = ContentAlignment.MiddleLeft;
+            pasosiguiente.Location = new Point(6, 64);
+            pasosiguiente.Name = "pasosiguiente";
+            pasosiguiente.Size = new Size(128, 52);
+            pasosiguiente.TabIndex = 0;
+            pasosiguiente.Text = "Siguiente";
+            pasosiguiente.UseVisualStyleBackColor = false;
+            pasosiguiente.Click += pasosiguiente_Click;
             // 
             // panel1
             // 
@@ -1241,7 +757,7 @@
             panel1.Controls.Add(label20);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(buscarclientebtn);
-            panel1.Controls.Add(textBox1);
+            panel1.Controls.Add(idclientetxt);
             panel1.Controls.Add(txtidpedido);
             panel1.Controls.Add(txtnombrecompleto);
             panel1.Location = new Point(6, 6);
@@ -1251,7 +767,7 @@
             // 
             // textBox2
             // 
-            textBox2.Location = new Point(254, 109);
+            textBox2.Location = new Point(254, 105);
             textBox2.Name = "textBox2";
             textBox2.PlaceholderText = "Dirección";
             textBox2.Size = new Size(246, 29);
@@ -1259,21 +775,20 @@
             // 
             // txtnumero_cliente
             // 
-            txtnumero_cliente.Location = new Point(46, 109);
+            txtnumero_cliente.Location = new Point(46, 105);
             txtnumero_cliente.Name = "txtnumero_cliente";
             txtnumero_cliente.PlaceholderText = "Numero de telefono";
             txtnumero_cliente.Size = new Size(163, 29);
             txtnumero_cliente.TabIndex = 0;
-            txtnumero_cliente.TextChanged += txtnumero_cliente_TextChanged;
             // 
             // pictureBox2
             // 
             pictureBox2.BackColor = SystemColors.Window;
             pictureBox2.Image = Properties.Resources.marcador;
-            pictureBox2.Location = new Point(222, 109);
+            pictureBox2.Location = new Point(221, 105);
             pictureBox2.Margin = new Padding(3, 2, 3, 2);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(29, 29);
+            pictureBox2.Size = new Size(27, 29);
             pictureBox2.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox2.TabIndex = 4;
             pictureBox2.TabStop = false;
@@ -1282,10 +797,10 @@
             // 
             pictureBox1.BackColor = SystemColors.Window;
             pictureBox1.Image = Properties.Resources.telefono;
-            pictureBox1.Location = new Point(11, 109);
+            pictureBox1.Location = new Point(12, 105);
             pictureBox1.Margin = new Padding(3, 2, 3, 2);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(29, 29);
+            pictureBox1.Size = new Size(27, 29);
             pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox1.TabIndex = 4;
             pictureBox1.TabStop = false;
@@ -1311,14 +826,13 @@
             label20.Size = new Size(29, 21);
             label20.TabIndex = 3;
             label20.Text = "N°";
-            label20.Click += label20_Click;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = SystemColors.Control;
-            label1.Location = new Point(7, 48);
+            label1.Location = new Point(7, 44);
             label1.Name = "label1";
             label1.Size = new Size(110, 21);
             label1.TabIndex = 3;
@@ -1327,7 +841,7 @@
             // buscarclientebtn
             // 
             buscarclientebtn.Image = Properties.Resources.persona3;
-            buscarclientebtn.Location = new Point(11, 75);
+            buscarclientebtn.Location = new Point(11, 71);
             buscarclientebtn.Name = "buscarclientebtn";
             buscarclientebtn.RightToLeft = RightToLeft.No;
             buscarclientebtn.Size = new Size(29, 29);
@@ -1336,16 +850,14 @@
             buscarclientebtn.UseVisualStyleBackColor = true;
             buscarclientebtn.Click += buscarclientebtn_Click;
             // 
-            // textBox1
+            // idclientetxt
             // 
-            textBox1.Enabled = false;
-            textBox1.Location = new Point(46, 75);
-            textBox1.Name = "textBox1";
-            textBox1.PlaceholderText = "ID";
-            textBox1.Size = new Size(45, 29);
-            textBox1.TabIndex = 0;
-            textBox1.Text = "9999";
-            textBox1.TextChanged += txtidpedido_TextChanged;
+            idclientetxt.Location = new Point(46, 71);
+            idclientetxt.Name = "idclientetxt";
+            idclientetxt.PlaceholderText = "ID";
+            idclientetxt.Size = new Size(45, 29);
+            idclientetxt.TabIndex = 0;
+            idclientetxt.Text = "1";
             // 
             // txtidpedido
             // 
@@ -1354,11 +866,10 @@
             txtidpedido.Name = "txtidpedido";
             txtidpedido.Size = new Size(87, 29);
             txtidpedido.TabIndex = 0;
-            txtidpedido.TextChanged += txtidpedido_TextChanged;
             // 
             // txtnombrecompleto
             // 
-            txtnombrecompleto.Location = new Point(94, 75);
+            txtnombrecompleto.Location = new Point(94, 71);
             txtnombrecompleto.Name = "txtnombrecompleto";
             txtnombrecompleto.PlaceholderText = "Nombre del cliente";
             txtnombrecompleto.Size = new Size(406, 29);
@@ -1366,49 +877,10 @@
             txtnombrecompleto.Text = "AL CONTADO";
             txtnombrecompleto.TextChanged += txtnombrecompleto_TextChanged;
             // 
-            // panel6
-            // 
-            panel6.BackColor = Color.FromArgb(64, 64, 64);
-            panel6.Controls.Add(tablareceta);
-            panel6.Controls.Add(label22);
-            panel6.Location = new Point(486, 242);
-            panel6.Name = "panel6";
-            panel6.Size = new Size(313, 290);
-            panel6.TabIndex = 1;
-            // 
-            // tablareceta
-            // 
-            tablareceta.AllowUserToAddRows = false;
-            tablareceta.AllowUserToDeleteRows = false;
-            tablareceta.AllowUserToResizeRows = false;
-            tablareceta.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            tablareceta.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            tablareceta.Location = new Point(3, 43);
-            tablareceta.MultiSelect = false;
-            tablareceta.Name = "tablareceta";
-            tablareceta.ReadOnly = true;
-            tablareceta.RowHeadersVisible = false;
-            tablareceta.RowHeadersWidth = 51;
-            tablareceta.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tablareceta.Size = new Size(307, 213);
-            tablareceta.TabIndex = 5;
-            tablareceta.CellClick += tabladatosconsultaprod_CellClick;
-            // 
-            // label22
-            // 
-            label22.AutoSize = true;
-            label22.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label22.ForeColor = SystemColors.Control;
-            label22.Location = new Point(112, 6);
-            label22.Name = "label22";
-            label22.Size = new Size(89, 32);
-            label22.TabIndex = 3;
-            label22.Text = "Receta";
-            label22.Click += label2_Click;
-            // 
             // tabPage2
             // 
             tabPage2.BackColor = Color.FromArgb(87, 128, 87);
+            tabPage2.Controls.Add(detallepanelcompleto);
             tabPage2.Controls.Add(label13);
             tabPage2.Controls.Add(txtbusquedafactura);
             tabPage2.Controls.Add(label10);
@@ -1418,10 +890,547 @@
             tabPage2.Location = new Point(4, 30);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(807, 537);
+            tabPage2.Size = new Size(1539, 537);
             tabPage2.TabIndex = 1;
-            tabPage2.Text = "Pendientes De factura";
-            tabPage2.Click += tabPage2_Click;
+            tabPage2.Text = "Facturar";
+            // 
+            // detallepanelcompleto
+            // 
+            detallepanelcompleto.BackColor = Color.Gray;
+            detallepanelcompleto.Controls.Add(bloqueopanel);
+            detallepanelcompleto.Controls.Add(devueltapanel);
+            detallepanelcompleto.Controls.Add(detallepagopanel);
+            detallepanelcompleto.Location = new Point(807, 6);
+            detallepanelcompleto.Name = "detallepanelcompleto";
+            detallepanelcompleto.Size = new Size(810, 536);
+            detallepanelcompleto.TabIndex = 9;
+            // 
+            // bloqueopanel
+            // 
+            bloqueopanel.BackColor = Color.FromArgb(64, 64, 64);
+            bloqueopanel.Controls.Add(pictureBox3);
+            bloqueopanel.Controls.Add(label4);
+            bloqueopanel.Location = new Point(3, 265);
+            bloqueopanel.Name = "bloqueopanel";
+            bloqueopanel.Size = new Size(333, 322);
+            bloqueopanel.TabIndex = 11;
+            bloqueopanel.Visible = false;
+            // 
+            // pictureBox3
+            // 
+            pictureBox3.Image = Properties.Resources.bloqueado;
+            pictureBox3.Location = new Point(116, 146);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(100, 118);
+            pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox3.TabIndex = 0;
+            pictureBox3.TabStop = false;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.ForeColor = SystemColors.Control;
+            label4.Location = new Point(71, 59);
+            label4.Name = "label4";
+            label4.Size = new Size(190, 64);
+            label4.TabIndex = 3;
+            label4.Text = "Bloqueado por\r\ndetalle anterior";
+            label4.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // devueltapanel
+            // 
+            devueltapanel.BackColor = SystemColors.WindowFrame;
+            devueltapanel.Controls.Add(devueltatxt);
+            devueltapanel.Controls.Add(label32);
+            devueltapanel.Controls.Add(label31);
+            devueltapanel.Controls.Add(button13);
+            devueltapanel.Controls.Add(panel12);
+            devueltapanel.Location = new Point(1, 1);
+            devueltapanel.Name = "devueltapanel";
+            devueltapanel.Size = new Size(333, 258);
+            devueltapanel.TabIndex = 10;
+            devueltapanel.Visible = false;
+            // 
+            // devueltatxt
+            // 
+            devueltatxt.Enabled = false;
+            devueltatxt.Font = new Font("Segoe UI", 14F);
+            devueltatxt.Location = new Point(153, 153);
+            devueltatxt.Name = "devueltatxt";
+            devueltatxt.Size = new Size(159, 32);
+            devueltatxt.TabIndex = 6;
+            // 
+            // label32
+            // 
+            label32.AutoSize = true;
+            label32.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label32.ForeColor = SystemColors.Control;
+            label32.Location = new Point(21, 150);
+            label32.Name = "label32";
+            label32.Size = new Size(124, 32);
+            label32.TabIndex = 3;
+            label32.Text = "Devolver:";
+            // 
+            // label31
+            // 
+            label31.AutoSize = true;
+            label31.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label31.ForeColor = SystemColors.Control;
+            label31.Location = new Point(51, 7);
+            label31.Name = "label31";
+            label31.Size = new Size(231, 32);
+            label31.TabIndex = 3;
+            label31.Text = "Devuelta (Efectivo)";
+            // 
+            // button13
+            // 
+            button13.Image = Properties.Resources.check;
+            button13.ImageAlign = ContentAlignment.MiddleLeft;
+            button13.Location = new Point(90, 202);
+            button13.Name = "button13";
+            button13.Size = new Size(152, 46);
+            button13.TabIndex = 9;
+            button13.Text = "Finalizar";
+            button13.UseVisualStyleBackColor = true;
+            // 
+            // panel12
+            // 
+            panel12.BackColor = Color.FromArgb(64, 64, 64);
+            panel12.Controls.Add(pagadotxt);
+            panel12.Controls.Add(label30);
+            panel12.Controls.Add(totalpagar);
+            panel12.Controls.Add(label29);
+            panel12.Location = new Point(21, 52);
+            panel12.Name = "panel12";
+            panel12.Size = new Size(291, 78);
+            panel12.TabIndex = 13;
+            // 
+            // pagadotxt
+            // 
+            pagadotxt.Enabled = false;
+            pagadotxt.Location = new Point(114, 42);
+            pagadotxt.Name = "pagadotxt";
+            pagadotxt.Size = new Size(153, 29);
+            pagadotxt.TabIndex = 6;
+            // 
+            // label30
+            // 
+            label30.AutoSize = true;
+            label30.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label30.ForeColor = SystemColors.Control;
+            label30.Location = new Point(24, 45);
+            label30.Name = "label30";
+            label30.Size = new Size(72, 21);
+            label30.TabIndex = 12;
+            label30.Text = "Pagado:";
+            // 
+            // totalpagar
+            // 
+            totalpagar.Enabled = false;
+            totalpagar.Location = new Point(114, 7);
+            totalpagar.Name = "totalpagar";
+            totalpagar.Size = new Size(153, 29);
+            totalpagar.TabIndex = 6;
+            // 
+            // label29
+            // 
+            label29.AutoSize = true;
+            label29.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label29.ForeColor = SystemColors.Control;
+            label29.Location = new Point(24, 10);
+            label29.Name = "label29";
+            label29.Size = new Size(52, 21);
+            label29.TabIndex = 12;
+            label29.Text = "Total:";
+            // 
+            // detallepagopanel
+            // 
+            detallepagopanel.BackColor = Color.FromArgb(64, 64, 64);
+            detallepagopanel.Controls.Add(tabControl2);
+            detallepagopanel.Controls.Add(label15);
+            detallepagopanel.Location = new Point(476, 0);
+            detallepagopanel.Name = "detallepagopanel";
+            detallepagopanel.Size = new Size(333, 402);
+            detallepagopanel.TabIndex = 2;
+            // 
+            // tabControl2
+            // 
+            tabControl2.Controls.Add(tabPage3);
+            tabControl2.Controls.Add(tabPage5);
+            tabControl2.Controls.Add(tabPage4);
+            tabControl2.Location = new Point(3, 51);
+            tabControl2.Name = "tabControl2";
+            tabControl2.SelectedIndex = 0;
+            tabControl2.Size = new Size(327, 346);
+            tabControl2.TabIndex = 0;
+            // 
+            // tabPage3
+            // 
+            tabPage3.BackColor = SystemColors.WindowFrame;
+            tabPage3.Controls.Add(efectivodt);
+            tabPage3.Controls.Add(label18);
+            tabPage3.Controls.Add(label16);
+            tabPage3.Controls.Add(button3);
+            tabPage3.Controls.Add(pagarefectivo);
+            tabPage3.Controls.Add(aplicarefectivo);
+            tabPage3.Controls.Add(totalrealef);
+            tabPage3.Controls.Add(efectivotxt);
+            tabPage3.Location = new Point(4, 30);
+            tabPage3.Name = "tabPage3";
+            tabPage3.Padding = new Padding(3);
+            tabPage3.RightToLeft = RightToLeft.No;
+            tabPage3.Size = new Size(319, 312);
+            tabPage3.TabIndex = 0;
+            tabPage3.Text = "Efectivo";
+            // 
+            // efectivodt
+            // 
+            efectivodt.AllowUserToAddRows = false;
+            efectivodt.AllowUserToResizeRows = false;
+            efectivodt.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            efectivodt.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            efectivodt.Location = new Point(6, 138);
+            efectivodt.Name = "efectivodt";
+            efectivodt.RowHeadersVisible = false;
+            efectivodt.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            efectivodt.Size = new Size(307, 116);
+            efectivodt.TabIndex = 14;
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label18.ForeColor = SystemColors.Control;
+            label18.Location = new Point(6, 81);
+            label18.Name = "label18";
+            label18.Size = new Size(72, 21);
+            label18.TabIndex = 4;
+            label18.Text = "Efectivo";
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label16.ForeColor = SystemColors.Control;
+            label16.Location = new Point(137, 12);
+            label16.Name = "label16";
+            label16.Size = new Size(52, 21);
+            label16.TabIndex = 4;
+            label16.Text = "Total:";
+            // 
+            // button3
+            // 
+            button3.Image = Properties.Resources.atrás;
+            button3.ImageAlign = ContentAlignment.MiddleLeft;
+            button3.Location = new Point(6, 258);
+            button3.Name = "button3";
+            button3.Size = new Size(152, 46);
+            button3.TabIndex = 1;
+            button3.Text = "Volver";
+            button3.UseVisualStyleBackColor = true;
+            // 
+            // pagarefectivo
+            // 
+            pagarefectivo.Image = Properties.Resources.pagar;
+            pagarefectivo.ImageAlign = ContentAlignment.MiddleLeft;
+            pagarefectivo.Location = new Point(161, 258);
+            pagarefectivo.Name = "pagarefectivo";
+            pagarefectivo.Size = new Size(152, 46);
+            pagarefectivo.TabIndex = 1;
+            pagarefectivo.Text = "Procesar";
+            pagarefectivo.UseVisualStyleBackColor = true;
+            pagarefectivo.Click += pagarefectivo_Click;
+            // 
+            // aplicarefectivo
+            // 
+            aplicarefectivo.Image = Properties.Resources.dinero2;
+            aplicarefectivo.ImageAlign = ContentAlignment.MiddleLeft;
+            aplicarefectivo.Location = new Point(190, 105);
+            aplicarefectivo.Name = "aplicarefectivo";
+            aplicarefectivo.Size = new Size(123, 29);
+            aplicarefectivo.TabIndex = 1;
+            aplicarefectivo.Text = "Aplicar";
+            aplicarefectivo.UseVisualStyleBackColor = true;
+            aplicarefectivo.Click += aplicarefectivo_Click;
+            // 
+            // totalrealef
+            // 
+            totalrealef.Enabled = false;
+            totalrealef.Location = new Point(190, 8);
+            totalrealef.Name = "totalrealef";
+            totalrealef.Size = new Size(123, 29);
+            totalrealef.TabIndex = 0;
+            // 
+            // efectivotxt
+            // 
+            efectivotxt.Location = new Point(6, 105);
+            efectivotxt.Name = "efectivotxt";
+            efectivotxt.PlaceholderText = "Total Efectivo";
+            efectivotxt.Size = new Size(178, 29);
+            efectivotxt.TabIndex = 0;
+            // 
+            // tabPage5
+            // 
+            tabPage5.BackColor = SystemColors.WindowFrame;
+            tabPage5.Controls.Add(tarjetacmbx);
+            tabPage5.Controls.Add(tarjetadt);
+            tabPage5.Controls.Add(label27);
+            tabPage5.Controls.Add(label23);
+            tabPage5.Controls.Add(label24);
+            tabPage5.Controls.Add(button6);
+            tabPage5.Controls.Add(pagartarjeta);
+            tabPage5.Controls.Add(aplicartarjeta);
+            tabPage5.Controls.Add(totalrealtar);
+            tabPage5.Controls.Add(tarjetaref);
+            tabPage5.Location = new Point(4, 24);
+            tabPage5.Name = "tabPage5";
+            tabPage5.Size = new Size(319, 318);
+            tabPage5.TabIndex = 2;
+            tabPage5.Text = "Tarjeta";
+            // 
+            // tarjetacmbx
+            // 
+            tarjetacmbx.DropDownStyle = ComboBoxStyle.DropDownList;
+            tarjetacmbx.FormattingEnabled = true;
+            tarjetacmbx.Items.AddRange(new object[] { "1. VISA", "2. MASTERCARD", "3. AMERICAN EXPRESS" });
+            tarjetacmbx.Location = new Point(74, 44);
+            tarjetacmbx.Name = "tarjetacmbx";
+            tarjetacmbx.Size = new Size(239, 29);
+            tarjetacmbx.TabIndex = 14;
+            // 
+            // tarjetadt
+            // 
+            tarjetadt.AllowUserToAddRows = false;
+            tarjetadt.AllowUserToResizeRows = false;
+            tarjetadt.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            tarjetadt.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            tarjetadt.Location = new Point(6, 138);
+            tarjetadt.Name = "tarjetadt";
+            tarjetadt.RowHeadersVisible = false;
+            tarjetadt.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            tarjetadt.Size = new Size(307, 116);
+            tarjetadt.TabIndex = 13;
+            // 
+            // label27
+            // 
+            label27.AutoSize = true;
+            label27.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label27.ForeColor = SystemColors.Control;
+            label27.Location = new Point(6, 48);
+            label27.Name = "label27";
+            label27.Size = new Size(62, 21);
+            label27.TabIndex = 11;
+            label27.Text = "Tarjeta";
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label23.ForeColor = SystemColors.Control;
+            label23.Location = new Point(6, 81);
+            label23.Name = "label23";
+            label23.Size = new Size(91, 21);
+            label23.TabIndex = 11;
+            label23.Text = "Referencia";
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label24.ForeColor = SystemColors.Control;
+            label24.Location = new Point(137, 12);
+            label24.Name = "label24";
+            label24.Size = new Size(52, 21);
+            label24.TabIndex = 12;
+            label24.Text = "Total:";
+            // 
+            // button6
+            // 
+            button6.Image = Properties.Resources.atrás;
+            button6.ImageAlign = ContentAlignment.MiddleLeft;
+            button6.Location = new Point(6, 258);
+            button6.Name = "button6";
+            button6.Size = new Size(152, 46);
+            button6.TabIndex = 8;
+            button6.Text = "Volver";
+            button6.UseVisualStyleBackColor = true;
+            // 
+            // pagartarjeta
+            // 
+            pagartarjeta.Image = Properties.Resources.pagar;
+            pagartarjeta.ImageAlign = ContentAlignment.MiddleLeft;
+            pagartarjeta.Location = new Point(161, 258);
+            pagartarjeta.Name = "pagartarjeta";
+            pagartarjeta.Size = new Size(152, 46);
+            pagartarjeta.TabIndex = 9;
+            pagartarjeta.Text = "Procesar";
+            pagartarjeta.UseVisualStyleBackColor = true;
+            // 
+            // aplicartarjeta
+            // 
+            aplicartarjeta.Image = Properties.Resources.tarjeta_de_credito__1_;
+            aplicartarjeta.ImageAlign = ContentAlignment.MiddleLeft;
+            aplicartarjeta.Location = new Point(190, 105);
+            aplicartarjeta.Name = "aplicartarjeta";
+            aplicartarjeta.Size = new Size(123, 29);
+            aplicartarjeta.TabIndex = 10;
+            aplicartarjeta.Text = "Aplicar";
+            aplicartarjeta.UseVisualStyleBackColor = true;
+            aplicartarjeta.Click += aplicartarjeta_Click;
+            // 
+            // totalrealtar
+            // 
+            totalrealtar.Enabled = false;
+            totalrealtar.Location = new Point(190, 8);
+            totalrealtar.Name = "totalrealtar";
+            totalrealtar.Size = new Size(123, 29);
+            totalrealtar.TabIndex = 6;
+            // 
+            // tarjetaref
+            // 
+            tarjetaref.Location = new Point(6, 105);
+            tarjetaref.Name = "tarjetaref";
+            tarjetaref.PlaceholderText = "N° Referencia";
+            tarjetaref.Size = new Size(178, 29);
+            tarjetaref.TabIndex = 7;
+            // 
+            // tabPage4
+            // 
+            tabPage4.BackColor = SystemColors.WindowFrame;
+            tabPage4.Controls.Add(transferenciadt);
+            tabPage4.Controls.Add(bancocmbx);
+            tabPage4.Controls.Add(label28);
+            tabPage4.Controls.Add(label25);
+            tabPage4.Controls.Add(label26);
+            tabPage4.Controls.Add(button10);
+            tabPage4.Controls.Add(pagartransf);
+            tabPage4.Controls.Add(aplicartransf);
+            tabPage4.Controls.Add(totalrealtransf);
+            tabPage4.Controls.Add(bancoref);
+            tabPage4.Location = new Point(4, 24);
+            tabPage4.Name = "tabPage4";
+            tabPage4.Padding = new Padding(3);
+            tabPage4.Size = new Size(319, 318);
+            tabPage4.TabIndex = 1;
+            tabPage4.Text = "Transferencia";
+            // 
+            // transferenciadt
+            // 
+            transferenciadt.AllowUserToAddRows = false;
+            transferenciadt.AllowUserToResizeRows = false;
+            transferenciadt.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            transferenciadt.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            transferenciadt.Location = new Point(6, 138);
+            transferenciadt.Name = "transferenciadt";
+            transferenciadt.RowHeadersVisible = false;
+            transferenciadt.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            transferenciadt.Size = new Size(307, 116);
+            transferenciadt.TabIndex = 17;
+            // 
+            // bancocmbx
+            // 
+            bancocmbx.DropDownStyle = ComboBoxStyle.DropDownList;
+            bancocmbx.FormattingEnabled = true;
+            bancocmbx.Items.AddRange(new object[] { "1. BANCO POPULAR DOMINICANO", "2. BANCO DE RESERVAS (BANRESERVAS)", "3. BANCO BHD LEÓN", "4. SCOTIABANK REPÚBLICA DOMINICANA", "5. BANCO SANTA CRUZ", "6. BANCO CARIBE", "7. BANCO VIMENCA", "8. BANCO ADEMI" });
+            bancocmbx.Location = new Point(74, 44);
+            bancocmbx.Name = "bancocmbx";
+            bancocmbx.Size = new Size(239, 29);
+            bancocmbx.TabIndex = 16;
+            // 
+            // label28
+            // 
+            label28.AutoSize = true;
+            label28.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label28.ForeColor = SystemColors.Control;
+            label28.Location = new Point(9, 48);
+            label28.Name = "label28";
+            label28.Size = new Size(57, 21);
+            label28.TabIndex = 15;
+            label28.Text = "Banco";
+            // 
+            // label25
+            // 
+            label25.AutoSize = true;
+            label25.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label25.ForeColor = SystemColors.Control;
+            label25.Location = new Point(6, 81);
+            label25.Name = "label25";
+            label25.Size = new Size(91, 21);
+            label25.TabIndex = 11;
+            label25.Text = "Referencia";
+            // 
+            // label26
+            // 
+            label26.AutoSize = true;
+            label26.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label26.ForeColor = SystemColors.Control;
+            label26.Location = new Point(137, 12);
+            label26.Name = "label26";
+            label26.Size = new Size(52, 21);
+            label26.TabIndex = 12;
+            label26.Text = "Total:";
+            // 
+            // button10
+            // 
+            button10.Image = Properties.Resources.atrás;
+            button10.ImageAlign = ContentAlignment.MiddleLeft;
+            button10.Location = new Point(6, 258);
+            button10.Name = "button10";
+            button10.Size = new Size(152, 46);
+            button10.TabIndex = 8;
+            button10.Text = "Volver";
+            button10.UseVisualStyleBackColor = true;
+            // 
+            // pagartransf
+            // 
+            pagartransf.Image = Properties.Resources.pagar;
+            pagartransf.ImageAlign = ContentAlignment.MiddleLeft;
+            pagartransf.Location = new Point(161, 258);
+            pagartransf.Name = "pagartransf";
+            pagartransf.Size = new Size(152, 46);
+            pagartransf.TabIndex = 9;
+            pagartransf.Text = "Procesar";
+            pagartransf.UseVisualStyleBackColor = true;
+            // 
+            // aplicartransf
+            // 
+            aplicartransf.Image = Properties.Resources.banco__1_;
+            aplicartransf.ImageAlign = ContentAlignment.MiddleLeft;
+            aplicartransf.Location = new Point(190, 105);
+            aplicartransf.Name = "aplicartransf";
+            aplicartransf.Size = new Size(123, 29);
+            aplicartransf.TabIndex = 10;
+            aplicartransf.Text = "Aplicar";
+            aplicartransf.UseVisualStyleBackColor = true;
+            aplicartransf.Click += aplicartransf_Click;
+            // 
+            // totalrealtransf
+            // 
+            totalrealtransf.Enabled = false;
+            totalrealtransf.Location = new Point(190, 8);
+            totalrealtransf.Name = "totalrealtransf";
+            totalrealtransf.Size = new Size(123, 29);
+            totalrealtransf.TabIndex = 6;
+            // 
+            // bancoref
+            // 
+            bancoref.Location = new Point(6, 105);
+            bancoref.Name = "bancoref";
+            bancoref.PlaceholderText = "N° Referencia";
+            bancoref.Size = new Size(178, 29);
+            bancoref.TabIndex = 7;
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label15.ForeColor = SystemColors.Control;
+            label15.Location = new Point(69, 5);
+            label15.Name = "label15";
+            label15.Size = new Size(194, 32);
+            label15.TabIndex = 3;
+            label15.Text = "Detalle de pago";
             // 
             // label13
             // 
@@ -1429,7 +1438,7 @@
             label13.BackColor = Color.White;
             label13.ForeColor = SystemColors.Control;
             label13.Image = Properties.Resources.busqueda;
-            label13.Location = new Point(330, 144);
+            label13.Location = new Point(330, 145);
             label13.Name = "label13";
             label13.Size = new Size(18, 21);
             label13.TabIndex = 7;
@@ -1450,12 +1459,11 @@
             label10.AutoSize = true;
             label10.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label10.ForeColor = SystemColors.Control;
-            label10.Location = new Point(301, 10);
+            label10.Location = new Point(299, 10);
             label10.Name = "label10";
-            label10.Size = new Size(204, 32);
+            label10.Size = new Size(209, 32);
             label10.TabIndex = 4;
-            label10.Text = "Facturar Pedidos";
-            label10.Click += label10_Click;
+            label10.Text = "Facturar Ordenes";
             // 
             // panel7
             // 
@@ -1609,7 +1617,7 @@
             // 
             label12.AutoSize = true;
             label12.ForeColor = SystemColors.Control;
-            label12.Image = Properties.Resources.filtrar;
+            label12.Image = Properties.Resources.filtroblanco;
             label12.Location = new Point(6, 4);
             label12.Name = "label12";
             label12.Size = new Size(18, 21);
@@ -1675,7 +1683,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.WindowFrame;
-            ClientSize = new Size(815, 571);
+            ClientSize = new Size(812, 571);
             Controls.Add(tabControl1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -1688,27 +1696,11 @@
             Load += Pedidos_Load;
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
-            detallepanelcompleto.ResumeLayout(false);
-            detallepagopanel.ResumeLayout(false);
-            detallepagopanel.PerformLayout();
-            tabControl2.ResumeLayout(false);
-            tabPage3.ResumeLayout(false);
-            tabPage3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
-            tabPage5.ResumeLayout(false);
-            tabPage5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView3).EndInit();
-            tabPage4.ResumeLayout(false);
-            tabPage4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView4).EndInit();
-            devueltapanel.ResumeLayout(false);
-            devueltapanel.PerformLayout();
-            panel12.ResumeLayout(false);
-            panel12.PerformLayout();
+            notapanel.ResumeLayout(false);
+            notapanel.PerformLayout();
             panelmesas.ResumeLayout(false);
             panelmesas.PerformLayout();
             panel8.ResumeLayout(false);
-            panel8.PerformLayout();
             panelclientes.ResumeLayout(false);
             panelclientes.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)tablaclientes).EndInit();
@@ -1717,7 +1709,7 @@
             ((System.ComponentModel.ISupportInitialize)tablapanelproducto).EndInit();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)tabladatosconsultaprod).EndInit();
+            ((System.ComponentModel.ISupportInitialize)detalleorden).EndInit();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numCantidad).EndInit();
@@ -1729,11 +1721,28 @@
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            panel6.ResumeLayout(false);
-            panel6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)tablareceta).EndInit();
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
+            detallepanelcompleto.ResumeLayout(false);
+            bloqueopanel.ResumeLayout(false);
+            bloqueopanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            devueltapanel.ResumeLayout(false);
+            devueltapanel.PerformLayout();
+            panel12.ResumeLayout(false);
+            panel12.PerformLayout();
+            detallepagopanel.ResumeLayout(false);
+            detallepagopanel.PerformLayout();
+            tabControl2.ResumeLayout(false);
+            tabPage3.ResumeLayout(false);
+            tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)efectivodt).EndInit();
+            tabPage5.ResumeLayout(false);
+            tabPage5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)tarjetadt).EndInit();
+            tabPage4.ResumeLayout(false);
+            tabPage4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)transferenciadt).EndInit();
             panel7.ResumeLayout(false);
             panel7.PerformLayout();
             panel5.ResumeLayout(false);
@@ -1754,7 +1763,7 @@
         private Panel panel4;
         private Panel panel7;
         private Panel panel5;
-        private Button guardarpedidobtn;
+        private Button pasosiguiente;
         private Button limpiarbtn;
         private Panel panel8;
         private TextBox txtnombrecompleto;
@@ -1768,9 +1777,7 @@
         private Label label3;
         private TextBox txtprecioproducto;
         private Label label2;
-        private Label label5;
-        private Label label4;
-        private Button asignarmesabtn;
+        private Button guardarordenbtn;
         private Label label6;
         private Label label7;
         private TextBox txtnumero_cliente;
@@ -1785,7 +1792,7 @@
         private CheckBox pendientechk;
         private CheckBox facturadochk;
         private Label label13;
-        private DataGridView tabladatosconsultaprod;
+        private DataGridView detalleorden;
         private DataGridView tabladatospedidos;
         private CheckBox canceladochk;
         private Panel panelmesas;
@@ -1803,8 +1810,6 @@
         private TextBox txtproductobusqueda;
         private Panel panelproducto;
         private Button button7;
-        private Label labelmesa;
-        private Label labelsalamesa;
         private Label labelcantidadarticulos;
         private Label labelsubtotal;
         private Label labeltotal;
@@ -1821,59 +1826,63 @@
         private Label label9;
         private DateTimePicker fecini;
         private DateTimePicker fecfin;
-        private Panel panel6;
-        private DataGridView tablareceta;
-        private Label label22;
         private Label label21;
         private FlowLayoutPanel flowmesas;
-        private TextBox textBox1;
+        private TextBox idclientetxt;
         private TextBox textBox2;
         private PictureBox pictureBox2;
         private Panel panel10;
+        private Panel detallepanelcompleto;
         private Panel detallepagopanel;
         private TabControl tabControl2;
         private TabPage tabPage3;
-        private TabPage tabPage5;
-        private TabPage tabPage4;
-        private Label label15;
-        private DataGridView dataGridView2;
         private Label label18;
         private Label label16;
-        private Button button1;
-        private TextBox textBox4;
-        private TextBox textBox3;
         private Button button3;
-        private Button button2;
-        private DataGridView dataGridView3;
+        private Button pagarefectivo;
+        private Button aplicarefectivo;
+        private TextBox totalrealef;
+        private TextBox efectivotxt;
+        private TabPage tabPage5;
+        private ComboBox tarjetacmbx;
+        private DataGridView tarjetadt;
+        private Label label27;
         private Label label23;
         private Label label24;
         private Button button6;
-        private Button pagarefectivo;
-        private Button button9;
-        private TextBox textBox5;
-        private TextBox textBox6;
-        private DataGridView dataGridView4;
+        private Button pagartarjeta;
+        private Button aplicartarjeta;
+        private TextBox totalrealtar;
+        private TextBox tarjetaref;
+        private TabPage tabPage4;
+        private ComboBox bancocmbx;
+        private Label label28;
         private Label label25;
         private Label label26;
         private Button button10;
-        private Button button11;
-        private Button button12;
-        private TextBox textBox7;
-        private TextBox textBox8;
-        private ComboBox comboBox1;
-        private Label label27;
-        private ComboBox comboBox2;
-        private Label label28;
+        private Button pagartransf;
+        private Button aplicartransf;
+        private TextBox totalrealtransf;
+        private TextBox bancoref;
+        private Label label15;
         private Panel devueltapanel;
+        private TextBox devueltatxt;
         private Label label32;
         private Label label31;
         private Button button13;
         private Panel panel12;
-        private TextBox textBox10;
+        private TextBox pagadotxt;
         private Label label30;
-        private TextBox textBox9;
+        private TextBox totalpagar;
         private Label label29;
-        private TextBox textBox11;
-        private Panel detallepanelcompleto;
+        private Label label22;
+        private Button nota;
+        private Panel notapanel;
+        private TextBox notatxt;
+        private DataGridView efectivodt;
+        private DataGridView transferenciadt;
+        private Panel bloqueopanel;
+        private PictureBox pictureBox3;
+        private Label label4;
     }
 }

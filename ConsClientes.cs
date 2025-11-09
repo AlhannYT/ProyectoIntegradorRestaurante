@@ -79,7 +79,7 @@ namespace Proyecto_restaurante
                 FROM Cliente e
                 LEFT JOIN Persona p ON e.IdPersona = p.IdPersona
                 LEFT JOIN PersonaDocumento pd ON p.IdPersona = pd.IdPersona
-                WHERE e.Activo = 1 AND p.Activo = 1;";
+                WHERE e.Activo = 1 AND p.Activo = 1 and IdCliente > 1;";
 
                 using (SqlDataAdapter adaptador = new SqlDataAdapter(consultaCliente, conexionString))
                 {

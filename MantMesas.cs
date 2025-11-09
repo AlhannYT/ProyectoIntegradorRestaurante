@@ -24,7 +24,7 @@ namespace Proyecto_restaurante
 
         private void guardarbtn_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtnumeroMesa.Text) || string.IsNullOrWhiteSpace(capacidadtxt.Text) || string.IsNullOrWhiteSpace(idsalaconsulta.Text))
+            if (string.IsNullOrWhiteSpace(txtnumeroMesa.Text) || string.IsNullOrWhiteSpace(txtcapacidad.Text) || string.IsNullOrWhiteSpace(idsalaconsulta.Text))
             {
                 MessageBox.Show("No debe dejar campos vacíos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -123,7 +123,11 @@ namespace Proyecto_restaurante
         private void limpiarbtn_Click(object sender, EventArgs e)
         {
             txtnumeroMesa.Text = "";
-            txtcapacidad.Text = "";
+            capacidadtxt.Text = "";
+            idsalaconsulta.Text = "";
+            salatxt.Text = "";
+            ocupadochk.Checked = false;
+            estadochk.Checked = true;
             MantMesas_Load(sender, e);
             recargarbtn_Click(sender, e);
         }

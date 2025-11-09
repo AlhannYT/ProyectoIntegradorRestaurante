@@ -87,7 +87,7 @@
             // 
             fechacompra.Enabled = false;
             fechacompra.Format = DateTimePickerFormat.Short;
-            fechacompra.Location = new Point(141, 37);
+            fechacompra.Location = new Point(153, 37);
             fechacompra.Name = "fechacompra";
             fechacompra.Size = new Size(106, 23);
             fechacompra.TabIndex = 1;
@@ -108,11 +108,11 @@
             // labelresponsable
             // 
             labelresponsable.AutoSize = true;
-            labelresponsable.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelresponsable.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             labelresponsable.ForeColor = SystemColors.Control;
             labelresponsable.Location = new Point(1, 9);
             labelresponsable.Name = "labelresponsable";
-            labelresponsable.Size = new Size(199, 20);
+            labelresponsable.Size = new Size(217, 21);
             labelresponsable.TabIndex = 1;
             labelresponsable.Text = "Responsable de la compra: ";
             // 
@@ -134,11 +134,11 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 11.25F);
+            label5.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label5.ForeColor = SystemColors.Control;
             label5.Location = new Point(3, 37);
             label5.Name = "label5";
-            label5.Size = new Size(126, 20);
+            label5.Size = new Size(143, 21);
             label5.TabIndex = 1;
             label5.Text = "Fecha de compra:";
             // 
@@ -147,7 +147,7 @@
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label4.ForeColor = SystemColors.Control;
-            label4.Location = new Point(257, 7);
+            label4.Location = new Point(265, 5);
             label4.Name = "label4";
             label4.Size = new Size(263, 32);
             label4.TabIndex = 1;
@@ -252,25 +252,27 @@
             panel5.Controls.Add(txtcodigo);
             panel5.Location = new Point(4, 119);
             panel5.Name = "panel5";
-            panel5.Size = new Size(784, 38);
+            panel5.Size = new Size(784, 44);
             panel5.TabIndex = 0;
             // 
             // numCantidad
             // 
+            numCantidad.Font = new Font("Segoe UI", 12F);
             numCantidad.Location = new Point(633, 8);
             numCantidad.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
             numCantidad.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numCantidad.Name = "numCantidad";
-            numCantidad.Size = new Size(108, 23);
+            numCantidad.Size = new Size(108, 29);
             numCantidad.TabIndex = 1;
             numCantidad.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // txtnombre
             // 
             txtnombre.Enabled = false;
-            txtnombre.Location = new Point(124, 8);
+            txtnombre.Font = new Font("Segoe UI", 12F);
+            txtnombre.Location = new Point(126, 8);
             txtnombre.Name = "txtnombre";
-            txtnombre.Size = new Size(387, 23);
+            txtnombre.Size = new Size(387, 29);
             txtnombre.TabIndex = 0;
             // 
             // buscarprodbtn
@@ -278,7 +280,7 @@
             buscarprodbtn.Image = Properties.Resources.carrito_de_compras;
             buscarprodbtn.Location = new Point(6, 8);
             buscarprodbtn.Name = "buscarprodbtn";
-            buscarprodbtn.Size = new Size(26, 23);
+            buscarprodbtn.Size = new Size(29, 29);
             buscarprodbtn.TabIndex = 0;
             buscarprodbtn.UseVisualStyleBackColor = true;
             buscarprodbtn.Click += buscarprodbtn_Click;
@@ -289,24 +291,26 @@
             agregarbtn.Image = Properties.Resources.angulo_hacia_abajo;
             agregarbtn.Location = new Point(747, 8);
             agregarbtn.Name = "agregarbtn";
-            agregarbtn.Size = new Size(26, 23);
+            agregarbtn.Size = new Size(29, 29);
             agregarbtn.TabIndex = 0;
             agregarbtn.UseVisualStyleBackColor = true;
             agregarbtn.Click += agregarbtn_Click;
             // 
             // txtpreciocompra
             // 
-            txtpreciocompra.Location = new Point(518, 8);
+            txtpreciocompra.Font = new Font("Segoe UI", 12F);
+            txtpreciocompra.Location = new Point(519, 8);
             txtpreciocompra.Name = "txtpreciocompra";
-            txtpreciocompra.Size = new Size(108, 23);
+            txtpreciocompra.Size = new Size(108, 29);
             txtpreciocompra.TabIndex = 0;
             // 
             // txtcodigo
             // 
             txtcodigo.Enabled = false;
-            txtcodigo.Location = new Point(38, 8);
+            txtcodigo.Font = new Font("Segoe UI", 12F);
+            txtcodigo.Location = new Point(41, 8);
             txtcodigo.Name = "txtcodigo";
-            txtcodigo.Size = new Size(79, 23);
+            txtcodigo.Size = new Size(79, 29);
             txtcodigo.TabIndex = 0;
             // 
             // panelprod
@@ -379,7 +383,7 @@
             // txtidcompra
             // 
             txtidcompra.Enabled = false;
-            txtidcompra.Location = new Point(38, 14);
+            txtidcompra.Location = new Point(38, 10);
             txtidcompra.Name = "txtidcompra";
             txtidcompra.Size = new Size(85, 23);
             txtidcompra.TabIndex = 2;
@@ -389,7 +393,7 @@
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label6.ForeColor = SystemColors.Control;
-            label6.Location = new Point(7, 15);
+            label6.Location = new Point(7, 11);
             label6.Name = "label6";
             label6.Size = new Size(27, 20);
             label6.TabIndex = 1;
