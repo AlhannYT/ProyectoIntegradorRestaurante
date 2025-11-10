@@ -21,11 +21,11 @@ namespace Proyecto_restaurante
 
         string conexionString = ConexionBD.ConexionSQL();
         private string CategoriaId = "";
+        private string TipoDocID = "";
         private string ProductoTipoId = "";
+        private string MetodoPagoId = "";
         private string DepaID = "";
         private string PuestoID = "";
-        private string TipoDocID = "";
-        private string MetodoPagoId = "";
         private string MotivoId = "";
         private string UnidadID = "";
 
@@ -39,48 +39,6 @@ namespace Proyecto_restaurante
             CP_CargarGrid();
             CP_Limpiar();
 
-            //string consultaid = "SELECT TOP 1 IdCategoria FROM CategoriaProducto ORDER BY IdCategoria DESC";
-
-            //using (SqlConnection con = new SqlConnection(conexionString))
-            //{
-            //    con.Open();
-            //    using (SqlCommand cmd = new SqlCommand(consultaid, con))
-            //    {
-            //        object resultado = cmd.ExecuteScalar();
-
-            //        if (resultado != null)
-            //        {
-            //            int nuevoId = Convert.ToInt32(resultado) + 1;
-            //            idcateg.Text = nuevoId.ToString();
-            //        }
-            //        else
-            //        {
-            //            //MessageBox.Show("No se encontraron clientes.");
-            //            idcateg.Text = "?";
-            //        }
-            //    }
-            //}
-
-            //if (categfiltrochk.Checked == true)
-            //{
-            //    string consulta = "select * from CategoriaProducto where Activo = 1";
-
-            //    SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
-
-            //    DataTable dt = new DataTable();
-
-            //    adaptador.Fill(dt);
-
-            //    categdt.DataSource = dt;
-            //}
-            //else
-            //{
-            //    string consulta = "select * from CategoriaProducto where Activo = 0";
-            //    SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
-            //    DataTable dt = new DataTable();
-            //    adaptador.Fill(dt);
-            //    categdt.DataSource = dt;
-            //}
         }
 
         private void CP_CargarGrid()
@@ -237,6 +195,91 @@ namespace Proyecto_restaurante
             }
         }
 
+        private void TipoDoc_CargarDesdeGridRow(int rowIndex)
+        {
+            if (rowIndex < 0) return;
+            var fila = identdt.Rows[rowIndex];
+            if (fila == null) return;
+
+            object idObj = fila.Cells["IdTipoDocumento"].Value;
+            if (idObj != null && idObj != DBNull.Value)
+                TipoDocID = idObj.ToString();
+            else
+                TipoDocID = "";
+
+            iddocid.Text = TipoDocID;
+
+            object nombreObj = fila.Cells["Nombre"].Value;
+            identtxt.Text = (nombreObj != null && nombreObj != DBNull.Value)
+                            ? nombreObj.ToString()
+                            : "";
+
+            bool activo = false;
+            object actObj = fila.Cells["Activo"].Value;
+            if (actObj != null && actObj != DBNull.Value)
+                activo = Convert.ToBoolean(actObj);
+
+            if (estadoiden != null) estadoiden.Checked = activo;
+        }
+
+        private void TipoDoc_Limpiar()
+        {
+            TipoDocID = "";
+            iddocid.Text = "";
+            identtxt.Text = "";
+            if (estadoiden != null) estadoiden.Checked = true;
+            identtxt.Focus();
+        }
+
+        private void TipoDoc_CargarGrid()
+        {
+            string filtro = identbuscar.Text.Trim();
+            bool soloActivos = identfiltrochk.Checked;
+
+            string consulta = "SELECT IdTipoDocumento, Nombre, Activo FROM TipoDocumento WHERE 1=1";
+
+            if (filtro != "")
+            {
+                consulta += " AND Nombre LIKE '%' + @filtro + '%'";
+            }
+
+            if (soloActivos)
+            {
+                consulta += " AND Activo = 1";
+            }
+
+            consulta += " ORDER BY Activo DESC, Nombre";
+
+            using (SqlConnection conexion = new SqlConnection(conexionString))
+            using (SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexion))
+            {
+                if (filtro != "")
+                {
+                    adaptador.SelectCommand.Parameters.AddWithValue("@filtro", filtro);
+                }
+
+                DataTable dt = new DataTable();
+                adaptador.Fill(dt);
+
+                identdt.AutoGenerateColumns = true;
+                identdt.DataSource = dt;
+
+                if (identdt.Columns.Contains("IdTipoDocumento"))
+                {
+                    var c = identdt.Columns["IdTipoDocumento"];
+                    c.HeaderText = "ID";
+                    c.Width = 60;
+                    c.ReadOnly = true;
+                }
+
+                if (identdt.Columns.Contains("Nombre"))
+                    identdt.Columns["Nombre"].HeaderText = "Tipo documento";
+
+                if (identdt.Columns.Contains("Activo"))
+                    identdt.Columns["Activo"].HeaderText = "Activo";
+            }
+        }
+
         private void button8_Click(object sender, EventArgs e)
         {
             idenpanel.Location = new Point(225, 12);
@@ -244,48 +287,9 @@ namespace Proyecto_restaurante
             idenpanel.BringToFront();
             idenpanel.Visible = true;
 
-            //string consultaid = "SELECT TOP 1 IdTipoDocumento FROM TipoDocumento ORDER BY IdTipoDocumento DESC";
+            TipoDoc_CargarGrid();
+            TipoDoc_Limpiar();
 
-            //using (SqlConnection con = new SqlConnection(conexionString))
-            //{
-            //    con.Open();
-            //    using (SqlCommand cmd = new SqlCommand(consultaid, con))
-            //    {
-            //        object resultado = cmd.ExecuteScalar();
-
-            //        if (resultado != null)
-            //        {
-            //            int nuevoId = Convert.ToInt32(resultado) + 1;
-            //            iddocid.Text = nuevoId.ToString();
-            //        }
-            //        else
-            //        {
-            //            //MessageBox.Show("No se encontraron clientes.");
-            //            iddocid.Text = "?";
-            //        }
-            //    }
-            //}
-
-            //if (categfiltrochk.Checked == true)
-            //{
-            //    string consulta = "select * from TipoDocumento where Activo = 1";
-
-            //    SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
-
-            //    DataTable dt = new DataTable();
-
-            //    adaptador.Fill(dt);
-
-            //    categdt.DataSource = dt;
-            //}
-            //else
-            //{
-            //    string consulta = "select * from TipoDocumento where Activo = 0";
-            //    SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
-            //    DataTable dt = new DataTable();
-            //    adaptador.Fill(dt);
-            //    identdt.DataSource = dt;
-            //}
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -295,48 +299,8 @@ namespace Proyecto_restaurante
             prodpanel.BringToFront();
             prodpanel.Visible = true;
 
-            //string consultaid = "SELECT TOP 1 IdProductoTipo FROM ProductoTipo ORDER BY IdProductoTipo DESC";
-
-            //using (SqlConnection con = new SqlConnection(conexionString))
-            //{
-            //    con.Open();
-            //    using (SqlCommand cmd = new SqlCommand(consultaid, con))
-            //    {
-            //        object resultado = cmd.ExecuteScalar();
-
-            //        if (resultado != null)
-            //        {
-            //            int nuevoId = Convert.ToInt32(resultado) + 1;
-            //            idprod.Text = nuevoId.ToString();
-            //        }
-            //        else
-            //        {
-            //            //MessageBox.Show("No se encontraron clientes.");
-            //            idprod.Text = "?";
-            //        }
-            //    }
-            //}
-
-            //if (categfiltrochk.Checked == true)
-            //{
-            //    string consulta = "select * from ProductoTipo where Activo = 1";
-
-            //    SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
-
-            //    DataTable dt = new DataTable();
-
-            //    adaptador.Fill(dt);
-
-            //    prodtidt.DataSource = dt;
-            //}
-            //else
-            //{
-            //    string consulta = "select * from ProductoTipo where Activo = 0";
-            //    SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
-            //    DataTable dt = new DataTable();
-            //    adaptador.Fill(dt);
-            //    prodtidt.DataSource = dt;
-            //}
+            PT_CargarGrid();
+            PT_Limpiar();
         }
 
         private void PT_CargarGrid()
@@ -509,49 +473,6 @@ namespace Proyecto_restaurante
 
             MP_CargarGrid();
             MP_Limpiar();
-
-            //string consultaid = "SELECT TOP 1 IdMetodoPago FROM MetodoPago ORDER BY IdMetodoPago DESC";
-
-            //using (SqlConnection con = new SqlConnection(conexionString))
-            //{
-            //    con.Open();
-            //    using (SqlCommand cmd = new SqlCommand(consultaid, con))
-            //    {
-            //        object resultado = cmd.ExecuteScalar();
-
-            //        if (resultado != null)
-            //        {
-            //            int nuevoId = Convert.ToInt32(resultado) + 1;
-            //            idmetpago.Text = nuevoId.ToString();
-            //        }
-            //        else
-            //        {
-            //            //MessageBox.Show("No se encontraron clientes.");
-            //            idmetpago.Text = "?";
-            //        }
-            //    }
-            //}
-
-            //if (categfiltrochk.Checked == true)
-            //{
-            //    string consulta = "select * from MetodoPago where Activo = 1";
-
-            //    SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
-
-            //    DataTable dt = new DataTable();
-
-            //    adaptador.Fill(dt);
-
-            //    metododt.DataSource = dt;
-            //}
-            //else
-            //{
-            //    string consulta = "select * from MetodoPago where Activo = 0";
-            //    SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
-            //    DataTable dt = new DataTable();
-            //    adaptador.Fill(dt);
-            //    metododt.DataSource = dt;
-            //}
         }
 
 
@@ -710,6 +631,58 @@ namespace Proyecto_restaurante
             }
         }
 
+
+        private void Puesto_CargarGrid()
+        {
+            string textoFiltro = puestobuscar?.Text?.Trim() ?? "";
+            bool soloActivos = (puestofiltrochk != null && puestofiltrochk.Checked);
+
+            string sql = @"
+                    SELECT  p.IdPuesto,
+                            p.IdDepartamento,
+                            d.Nombre AS Departamento,
+                            p.Nombre   AS Puesto,
+                            p.Activo
+                            FROM dbo.Puesto p
+                            JOIN dbo.Departamento d ON d.IdDepartamento = p.IdDepartamento
+                            WHERE (@f = '' OR p.Nombre LIKE '%' + @f + '%' OR d.Nombre LIKE '%' + @f + '%')"
+                                + (soloActivos ? " AND p.Activo = 1" : "") +
+                            @"
+                            ORDER BY p.Activo DESC, p.Nombre;";
+
+            using (var cn = new SqlConnection(conexionString))
+            using (var da = new SqlDataAdapter(sql, cn))
+            {
+                da.SelectCommand.Parameters.AddWithValue("@f", textoFiltro);
+
+                var dt = new DataTable();
+                da.Fill(dt);
+
+                puestodt.AutoGenerateColumns = true;
+                puestodt.DataSource = dt;
+
+                if (puestodt.Columns.Contains("IdPuesto"))
+                {
+                    var c = puestodt.Columns["IdPuesto"];
+                    c.HeaderText = "ID";
+                    c.Width = 60;
+                    c.ReadOnly = true;
+                }
+                if (puestodt.Columns.Contains("IdDepartamento"))
+                    puestodt.Columns["IdDepartamento"].Visible = false; // escondemos el ID del depto
+
+                if (puestodt.Columns.Contains("Departamento"))
+                    puestodt.Columns["Departamento"].HeaderText = "Departamento";
+
+                if (puestodt.Columns.Contains("Puesto"))
+                    puestodt.Columns["Puesto"].HeaderText = "Puesto";
+
+                if (puestodt.Columns.Contains("Activo"))
+                    puestodt.Columns["Activo"].HeaderText = "Activo";
+            }
+        }
+
+
         private void button2_Click(object sender, EventArgs e)
         {
             puestopanel.Location = new Point(225, 12);
@@ -717,49 +690,85 @@ namespace Proyecto_restaurante
             puestopanel.BringToFront();
             puestopanel.Visible = true;
 
-            //string consultaid = "SELECT TOP 1 IdPuesto FROM Puesto ORDER BY IdPuesto DESC";
+            Puesto_CargarGrid();
+            Puesto_Limpiar();
 
-            //using (SqlConnection con = new SqlConnection(conexionString))
-            //{
-            //    con.Open();
-            //    using (SqlCommand cmd = new SqlCommand(consultaid, con))
-            //    {
-            //        object resultado = cmd.ExecuteScalar();
-
-            //        if (resultado != null)
-            //        {
-            //            int nuevoId = Convert.ToInt32(resultado) + 1;
-            //            idpuesto.Text = nuevoId.ToString();
-            //        }
-            //        else
-            //        {
-            //            //MessageBox.Show("No se encontraron clientes.");
-            //            idpuesto.Text = "?";
-            //        }
-            //    }
-            //}
-
-            //if (categfiltrochk.Checked == true)
-            //{
-            //    string consulta = "select * from Puesto where Activo = 1";
-
-            //    SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
-
-            //    DataTable dt = new DataTable();
-
-            //    adaptador.Fill(dt);
-
-            //    puestodt.DataSource = dt;
-            //}
-            //else
-            //{
-            //    string consulta = "select * from Puesto where Activo = 0";
-            //    SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
-            //    DataTable dt = new DataTable();
-            //    adaptador.Fill(dt);
-            //    puestodt.DataSource = dt;
-            //}
         }
+
+
+        private void Departamento_CargarGrid()
+        {
+            string filtro = depabuscar.Text.Trim();
+            bool soloActivos = depafiltrochk.Checked;
+
+            string consulta = "SELECT IdDepartamento, Nombre, Activo FROM Departamento WHERE 1=1";
+
+            if (filtro != "")
+            {
+                consulta += " AND Nombre LIKE '%' + @filtro + '%'";
+            }
+
+            if (soloActivos)
+            {
+                consulta += " AND Activo = 1";
+            }
+
+            consulta += " ORDER BY Activo DESC, Nombre";
+
+            using (SqlConnection conexion = new SqlConnection(conexionString))
+            using (SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexion))
+            {
+                if (filtro != "")
+                {
+                    adaptador.SelectCommand.Parameters.AddWithValue("@filtro", filtro);
+                }
+
+                DataTable dt = new DataTable();
+                adaptador.Fill(dt);
+
+                depdt.AutoGenerateColumns = true;
+                depdt.DataSource = dt;
+
+                if (depdt.Columns.Contains("IdDepartamento"))
+                {
+                    DataGridViewColumn c = depdt.Columns["IdDepartamento"];
+                    c.HeaderText = "ID";
+                    c.Width = 60;
+                    c.ReadOnly = true;
+                }
+
+                if (depdt.Columns.Contains("Nombre"))
+                {
+                    depdt.Columns["Nombre"].HeaderText = "Departamento";
+                }
+
+                if (depdt.Columns.Contains("Activo"))
+                {
+                    depdt.Columns["Activo"].HeaderText = "Activo";
+                }
+            }
+        }
+
+
+        private void Departamento_CargarDesdeGridFila()
+        {
+            if (depdt.CurrentRow == null) return;
+
+            var fila = depdt.CurrentRow;
+
+            var idObj = fila.Cells["IdDepartamento"].Value;
+            DepaID = (idObj == null || idObj == DBNull.Value) ? "" : idObj.ToString();
+            iddepa.Text = DepaID;
+
+            depatxt.Text = fila.Cells["Nombre"].Value?.ToString() ?? "";
+
+            bool activo = false;
+            var actObj = fila.Cells["Activo"].Value;
+            if (actObj != null && actObj != DBNull.Value)
+                activo = Convert.ToBoolean(actObj);
+            estadodepa.Checked = activo;
+        }
+
 
         private void button3_Click(object sender, EventArgs e)
         {
@@ -768,48 +777,8 @@ namespace Proyecto_restaurante
             depapanel.BringToFront();
             depapanel.Visible = true;
 
-            string consultaid = "SELECT TOP 1 IdDepartamento FROM Departamento ORDER BY IdDepartamento DESC";
-
-            using (SqlConnection con = new SqlConnection(conexionString))
-            {
-                con.Open();
-                using (SqlCommand cmd = new SqlCommand(consultaid, con))
-                {
-                    object resultado = cmd.ExecuteScalar();
-
-                    if (resultado != null)
-                    {
-                        int nuevoId = Convert.ToInt32(resultado) + 1;
-                        iddepa.Text = nuevoId.ToString();
-                    }
-                    else
-                    {
-                        //MessageBox.Show("No se encontraron clientes.");
-                        iddepa.Text = "?";
-                    }
-                }
-            }
-
-            if (categfiltrochk.Checked == true)
-            {
-                string consulta = "select * from Departamento where Activo = 1";
-
-                SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
-
-                DataTable dt = new DataTable();
-
-                adaptador.Fill(dt);
-
-                departdt.DataSource = dt;
-            }
-            else
-            {
-                string consulta = "select * from Departamento where Activo = 0";
-                SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
-                DataTable dt = new DataTable();
-                adaptador.Fill(dt);
-                departdt.DataSource = dt;
-            }
+            Departamento_CargarGrid();
+            Departamento_Limpiar();
         }
 
         private void button26_Click(object sender, EventArgs e)
@@ -854,6 +823,54 @@ namespace Proyecto_restaurante
 
         }
 
+        private void Puesto_CargarDepartamentosGrid()
+        {
+            string filtro = depapuestobuscar.Text.Trim();
+            bool soloActivos = puestodepafiltrochk.Checked;
+
+            string consulta = "SELECT IdDepartamento, Nombre, Activo FROM Departamento WHERE 1=1";
+
+            if (filtro != "")
+            {
+                consulta += " AND Nombre LIKE '%' + @filtro + '%'";
+            }
+
+            if (soloActivos)
+            {
+                consulta += " AND Activo = 1";
+            }
+
+            consulta += " ORDER BY Activo DESC, Nombre";
+
+            using (SqlConnection conexion = new SqlConnection(conexionString))
+            using (SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexion))
+            {
+                if (filtro != "")
+                {
+                    adaptador.SelectCommand.Parameters.AddWithValue("@filtro", filtro);
+                }
+
+                DataTable dt = new DataTable();
+                adaptador.Fill(dt);
+
+                departdt.AutoGenerateColumns = true;
+                departdt.DataSource = dt;
+
+                if (departdt.Columns.Contains("IdDepartamento"))
+                {
+                    var c = departdt.Columns["IdDepartamento"];
+                    c.HeaderText = "ID";
+                    c.Width = 60;
+                }
+
+                if (departdt.Columns.Contains("Nombre"))
+                    departdt.Columns["Nombre"].HeaderText = "Departamento";
+
+                if (departdt.Columns.Contains("Activo"))
+                    departdt.Columns["Activo"].HeaderText = "Activo";
+            }
+        }
+
         public int buscardepa = 1;
 
         private void button25_Click(object sender, EventArgs e)
@@ -876,6 +893,8 @@ namespace Proyecto_restaurante
                 selecpuest.Visible = false;
                 puestobuscar.Visible = false;
                 puestofiltrochk.Visible = false;
+
+                Puesto_CargarDepartamentosGrid();
 
                 buscardepa = 0;
             }
@@ -926,13 +945,13 @@ namespace Proyecto_restaurante
 
         private void guardardepartamento_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(depatxt.Text))
+            if (string.IsNullOrWhiteSpace(depatxt.Text))
             {
-                MessageBox.Show("Error: No deje campos vacios.");
+                MessageBox.Show("Error: No deje campos vacíos.");
                 return;
             }
 
-            string conexionString = ConexionBD.ConexionSQL();
+            string nombre = depatxt.Text.Trim();
 
             using (SqlConnection conexion = new SqlConnection(conexionString))
             {
@@ -940,12 +959,41 @@ namespace Proyecto_restaurante
                 {
                     conexion.Open();
 
-                    if (string.IsNullOrEmpty(DepaID.ToString()))
+                    // Validar nombre repetido
+                    string sqlExiste;
+                    if (string.IsNullOrEmpty(DepaID))
                     {
-                        string queryInsertar = "INSERT INTO Departamento (Nombre, Activo) VALUES (@Nombre, @activo)";
+                        sqlExiste = "SELECT COUNT(*) FROM Departamento WHERE Nombre = @Nombre";
+                    }
+                    else
+                    {
+                        sqlExiste = "SELECT COUNT(*) FROM Departamento WHERE Nombre = @Nombre AND IdDepartamento <> @IdDepartamento";
+                    }
+
+                    using (SqlCommand cmdExiste = new SqlCommand(sqlExiste, conexion))
+                    {
+                        cmdExiste.Parameters.AddWithValue("@Nombre", nombre);
+                        if (!string.IsNullOrEmpty(DepaID))
+                        {
+                            cmdExiste.Parameters.AddWithValue("@IdDepartamento", int.Parse(DepaID));
+                        }
+
+                        int cantidad = Convert.ToInt32(cmdExiste.ExecuteScalar());
+                        if (cantidad > 0)
+                        {
+                            MessageBox.Show("Ya existe un departamento con ese nombre.");
+                            return;
+                        }
+                    }
+
+                    // Insertar o actualizar
+                    if (string.IsNullOrEmpty(DepaID))
+                    {
+                        // INSERT
+                        string queryInsertar = "INSERT INTO Departamento (Nombre, Activo) VALUES (@Nombre, @Activo)";
                         using (SqlCommand insertarCommand = new SqlCommand(queryInsertar, conexion))
                         {
-                            insertarCommand.Parameters.AddWithValue("@Nombre", depatxt.Text);
+                            insertarCommand.Parameters.AddWithValue("@Nombre", nombre);
                             insertarCommand.Parameters.AddWithValue("@Activo", estadodepa.Checked ? 1 : 0);
 
                             int rowsAffected = insertarCommand.ExecuteNonQuery();
@@ -962,13 +1010,13 @@ namespace Proyecto_restaurante
                     }
                     else
                     {
-
-                        string queryActualizar = "UPDATE departamento SET Nombre = @nuevoNombre, Activo= @activo where IdDepartamento= @IDDepa";
+                        // UPDATE
+                        string queryActualizar = "UPDATE Departamento SET Nombre = @Nombre, Activo = @Activo WHERE IdDepartamento = @IdDepartamento";
                         using (SqlCommand actualizarCommand = new SqlCommand(queryActualizar, conexion))
                         {
-                            actualizarCommand.Parameters.AddWithValue("@IDDepa", DepaID);
-                            actualizarCommand.Parameters.AddWithValue("@nuevoNombre", depatxt.Text);
-                            actualizarCommand.Parameters.AddWithValue("@activo", estadodepa.Checked ? 1 : 0);
+                            actualizarCommand.Parameters.AddWithValue("@IdDepartamento", int.Parse(DepaID));
+                            actualizarCommand.Parameters.AddWithValue("@Nombre", nombre);
+                            actualizarCommand.Parameters.AddWithValue("@Activo", estadodepa.Checked ? 1 : 0);
 
                             int rowsAffected = actualizarCommand.ExecuteNonQuery();
 
@@ -985,16 +1033,28 @@ namespace Proyecto_restaurante
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Ocurrió un error: {ex.Message}");
+                    MessageBox.Show("Ocurrió un error: " + ex.Message);
                 }
             }
+
+            Departamento_Limpiar();
+            Departamento_CargarGrid();
         }
 
         private void button15_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(puestotxt.Text) || string.IsNullOrEmpty(iddepapuestotxt.Text) || string.IsNullOrEmpty(depapuestotxt.Text))
+
+            if (string.IsNullOrWhiteSpace(puestotxt.Text) ||
+                string.IsNullOrWhiteSpace(iddepapuestotxt.Text) ||
+                string.IsNullOrWhiteSpace(depapuestotxt.Text))
             {
-                MessageBox.Show("Error: No deje campos vacios.");
+                MessageBox.Show("Error: No deje campos vacíos.");
+                return;
+            }
+
+            if (!int.TryParse(iddepapuestotxt.Text, out int idDepa))
+            {
+                MessageBox.Show("El ID de departamento no es válido.");
                 return;
             }
 
@@ -1006,48 +1066,48 @@ namespace Proyecto_restaurante
                 {
                     conexion.Open();
 
-                    if (string.IsNullOrEmpty(DepaID.ToString()))
+                    if (string.IsNullOrEmpty(PuestoID)) // NUEVO
                     {
-                        string queryInsertar = "INSERT INTO Puesto (IdDepartamento, Nombre, Activo) VALUES (@IdDepartamento, @Nombre, @Activo)";
+                        string queryInsertar = @"
+                                                INSERT INTO Puesto (IdDepartamento, Nombre, Activo)
+                                                VALUES (@IdDepartamento, @Nombre, @Activo);";
+
                         using (SqlCommand insertarCommand = new SqlCommand(queryInsertar, conexion))
                         {
-                            insertarCommand.Parameters.AddWithValue("@IdDepartamento", iddepapuestotxt.Text);
-                            insertarCommand.Parameters.AddWithValue("@Nombre", depapuestotxt.Text);
+                            insertarCommand.Parameters.AddWithValue("@IdDepartamento", idDepa);
+                            insertarCommand.Parameters.AddWithValue("@Nombre", puestotxt.Text.Trim());
                             insertarCommand.Parameters.AddWithValue("@Activo", estadopuesto.Checked ? 1 : 0);
 
                             int rowsAffected = insertarCommand.ExecuteNonQuery();
 
                             if (rowsAffected > 0)
-                            {
                                 MessageBox.Show("Puesto registrado con éxito.");
-                            }
                             else
-                            {
                                 MessageBox.Show("No se pudo guardar los datos.");
-                            }
                         }
                     }
-                    else
+                    else // EDITAR
                     {
+                        string queryActualizar = @"
+                                                    UPDATE Puesto
+                                                    SET IdDepartamento = @IdDepartamento,
+                                                    Nombre        = @Nombre,
+                                                    Activo        = @Activo
+                                                    WHERE IdPuesto     = @IdPuesto;";
 
-                        string queryActualizar = "UPDATE Puesto SET IDDepa = @IDDepa, Nombre = @Nombre, Activo= @activo where IdPuesto= @IDPuesto";
                         using (SqlCommand actualizarCommand = new SqlCommand(queryActualizar, conexion))
                         {
-                            actualizarCommand.Parameters.AddWithValue("@IDPuesto", PuestoID);
-                            actualizarCommand.Parameters.AddWithValue("@IDDepa", iddepapuestotxt.Text);
-                            actualizarCommand.Parameters.AddWithValue("@Nombre", depatxt.Text);
-                            actualizarCommand.Parameters.AddWithValue("@activo", estadodepa.Checked ? 1 : 0);
+                            actualizarCommand.Parameters.AddWithValue("@IdPuesto", int.Parse(PuestoID));
+                            actualizarCommand.Parameters.AddWithValue("@IdDepartamento", idDepa);
+                            actualizarCommand.Parameters.AddWithValue("@Nombre", puestotxt.Text.Trim());
+                            actualizarCommand.Parameters.AddWithValue("@Activo", estadopuesto.Checked ? 1 : 0);
 
                             int rowsAffected = actualizarCommand.ExecuteNonQuery();
 
                             if (rowsAffected > 0)
-                            {
-                                MessageBox.Show("Departamento actualizado con éxito.");
-                            }
+                                MessageBox.Show("Puesto actualizado con éxito.");
                             else
-                            {
                                 MessageBox.Show("No se pudo actualizar los datos.");
-                            }
                         }
                     }
                 }
@@ -1056,39 +1116,84 @@ namespace Proyecto_restaurante
                     MessageBox.Show($"Ocurrió un error: {ex.Message}");
                 }
             }
+
+            Puesto_Limpiar();
+            Puesto_CargarGrid();
         }
 
-        private void button14_Click(object sender, EventArgs e)
+        private void Puesto_Limpiar()
         {
             PuestoID = "";
+            idpuesto.Text = "";
             puestotxt.Text = "";
             iddepapuestotxt.Text = "";
             depapuestotxt.Text = "";
             estadopuesto.Checked = true;
+            puestotxt.Focus();
+        }
+        private void button14_Click(object sender, EventArgs e)
+        {
+            Puesto_Limpiar();
+        }
+
+        private void Departamento_Limpiar()
+        {
+            DepaID = "";
+            iddepa.Text = "";
+            depatxt.Text = "";
+            estadodepa.Checked = true;
+            depatxt.Focus();
         }
 
         private void button17_Click(object sender, EventArgs e)
         {
-            DepaID = "";
-            depatxt.Text = "";
-            estadodepa.Checked = true;
+            Departamento_Limpiar();
+        }
+
+
+        private void Puesto_CargarDesdeGridRow(int rowIndex)
+        {
+            if (rowIndex < 0) return;
+            var row = puestodt.Rows[rowIndex];
+            if (row == null) return;
+
+            var idObj = row.Cells["IdPuesto"]?.Value;
+            PuestoID = (idObj == null || idObj == DBNull.Value) ? "" : idObj.ToString();
+            idpuesto.Text = PuestoID;
+
+
+            puestotxt.Text = row.Cells["Puesto"]?.Value?.ToString() ?? "";
+
+
+            if (row.Cells["IdDepartamento"]?.Value != null)
+                iddepapuestotxt.Text = row.Cells["IdDepartamento"].Value.ToString();
+            else
+                iddepapuestotxt.Text = "";
+
+            depapuestotxt.Text = row.Cells["Departamento"]?.Value?.ToString() ?? "";
+
+
+            bool activo = false;
+            var actObj = row.Cells["Activo"]?.Value;
+            if (actObj != null && actObj != DBNull.Value) activo = Convert.ToBoolean(actObj);
+            estadopuesto.Checked = activo;
         }
 
 
         private void selecpuest_Click(object sender, EventArgs e)
         {
-            //puestodt_CellContentDoubleClick(sender, e);
+            if (puestodt.CurrentRow != null)
+                Puesto_CargarDesdeGridRow(puestodt.CurrentRow.Index);
         }
 
         private void puestodt_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            iddepapuestotxt.Text = puestodt.SelectedCells[0].Value.ToString();
-            depapuestotxt.Text = puestodt.SelectedCells[1].Value.ToString();
+            Puesto_CargarDesdeGridRow(e.RowIndex);
         }
 
         private void puestodt_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            Puesto_CargarDesdeGridRow(e.RowIndex);
         }
 
         private void departdt_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -1099,13 +1204,13 @@ namespace Proyecto_restaurante
 
         private void button12_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(identtxt.Text))
+            if (string.IsNullOrWhiteSpace(identtxt.Text))
             {
-                MessageBox.Show("Error: No deje campos vacios.");
+                MessageBox.Show("Error: No deje campos vacíos.");
                 return;
             }
 
-            string conexionString = ConexionBD.ConexionSQL();
+            string nombre = identtxt.Text.Trim();
 
             using (SqlConnection conexion = new SqlConnection(conexionString))
             {
@@ -1113,13 +1218,42 @@ namespace Proyecto_restaurante
                 {
                     conexion.Open();
 
-                    if (string.IsNullOrEmpty(DepaID.ToString()))
+                    // Validar nombre repetido
+                    string sqlExiste;
+                    if (string.IsNullOrEmpty(TipoDocID))
                     {
+                        sqlExiste = "SELECT COUNT(*) FROM TipoDocumento WHERE Nombre = @Nombre";
+                    }
+                    else
+                    {
+                        sqlExiste = "SELECT COUNT(*) FROM TipoDocumento WHERE Nombre = @Nombre AND IdTipoDocumento <> @IdTipoDoc";
+                    }
+
+                    using (SqlCommand cmdExiste = new SqlCommand(sqlExiste, conexion))
+                    {
+                        cmdExiste.Parameters.AddWithValue("@Nombre", nombre);
+                        if (!string.IsNullOrEmpty(TipoDocID))
+                        {
+                            cmdExiste.Parameters.AddWithValue("@IdTipoDoc", int.Parse(TipoDocID));
+                        }
+
+                        int cantidad = Convert.ToInt32(cmdExiste.ExecuteScalar());
+                        if (cantidad > 0)
+                        {
+                            MessageBox.Show("Ya existe un tipo de documento con ese nombre.");
+                            return;
+                        }
+                    }
+
+
+                    if (string.IsNullOrEmpty(TipoDocID))
+                    {
+                        // INSERT
                         string queryInsertar = "INSERT INTO TipoDocumento (Nombre, Activo) VALUES (@Nombre, @Activo)";
                         using (SqlCommand insertarCommand = new SqlCommand(queryInsertar, conexion))
                         {
-                            insertarCommand.Parameters.AddWithValue("@Nombre", identtxt.Text);
-                            insertarCommand.Parameters.AddWithValue("@Activo", estadopuesto.Checked ? 1 : 0);
+                            insertarCommand.Parameters.AddWithValue("@Nombre", nombre);
+                            insertarCommand.Parameters.AddWithValue("@Activo", estadoiden.Checked ? 1 : 0);
 
                             int rowsAffected = insertarCommand.ExecuteNonQuery();
 
@@ -1135,11 +1269,12 @@ namespace Proyecto_restaurante
                     }
                     else
                     {
-                        string queryActualizar = "UPDATE TipoDocumento SET Nombre = @Nombre, Activo= @Activo where IdTipoDocumento= @IdTipoDoc";
+                        // UPDATE
+                        string queryActualizar = "UPDATE TipoDocumento SET Nombre = @Nombre, Activo = @Activo WHERE IdTipoDocumento = @IdTipoDoc";
                         using (SqlCommand actualizarCommand = new SqlCommand(queryActualizar, conexion))
                         {
-                            actualizarCommand.Parameters.AddWithValue("@IdTipoDoc", TipoDocID);
-                            actualizarCommand.Parameters.AddWithValue("@Nombre", identtxt.Text);
+                            actualizarCommand.Parameters.AddWithValue("@IdTipoDoc", int.Parse(TipoDocID));
+                            actualizarCommand.Parameters.AddWithValue("@Nombre", nombre);
                             actualizarCommand.Parameters.AddWithValue("@Activo", estadoiden.Checked ? 1 : 0);
 
                             int rowsAffected = actualizarCommand.ExecuteNonQuery();
@@ -1157,9 +1292,12 @@ namespace Proyecto_restaurante
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Ocurrió un error: {ex.Message}");
+                    MessageBox.Show("Ocurrió un error: " + ex.Message);
                 }
             }
+
+            TipoDoc_Limpiar();
+            TipoDoc_CargarGrid();
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -1195,7 +1333,7 @@ namespace Proyecto_restaurante
                 DataTable dt = new DataTable();
                 da.Fill(dt);
 
-                // Auto columnas por nombres de BD
+
                 dataGridView2.AutoGenerateColumns = true;
                 dataGridView2.DataSource = dt;
 
@@ -1234,7 +1372,7 @@ namespace Proyecto_restaurante
             nombreunidadtxt.Focus();
         }
 
-        // Validaciones 
+
         private bool UM_Validar(out decimal valor)
         {
             valor = 0m;
@@ -1556,12 +1694,12 @@ namespace Proyecto_restaurante
 
         private void button13_Click(object sender, EventArgs e)
         {
-
+            Puesto_Limpiar();
         }
 
         private void button10_Click(object sender, EventArgs e)
         {
-
+            TipoDoc_Limpiar();
         }
 
         private void depapanel_Paint(object sender, PaintEventArgs e)
@@ -1591,7 +1729,7 @@ namespace Proyecto_restaurante
 
         private void selecdepa_Click(object sender, EventArgs e)
         {
-
+            Departamento_CargarDesdeGridFila();
         }
 
         private void button32_Click(object sender, EventArgs e)
@@ -1856,6 +1994,154 @@ namespace Proyecto_restaurante
         }
 
         private void prodtxt_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void iddepapuestotxt_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void estadopuesto_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void departdt_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            departdt.CurrentCell = departdt.Rows[e.RowIndex].Cells[e.ColumnIndex];
+
+            if (departdt.SelectedCells.Count >= 2)
+            {
+                iddepapuestotxt.Text = departdt.SelectedCells[0].Value.ToString();
+                depapuestotxt.Text = departdt.SelectedCells[1].Value.ToString();
+            }
+        }
+
+        private void depdt_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                depdt.CurrentCell = depdt.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                Departamento_CargarDesdeGridFila();
+            }
+        }
+
+        private void puestodepafiltrochk_CheckedChanged(object sender, EventArgs e)
+        {
+            Puesto_CargarDepartamentosGrid();
+        }
+
+        private void label34_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void puestobuscar_TextChanged(object sender, EventArgs e)
+        {
+            Puesto_CargarGrid();
+        }
+
+        private void puestofiltrochk_CheckedChanged(object sender, EventArgs e)
+        {
+            Puesto_CargarGrid();
+        }
+
+        private void label12_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void iddepa_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+            Departamento_Limpiar();
+        }
+
+        private void depabuscar_TextChanged(object sender, EventArgs e)
+        {
+            Departamento_CargarGrid();
+        }
+
+        private void depafiltrochk_CheckedChanged(object sender, EventArgs e)
+        {
+            Departamento_CargarGrid();
+        }
+
+        private void label16_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void depapuestobuscar_TextChanged(object sender, EventArgs e)
+        {
+            Puesto_CargarDepartamentosGrid();
+        }
+
+        private void selectdepapuest_Click(object sender, EventArgs e)
+        {
+            if (departdt.SelectedCells.Count >= 2)
+            {
+                iddepapuestotxt.Text = departdt.SelectedCells[0].Value.ToString();
+                depapuestotxt.Text = departdt.SelectedCells[1].Value.ToString();
+            }
+        }
+
+        private void iddocid_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void identtxt_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void identfiltrochk_CheckedChanged(object sender, EventArgs e)
+        {
+            TipoDoc_CargarGrid();
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            TipoDoc_Limpiar();
+        }
+
+        private void identdt_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                identdt.CurrentCell = identdt.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                TipoDoc_CargarDesdeGridRow(e.RowIndex);
+            }
+        }
+
+        private void seleciden_Click(object sender, EventArgs e)
+        {
+            if (identdt.CurrentRow != null)
+            {
+                TipoDoc_CargarDesdeGridRow(identdt.CurrentRow.Index);
+            }
+        }
+
+        private void identbuscar_TextChanged(object sender, EventArgs e)
+        {
+            TipoDoc_CargarGrid();
+        }
+
+        private void label38_Click(object sender, EventArgs e)
         {
 
         }

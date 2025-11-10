@@ -284,7 +284,7 @@ namespace Proyecto_restaurante
             imagenproducto.Image = Proyecto_restaurante.Properties.Resources.paisaje;
 
             numCantidad.Value = numCantidad.Minimum;
-            
+
             labeltotal.Text = "";
             labelcantidad.Text = "";
             agregarbtn.Enabled = false;
@@ -292,10 +292,25 @@ namespace Proyecto_restaurante
             //tablapanelprod.Rows.Clear();
 
             totalAcumulado = 0;
-            
+
             cantidadProd = 0;
 
             comprarbtn.Enabled = false;
+        }
+
+        private void txtidcompra_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tablaproductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

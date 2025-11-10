@@ -260,6 +260,7 @@
             label1.Size = new Size(80, 25);
             label1.TabIndex = 14;
             label1.Text = "Tipos    ";
+            label1.Click += label1_Click;
             // 
             // barraizq
             // 
@@ -551,7 +552,7 @@
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(149, 4);
+            label2.Location = new Point(163, 4);
             label2.Name = "label2";
             label2.Size = new Size(215, 32);
             label2.TabIndex = 0;
@@ -624,6 +625,7 @@
             seleciden.TabIndex = 1;
             seleciden.Text = "Seleccionar";
             seleciden.UseVisualStyleBackColor = true;
+            seleciden.Click += seleciden_Click;
             // 
             // label7
             // 
@@ -662,6 +664,7 @@
             identfiltrochk.TabIndex = 6;
             identfiltrochk.Text = "      ";
             identfiltrochk.UseVisualStyleBackColor = true;
+            identfiltrochk.CheckedChanged += identfiltrochk_CheckedChanged;
             // 
             // estadoiden
             // 
@@ -683,6 +686,7 @@
             identbuscar.Name = "identbuscar";
             identbuscar.Size = new Size(138, 23);
             identbuscar.TabIndex = 5;
+            identbuscar.TextChanged += identbuscar_TextChanged;
             // 
             // identdt
             // 
@@ -698,6 +702,7 @@
             identdt.Size = new Size(344, 133);
             identdt.TabIndex = 3;
             identdt.TabStop = false;
+            identdt.CellContentClick += identdt_CellContentClick;
             // 
             // iddocid
             // 
@@ -706,6 +711,7 @@
             iddocid.Name = "iddocid";
             iddocid.Size = new Size(56, 23);
             iddocid.TabIndex = 2;
+            iddocid.TextChanged += iddocid_TextChanged;
             // 
             // identtxt
             // 
@@ -713,6 +719,7 @@
             identtxt.Name = "identtxt";
             identtxt.Size = new Size(199, 23);
             identtxt.TabIndex = 2;
+            identtxt.TextChanged += identtxt_TextChanged;
             // 
             // label8
             // 
@@ -754,7 +761,7 @@
             label11.AutoSize = true;
             label11.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
             label11.ForeColor = Color.White;
-            label11.Location = new Point(171, 3);
+            label11.Location = new Point(184, 3);
             label11.Name = "label11";
             label11.Size = new Size(171, 32);
             label11.TabIndex = 0;
@@ -780,6 +787,7 @@
             button11.TabIndex = 1;
             button11.Text = "Nuevo";
             button11.UseVisualStyleBackColor = true;
+            button11.Click += button11_Click;
             // 
             // button12
             // 
@@ -836,6 +844,7 @@
             selectdepapuest.Text = "Seleccionar";
             selectdepapuest.UseVisualStyleBackColor = true;
             selectdepapuest.Visible = false;
+            selectdepapuest.Click += selectdepapuest_Click;
             // 
             // selecpuest
             // 
@@ -862,6 +871,7 @@
             label34.TabIndex = 0;
             label34.Text = "  ";
             label34.Visible = false;
+            label34.Click += label34_Click;
             // 
             // label12
             // 
@@ -875,6 +885,7 @@
             label12.Size = new Size(18, 21);
             label12.TabIndex = 0;
             label12.Text = "  ";
+            label12.Click += label12_Click;
             // 
             // btndepabuscar
             // 
@@ -912,6 +923,7 @@
             puestodepafiltrochk.Text = "      ";
             puestodepafiltrochk.UseVisualStyleBackColor = true;
             puestodepafiltrochk.Visible = false;
+            puestodepafiltrochk.CheckedChanged += puestodepafiltrochk_CheckedChanged;
             // 
             // puestofiltrochk
             // 
@@ -926,6 +938,7 @@
             puestofiltrochk.TabIndex = 6;
             puestofiltrochk.Text = "      ";
             puestofiltrochk.UseVisualStyleBackColor = true;
+            puestofiltrochk.CheckedChanged += puestofiltrochk_CheckedChanged;
             // 
             // estadopuesto
             // 
@@ -940,6 +953,7 @@
             estadopuesto.TabIndex = 6;
             estadopuesto.Text = "Activo";
             estadopuesto.UseVisualStyleBackColor = true;
+            estadopuesto.CheckedChanged += estadopuesto_CheckedChanged;
             // 
             // depapuestobuscar
             // 
@@ -948,13 +962,15 @@
             depapuestobuscar.Size = new Size(138, 23);
             depapuestobuscar.TabIndex = 5;
             depapuestobuscar.Visible = false;
+            depapuestobuscar.TextChanged += depapuestobuscar_TextChanged;
             // 
             // puestobuscar
             // 
-            puestobuscar.Location = new Point(363, 332);
+            puestobuscar.Location = new Point(361, 332);
             puestobuscar.Name = "puestobuscar";
             puestobuscar.Size = new Size(138, 23);
             puestobuscar.TabIndex = 5;
+            puestobuscar.TextChanged += puestobuscar_TextChanged;
             // 
             // departdt
             // 
@@ -972,6 +988,7 @@
             departdt.TabStop = false;
             departdt.Visible = false;
             departdt.CellClick += departdt_CellClick;
+            departdt.CellContentClick += departdt_CellContentClick;
             // 
             // puestodt
             // 
@@ -1011,6 +1028,7 @@
             iddepapuestotxt.Name = "iddepapuestotxt";
             iddepapuestotxt.Size = new Size(43, 23);
             iddepapuestotxt.TabIndex = 2;
+            iddepapuestotxt.TextChanged += iddepapuestotxt_TextChanged;
             // 
             // depapuestotxt
             // 
@@ -1082,11 +1100,12 @@
             label16.AutoSize = true;
             label16.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
             label16.ForeColor = Color.White;
-            label16.Location = new Point(210, 3);
+            label16.Location = new Point(224, 3);
             label16.Name = "label16";
             label16.Size = new Size(92, 32);
             label16.TabIndex = 0;
             label16.Text = "Puesto";
+            label16.Click += label16_Click;
             // 
             // panel5
             // 
@@ -1149,7 +1168,7 @@
             // 
             selecdepa.Image = Properties.Resources.seleccion;
             selecdepa.ImageAlign = ContentAlignment.MiddleLeft;
-            selecdepa.Location = new Point(375, 269);
+            selecdepa.Location = new Point(363, 262);
             selecdepa.Name = "selecdepa";
             selecdepa.Size = new Size(138, 26);
             selecdepa.TabIndex = 1;
@@ -1179,6 +1198,7 @@
             button16.TabIndex = 1;
             toolTip1.SetToolTip(button16, "Eliminar");
             button16.UseVisualStyleBackColor = true;
+            button16.Click += button16_Click;
             // 
             // depafiltrochk
             // 
@@ -1193,6 +1213,7 @@
             depafiltrochk.TabIndex = 6;
             depafiltrochk.Text = "      ";
             depafiltrochk.UseVisualStyleBackColor = true;
+            depafiltrochk.CheckedChanged += depafiltrochk_CheckedChanged;
             // 
             // estadodepa
             // 
@@ -1214,6 +1235,7 @@
             depabuscar.Name = "depabuscar";
             depabuscar.Size = new Size(138, 23);
             depabuscar.TabIndex = 5;
+            depabuscar.TextChanged += depabuscar_TextChanged;
             // 
             // depdt
             // 
@@ -1229,6 +1251,7 @@
             depdt.Size = new Size(344, 133);
             depdt.TabIndex = 3;
             depdt.TabStop = false;
+            depdt.CellContentClick += depdt_CellContentClick;
             // 
             // iddepa
             // 
@@ -1237,6 +1260,7 @@
             iddepa.Name = "iddepa";
             iddepa.Size = new Size(56, 23);
             iddepa.TabIndex = 2;
+            iddepa.TextChanged += iddepa_TextChanged;
             // 
             // depatxt
             // 
@@ -1286,7 +1310,7 @@
             label21.AutoSize = true;
             label21.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
             label21.ForeColor = Color.White;
-            label21.Location = new Point(166, 3);
+            label21.Location = new Point(177, 3);
             label21.Name = "label21";
             label21.Size = new Size(180, 32);
             label21.TabIndex = 0;
@@ -1511,7 +1535,7 @@
             label26.AutoSize = true;
             label26.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
             label26.ForeColor = Color.White;
-            label26.Location = new Point(196, 3);
+            label26.Location = new Point(206, 3);
             label26.Name = "label26";
             label26.Size = new Size(120, 32);
             label26.TabIndex = 0;
@@ -1722,7 +1746,7 @@
             label31.AutoSize = true;
             label31.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
             label31.ForeColor = Color.White;
-            label31.Location = new Point(194, 3);
+            label31.Location = new Point(204, 3);
             label31.Name = "label31";
             label31.Size = new Size(124, 32);
             label31.TabIndex = 0;
@@ -1945,12 +1969,13 @@
             label38.AutoSize = true;
             label38.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
             label38.ForeColor = Color.White;
-            label38.Location = new Point(150, 3);
+            label38.Location = new Point(163, 3);
             label38.Name = "label38";
             label38.Size = new Size(213, 64);
             label38.TabIndex = 0;
             label38.Text = "Motivo de Salida \r\nde Inventario";
             label38.TextAlign = ContentAlignment.MiddleCenter;
+            label38.Click += label38_Click;
             // 
             // panel4
             // 
@@ -2176,7 +2201,7 @@
             label43.AutoSize = true;
             label43.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
             label43.ForeColor = Color.White;
-            label43.Location = new Point(145, 3);
+            label43.Location = new Point(159, 3);
             label43.Name = "label43";
             label43.Size = new Size(223, 32);
             label43.TabIndex = 0;
