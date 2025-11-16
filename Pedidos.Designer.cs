@@ -236,7 +236,7 @@
             tabPage6.Controls.Add(panel6);
             tabPage6.Location = new Point(4, 30);
             tabPage6.Name = "tabPage6";
-            tabPage6.Size = new Size(1636, 766);
+            tabPage6.Size = new Size(804, 608);
             tabPage6.TabIndex = 2;
             tabPage6.Text = "Mesas";
             // 
@@ -312,6 +312,7 @@
             EditarOrden.Text = "Editar Orden";
             EditarOrden.TextAlign = ContentAlignment.BottomCenter;
             EditarOrden.UseVisualStyleBackColor = true;
+            EditarOrden.Click += EditarOrden_Click;
             // 
             // CrearOrden
             // 
@@ -1044,7 +1045,7 @@
             tabPage2.Location = new Point(4, 30);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(1636, 766);
+            tabPage2.Size = new Size(804, 608);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Facturas";
             // 

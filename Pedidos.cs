@@ -1409,5 +1409,10 @@ namespace Proyecto_restaurante
                 e.Handled = true;
             }
         }
+
+        private void EditarOrden_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = 1;
+        }
     }
 }
