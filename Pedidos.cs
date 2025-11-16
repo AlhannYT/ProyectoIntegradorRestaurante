@@ -26,6 +26,13 @@ namespace Proyecto_restaurante
         private string pedidoActual;
         public string NombrePC;
         private int IDMesa = 0;
+        private int PedidoID;
+        private decimal Total;
+        private int TipoPago = 0;
+        private decimal TotalPedido = 0m;
+        private decimal TotalAplicado = 0m;
+        private decimal totalAcumulado = 0;
+        private decimal subtotalAcumulado = 0;
 
         string conexionString = ConexionBD.ConexionSQL();
 
@@ -42,7 +49,7 @@ namespace Proyecto_restaurante
             FROM Cliente e
             LEFT JOIN Persona p ON e.IdPersona = p.IdPersona
             LEFT JOIN PersonaDocumento pd ON p.IdPersona = pd.IdPersona
-            WHERE e.Activo = 1 AND p.Activo = 1 and IdCliente > 1;"; //Esto es para que no traiga al contado directamente sino que traiga los demas clientes
+            WHERE e.Activo = 1 AND p.Activo = 1 and IdCliente > 1;"; //Esto es para que no traiga AL CONTADO directamente sino que traiga los demas clientes
 
             using (SqlDataAdapter adaptador = new SqlDataAdapter(consultaCliente, conexionString))
             {
@@ -143,6 +150,7 @@ namespace Proyecto_restaurante
 
                     limpiarbtn_Click(sender, e);
                     tabControl1.SelectedIndex = 0;
+                    Pedidos_Load(sender, e);
 
                 }
                 catch (Exception ex)
@@ -205,9 +213,6 @@ namespace Proyecto_restaurante
 
             habilitarbotones(sender, e);
         }
-
-        private decimal totalAcumulado = 0;
-        private decimal subtotalAcumulado = 0;
 
         private void bajarproductobtn_Click(object sender, EventArgs e)
         {
@@ -282,7 +287,23 @@ namespace Proyecto_restaurante
 
             dynamic mesa = btnSeleccionado.Tag;
             idMesaSeleccionada = mesa.Id;
+            int estadoMesa = mesa.Estado;
 
+
+            if (estadoMesa == 1)
+            {
+                EditarOrden.Enabled = true;
+                FacturarOrden.Enabled = true;
+
+                CrearOrden.Enabled = false;
+            }
+            else
+            {
+                EditarOrden.Enabled = false;
+                FacturarOrden.Enabled = false;
+
+                CrearOrden.Enabled = true;
+            }
         }
 
         private void Pedidos_Load(object sender, EventArgs e)
@@ -440,14 +461,15 @@ namespace Proyecto_restaurante
 
             tabladatospedidos.DataSource = dt;
             tabladatospedidos.Columns["IdMesa"].Visible = false;
+            volverdetalle_Click(sender, e);
         }
 
         private void limpiarbtn_Click(object sender, EventArgs e)
         {
             IDMesa = 0;
             PedidoID = 0;
-            IDMesa = 0;
-            txtnombrecompleto.Clear();
+            txtnombrecompleto.Text = "AL CONTADO";
+            idclientetxt.Text = "1";
             txtnumero_cliente.Clear();
 
 
@@ -483,8 +505,6 @@ namespace Proyecto_restaurante
             MesaLabel.Text = "     Mesa asignada: ";
         }
 
-        private int PedidoID;
-
         private void tabladatospedidos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -496,10 +516,6 @@ namespace Proyecto_restaurante
             }
         }
 
-        private int TipoPago = 0;
-        private decimal TotalPedido = 0m;
-        private decimal TotalAplicado = 0m;
-
         private void facturarbtn_Click(object sender, EventArgs e)
         {
             if (PedidoID <= 0)
@@ -508,10 +524,51 @@ namespace Proyecto_restaurante
                 return;
             }
 
+            Total = Convert.ToDecimal(tabladatospedidos.CurrentRow.Cells["Total"].Value);
+
+            string estadoPedido = "";
+
+            using (SqlConnection conexion = new SqlConnection(conexionString))
+            {
+                conexion.Open();
+
+                string query = "SELECT Estado FROM Pedido WHERE IdPedido = @id";
+                using (SqlCommand cmd = new SqlCommand(query, conexion))
+                {
+                    cmd.Parameters.AddWithValue("@id", PedidoID);
+                    estadoPedido = cmd.ExecuteScalar()?.ToString();
+                }
+            }
+
+            if (estadoPedido == null)
+            {
+                MessageBox.Show("El pedido no existe.");
+                return;
+            }
+
+            if (estadoPedido == "Facturado")
+            {
+                MessageBox.Show("Este pedido ya está facturado.");
+                return;
+            }
+
+            if (estadoPedido == "Cancelado")
+            {
+                MessageBox.Show("Este pedido está cancelado y no puede facturarse.");
+                return;
+            }
+
+            if (estadoPedido != "Pendiente")
+            {
+                MessageBox.Show("El pedido debe estar en estado Pendiente.");
+                return;
+            }
+
             detallepanelcompleto.Visible = true;
             detallepanelcompleto.BringToFront();
             detallepanelcompleto.Location = new Point(0, 0);
             detallepagopanel.Visible = true;
+            eliminar_Click(sender, e);
 
             if (efectivodt.ColumnCount == 0)
             {
@@ -519,7 +576,7 @@ namespace Proyecto_restaurante
                 efectivodt.Columns.Add("Total", "Monto");
                 efectivodt.Columns.Add("Efectivo", "Aplicado");
 
-                TotalPedido = Convert.ToDecimal(labeltotal.Text);
+                TotalPedido = Convert.ToDecimal(Total);
                 totalrealef.Text = TotalPedido.ToString("N2");
             }
 
@@ -528,6 +585,9 @@ namespace Proyecto_restaurante
                 tarjetadt.Columns.Add("TipoDetalle", "Tipo");
                 tarjetadt.Columns.Add("Referencia", "Referencia");
                 tarjetadt.Columns.Add("Tarjeta", "Tarjeta");
+
+                TotalPedido = Convert.ToDecimal(Total);
+                totalrealtar.Text = TotalPedido.ToString("N2");
             }
 
             if (transferenciadt.ColumnCount == 0)
@@ -535,8 +595,14 @@ namespace Proyecto_restaurante
                 transferenciadt.Columns.Add("TipoDetalle", "Tipo");
                 transferenciadt.Columns.Add("Referencia", "Referencia");
                 transferenciadt.Columns.Add("Tarjeta", "Banco");
+
+                TotalPedido = Convert.ToDecimal(Total);
+                totalrealtransf.Text = TotalPedido.ToString("N2");
             }
 
+            totalrealef.Text = Total.ToString();
+            totalrealtar.Text = Total.ToString();
+            totalrealtransf.Text = Total.ToString();
         }
 
         private void FacturarPedido()
@@ -551,83 +617,78 @@ namespace Proyecto_restaurante
                 try
                 {
                     string queryEstado = "SELECT Estado FROM Pedido WHERE IdPedido = @id";
-
                     SqlCommand cmdEstado = new SqlCommand(queryEstado, conexion, trans);
                     cmdEstado.Parameters.AddWithValue("@id", PedidoID);
 
                     string estadoActual = cmdEstado.ExecuteScalar()?.ToString();
 
-                    if (estadoActual == null)
-                    {
-                        MessageBox.Show("El pedido no existe.");
-                        trans.Rollback();
-                        return;
-                    }
-
-                    if (estadoActual == "Facturado")
-                    {
-                        MessageBox.Show("Este pedido ya está facturado.");
-                        trans.Rollback();
-                        return;
-                    }
-
-                    if (estadoActual == "Cancelado")
-                    {
-                        MessageBox.Show("Este pedido está cancelado y no puede ser facturado.");
-                        trans.Rollback();
-                        return;
-                    }
-
                     if (estadoActual != "Pendiente")
                     {
-                        MessageBox.Show("El pedido debe estar en estado Pendiente para facturarlo.");
                         trans.Rollback();
+                        MessageBox.Show("El pedido no está pendiente.");
                         return;
                     }
 
                     string queryMesa = "SELECT IdMesa FROM Pedido WHERE IdPedido = @id";
-
                     SqlCommand cmdMesa = new SqlCommand(queryMesa, conexion, trans);
                     cmdMesa.Parameters.AddWithValue("@id", PedidoID);
 
-                    object mesaObj = cmdMesa.ExecuteScalar();
-                    if (mesaObj == null)
-                    {
-                        MessageBox.Show("El pedido no tiene mesa asignada.");
-                        trans.Rollback();
-                        return;
-                    }
+                    int idMesa = Convert.ToInt32(cmdMesa.ExecuteScalar());
 
-                    int idMesa = Convert.ToInt32(mesaObj);
-
-                    string queryFacturar = @"
-                    UPDATE Pedido
-                    SET Estado = 'Facturado'
-                    WHERE IdPedido = @id";
-
-                    SqlCommand cmdFacturar = new SqlCommand(queryFacturar, conexion, trans);
+                    SqlCommand cmdFacturar = new SqlCommand(
+                        "UPDATE Pedido SET Estado='Facturado' WHERE IdPedido=@id",
+                        conexion, trans);
                     cmdFacturar.Parameters.AddWithValue("@id", PedidoID);
                     cmdFacturar.ExecuteNonQuery();
 
-                    string queryLiberarMesa = @"
-                    UPDATE Mesa
-                    SET Ocupado = 0
-                    WHERE IdMesa = @mesa";
-
-                    SqlCommand cmdLiberar = new SqlCommand(queryLiberarMesa, conexion, trans);
+                    SqlCommand cmdLiberar = new SqlCommand(
+                        "UPDATE Mesa SET Ocupado=0 WHERE IdMesa=@mesa",
+                        conexion, trans);
                     cmdLiberar.Parameters.AddWithValue("@mesa", idMesa);
                     cmdLiberar.ExecuteNonQuery();
 
+                    RegistrarPago(conexion, trans);
+                    RebajarInventario(conexion, trans, PedidoID);
+
                     trans.Commit();
 
-                    MessageBox.Show("Pedido facturado con éxito.");
-
-                    //tabControl1_SelectedIndexChanged(sender, e);
+                    //MessageBox.Show("Pedido facturado y pago registrado.");
                 }
                 catch (Exception ex)
                 {
                     trans.Rollback();
                     MessageBox.Show("Error: " + ex.Message);
+                }
+            }
+        }
+
+        private void RebajarInventario(SqlConnection conexion, SqlTransaction trans, int idPedido)
+        {
+            string query = @"
+            SELECT IdProducto, Cantidad 
+            FROM DetallePedido 
+            WHERE IdPedido = @idPedido";
+
+            SqlCommand cmd = new SqlCommand(query, conexion, trans);
+            cmd.Parameters.AddWithValue("@idPedido", idPedido);
+
+            using (SqlDataReader dr = cmd.ExecuteReader())
+            {
+                while (dr.Read())
+                {
+                    int idProducto = Convert.ToInt32(dr["IdProducto"]);
+                    decimal cantidad = Convert.ToDecimal(dr["Cantidad"]);
+
+                    string queryUpdate = @"
+                    UPDATE ProductoVenta
+                    SET Existencia = Existencia - @cantidad
+                    WHERE IdProducto = @idProducto";
+
+                    SqlCommand cmdUpdate = new SqlCommand(queryUpdate, conexion, trans);
+                    cmdUpdate.Parameters.AddWithValue("@cantidad", cantidad);
+                    cmdUpdate.Parameters.AddWithValue("@idProducto", idProducto);
+
+                    cmdUpdate.ExecuteNonQuery();
                 }
             }
         }
@@ -735,11 +796,6 @@ namespace Proyecto_restaurante
             }
         }
 
-        private void buscarproductobtn_MouseDown(object sender, MouseEventArgs e)
-        {
-
-        }
-
         private void txtbusquedafactura_TextChanged(object sender, EventArgs e)
         {
             FiltroDatosBusqueda(txtbusquedafactura.Text);
@@ -781,14 +837,6 @@ namespace Proyecto_restaurante
             }
         }
 
-        private void asignarmesabtn_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                MantMesas mesas = new MantMesas();
-                mesas.Show();
-            }
-        }
         private void GenerarFacturaPDF(int facturaId)
         {
             try
@@ -1008,41 +1056,6 @@ namespace Proyecto_restaurante
             FiltroDatosClientes(txtclientebusqueda.Text);
         }
 
-        private void FiltroDatosMesa(string busqueda)
-        {
-            string conexionString = ConexionBD.ConexionSQL();
-
-            using (SqlConnection conectar = new SqlConnection(conexionString))
-            {
-                try
-                {
-                    conectar.Open();
-
-                    string query = @"
-                            SELECT id, sala, nombre_mesa, num_asientos, estado
-                            FROM mesas
-                            WHERE (CAST(id AS VARCHAR) LIKE @buscar OR
-                            sala LIKE @buscar OR
-                            nombre_mesa LIKE @buscar";
-
-                    using (SqlCommand comando = new SqlCommand(query, conectar))
-                    {
-                        comando.Parameters.AddWithValue("@buscar", "%" + busqueda + "%");
-
-                        SqlDataAdapter da = new SqlDataAdapter(comando);
-                        DataTable dt = new DataTable();
-                        da.Fill(dt);
-
-                        tablaclientes.DataSource = dt;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error: {ex.Message}");
-                }
-            }
-        }
-
         private void txtnombrecompleto_TextChanged(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(txtnombrecompleto.Text))
@@ -1055,6 +1068,12 @@ namespace Proyecto_restaurante
         {
             detallepagopanel.Visible = false;
             detallepagopanel.Location = new Point(1617, 6);
+            totalpagar.Text = totalrealef.Text;
+
+
+            FacturarPedido();
+            MostrarDevuelta();
+
             devueltapanel.Visible = true;
             devueltapanel.Location = new Point(466, 0);
         }
@@ -1081,21 +1100,39 @@ namespace Proyecto_restaurante
 
         private void aplicarefectivo_Click(object sender, EventArgs e)
         {
-            if (!decimal.TryParse(efectivotxt.Text, out decimal monto) || monto <= 0)
+            if (!decimal.TryParse(efectivotxt.Text, out decimal monto))
             {
                 MessageBox.Show("Monto inválido.");
                 return;
             }
+
+            decimal totalReal = decimal.Parse(totalrealef.Text);
+
+            if (monto < totalReal)
+            {
+                MessageBox.Show("El monto ingresado no puede ser menor que el total.");
+                return;
+            }
+
+            if (monto <= 0)
+            {
+                MessageBox.Show("Monto inválido.");
+                return;
+            }
+
             DataGridViewRow row = new DataGridViewRow();
             row.CreateCells(efectivodt);
             row.Cells[0].Value = "Efectivo";
             row.Cells[1].Value = totalrealef.Text;
             row.Cells[2].Value = monto;
 
-            efectivodt.Rows.Add(row);
+            pagadotxt.Text = efectivotxt.Text;
 
+            efectivodt.Rows.Add(row);
+            efectivotxt.Clear();
+            efectivotxt.Enabled = false;
+            aplicarefectivo.Enabled = false;
             TipoPago = 1;
-            MostrarDevuelta();
         }
 
         private void MostrarDevuelta()
@@ -1108,7 +1145,6 @@ namespace Proyecto_restaurante
 
         private void aplicartarjeta_Click(object sender, EventArgs e)
         {
-
             if (string.IsNullOrWhiteSpace(tarjetaref.Text) || tarjetacmbx.SelectedIndex < 0)
             {
                 MessageBox.Show("Debe seleccionar Tarjeta y referencia.");
@@ -1116,6 +1152,10 @@ namespace Proyecto_restaurante
             }
 
             tarjetadt.Rows.Add("Tarjeta", tarjetaref.Text, tarjetacmbx.Text);
+            tarjetaref.Clear();
+            tarjetaref.Enabled = false;
+            tarjetacmbx.Enabled = false;
+            aplicartarjeta.Enabled = false;
             TipoPago = 2;
         }
 
@@ -1126,8 +1166,111 @@ namespace Proyecto_restaurante
                 MessageBox.Show("Debe seleccionar banco y referencia.");
                 return;
             }
-            transferenciadt.Rows.Add("Transferencia", totalrealef.Text, bancocmbx.Text);
+            transferenciadt.Rows.Add("Transferencia", bancoref.Text, bancocmbx.Text);
+            bancoref.Clear();
+            bancoref.Enabled = false;
+            bancocmbx.Enabled = false;
+            aplicartransf.Enabled = false;
             TipoPago = 3;
+        }
+
+        private void RegistrarPago(SqlConnection conexion, SqlTransaction trans)
+        {
+            try
+            {
+                string sql = @"
+                INSERT INTO DetallePago
+                (IdPedido, TipoDetalle, Efectivo, Devuelta, Tarjeta, TarjetaNombre, Transferencia, Banco, Total, Estado, Referencia)
+                VALUES
+                (@IdPedido, @TipoDetalle, @Efectivo, @Devuelta, @Tarjeta, @TarjetaNombre, @Transferencia, @Banco, @Total, @Estado, @Referencia)";
+
+                SqlCommand cmd = new SqlCommand(sql, conexion, trans);
+                cmd.Parameters.AddWithValue("@IdPedido", PedidoID);
+                cmd.Parameters.AddWithValue("@Total", TotalPedido);
+                cmd.Parameters.AddWithValue("@Estado", 1);
+
+                decimal devuelta = 0;
+
+                if (TotalAplicado >= TotalPedido)
+                {
+                    devuelta = TotalAplicado - TotalPedido;
+                }
+                else
+                {
+                    devuelta = 0;
+                }
+
+                if (TipoPago == 1)
+                {
+                    decimal monto = 0;
+                    foreach (DataGridViewRow fila in efectivodt.Rows)
+                        if (!fila.IsNewRow)
+                            monto += Convert.ToDecimal(fila.Cells["Efectivo"].Value);
+
+                    cmd.Parameters.AddWithValue("@TipoDetalle", "Efectivo");
+                    cmd.Parameters.AddWithValue("@Efectivo", monto);
+                    cmd.Parameters.AddWithValue("@Devuelta", devuelta);
+                    cmd.Parameters.AddWithValue("@Tarjeta", 0);
+                    cmd.Parameters.AddWithValue("@TarjetaNombre", DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Transferencia", 0);
+                    cmd.Parameters.AddWithValue("@Banco", DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Referencia", DBNull.Value);
+
+                }
+                else if (TipoPago == 2)
+                {
+                    string referencia = "";
+                    string tarjetaNombre = "";
+                    decimal monto = 0;
+
+                    foreach (DataGridViewRow fila in tarjetadt.Rows)
+                    {
+                        if (fila.IsNewRow) continue;
+                        referencia = fila.Cells["Referencia"].Value.ToString();
+                        monto += Convert.ToDecimal(fila.Cells["Tarjeta"].Value);
+                        tarjetaNombre = fila.Cells["TarjetaNombre"].Value.ToString();
+                    }
+
+                    cmd.Parameters.AddWithValue("@TipoDetalle", "Tarjeta");
+                    cmd.Parameters.AddWithValue("@Efectivo", 0);
+                    cmd.Parameters.AddWithValue("@Devuelta", 0);
+                    cmd.Parameters.AddWithValue("@Tarjeta", monto);
+                    cmd.Parameters.AddWithValue("@TarjetaNombre", tarjetaNombre);
+                    cmd.Parameters.AddWithValue("@Transferencia", 0);
+                    cmd.Parameters.AddWithValue("@Banco", DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Referencia", referencia);
+                }
+
+                else if (TipoPago == 3)
+                {
+                    string referencia = "";
+                    string banco = "";
+                    decimal monto = 0;
+
+                    foreach (DataGridViewRow fila in transferenciadt.Rows)
+                    {
+                        if (fila.IsNewRow) continue;
+                        referencia = fila.Cells["Referencia"].Value.ToString();
+                        monto += Convert.ToDecimal(fila.Cells["Transferencia"].Value);
+                        banco = fila.Cells["Banco"].Value.ToString();
+                    }
+
+                    cmd.Parameters.AddWithValue("@TipoDetalle", "Transferencia");
+                    cmd.Parameters.AddWithValue("@Efectivo", 0);
+                    cmd.Parameters.AddWithValue("@Devuelta", 0);
+                    cmd.Parameters.AddWithValue("@Tarjeta", 0);
+                    cmd.Parameters.AddWithValue("@TarjetaNombre", DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Transferencia", monto);
+                    cmd.Parameters.AddWithValue("@Banco", banco);
+                    cmd.Parameters.AddWithValue("@Referencia", referencia);
+                }
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error registrando pago: " + ex.Message);
+            }
         }
 
         private void CrearOrden_Click(object sender, EventArgs e)
@@ -1153,6 +1296,118 @@ namespace Proyecto_restaurante
         private void FacturarOrden_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedIndex = 2;
+        }
+
+        private void pagartarjeta_Click(object sender, EventArgs e)
+        {
+            detallepagopanel.Visible = false;
+            detallepagopanel.Location = new Point(1617, 6);
+            FacturarPedido();
+        }
+
+        private void volverdetalle_Click(object sender, EventArgs e)
+        {
+            detallepanelcompleto.Visible = false;
+            detallepanelcompleto.Location = new Point(1617, 6);
+            efectivodt.Rows.Clear();
+            tarjetadt.Rows.Clear();
+            transferenciadt.Rows.Clear();
+            efectivotxt.Clear();
+            tarjetaref.Clear();
+            bancoref.Clear();
+            TipoPago = 0;
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            volverdetalle_Click(sender, e);
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            volverdetalle_Click(sender, e);
+        }
+
+        private void eliminar_Click(object sender, EventArgs e)
+        {
+            efectivodt.Rows.Clear();
+            tarjetadt.Rows.Clear();
+            transferenciadt.Rows.Clear();
+            bancoref.Clear();
+            bancoref.Enabled = true;
+            bancocmbx.Enabled = true;
+            aplicartransf.Enabled = true;
+            efectivotxt.Clear();
+            efectivotxt.Enabled = true;
+            aplicarefectivo.Enabled = true;
+            tarjetaref.Clear();
+            tarjetaref.Enabled = true;
+            tarjetacmbx.Enabled = true;
+            aplicartarjeta.Enabled = true;
+            TipoPago = 0;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            eliminar_Click(sender, e);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            eliminar_Click(sender, e);
+        }
+
+        private void tabControl2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int tab = tabControl2.SelectedIndex;
+
+            bloqueopanel.Visible = false;
+
+            if (TipoPago == 1 && (tab == 1 || tab == 2))
+            {
+                MostrarBloqueo();
+                return;
+            }
+
+            if (TipoPago == 2 && (tab == 0 || tab == 2))
+            {
+                MostrarBloqueo();
+                return;
+            }
+
+            if (TipoPago == 3 && (tab == 0 || tab == 1))
+            {
+                MostrarBloqueo();
+                return;
+            }
+        }
+
+        private void MostrarBloqueo()
+        {
+            bloqueopanel.Visible = true;
+            bloqueopanel.BringToFront();
+            bloqueopanel.Location = new Point(476, 79);
+        }
+
+        private void pagartransf_Click(object sender, EventArgs e)
+        {
+            detallepagopanel.Visible = false;
+            detallepagopanel.Location = new Point(1617, 6);
+            FacturarPedido();
+        }
+
+        private void finalizarbtn_Click(object sender, EventArgs e)
+        {
+            volverdetalle_Click(sender, e);
+        }
+
+        private void numCantidad_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                bajarproductobtn_Click(sender, e);
+                e.Handled = true;
+            }
         }
     }
 }
