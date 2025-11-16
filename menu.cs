@@ -52,7 +52,7 @@ namespace Proyecto_restaurante
         private void menu_Load(object sender, EventArgs e)
         {
             string conexionString = ConexionBD.ConexionSQL();
-            
+
             Color colorPanel = Color.Silver;
 
             button5.Focus();
@@ -396,5 +396,21 @@ namespace Proyecto_restaurante
             recargarbtn.Visible = true;
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            foreach (Form f in this.MdiChildren)
+            {
+                if (f is Delivery)
+                {
+                    f.BringToFront();
+                    return;
+                }
+            }
+            Delivery delivery = new Delivery();
+            delivery.Location = new Point(200, 50);
+            delivery.NombrePC = nombrePC;
+            delivery.MdiParent = this;
+            delivery.Show();
+        }
     }
 }

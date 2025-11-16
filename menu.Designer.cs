@@ -388,7 +388,7 @@
             label3.ForeColor = Color.White;
             label3.Image = Properties.Resources.formularios1;
             label3.ImageAlign = ContentAlignment.MiddleRight;
-            label3.Location = new Point(5, 575);
+            label3.Location = new Point(5, 566);
             label3.Margin = new Padding(2, 0, 2, 0);
             label3.Name = "label3";
             label3.Size = new Size(145, 32);
@@ -431,7 +431,7 @@
             reportesbtn.Cursor = Cursors.Hand;
             reportesbtn.Image = Properties.Resources.pedido;
             reportesbtn.ImageAlign = ContentAlignment.MiddleRight;
-            reportesbtn.Location = new Point(9, 615);
+            reportesbtn.Location = new Point(9, 606);
             reportesbtn.Margin = new Padding(2);
             reportesbtn.Name = "reportesbtn";
             reportesbtn.Size = new Size(217, 38);
@@ -454,7 +454,7 @@
             button1.Text = "Pedidos (Delivery)";
             button1.TextAlign = ContentAlignment.MiddleLeft;
             button1.UseVisualStyleBackColor = true;
-            button1.Click += button10_Click;
+            button1.Click += button1_Click;
             // 
             // creditoslabel
             // 

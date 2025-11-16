@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConsProveedor));
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            provdt = new DataGridView();
             label2 = new Label();
             informalfiltro = new CheckBox();
             filtro = new CheckBox();
@@ -43,7 +44,6 @@
             label12 = new Label();
             eliminarbtn = new Button();
             txtbuscador = new TextBox();
-            provdt = new DataGridView();
             tabPage2 = new TabPage();
             informalchk = new CheckBox();
             tipodoccmbx = new ComboBox();
@@ -84,8 +84,8 @@
             nombreprovtxt = new TextBox();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)clienteimg).BeginInit();
             ((System.ComponentModel.ISupportInitialize)provdt).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)clienteimg).BeginInit();
             tabPage2.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)imagenprov).BeginInit();
@@ -111,6 +111,7 @@
             // tabPage1
             // 
             tabPage1.BackColor = SystemColors.WindowFrame;
+            tabPage1.Controls.Add(provdt);
             tabPage1.Controls.Add(label2);
             tabPage1.Controls.Add(informalfiltro);
             tabPage1.Controls.Add(filtro);
@@ -123,13 +124,29 @@
             tabPage1.Controls.Add(label12);
             tabPage1.Controls.Add(eliminarbtn);
             tabPage1.Controls.Add(txtbuscador);
-            tabPage1.Controls.Add(provdt);
             tabPage1.Location = new Point(4, 30);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
             tabPage1.Size = new Size(906, 619);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Consulta";
+            // 
+            // provdt
+            // 
+            provdt.AllowUserToAddRows = false;
+            provdt.AllowUserToDeleteRows = false;
+            provdt.AllowUserToResizeRows = false;
+            provdt.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            provdt.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            provdt.Location = new Point(8, 101);
+            provdt.MultiSelect = false;
+            provdt.Name = "provdt";
+            provdt.ReadOnly = true;
+            provdt.RowHeadersVisible = false;
+            provdt.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            provdt.Size = new Size(727, 511);
+            provdt.TabIndex = 64;
+            provdt.CellClick += provdt_CellClick;
             // 
             // label2
             // 
@@ -267,18 +284,6 @@
             txtbuscador.PlaceholderText = "Buscar Proveedor";
             txtbuscador.Size = new Size(586, 29);
             txtbuscador.TabIndex = 53;
-            // 
-            // provdt
-            // 
-            provdt.AllowUserToResizeRows = false;
-            provdt.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            provdt.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            provdt.Location = new Point(6, 101);
-            provdt.Name = "provdt";
-            provdt.RowHeadersVisible = false;
-            provdt.Size = new Size(729, 512);
-            provdt.TabIndex = 0;
-            provdt.CellClick += provdt_CellClick;
             // 
             // tabPage2
             // 
@@ -726,8 +731,8 @@
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)clienteimg).EndInit();
             ((System.ComponentModel.ISupportInitialize)provdt).EndInit();
+            ((System.ComponentModel.ISupportInitialize)clienteimg).EndInit();
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
             panel1.ResumeLayout(false);
@@ -744,7 +749,6 @@
 
         private TabControl tabControl1;
         private TabPage tabPage1;
-        private DataGridView provdt;
         private TabPage tabPage2;
         public Button recargarbtn;
         private Label label12;
@@ -795,5 +799,6 @@
         private TextBox identtxt;
         private CheckBox informalchk;
         private CheckBox informalfiltro;
+        private DataGridView provdt;
     }
 }

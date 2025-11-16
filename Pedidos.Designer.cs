@@ -160,7 +160,6 @@
             label9 = new Label();
             fecini = new DateTimePicker();
             fecfin = new DateTimePicker();
-            editar = new Button();
             cancelarpedido = new Button();
             imprimirbtn = new Button();
             facturarbtn = new Button();
@@ -352,7 +351,7 @@
             label33.AutoSize = true;
             label33.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label33.ForeColor = SystemColors.Control;
-            label33.Location = new Point(354, 16);
+            label33.Location = new Point(354, 13);
             label33.Name = "label33";
             label33.Size = new Size(85, 32);
             label33.TabIndex = 3;
@@ -420,7 +419,7 @@
             tabPage1.Location = new Point(4, 30);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(804, 608);
+            tabPage1.Size = new Size(1672, 848);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Ordenar";
             // 
@@ -481,11 +480,11 @@
             label19.AutoSize = true;
             label19.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label19.ForeColor = SystemColors.Control;
-            label19.Location = new Point(278, 18);
+            label19.Location = new Point(357, 18);
             label19.Name = "label19";
-            label19.Size = new Size(250, 32);
+            label19.Size = new Size(93, 32);
             label19.TabIndex = 3;
-            label19.Text = "Seleccion de clientes";
+            label19.Text = "Cliente";
             // 
             // tablaclientes
             // 
@@ -541,11 +540,11 @@
             label17.AutoSize = true;
             label17.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label17.ForeColor = SystemColors.Control;
-            label17.Location = new Point(292, 20);
+            label17.Location = new Point(367, 20);
             label17.Name = "label17";
-            label17.Size = new Size(222, 32);
+            label17.Size = new Size(73, 32);
             label17.TabIndex = 3;
-            label17.Text = "Seleccion de plato";
+            label17.Text = "Plato";
             // 
             // tablapanelproducto
             // 
@@ -1045,7 +1044,7 @@
             tabPage2.Location = new Point(4, 30);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(804, 608);
+            tabPage2.Size = new Size(1672, 848);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Facturas";
             // 
@@ -1670,7 +1669,6 @@
             panel7.Controls.Add(label9);
             panel7.Controls.Add(fecini);
             panel7.Controls.Add(fecfin);
-            panel7.Controls.Add(editar);
             panel7.Controls.Add(cancelarpedido);
             panel7.Controls.Add(imprimirbtn);
             panel7.Controls.Add(facturarbtn);
@@ -1717,25 +1715,12 @@
             fecfin.Size = new Size(123, 29);
             fecfin.TabIndex = 8;
             // 
-            // editar
-            // 
-            editar.BackColor = Color.FromArgb(255, 192, 128);
-            editar.Image = Properties.Resources.editar;
-            editar.ImageAlign = ContentAlignment.MiddleLeft;
-            editar.Location = new Point(438, 9);
-            editar.Name = "editar";
-            editar.Size = new Size(114, 56);
-            editar.TabIndex = 1;
-            editar.Text = "Editar";
-            editar.TextAlign = ContentAlignment.MiddleRight;
-            editar.UseVisualStyleBackColor = false;
-            // 
             // cancelarpedido
             // 
             cancelarpedido.BackColor = Color.FromArgb(255, 128, 128);
             cancelarpedido.Image = Properties.Resources.cancelardoc;
             cancelarpedido.ImageAlign = ContentAlignment.MiddleLeft;
-            cancelarpedido.Location = new Point(676, 9);
+            cancelarpedido.Location = new Point(675, 9);
             cancelarpedido.Name = "cancelarpedido";
             cancelarpedido.Size = new Size(114, 56);
             cancelarpedido.TabIndex = 0;
@@ -1749,7 +1734,7 @@
             imprimirbtn.BackColor = Color.FromArgb(192, 255, 255);
             imprimirbtn.Image = Properties.Resources.imprimir;
             imprimirbtn.ImageAlign = ContentAlignment.MiddleLeft;
-            imprimirbtn.Location = new Point(557, 9);
+            imprimirbtn.Location = new Point(554, 9);
             imprimirbtn.Name = "imprimirbtn";
             imprimirbtn.Size = new Size(114, 56);
             imprimirbtn.TabIndex = 0;
@@ -1763,7 +1748,7 @@
             facturarbtn.BackColor = Color.FromArgb(128, 255, 128);
             facturarbtn.Image = Properties.Resources.facturar;
             facturarbtn.ImageAlign = ContentAlignment.MiddleLeft;
-            facturarbtn.Location = new Point(319, 9);
+            facturarbtn.Location = new Point(433, 9);
             facturarbtn.Name = "facturarbtn";
             facturarbtn.Size = new Size(114, 56);
             facturarbtn.TabIndex = 0;
@@ -2019,7 +2004,6 @@
         private Label labelcaja;
         private ToolTip toolTip1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private Button editar;
         private PictureBox pictureBox1;
         private Label label8;
         private Label label9;

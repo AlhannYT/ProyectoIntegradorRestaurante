@@ -516,6 +516,8 @@ namespace Proyecto_restaurante
 
         private void cargarPermisos(object sender, EventArgs e)
         {
+            int idUsuario = Convert.ToInt32(tablausuarios.SelectedRows[0].Cells["IdUsuario"].Value);
+
             string conexionString = ConexionBD.ConexionSQL();
 
             using (SqlConnection conexion = new SqlConnection(conexionString))
@@ -526,15 +528,13 @@ namespace Proyecto_restaurante
 
                 using (SqlCommand cmd = new SqlCommand(query, conexion))
                 {
-                    cmd.Parameters.AddWithValue("@IdUsuario", Convert.ToInt32(idusuariopermiso.Text));
+                    cmd.Parameters.AddWithValue("@IdUsuario", idUsuario);
 
                     object result = cmd.ExecuteScalar();
 
                     if (result != null && result != DBNull.Value)
                     {
-                        int adminValor = Convert.ToInt32(result);
-
-                        admin.Checked = adminValor == 1;
+                        admin.Checked = Convert.ToInt32(result) == 1;
                     }
                     else
                     {
@@ -544,15 +544,31 @@ namespace Proyecto_restaurante
             }
         }
 
+
         private void button29_Click(object sender, EventArgs e)
         {
+            if (tablausuarios.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Debe seleccionar un usuario.",
+                                "Advertencia",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+                return;
+            }
+
+            int idUsuario = Convert.ToInt32(tablausuarios.SelectedRows[0].Cells["IdUsuario"].Value);
+            string login = tablausuarios.SelectedRows[0].Cells["Login"].Value.ToString();
+
+            idusuariopermiso.Text = idUsuario.ToString();
+            usuariologin.Text = login;
+
             permisospanel.Location = new Point(221, 4);
             permisospanel.BringToFront();
-            cargarPermisos(sender, e);
+            permisospanel.Visible = true;
 
             usuariospanel.Visible = false;
 
-            permisospanel.Visible = true;
+            cargarPermisos(sender, e);
         }
 
         private void button32_Click(object sender, EventArgs e)
