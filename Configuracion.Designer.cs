@@ -129,6 +129,10 @@
             tabPage5 = new TabPage();
             admin = new CheckBox();
             tabPage6 = new TabPage();
+            precmaximo = new TextBox();
+            precminimo = new CheckBox();
+            checkBox2 = new CheckBox();
+            label21 = new Label();
             tabPage7 = new TabPage();
             tabPage8 = new TabPage();
             label28 = new Label();
@@ -172,10 +176,6 @@
             label32 = new Label();
             panel10 = new Panel();
             button12 = new Button();
-            checkBox2 = new CheckBox();
-            precminimo = new CheckBox();
-            precmaximo = new TextBox();
-            label21 = new Label();
             barraizq.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
@@ -817,6 +817,7 @@
             // 
             tablausuarios.AllowUserToAddRows = false;
             tablausuarios.AllowUserToResizeRows = false;
+            tablausuarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             tablausuarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tablausuarios.Location = new Point(8, 106);
             tablausuarios.Margin = new Padding(4);
@@ -991,6 +992,7 @@
             empleadousuariodt.AllowUserToAddRows = false;
             empleadousuariodt.AllowUserToDeleteRows = false;
             empleadousuariodt.AllowUserToResizeRows = false;
+            empleadousuariodt.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             empleadousuariodt.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             empleadousuariodt.Location = new Point(4, 63);
             empleadousuariodt.MultiSelect = false;
@@ -1413,6 +1415,48 @@
             tabPage6.TabIndex = 1;
             tabPage6.Text = "Pedidos";
             // 
+            // precmaximo
+            // 
+            precmaximo.Location = new Point(112, 95);
+            precmaximo.Name = "precmaximo";
+            precmaximo.Size = new Size(69, 29);
+            precmaximo.TabIndex = 2;
+            // 
+            // precminimo
+            // 
+            precminimo.AutoSize = true;
+            precminimo.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            precminimo.ForeColor = Color.White;
+            precminimo.Location = new Point(15, 59);
+            precminimo.Name = "precminimo";
+            precminimo.Size = new Size(141, 25);
+            precminimo.TabIndex = 1;
+            precminimo.Text = "Precio Mínimo";
+            precminimo.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            checkBox2.AutoSize = true;
+            checkBox2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            checkBox2.ForeColor = Color.White;
+            checkBox2.Location = new Point(15, 17);
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new Size(226, 25);
+            checkBox2.TabIndex = 1;
+            checkBox2.Text = "Cambiar precio en pedido";
+            checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label21.ForeColor = Color.White;
+            label21.Location = new Point(15, 99);
+            label21.Name = "label21";
+            label21.Size = new Size(91, 21);
+            label21.TabIndex = 101;
+            label21.Text = "% Máximo";
+            // 
             // tabPage7
             // 
             tabPage7.BackColor = SystemColors.WindowFrame;
@@ -1585,6 +1629,7 @@
             cajaDT.AllowUserToAddRows = false;
             cajaDT.AllowUserToDeleteRows = false;
             cajaDT.AllowUserToResizeRows = false;
+            cajaDT.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             cajaDT.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             cajaDT.Location = new Point(4, 63);
             cajaDT.MultiSelect = false;
@@ -1705,6 +1750,7 @@
             pcDT.AllowUserToAddRows = false;
             pcDT.AllowUserToDeleteRows = false;
             pcDT.AllowUserToResizeRows = false;
+            pcDT.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             pcDT.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             pcDT.Location = new Point(4, 63);
             pcDT.MultiSelect = false;
@@ -1886,48 +1932,6 @@
             button12.TabIndex = 43;
             button12.Text = "      Procesar cambios";
             button12.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            checkBox2.AutoSize = true;
-            checkBox2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            checkBox2.ForeColor = Color.White;
-            checkBox2.Location = new Point(15, 17);
-            checkBox2.Name = "checkBox2";
-            checkBox2.Size = new Size(226, 25);
-            checkBox2.TabIndex = 1;
-            checkBox2.Text = "Cambiar precio en pedido";
-            checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // precminimo
-            // 
-            precminimo.AutoSize = true;
-            precminimo.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            precminimo.ForeColor = Color.White;
-            precminimo.Location = new Point(15, 59);
-            precminimo.Name = "precminimo";
-            precminimo.Size = new Size(141, 25);
-            precminimo.TabIndex = 1;
-            precminimo.Text = "Precio Mínimo";
-            precminimo.UseVisualStyleBackColor = true;
-            // 
-            // precmaximo
-            // 
-            precmaximo.Location = new Point(112, 95);
-            precmaximo.Name = "precmaximo";
-            precmaximo.Size = new Size(69, 29);
-            precmaximo.TabIndex = 2;
-            // 
-            // label21
-            // 
-            label21.AutoSize = true;
-            label21.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label21.ForeColor = Color.White;
-            label21.Location = new Point(15, 99);
-            label21.Name = "label21";
-            label21.Size = new Size(91, 21);
-            label21.TabIndex = 101;
-            label21.Text = "% Máximo";
             // 
             // Configuracion
             // 

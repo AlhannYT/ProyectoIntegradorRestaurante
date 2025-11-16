@@ -652,7 +652,7 @@ namespace Proyecto_restaurante
 
                     trans.Commit();
 
-                    //MessageBox.Show("Pedido facturado y pago registrado.");
+                    MessageBox.Show("Facturacion completada!.");
                 }
                 catch (Exception ex)
                 {
@@ -664,31 +664,74 @@ namespace Proyecto_restaurante
 
         private void RebajarInventario(SqlConnection conexion, SqlTransaction trans, int idPedido)
         {
-            string query = @"
+            string queryDetalle = @"
             SELECT IdProducto, Cantidad 
-            FROM DetallePedido 
-            WHERE IdPedido = @idPedido";
+            FROM DetallePedido
+            WHERE IdPedido = @pedido";
 
-            SqlCommand cmd = new SqlCommand(query, conexion, trans);
-            cmd.Parameters.AddWithValue("@idPedido", idPedido);
+            SqlCommand cmdDetalle = new SqlCommand(queryDetalle, conexion, trans);
+            cmdDetalle.Parameters.AddWithValue("@pedido", idPedido);
 
-            using (SqlDataReader dr = cmd.ExecuteReader())
+            using (SqlDataReader drDetalle = cmdDetalle.ExecuteReader())
             {
-                while (dr.Read())
+                List<(int idProducto, decimal cantidadVendida)> lista = new();
+
+                while (drDetalle.Read())
                 {
-                    int idProducto = Convert.ToInt32(dr["IdProducto"]);
-                    decimal cantidad = Convert.ToDecimal(dr["Cantidad"]);
+                    lista.Add((
+                        Convert.ToInt32(drDetalle["IdProducto"]),
+                        Convert.ToDecimal(drDetalle["Cantidad"])
+                    ));
+                }
 
-                    string queryUpdate = @"
-                    UPDATE ProductoVenta
-                    SET Existencia = Existencia - @cantidad
-                    WHERE IdProducto = @idProducto";
+                drDetalle.Close();
 
-                    SqlCommand cmdUpdate = new SqlCommand(queryUpdate, conexion, trans);
-                    cmdUpdate.Parameters.AddWithValue("@cantidad", cantidad);
-                    cmdUpdate.Parameters.AddWithValue("@idProducto", idProducto);
+                foreach (var item in lista)
+                {
+                    int idProd = item.idProducto;
+                    decimal cantidadVendida = item.cantidadVendida;
 
-                    cmdUpdate.ExecuteNonQuery();
+                    string queryIngredientes = @"
+                    SELECT IdIngrediente, Cantidad
+                    FROM Receta
+                    WHERE IdProducto = @prod";
+
+                    SqlCommand cmdIng = new SqlCommand(queryIngredientes, conexion, trans);
+                    cmdIng.Parameters.AddWithValue("@prod", idProd);
+
+                    using (SqlDataReader drIng = cmdIng.ExecuteReader())
+                    {
+                        List<(int idIng, decimal cantidadIng)> ingredientes = new();
+
+                        while (drIng.Read())
+                        {
+                            ingredientes.Add((
+                                Convert.ToInt32(drIng["IdIngrediente"]),
+                                Convert.ToDecimal(drIng["Cantidad"])
+                            ));
+                        }
+
+                        drIng.Close();
+
+                        foreach (var ing in ingredientes)
+                        {
+                            int idIngrediente = ing.idIng;
+                            decimal cantPorUnidad = ing.cantidadIng;
+
+                            decimal rebaja = cantPorUnidad * cantidadVendida;
+
+                            string queryUpdate = @"
+                            UPDATE ProductoVenta
+                            SET Existencia = Existencia - @rebaja
+                            WHERE IdProducto = @idIng";
+
+                            SqlCommand cmdUpdate = new SqlCommand(queryUpdate, conexion, trans);
+                            cmdUpdate.Parameters.AddWithValue("@rebaja", rebaja);
+                            cmdUpdate.Parameters.AddWithValue("@idIng", idIngrediente);
+
+                            cmdUpdate.ExecuteNonQuery();
+                        }
+                    }
                 }
             }
         }

@@ -89,10 +89,10 @@
             panel1.Controls.Add(cerrarbtn);
             panel1.Controls.Add(panel5);
             panel1.Controls.Add(usuariolabel);
-            panel1.Location = new Point(751, 4);
+            panel1.Location = new Point(705, 4);
             panel1.Margin = new Padding(2, 3, 2, 3);
             panel1.Name = "panel1";
-            panel1.Size = new Size(272, 60);
+            panel1.Size = new Size(318, 60);
             panel1.TabIndex = 3;
             // 
             // cerrarbtn
@@ -103,7 +103,7 @@
             cerrarbtn.FlatStyle = FlatStyle.Flat;
             cerrarbtn.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             cerrarbtn.Image = Properties.Resources.salida;
-            cerrarbtn.Location = new Point(161, -22);
+            cerrarbtn.Location = new Point(207, -22);
             cerrarbtn.Margin = new Padding(2, 3, 2, 3);
             cerrarbtn.Name = "cerrarbtn";
             cerrarbtn.Size = new Size(113, 85);
@@ -120,7 +120,7 @@
             panel5.Location = new Point(-1, 51);
             panel5.Margin = new Padding(2, 3, 2, 3);
             panel5.Name = "panel5";
-            panel5.Size = new Size(171, 6);
+            panel5.Size = new Size(211, 6);
             panel5.TabIndex = 4;
             // 
             // panel2
@@ -128,7 +128,7 @@
             panel2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             panel2.BackColor = Color.FromArgb(0, 192, 0);
             panel2.Controls.Add(pictureBox2);
-            panel2.Location = new Point(682, 4);
+            panel2.Location = new Point(636, 4);
             panel2.Margin = new Padding(2, 3, 2, 3);
             panel2.Name = "panel2";
             panel2.Size = new Size(70, 61);

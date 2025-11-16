@@ -1657,7 +1657,7 @@
             label10.AutoSize = true;
             label10.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label10.ForeColor = SystemColors.Control;
-            label10.Location = new Point(284, 10);
+            label10.Location = new Point(285, 10);
             label10.Name = "label10";
             label10.Size = new Size(234, 32);
             label10.TabIndex = 4;
@@ -1674,7 +1674,7 @@
             panel7.Controls.Add(cancelarpedido);
             panel7.Controls.Add(imprimirbtn);
             panel7.Controls.Add(facturarbtn);
-            panel7.Location = new Point(8, 53);
+            panel7.Location = new Point(8, 57);
             panel7.Name = "panel7";
             panel7.Size = new Size(792, 74);
             panel7.TabIndex = 0;
