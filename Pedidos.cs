@@ -90,12 +90,6 @@ namespace Proyecto_restaurante
         {
             bool commitRealizado = false;
 
-            if (idMesaSeleccionada == 0)
-            {
-                MessageBox.Show("Debe seleccionar una mesa.");
-                return;
-            }
-
             using (SqlConnection conexion = new SqlConnection(conexionString))
             {
                 conexion.Open();
@@ -148,14 +142,14 @@ namespace Proyecto_restaurante
                     MessageBox.Show("Orden guardada con éxito.");
 
                     limpiarbtn_Click(sender, e);
-                    panelmesas.Visible = false;
+                    tabControl1.SelectedIndex = 0;
 
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error al guardar la orden: " + ex.Message);
 
-                    if (!commitRealizado) 
+                    if (!commitRealizado)
                     {
                         try
                         {
@@ -165,12 +159,6 @@ namespace Proyecto_restaurante
                     }
                 }
             }
-        }
-
-        private void button7_Click(object sender, EventArgs e)
-        {
-            panelmesas.Visible = false;
-            panelmesas.Location = new Point(803, 33);
         }
 
         public void habilitarbotones(object sender, EventArgs e)
@@ -262,9 +250,7 @@ namespace Proyecto_restaurante
 
             detalleorden.Rows.Add(row);
 
-            cantidadProd += cantidad;
-
-            labelcantidadarticulos.Text = cantidadProd.ToString();
+            labelcantidadarticulos.Text = detalleorden.Rows.Count.ToString();
 
             txtcodigoproducto.Clear();
             txtnombreproducto.Clear();
@@ -299,29 +285,23 @@ namespace Proyecto_restaurante
 
         }
 
-        private void pasosiguiente_Click(object sender, EventArgs e)
+        private void Pedidos_Load(object sender, EventArgs e)
         {
-            if (detalleorden.Rows.Count == 0)
-            {
-                MessageBox.Show("Debe agregar productos al pedido.");
-                return;
-            }
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
 
-            panelmesas.Visible = true;
-            panelmesas.BringToFront();
-            panelmesas.Location = new Point(0, 0);
-            notapanel.Visible = false;
+            string conexionString = ConexionBD.ConexionSQL();
 
-            string consulta = "Select IdMesa, IdSala, Numero, Capacidad, Ocupado, Estado from Mesa where Ocupado = 0 and Reservado = 0";
+            string consultaMesa = "Select IdMesa, IdSala, Numero, Capacidad, Ocupado, Estado from Mesa";
 
             using (SqlConnection conexion = new SqlConnection(conexionString))
             {
                 conexion.Open();
-                using (SqlCommand comando = new SqlCommand(consulta, conexion))
+                using (SqlCommand comando = new SqlCommand(consultaMesa, conexion))
                 {
                     using (SqlDataReader lector = comando.ExecuteReader())
                     {
-                        flowmesas.Controls.Clear();
+                        mesasprincipal.Controls.Clear();
 
                         while (lector.Read())
                         {
@@ -353,25 +333,12 @@ namespace Proyecto_restaurante
 
                             btnMesa.Click += BtnMesa_Click;
 
-                            flowmesas.Controls.Add(btnMesa);
+                            mesasprincipal.Controls.Add(btnMesa);
                         }
 
                     }
                 }
             }
-
-            panelmesas.Visible = true;
-            panelmesas.Location = new Point(0, 0);
-        }
-
-
-
-        private void Pedidos_Load(object sender, EventArgs e)
-        {
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-
-            string conexionString = ConexionBD.ConexionSQL();
 
             string consulta = "SELECT TOP 1 IdPedido FROM Pedido ORDER BY IdPedido DESC";
             string busquedaCaja = @"
@@ -493,8 +460,8 @@ namespace Proyecto_restaurante
             labeltotal.Text = "0";
 
             detalleorden.Rows.Clear();
-            tablaclientes.Rows.Clear();
-            tablapanelproducto.Rows.Clear();
+            //tablaclientes.Rows.Clear();
+            //tablapanelproducto.Rows.Clear();
 
             totalAcumulado = 0;
             subtotalAcumulado = 0;
@@ -509,7 +476,11 @@ namespace Proyecto_restaurante
             bajarproductobtn.Enabled = false;
             guardarordenbtn.Enabled = false;
 
-            pasosiguiente.Enabled = false;
+            buscarclientebtn.Enabled = false;
+            nota.Enabled = false;
+
+            guardarordenbtn.Enabled = false;
+            MesaLabel.Text = "     Mesa asignada: ";
         }
 
         private int PedidoID;
@@ -1037,11 +1008,6 @@ namespace Proyecto_restaurante
             FiltroDatosClientes(txtclientebusqueda.Text);
         }
 
-        private void txtmesabusqueda_TextChanged(object sender, EventArgs e)
-        {
-            FiltroDatosMesa(txtmesabusqueda.Text);
-        }
-
         private void FiltroDatosMesa(string busqueda)
         {
             string conexionString = ConexionBD.ConexionSQL();
@@ -1084,7 +1050,6 @@ namespace Proyecto_restaurante
                 habilitarbotones(sender, e);
             }
         }
-
 
         private void pagarefectivo_Click(object sender, EventArgs e)
         {
@@ -1143,26 +1108,51 @@ namespace Proyecto_restaurante
 
         private void aplicartarjeta_Click(object sender, EventArgs e)
         {
-            
+
             if (string.IsNullOrWhiteSpace(tarjetaref.Text) || tarjetacmbx.SelectedIndex < 0)
             {
                 MessageBox.Show("Debe seleccionar Tarjeta y referencia.");
                 return;
             }
-            
+
             tarjetadt.Rows.Add("Tarjeta", tarjetaref.Text, tarjetacmbx.Text);
             TipoPago = 2;
         }
 
         private void aplicartransf_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(bancoref.Text)||bancocmbx.SelectedIndex < 0)
+            if (string.IsNullOrWhiteSpace(bancoref.Text) || bancocmbx.SelectedIndex < 0)
             {
                 MessageBox.Show("Debe seleccionar banco y referencia.");
                 return;
             }
             transferenciadt.Rows.Add("Transferencia", totalrealef.Text, bancocmbx.Text);
             TipoPago = 3;
+        }
+
+        private void CrearOrden_Click(object sender, EventArgs e)
+        {
+            if (idMesaSeleccionada == 0)
+            {
+                MessageBox.Show("Debe seleccionar una mesa.");
+                return;
+            }
+
+            tabControl1.SelectedIndex = 1;
+            IDMesa = idMesaSeleccionada;
+
+            MesaLabel.Text = $"     Mesa asignada: {idMesaSeleccionada}";
+
+            buscarclientebtn.Enabled = true;
+            guardarordenbtn.Enabled = true;
+            buscarproductobtn.Enabled = true;
+            bajarproductobtn.Enabled = true;
+            nota.Enabled = true;
+        }
+
+        private void FacturarOrden_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = 2;
         }
     }
 }

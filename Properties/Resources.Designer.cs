@@ -19,7 +19,7 @@ namespace Proyecto_restaurante.Properties {
     // a través de una herramienta como ResGen o Visual Studio.
     // Para agregar o quitar un miembro, edite el archivo .ResX y, a continuación, vuelva a ejecutar ResGen
     // con la opción /str o recompile su proyecto de VS.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -1153,6 +1153,16 @@ namespace Proyecto_restaurante.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap mesablanco {
+            get {
+                object obj = ResourceManager.GetObject("mesablanco", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap minimizar_ventana__1_ {
             get {
                 object obj = ResourceManager.GetObject("minimizar-ventana (1)", resourceCulture);
@@ -1326,6 +1336,26 @@ namespace Proyecto_restaurante.Properties {
         internal static System.Drawing.Bitmap pedir_comida_online {
             get {
                 object obj = ResourceManager.GetObject("pedir-comida-online", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pedir_comida_online__1_ {
+            get {
+                object obj = ResourceManager.GetObject("pedir-comida-online (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pedir_comida_online__2_ {
+            get {
+                object obj = ResourceManager.GetObject("pedir-comida-online (2)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
