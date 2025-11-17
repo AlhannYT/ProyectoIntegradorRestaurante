@@ -590,7 +590,7 @@
             // 
             // agregarbtn
             // 
-            agregarbtn.Image = Properties.Resources.angulo_hacia_abajo;
+            agregarbtn.Image = Properties.Resources.mas;
             agregarbtn.Location = new Point(799, 37);
             agregarbtn.Name = "agregarbtn";
             agregarbtn.Size = new Size(29, 29);

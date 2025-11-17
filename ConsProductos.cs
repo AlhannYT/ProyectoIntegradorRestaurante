@@ -85,8 +85,8 @@ namespace Proyecto_restaurante
             tabladatos.Columns["IdProducto"].HeaderText = "ID";
             tabladatos.Columns["CodigoBarra"].HeaderText = "Código";
             tabladatos.Columns["Nombre"].HeaderText = "Nombre";
-            tabladatos.Columns["PrecioCompra"].HeaderText = "Compra";
-            tabladatos.Columns["PrecioVenta"].HeaderText = "Venta";
+            tabladatos.Columns["PrecioCompra"].HeaderText = "Costo";
+            tabladatos.Columns["PrecioVenta"].HeaderText = "Precio";
             tabladatos.Columns["Existencia"].HeaderText = "Existencia";
 
             CargarTiposProducto(conexionString);
@@ -568,20 +568,29 @@ namespace Proyecto_restaurante
 
         private void filtrotodos_CheckedChanged(object sender, EventArgs e)
         {
-            filtroingredientes.Checked = false;
-            filtroplatos.Checked = false;
+            if (filtrotodos.Checked == true)
+            {
+                filtroingredientes.Checked = false;
+                filtroplatos.Checked = false;
+            }
         }
 
         private void filtroplatos_CheckedChanged(object sender, EventArgs e)
         {
-            filtrotodos.Checked = false;
-            filtroingredientes.Checked = false;
+            if (filtroplatos.Checked == true)
+            {
+                filtrotodos.Checked = false;
+                filtroingredientes.Checked = false;
+            }
         }
 
         private void filtroingredientes_CheckedChanged(object sender, EventArgs e)
         {
-            filtrotodos.Checked = false;
-            filtroplatos.Checked = false;
+            if( filtroingredientes.Checked == true)
+            {
+                filtrotodos.Checked = false;
+                filtroplatos.Checked = false;
+            }
         }
 
         private void categoriaconsulta_CellClick(object sender, DataGridViewCellEventArgs e)
