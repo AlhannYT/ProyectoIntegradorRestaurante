@@ -175,7 +175,6 @@
             tablaproductos.Size = new Size(553, 269);
             tablaproductos.TabIndex = 0;
             tablaproductos.CellClick += tablaproductos_CellClick;
-            tablaproductos.CellContentClick += tablaproductos_CellContentClick;
             // 
             // panel3
             // 
@@ -348,7 +347,6 @@
             label3.Size = new Size(285, 32);
             label3.TabIndex = 1;
             label3.Text = "Busqueda de productos";
-            label3.Click += label3_Click;
             // 
             // txtbusquedapanelprod
             // 
@@ -389,7 +387,6 @@
             txtidcompra.Name = "txtidcompra";
             txtidcompra.Size = new Size(85, 23);
             txtidcompra.TabIndex = 2;
-            txtidcompra.TextChanged += txtidcompra_TextChanged;
             // 
             // label6
             // 
@@ -407,7 +404,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.WindowFrame;
-            ClientSize = new Size(1518, 932);
+            ClientSize = new Size(793, 442);
             Controls.Add(panelprod);
             Controls.Add(txtidcompra);
             Controls.Add(label4);
