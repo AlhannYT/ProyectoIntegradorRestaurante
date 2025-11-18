@@ -65,8 +65,8 @@ namespace Proyecto_restaurante
                         }
 
                         string nuevoEmpleado = @"
-                        INSERT INTO Empleado (IdPersona, IdPuesto, FechaIngreso, Activo, Sueldo, TipoSueldo)
-                        VALUES (@IdPersona, @IdPuesto, @FechaIngreso, @Activo, @Sueldo, @TipoSueldo)";
+                        INSERT INTO Empleado (IdPersona, IdPuesto, FechaIngreso, Activo, Sueldo, TipoSueldo, IdRolempleado)
+                        VALUES (@IdPersona, @IdPuesto, @FechaIngreso, @Activo, @Sueldo, @TipoSueldo, @IdRol)";
 
                         using (SqlCommand insertarEmpleado = new SqlCommand(nuevoEmpleado, conexion, trans))
                         {
@@ -75,6 +75,7 @@ namespace Proyecto_restaurante
                             insertarEmpleado.Parameters.AddWithValue("@Sueldo", Convert.ToDecimal(txtsueldo.Text));
                             insertarEmpleado.Parameters.AddWithValue("@FechaIngreso", fechaingreso.Value);
                             insertarEmpleado.Parameters.AddWithValue("@TipoSueldo", Convert.ToInt32(tiposueldocmbx.SelectedValue));
+                            insertarEmpleado.Parameters.AddWithValue("@IdRol", Convert.ToInt32(rolcmbx.SelectedValue));
                             insertarEmpleado.Parameters.AddWithValue("@Activo", estadochk.Checked ? 1 : 0);
 
                             insertarEmpleado.ExecuteNonQuery();
@@ -103,7 +104,7 @@ namespace Proyecto_restaurante
                         string actualizarEmpleado = @"
                         UPDATE Empleado 
                         SET IdPuesto = @IdPuesto, Sueldo = @Sueldo, FechaIngreso = @FechaIngreso, 
-                            TipoSueldo = @TipoSueldo, Activo = @Activo 
+                            TipoSueldo = @TipoSueldo, Activo = @Activo, IdRolempleado = @IdRol 
                         WHERE IdEmpleado = @IdEmpleado";
 
                         using (SqlCommand actualizarCommand = new SqlCommand(actualizarEmpleado, conexion, trans))
@@ -113,6 +114,7 @@ namespace Proyecto_restaurante
                             actualizarCommand.Parameters.AddWithValue("@Sueldo", Convert.ToDecimal(txtsueldo.Text));
                             actualizarCommand.Parameters.AddWithValue("@FechaIngreso", fechaingreso.Value);
                             actualizarCommand.Parameters.AddWithValue("@TipoSueldo", Convert.ToInt32(tiposueldocmbx.SelectedValue));
+                            actualizarCommand.Parameters.AddWithValue("@IdRol", Convert.ToInt32(rolcmbx.SelectedValue));
                             actualizarCommand.Parameters.AddWithValue("@Activo", estadochk.Checked ? 1 : 0);
                             actualizarCommand.ExecuteNonQuery();
                         }
@@ -161,7 +163,6 @@ namespace Proyecto_restaurante
                 Estadobuscarpuesto = 1;
             }
         }
-
 
         private void ConsEmpleados_Load(object sender, EventArgs e)
         {

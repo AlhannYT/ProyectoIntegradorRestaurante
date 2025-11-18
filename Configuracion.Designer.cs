@@ -121,6 +121,7 @@
             guardarcolorbtn = new Button();
             label22 = new Label();
             permisospanel = new Panel();
+            rolcmbx = new ComboBox();
             button32 = new Button();
             panel8 = new Panel();
             idusuariopermiso = new TextBox();
@@ -140,6 +141,7 @@
             panel1 = new Panel();
             guardarpermisosbtn = new Button();
             label26 = new Label();
+            label34 = new Label();
             label25 = new Label();
             label27 = new Label();
             asignarPCPanel = new Panel();
@@ -818,6 +820,7 @@
             // 
             tablausuarios.AllowUserToAddRows = false;
             tablausuarios.AllowUserToResizeRows = false;
+            tablausuarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             tablausuarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tablausuarios.Location = new Point(8, 106);
             tablausuarios.Margin = new Padding(4);
@@ -992,6 +995,7 @@
             empleadousuariodt.AllowUserToAddRows = false;
             empleadousuariodt.AllowUserToDeleteRows = false;
             empleadousuariodt.AllowUserToResizeRows = false;
+            empleadousuariodt.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             empleadousuariodt.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             empleadousuariodt.Location = new Point(4, 63);
             empleadousuariodt.MultiSelect = false;
@@ -1311,6 +1315,7 @@
             // 
             // permisospanel
             // 
+            permisospanel.Controls.Add(rolcmbx);
             permisospanel.Controls.Add(button32);
             permisospanel.Controls.Add(panel8);
             permisospanel.Controls.Add(idusuariopermiso);
@@ -1318,12 +1323,24 @@
             permisospanel.Controls.Add(usuariologin);
             permisospanel.Controls.Add(panel1);
             permisospanel.Controls.Add(label26);
+            permisospanel.Controls.Add(label34);
             permisospanel.Controls.Add(label25);
             permisospanel.Controls.Add(label27);
             permisospanel.Location = new Point(886, 580);
             permisospanel.Name = "permisospanel";
             permisospanel.Size = new Size(659, 570);
             permisospanel.TabIndex = 47;
+            // 
+            // rolcmbx
+            // 
+            rolcmbx.DropDownStyle = ComboBoxStyle.DropDownList;
+            rolcmbx.Font = new Font("Segoe UI", 12F);
+            rolcmbx.FormattingEnabled = true;
+            rolcmbx.Items.AddRange(new object[] { "Gerente", "Administrator", "Supervisor", "Cajero", "Mesero", "Repartidor", "Cocinero" });
+            rolcmbx.Location = new Point(199, 87);
+            rolcmbx.Name = "rolcmbx";
+            rolcmbx.Size = new Size(172, 29);
+            rolcmbx.TabIndex = 105;
             // 
             // button32
             // 
@@ -1529,6 +1546,17 @@
             label26.TabIndex = 101;
             label26.Text = "ID";
             // 
+            // label34
+            // 
+            label34.AutoSize = true;
+            label34.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label34.ForeColor = Color.White;
+            label34.Location = new Point(199, 61);
+            label34.Name = "label34";
+            label34.Size = new Size(153, 21);
+            label34.TabIndex = 101;
+            label34.Text = "Preset de permisos";
+            // 
             // label25
             // 
             label25.AutoSize = true;
@@ -1629,6 +1657,7 @@
             cajaDT.AllowUserToAddRows = false;
             cajaDT.AllowUserToDeleteRows = false;
             cajaDT.AllowUserToResizeRows = false;
+            cajaDT.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             cajaDT.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             cajaDT.Location = new Point(4, 63);
             cajaDT.MultiSelect = false;
@@ -1749,6 +1778,7 @@
             pcDT.AllowUserToAddRows = false;
             pcDT.AllowUserToDeleteRows = false;
             pcDT.AllowUserToResizeRows = false;
+            pcDT.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             pcDT.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             pcDT.Location = new Point(4, 63);
             pcDT.MultiSelect = false;
@@ -2162,5 +2192,7 @@
         private TextBox precmaximo;
         private CheckBox precminimo;
         private Label label21;
+        private ComboBox rolcmbx;
+        private Label label34;
     }
 }

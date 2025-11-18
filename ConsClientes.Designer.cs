@@ -114,11 +114,14 @@
             // 
             tabladatos.AllowUserToAddRows = false;
             tabladatos.AllowUserToDeleteRows = false;
+            tabladatos.AllowUserToResizeRows = false;
+            tabladatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             tabladatos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tabladatos.Location = new Point(10, 98);
             tabladatos.MultiSelect = false;
             tabladatos.Name = "tabladatos";
             tabladatos.ReadOnly = true;
+            tabladatos.RowHeadersVisible = false;
             tabladatos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             tabladatos.Size = new Size(543, 541);
             tabladatos.TabIndex = 1;
