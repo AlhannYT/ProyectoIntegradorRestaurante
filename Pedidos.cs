@@ -78,7 +78,19 @@ namespace Proyecto_restaurante
             panelproducto.Location = new Point(0, 0);
             panelproducto.Visible = true;
 
-            string consulta = "SELECT \r\n    pv.IdProducto,\r\n    pv.CodigoBarra,\r\n    pv.Nombre,\r\n    pv.PrecioVenta,\r\n    pv.Itbis,\r\n    pv.Existencia\r\nFROM ProductoVenta pv\r\nINNER JOIN ProductoTipo pt\r\n    ON pv.IdProductoTipo = pt.IdProductoTipo\r\nWHERE \r\n    pv.Activo = 1\r\n    AND pt.Ingrediente = 0;";
+            string consulta = @"
+            SELECT 
+                pv.IdProducto,   
+                pv.CodigoBarra,
+                pv.Nombre,
+                pv.PrecioVenta,
+                pv.Itbis,
+                pv.Existencia
+            FROM ProductoVenta pv
+            INNER JOIN ProductoTipo pt
+            ON pv.IdProductoTipo = pt.IdProductoTipo
+            WHERE pv.Activo = 1 AND pt.Ingrediente = 0;";
+
             SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
             DataTable dt = new DataTable();
             adaptador.Fill(dt);
@@ -168,15 +180,16 @@ namespace Proyecto_restaurante
                 }
             }
         }
-
-        public void habilitarbotones(object sender, EventArgs e)
+        public void habilitarbotones()
         {
+            buscarclientebtn.Enabled = true;
             buscarproductobtn.Enabled = true;
-            txtcodigoproducto.Enabled = true;
-            txtnombreproducto.Enabled = true;
+            buscarproductobtn.Enabled = true;
             txtprecioproducto.Enabled = true;
             bajarproductobtn.Enabled = true;
             numCantidad.Enabled = true;
+            nota.Enabled = true;
+            guardarordenbtn.Enabled = true;
         }
 
         private void tablapanelproducto_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -204,14 +217,12 @@ namespace Proyecto_restaurante
 
                 string nombreCompleto = row.Cells["NombreCompleto"].Value.ToString();
                 txtnombrecompleto.Text = nombreCompleto;
-
-                //txtnumero_cliente.Text = row.Cells["telefono"].Value.ToString();
             }
 
             panelclientes.Visible = false;
             panelclientes.Location = new Point(803, 532);
 
-            habilitarbotones(sender, e);
+            habilitarbotones();
         }
 
         private void bajarproductobtn_Click(object sender, EventArgs e)
@@ -482,8 +493,6 @@ namespace Proyecto_restaurante
             labeltotal.Text = "0";
 
             detalleorden.Rows.Clear();
-            //tablaclientes.Rows.Clear();
-            //tablapanelproducto.Rows.Clear();
 
             totalAcumulado = 0;
             subtotalAcumulado = 0;
@@ -503,6 +512,7 @@ namespace Proyecto_restaurante
 
             guardarordenbtn.Enabled = false;
             MesaLabel.Text = "     Mesa asignada: ";
+            Pedidos_Load(sender, e);
         }
 
         private void tabladatospedidos_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -1103,7 +1113,7 @@ namespace Proyecto_restaurante
         {
             if (!string.IsNullOrEmpty(txtnombrecompleto.Text))
             {
-                habilitarbotones(sender, e);
+                habilitarbotones();
             }
         }
 
@@ -1455,7 +1465,98 @@ namespace Proyecto_restaurante
 
         private void EditarOrden_Click(object sender, EventArgs e)
         {
+            if (idMesaSeleccionada == 0)
+            {
+                MessageBox.Show("Debe seleccionar una mesa.");
+                return;
+            }
+
             tabControl1.SelectedIndex = 1;
+
+            CargarPedidoDeMesa(idMesaSeleccionada);
+        }
+
+
+        private void CargarPedidoDeMesa(int idMesa)
+        {
+            using (SqlConnection cn = new SqlConnection(conexionString))
+            {
+                cn.Open();
+
+                string sqlCab = @"
+                SELECT TOP 1 IdPedido, Fecha, IdMesa, IdClientePersona, 
+                       NombreCliente, Total, Nota
+                FROM Pedido
+                WHERE IdMesa = @IdMesa AND Estado = 'Pendiente'
+                ORDER BY Fecha DESC;";
+
+                int idPedido = 0;
+
+                using (SqlCommand cmd = new SqlCommand(sqlCab, cn))
+                {
+                    cmd.Parameters.AddWithValue("@IdMesa", idMesa);
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (!dr.Read())
+                        {
+                            MessageBox.Show("La mesa no tiene pedidos pendientes.");
+                            return;
+                        }
+
+                        idPedido = Convert.ToInt32(dr["IdPedido"]);
+                        PedidoID = idPedido;
+
+                        txtidpedido.Text = idPedido.ToString();
+                        fechapedido.Value = Convert.ToDateTime(dr["Fecha"]);
+                        idclientetxt.Text = dr["IdClientePersona"].ToString();
+                        txtnombrecompleto.Text = dr["NombreCliente"].ToString();
+                        labeltotal.Text = Convert.ToDecimal(dr["Total"]).ToString();
+                        notatxt.Text = dr["Nota"] == DBNull.Value ? "" : dr["Nota"].ToString();
+
+                        MesaLabel.Text = $"     Mesa asignada: {idMesa}";
+                    }
+                }
+
+                CargarDetallePedido(idPedido, cn);
+                habilitarbotones();
+            }
+        }
+
+        private void CargarDetallePedido(int idPedido, SqlConnection cn)
+        {
+            string sqlDet = @"
+            SELECT  d.IdProducto,
+                    p.Nombre,
+                    d.PrecioUnitario,
+                    p.Itbis,
+                    d.Cantidad,
+                    d.Cantidad * d.PrecioUnitario AS Importe
+            FROM DetallePedido d
+            INNER JOIN ProductoVenta p ON p.IdProducto = d.IdProducto
+            WHERE d.IdPedido = @IdPedido;";
+
+            using (SqlCommand cmd = new SqlCommand(sqlDet, cn))
+            {
+                cmd.Parameters.AddWithValue("@IdPedido", idPedido);
+
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    detalleorden.Rows.Clear();
+
+                    while (dr.Read())
+                    {
+                        int fila = detalleorden.Rows.Add();
+
+                        detalleorden.Rows[fila].Cells["codigoProducto"].Value = dr["IdProducto"];
+                        detalleorden.Rows[fila].Cells["nombreProducto"].Value = dr["Nombre"];
+                        detalleorden.Rows[fila].Cells["precio"].Value = dr["PrecioUnitario"];
+                        detalleorden.Rows[fila].Cells["ITBIS"].Value = dr["Itbis"];
+                        detalleorden.Rows[fila].Cells["cantidad"].Value = dr["Cantidad"];
+                        detalleorden.Rows[fila].Cells["subtotal"].Value = dr["Importe"];
+                    }
+                }
+            }
         }
     }
 }
