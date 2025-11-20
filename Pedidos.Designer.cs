@@ -36,6 +36,7 @@
             label34 = new Label();
             mesasprincipal = new FlowLayoutPanel();
             panel11 = new Panel();
+            UnirMesa = new Button();
             FacturarOrden = new Button();
             EditarOrden = new Button();
             CrearOrden = new Button();
@@ -66,6 +67,7 @@
             nota = new Button();
             labelcantidadarticulos = new Label();
             panel3 = new Panel();
+            separarcuenta = new Button();
             bajarproductobtn = new Button();
             buscarproductobtn = new Button();
             numCantidad = new NumericUpDown();
@@ -173,6 +175,8 @@
             facturadochk = new CheckBox();
             toolTip1 = new ToolTip(components);
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            button3 = new Button();
+            button7 = new Button();
             tabControl1.SuspendLayout();
             tabPage6.SuspendLayout();
             panel6.SuspendLayout();
@@ -279,6 +283,9 @@
             // panel11
             // 
             panel11.BackColor = Color.Gray;
+            panel11.Controls.Add(button7);
+            panel11.Controls.Add(button3);
+            panel11.Controls.Add(UnirMesa);
             panel11.Controls.Add(FacturarOrden);
             panel11.Controls.Add(EditarOrden);
             panel11.Controls.Add(CrearOrden);
@@ -286,6 +293,20 @@
             panel11.Name = "panel11";
             panel11.Size = new Size(178, 489);
             panel11.TabIndex = 1;
+            // 
+            // UnirMesa
+            // 
+            UnirMesa.Enabled = false;
+            UnirMesa.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            UnirMesa.Image = Properties.Resources.unir;
+            UnirMesa.Location = new Point(11, 418);
+            UnirMesa.Name = "UnirMesa";
+            UnirMesa.Size = new Size(157, 62);
+            UnirMesa.TabIndex = 0;
+            UnirMesa.Text = "Unir Mesas";
+            UnirMesa.TextAlign = ContentAlignment.BottomCenter;
+            UnirMesa.UseVisualStyleBackColor = true;
+            UnirMesa.Click += UnirMesa_Click;
             // 
             // FacturarOrden
             // 
@@ -351,7 +372,7 @@
             label33.AutoSize = true;
             label33.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label33.ForeColor = SystemColors.Control;
-            label33.Location = new Point(354, 13);
+            label33.Location = new Point(354, 4);
             label33.Name = "label33";
             label33.Size = new Size(85, 32);
             label33.TabIndex = 3;
@@ -419,7 +440,7 @@
             tabPage1.Location = new Point(4, 30);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(1672, 848);
+            tabPage1.Size = new Size(804, 608);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Ordenar";
             // 
@@ -632,7 +653,7 @@
             // labelcantidadarticulos
             // 
             labelcantidadarticulos.AutoSize = true;
-            labelcantidadarticulos.Font = new Font("Segoe UI", 12F);
+            labelcantidadarticulos.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelcantidadarticulos.ForeColor = SystemColors.Control;
             labelcantidadarticulos.Location = new Point(161, 334);
             labelcantidadarticulos.Name = "labelcantidadarticulos";
@@ -643,6 +664,7 @@
             // panel3
             // 
             panel3.BackColor = Color.FromArgb(64, 64, 64);
+            panel3.Controls.Add(separarcuenta);
             panel3.Controls.Add(bajarproductobtn);
             panel3.Controls.Add(buscarproductobtn);
             panel3.Controls.Add(numCantidad);
@@ -655,14 +677,26 @@
             panel3.Size = new Size(793, 50);
             panel3.TabIndex = 0;
             // 
+            // separarcuenta
+            // 
+            separarcuenta.Enabled = false;
+            separarcuenta.Image = Properties.Resources.separar_flecha;
+            separarcuenta.Location = new Point(751, 11);
+            separarcuenta.Name = "separarcuenta";
+            separarcuenta.Size = new Size(29, 29);
+            separarcuenta.TabIndex = 2;
+            toolTip1.SetToolTip(separarcuenta, "Separar Cuenta");
+            separarcuenta.UseVisualStyleBackColor = true;
+            // 
             // bajarproductobtn
             // 
             bajarproductobtn.Enabled = false;
-            bajarproductobtn.Image = Properties.Resources.angulo_hacia_abajo;
-            bajarproductobtn.Location = new Point(753, 11);
+            bajarproductobtn.Image = Properties.Resources.mas;
+            bajarproductobtn.Location = new Point(717, 11);
             bajarproductobtn.Name = "bajarproductobtn";
             bajarproductobtn.Size = new Size(29, 29);
             bajarproductobtn.TabIndex = 2;
+            toolTip1.SetToolTip(bajarproductobtn, "Agregar a Orden");
             bajarproductobtn.UseVisualStyleBackColor = true;
             bajarproductobtn.Click += bajarproductobtn_Click;
             // 
@@ -670,21 +704,21 @@
             // 
             buscarproductobtn.Enabled = false;
             buscarproductobtn.Image = Properties.Resources.carrito_de_compras;
-            buscarproductobtn.Location = new Point(11, 11);
+            buscarproductobtn.Location = new Point(12, 11);
             buscarproductobtn.Name = "buscarproductobtn";
             buscarproductobtn.Size = new Size(29, 29);
             buscarproductobtn.TabIndex = 2;
-            toolTip1.SetToolTip(buscarproductobtn, "Click derecho para\r\nregistrar un nuevo\r\nproducto\r\n");
+            toolTip1.SetToolTip(buscarproductobtn, "Buscar Platos");
             buscarproductobtn.UseVisualStyleBackColor = true;
             buscarproductobtn.Click += buscarproductobtn_Click;
             // 
             // numCantidad
             // 
-            numCantidad.Location = new Point(639, 11);
+            numCantidad.Location = new Point(631, 11);
             numCantidad.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
             numCantidad.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numCantidad.Name = "numCantidad";
-            numCantidad.Size = new Size(108, 29);
+            numCantidad.Size = new Size(81, 29);
             numCantidad.TabIndex = 1;
             numCantidad.Value = new decimal(new int[] { 1, 0, 0, 0 });
             numCantidad.KeyPress += numCantidad_KeyPress;
@@ -692,16 +726,16 @@
             // txtnombreproducto
             // 
             txtnombreproducto.Enabled = false;
-            txtnombreproducto.Location = new Point(156, 11);
+            txtnombreproducto.Location = new Point(138, 11);
             txtnombreproducto.Name = "txtnombreproducto";
             txtnombreproducto.PlaceholderText = "Nombre";
-            txtnombreproducto.Size = new Size(285, 29);
+            txtnombreproducto.Size = new Size(321, 29);
             txtnombreproducto.TabIndex = 0;
             // 
             // txtiva
             // 
             txtiva.Enabled = false;
-            txtiva.Location = new Point(582, 11);
+            txtiva.Location = new Point(575, 11);
             txtiva.Name = "txtiva";
             txtiva.PlaceholderText = "ITBIS";
             txtiva.Size = new Size(51, 29);
@@ -709,10 +743,10 @@
             // 
             // txtprecioproducto
             // 
-            txtprecioproducto.Location = new Point(447, 11);
+            txtprecioproducto.Location = new Point(464, 11);
             txtprecioproducto.Name = "txtprecioproducto";
             txtprecioproducto.PlaceholderText = "Precio";
-            txtprecioproducto.Size = new Size(129, 29);
+            txtprecioproducto.Size = new Size(106, 29);
             txtprecioproducto.TabIndex = 0;
             // 
             // txtcodigoproducto
@@ -721,7 +755,7 @@
             txtcodigoproducto.Location = new Point(46, 11);
             txtcodigoproducto.Name = "txtcodigoproducto";
             txtcodigoproducto.PlaceholderText = "ID";
-            txtcodigoproducto.Size = new Size(104, 29);
+            txtcodigoproducto.Size = new Size(87, 29);
             txtcodigoproducto.TabIndex = 0;
             // 
             // panel4
@@ -956,7 +990,7 @@
             buscarclientebtn.RightToLeft = RightToLeft.No;
             buscarclientebtn.Size = new Size(29, 29);
             buscarclientebtn.TabIndex = 2;
-            toolTip1.SetToolTip(buscarclientebtn, "Click derecho para\r\nregistrar un nuevo\r\ncliente");
+            toolTip1.SetToolTip(buscarclientebtn, "Buscar Clientes");
             buscarclientebtn.UseVisualStyleBackColor = true;
             buscarclientebtn.Click += buscarclientebtn_Click;
             // 
@@ -991,9 +1025,9 @@
             // 
             panel8.BackColor = Color.DimGray;
             panel8.Controls.Add(label14);
-            panel8.Location = new Point(222, 139);
+            panel8.Location = new Point(254, 139);
             panel8.Name = "panel8";
-            panel8.Size = new Size(278, 33);
+            panel8.Size = new Size(246, 33);
             panel8.TabIndex = 71;
             // 
             // label14
@@ -1003,7 +1037,7 @@
             label14.ForeColor = SystemColors.Control;
             label14.Image = Properties.Resources.persona2;
             label14.ImageAlign = ContentAlignment.MiddleLeft;
-            label14.Location = new Point(4, 6);
+            label14.Location = new Point(6, 6);
             label14.Name = "label14";
             label14.Size = new Size(87, 21);
             label14.TabIndex = 3;
@@ -1015,7 +1049,7 @@
             panel14.Controls.Add(MesaLabel);
             panel14.Location = new Point(12, 139);
             panel14.Name = "panel14";
-            panel14.Size = new Size(197, 33);
+            panel14.Size = new Size(236, 33);
             panel14.TabIndex = 71;
             // 
             // MesaLabel
@@ -1044,7 +1078,7 @@
             tabPage2.Location = new Point(4, 30);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(1672, 848);
+            tabPage2.Size = new Size(804, 608);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Facturas";
             // 
@@ -1684,9 +1718,9 @@
             label8.ForeColor = SystemColors.Control;
             label8.Location = new Point(6, 9);
             label8.Name = "label8";
-            label8.Size = new Size(101, 21);
+            label8.Size = new Size(53, 21);
             label8.TabIndex = 9;
-            label8.Text = "Fecha inicio";
+            label8.Text = "Inicio";
             // 
             // label9
             // 
@@ -1695,9 +1729,9 @@
             label9.ForeColor = SystemColors.Control;
             label9.Location = new Point(142, 9);
             label9.Name = "label9";
-            label9.Size = new Size(79, 21);
+            label9.Size = new Size(33, 21);
             label9.TabIndex = 10;
-            label9.Text = "Fecha fin";
+            label9.Text = "Fin";
             // 
             // fecini
             // 
@@ -1857,9 +1891,37 @@
             facturadochk.UseVisualStyleBackColor = true;
             facturadochk.CheckedChanged += facturadochk_CheckedChanged;
             // 
-            // toolTip1
+            // button3
             // 
-            toolTip1.ToolTipTitle = "Ayuda";
+            button3.Enabled = false;
+            button3.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button3.Image = Properties.Resources.sicheck;
+            button3.ImageAlign = ContentAlignment.MiddleRight;
+            button3.Location = new Point(11, 384);
+            button3.Name = "button3";
+            button3.Size = new Size(78, 30);
+            button3.TabIndex = 0;
+            button3.Text = "Si";
+            button3.TextAlign = ContentAlignment.MiddleLeft;
+            button3.UseVisualStyleBackColor = true;
+            button3.Visible = false;
+            button3.Click += UnirMesa_Click;
+            // 
+            // button7
+            // 
+            button7.Enabled = false;
+            button7.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button7.Image = Properties.Resources.nocheck;
+            button7.ImageAlign = ContentAlignment.MiddleRight;
+            button7.Location = new Point(90, 384);
+            button7.Name = "button7";
+            button7.Size = new Size(78, 30);
+            button7.TabIndex = 0;
+            button7.Text = "No";
+            button7.TextAlign = ContentAlignment.MiddleLeft;
+            button7.UseVisualStyleBackColor = true;
+            button7.Visible = false;
+            button7.Click += UnirMesa_Click;
             // 
             // Pedidos
             // 
@@ -2087,5 +2149,9 @@
         private Button eliminar;
         private Button button1;
         private Button button2;
+        private Button UnirMesa;
+        private Button separarcuenta;
+        private Button button7;
+        private Button button3;
     }
 }

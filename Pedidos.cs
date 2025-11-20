@@ -190,6 +190,7 @@ namespace Proyecto_restaurante
             numCantidad.Enabled = true;
             nota.Enabled = true;
             guardarordenbtn.Enabled = true;
+            separarcuenta.Enabled = true;
         }
 
         private void tablapanelproducto_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -305,6 +306,7 @@ namespace Proyecto_restaurante
             {
                 EditarOrden.Enabled = true;
                 FacturarOrden.Enabled = true;
+                UnirMesa.Enabled = true;
 
                 CrearOrden.Enabled = false;
             }
@@ -1339,11 +1341,12 @@ namespace Proyecto_restaurante
 
             MesaLabel.Text = $"     Mesa asignada: {idMesaSeleccionada}";
 
-            buscarclientebtn.Enabled = true;
-            guardarordenbtn.Enabled = true;
-            buscarproductobtn.Enabled = true;
-            bajarproductobtn.Enabled = true;
-            nota.Enabled = true;
+            habilitarbotones();
+            //buscarclientebtn.Enabled = true;
+            //guardarordenbtn.Enabled = true;
+            //buscarproductobtn.Enabled = true;
+            //bajarproductobtn.Enabled = true;
+            //nota.Enabled = true;
         }
 
         private void FacturarOrden_Click(object sender, EventArgs e)
@@ -1476,7 +1479,6 @@ namespace Proyecto_restaurante
             CargarPedidoDeMesa(idMesaSeleccionada);
         }
 
-
         private void CargarPedidoDeMesa(int idMesa)
         {
             using (SqlConnection cn = new SqlConnection(conexionString))
@@ -1557,6 +1559,11 @@ namespace Proyecto_restaurante
                     }
                 }
             }
+        }
+
+        private void UnirMesa_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

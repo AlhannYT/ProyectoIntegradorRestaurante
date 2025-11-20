@@ -1803,6 +1803,36 @@ namespace Proyecto_restaurante.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap separar {
+            get {
+                object obj = ResourceManager.GetObject("separar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap separar_flecha {
+            get {
+                object obj = ResourceManager.GetObject("separar flecha", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap separar1 {
+            get {
+                object obj = ResourceManager.GetObject("separar1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap sicheck {
             get {
                 object obj = ResourceManager.GetObject("sicheck", resourceCulture);
@@ -1966,6 +1996,16 @@ namespace Proyecto_restaurante.Properties {
         internal static System.Drawing.Bitmap ubicacion {
             get {
                 object obj = ResourceManager.GetObject("ubicacion", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap unir {
+            get {
+                object obj = ResourceManager.GetObject("unir", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
