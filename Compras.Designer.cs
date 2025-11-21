@@ -166,10 +166,13 @@
             // 
             tablaproductos.AllowUserToAddRows = false;
             tablaproductos.AllowUserToDeleteRows = false;
+            tablaproductos.Anchor = AnchorStyles.None;
+            tablaproductos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             tablaproductos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tablaproductos.Location = new Point(3, 3);
             tablaproductos.MultiSelect = false;
             tablaproductos.Name = "tablaproductos";
+            tablaproductos.RowHeadersVisible = false;
             tablaproductos.RowHeadersWidth = 51;
             tablaproductos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             tablaproductos.Size = new Size(553, 269);
