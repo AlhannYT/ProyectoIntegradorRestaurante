@@ -36,6 +36,8 @@
             label34 = new Label();
             mesasprincipal = new FlowLayoutPanel();
             panel11 = new Panel();
+            NoUnion = new Button();
+            SiUnion = new Button();
             UnirMesa = new Button();
             FacturarOrden = new Button();
             EditarOrden = new Button();
@@ -175,8 +177,6 @@
             facturadochk = new CheckBox();
             toolTip1 = new ToolTip(components);
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            button3 = new Button();
-            button7 = new Button();
             tabControl1.SuspendLayout();
             tabPage6.SuspendLayout();
             panel6.SuspendLayout();
@@ -283,8 +283,8 @@
             // panel11
             // 
             panel11.BackColor = Color.Gray;
-            panel11.Controls.Add(button7);
-            panel11.Controls.Add(button3);
+            panel11.Controls.Add(NoUnion);
+            panel11.Controls.Add(SiUnion);
             panel11.Controls.Add(UnirMesa);
             panel11.Controls.Add(FacturarOrden);
             panel11.Controls.Add(EditarOrden);
@@ -293,6 +293,36 @@
             panel11.Name = "panel11";
             panel11.Size = new Size(178, 489);
             panel11.TabIndex = 1;
+            // 
+            // NoUnion
+            // 
+            NoUnion.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            NoUnion.Image = Properties.Resources.nocheck;
+            NoUnion.ImageAlign = ContentAlignment.MiddleRight;
+            NoUnion.Location = new Point(90, 384);
+            NoUnion.Name = "NoUnion";
+            NoUnion.Size = new Size(78, 30);
+            NoUnion.TabIndex = 0;
+            NoUnion.Text = "No";
+            NoUnion.TextAlign = ContentAlignment.MiddleLeft;
+            NoUnion.UseVisualStyleBackColor = true;
+            NoUnion.Visible = false;
+            NoUnion.Click += NoUnion_Click;
+            // 
+            // SiUnion
+            // 
+            SiUnion.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            SiUnion.Image = Properties.Resources.sicheck;
+            SiUnion.ImageAlign = ContentAlignment.MiddleRight;
+            SiUnion.Location = new Point(11, 384);
+            SiUnion.Name = "SiUnion";
+            SiUnion.Size = new Size(78, 30);
+            SiUnion.TabIndex = 0;
+            SiUnion.Text = "Si";
+            SiUnion.TextAlign = ContentAlignment.MiddleLeft;
+            SiUnion.UseVisualStyleBackColor = true;
+            SiUnion.Visible = false;
+            SiUnion.Click += SiUnion_Click;
             // 
             // UnirMesa
             // 
@@ -1891,38 +1921,6 @@
             facturadochk.UseVisualStyleBackColor = true;
             facturadochk.CheckedChanged += facturadochk_CheckedChanged;
             // 
-            // button3
-            // 
-            button3.Enabled = false;
-            button3.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button3.Image = Properties.Resources.sicheck;
-            button3.ImageAlign = ContentAlignment.MiddleRight;
-            button3.Location = new Point(11, 384);
-            button3.Name = "button3";
-            button3.Size = new Size(78, 30);
-            button3.TabIndex = 0;
-            button3.Text = "Si";
-            button3.TextAlign = ContentAlignment.MiddleLeft;
-            button3.UseVisualStyleBackColor = true;
-            button3.Visible = false;
-            button3.Click += UnirMesa_Click;
-            // 
-            // button7
-            // 
-            button7.Enabled = false;
-            button7.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button7.Image = Properties.Resources.nocheck;
-            button7.ImageAlign = ContentAlignment.MiddleRight;
-            button7.Location = new Point(90, 384);
-            button7.Name = "button7";
-            button7.Size = new Size(78, 30);
-            button7.TabIndex = 0;
-            button7.Text = "No";
-            button7.TextAlign = ContentAlignment.MiddleLeft;
-            button7.UseVisualStyleBackColor = true;
-            button7.Visible = false;
-            button7.Click += UnirMesa_Click;
-            // 
             // Pedidos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -2151,7 +2149,7 @@
         private Button button2;
         private Button UnirMesa;
         private Button separarcuenta;
-        private Button button7;
-        private Button button3;
+        private Button NoUnion;
+        private Button SiUnion;
     }
 }
