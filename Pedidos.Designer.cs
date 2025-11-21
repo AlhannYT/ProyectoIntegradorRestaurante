@@ -33,12 +33,15 @@
             tabControl1 = new TabControl();
             tabPage6 = new TabPage();
             panel6 = new Panel();
-            label34 = new Label();
             mesasprincipal = new FlowLayoutPanel();
+            panel15 = new Panel();
+            label34 = new Label();
             panel11 = new Panel();
+            SepararMesa = new Button();
             NoUnion = new Button();
             SiUnion = new Button();
             UnirMesa = new Button();
+            label22 = new Label();
             FacturarOrden = new Button();
             EditarOrden = new Button();
             CrearOrden = new Button();
@@ -78,6 +81,7 @@
             txtprecioproducto = new TextBox();
             txtcodigoproducto = new TextBox();
             panel4 = new Panel();
+            Volver = new Button();
             labelcaja = new Label();
             panel9 = new Panel();
             labelsubtotal = new Label();
@@ -239,15 +243,16 @@
             tabPage6.Controls.Add(panel6);
             tabPage6.Location = new Point(4, 30);
             tabPage6.Name = "tabPage6";
-            tabPage6.Size = new Size(804, 608);
+            tabPage6.Size = new Size(1529, 608);
             tabPage6.TabIndex = 2;
             tabPage6.Text = "Mesas";
             // 
             // panel6
             // 
             panel6.BackColor = Color.FromArgb(64, 64, 64);
-            panel6.Controls.Add(label34);
             panel6.Controls.Add(mesasprincipal);
+            panel6.Controls.Add(panel15);
+            panel6.Controls.Add(label34);
             panel6.Controls.Add(panel11);
             panel6.Controls.Add(textBox1);
             panel6.Controls.Add(label5);
@@ -257,6 +262,22 @@
             panel6.Name = "panel6";
             panel6.Size = new Size(798, 599);
             panel6.TabIndex = 2;
+            // 
+            // mesasprincipal
+            // 
+            mesasprincipal.AutoScroll = true;
+            mesasprincipal.BackColor = SystemColors.ControlDark;
+            mesasprincipal.Location = new Point(6, 104);
+            mesasprincipal.Name = "mesasprincipal";
+            mesasprincipal.Size = new Size(602, 489);
+            mesasprincipal.TabIndex = 27;
+            // 
+            // panel15
+            // 
+            panel15.Location = new Point(601, 332);
+            panel15.Name = "panel15";
+            panel15.Size = new Size(208, 114);
+            panel15.TabIndex = 72;
             // 
             // label34
             // 
@@ -271,21 +292,14 @@
             label34.TabIndex = 71;
             label34.Text = "  ";
             // 
-            // mesasprincipal
-            // 
-            mesasprincipal.AutoScroll = true;
-            mesasprincipal.BackColor = SystemColors.ControlDark;
-            mesasprincipal.Location = new Point(6, 104);
-            mesasprincipal.Name = "mesasprincipal";
-            mesasprincipal.Size = new Size(602, 489);
-            mesasprincipal.TabIndex = 27;
-            // 
             // panel11
             // 
             panel11.BackColor = Color.Gray;
+            panel11.Controls.Add(SepararMesa);
             panel11.Controls.Add(NoUnion);
             panel11.Controls.Add(SiUnion);
             panel11.Controls.Add(UnirMesa);
+            panel11.Controls.Add(label22);
             panel11.Controls.Add(FacturarOrden);
             panel11.Controls.Add(EditarOrden);
             panel11.Controls.Add(CrearOrden);
@@ -293,6 +307,19 @@
             panel11.Name = "panel11";
             panel11.Size = new Size(178, 489);
             panel11.TabIndex = 1;
+            // 
+            // SepararMesa
+            // 
+            SepararMesa.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            SepararMesa.Image = Properties.Resources.separarmesa;
+            SepararMesa.Location = new Point(90, 418);
+            SepararMesa.Name = "SepararMesa";
+            SepararMesa.Size = new Size(78, 62);
+            SepararMesa.TabIndex = 1;
+            SepararMesa.Text = "Separar";
+            SepararMesa.TextAlign = ContentAlignment.BottomCenter;
+            SepararMesa.UseVisualStyleBackColor = true;
+            SepararMesa.Click += SepararMesa_Click;
             // 
             // NoUnion
             // 
@@ -326,17 +353,28 @@
             // 
             // UnirMesa
             // 
-            UnirMesa.Enabled = false;
+            UnirMesa.BackColor = SystemColors.ButtonHighlight;
             UnirMesa.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             UnirMesa.Image = Properties.Resources.unir;
             UnirMesa.Location = new Point(11, 418);
             UnirMesa.Name = "UnirMesa";
-            UnirMesa.Size = new Size(157, 62);
+            UnirMesa.Size = new Size(78, 62);
             UnirMesa.TabIndex = 0;
-            UnirMesa.Text = "Unir Mesas";
+            UnirMesa.Text = "Unir";
             UnirMesa.TextAlign = ContentAlignment.BottomCenter;
-            UnirMesa.UseVisualStyleBackColor = true;
+            UnirMesa.UseVisualStyleBackColor = false;
             UnirMesa.Click += UnirMesa_Click;
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label22.ForeColor = SystemColors.Control;
+            label22.Location = new Point(2, 343);
+            label22.Name = "label22";
+            label22.Size = new Size(175, 32);
+            label22.TabIndex = 3;
+            label22.Text = "Unir / Separar";
             // 
             // FacturarOrden
             // 
@@ -470,7 +508,7 @@
             tabPage1.Location = new Point(4, 30);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(804, 608);
+            tabPage1.Size = new Size(1529, 608);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Ordenar";
             // 
@@ -791,6 +829,7 @@
             // panel4
             // 
             panel4.BackColor = SystemColors.WindowFrame;
+            panel4.Controls.Add(Volver);
             panel4.Controls.Add(labelcaja);
             panel4.Controls.Add(panel9);
             panel4.Controls.Add(fechapedido);
@@ -802,12 +841,25 @@
             panel4.Size = new Size(281, 179);
             panel4.TabIndex = 0;
             // 
+            // Volver
+            // 
+            Volver.Image = Properties.Resources.atrás;
+            Volver.ImageAlign = ContentAlignment.MiddleLeft;
+            Volver.Location = new Point(179, 3);
+            Volver.Name = "Volver";
+            Volver.Size = new Size(97, 29);
+            Volver.TabIndex = 27;
+            Volver.Text = " Volver";
+            Volver.TextAlign = ContentAlignment.MiddleRight;
+            Volver.UseVisualStyleBackColor = true;
+            Volver.Click += Volver_Click;
+            // 
             // labelcaja
             // 
             labelcaja.AutoSize = true;
             labelcaja.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelcaja.ForeColor = SystemColors.Control;
-            labelcaja.Location = new Point(3, 5);
+            labelcaja.Location = new Point(3, 7);
             labelcaja.Name = "labelcaja";
             labelcaja.Size = new Size(51, 21);
             labelcaja.TabIndex = 5;
@@ -820,7 +872,7 @@
             panel9.Controls.Add(labeltotal);
             panel9.Controls.Add(label7);
             panel9.Controls.Add(label3);
-            panel9.Location = new Point(6, 120);
+            panel9.Location = new Point(6, 122);
             panel9.Name = "panel9";
             panel9.Size = new Size(269, 54);
             panel9.TabIndex = 1;
@@ -873,7 +925,7 @@
             // 
             fechapedido.Enabled = false;
             fechapedido.Format = DateTimePickerFormat.Short;
-            fechapedido.Location = new Point(147, 29);
+            fechapedido.Location = new Point(147, 34);
             fechapedido.Name = "fechapedido";
             fechapedido.Size = new Size(128, 29);
             fechapedido.TabIndex = 4;
@@ -883,7 +935,7 @@
             limpiarbtn.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             limpiarbtn.Image = Properties.Resources.nuevo;
             limpiarbtn.ImageAlign = ContentAlignment.MiddleLeft;
-            limpiarbtn.Location = new Point(147, 64);
+            limpiarbtn.Location = new Point(147, 66);
             limpiarbtn.Name = "limpiarbtn";
             limpiarbtn.Size = new Size(128, 52);
             limpiarbtn.TabIndex = 0;
@@ -896,7 +948,7 @@
             label11.AutoSize = true;
             label11.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label11.ForeColor = SystemColors.Control;
-            label11.Location = new Point(3, 33);
+            label11.Location = new Point(3, 38);
             label11.Name = "label11";
             label11.Size = new Size(126, 20);
             label11.TabIndex = 3;
@@ -909,7 +961,7 @@
             guardarordenbtn.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             guardarordenbtn.Image = Properties.Resources.guardar;
             guardarordenbtn.ImageAlign = ContentAlignment.MiddleLeft;
-            guardarordenbtn.Location = new Point(6, 64);
+            guardarordenbtn.Location = new Point(6, 66);
             guardarordenbtn.Name = "guardarordenbtn";
             guardarordenbtn.Size = new Size(128, 52);
             guardarordenbtn.TabIndex = 0;
@@ -1942,6 +1994,7 @@
             panel6.ResumeLayout(false);
             panel6.PerformLayout();
             panel11.ResumeLayout(false);
+            panel11.PerformLayout();
             panel13.ResumeLayout(false);
             panel13.PerformLayout();
             tabPage1.ResumeLayout(false);
@@ -2151,5 +2204,9 @@
         private Button separarcuenta;
         private Button NoUnion;
         private Button SiUnion;
+        private Button SepararMesa;
+        private Label label22;
+        private Panel panel15;
+        private Button Volver;
     }
 }

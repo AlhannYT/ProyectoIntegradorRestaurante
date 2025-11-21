@@ -34,8 +34,9 @@ namespace Proyecto_restaurante
         private decimal totalAcumulado = 0;
         private decimal subtotalAcumulado = 0;
         bool modoUnion = false;
-        List<int> mesasSeleccionadasUnion = new List<int>();
+        bool modoSeparar = false;
 
+        List<int> mesasSeleccionadasUnion = new List<int>();
 
         string conexionString = ConexionBD.ConexionSQL();
 
@@ -105,7 +106,6 @@ namespace Proyecto_restaurante
             tablapanelproducto.Columns["PrecioVenta"].HeaderText = "Venta";
             tablapanelproducto.Columns["ITBIS"].HeaderText = "ITBIS";
             tablapanelproducto.Columns["Existencia"].HeaderText = "Existencia";
-
         }
 
         private void guardarordenbtn_Click(object sender, EventArgs e)
@@ -293,18 +293,35 @@ namespace Proyecto_restaurante
             int idMesa = mesaInfo.Id;
             int estadoMesa = mesaInfo.Estado;
 
-            if (modoUnion)
+            // ================================
+            //      MODO UNIÓN
+            // ================================
+            if (modoUnion && !modoSeparar)
             {
                 if (!mesasSeleccionadasUnion.Contains(idMesa))
                 {
                     mesasSeleccionadasUnion.Add(idMesa);
-                    btn.BackColor = Color.Gold;
+                    btn.BackColor = Color.Gold; // color unión
                 }
                 else
                 {
-                    
                     mesasSeleccionadasUnion.Remove(idMesa);
+                    btn.BackColor = (estadoMesa == 1) ? Color.LightCoral : Color.LightGreen;
+                }
 
+                return;
+            }
+
+            if (modoSeparar && !modoUnion)
+            {
+                if (!mesasSeleccionadasUnion.Contains(idMesa))
+                {
+                    mesasSeleccionadasUnion.Add(idMesa);
+                    btn.BackColor = Color.OrangeRed;
+                }
+                else
+                {
+                    mesasSeleccionadasUnion.Remove(idMesa);
                     btn.BackColor = (estadoMesa == 1) ? Color.LightCoral : Color.LightGreen;
                 }
 
@@ -319,27 +336,27 @@ namespace Proyecto_restaurante
             }
 
             botonActivo = btn;
-
             btn.BackColor = Color.DodgerBlue;
-
             idMesaSeleccionada = idMesa;
 
-
-            if (estadoMesa == 1) 
+            if (estadoMesa == 1)
             {
                 CrearOrden.Enabled = false;
                 EditarOrden.Enabled = true;
                 FacturarOrden.Enabled = true;
                 UnirMesa.Enabled = true;
+                SepararMesa.Enabled = true;
             }
-            else 
+            else
             {
                 CrearOrden.Enabled = true;
                 EditarOrden.Enabled = false;
                 FacturarOrden.Enabled = false;
                 UnirMesa.Enabled = true;
+                SepararMesa.Enabled = true;
             }
         }
+
 
         private Button CrearBotonMesa(int id, string numero, string capacidad, int ocupado, List<string> unidas)
         {
@@ -359,7 +376,7 @@ namespace Proyecto_restaurante
                 ListaMesas = unidas
             };
 
-            string textoUnidas = unidas.Count > 1 ? string.Join(", ", unidas) : "-";
+            string textoUnidas = unidas.Count > 0 ? string.Join(", ", unidas) : "-";
 
             btn.Text =
                 $"Mesa #{numero}\n" +
@@ -371,6 +388,16 @@ namespace Proyecto_restaurante
             return btn;
         }
 
+        public class MesaInfo
+        {
+            public int Id { get; set; }
+            public string Numero { get; set; }
+            public string Capacidad { get; set; }
+            public int Ocupado { get; set; }
+            public int IdGrupo { get; set; }
+            public int EsPrincipal { get; set; }
+        }
+
         private void Pedidos_Load(object sender, EventArgs e)
         {
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -378,71 +405,75 @@ namespace Proyecto_restaurante
 
             string conexionString = ConexionBD.ConexionSQL();
 
-            string consultaMesa = @"
-            SELECT 
-                IdMesa, 
-                IdSala, 
-                Numero, 
-                Capacidad, 
-                Ocupado, 
-                Estado,
-                CASE 
-                    WHEN EsPrincipal IS NULL OR EsPrincipal = 0 THEN IdMesa
-                    ELSE EsPrincipal
-                END AS IdPrincipal
-            FROM Mesa";
-
             mesasprincipal.Controls.Clear();
 
-            using (SqlConnection conexion = new SqlConnection(conexionString))
+            List<MesaInfo> mesas = new List<MesaInfo>();
+
+            using (SqlConnection cn = new SqlConnection(conexionString))
             {
-                conexion.Open();
-                using (SqlCommand cmd = new SqlCommand(consultaMesa, conexion))
-                using (SqlDataReader lector = cmd.ExecuteReader())
+                cn.Open();
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT IdMesa, Numero, Capacidad, Ocupado, IdGrupo, EsPrincipal FROM Mesa", cn);
+
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
                 {
-                    List<dynamic> mesas = new List<dynamic>();
-
-                    while (lector.Read())
+                    mesas.Add(new MesaInfo
                     {
-                        mesas.Add(new
-                        {
-                            Id = Convert.ToInt32(lector["IdMesa"]),
-                            IdPrincipal = Convert.ToInt32(lector["IdPrincipal"]),
-                            Numero = lector["Numero"].ToString(),
-                            Sala = lector["IdSala"].ToString(),
-                            Capacidad = lector["Capacidad"].ToString(),
-                            Ocupado = Convert.ToInt32(lector["Ocupado"])
-                        });
-                    }
-
-                    var grupos = mesas
-                    .GroupBy(m => m.IdPrincipal)
-                    .ToList();
-
-                    foreach (var grupo in grupos)
-                    {
-                        var principal = grupo.FirstOrDefault(x => x.Id == x.IdPrincipal);
-                        if (principal == null)
-                            principal = grupo.First();
-
-                        List<string> unidas = grupo
-                            .Where(x => x.Id != principal.Id)
-                            .Select(x => (string)x.Numero)
-                            .ToList();
-
-                        Button btnMesaGrupo = CrearBotonMesa(
-                            principal.Id,
-                            principal.Numero,
-                            principal.Capacidad,
-                            principal.Ocupado,
-                            unidas
-                        );
-
-                        mesasprincipal.Controls.Add(btnMesaGrupo);
-                    }
-
+                        Id = Convert.ToInt32(dr["IdMesa"]),
+                        Numero = dr["Numero"] == DBNull.Value ? "?" : dr["Numero"].ToString(),
+                        Capacidad = dr["Capacidad"] == DBNull.Value ? "0" : dr["Capacidad"].ToString(),
+                        Ocupado = dr["Ocupado"] == DBNull.Value ? 0 : Convert.ToInt32(dr["Ocupado"]),
+                        IdGrupo = dr["IdGrupo"] == DBNull.Value ? 0 : Convert.ToInt32(dr["IdGrupo"]),
+                        EsPrincipal = dr["EsPrincipal"] == DBNull.Value ? 0 : Convert.ToInt32(dr["EsPrincipal"])
+                    });
                 }
             }
+
+            var individuales = mesas.Where(m => m.IdGrupo == 0).ToList();
+            foreach (var mesa in individuales)
+            {
+                var btn = CrearBotonMesa(
+                    mesa.Id,
+                    mesa.Numero,
+                    mesa.Capacidad,
+                    mesa.Ocupado,
+                    new List<string>()
+                );
+                mesasprincipal.Controls.Add(btn);
+            }
+
+            var grupos = mesas
+            .Where(m => m.IdGrupo > 0)
+            .GroupBy(m => m.IdGrupo);
+
+            foreach (var grupo in grupos)
+            {
+                var principal = grupo.FirstOrDefault(m => m.EsPrincipal == 1) ?? grupo.First();
+
+                var secundarias = grupo
+                    .Where(m => m.Id != principal.Id)
+                    .ToList();
+
+                var unidas = secundarias
+                .Select(m => m.Numero)
+                .ToList();
+
+
+                int capacidadTotal = grupo.Sum(m => int.TryParse(m.Capacidad, out int c) ? c : 0);
+
+                var btn = CrearBotonMesa(
+                    principal.Id,
+                    principal.Numero,
+                    capacidadTotal.ToString(),
+                    principal.Ocupado,
+                    unidas
+                );
+
+                mesasprincipal.Controls.Add(btn);
+            }
+
 
             string consulta = "SELECT TOP 1 IdPedido FROM Pedido ORDER BY IdPedido DESC";
             string busquedaCaja = @"
@@ -584,6 +615,7 @@ namespace Proyecto_restaurante
 
             guardarordenbtn.Enabled = false;
             MesaLabel.Text = "     Mesa asignada: ";
+            mesasprincipal.Enabled = true;
             Pedidos_Load(sender, e);
         }
 
@@ -1195,7 +1227,6 @@ namespace Proyecto_restaurante
             detallepagopanel.Location = new Point(1617, 6);
             totalpagar.Text = totalrealef.Text;
 
-
             FacturarPedido();
             MostrarDevuelta();
 
@@ -1400,24 +1431,31 @@ namespace Proyecto_restaurante
 
         private void CrearOrden_Click(object sender, EventArgs e)
         {
-            if (idMesaSeleccionada == 0)
+            if (botonActivo == null)
             {
                 MessageBox.Show("Debe seleccionar una mesa.");
                 return;
             }
 
+            dynamic mesaInfo = botonActivo.Tag;
+
+            int idMesa = mesaInfo.Id;
+            List<string> unidas = mesaInfo.ListaMesas;
+
+            List<string> listaMostrar = new List<string>();
+            listaMostrar.Add(idMesa.ToString());
+            listaMostrar.AddRange(unidas);
+
+            string textoMesas = string.Join(", ", listaMostrar);
+
             tabControl1.SelectedIndex = 1;
-            IDMesa = idMesaSeleccionada;
+            IDMesa = idMesa;
 
-            MesaLabel.Text = $"     Mesa asignada: {idMesaSeleccionada}";
-
+            MesaLabel.Text = $"     Mesa asignada: {textoMesas}";
+            mesasprincipal.Enabled = false;
             habilitarbotones();
-            //buscarclientebtn.Enabled = true;
-            //guardarordenbtn.Enabled = true;
-            //buscarproductobtn.Enabled = true;
-            //bajarproductobtn.Enabled = true;
-            //nota.Enabled = true;
         }
+
 
         private void FacturarOrden_Click(object sender, EventArgs e)
         {
@@ -1525,6 +1563,11 @@ namespace Proyecto_restaurante
         private void finalizarbtn_Click(object sender, EventArgs e)
         {
             volverdetalle_Click(sender, e);
+            detallepagopanel.Visible = true;
+            detallepagopanel.Location = new Point(476, 0);
+
+            devueltapanel.Visible = false;
+            devueltapanel.Location = new Point(0, 0);
         }
 
         private void numCantidad_KeyPress(object sender, KeyPressEventArgs e)
@@ -1634,7 +1677,11 @@ namespace Proyecto_restaurante
         private void UnirMesa_Click(object sender, EventArgs e)
         {
             modoUnion = true;
+            Pedidos_Load(sender, e);
             mesasSeleccionadasUnion.Clear();
+            UnirMesa.BackColor = Color.Lime;
+            SepararMesa.BackColor = SystemColors.ButtonHighlight;
+            SepararMesa.Enabled = false;
 
             SiUnion.Visible = true;
             NoUnion.Visible = true;
@@ -1645,26 +1692,53 @@ namespace Proyecto_restaurante
         private void NoUnion_Click(object sender, EventArgs e)
         {
             modoUnion = false;
+            modoSeparar = false;
+
             mesasSeleccionadasUnion.Clear();
+
+            UnirMesa.BackColor = SystemColors.ButtonHighlight;
+            SepararMesa.BackColor = SystemColors.ButtonHighlight;
+
             SiUnion.Visible = false;
             NoUnion.Visible = false;
+
+            UnirMesa.Enabled = false;
+            SepararMesa.Enabled = false;
 
             Pedidos_Load(sender, e);
         }
 
         private void SiUnion_Click(object sender, EventArgs e)
         {
-            if (mesasSeleccionadasUnion.Count < 2)
+            if (modoUnion)
             {
-                MessageBox.Show("Debe seleccionar al menos 2 mesas.");
-                return;
+                if (mesasSeleccionadasUnion.Count < 2)
+                {
+                    MessageBox.Show("Debe seleccionar al menos 2 mesas para unir.");
+                    return;
+                }
+
+                UnirMesasSeleccionadas();
+            }
+            else if (modoSeparar)
+            {
+                if (mesasSeleccionadasUnion.Count == 0)
+                {
+                    MessageBox.Show("Debe seleccionar una mesa del grupo que desea separar.");
+                    return;
+                }
+
+                SepararMesasSeleccionadas();
             }
 
-            UnirMesasSeleccionadas();
             modoUnion = false;
+            modoSeparar = false;
 
             SiUnion.Visible = false;
             NoUnion.Visible = false;
+
+            UnirMesa.BackColor = SystemColors.ButtonHighlight;
+            SepararMesa.BackColor = SystemColors.ButtonHighlight;
 
             Pedidos_Load(sender, e);
         }
@@ -1681,14 +1755,14 @@ namespace Proyecto_restaurante
 
                 try
                 {
-                    string q1 = "UPDATE Mesa SET IdGrupo=@grupo, EsPrincipal=1 WHERE IdMesa=@id";
-                    SqlCommand c1 = new SqlCommand(q1, cn, tr);
+                    SqlCommand c1 = new SqlCommand(
+                        "UPDATE Mesa SET IdGrupo=@grupo, EsPrincipal=1 WHERE IdMesa=@id",
+                        cn, tr);
                     c1.Parameters.AddWithValue("@grupo", idGrupo);
                     c1.Parameters.AddWithValue("@id", mesaPrincipal);
                     c1.ExecuteNonQuery();
 
                     string q2 = "UPDATE Mesa SET IdGrupo=@grupo, EsPrincipal=0 WHERE IdMesa=@id";
-
                     foreach (int mesa in mesasSeleccionadasUnion.Skip(1))
                     {
                         SqlCommand c2 = new SqlCommand(q2, cn, tr);
@@ -1698,12 +1772,61 @@ namespace Proyecto_restaurante
                     }
 
                     tr.Commit();
-                    MessageBox.Show("Mesas unidas correctamente.");
+                    SepararMesa.Enabled = true;
+                }
+                catch
+                {
+                    tr.Rollback();
+                    throw;
+                }
+            }
+        }
+
+        private void SepararMesasSeleccionadas()
+        {
+            int mesaSeleccionada = mesasSeleccionadasUnion.First();
+            int idGrupo = 0;
+
+            using (SqlConnection cn = new SqlConnection(conexionString))
+            {
+                cn.Open();
+
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT IdGrupo FROM Mesa WHERE IdMesa = @id", cn);
+                cmd.Parameters.AddWithValue("@id", mesaSeleccionada);
+
+                idGrupo = Convert.ToInt32(cmd.ExecuteScalar());
+            }
+
+            if (idGrupo == 0)
+            {
+                MessageBox.Show("Esta mesa no pertenece a ningún grupo.");
+                return;
+            }
+
+            using (SqlConnection cn = new SqlConnection(conexionString))
+            {
+                cn.Open();
+                SqlTransaction tr = cn.BeginTransaction();
+
+                try
+                {
+                    SqlCommand cmd = new SqlCommand(
+                        "UPDATE Mesa SET IdGrupo = 0, EsPrincipal = 0 WHERE IdGrupo = @grupo",
+                        cn, tr);
+
+                    cmd.Parameters.AddWithValue("@grupo", idGrupo);
+                    cmd.ExecuteNonQuery();
+
+                    tr.Commit();
+                    UnirMesa.Enabled = true;
+
+                    MessageBox.Show("Las mesas fueron separadas correctamente.");
                 }
                 catch (Exception ex)
                 {
                     tr.Rollback();
-                    MessageBox.Show("Error uniendo mesas: " + ex.Message);
+                    MessageBox.Show("Error separando las mesas: " + ex.Message);
                 }
             }
         }
@@ -1718,5 +1841,27 @@ namespace Proyecto_restaurante
             }
         }
 
+        private void SepararMesa_Click(object sender, EventArgs e)
+        {
+            modoSeparar = true;
+            modoUnion = false;
+            Pedidos_Load(sender, e);
+
+            mesasSeleccionadasUnion.Clear();
+
+            SepararMesa.BackColor = Color.Lime;
+            UnirMesa.BackColor = SystemColors.ButtonHighlight;
+            UnirMesa.Enabled = false;
+
+            SiUnion.Visible = true;
+            NoUnion.Visible = true;
+
+            MessageBox.Show("Seleccione las mesas que desea separar.");
+        }
+
+        private void Volver_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = 0;
+        }
     }
 }
