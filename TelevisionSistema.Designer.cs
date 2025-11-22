@@ -85,6 +85,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Sistema de TV";
             WindowState = FormWindowState.Maximized;
+            Load += TelevisionSistema_Load;
             ResumeLayout(false);
             PerformLayout();
         }

@@ -32,16 +32,28 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Pedidos));
             tabControl1 = new TabControl();
             tabPage6 = new TabPage();
+            bloqueomesas = new Panel();
+            continuar = new Button();
+            pictureBox4 = new PictureBox();
+            label36 = new Label();
             panel6 = new Panel();
+            flecharoja = new PictureBox();
+            label37 = new Label();
+            label35 = new Label();
+            panel21 = new Panel();
+            panel20 = new Panel();
+            panel19 = new Panel();
+            panel18 = new Panel();
+            panel17 = new Panel();
             mesasprincipal = new FlowLayoutPanel();
             panel15 = new Panel();
+            label22 = new Label();
             label34 = new Label();
-            panel11 = new Panel();
+            panelacciones = new Panel();
             SepararMesa = new Button();
             NoUnion = new Button();
             SiUnion = new Button();
             UnirMesa = new Button();
-            label22 = new Label();
             FacturarOrden = new Button();
             EditarOrden = new Button();
             CrearOrden = new Button();
@@ -93,7 +105,7 @@
             label11 = new Label();
             guardarordenbtn = new Button();
             panel1 = new Panel();
-            textBox2 = new TextBox();
+            direcciontxt = new TextBox();
             txtnumero_cliente = new TextBox();
             pictureBox2 = new PictureBox();
             pictureBox1 = new PictureBox();
@@ -183,8 +195,12 @@
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             tabControl1.SuspendLayout();
             tabPage6.SuspendLayout();
+            bloqueomesas.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             panel6.SuspendLayout();
-            panel11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)flecharoja).BeginInit();
+            panel15.SuspendLayout();
+            panelacciones.SuspendLayout();
             panel13.SuspendLayout();
             tabPage1.SuspendLayout();
             notapanel.SuspendLayout();
@@ -240,20 +256,75 @@
             // tabPage6
             // 
             tabPage6.BackColor = Color.FromArgb(87, 128, 87);
+            tabPage6.Controls.Add(bloqueomesas);
             tabPage6.Controls.Add(panel6);
             tabPage6.Location = new Point(4, 30);
             tabPage6.Name = "tabPage6";
-            tabPage6.Size = new Size(1529, 608);
+            tabPage6.Size = new Size(804, 608);
             tabPage6.TabIndex = 2;
             tabPage6.Text = "Mesas";
+            // 
+            // bloqueomesas
+            // 
+            bloqueomesas.BackColor = Color.FromArgb(64, 64, 64);
+            bloqueomesas.Controls.Add(continuar);
+            bloqueomesas.Controls.Add(pictureBox4);
+            bloqueomesas.Controls.Add(label36);
+            bloqueomesas.Location = new Point(804, 109);
+            bloqueomesas.Name = "bloqueomesas";
+            bloqueomesas.Size = new Size(606, 470);
+            bloqueomesas.TabIndex = 12;
+            bloqueomesas.Visible = false;
+            // 
+            // continuar
+            // 
+            continuar.Image = Properties.Resources.flechanegra;
+            continuar.ImageAlign = ContentAlignment.BottomRight;
+            continuar.Location = new Point(484, 22);
+            continuar.Name = "continuar";
+            continuar.Size = new Size(103, 29);
+            continuar.TabIndex = 28;
+            continuar.Text = "Continuar   ";
+            continuar.UseVisualStyleBackColor = true;
+            continuar.Click += continuar_Click;
+            // 
+            // pictureBox4
+            // 
+            pictureBox4.Image = Properties.Resources.bloqueado;
+            pictureBox4.Location = new Point(251, 229);
+            pictureBox4.Name = "pictureBox4";
+            pictureBox4.Size = new Size(100, 118);
+            pictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox4.TabIndex = 0;
+            pictureBox4.TabStop = false;
+            // 
+            // label36
+            // 
+            label36.AutoSize = true;
+            label36.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label36.ForeColor = SystemColors.Control;
+            label36.Location = new Point(147, 142);
+            label36.Name = "label36";
+            label36.Size = new Size(308, 64);
+            label36.TabIndex = 3;
+            label36.Text = "Finalice/Limpie el pedido\r\nantes de hacer otra orden\r\n";
+            label36.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panel6
             // 
             panel6.BackColor = Color.FromArgb(64, 64, 64);
+            panel6.Controls.Add(flecharoja);
+            panel6.Controls.Add(label37);
+            panel6.Controls.Add(label35);
+            panel6.Controls.Add(panel21);
+            panel6.Controls.Add(panel20);
+            panel6.Controls.Add(panel19);
+            panel6.Controls.Add(panel18);
+            panel6.Controls.Add(panel17);
             panel6.Controls.Add(mesasprincipal);
             panel6.Controls.Add(panel15);
             panel6.Controls.Add(label34);
-            panel6.Controls.Add(panel11);
+            panel6.Controls.Add(panelacciones);
             panel6.Controls.Add(textBox1);
             panel6.Controls.Add(label5);
             panel6.Controls.Add(label33);
@@ -263,21 +334,111 @@
             panel6.Size = new Size(798, 599);
             panel6.TabIndex = 2;
             // 
+            // flecharoja
+            // 
+            flecharoja.Image = Properties.Resources.flecharoja;
+            flecharoja.Location = new Point(82, 1);
+            flecharoja.Name = "flecharoja";
+            flecharoja.Size = new Size(32, 38);
+            flecharoja.SizeMode = PictureBoxSizeMode.Zoom;
+            flecharoja.TabIndex = 75;
+            flecharoja.TabStop = false;
+            flecharoja.Visible = false;
+            // 
+            // label37
+            // 
+            label37.AutoSize = true;
+            label37.Font = new Font("Segoe UI", 12F);
+            label37.ForeColor = SystemColors.Control;
+            label37.Location = new Point(2, 575);
+            label37.Name = "label37";
+            label37.Size = new Size(646, 21);
+            label37.TabIndex = 74;
+            label37.Text = "Combinaciones:    F1: Crear Orden, F2: Editar Orden, F: Facturar Mesa, Ctrl + Shift + X: Cerrar";
+            // 
+            // label35
+            // 
+            label35.AutoSize = true;
+            label35.Font = new Font("Segoe UI", 12F);
+            label35.ForeColor = SystemColors.Control;
+            label35.Location = new Point(570, 3);
+            label35.Name = "label35";
+            label35.Size = new Size(97, 21);
+            label35.TabIndex = 74;
+            label35.Text = "Información:";
+            // 
+            // panel21
+            // 
+            panel21.BackColor = Color.Gold;
+            panel21.Location = new Point(772, 5);
+            panel21.Name = "panel21";
+            panel21.Size = new Size(17, 17);
+            panel21.TabIndex = 73;
+            toolTip1.SetToolTip(panel21, "Unión");
+            // 
+            // panel20
+            // 
+            panel20.BackColor = Color.OrangeRed;
+            panel20.Location = new Point(746, 5);
+            panel20.Name = "panel20";
+            panel20.Size = new Size(17, 17);
+            panel20.TabIndex = 73;
+            toolTip1.SetToolTip(panel20, "Separación");
+            // 
+            // panel19
+            // 
+            panel19.BackColor = Color.DodgerBlue;
+            panel19.Location = new Point(720, 5);
+            panel19.Name = "panel19";
+            panel19.Size = new Size(17, 17);
+            panel19.TabIndex = 73;
+            toolTip1.SetToolTip(panel19, "Mesa Seleccionada");
+            // 
+            // panel18
+            // 
+            panel18.BackColor = Color.LightGreen;
+            panel18.Location = new Point(694, 5);
+            panel18.Name = "panel18";
+            panel18.Size = new Size(17, 17);
+            panel18.TabIndex = 73;
+            toolTip1.SetToolTip(panel18, "Mesa Disponible");
+            // 
+            // panel17
+            // 
+            panel17.BackColor = Color.LightCoral;
+            panel17.Location = new Point(668, 5);
+            panel17.Name = "panel17";
+            panel17.Size = new Size(17, 17);
+            panel17.TabIndex = 73;
+            toolTip1.SetToolTip(panel17, "Mesa Ocupada");
+            // 
             // mesasprincipal
             // 
             mesasprincipal.AutoScroll = true;
             mesasprincipal.BackColor = SystemColors.ControlDark;
             mesasprincipal.Location = new Point(6, 104);
             mesasprincipal.Name = "mesasprincipal";
-            mesasprincipal.Size = new Size(602, 489);
+            mesasprincipal.Size = new Size(602, 470);
             mesasprincipal.TabIndex = 27;
             // 
             // panel15
             // 
-            panel15.Location = new Point(601, 332);
+            panel15.Controls.Add(label22);
+            panel15.Location = new Point(614, 332);
             panel15.Name = "panel15";
-            panel15.Size = new Size(208, 114);
+            panel15.Size = new Size(178, 125);
             panel15.TabIndex = 72;
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label22.ForeColor = SystemColors.Control;
+            label22.Location = new Point(29, 86);
+            label22.Name = "label22";
+            label22.Size = new Size(120, 32);
+            label22.TabIndex = 3;
+            label22.Text = "Opciones";
             // 
             // label34
             // 
@@ -292,33 +453,33 @@
             label34.TabIndex = 71;
             label34.Text = "  ";
             // 
-            // panel11
+            // panelacciones
             // 
-            panel11.BackColor = Color.Gray;
-            panel11.Controls.Add(SepararMesa);
-            panel11.Controls.Add(NoUnion);
-            panel11.Controls.Add(SiUnion);
-            panel11.Controls.Add(UnirMesa);
-            panel11.Controls.Add(label22);
-            panel11.Controls.Add(FacturarOrden);
-            panel11.Controls.Add(EditarOrden);
-            panel11.Controls.Add(CrearOrden);
-            panel11.Location = new Point(614, 104);
-            panel11.Name = "panel11";
-            panel11.Size = new Size(178, 489);
-            panel11.TabIndex = 1;
+            panelacciones.BackColor = Color.Gray;
+            panelacciones.Controls.Add(SepararMesa);
+            panelacciones.Controls.Add(NoUnion);
+            panelacciones.Controls.Add(SiUnion);
+            panelacciones.Controls.Add(UnirMesa);
+            panelacciones.Controls.Add(FacturarOrden);
+            panelacciones.Controls.Add(EditarOrden);
+            panelacciones.Controls.Add(CrearOrden);
+            panelacciones.Location = new Point(614, 104);
+            panelacciones.Name = "panelacciones";
+            panelacciones.Size = new Size(178, 470);
+            panelacciones.TabIndex = 1;
             // 
             // SepararMesa
             // 
+            SepararMesa.BackColor = SystemColors.ButtonHighlight;
             SepararMesa.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             SepararMesa.Image = Properties.Resources.separarmesa;
-            SepararMesa.Location = new Point(90, 418);
+            SepararMesa.Location = new Point(90, 398);
             SepararMesa.Name = "SepararMesa";
             SepararMesa.Size = new Size(78, 62);
             SepararMesa.TabIndex = 1;
             SepararMesa.Text = "Separar";
             SepararMesa.TextAlign = ContentAlignment.BottomCenter;
-            SepararMesa.UseVisualStyleBackColor = true;
+            SepararMesa.UseVisualStyleBackColor = false;
             SepararMesa.Click += SepararMesa_Click;
             // 
             // NoUnion
@@ -326,7 +487,7 @@
             NoUnion.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             NoUnion.Image = Properties.Resources.nocheck;
             NoUnion.ImageAlign = ContentAlignment.MiddleRight;
-            NoUnion.Location = new Point(90, 384);
+            NoUnion.Location = new Point(90, 364);
             NoUnion.Name = "NoUnion";
             NoUnion.Size = new Size(78, 30);
             NoUnion.TabIndex = 0;
@@ -341,7 +502,7 @@
             SiUnion.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             SiUnion.Image = Properties.Resources.sicheck;
             SiUnion.ImageAlign = ContentAlignment.MiddleRight;
-            SiUnion.Location = new Point(11, 384);
+            SiUnion.Location = new Point(11, 364);
             SiUnion.Name = "SiUnion";
             SiUnion.Size = new Size(78, 30);
             SiUnion.TabIndex = 0;
@@ -356,7 +517,7 @@
             UnirMesa.BackColor = SystemColors.ButtonHighlight;
             UnirMesa.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             UnirMesa.Image = Properties.Resources.unir;
-            UnirMesa.Location = new Point(11, 418);
+            UnirMesa.Location = new Point(11, 398);
             UnirMesa.Name = "UnirMesa";
             UnirMesa.Size = new Size(78, 62);
             UnirMesa.TabIndex = 0;
@@ -364,17 +525,6 @@
             UnirMesa.TextAlign = ContentAlignment.BottomCenter;
             UnirMesa.UseVisualStyleBackColor = false;
             UnirMesa.Click += UnirMesa_Click;
-            // 
-            // label22
-            // 
-            label22.AutoSize = true;
-            label22.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label22.ForeColor = SystemColors.Control;
-            label22.Location = new Point(2, 343);
-            label22.Name = "label22";
-            label22.Size = new Size(175, 32);
-            label22.TabIndex = 3;
-            label22.Text = "Unir / Separar";
             // 
             // FacturarOrden
             // 
@@ -412,7 +562,6 @@
             CrearOrden.TabIndex = 0;
             CrearOrden.Text = "Crear Orden";
             CrearOrden.TextAlign = ContentAlignment.BottomCenter;
-            toolTip1.SetToolTip(CrearOrden, "Click derecho para\r\nregistrar una nueva\r\nmesa\r\n");
             CrearOrden.UseVisualStyleBackColor = true;
             CrearOrden.Click += CrearOrden_Click;
             // 
@@ -440,7 +589,7 @@
             label33.AutoSize = true;
             label33.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label33.ForeColor = SystemColors.Control;
-            label33.Location = new Point(354, 4);
+            label33.Location = new Point(354, 3);
             label33.Name = "label33";
             label33.Size = new Size(85, 32);
             label33.TabIndex = 3;
@@ -508,7 +657,7 @@
             tabPage1.Location = new Point(4, 30);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(1529, 608);
+            tabPage1.Size = new Size(804, 608);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Ordenar";
             // 
@@ -872,9 +1021,9 @@
             panel9.Controls.Add(labeltotal);
             panel9.Controls.Add(label7);
             panel9.Controls.Add(label3);
-            panel9.Location = new Point(6, 122);
+            panel9.Location = new Point(6, 123);
             panel9.Name = "panel9";
-            panel9.Size = new Size(269, 54);
+            panel9.Size = new Size(269, 53);
             panel9.TabIndex = 1;
             // 
             // labelsubtotal
@@ -882,7 +1031,7 @@
             labelsubtotal.AutoSize = true;
             labelsubtotal.Font = new Font("Segoe UI", 12F);
             labelsubtotal.ForeColor = SystemColors.Control;
-            labelsubtotal.Location = new Point(86, 5);
+            labelsubtotal.Location = new Point(86, 4);
             labelsubtotal.Name = "labelsubtotal";
             labelsubtotal.Size = new Size(19, 21);
             labelsubtotal.TabIndex = 3;
@@ -893,7 +1042,7 @@
             labeltotal.AutoSize = true;
             labeltotal.Font = new Font("Segoe UI", 12F);
             labeltotal.ForeColor = SystemColors.Control;
-            labeltotal.Location = new Point(58, 28);
+            labeltotal.Location = new Point(58, 27);
             labeltotal.Name = "labeltotal";
             labeltotal.Size = new Size(19, 21);
             labeltotal.TabIndex = 3;
@@ -904,7 +1053,7 @@
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label7.ForeColor = SystemColors.Control;
-            label7.Location = new Point(4, 28);
+            label7.Location = new Point(4, 27);
             label7.Name = "label7";
             label7.Size = new Size(52, 21);
             label7.TabIndex = 3;
@@ -915,7 +1064,7 @@
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label3.ForeColor = SystemColors.Control;
-            label3.Location = new Point(4, 5);
+            label3.Location = new Point(4, 4);
             label3.Name = "label3";
             label3.Size = new Size(79, 21);
             label3.TabIndex = 3;
@@ -925,7 +1074,7 @@
             // 
             fechapedido.Enabled = false;
             fechapedido.Format = DateTimePickerFormat.Short;
-            fechapedido.Location = new Point(147, 34);
+            fechapedido.Location = new Point(147, 35);
             fechapedido.Name = "fechapedido";
             fechapedido.Size = new Size(128, 29);
             fechapedido.TabIndex = 4;
@@ -935,7 +1084,7 @@
             limpiarbtn.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             limpiarbtn.Image = Properties.Resources.nuevo;
             limpiarbtn.ImageAlign = ContentAlignment.MiddleLeft;
-            limpiarbtn.Location = new Point(147, 66);
+            limpiarbtn.Location = new Point(147, 67);
             limpiarbtn.Name = "limpiarbtn";
             limpiarbtn.Size = new Size(128, 52);
             limpiarbtn.TabIndex = 0;
@@ -948,7 +1097,7 @@
             label11.AutoSize = true;
             label11.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label11.ForeColor = SystemColors.Control;
-            label11.Location = new Point(3, 38);
+            label11.Location = new Point(3, 39);
             label11.Name = "label11";
             label11.Size = new Size(126, 20);
             label11.TabIndex = 3;
@@ -961,7 +1110,7 @@
             guardarordenbtn.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             guardarordenbtn.Image = Properties.Resources.guardar;
             guardarordenbtn.ImageAlign = ContentAlignment.MiddleLeft;
-            guardarordenbtn.Location = new Point(6, 66);
+            guardarordenbtn.Location = new Point(6, 67);
             guardarordenbtn.Name = "guardarordenbtn";
             guardarordenbtn.Size = new Size(128, 52);
             guardarordenbtn.TabIndex = 0;
@@ -972,7 +1121,7 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(64, 64, 64);
-            panel1.Controls.Add(textBox2);
+            panel1.Controls.Add(direcciontxt);
             panel1.Controls.Add(txtnumero_cliente);
             panel1.Controls.Add(pictureBox2);
             panel1.Controls.Add(pictureBox1);
@@ -990,13 +1139,13 @@
             panel1.Size = new Size(509, 179);
             panel1.TabIndex = 0;
             // 
-            // textBox2
+            // direcciontxt
             // 
-            textBox2.Location = new Point(254, 102);
-            textBox2.Name = "textBox2";
-            textBox2.PlaceholderText = "Dirección";
-            textBox2.Size = new Size(246, 29);
-            textBox2.TabIndex = 0;
+            direcciontxt.Location = new Point(254, 102);
+            direcciontxt.Name = "direcciontxt";
+            direcciontxt.PlaceholderText = "Dirección";
+            direcciontxt.Size = new Size(246, 29);
+            direcciontxt.TabIndex = 0;
             // 
             // txtnumero_cliente
             // 
@@ -1982,6 +2131,7 @@
             Controls.Add(tabControl1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            KeyPreview = true;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "Pedidos";
@@ -1989,12 +2139,18 @@
             StartPosition = FormStartPosition.Manual;
             Text = "Ordenes";
             Load += Pedidos_Load;
+            KeyDown += Pedidos_KeyDown;
             tabControl1.ResumeLayout(false);
             tabPage6.ResumeLayout(false);
+            bloqueomesas.ResumeLayout(false);
+            bloqueomesas.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             panel6.ResumeLayout(false);
             panel6.PerformLayout();
-            panel11.ResumeLayout(false);
-            panel11.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)flecharoja).EndInit();
+            panel15.ResumeLayout(false);
+            panel15.PerformLayout();
+            panelacciones.ResumeLayout(false);
             panel13.ResumeLayout(false);
             panel13.PerformLayout();
             tabPage1.ResumeLayout(false);
@@ -2124,7 +2280,7 @@
         private DateTimePicker fecfin;
         private Label label21;
         private TextBox idclientetxt;
-        private TextBox textBox2;
+        private TextBox direcciontxt;
         private PictureBox pictureBox2;
         private Panel panel10;
         private Panel detallepanelcompleto;
@@ -2181,7 +2337,7 @@
         private TabPage tabPage6;
         private Panel panel6;
         private FlowLayoutPanel mesasprincipal;
-        private Panel panel11;
+        private Panel panelacciones;
         private Button CrearOrden;
         private TextBox textBox1;
         private Label label33;
@@ -2208,5 +2364,17 @@
         private Label label22;
         private Panel panel15;
         private Button Volver;
+        private Label label35;
+        private Panel panel19;
+        private Panel panel18;
+        private Panel panel17;
+        private Panel panel21;
+        private Panel panel20;
+        private PictureBox flecharoja;
+        private Panel bloqueomesas;
+        private PictureBox pictureBox4;
+        private Label label36;
+        private Button continuar;
+        private Label label37;
     }
 }
