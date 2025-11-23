@@ -99,6 +99,7 @@
             // 
             // txtbuscador
             // 
+            txtbuscador.CharacterCasing = CharacterCasing.Upper;
             txtbuscador.Font = new Font("Segoe UI", 12F);
             txtbuscador.ForeColor = SystemColors.ScrollBar;
             txtbuscador.Location = new Point(10, 63);
@@ -408,6 +409,7 @@
             // 
             // textBox3
             // 
+            textBox3.CharacterCasing = CharacterCasing.Upper;
             textBox3.Location = new Point(408, 36);
             textBox3.Name = "textBox3";
             textBox3.PlaceholderText = "Dirección";
@@ -421,6 +423,7 @@
             numerotxt.PlaceholderText = "Número";
             numerotxt.Size = new Size(113, 29);
             numerotxt.TabIndex = 79;
+            numerotxt.TextChanged += txtnumero_TextChanged;
             // 
             // label13
             // 
@@ -533,6 +536,7 @@
             // 
             // nombredirecciontxt
             // 
+            nombredirecciontxt.CharacterCasing = CharacterCasing.Upper;
             nombredirecciontxt.Location = new Point(339, 36);
             nombredirecciontxt.Name = "nombredirecciontxt";
             nombredirecciontxt.PlaceholderText = "Etiqueta";
@@ -541,6 +545,7 @@
             // 
             // nombrenumerotxt
             // 
+            nombrenumerotxt.CharacterCasing = CharacterCasing.Upper;
             nombrenumerotxt.Location = new Point(9, 36);
             nombrenumerotxt.Name = "nombrenumerotxt";
             nombrenumerotxt.PlaceholderText = "Etiqueta";
@@ -646,20 +651,20 @@
             // 
             // emailtxt
             // 
+            emailtxt.CharacterCasing = CharacterCasing.Upper;
             emailtxt.Location = new Point(11, 309);
             emailtxt.Name = "emailtxt";
             emailtxt.Size = new Size(229, 29);
             emailtxt.TabIndex = 2;
-            emailtxt.TextChanged += txtapellido_TextChanged;
             emailtxt.KeyPress += txtapellido_KeyPress;
             // 
             // txtapellido
             // 
+            txtapellido.CharacterCasing = CharacterCasing.Upper;
             txtapellido.Location = new Point(11, 237);
             txtapellido.Name = "txtapellido";
             txtapellido.Size = new Size(229, 29);
             txtapellido.TabIndex = 2;
-            txtapellido.TextChanged += txtapellido_TextChanged;
             txtapellido.KeyPress += txtapellido_KeyPress;
             // 
             // idclientetxt
@@ -669,25 +674,24 @@
             idclientetxt.Name = "idclientetxt";
             idclientetxt.Size = new Size(76, 29);
             idclientetxt.TabIndex = 12;
-            idclientetxt.TextChanged += txtnombre_TextChanged;
             idclientetxt.KeyPress += txtnombre_KeyPress;
             // 
             // identtxt
             // 
+            identtxt.CharacterCasing = CharacterCasing.Upper;
             identtxt.Location = new Point(92, 93);
             identtxt.Name = "identtxt";
             identtxt.Size = new Size(148, 29);
             identtxt.TabIndex = 1;
             identtxt.TextChanged += identtxt_TextChanged;
-            identtxt.KeyPress += txtnombre_KeyPress;
             // 
             // txtnombre
             // 
+            txtnombre.CharacterCasing = CharacterCasing.Upper;
             txtnombre.Location = new Point(11, 165);
             txtnombre.Name = "txtnombre";
             txtnombre.Size = new Size(229, 29);
             txtnombre.TabIndex = 1;
-            txtnombre.TextChanged += txtnombre_TextChanged;
             txtnombre.KeyPress += txtnombre_KeyPress;
             // 
             // label4

@@ -407,24 +407,6 @@ namespace Proyecto_restaurante
             }
         }
 
-        private void txtnombre_TextChanged(object sender, EventArgs e)
-        {
-            int posicion = txtnombre.SelectionStart;
-
-            txtnombre.Text = txtnombre.Text.ToUpper();
-
-            txtnombre.SelectionStart = posicion;
-        }
-
-        private void txtapellido_TextChanged(object sender, EventArgs e)
-        {
-            int posicion = txtapellido.SelectionStart;
-
-            txtapellido.Text = txtapellido.Text.ToUpper();
-
-            txtapellido.SelectionStart = posicion;
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             ConsultaClientes_Load(sender, e);
@@ -552,20 +534,20 @@ namespace Proyecto_restaurante
 
         private void identtxt_TextChanged(object sender, EventArgs e)
         {
-            string posicion = identtxt.Text; posicion = posicion.Replace("-", ""); 
-            
-            if (posicion.Length > 11) 
-            { 
-                posicion = posicion.Substring(0, 11); 
+            string posicion = identtxt.Text; posicion = posicion.Replace("-", "");
+
+            if (posicion.Length > 11)
+            {
+                posicion = posicion.Substring(0, 11);
             }
 
-            if (posicion.Length > 3) 
-            { 
-                posicion = posicion.Insert(3, "-"); 
+            if (posicion.Length > 3)
+            {
+                posicion = posicion.Insert(3, "-");
             }
             if (posicion.Length > 11)
-            { 
-                posicion = posicion.Insert(11, "-"); 
+            {
+                posicion = posicion.Insert(11, "-");
             }
 
             identtxt.Text = posicion; identtxt.SelectionStart = identtxt.Text.Length;

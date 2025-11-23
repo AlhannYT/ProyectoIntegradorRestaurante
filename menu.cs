@@ -181,6 +181,7 @@ namespace Proyecto_restaurante
 
             Pedidos pedidos = new Pedidos();
             pedidos.NombrePC = nombrePC;
+            pedidos.NombreUsuario = usuarioActual;
             pedidos.Location = new Point(200, 50); ;
             pedidos.MdiParent = this;
             pedidos.Show();
@@ -411,6 +412,34 @@ namespace Proyecto_restaurante
             delivery.NombrePC = nombrePC;
             delivery.MdiParent = this;
             delivery.Show();
+        }
+
+        private void menu_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Alt && e.KeyCode == Keys.F)
+            {
+                button10_Click(sender, e);
+            }
+
+            if (e.Alt && e.KeyCode == Keys.R)
+            {
+                reservacion_Click(sender, e);
+            }
+
+            if (e.Alt && e.KeyCode == Keys.D)
+            {
+                button1_Click(sender, e);
+            }
+
+            if (e.Alt && e.KeyCode == Keys.C)
+            {
+                button9_Click(sender, e);
+            }
+
+            if (e.Control && e.Shift && e.KeyCode == Keys.C)
+            {
+                button12_Click(sender, e);
+            }
         }
     }
 }

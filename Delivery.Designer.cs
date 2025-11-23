@@ -223,6 +223,7 @@
             // 
             // direccioncliente
             // 
+            direccioncliente.CharacterCasing = CharacterCasing.Upper;
             direccioncliente.Font = new Font("Segoe UI", 12F);
             direccioncliente.Location = new Point(254, 103);
             direccioncliente.Name = "direccioncliente";
@@ -327,6 +328,7 @@
             // 
             // txtnombrecompleto
             // 
+            txtnombrecompleto.CharacterCasing = CharacterCasing.Upper;
             txtnombrecompleto.Font = new Font("Segoe UI", 12F);
             txtnombrecompleto.Location = new Point(94, 68);
             txtnombrecompleto.Name = "txtnombrecompleto";
@@ -922,7 +924,7 @@
             tabPage2.Location = new Point(4, 30);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(1916, 816);
+            tabPage2.Size = new Size(804, 608);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Pedidos";
             // 
@@ -1507,6 +1509,7 @@
             // 
             // txtbusquedafactura
             // 
+            txtbusquedafactura.CharacterCasing = CharacterCasing.Upper;
             txtbusquedafactura.ForeColor = Color.Gray;
             txtbusquedafactura.Location = new Point(6, 138);
             txtbusquedafactura.Name = "txtbusquedafactura";

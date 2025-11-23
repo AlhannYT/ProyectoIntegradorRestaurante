@@ -32,14 +32,25 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Pedidos));
             tabControl1 = new TabControl();
             tabPage6 = new TabPage();
+            autorizacionpanel = new Panel();
+            contraimagen = new PictureBox();
+            usuarioimagen = new PictureBox();
+            passView = new CheckBox();
+            cancelarAutorizar = new Button();
+            autorizar = new Button();
+            txtpass = new TextBox();
+            txtusuario = new TextBox();
+            label39 = new Label();
+            label38 = new Label();
             bloqueomesas = new Panel();
+            button3 = new Button();
             continuar = new Button();
             pictureBox4 = new PictureBox();
             label36 = new Label();
             panel6 = new Panel();
+            panel11 = new Panel();
             flecharoja = new PictureBox();
             label37 = new Label();
-            label35 = new Label();
             panel21 = new Panel();
             panel20 = new Panel();
             panel19 = new Panel();
@@ -64,6 +75,7 @@
             checkBox2 = new CheckBox();
             checkBox1 = new CheckBox();
             eliminarbtn = new Button();
+            label35 = new Label();
             tabPage1 = new TabPage();
             notapanel = new Panel();
             notatxt = new TextBox();
@@ -106,7 +118,7 @@
             guardarordenbtn = new Button();
             panel1 = new Panel();
             direcciontxt = new TextBox();
-            txtnumero_cliente = new TextBox();
+            numerotxt = new TextBox();
             pictureBox2 = new PictureBox();
             pictureBox1 = new PictureBox();
             label2 = new Label();
@@ -195,6 +207,9 @@
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             tabControl1.SuspendLayout();
             tabPage6.SuspendLayout();
+            autorizacionpanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)contraimagen).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)usuarioimagen).BeginInit();
             bloqueomesas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             panel6.SuspendLayout();
@@ -256,6 +271,7 @@
             // tabPage6
             // 
             tabPage6.BackColor = Color.FromArgb(87, 128, 87);
+            tabPage6.Controls.Add(autorizacionpanel);
             tabPage6.Controls.Add(bloqueomesas);
             tabPage6.Controls.Add(panel6);
             tabPage6.Location = new Point(4, 30);
@@ -264,17 +280,150 @@
             tabPage6.TabIndex = 2;
             tabPage6.Text = "Mesas";
             // 
+            // autorizacionpanel
+            // 
+            autorizacionpanel.BackColor = Color.FromArgb(64, 64, 64);
+            autorizacionpanel.Controls.Add(contraimagen);
+            autorizacionpanel.Controls.Add(usuarioimagen);
+            autorizacionpanel.Controls.Add(passView);
+            autorizacionpanel.Controls.Add(cancelarAutorizar);
+            autorizacionpanel.Controls.Add(autorizar);
+            autorizacionpanel.Controls.Add(txtpass);
+            autorizacionpanel.Controls.Add(txtusuario);
+            autorizacionpanel.Controls.Add(label39);
+            autorizacionpanel.Controls.Add(label38);
+            autorizacionpanel.Location = new Point(807, 5);
+            autorizacionpanel.Name = "autorizacionpanel";
+            autorizacionpanel.Size = new Size(606, 475);
+            autorizacionpanel.TabIndex = 12;
+            autorizacionpanel.Visible = false;
+            // 
+            // contraimagen
+            // 
+            contraimagen.Image = Properties.Resources.clave;
+            contraimagen.Location = new Point(194, 234);
+            contraimagen.Name = "contraimagen";
+            contraimagen.Size = new Size(22, 28);
+            contraimagen.SizeMode = PictureBoxSizeMode.Zoom;
+            contraimagen.TabIndex = 20;
+            contraimagen.TabStop = false;
+            // 
+            // usuarioimagen
+            // 
+            usuarioimagen.Image = Properties.Resources.persona2;
+            usuarioimagen.Location = new Point(194, 192);
+            usuarioimagen.Name = "usuarioimagen";
+            usuarioimagen.Size = new Size(22, 28);
+            usuarioimagen.SizeMode = PictureBoxSizeMode.Zoom;
+            usuarioimagen.TabIndex = 21;
+            usuarioimagen.TabStop = false;
+            // 
+            // passView
+            // 
+            passView.Appearance = Appearance.Button;
+            passView.BackColor = SystemColors.Window;
+            passView.FlatStyle = FlatStyle.Flat;
+            passView.ForeColor = SystemColors.Window;
+            passView.Image = Properties.Resources.ojo;
+            passView.Location = new Point(383, 235);
+            passView.Name = "passView";
+            passView.Size = new Size(28, 25);
+            passView.TabIndex = 18;
+            passView.UseVisualStyleBackColor = false;
+            // 
+            // cancelarAutorizar
+            // 
+            cancelarAutorizar.Image = Properties.Resources.cancelar1;
+            cancelarAutorizar.ImageAlign = ContentAlignment.MiddleLeft;
+            cancelarAutorizar.Location = new Point(308, 287);
+            cancelarAutorizar.Name = "cancelarAutorizar";
+            cancelarAutorizar.Size = new Size(104, 29);
+            cancelarAutorizar.TabIndex = 17;
+            cancelarAutorizar.Text = "Cancelar";
+            cancelarAutorizar.UseVisualStyleBackColor = true;
+            cancelarAutorizar.Click += cancelarAutorizar_Click;
+            // 
+            // autorizar
+            // 
+            autorizar.Image = Properties.Resources.llave__1_;
+            autorizar.ImageAlign = ContentAlignment.MiddleLeft;
+            autorizar.Location = new Point(194, 287);
+            autorizar.Name = "autorizar";
+            autorizar.Size = new Size(104, 29);
+            autorizar.TabIndex = 17;
+            autorizar.Text = "Autorizar";
+            autorizar.UseVisualStyleBackColor = true;
+            autorizar.Click += autorizar_Click;
+            // 
+            // txtpass
+            // 
+            txtpass.CharacterCasing = CharacterCasing.Upper;
+            txtpass.Location = new Point(219, 233);
+            txtpass.Name = "txtpass";
+            txtpass.PlaceholderText = "Contraseña";
+            txtpass.Size = new Size(193, 29);
+            txtpass.TabIndex = 16;
+            txtpass.UseSystemPasswordChar = true;
+            // 
+            // txtusuario
+            // 
+            txtusuario.CharacterCasing = CharacterCasing.Upper;
+            txtusuario.Location = new Point(219, 191);
+            txtusuario.Name = "txtusuario";
+            txtusuario.PlaceholderText = "Usuario";
+            txtusuario.Size = new Size(193, 29);
+            txtusuario.TabIndex = 15;
+            // 
+            // label39
+            // 
+            label39.AutoSize = true;
+            label39.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label39.ForeColor = SystemColors.Control;
+            label39.Image = Properties.Resources.escudo24x;
+            label39.ImageAlign = ContentAlignment.MiddleRight;
+            label39.Location = new Point(165, 26);
+            label39.Name = "label39";
+            label39.Size = new Size(276, 32);
+            label39.TabIndex = 3;
+            label39.Text = "Control de Usuarios     ";
+            label39.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label38
+            // 
+            label38.AutoSize = true;
+            label38.Font = new Font("Segoe UI", 12F);
+            label38.ForeColor = SystemColors.Control;
+            label38.Location = new Point(194, 162);
+            label38.Name = "label38";
+            label38.Size = new Size(100, 21);
+            label38.TabIndex = 3;
+            label38.Text = "Autorización:";
+            label38.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // bloqueomesas
             // 
             bloqueomesas.BackColor = Color.FromArgb(64, 64, 64);
+            bloqueomesas.Controls.Add(button3);
             bloqueomesas.Controls.Add(continuar);
             bloqueomesas.Controls.Add(pictureBox4);
             bloqueomesas.Controls.Add(label36);
-            bloqueomesas.Location = new Point(804, 109);
+            bloqueomesas.Location = new Point(807, 483);
             bloqueomesas.Name = "bloqueomesas";
-            bloqueomesas.Size = new Size(606, 470);
+            bloqueomesas.Size = new Size(606, 475);
             bloqueomesas.TabIndex = 12;
             bloqueomesas.Visible = false;
+            // 
+            // button3
+            // 
+            button3.Image = Properties.Resources.cuchillo;
+            button3.ImageAlign = ContentAlignment.MiddleRight;
+            button3.Location = new Point(484, 57);
+            button3.Name = "button3";
+            button3.Size = new Size(103, 29);
+            button3.TabIndex = 28;
+            button3.Text = "Nuevo";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
             // 
             // continuar
             // 
@@ -305,17 +454,17 @@
             label36.ForeColor = SystemColors.Control;
             label36.Location = new Point(147, 142);
             label36.Name = "label36";
-            label36.Size = new Size(308, 64);
+            label36.Size = new Size(313, 64);
             label36.TabIndex = 3;
-            label36.Text = "Finalice/Limpie el pedido\r\nantes de hacer otra orden\r\n";
+            label36.Text = "Termine o Limpie la orden\r\nantes de hacer otra\r\n";
             label36.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panel6
             // 
             panel6.BackColor = Color.FromArgb(64, 64, 64);
+            panel6.Controls.Add(panel11);
             panel6.Controls.Add(flecharoja);
             panel6.Controls.Add(label37);
-            panel6.Controls.Add(label35);
             panel6.Controls.Add(panel21);
             panel6.Controls.Add(panel20);
             panel6.Controls.Add(panel19);
@@ -329,10 +478,20 @@
             panel6.Controls.Add(label5);
             panel6.Controls.Add(label33);
             panel6.Controls.Add(panel13);
+            panel6.Controls.Add(label35);
             panel6.Location = new Point(3, 5);
             panel6.Name = "panel6";
             panel6.Size = new Size(798, 599);
             panel6.TabIndex = 2;
+            // 
+            // panel11
+            // 
+            panel11.BackColor = Color.MediumPurple;
+            panel11.Location = new Point(723, 5);
+            panel11.Name = "panel11";
+            panel11.Size = new Size(17, 17);
+            panel11.TabIndex = 76;
+            toolTip1.SetToolTip(panel11, "Mesa Reservada");
             // 
             // flecharoja
             // 
@@ -352,25 +511,14 @@
             label37.ForeColor = SystemColors.Control;
             label37.Location = new Point(2, 575);
             label37.Name = "label37";
-            label37.Size = new Size(646, 21);
+            label37.Size = new Size(456, 21);
             label37.TabIndex = 74;
-            label37.Text = "Combinaciones:    F1: Crear Orden, F2: Editar Orden, F: Facturar Mesa, Ctrl + Shift + X: Cerrar";
-            // 
-            // label35
-            // 
-            label35.AutoSize = true;
-            label35.Font = new Font("Segoe UI", 12F);
-            label35.ForeColor = SystemColors.Control;
-            label35.Location = new Point(570, 3);
-            label35.Name = "label35";
-            label35.Size = new Size(97, 21);
-            label35.TabIndex = 74;
-            label35.Text = "Información:";
+            label37.Text = "Combinaciones:    Alt+1, Alt+2, Alt+3: Cambio rapido de pestaña";
             // 
             // panel21
             // 
             panel21.BackColor = Color.Gold;
-            panel21.Location = new Point(772, 5);
+            panel21.Location = new Point(774, 5);
             panel21.Name = "panel21";
             panel21.Size = new Size(17, 17);
             panel21.TabIndex = 73;
@@ -379,7 +527,7 @@
             // panel20
             // 
             panel20.BackColor = Color.OrangeRed;
-            panel20.Location = new Point(746, 5);
+            panel20.Location = new Point(757, 5);
             panel20.Name = "panel20";
             panel20.Size = new Size(17, 17);
             panel20.TabIndex = 73;
@@ -388,7 +536,7 @@
             // panel19
             // 
             panel19.BackColor = Color.DodgerBlue;
-            panel19.Location = new Point(720, 5);
+            panel19.Location = new Point(740, 5);
             panel19.Name = "panel19";
             panel19.Size = new Size(17, 17);
             panel19.TabIndex = 73;
@@ -397,7 +545,7 @@
             // panel18
             // 
             panel18.BackColor = Color.LightGreen;
-            panel18.Location = new Point(694, 5);
+            panel18.Location = new Point(706, 5);
             panel18.Name = "panel18";
             panel18.Size = new Size(17, 17);
             panel18.TabIndex = 73;
@@ -406,7 +554,7 @@
             // panel17
             // 
             panel17.BackColor = Color.LightCoral;
-            panel17.Location = new Point(668, 5);
+            panel17.Location = new Point(689, 5);
             panel17.Name = "panel17";
             panel17.Size = new Size(17, 17);
             panel17.TabIndex = 73;
@@ -426,7 +574,7 @@
             panel15.Controls.Add(label22);
             panel15.Location = new Point(614, 332);
             panel15.Name = "panel15";
-            panel15.Size = new Size(178, 125);
+            panel15.Size = new Size(178, 126);
             panel15.TabIndex = 72;
             // 
             // label22
@@ -434,7 +582,7 @@
             label22.AutoSize = true;
             label22.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label22.ForeColor = SystemColors.Control;
-            label22.Location = new Point(29, 86);
+            label22.Location = new Point(29, 87);
             label22.Name = "label22";
             label22.Size = new Size(120, 32);
             label22.TabIndex = 3;
@@ -534,7 +682,7 @@
             FacturarOrden.Name = "FacturarOrden";
             FacturarOrden.Size = new Size(157, 62);
             FacturarOrden.TabIndex = 0;
-            FacturarOrden.Text = "Facturar Mesa";
+            FacturarOrden.Text = "Facturar Mesa [F3]";
             FacturarOrden.TextAlign = ContentAlignment.BottomCenter;
             FacturarOrden.UseVisualStyleBackColor = true;
             FacturarOrden.Click += FacturarOrden_Click;
@@ -547,7 +695,7 @@
             EditarOrden.Name = "EditarOrden";
             EditarOrden.Size = new Size(157, 62);
             EditarOrden.TabIndex = 0;
-            EditarOrden.Text = "Editar Orden";
+            EditarOrden.Text = "Editar Orden [F2]";
             EditarOrden.TextAlign = ContentAlignment.BottomCenter;
             EditarOrden.UseVisualStyleBackColor = true;
             EditarOrden.Click += EditarOrden_Click;
@@ -560,13 +708,14 @@
             CrearOrden.Name = "CrearOrden";
             CrearOrden.Size = new Size(157, 62);
             CrearOrden.TabIndex = 0;
-            CrearOrden.Text = "Crear Orden";
+            CrearOrden.Text = "Crear Orden [F1]";
             CrearOrden.TextAlign = ContentAlignment.BottomCenter;
             CrearOrden.UseVisualStyleBackColor = true;
             CrearOrden.Click += CrearOrden_Click;
             // 
             // textBox1
             // 
+            textBox1.CharacterCasing = CharacterCasing.Upper;
             textBox1.Location = new Point(6, 65);
             textBox1.Name = "textBox1";
             textBox1.PlaceholderText = "Buscar Mesa";
@@ -644,6 +793,19 @@
             toolTip1.SetToolTip(eliminarbtn, "Limpiar");
             eliminarbtn.UseVisualStyleBackColor = true;
             // 
+            // label35
+            // 
+            label35.AutoSize = true;
+            label35.Font = new Font("Segoe UI", 12F);
+            label35.ForeColor = SystemColors.Control;
+            label35.Image = Properties.Resources.cursor;
+            label35.ImageAlign = ContentAlignment.MiddleRight;
+            label35.Location = new Point(576, 3);
+            label35.Name = "label35";
+            label35.Size = new Size(117, 21);
+            label35.TabIndex = 74;
+            label35.Text = "Información:     ";
+            // 
             // tabPage1
             // 
             tabPage1.BackColor = Color.FromArgb(87, 128, 87);
@@ -673,6 +835,7 @@
             // 
             // notatxt
             // 
+            notatxt.CharacterCasing = CharacterCasing.Upper;
             notatxt.Location = new Point(8, 10);
             notatxt.Multiline = true;
             notatxt.Name = "notatxt";
@@ -695,6 +858,7 @@
             // 
             // txtclientebusqueda
             // 
+            txtclientebusqueda.CharacterCasing = CharacterCasing.Upper;
             txtclientebusqueda.Font = new Font("Segoe UI", 12F);
             txtclientebusqueda.Location = new Point(13, 78);
             txtclientebusqueda.Name = "txtclientebusqueda";
@@ -737,7 +901,7 @@
             tablaclientes.RowHeadersVisible = false;
             tablaclientes.RowHeadersWidth = 51;
             tablaclientes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tablaclientes.Size = new Size(782, 411);
+            tablaclientes.Size = new Size(782, 484);
             tablaclientes.TabIndex = 6;
             tablaclientes.CellDoubleClick += tablaclientes_CellDoubleClick;
             // 
@@ -756,6 +920,7 @@
             // 
             // txtproductobusqueda
             // 
+            txtproductobusqueda.CharacterCasing = CharacterCasing.Upper;
             txtproductobusqueda.Location = new Point(13, 78);
             txtproductobusqueda.Name = "txtproductobusqueda";
             txtproductobusqueda.PlaceholderText = "Buscar Plato";
@@ -931,6 +1096,7 @@
             // 
             // numCantidad
             // 
+            numCantidad.Enabled = false;
             numCantidad.Location = new Point(631, 11);
             numCantidad.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
             numCantidad.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
@@ -1122,7 +1288,7 @@
             // 
             panel1.BackColor = Color.FromArgb(64, 64, 64);
             panel1.Controls.Add(direcciontxt);
-            panel1.Controls.Add(txtnumero_cliente);
+            panel1.Controls.Add(numerotxt);
             panel1.Controls.Add(pictureBox2);
             panel1.Controls.Add(pictureBox1);
             panel1.Controls.Add(label2);
@@ -1141,19 +1307,21 @@
             // 
             // direcciontxt
             // 
+            direcciontxt.CharacterCasing = CharacterCasing.Upper;
             direcciontxt.Location = new Point(254, 102);
             direcciontxt.Name = "direcciontxt";
             direcciontxt.PlaceholderText = "Dirección";
             direcciontxt.Size = new Size(246, 29);
             direcciontxt.TabIndex = 0;
             // 
-            // txtnumero_cliente
+            // numerotxt
             // 
-            txtnumero_cliente.Location = new Point(46, 102);
-            txtnumero_cliente.Name = "txtnumero_cliente";
-            txtnumero_cliente.PlaceholderText = "Numero de telefono";
-            txtnumero_cliente.Size = new Size(163, 29);
-            txtnumero_cliente.TabIndex = 0;
+            numerotxt.Location = new Point(46, 102);
+            numerotxt.Name = "numerotxt";
+            numerotxt.PlaceholderText = "Numero de telefono";
+            numerotxt.Size = new Size(163, 29);
+            numerotxt.TabIndex = 0;
+            numerotxt.TextChanged += numerotxt_TextChanged;
             // 
             // pictureBox2
             // 
@@ -1244,6 +1412,7 @@
             // 
             // txtnombrecompleto
             // 
+            txtnombrecompleto.CharacterCasing = CharacterCasing.Upper;
             txtnombrecompleto.Location = new Point(94, 68);
             txtnombrecompleto.Name = "txtnombrecompleto";
             txtnombrecompleto.PlaceholderText = "Nombre del cliente";
@@ -1908,6 +2077,7 @@
             // 
             // txtbusquedafactura
             // 
+            txtbusquedafactura.CharacterCasing = CharacterCasing.Upper;
             txtbusquedafactura.ForeColor = Color.Gray;
             txtbusquedafactura.Location = new Point(8, 141);
             txtbusquedafactura.Name = "txtbusquedafactura";
@@ -2142,6 +2312,10 @@
             KeyDown += Pedidos_KeyDown;
             tabControl1.ResumeLayout(false);
             tabPage6.ResumeLayout(false);
+            autorizacionpanel.ResumeLayout(false);
+            autorizacionpanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)contraimagen).EndInit();
+            ((System.ComponentModel.ISupportInitialize)usuarioimagen).EndInit();
             bloqueomesas.ResumeLayout(false);
             bloqueomesas.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
@@ -2237,7 +2411,7 @@
         private Button guardarordenbtn;
         private Label label6;
         private Label label7;
-        private TextBox txtnumero_cliente;
+        private TextBox numerotxt;
         private Button cancelarpedido;
         private Button imprimirbtn;
         private Button facturarbtn;
@@ -2376,5 +2550,17 @@
         private Label label36;
         private Button continuar;
         private Label label37;
+        private Button button3;
+        private Panel panel11;
+        private Panel autorizacionpanel;
+        private PictureBox contraimagen;
+        private PictureBox usuarioimagen;
+        private CheckBox passView;
+        private Button autorizar;
+        private TextBox txtpass;
+        private TextBox txtusuario;
+        private Button cancelarAutorizar;
+        private Label label39;
+        private Label label38;
     }
 }

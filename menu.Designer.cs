@@ -564,11 +564,13 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             IsMdiContainer = true;
+            KeyPreview = true;
             Margin = new Padding(2, 3, 2, 3);
             Name = "menu";
             Text = "Menu";
             WindowState = FormWindowState.Maximized;
             Load += menu_Load;
+            KeyDown += menu_KeyDown;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel2.ResumeLayout(false);

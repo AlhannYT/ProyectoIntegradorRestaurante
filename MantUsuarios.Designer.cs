@@ -71,8 +71,8 @@
             label9 = new Label();
             categoriaconsulta = new DataGridView();
             panel1 = new Panel();
-            label4 = new Label();
             privilegiochk = new CheckBox();
+            label4 = new Label();
             ((System.ComponentModel.ISupportInitialize)tabladatos).BeginInit();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
@@ -85,6 +85,7 @@
             // 
             // txtRegistroUsuario
             // 
+            txtRegistroUsuario.CharacterCasing = CharacterCasing.Upper;
             txtRegistroUsuario.Location = new Point(84, 179);
             txtRegistroUsuario.Margin = new Padding(4);
             txtRegistroUsuario.Name = "txtRegistroUsuario";
@@ -95,6 +96,7 @@
             // 
             // txtRegistroPass
             // 
+            txtRegistroPass.CharacterCasing = CharacterCasing.Upper;
             txtRegistroPass.Enabled = false;
             txtRegistroPass.Location = new Point(84, 257);
             txtRegistroPass.Margin = new Padding(4);
@@ -197,6 +199,7 @@
             // 
             // txtconfirmarpass
             // 
+            txtconfirmarpass.CharacterCasing = CharacterCasing.Upper;
             txtconfirmarpass.Enabled = false;
             txtconfirmarpass.Location = new Point(84, 338);
             txtconfirmarpass.Margin = new Padding(4);
@@ -280,6 +283,7 @@
             txtbuscador.Location = new Point(10, 80);
             txtbuscador.Margin = new Padding(4);
             txtbuscador.Name = "txtbuscador";
+            txtbuscador.PlaceholderText = "Buscar Usuarios";
             txtbuscador.Size = new Size(308, 29);
             txtbuscador.TabIndex = 28;
             txtbuscador.TextChanged += txtbuscador_TextChanged;
@@ -575,18 +579,6 @@
             panel1.Size = new Size(409, 74);
             panel1.TabIndex = 76;
             // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label4.ForeColor = SystemColors.ControlLightLight;
-            label4.Location = new Point(84, 412);
-            label4.Margin = new Padding(4, 0, 4, 0);
-            label4.Name = "label4";
-            label4.Size = new Size(88, 21);
-            label4.TabIndex = 9;
-            label4.Text = "Privilegio:";
-            // 
             // privilegiochk
             // 
             privilegiochk.AutoSize = true;
@@ -600,6 +592,18 @@
             privilegiochk.Text = "Usuario";
             privilegiochk.UseVisualStyleBackColor = true;
             privilegiochk.CheckedChanged += privilegiochk_CheckedChanged;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label4.ForeColor = SystemColors.ControlLightLight;
+            label4.Location = new Point(84, 412);
+            label4.Margin = new Padding(4, 0, 4, 0);
+            label4.Name = "label4";
+            label4.Size = new Size(88, 21);
+            label4.TabIndex = 9;
+            label4.Text = "Privilegio:";
             // 
             // MantUsuarios
             // 

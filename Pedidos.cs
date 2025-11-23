@@ -25,7 +25,12 @@ namespace Proyecto_restaurante
         private int cantidadProd = 0;
         private string pedidoActual;
         public string NombrePC;
+        public string NombreUsuario;
+        private int Autorizar = 0;
         private int IDMesa = 0;
+        private int OcupadoMesa = 0;
+        private int ReservadoMesa = 0;
+        private int EditarEstado = 0;
         private int PedidoID;
         private decimal Total;
         private int TipoPago = 0;
@@ -64,6 +69,15 @@ namespace Proyecto_restaurante
                 adaptador.Fill(dt);
 
                 tablaclientes.DataSource = dt;
+            }
+        }
+
+        private void Cerrar()
+        {
+            DialogResult salir = MessageBox.Show("¿Desea Salir?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (salir == DialogResult.Yes)
+            {
+                this.Close();
             }
         }
 
@@ -122,7 +136,7 @@ namespace Proyecto_restaurante
                 EditarOrden_Click(null, null);
             }
 
-            if (e.KeyCode == Keys.F)
+            if (e.KeyCode == Keys.F3)
             {
                 FacturarOrden_Click(null, null);
             }
@@ -130,6 +144,26 @@ namespace Proyecto_restaurante
             if (e.Control && e.Shift && e.KeyCode == Keys.X)
             {
                 this.Close();
+            }
+
+            if (e.Alt && e.KeyCode == Keys.D1)
+            {
+                tabControl1.SelectedIndex = 0;
+            }
+
+            if (e.Alt && e.KeyCode == Keys.D2)
+            {
+                tabControl1.SelectedIndex = 1;
+            }
+
+            if (e.Alt && e.KeyCode == Keys.D3)
+            {
+                tabControl1.SelectedIndex = 2;
+            }
+
+            if (e.KeyCode == Keys.Escape)
+            {
+                Cerrar();
             }
         }
 
@@ -144,23 +178,61 @@ namespace Proyecto_restaurante
 
                 try
                 {
-                    string queryPedido = @"
-                    INSERT INTO Pedido (Fecha, IdMesa, Origen, IdClientePersona, NombreCliente, Estado, Total, Nota, Dirección)
-                    VALUES (@Fecha, @IdMesa, @Origen, @IdClientePersona, @NombreCliente, @Estado, @Total, @Nota, @Direccion);
-                    SELECT SCOPE_IDENTITY();";
+                    int idPedidoGenerado = 0;
 
-                    SqlCommand cmdPedido = new SqlCommand(queryPedido, conexion, transaccion);
-                    cmdPedido.Parameters.AddWithValue("@Fecha", fechapedido.Value);
-                    cmdPedido.Parameters.AddWithValue("@IdMesa", idMesaSeleccionada);
-                    cmdPedido.Parameters.AddWithValue("@Origen", "Local");
-                    cmdPedido.Parameters.AddWithValue("@IdClientePersona", Convert.ToInt32(idclientetxt.Text));
-                    cmdPedido.Parameters.AddWithValue("@NombreCliente", txtnombrecompleto.Text);
-                    cmdPedido.Parameters.AddWithValue("@Estado", "Pendiente");
-                    cmdPedido.Parameters.AddWithValue("@Total", Convert.ToDecimal(labeltotal.Text));
-                    cmdPedido.Parameters.AddWithValue("@Nota", notatxt.Text);
-                    cmdPedido.Parameters.AddWithValue("@Direccion", direcciontxt.Text);
+                    if (EditarEstado == 0)
+                    {
+                        string queryPedido = @"
+                        INSERT INTO Pedido (Fecha, IdMesa, Origen, IdClientePersona, NombreCliente, Estado, Total, Nota, Direccion)
+                        VALUES (@Fecha, @IdMesa, @Origen, @IdClientePersona, @NombreCliente, @Estado, @Total, @Nota, @Direccion);
+                        SELECT SCOPE_IDENTITY();";
 
-                    int idPedidoGenerado = Convert.ToInt32(cmdPedido.ExecuteScalar());
+                        SqlCommand cmdPedido = new SqlCommand(queryPedido, conexion, transaccion);
+                        cmdPedido.Parameters.AddWithValue("@Fecha", fechapedido.Value);
+                        cmdPedido.Parameters.AddWithValue("@IdMesa", idMesaSeleccionada);
+                        cmdPedido.Parameters.AddWithValue("@Origen", "Local");
+                        cmdPedido.Parameters.AddWithValue("@IdClientePersona", Convert.ToInt32(idclientetxt.Text));
+                        cmdPedido.Parameters.AddWithValue("@NombreCliente", txtnombrecompleto.Text);
+                        cmdPedido.Parameters.AddWithValue("@Estado", "Pendiente");
+                        cmdPedido.Parameters.AddWithValue("@Total", Convert.ToDecimal(labeltotal.Text));
+                        cmdPedido.Parameters.AddWithValue("@Nota", notatxt.Text);
+                        cmdPedido.Parameters.AddWithValue("@Direccion", direcciontxt.Text);
+
+                        idPedidoGenerado = Convert.ToInt32(cmdPedido.ExecuteScalar());
+                    }
+
+                    else if (EditarEstado == 1)
+                    {
+                        idPedidoGenerado = PedidoID;
+
+                        string queryUpdatePedido = @"
+                        UPDATE Pedido
+                        SET Fecha = @Fecha,
+                            IdMesa = @IdMesa,
+                            IdClientePersona = @IdClientePersona,
+                            NombreCliente = @NombreCliente,
+                            Total = @Total,
+                            Nota = @Nota,
+                            Direccion = @Direccion
+                        WHERE IdPedido = @IdPedido";
+
+                        SqlCommand cmdUpdate = new SqlCommand(queryUpdatePedido, conexion, transaccion);
+                        cmdUpdate.Parameters.AddWithValue("@Fecha", fechapedido.Value);
+                        cmdUpdate.Parameters.AddWithValue("@IdMesa", idMesaSeleccionada);
+                        cmdUpdate.Parameters.AddWithValue("@IdClientePersona", Convert.ToInt32(idclientetxt.Text));
+                        cmdUpdate.Parameters.AddWithValue("@NombreCliente", txtnombrecompleto.Text);
+                        cmdUpdate.Parameters.AddWithValue("@Total", Convert.ToDecimal(labeltotal.Text));
+                        cmdUpdate.Parameters.AddWithValue("@Nota", notatxt.Text);
+                        cmdUpdate.Parameters.AddWithValue("@Direccion", direcciontxt.Text);
+                        cmdUpdate.Parameters.AddWithValue("@IdPedido", PedidoID);
+                        cmdUpdate.ExecuteNonQuery();
+
+                        SqlCommand cmdDeleteDetalle = new SqlCommand(
+                            "DELETE FROM DetallePedido WHERE IdPedido = @IdPedido",
+                            conexion, transaccion);
+                        cmdDeleteDetalle.Parameters.AddWithValue("@IdPedido", PedidoID);
+                        cmdDeleteDetalle.ExecuteNonQuery();
+                    }
 
                     string queryDetalle = @"
                     INSERT INTO DetallePedido (IdPedido, IdProducto, Cantidad, PrecioUnitario)
@@ -175,7 +247,6 @@ namespace Proyecto_restaurante
                         cmdDetalle.Parameters.AddWithValue("@IdProducto", Convert.ToInt32(fila.Cells["codigoProducto"].Value));
                         cmdDetalle.Parameters.AddWithValue("@Cantidad", Convert.ToDecimal(fila.Cells["Cantidad"].Value));
                         cmdDetalle.Parameters.AddWithValue("@PrecioUnitario", Convert.ToDecimal(fila.Cells["Precio"].Value));
-
                         cmdDetalle.ExecuteNonQuery();
                     }
 
@@ -191,12 +262,15 @@ namespace Proyecto_restaurante
                     transaccion.Commit();
                     commitRealizado = true;
 
-                    MessageBox.Show("Orden guardada con éxito.");
+                    if (EditarEstado == 0)
+                        MessageBox.Show("Orden creada con éxito.");
+                    else
+                        MessageBox.Show("Orden actualizada con éxito.");
 
+                    EditarEstado = 0;
                     limpiarbtn_Click(sender, e);
                     tabControl1.SelectedIndex = 0;
                     Pedidos_Load(sender, e);
-
                 }
                 catch (Exception ex)
                 {
@@ -204,11 +278,7 @@ namespace Proyecto_restaurante
 
                     if (!commitRealizado)
                     {
-                        try
-                        {
-                            transaccion.Rollback();
-                        }
-                        catch { }
+                        try { transaccion.Rollback(); } catch { }
                     }
                 }
             }
@@ -321,8 +391,10 @@ namespace Proyecto_restaurante
             if (btn == null) return;
 
             dynamic mesaInfo = btn.Tag;
+
             int idMesa = mesaInfo.Id;
             int estadoMesa = mesaInfo.Estado;
+            int reservadoMesa = mesaInfo.Reservado;
 
             if (modoUnion && !modoSeparar)
             {
@@ -334,9 +406,8 @@ namespace Proyecto_restaurante
                 else
                 {
                     mesasSeleccionadasUnion.Remove(idMesa);
-                    btn.BackColor = (estadoMesa == 1) ? Color.LightCoral : Color.LightGreen;
+                    RestaurarColor(btn, estadoMesa, reservadoMesa);
                 }
-
                 return;
             }
 
@@ -350,17 +421,15 @@ namespace Proyecto_restaurante
                 else
                 {
                     mesasSeleccionadasUnion.Remove(idMesa);
-                    btn.BackColor = (estadoMesa == 1) ? Color.LightCoral : Color.LightGreen;
+                    RestaurarColor(btn, estadoMesa, reservadoMesa);
                 }
-
                 return;
             }
 
             if (botonActivo != null)
             {
                 dynamic anterior = botonActivo.Tag;
-                botonActivo.BackColor =
-                    (anterior.Estado == 1) ? Color.LightCoral : Color.LightGreen;
+                RestaurarColor(botonActivo, anterior.Estado, anterior.Reservado);
             }
 
             botonActivo = btn;
@@ -372,20 +441,40 @@ namespace Proyecto_restaurante
                 CrearOrden.Enabled = false;
                 EditarOrden.Enabled = true;
                 FacturarOrden.Enabled = true;
-                UnirMesa.Enabled = true;
                 SepararMesa.Enabled = false;
+                ReservadoMesa = 0;
             }
             else
             {
                 CrearOrden.Enabled = true;
                 EditarOrden.Enabled = false;
                 FacturarOrden.Enabled = false;
-                UnirMesa.Enabled = true;
                 SepararMesa.Enabled = true;
+                ReservadoMesa = 0;
+            }
+
+            if (reservadoMesa == 1)
+            {
+                CrearOrden.Enabled = true;
+                EditarOrden.Enabled = false;
+                FacturarOrden.Enabled = false;
+                ReservadoMesa = 1;
             }
         }
 
-        private Button CrearBotonMesa(int id, string numero, string capacidad, int ocupado, List<string> unidas)
+
+        private void RestaurarColor(Button btn, int ocupado, int reservado)
+        {
+            if (reservado == 1)
+                btn.BackColor = Color.MediumPurple;
+            else if (ocupado == 1)
+                btn.BackColor = Color.LightCoral;
+            else
+                btn.BackColor = Color.LightGreen;
+        }
+
+
+        private Button CrearBotonMesa(int id, string numero, string capacidad, int ocupado, int reservado, List<string> unidas)
         {
             Button btn = new Button();
             btn.Width = 150;
@@ -394,12 +483,24 @@ namespace Proyecto_restaurante
             btn.TextAlign = ContentAlignment.MiddleCenter;
             btn.Font = new Font("Segoe UI", 10, FontStyle.Bold);
 
-            btn.BackColor = (ocupado == 1) ? Color.LightCoral : Color.LightGreen;
+            if (reservado == 1)
+            {
+                btn.BackColor = Color.MediumPurple;
+            }
+            else if (ocupado == 1)
+            {
+                btn.BackColor = Color.LightCoral;
+            }
+            else
+            {
+                btn.BackColor = Color.LightGreen;
+            }
 
             btn.Tag = new
             {
                 Id = id,
                 Estado = ocupado,
+                Reservado = reservado,
                 ListaMesas = unidas
             };
 
@@ -421,6 +522,7 @@ namespace Proyecto_restaurante
             public string Numero { get; set; }
             public string Capacidad { get; set; }
             public int Ocupado { get; set; }
+            public int Reservado { get; set; }
             public int IdGrupo { get; set; }
             public int EsPrincipal { get; set; }
         }
@@ -438,7 +540,7 @@ namespace Proyecto_restaurante
             {
                 cn.Open();
                 SqlCommand cmd = new SqlCommand(
-                    "SELECT IdMesa, Numero, Capacidad, Ocupado, IdGrupo, EsPrincipal FROM Mesa", cn);
+                    "SELECT IdMesa, Numero, Capacidad, Ocupado, Reservado, IdGrupo, EsPrincipal FROM Mesa", cn);
 
                 SqlDataReader dr = cmd.ExecuteReader();
 
@@ -449,6 +551,7 @@ namespace Proyecto_restaurante
                         Id = Convert.ToInt32(dr["IdMesa"]),
                         Numero = dr["Numero"] == DBNull.Value ? "?" : dr["Numero"].ToString(),
                         Capacidad = dr["Capacidad"] == DBNull.Value ? "0" : dr["Capacidad"].ToString(),
+                        Reservado = dr["Reservado"] == DBNull.Value ? 0 : Convert.ToInt32(dr["Reservado"]),
                         Ocupado = dr["Ocupado"] == DBNull.Value ? 0 : Convert.ToInt32(dr["Ocupado"]),
                         IdGrupo = dr["IdGrupo"] == DBNull.Value ? 0 : Convert.ToInt32(dr["IdGrupo"]),
                         EsPrincipal = dr["EsPrincipal"] == DBNull.Value ? 0 : Convert.ToInt32(dr["EsPrincipal"])
@@ -464,6 +567,7 @@ namespace Proyecto_restaurante
                     mesa.Numero,
                     mesa.Capacidad,
                     mesa.Ocupado,
+                    mesa.Reservado,
                     new List<string>()
                 );
                 mesasprincipal.Controls.Add(btn);
@@ -493,6 +597,7 @@ namespace Proyecto_restaurante
                     principal.Numero,
                     capacidadTotal.ToString(),
                     principal.Ocupado,
+                    principal.Reservado,
                     unidas
                 );
 
@@ -560,7 +665,6 @@ namespace Proyecto_restaurante
                 detalleorden.Columns.Add("subtotal", "Importe");
             }
 
-
             tabControl1_SelectedIndexChanged(sender, e);
         }
 
@@ -609,13 +713,14 @@ namespace Proyecto_restaurante
             PedidoID = 0;
             txtnombrecompleto.Text = "AL CONTADO";
             idclientetxt.Text = "1";
-            txtnumero_cliente.Clear();
+            numerotxt.Clear();
             direcciontxt.Clear();
 
             txtcodigoproducto.Clear();
             txtnombreproducto.Clear();
             txtprecioproducto.Clear();
             numCantidad.Value = numCantidad.Minimum;
+            numCantidad.Enabled = false;
             txtiva.Clear();
             labelsubtotal.Text = "0";
             labeltotal.Text = "0";
@@ -1467,11 +1572,11 @@ namespace Proyecto_restaurante
             }
         }
 
-        private void CrearOrden_Click(object sender, EventArgs e)
+        private void BtnCrearOrden()
         {
-            if (botonActivo == null || idMesaSeleccionada == -1)
+            if (panelacciones.Enabled == false)
             {
-                MessageBox.Show("Debe seleccionar una mesa.");
+                MessageBox.Show("Acciones Bloqueadas.");
                 return;
             }
 
@@ -1492,8 +1597,55 @@ namespace Proyecto_restaurante
             MesaLabel.Text = $"     Mesa asignada: {textoMesas}";
             mesasprincipal.Enabled = false;
             panelacciones.Enabled = false;
+            EditarEstado = 0;
             habilitarbotones();
             VerificarOrden();
+        }
+
+        private void CrearOrden_Click(object sender, EventArgs e)
+        {
+            if (botonActivo == null || idMesaSeleccionada == -1)
+            {
+                MessageBox.Show("Debe seleccionar una mesa.");
+                return;
+            }
+
+            if (OcupadoMesa == 1)
+            {
+                MessageBox.Show("Mesa ocupada.");
+                return;
+            }
+
+            if (ReservadoMesa == 1 && Autorizar == 0)
+            {
+                DialogResult autorizar = MessageBox.Show("Mesa Reservada, ¿Crear Orden Nueva?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (autorizar == DialogResult.Yes)
+                {
+                    autorizacionpanel.Visible = true;
+                    autorizacionpanel.BringToFront();
+                    autorizacionpanel.Location = new Point(6, 104);
+                    txtusuario.Text = NombreUsuario;
+                    if (txtusuario.Text == NombreUsuario)
+                    {
+                        txtpass.Focus();
+                    }
+                    else
+                    {
+                        txtusuario.Focus();
+                    }
+                    panelacciones.Enabled = false;
+                }
+                else
+                {
+                    MessageBox.Show("Operación cancelada.");
+                    return;
+                }
+            }
+            else
+            {
+                BtnCrearOrden();
+            }
         }
 
         private void FacturarOrden_Click(object sender, EventArgs e)
@@ -1501,6 +1653,12 @@ namespace Proyecto_restaurante
             if (idMesaSeleccionada == -1 || idMesaSeleccionada == 0)
             {
                 MessageBox.Show("Debe seleccionar una mesa.");
+                return;
+            }
+
+            if (panelacciones.Enabled == false)
+            {
+                MessageBox.Show("Acciones Bloqueadas.");
                 return;
             }
 
@@ -1633,14 +1791,29 @@ namespace Proyecto_restaurante
                 return;
             }
 
+            if (panelacciones.Enabled == false)
+            {
+                MessageBox.Show("Acciones Bloqueadas.");
+                return;
+            }
+
+            if (OcupadoMesa == 0)
+            {
+                MessageBox.Show("Mesa no está ocupada.");
+                return;
+            }
+
+
+
             tabControl1.SelectedIndex = 1;
             mesasprincipal.Enabled = false;
             panelacciones.Enabled = false;
-            CargarPedidoDeMesa(idMesaSeleccionada);
+            EditarEstado = 1;
+            CargarOrdenDeMesa(idMesaSeleccionada);
             VerificarOrden();
         }
 
-        private void CargarPedidoDeMesa(int idMesa)
+        private void CargarOrdenDeMesa(int idMesa)
         {
             using (SqlConnection cn = new SqlConnection(conexionString))
             {
@@ -1663,7 +1836,7 @@ namespace Proyecto_restaurante
                     {
                         if (!dr.Read())
                         {
-                            MessageBox.Show("La mesa no tiene pedidos pendientes.");
+                            MessageBox.Show("La mesa no tiene ordenes pendientes.");
                             limpiarbtn.PerformClick();
                             tabControl1.SelectedIndex = 0;
                             return;
@@ -1683,7 +1856,7 @@ namespace Proyecto_restaurante
                     }
                 }
 
-                CargarDetallePedido(idPedido, cn);
+                DetalleOrden(idPedido, cn);
                 habilitarbotones();
             }
         }
@@ -1711,7 +1884,7 @@ namespace Proyecto_restaurante
                     {
                         if (!dr.Read())
                         {
-                            MessageBox.Show("La mesa no tiene pedidos pendientes.");
+                            MessageBox.Show("La mesa no tiene ordenes pendientes.");
                             return;
                         }
 
@@ -1725,7 +1898,7 @@ namespace Proyecto_restaurante
             }
         }
 
-        private void CargarDetallePedido(int idPedido, SqlConnection cn)
+        private void DetalleOrden(int idPedido, SqlConnection cn)
         {
             string sqlDet = @"
             SELECT  d.IdProducto,
@@ -1951,6 +2124,118 @@ namespace Proyecto_restaurante
         private void continuar_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedIndex = 1;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            limpiarbtn_Click(sender, e);
+        }
+
+        private void autorizar_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection conexion = new SqlConnection(conexionString))
+            {
+                try
+                {
+                    conexion.Open();
+
+                    string queryUsuario = @"
+                    SELECT IdUsuario 
+                    FROM Usuario 
+                    WHERE Login = @usuario AND Contrasena = @pass AND Activo = 1";
+
+                    int idUsuario = 0;
+                    using (SqlCommand cmd = new SqlCommand(queryUsuario, conexion))
+                    {
+                        cmd.Parameters.AddWithValue("@usuario", txtusuario.Text);
+                        cmd.Parameters.AddWithValue("@pass", txtpass.Text);
+
+                        object resultado = cmd.ExecuteScalar();
+
+                        if (resultado == null)
+                        {
+                            MessageBox.Show("Usuario o contraseña incorrectos / Inactivo.");
+                            return;
+                        }
+
+                        idUsuario = Convert.ToInt32(resultado);
+                    }
+
+                    string queryPermiso = @"
+                    SELECT CrearOrdenReservacion 
+                    FROM PermisosUsuario 
+                    WHERE IdUsuario = @IdUsuario";
+
+                    bool permisoSi = false;
+                    using (SqlCommand cmdPermiso = new SqlCommand(queryPermiso, conexion))
+                    {
+                        cmdPermiso.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                        object permisoResult = cmdPermiso.ExecuteScalar();
+
+                        if (permisoResult != null)
+                            permisoSi = Convert.ToBoolean(permisoResult);
+                    }
+
+                    if (permisoSi)
+                    {
+                        panelacciones.Enabled = true;
+                        Autorizar = 1;
+
+                        CrearOrden_Click(sender, e);
+                        autorizacionpanel.Visible = false;
+                        autorizacionpanel.BringToFront();
+                        autorizacionpanel.Location = new Point(807, 5);
+                        txtusuario.Clear();
+                        txtpass.Clear();
+                        idMesaSeleccionada = -1;
+                    }
+                    else
+                    {
+                        MessageBox.Show("No tiene Permisos para esta operación");
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ocurrió un error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void cancelarAutorizar_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Operación Cancelada.");
+            autorizacionpanel.Visible = false;
+            autorizacionpanel.BringToFront();
+            autorizacionpanel.Location = new Point(807, 5);
+            txtusuario.Clear();
+            txtpass.Clear();
+            panelacciones.Enabled = true;
+            return;
+        }
+
+        private void numerotxt_TextChanged(object sender, EventArgs e)
+        {
+            string posNum = numerotxt.Text;
+            posNum = posNum.Replace("-", "");
+
+            if (posNum.Length > 10)
+            {
+                posNum = posNum.Substring(0, 10);
+            }
+
+            if (posNum.Length > 3)
+            {
+                posNum = posNum.Insert(3, "-");
+            }
+
+            if (posNum.Length > 7)
+            {
+                posNum = posNum.Insert(7, "-");
+            }
+
+            numerotxt.Text = posNum;
+            numerotxt.SelectionStart = numerotxt.Text.Length;
         }
     }
 }

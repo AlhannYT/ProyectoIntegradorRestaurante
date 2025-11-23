@@ -176,6 +176,7 @@
             // 
             // txtbuscador
             // 
+            txtbuscador.CharacterCasing = CharacterCasing.Upper;
             txtbuscador.ForeColor = SystemColors.ScrollBar;
             txtbuscador.Location = new Point(8, 55);
             txtbuscador.Name = "txtbuscador";
@@ -496,6 +497,7 @@
             // 
             // textBox1
             // 
+            textBox1.CharacterCasing = CharacterCasing.Upper;
             textBox1.Enabled = false;
             textBox1.Location = new Point(5, 37);
             textBox1.Name = "textBox1";

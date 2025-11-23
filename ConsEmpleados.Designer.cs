@@ -209,6 +209,7 @@
             // 
             // txtbuscador
             // 
+            txtbuscador.CharacterCasing = CharacterCasing.Upper;
             txtbuscador.Font = new Font("Segoe UI", 12F);
             txtbuscador.ForeColor = SystemColors.ScrollBar;
             txtbuscador.Location = new Point(11, 65);
@@ -762,6 +763,7 @@
             // 
             // emailtxt
             // 
+            emailtxt.CharacterCasing = CharacterCasing.Upper;
             emailtxt.Location = new Point(19, 239);
             emailtxt.Name = "emailtxt";
             emailtxt.Size = new Size(172, 29);
@@ -769,6 +771,7 @@
             // 
             // txtcedula
             // 
+            txtcedula.CharacterCasing = CharacterCasing.Upper;
             txtcedula.Location = new Point(19, 74);
             txtcedula.Name = "txtcedula";
             txtcedula.Size = new Size(172, 29);
@@ -777,6 +780,7 @@
             // 
             // txtapellido
             // 
+            txtapellido.CharacterCasing = CharacterCasing.Upper;
             txtapellido.Location = new Point(19, 184);
             txtapellido.Name = "txtapellido";
             txtapellido.Size = new Size(172, 29);
@@ -799,6 +803,7 @@
             // 
             // txtnombre
             // 
+            txtnombre.CharacterCasing = CharacterCasing.Upper;
             txtnombre.Location = new Point(19, 129);
             txtnombre.Name = "txtnombre";
             txtnombre.Size = new Size(172, 29);
