@@ -188,6 +188,7 @@ namespace Proyecto_restaurante
                         SELECT SCOPE_IDENTITY();";
 
                         SqlCommand cmdPedido = new SqlCommand(queryPedido, conexion, transaccion);
+
                         cmdPedido.Parameters.AddWithValue("@Fecha", fechapedido.Value);
                         cmdPedido.Parameters.AddWithValue("@IdMesa", idMesaSeleccionada);
                         cmdPedido.Parameters.AddWithValue("@Origen", "Local");
@@ -217,6 +218,7 @@ namespace Proyecto_restaurante
                         WHERE IdPedido = @IdPedido";
 
                         SqlCommand cmdUpdate = new SqlCommand(queryUpdatePedido, conexion, transaccion);
+
                         cmdUpdate.Parameters.AddWithValue("@Fecha", fechapedido.Value);
                         cmdUpdate.Parameters.AddWithValue("@IdMesa", idMesaSeleccionada);
                         cmdUpdate.Parameters.AddWithValue("@IdClientePersona", Convert.ToInt32(idclientetxt.Text));
@@ -225,6 +227,7 @@ namespace Proyecto_restaurante
                         cmdUpdate.Parameters.AddWithValue("@Nota", notatxt.Text);
                         cmdUpdate.Parameters.AddWithValue("@Direccion", direcciontxt.Text);
                         cmdUpdate.Parameters.AddWithValue("@IdPedido", PedidoID);
+
                         cmdUpdate.ExecuteNonQuery();
 
                         SqlCommand cmdDeleteDetalle = new SqlCommand(
@@ -232,6 +235,12 @@ namespace Proyecto_restaurante
                             conexion, transaccion);
                         cmdDeleteDetalle.Parameters.AddWithValue("@IdPedido", PedidoID);
                         cmdDeleteDetalle.ExecuteNonQuery();
+
+                        SqlCommand cmdDeleteComanda = new SqlCommand(
+                            "DELETE FROM Comanda WHERE IdPedido = @IdPedido AND Estado = 'Cocina'",
+                            conexion, transaccion);
+                        cmdDeleteComanda.Parameters.AddWithValue("@IdPedido", PedidoID);
+                        cmdDeleteComanda.ExecuteNonQuery();
                     }
 
                     string queryDetalle = @"
@@ -247,7 +256,27 @@ namespace Proyecto_restaurante
                         cmdDetalle.Parameters.AddWithValue("@IdProducto", Convert.ToInt32(fila.Cells["codigoProducto"].Value));
                         cmdDetalle.Parameters.AddWithValue("@Cantidad", Convert.ToDecimal(fila.Cells["Cantidad"].Value));
                         cmdDetalle.Parameters.AddWithValue("@PrecioUnitario", Convert.ToDecimal(fila.Cells["Precio"].Value));
+
                         cmdDetalle.ExecuteNonQuery();
+                    }
+
+                    string queryInsertarComanda = @"
+                    INSERT INTO Comanda (IdPedido, IdMesa, IdProducto, Cantidad, Estado)
+                    VALUES (@IdPedido, @IdMesa, @IdProducto, @Cantidad, @Estado);";
+
+                    foreach (DataGridViewRow fila in detalleorden.Rows)
+                    {
+                        if (fila.IsNewRow) continue;
+
+                        SqlCommand cmdComanda = new SqlCommand(queryInsertarComanda, conexion, transaccion);
+
+                        cmdComanda.Parameters.AddWithValue("@IdPedido", idPedidoGenerado);
+                        cmdComanda.Parameters.AddWithValue("@IdMesa", idMesaSeleccionada);
+                        cmdComanda.Parameters.AddWithValue("@IdProducto", Convert.ToInt32(fila.Cells["codigoProducto"].Value));
+                        cmdComanda.Parameters.AddWithValue("@Cantidad", Convert.ToDecimal(fila.Cells["Cantidad"].Value));
+                        cmdComanda.Parameters.AddWithValue("@Estado", "Cocina");
+
+                        cmdComanda.ExecuteNonQuery();
                     }
 
                     string queryMesa = "UPDATE Mesa SET Ocupado = 1 WHERE IdMesa = @IdMesa";
@@ -283,6 +312,7 @@ namespace Proyecto_restaurante
                 }
             }
         }
+
 
         public void habilitarbotones()
         {
@@ -894,6 +924,12 @@ namespace Proyecto_restaurante
                     cmdLiberar.Parameters.AddWithValue("@mesa", idMesa);
                     cmdLiberar.ExecuteNonQuery();
 
+                    SqlCommand cmdLiberarComanda = new SqlCommand(
+                        "UPDATE Comanda SET Estado='Entregado' WHERE IdPedido=@id",
+                        conexion, trans);
+                    cmdLiberarComanda.Parameters.AddWithValue("@id", PedidoID);
+                    cmdLiberarComanda.ExecuteNonQuery();
+
                     RegistrarPago(conexion, trans);
                     RebajarInventario(conexion, trans, PedidoID);
 
@@ -1087,28 +1123,49 @@ namespace Proyecto_restaurante
 
         private void txtbusquedafactura_TextChanged(object sender, EventArgs e)
         {
-            FiltroDatosBusqueda(txtbusquedafactura.Text);
+            FiltroDatosBusqueda();
         }
 
-        private void FiltroDatosBusqueda(string busqueda)
+        private void FiltroDatosBusqueda()
         {
-
             using (SqlConnection conectar = new SqlConnection(conexionString))
             {
                 try
                 {
                     conectar.Open();
 
+                    string estado = "";
+                    if (facturadochk.Checked) estado = "Facturado";
+                    else if (pendientechk.Checked) estado = "Pendiente";
+                    else if (canceladochk.Checked) estado = "Cancelado";
+
                     string query = @"
-                    SELECT * FROM facturas
-                    WHERE id_pedido LIKE @buscar OR
-                    nombre_cliente LIKE @buscar OR
-                    mesa LIKE @buscar OR
-                    total LIKE @buscar";
+                    SELECT 
+                        IdPedido,
+                        NombreCliente,
+                        m.Numero AS [Mesa], 
+	                    m.IdSala as [Sala],
+                        Total,
+                        p.Estado,
+                        Fecha
+                    FROM Pedido p
+                    INNER JOIN Mesa m ON p.IdMesa = m.IdMesa
+                    WHERE
+                        (NombreCliente LIKE @buscar
+                        OR CAST(IdPedido AS VARCHAR) LIKE @buscar
+                        OR CAST(IdMesa AS VARCHAR) LIKE @buscar
+                        OR CAST(Total AS VARCHAR) LIKE @buscar)
+                        AND Fecha >= @inicio
+                        AND Fecha <= @fin
+                        AND (@estado = '' OR Estado = @estado)
+                    ORDER BY Fecha DESC";
 
                     using (SqlCommand comando = new SqlCommand(query, conectar))
                     {
-                        comando.Parameters.AddWithValue("@buscar", "%" + busqueda + "%");
+                        comando.Parameters.AddWithValue("@buscar", "%" + txtbusquedafactura.Text + "%");
+                        comando.Parameters.AddWithValue("@inicio", fecini.Value.Date);
+                        comando.Parameters.AddWithValue("@fin", fecfin.Value.Date.AddDays(1).AddSeconds(-1));
+                        comando.Parameters.AddWithValue("@estado", estado);
 
                         SqlDataAdapter da = new SqlDataAdapter(comando);
                         DataTable dt = new DataTable();
@@ -1121,7 +1178,6 @@ namespace Proyecto_restaurante
                 {
                     MessageBox.Show($"Error: {ex.Message}");
                 }
-
             }
         }
 

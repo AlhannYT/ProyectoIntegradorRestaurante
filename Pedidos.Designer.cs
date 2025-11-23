@@ -800,7 +800,7 @@
             label35.ForeColor = SystemColors.Control;
             label35.Image = Properties.Resources.cursor;
             label35.ImageAlign = ContentAlignment.MiddleRight;
-            label35.Location = new Point(576, 3);
+            label35.Location = new Point(575, 3);
             label35.Name = "label35";
             label35.Size = new Size(117, 21);
             label35.TabIndex = 74;

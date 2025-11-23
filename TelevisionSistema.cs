@@ -9,7 +9,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
 namespace Proyecto_restaurante
 {
     public partial class TelevisionSistema : Form
@@ -20,7 +19,6 @@ namespace Proyecto_restaurante
         }
 
         System.Windows.Forms.Timer Recargar;
-
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -34,7 +32,7 @@ namespace Proyecto_restaurante
         private void TelevisionSistema_Load(object sender, EventArgs e)
         {
             Recargar = new System.Windows.Forms.Timer();
-            Recargar.Interval = 10000;
+            Recargar.Interval = 7000;
             Recargar.Tick += Recargar_Tick;
             Recargar.Start();
 
@@ -52,14 +50,16 @@ namespace Proyecto_restaurante
                 conexion.Open();
 
                 string query = @"
-                SELECT DP.IdPedido, DP.IdProducto, PV.Nombre, DP.Cantidad
-                FROM DetallePedido DP
-                INNER JOIN ProductoVenta PV ON DP.IdProducto = PV.IdProducto
-                WHERE DP.IdPedido IN (
-                    SELECT IdPedido FROM Pedido WHERE Estado = 'Pendiente'
-                )
-                ORDER BY DP.IdPedido";
-
+                SELECT CM.IdComanda,
+                       CM.IdPedido,
+                       CM.IdProducto,
+                       PV.Nombre,
+                       CM.Cantidad,
+                       CM.Estado
+                FROM Comanda CM
+                INNER JOIN ProductoVenta PV ON CM.IdProducto = PV.IdProducto
+                WHERE CM.Estado = 'Cocina'
+                ORDER BY CM.IdPedido, CM.IdComanda";
 
                 SqlCommand cmd = new SqlCommand(query, conexion);
 
@@ -70,31 +70,30 @@ namespace Proyecto_restaurante
                         int idPedido = Convert.ToInt32(dr["IdPedido"]);
                         int idProducto = Convert.ToInt32(dr["IdProducto"]);
                         string nombre = dr["Nombre"].ToString();
-                        int cantidad = Convert.ToInt32(dr["Cantidad"]);
+                        decimal cantidad = Convert.ToDecimal(dr["Cantidad"]);
 
                         Image img = CargarImagen(idProducto);
 
                         panelOrdenes.Controls.Add(
-                            PanelComanda(idPedido, nombre, cantidad, img)
+                            PanelComanda(idPedido, nombre, (int)cantidad, img)
                         );
                     }
-
                 }
             }
         }
 
         private Panel PanelComanda(int idPedido, string nombre, int cantidad, Image imagen)
         {
-            Panel card = new Panel();
-            card.Width = 170;
-            card.Height = 230;
-            card.BackColor = Color.White;
-            card.Margin = new Padding(10);
-            card.BorderStyle = BorderStyle.FixedSingle;
+            Panel ficha = new Panel();
+            ficha.Width = 200;
+            ficha.Height = 270;
+            ficha.BackColor = Color.White;
+            ficha.Margin = new Padding(15);
+            ficha.BorderStyle = BorderStyle.FixedSingle;
 
             Label lblPedido = new Label();
             lblPedido.Text = $"Orden: {idPedido}";
-            lblPedido.Font = new Font("Segoe UI", 9, FontStyle.Bold);
+            lblPedido.Font = new Font("Segoe UI", 12, FontStyle.Bold);
             lblPedido.AutoSize = true;
             lblPedido.Location = new Point(5, 5);
 
@@ -106,7 +105,7 @@ namespace Proyecto_restaurante
 
             Label lblNombre = new Label();
             lblNombre.Text = nombre.ToUpper();
-            lblNombre.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            lblNombre.Font = new Font("Segoe UI", 14, FontStyle.Bold);
             lblNombre.AutoSize = false;
             lblNombre.TextAlign = ContentAlignment.MiddleCenter;
             lblNombre.Width = 170;
@@ -114,18 +113,18 @@ namespace Proyecto_restaurante
 
             Label lblCantidad = new Label();
             lblCantidad.Text = $"CANTIDAD: {cantidad}";
-            lblCantidad.Font = new Font("Segoe UI", 9);
+            lblCantidad.Font = new Font("Segoe UI", 14);
             lblCantidad.AutoSize = false;
             lblCantidad.Width = 170;
             lblCantidad.TextAlign = ContentAlignment.MiddleCenter;
             lblCantidad.Location = new Point(0, 170);
 
-            card.Controls.Add(lblPedido);
-            card.Controls.Add(pic);
-            card.Controls.Add(lblNombre);
-            card.Controls.Add(lblCantidad);
+            ficha.Controls.Add(lblPedido);
+            ficha.Controls.Add(pic);
+            ficha.Controls.Add(lblNombre);
+            ficha.Controls.Add(lblCantidad);
 
-            return card;
+            return ficha;
         }
 
         private Image CargarImagen(int idProducto)
