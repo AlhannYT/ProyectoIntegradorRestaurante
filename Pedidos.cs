@@ -313,7 +313,6 @@ namespace Proyecto_restaurante
             }
         }
 
-
         public void habilitarbotones()
         {
             buscarclientebtn.Enabled = true;
@@ -502,7 +501,6 @@ namespace Proyecto_restaurante
             else
                 btn.BackColor = Color.LightGreen;
         }
-
 
         private Button CrearBotonMesa(int id, string numero, string capacidad, int ocupado, int reservado, List<string> unidas)
         {
@@ -2210,7 +2208,7 @@ namespace Proyecto_restaurante
 
                         if (resultado == null)
                         {
-                            MessageBox.Show("Usuario o contraseña incorrectos / Inactivo.");
+                            MessageBox.Show("Credenciales incorrectas / Usuario Inactivo.");
                             return;
                         }
 
@@ -2243,7 +2241,6 @@ namespace Proyecto_restaurante
                         autorizacionpanel.Location = new Point(807, 5);
                         txtusuario.Clear();
                         txtpass.Clear();
-                        idMesaSeleccionada = -1;
                     }
                     else
                     {

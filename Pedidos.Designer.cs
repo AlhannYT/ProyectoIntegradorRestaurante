@@ -194,6 +194,7 @@
             fecfin = new DateTimePicker();
             cancelarpedido = new Button();
             imprimirbtn = new Button();
+            button7 = new Button();
             facturarbtn = new Button();
             panel5 = new Panel();
             tabladatospedidos = new DataGridView();
@@ -205,7 +206,6 @@
             facturadochk = new CheckBox();
             toolTip1 = new ToolTip(components);
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            button7 = new Button();
             tabControl1.SuspendLayout();
             tabPage6.SuspendLayout();
             autorizacionpanel.SuspendLayout();
@@ -2180,6 +2180,20 @@
             imprimirbtn.UseVisualStyleBackColor = false;
             imprimirbtn.Click += imprimirbtn_Click;
             // 
+            // button7
+            // 
+            button7.BackColor = Color.FromArgb(224, 224, 224);
+            button7.Image = Properties.Resources.busqueda;
+            button7.ImageAlign = ContentAlignment.MiddleRight;
+            button7.Location = new Point(270, 33);
+            button7.Name = "button7";
+            button7.Size = new Size(84, 29);
+            button7.TabIndex = 0;
+            button7.Text = "Buscar";
+            button7.TextAlign = ContentAlignment.MiddleLeft;
+            button7.UseVisualStyleBackColor = false;
+            button7.Click += facturarbtn_Click;
+            // 
             // facturarbtn
             // 
             facturarbtn.BackColor = Color.FromArgb(128, 255, 128);
@@ -2293,20 +2307,6 @@
             facturadochk.Text = "Facturado";
             facturadochk.UseVisualStyleBackColor = true;
             facturadochk.CheckedChanged += facturadochk_CheckedChanged;
-            // 
-            // button7
-            // 
-            button7.BackColor = Color.FromArgb(224, 224, 224);
-            button7.Image = Properties.Resources.busqueda;
-            button7.ImageAlign = ContentAlignment.MiddleRight;
-            button7.Location = new Point(270, 33);
-            button7.Name = "button7";
-            button7.Size = new Size(84, 29);
-            button7.TabIndex = 0;
-            button7.Text = "Buscar";
-            button7.TextAlign = ContentAlignment.MiddleLeft;
-            button7.UseVisualStyleBackColor = false;
-            button7.Click += facturarbtn_Click;
             // 
             // Pedidos
             // 

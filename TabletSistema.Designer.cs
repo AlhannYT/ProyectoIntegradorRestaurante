@@ -41,6 +41,7 @@
             flowLayoutPanel2 = new FlowLayoutPanel();
             panel6 = new Panel();
             nuevaOrden = new Button();
+            comandaVer = new Button();
             editarOrden = new Button();
             button2 = new Button();
             mesapanel = new Panel();
@@ -56,6 +57,7 @@
             panelOrdenar = new Panel();
             label4 = new Label();
             label3 = new Label();
+            button4 = new Button();
             agregar = new Button();
             detalleorden = new DataGridView();
             flowLayoutPanel1 = new FlowLayoutPanel();
@@ -67,13 +69,12 @@
             cantidad = new TextBox();
             menos = new Button();
             mas = new Button();
-            comandaVer = new Button();
             panelComanda = new Panel();
-            flowLayoutPanel3 = new FlowLayoutPanel();
-            NoUnion = new Button();
+            comandapanel = new Panel();
             SiUnion = new Button();
+            NoUnion = new Button();
             UnirMesa = new Button();
-            panel9 = new Panel();
+            flowLayoutPanel3 = new FlowLayoutPanel();
             seleccionarmesapanel.SuspendLayout();
             panel5.SuspendLayout();
             panel6.SuspendLayout();
@@ -84,7 +85,7 @@
             ((System.ComponentModel.ISupportInitialize)detalleorden).BeginInit();
             panel4.SuspendLayout();
             panelComanda.SuspendLayout();
-            panel9.SuspendLayout();
+            comandapanel.SuspendLayout();
             SuspendLayout();
             // 
             // panelMesas
@@ -237,6 +238,17 @@
             nuevaOrden.TextAlign = ContentAlignment.BottomCenter;
             nuevaOrden.UseVisualStyleBackColor = true;
             // 
+            // comandaVer
+            // 
+            comandaVer.Image = Properties.Resources.pantalla;
+            comandaVer.Location = new Point(8, 166);
+            comandaVer.Name = "comandaVer";
+            comandaVer.Size = new Size(135, 70);
+            comandaVer.TabIndex = 101;
+            comandaVer.Text = "Comanda";
+            comandaVer.TextAlign = ContentAlignment.BottomCenter;
+            comandaVer.UseVisualStyleBackColor = true;
+            // 
             // editarOrden
             // 
             editarOrden.Image = Properties.Resources.editar;
@@ -384,6 +396,7 @@
             // 
             panelOrdenar.Controls.Add(label4);
             panelOrdenar.Controls.Add(label3);
+            panelOrdenar.Controls.Add(button4);
             panelOrdenar.Controls.Add(agregar);
             panelOrdenar.Controls.Add(detalleorden);
             panelOrdenar.Controls.Add(flowLayoutPanel1);
@@ -391,7 +404,7 @@
             panelOrdenar.Controls.Add(button3);
             panelOrdenar.Controls.Add(textBox1);
             panelOrdenar.Controls.Add(panel4);
-            panelOrdenar.Location = new Point(1326, 5);
+            panelOrdenar.Location = new Point(1327, 71);
             panelOrdenar.Name = "panelOrdenar";
             panelOrdenar.Size = new Size(652, 629);
             panelOrdenar.TabIndex = 101;
@@ -425,13 +438,26 @@
             label3.TabIndex = 103;
             label3.Text = "Menú";
             // 
+            // button4
+            // 
+            button4.Image = Properties.Resources.division;
+            button4.Location = new Point(536, 546);
+            button4.Name = "button4";
+            button4.Size = new Size(108, 70);
+            button4.TabIndex = 101;
+            button4.Text = "Dividir Cuenta";
+            button4.TextAlign = ContentAlignment.BottomCenter;
+            button4.UseVisualStyleBackColor = true;
+            // 
             // agregar
             // 
             agregar.Image = Properties.Resources.anadir1;
-            agregar.Location = new Point(479, 548);
+            agregar.Location = new Point(399, 546);
             agregar.Name = "agregar";
-            agregar.Size = new Size(135, 70);
+            agregar.Size = new Size(108, 70);
             agregar.TabIndex = 101;
+            agregar.Text = "Agregar";
+            agregar.TextAlign = ContentAlignment.BottomCenter;
             agregar.UseVisualStyleBackColor = true;
             // 
             // detalleorden
@@ -448,7 +474,7 @@
             detalleorden.RowHeadersVisible = false;
             detalleorden.RowHeadersWidth = 51;
             detalleorden.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            detalleorden.Size = new Size(253, 433);
+            detalleorden.Size = new Size(253, 443);
             detalleorden.TabIndex = 100;
             // 
             // flowLayoutPanel1
@@ -457,7 +483,7 @@
             flowLayoutPanel1.BackColor = Color.FromArgb(64, 64, 64);
             flowLayoutPanel1.Location = new Point(3, 70);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(391, 433);
+            flowLayoutPanel1.Size = new Size(391, 443);
             flowLayoutPanel1.TabIndex = 26;
             // 
             // label2
@@ -499,9 +525,9 @@
             panel4.Controls.Add(cantidad);
             panel4.Controls.Add(menos);
             panel4.Controls.Add(mas);
-            panel4.Location = new Point(3, 509);
+            panel4.Location = new Point(3, 519);
             panel4.Name = "panel4";
-            panel4.Size = new Size(439, 115);
+            panel4.Size = new Size(391, 107);
             panel4.TabIndex = 104;
             // 
             // label1
@@ -511,7 +537,7 @@
             label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;
             label1.ImageAlign = ContentAlignment.MiddleRight;
-            label1.Location = new Point(4, 6);
+            label1.Location = new Point(4, 2);
             label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
             label1.Size = new Size(116, 32);
@@ -520,74 +546,51 @@
             // 
             // cantidad
             // 
-            cantidad.Font = new Font("Segoe UI", 34.5F);
+            cantidad.Font = new Font("Segoe UI", 25F);
             cantidad.Location = new Point(4, 40);
             cantidad.Name = "cantidad";
-            cantidad.Size = new Size(152, 69);
+            cantidad.Size = new Size(152, 52);
             cantidad.TabIndex = 102;
             cantidad.Text = "1";
             // 
             // menos
             // 
             menos.Image = Properties.Resources.arriba;
-            menos.Location = new Point(298, 39);
+            menos.Location = new Point(277, 38);
             menos.Name = "menos";
-            menos.Size = new Size(135, 70);
+            menos.Size = new Size(106, 55);
             menos.TabIndex = 101;
             menos.UseVisualStyleBackColor = true;
             // 
             // mas
             // 
             mas.Image = Properties.Resources.abajo;
-            mas.Location = new Point(162, 39);
+            mas.Location = new Point(165, 38);
             mas.Name = "mas";
-            mas.Size = new Size(135, 70);
+            mas.Size = new Size(106, 55);
             mas.TabIndex = 101;
             mas.UseVisualStyleBackColor = true;
             // 
-            // comandaVer
-            // 
-            comandaVer.Image = Properties.Resources.pantalla;
-            comandaVer.Location = new Point(8, 166);
-            comandaVer.Name = "comandaVer";
-            comandaVer.Size = new Size(135, 70);
-            comandaVer.TabIndex = 101;
-            comandaVer.Text = "Comanda";
-            comandaVer.TextAlign = ContentAlignment.BottomCenter;
-            comandaVer.UseVisualStyleBackColor = true;
-            // 
             // panelComanda
             // 
-            panelComanda.Controls.Add(panel9);
+            panelComanda.Controls.Add(comandapanel);
             panelComanda.Controls.Add(flowLayoutPanel3);
-            panelComanda.Location = new Point(1326, 640);
+            panelComanda.Location = new Point(1982, 69);
             panelComanda.Name = "panelComanda";
             panelComanda.Size = new Size(652, 629);
             panelComanda.TabIndex = 101;
             panelComanda.Visible = false;
             // 
-            // flowLayoutPanel3
+            // comandapanel
             // 
-            flowLayoutPanel3.AutoScroll = true;
-            flowLayoutPanel3.BackColor = Color.FromArgb(64, 64, 64);
-            flowLayoutPanel3.Location = new Point(3, 7);
-            flowLayoutPanel3.Name = "flowLayoutPanel3";
-            flowLayoutPanel3.Size = new Size(483, 615);
-            flowLayoutPanel3.TabIndex = 26;
-            // 
-            // NoUnion
-            // 
-            NoUnion.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            NoUnion.Image = Properties.Resources.nocheck;
-            NoUnion.ImageAlign = ContentAlignment.MiddleRight;
-            NoUnion.Location = new Point(9, 155);
-            NoUnion.Name = "NoUnion";
-            NoUnion.Size = new Size(135, 40);
-            NoUnion.TabIndex = 102;
-            NoUnion.Text = "No";
-            NoUnion.TextAlign = ContentAlignment.MiddleLeft;
-            NoUnion.UseVisualStyleBackColor = true;
-            NoUnion.Visible = false;
+            comandapanel.BackColor = Color.Gray;
+            comandapanel.Controls.Add(SiUnion);
+            comandapanel.Controls.Add(NoUnion);
+            comandapanel.Controls.Add(UnirMesa);
+            comandapanel.Location = new Point(492, 7);
+            comandapanel.Name = "comandapanel";
+            comandapanel.Size = new Size(151, 615);
+            comandapanel.TabIndex = 105;
             // 
             // SiUnion
             // 
@@ -603,6 +606,20 @@
             SiUnion.UseVisualStyleBackColor = true;
             SiUnion.Visible = false;
             // 
+            // NoUnion
+            // 
+            NoUnion.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            NoUnion.Image = Properties.Resources.nocheck;
+            NoUnion.ImageAlign = ContentAlignment.MiddleRight;
+            NoUnion.Location = new Point(9, 155);
+            NoUnion.Name = "NoUnion";
+            NoUnion.Size = new Size(135, 40);
+            NoUnion.TabIndex = 102;
+            NoUnion.Text = "No";
+            NoUnion.TextAlign = ContentAlignment.MiddleLeft;
+            NoUnion.UseVisualStyleBackColor = true;
+            NoUnion.Visible = false;
+            // 
             // UnirMesa
             // 
             UnirMesa.BackColor = Color.FromArgb(224, 224, 224);
@@ -616,23 +633,21 @@
             UnirMesa.TextAlign = ContentAlignment.BottomCenter;
             UnirMesa.UseVisualStyleBackColor = false;
             // 
-            // panel9
+            // flowLayoutPanel3
             // 
-            panel9.BackColor = Color.Gray;
-            panel9.Controls.Add(SiUnion);
-            panel9.Controls.Add(NoUnion);
-            panel9.Controls.Add(UnirMesa);
-            panel9.Location = new Point(492, 7);
-            panel9.Name = "panel9";
-            panel9.Size = new Size(151, 615);
-            panel9.TabIndex = 105;
+            flowLayoutPanel3.AutoScroll = true;
+            flowLayoutPanel3.BackColor = Color.FromArgb(64, 64, 64);
+            flowLayoutPanel3.Location = new Point(3, 7);
+            flowLayoutPanel3.Name = "flowLayoutPanel3";
+            flowLayoutPanel3.Size = new Size(483, 615);
+            flowLayoutPanel3.TabIndex = 26;
             // 
             // TabletSistema
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.WindowFrame;
-            ClientSize = new Size(1543, 811);
+            ClientSize = new Size(670, 811);
             Controls.Add(seleccionarmesapanel);
             Controls.Add(panelOrdenar);
             Controls.Add(panelComanda);
@@ -659,7 +674,7 @@
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
             panelComanda.ResumeLayout(false);
-            panel9.ResumeLayout(false);
+            comandapanel.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -710,6 +725,7 @@
         private Button NoUnion;
         private Button SiUnion;
         private Button UnirMesa;
-        private Panel panel9;
+        private Panel comandapanel;
+        private Button button4;
     }
 }

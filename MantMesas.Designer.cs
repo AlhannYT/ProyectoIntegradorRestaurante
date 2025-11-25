@@ -96,6 +96,8 @@
             label12 = new Label();
             txtnombresala = new TextBox();
             tabPage2 = new TabPage();
+            textBox6 = new TextBox();
+            button9 = new Button();
             textBox4 = new TextBox();
             label24 = new Label();
             dateTimePicker2 = new DateTimePicker();
@@ -112,8 +114,6 @@
             textBox1 = new TextBox();
             label19 = new Label();
             flowLayoutPanel1 = new FlowLayoutPanel();
-            button9 = new Button();
-            textBox6 = new TextBox();
             tabControl2.SuspendLayout();
             tabPage3.SuspendLayout();
             tabPage4.SuspendLayout();
@@ -172,7 +172,7 @@
             filtro.Cursor = Cursors.Hand;
             filtro.Font = new Font("Segoe UI", 13F);
             filtro.Image = Properties.Resources.sicheck;
-            filtro.Location = new Point(459, 88);
+            filtro.Location = new Point(463, 88);
             filtro.Name = "filtro";
             filtro.Size = new Size(41, 29);
             filtro.TabIndex = 65;
@@ -186,7 +186,7 @@
             checkBox1.Cursor = Cursors.Hand;
             checkBox1.Font = new Font("Segoe UI", 13F);
             checkBox1.Image = Properties.Resources.reservado;
-            checkBox1.Location = new Point(406, 88);
+            checkBox1.Location = new Point(410, 88);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(41, 29);
             checkBox1.TabIndex = 65;
@@ -200,7 +200,7 @@
             checkBox2.Cursor = Cursors.Hand;
             checkBox2.Font = new Font("Segoe UI", 13F);
             checkBox2.Image = Properties.Resources.ocupado;
-            checkBox2.Location = new Point(353, 88);
+            checkBox2.Location = new Point(357, 88);
             checkBox2.Name = "checkBox2";
             checkBox2.Size = new Size(41, 29);
             checkBox2.TabIndex = 65;
@@ -222,7 +222,7 @@
             // eliminarbtn
             // 
             eliminarbtn.Image = Properties.Resources.limpio;
-            eliminarbtn.Location = new Point(504, 88);
+            eliminarbtn.Location = new Point(507, 88);
             eliminarbtn.Name = "eliminarbtn";
             eliminarbtn.Size = new Size(29, 29);
             eliminarbtn.TabIndex = 22;
@@ -232,10 +232,10 @@
             // txtbuscador
             // 
             txtbuscador.ForeColor = SystemColors.ScrollBar;
-            txtbuscador.Location = new Point(10, 88);
+            txtbuscador.Location = new Point(5, 88);
             txtbuscador.Name = "txtbuscador";
             txtbuscador.PlaceholderText = "Buscar Mesas";
-            txtbuscador.Size = new Size(332, 29);
+            txtbuscador.Size = new Size(339, 29);
             txtbuscador.TabIndex = 21;
             txtbuscador.TextChanged += txtbuscador_TextChanged;
             // 
@@ -282,7 +282,7 @@
             label14.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label14.ForeColor = SystemColors.Control;
             label14.Image = Properties.Resources.busqueda;
-            label14.Location = new Point(319, 92);
+            label14.Location = new Point(323, 92);
             label14.Name = "label14";
             label14.Size = new Size(18, 21);
             label14.TabIndex = 66;
@@ -293,7 +293,7 @@
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 18F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
             label4.ForeColor = SystemColors.Control;
-            label4.Location = new Point(562, 86);
+            label4.Location = new Point(564, 86);
             label4.Name = "label4";
             label4.Size = new Size(116, 32);
             label4.TabIndex = 63;
@@ -302,7 +302,7 @@
             // Editar
             // 
             Editar.Image = Properties.Resources.editar;
-            Editar.Location = new Point(539, 201);
+            Editar.Location = new Point(541, 201);
             Editar.Name = "Editar";
             Editar.Size = new Size(159, 72);
             Editar.TabIndex = 61;
@@ -313,7 +313,7 @@
             // agregar
             // 
             agregar.Image = Properties.Resources.mesa2;
-            agregar.Location = new Point(539, 123);
+            agregar.Location = new Point(541, 123);
             agregar.Name = "agregar";
             agregar.Size = new Size(159, 72);
             agregar.TabIndex = 62;
@@ -326,9 +326,9 @@
             // 
             panelMesas.AutoScroll = true;
             panelMesas.BackColor = Color.FromArgb(64, 64, 64);
-            panelMesas.Location = new Point(10, 123);
+            panelMesas.Location = new Point(5, 123);
             panelMesas.Name = "panelMesas";
-            panelMesas.Size = new Size(523, 359);
+            panelMesas.Size = new Size(531, 359);
             panelMesas.TabIndex = 25;
             // 
             // tabPage4
@@ -902,10 +902,28 @@
             tabPage2.TabIndex = 3;
             tabPage2.Text = "Eventos";
             // 
+            // textBox6
+            // 
+            textBox6.ForeColor = SystemColors.ScrollBar;
+            textBox6.Location = new Point(274, 96);
+            textBox6.Name = "textBox6";
+            textBox6.PlaceholderText = "Buscar Mesas";
+            textBox6.Size = new Size(389, 29);
+            textBox6.TabIndex = 111;
+            // 
+            // button9
+            // 
+            button9.Image = Properties.Resources.limpio;
+            button9.Location = new Point(669, 96);
+            button9.Name = "button9";
+            button9.Size = new Size(29, 29);
+            button9.TabIndex = 112;
+            button9.UseVisualStyleBackColor = true;
+            // 
             // textBox4
             // 
             textBox4.Enabled = false;
-            textBox4.Location = new Point(40, 12);
+            textBox4.Location = new Point(40, 13);
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(76, 29);
             textBox4.TabIndex = 109;
@@ -915,7 +933,7 @@
             label24.AutoSize = true;
             label24.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label24.ForeColor = SystemColors.Control;
-            label24.Location = new Point(7, 16);
+            label24.Location = new Point(7, 17);
             label24.Name = "label24";
             label24.Size = new Size(27, 21);
             label24.TabIndex = 110;
@@ -1043,7 +1061,7 @@
             label19.AutoSize = true;
             label19.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label19.ForeColor = SystemColors.Control;
-            label19.Location = new Point(256, 6);
+            label19.Location = new Point(256, 7);
             label19.Name = "label19";
             label19.Size = new Size(193, 40);
             label19.TabIndex = 27;
@@ -1057,24 +1075,6 @@
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(424, 258);
             flowLayoutPanel1.TabIndex = 26;
-            // 
-            // button9
-            // 
-            button9.Image = Properties.Resources.limpio;
-            button9.Location = new Point(669, 96);
-            button9.Name = "button9";
-            button9.Size = new Size(29, 29);
-            button9.TabIndex = 112;
-            button9.UseVisualStyleBackColor = true;
-            // 
-            // textBox6
-            // 
-            textBox6.ForeColor = SystemColors.ScrollBar;
-            textBox6.Location = new Point(274, 96);
-            textBox6.Name = "textBox6";
-            textBox6.PlaceholderText = "Buscar Mesas";
-            textBox6.Size = new Size(389, 29);
-            textBox6.TabIndex = 111;
             // 
             // MantMesas
             // 
