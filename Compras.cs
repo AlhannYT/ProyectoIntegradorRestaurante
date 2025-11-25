@@ -9,7 +9,7 @@ namespace Proyecto_restaurante
     public partial class Compras : Form
     {
         
-        private string conexionString = ConexionBD.ConexionSQL();
+        private readonly string conexionString = ConexionBD.ConexionSQL();
 
         
         private decimal subtotalAcumulado = 0;
@@ -20,8 +20,9 @@ namespace Proyecto_restaurante
         
         private int productoSeleccionadoId = 0;
         private string unidadSeleccionada = "";
-        private decimal itbisSeleccionadoPorciento = 0;   // 0 = exento, 18 = 18%
+        private decimal itbisSeleccionadoPorciento = 0; // 0 = exento, 18 = 18%
 
+        // Responsable que viene de la pantalla de login / menu principal (opcional)
         public string responsableCompra;
 
         public Compras()
@@ -37,41 +38,48 @@ namespace Proyecto_restaurante
             ConfigurarGridDetalle();
         }
 
-
         private void Compras_Load(object sender, EventArgs e)
         {
-            labelresponsable.Text = "Responsable de la compra: " + responsableCompra;
+            // Si se quiere mostrar el responsable base (ej admin)
+            if (!string.IsNullOrWhiteSpace(responsableCompra))
+            {
+                ResponsableCompratxt.Text = responsableCompra;
+            }
+
+            FechaCompra.Value = DateTime.Now;
             CargarSiguienteNumeroCompra();
             LimpiarFormulario();
         }
 
-        
         private void buscarprodbtn_Click(object sender, EventArgs e)
         {
-            MostrarPanelBusqueda();
+            MostrarPanelIngredientes();
             CargarProductosEnPanel("");
         }
 
-        private void salirprodbtn_Click(object sender, EventArgs e)
-        {
-            OcultarPanelBusqueda();
-        }
-
-        
         private void txtbusquedapanelprod_TextChanged(object sender, EventArgs e)
         {
             string texto = txtbusquedapanelprod.Text.Trim();
             CargarProductosEnPanel(texto);
         }
+        private void recargaringredbtn_Click(object sender, EventArgs e)
+        {
+            txtbusquedapanelprod.Clear();
+            CargarProductosEnPanel("");
+        }
 
-        
-        private void tablapanelprod_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void saliringredbtn_Click(object sender, EventArgs e)
+        {
+            OcultarPanelIngredientes();
+        }
+
+        private void tablaingrediente_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
 
-            DataGridViewRow row = tablapanelprod.Rows[e.RowIndex];
+            DataGridViewRow row = tablaingrediente.Rows[e.RowIndex];
 
-            // Tomamos datos del producto
+            // Tomamos datos del producto (ProductoVenta)
             productoSeleccionadoId = Convert.ToInt32(row.Cells["IdProducto"].Value);
             string nombre = row.Cells["Nombre"].Value.ToString();
             decimal precioCompra = Convert.ToDecimal(row.Cells["PrecioCompra"].Value);
@@ -86,136 +94,226 @@ namespace Proyecto_restaurante
             }
 
             
-            txtcodigo.Text = productoSeleccionadoId.ToString();
+            IdIngredientetxt.Text = productoSeleccionadoId.ToString();
             txtnombre.Text = nombre;
             txtpreciocompra.Text = precioCompra.ToString("0.00");
+            itbisingredtxt.Text = itbisSeleccionadoPorciento.ToString("0.##");
 
-            OcultarPanelBusqueda();
+            OcultarPanelIngredientes();
 
-            numCantidad.Value = numCantidad.Minimum;
-            agregarbtn.Enabled = true;
+            NumericUpCantidad.Value = NumericUpCantidad.Minimum;
+            AgregarBtn.Enabled = true;
         }
 
-        
-        private void agregarbtn_Click(object sender, EventArgs e)
+        private void AgregarBtn_Click(object sender, EventArgs e)
         {
             AgregarLineaDetalle();
         }
 
-        
-        private void tablaproductos_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-        }
-
-        
-        private void comprarbtn_Click(object sender, EventArgs e)
+        // Guardar compra (estado Pendiente)
+        private void ComprarBtn_Click(object sender, EventArgs e)
         {
             GuardarCompraPendiente();
         }
 
-        
-        private void limpiarbtn_Click(object sender, EventArgs e)
+        private void NuevoBtn_Click(object sender, EventArgs e)
         {
             LimpiarFormulario();
         }
 
+        private void BusquedaProvBtn_Click(object sender, EventArgs e)
+        {
+            MostrarPanelProveedores();
+            CargarProveedoresEnPanel("");
+        }
+
+        
+        private void txtprovbusqueda_TextChanged(object sender, EventArgs e)
+        {
+            string filtro = txtprovbusqueda.Text.Trim();
+            CargarProveedoresEnPanel(filtro);
+        }
+
+        
+        private void recargarprovbtn_Click(object sender, EventArgs e)
+        {
+            txtprovbusqueda.Clear();
+            CargarProveedoresEnPanel("");
+        }
+
+       
+        private void checkactivoprov_CheckedChanged(object sender, EventArgs e)
+        {
+            CargarProveedoresEnPanel(txtprovbusqueda.Text.Trim());
+        }
+
+        private void checkprovinformal_CheckedChanged(object sender, EventArgs e)
+        {
+            CargarProveedoresEnPanel(txtprovbusqueda.Text.Trim());
+        }
+
+        // Doble clic en proveedor se selecciona para cabecera de compra
+        private void tablaprov_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            DataGridViewRow row = tablaprov.Rows[e.RowIndex];
+
+            int idPersonaProveedor = Convert.ToInt32(row.Cells["IdPersona"].Value);
+            string nombreCompleto = row.Cells["NombreCompleto"].Value.ToString();
+            string telefono = row.Cells["Telefono"].Value?.ToString();
+            string direccion = row.Cells["Direccion"].Value?.ToString();
+            bool informal = Convert.ToBoolean(row.Cells["Informal"].Value);
+
+            idproveedortxt.Text = idPersonaProveedor.ToString();
+            txtnombrecompleto.Text = nombreCompleto;
+            TelefProvTxt.Text = telefono;
+            DireccionProvTxt.Text = direccion;
+            ProvInformalChk.Checked = informal;
+
+            OcultarPanelProveedores();
+        }
+
+        private void salirprovbtn_Click(object sender, EventArgs e)
+        {
+            OcultarPanelProveedores();
+        }
 
         private void ConfigurarGridDetalle()
         {
-            tablaproductos.Columns.Clear();
-            tablaproductos.AutoGenerateColumns = false;
-            tablaproductos.AllowUserToAddRows = false;
+            detallecompra.Columns.Clear();
+            detallecompra.AutoGenerateColumns = false;
+            detallecompra.AllowUserToAddRows = false;
 
-            
-            var colId = new DataGridViewTextBoxColumn();
-            colId.Name = "IdProducto";
-            colId.HeaderText = "ID";
-            colId.Width = 60;
-            tablaproductos.Columns.Add(colId);
+            var colId = new DataGridViewTextBoxColumn
+            {
+                Name = "IdProducto",
+                HeaderText = "ID",
+                Width = 60
+            };
+            detallecompra.Columns.Add(colId);
 
-            
-            var colNombre = new DataGridViewTextBoxColumn();
-            colNombre.Name = "Nombre";
-            colNombre.HeaderText = "Producto";
-            colNombre.Width = 180;
-            tablaproductos.Columns.Add(colNombre);
+            var colNombre = new DataGridViewTextBoxColumn
+            {
+                Name = "Nombre",
+                HeaderText = "Ingrediente",
+                Width = 180
+            };
+            detallecompra.Columns.Add(colNombre);
 
-            
-            var colUnidad = new DataGridViewTextBoxColumn();
-            colUnidad.Name = "Unidad";
-            colUnidad.HeaderText = "Unidad";
-            colUnidad.Width = 80;
-            tablaproductos.Columns.Add(colUnidad);
+            var colUnidad = new DataGridViewTextBoxColumn
+            {
+                Name = "Unidad",
+                HeaderText = "Unidad",
+                Width = 80
+            };
+            detallecompra.Columns.Add(colUnidad);
 
-            
-            var colCant = new DataGridViewTextBoxColumn();
-            colCant.Name = "Cantidad";
-            colCant.HeaderText = "Cantidad";
-            colCant.Width = 80;
-            tablaproductos.Columns.Add(colCant);
+            var colCant = new DataGridViewTextBoxColumn
+            {
+                Name = "Cantidad",
+                HeaderText = "Cantidad",
+                Width = 80
+            };
+            detallecompra.Columns.Add(colCant);
 
-            
-            var colCosto = new DataGridViewTextBoxColumn();
-            colCosto.Name = "CostoUnitario";
-            colCosto.HeaderText = "Costo";
-            colCosto.Width = 90;
-            tablaproductos.Columns.Add(colCosto);
+            var colCosto = new DataGridViewTextBoxColumn
+            {
+                Name = "CostoUnitario",
+                HeaderText = "Costo",
+                Width = 90
+            };
+            detallecompra.Columns.Add(colCosto);
 
-            
-            var colSub = new DataGridViewTextBoxColumn();
-            colSub.Name = "Subtotal";
-            colSub.HeaderText = "Subtotal";
-            colSub.Width = 100;
-            tablaproductos.Columns.Add(colSub);
+            var colSub = new DataGridViewTextBoxColumn
+            {
+                Name = "Subtotal",
+                HeaderText = "Subtotal",
+                Width = 100
+            };
+            detallecompra.Columns.Add(colSub);
 
-            
-            var colItbis = new DataGridViewTextBoxColumn();
-            colItbis.Name = "ItbisPorciento";
-            colItbis.HeaderText = "ITBIS %";
-            colItbis.Visible = false;
-            tablaproductos.Columns.Add(colItbis);
+            var colItbis = new DataGridViewTextBoxColumn
+            {
+                Name = "ItbisPorciento",
+                HeaderText = "ITBIS %",
+                Visible = false
+            };
+            detallecompra.Columns.Add(colItbis);
         }
 
-        private void MostrarPanelBusqueda()
+        private void MostrarPanelIngredientes()
         {
-            panelprod.Location = new Point(0, 0);
-            panelprod.Visible = true;
+            PanelIngredientes.Location = new Point(0, 0);
+            PanelIngredientes.Visible = true;
         }
 
-        private void OcultarPanelBusqueda()
+        private void OcultarPanelIngredientes()
         {
-            panelprod.Visible = false;
-            panelprod.Location = new Point(4, 444);
+            PanelIngredientes.Visible = false;
+            PanelIngredientes.Location = new Point(4, 444);
         }
 
+        private void MostrarPanelProveedores()
+        {
+            PanelProv.Location = new Point(0, 0);
+            PanelProv.Visible = true;
+        }
+
+        private void OcultarPanelProveedores()
+        {
+            PanelProv.Visible = false;
+            PanelProv.Location = new Point(4, 444);
+        }
+
+        
         private void LimpiarFormulario()
         {
+            // Cabecera
+            txtidcompra.Clear();
+
+            idproveedortxt.Clear();
+            txtnombrecompleto.Clear();
+            TelefProvTxt.Clear();
+            DireccionProvTxt.Clear();
+            ProvInformalChk.Checked = false;
+
+            
+            IdRespoCompratxt.Clear();
+
+            FechaCompra.Value = DateTime.Now;
+
+           
             productoSeleccionadoId = 0;
             unidadSeleccionada = "";
             itbisSeleccionadoPorciento = 0;
 
-            txtcodigo.Clear();
+            IdIngredientetxt.Clear();
             txtnombre.Clear();
             txtpreciocompra.Clear();
+            itbisingredtxt.Clear();
 
-            numCantidad.Value = numCantidad.Minimum;
+            NumericUpCantidad.Value = NumericUpCantidad.Minimum;
 
-            tablaproductos.Rows.Clear();
+            detallecompra.Rows.Clear();
 
             subtotalAcumulado = 0;
             impuestosAcumulados = 0;
             totalAcumulado = 0;
             cantidadTotalUnidades = 0;
 
-            labelcantidad.Text = "0";
-            labeltotal.Text = "0.00";
+            CantArticuloLabel.Text = "0";
+            SubtotalLabel.Text = "0.00";
+            ItbisLabel.Text = "0.00";
+            TotalLabel.Text = "0.00";
 
-            comprarbtn.Enabled = false;
-            agregarbtn.Enabled = false;
+            ComprarBtn.Enabled = false;
+            AgregarBtn.Enabled = false;
 
             CargarSiguienteNumeroCompra();
         }
 
+    
         private void RecalcularTotales()
         {
             subtotalAcumulado = 0;
@@ -223,7 +321,7 @@ namespace Proyecto_restaurante
             totalAcumulado = 0;
             cantidadTotalUnidades = 0;
 
-            foreach (DataGridViewRow row in tablaproductos.Rows)
+            foreach (DataGridViewRow row in detallecompra.Rows)
             {
                 if (row.IsNewRow) continue;
 
@@ -236,7 +334,6 @@ namespace Proyecto_restaurante
                 subtotalAcumulado += subtotalLinea;
                 cantidadTotalUnidades += (int)cantidad;
 
-                // ITBIS por línea
                 decimal itbisLineaPorc = 0;
                 if (row.Cells["ItbisPorciento"].Value != null &&
                     row.Cells["ItbisPorciento"].Value != DBNull.Value)
@@ -253,12 +350,15 @@ namespace Proyecto_restaurante
 
             totalAcumulado = subtotalAcumulado + impuestosAcumulados;
 
-            labelcantidad.Text = cantidadTotalUnidades.ToString();
-            labeltotal.Text = totalAcumulado.ToString("F2");
+            CantArticuloLabel.Text = cantidadTotalUnidades.ToString();
+            SubtotalLabel.Text = subtotalAcumulado.ToString("F2");
+            ItbisLabel.Text = impuestosAcumulados.ToString("F2");
+            TotalLabel.Text = totalAcumulado.ToString("F2");
 
-            comprarbtn.Enabled = tablaproductos.Rows.Count > 0;
+            ComprarBtn.Enabled = detallecompra.Rows.Count > 0;
         }
 
+        
         private void CargarSiguienteNumeroCompra()
         {
             using (SqlConnection con = new SqlConnection(conexionString))
@@ -274,7 +374,9 @@ namespace Proyecto_restaurante
             }
         }
 
-
+        
+        //  CARGA DE DATOS: INGREDIENTES Y PROVEEDORES
+        // Ingredientes = ProductoVenta donde ProductoTipo.Ingrediente = 1
         private void CargarProductosEnPanel(string filtro)
         {
             using (SqlConnection con = new SqlConnection(conexionString))
@@ -282,56 +384,113 @@ namespace Proyecto_restaurante
                 con.Open();
 
                 string sql = @"
-                    SELECT 
-                        p.IdProducto,
-                        p.Nombre,
-                        ISNULL(p.PrecioCompra, 0) AS PrecioCompra,
-                        ISNULL(p.Itbis, 0) AS Itbis,
-                        u.Nombre AS Unidad
-                        FROM ProductoVenta p
-                        INNER JOIN ProductoTipo t   ON p.IdProductoTipo = t.IdProductoTipo
-                        INNER JOIN UnidadMedida u   ON p.IdUnidadMedida = u.IdUnidadMedida
-                        WHERE t.Ingrediente = 1
-                        AND p.Activo = 1
-                        AND (@f = '' OR p.Nombre LIKE '%' + @f + '%')
-                        ORDER BY p.Nombre;";
+            SELECT 
+                p.IdProducto,
+                p.Nombre,
+                ISNULL(p.PrecioCompra, 0) AS PrecioCompra,
+                ISNULL(p.Itbis, 0) AS Itbis,
+                u.Nombre AS Unidad
+                FROM ProductoVenta p
+                INNER JOIN ProductoTipo t   ON p.IdProductoTipo = t.IdProductoTipo
+                INNER JOIN UnidadMedida u   ON p.IdUnidadMedida = u.IdUnidadMedida
+                WHERE t.Ingrediente = 1
+                AND (@soloActivos = 0 OR p.Activo = 1)
+                AND (@f = '' OR p.Nombre LIKE '%' + @f + '%')
+                ORDER BY p.Nombre;";
 
                 using (SqlDataAdapter da = new SqlDataAdapter(sql, con))
                 {
                     da.SelectCommand.Parameters.AddWithValue("@f", filtro ?? "");
+                    da.SelectCommand.Parameters.AddWithValue("@soloActivos",
+                        checkingredactivo.Checked ? 1 : 0);
 
                     DataTable dt = new DataTable();
                     da.Fill(dt);
 
-                    tablapanelprod.DataSource = dt;
+                    tablaingrediente.DataSource = dt;
 
-                    if (tablapanelprod.Columns.Contains("IdProducto"))
-                        tablapanelprod.Columns["IdProducto"].HeaderText = "ID";
-                    if (tablapanelprod.Columns.Contains("Nombre"))
-                        tablapanelprod.Columns["Nombre"].HeaderText = "Producto";
-                    if (tablapanelprod.Columns.Contains("PrecioCompra"))
-                        tablapanelprod.Columns["PrecioCompra"].HeaderText = "Precio compra";
-                    if (tablapanelprod.Columns.Contains("Unidad"))
-                        tablapanelprod.Columns["Unidad"].HeaderText = "Unidad";
-                    if (tablapanelprod.Columns.Contains("Itbis"))
-                        tablapanelprod.Columns["Itbis"].HeaderText = "ITBIS %";
+                    if (tablaingrediente.Columns.Contains("IdProducto"))
+                        tablaingrediente.Columns["IdProducto"].HeaderText = "ID";
+                    if (tablaingrediente.Columns.Contains("Nombre"))
+                        tablaingrediente.Columns["Nombre"].HeaderText = "Producto";
+                    if (tablaingrediente.Columns.Contains("PrecioCompra"))
+                        tablaingrediente.Columns["PrecioCompra"].HeaderText = "Precio compra";
+                    if (tablaingrediente.Columns.Contains("Unidad"))
+                        tablaingrediente.Columns["Unidad"].HeaderText = "Unidad";
+                    if (tablaingrediente.Columns.Contains("Itbis"))
+                        tablaingrediente.Columns["Itbis"].HeaderText = "ITBIS %";
                 }
             }
         }
 
         
+        private void CargarProveedoresEnPanel(string filtro)
+        {
+            using (SqlConnection con = new SqlConnection(conexionString))
+            {
+                con.Open();
+
+                bool soloActivos = checkactivoprov.Checked;
+                bool soloInformales = checkprovinformal.Checked;
+
+                string sql = @"
+                    SELECT 
+                        p.IdProveedor,
+                        per.IdPersona,
+                        per.NombreCompleto,
+                        ISNULL(t.Numero, '') AS Telefono,
+                        ISNULL(d.Direccion, '') AS Direccion,
+                        p.Informal,
+                        p.Activo
+                    FROM Proveedor p
+                    INNER JOIN Persona per ON p.IdPersona = per.IdPersona
+                    LEFT JOIN PersonaTelefono t 
+                        ON t.IdPersona = per.IdPersona AND t.EsPrincipal = 1
+                    LEFT JOIN PersonaDireccion d 
+                        ON d.IdPersona = per.IdPersona AND d.EsPrincipal = 1
+                    WHERE (@f = '' OR per.NombreCompleto LIKE '%' + @f + '%' OR t.Numero LIKE '%' + @f + '%')
+                      AND (@soloActivos = 0 OR p.Activo = 1)
+                      AND (@soloInformales = 0 OR p.Informal = 1)
+                    ORDER BY per.NombreCompleto;";
+
+                using (SqlDataAdapter da = new SqlDataAdapter(sql, con))
+                {
+                    da.SelectCommand.Parameters.AddWithValue("@f", filtro ?? "");
+                    da.SelectCommand.Parameters.AddWithValue("@soloActivos", soloActivos ? 1 : 0);
+                    da.SelectCommand.Parameters.AddWithValue("@soloInformales", soloInformales ? 1 : 0);
+
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    tablaprov.DataSource = dt;
+
+                    if (tablaprov.Columns.Contains("IdProveedor"))
+                        tablaprov.Columns["IdProveedor"].HeaderText = "Id Prov.";
+                    if (tablaprov.Columns.Contains("IdPersona"))
+                        tablaprov.Columns["IdPersona"].HeaderText = "Id Persona";
+                    if (tablaprov.Columns.Contains("NombreCompleto"))
+                        tablaprov.Columns["NombreCompleto"].HeaderText = "Nombre";
+                    if (tablaprov.Columns.Contains("Telefono"))
+                        tablaprov.Columns["Telefono"].HeaderText = "Teléfono";
+                    if (tablaprov.Columns.Contains("Direccion"))
+                        tablaprov.Columns["Direccion"].HeaderText = "Dirección";
+                }
+            }
+        }
+
+            //  LOGICA DEL DETALLE Y GUARDADO DE COMPRA
+        
         private void AgregarLineaDetalle()
         {
-            
             if (productoSeleccionadoId <= 0)
             {
-                MessageBox.Show("Seleccione un producto primero.");
+                MessageBox.Show("Seleccione un ingrediente primero.");
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(txtnombre.Text))
             {
-                MessageBox.Show("El nombre del producto está vacío.");
+                MessageBox.Show("El nombre del ingrediente está vacío.");
                 return;
             }
 
@@ -341,14 +500,13 @@ namespace Proyecto_restaurante
                 return;
             }
 
-            decimal costoUnit;
-            if (!decimal.TryParse(txtpreciocompra.Text.Trim(), out costoUnit) || costoUnit < 0)
+            if (!decimal.TryParse(txtpreciocompra.Text.Trim(), out decimal costoUnit) || costoUnit < 0)
             {
                 MessageBox.Show("Costo inválido.");
                 return;
             }
 
-            decimal cantidad = numCantidad.Value;
+            decimal cantidad = NumericUpCantidad.Value;
             if (cantidad <= 0)
             {
                 MessageBox.Show("La cantidad debe ser mayor que cero.");
@@ -356,8 +514,8 @@ namespace Proyecto_restaurante
             }
 
             
-            int rowIndex = tablaproductos.Rows.Add();
-            DataGridViewRow rowDetalle = tablaproductos.Rows[rowIndex];
+            int rowIndex = detallecompra.Rows.Add();
+            DataGridViewRow rowDetalle = detallecompra.Rows[rowIndex];
 
             rowDetalle.Cells["IdProducto"].Value = productoSeleccionadoId;
             rowDetalle.Cells["Nombre"].Value = txtnombre.Text.Trim();
@@ -374,27 +532,36 @@ namespace Proyecto_restaurante
             unidadSeleccionada = "";
             itbisSeleccionadoPorciento = 0;
 
-            txtcodigo.Clear();
+            IdIngredientetxt.Clear();
             txtnombre.Clear();
             txtpreciocompra.Clear();
-            numCantidad.Value = numCantidad.Minimum;
-            agregarbtn.Enabled = false;
+            itbisingredtxt.Clear();
+            NumericUpCantidad.Value = NumericUpCantidad.Minimum;
+            AgregarBtn.Enabled = false;
         }
 
-        // Guarda compra como Pendiente (no toca stock todavia)
+        // Guarda compra en estado Pendiente (todavia no maneja stock)
         private void GuardarCompraPendiente()
         {
-            if (tablaproductos.Rows.Count == 0)
+            if (detallecompra.Rows.Count == 0)
             {
-                MessageBox.Show("No hay productos en la compra.");
+                MessageBox.Show("No hay ingredientes en el detalle.");
                 return;
             }
 
-            // proveedor fijo = 1 (luego se cambia)
-            int idProveedor = 1;
+            
+            if (!int.TryParse(idproveedortxt.Text, out int idProveedorPersona))
+            {
+                MessageBox.Show("Seleccione un proveedor válido.");
+                return;
+            }
 
-            // Empleado responsable NULL por ahora
+            // Empleado responsable (opcional)
             int? idEmpleadoResponsable = null;
+            if (int.TryParse(IdRespoCompratxt.Text, out int empId))
+            {
+                idEmpleadoResponsable = empId;
+            }
 
             using (SqlConnection con = new SqlConnection(conexionString))
             {
@@ -403,19 +570,19 @@ namespace Proyecto_restaurante
 
                 try
                 {
-                    //Insertar cabecera Compra
+                    
                     string sqlCompra = @"
                         INSERT INTO Compra
                         (Fecha, FechaRecepcion, IdProveedorPersona, Subtotal, Impuestos, Total, Estado, IdEmpleadoResponsable)
                         VALUES (@Fecha, NULL, @IdProveedor, @Subtotal, @Impuestos, @Total, 'Pendiente', @IdEmpleado);
                         SELECT SCOPE_IDENTITY();";
 
-                    int idCompraGenerada = 0;
+                    int idCompraGenerada;
 
                     using (SqlCommand cmdCompra = new SqlCommand(sqlCompra, con, tran))
                     {
-                        cmdCompra.Parameters.AddWithValue("@Fecha", fechacompra.Value);
-                        cmdCompra.Parameters.AddWithValue("@IdProveedor", idProveedor);
+                        cmdCompra.Parameters.AddWithValue("@Fecha", FechaCompra.Value);
+                        cmdCompra.Parameters.AddWithValue("@IdProveedor", idProveedorPersona);
                         cmdCompra.Parameters.AddWithValue("@Subtotal", subtotalAcumulado);
                         cmdCompra.Parameters.AddWithValue("@Impuestos", impuestosAcumulados);
                         cmdCompra.Parameters.AddWithValue("@Total", totalAcumulado);
@@ -429,13 +596,13 @@ namespace Proyecto_restaurante
                         idCompraGenerada = Convert.ToInt32(result);
                     }
 
-                    // Insertar detalle
+                    
                     string sqlDetalle = @"
                         INSERT INTO DetalleCompra
                         (IdCompra, IdProducto, Cantidad, CostoUnitario)
                         VALUES (@IdCompra, @IdProducto, @Cantidad, @CostoUnitario);";
 
-                    foreach (DataGridViewRow row in tablaproductos.Rows)
+                    foreach (DataGridViewRow row in detallecompra.Rows)
                     {
                         if (row.IsNewRow) continue;
 
@@ -465,6 +632,31 @@ namespace Proyecto_restaurante
                     MessageBox.Show("Error al guardar la compra: " + ex.Message);
                 }
             }
+        }
+
+        private void checkingredactivo_CheckedChanged(object sender, EventArgs e)
+        {
+            CargarProductosEnPanel(txtbusquedapanelprod.Text.Trim());
+        }
+
+        private void eliminarbtn_Click(object sender, EventArgs e)
+        {
+            txtbusquedapanelprod.Clear();
+            checkingredactivo.Checked = true;
+            CargarProductosEnPanel("");
+        }
+
+        private void eliminarbtn2_Click(object sender, EventArgs e)
+        {
+            txtprovbusqueda.Clear();
+            checkactivoprov.Checked = true;
+            checkprovinformal.Checked = false;
+            CargarProveedoresEnPanel("");
+        }
+
+        private void idproveedortxt_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
