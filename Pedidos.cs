@@ -136,9 +136,14 @@ namespace Proyecto_restaurante
                 EditarOrden_Click(null, null);
             }
 
-            if (e.KeyCode == Keys.F3)
+            if (tabControl1.SelectedIndex == 0 && e.KeyCode == Keys.F3)
             {
                 FacturarOrden_Click(null, null);
+            }
+
+            if (tabControl1.SelectedIndex == 2 && e.KeyCode == Keys.F3)
+            {
+                facturarbtn.PerformClick();
             }
 
             if (e.Control && e.Shift && e.KeyCode == Keys.X)

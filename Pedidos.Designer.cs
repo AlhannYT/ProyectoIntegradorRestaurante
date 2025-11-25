@@ -194,7 +194,7 @@
             fecfin = new DateTimePicker();
             cancelarpedido = new Button();
             imprimirbtn = new Button();
-            button7 = new Button();
+            buscar = new Button();
             facturarbtn = new Button();
             panel5 = new Panel();
             tabladatospedidos = new DataGridView();
@@ -2107,7 +2107,7 @@
             panel7.Controls.Add(fecfin);
             panel7.Controls.Add(cancelarpedido);
             panel7.Controls.Add(imprimirbtn);
-            panel7.Controls.Add(button7);
+            panel7.Controls.Add(buscar);
             panel7.Controls.Add(facturarbtn);
             panel7.Location = new Point(8, 57);
             panel7.Name = "panel7";
@@ -2130,7 +2130,7 @@
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label9.ForeColor = SystemColors.Control;
-            label9.Location = new Point(138, 9);
+            label9.Location = new Point(6, 39);
             label9.Name = "label9";
             label9.Size = new Size(33, 21);
             label9.TabIndex = 10;
@@ -2139,7 +2139,7 @@
             // fecini
             // 
             fecini.Format = DateTimePickerFormat.Short;
-            fecini.Location = new Point(6, 33);
+            fecini.Location = new Point(64, 5);
             fecini.Name = "fecini";
             fecini.Size = new Size(123, 29);
             fecini.TabIndex = 7;
@@ -2147,7 +2147,7 @@
             // fecfin
             // 
             fecfin.Format = DateTimePickerFormat.Short;
-            fecfin.Location = new Point(138, 33);
+            fecfin.Location = new Point(64, 35);
             fecfin.Name = "fecfin";
             fecfin.Size = new Size(123, 29);
             fecfin.TabIndex = 8;
@@ -2157,9 +2157,9 @@
             cancelarpedido.BackColor = Color.FromArgb(255, 128, 128);
             cancelarpedido.Image = Properties.Resources.cancelardoc;
             cancelarpedido.ImageAlign = ContentAlignment.MiddleLeft;
-            cancelarpedido.Location = new Point(675, 9);
+            cancelarpedido.Location = new Point(635, 9);
             cancelarpedido.Name = "cancelarpedido";
-            cancelarpedido.Size = new Size(114, 56);
+            cancelarpedido.Size = new Size(153, 56);
             cancelarpedido.TabIndex = 0;
             cancelarpedido.Text = "Cancelar";
             cancelarpedido.TextAlign = ContentAlignment.MiddleRight;
@@ -2171,39 +2171,38 @@
             imprimirbtn.BackColor = Color.FromArgb(192, 255, 255);
             imprimirbtn.Image = Properties.Resources.imprimir;
             imprimirbtn.ImageAlign = ContentAlignment.MiddleLeft;
-            imprimirbtn.Location = new Point(554, 9);
+            imprimirbtn.Location = new Point(480, 9);
             imprimirbtn.Name = "imprimirbtn";
-            imprimirbtn.Size = new Size(114, 56);
+            imprimirbtn.Size = new Size(153, 56);
             imprimirbtn.TabIndex = 0;
-            imprimirbtn.Text = "Imprimir";
+            imprimirbtn.Text = "Imprimir [Alt+I]";
             imprimirbtn.TextAlign = ContentAlignment.MiddleRight;
             imprimirbtn.UseVisualStyleBackColor = false;
             imprimirbtn.Click += imprimirbtn_Click;
             // 
-            // button7
+            // buscar
             // 
-            button7.BackColor = Color.FromArgb(224, 224, 224);
-            button7.Image = Properties.Resources.busqueda;
-            button7.ImageAlign = ContentAlignment.MiddleRight;
-            button7.Location = new Point(270, 33);
-            button7.Name = "button7";
-            button7.Size = new Size(84, 29);
-            button7.TabIndex = 0;
-            button7.Text = "Buscar";
-            button7.TextAlign = ContentAlignment.MiddleLeft;
-            button7.UseVisualStyleBackColor = false;
-            button7.Click += facturarbtn_Click;
+            buscar.BackColor = Color.FromArgb(224, 224, 224);
+            buscar.Image = Properties.Resources.busqueda;
+            buscar.ImageAlign = ContentAlignment.MiddleRight;
+            buscar.Location = new Point(193, 23);
+            buscar.Name = "buscar";
+            buscar.Size = new Size(84, 29);
+            buscar.TabIndex = 0;
+            buscar.Text = "Buscar";
+            buscar.TextAlign = ContentAlignment.MiddleLeft;
+            buscar.UseVisualStyleBackColor = false;
             // 
             // facturarbtn
             // 
             facturarbtn.BackColor = Color.FromArgb(128, 255, 128);
             facturarbtn.Image = Properties.Resources.facturar;
             facturarbtn.ImageAlign = ContentAlignment.MiddleLeft;
-            facturarbtn.Location = new Point(433, 9);
+            facturarbtn.Location = new Point(325, 9);
             facturarbtn.Name = "facturarbtn";
-            facturarbtn.Size = new Size(114, 56);
+            facturarbtn.Size = new Size(153, 56);
             facturarbtn.TabIndex = 0;
-            facturarbtn.Text = "Facturar";
+            facturarbtn.Text = "Facturar [F3]";
             facturarbtn.TextAlign = ContentAlignment.MiddleRight;
             facturarbtn.UseVisualStyleBackColor = false;
             facturarbtn.Click += facturarbtn_Click;
@@ -2578,6 +2577,6 @@
         private Button cancelarAutorizar;
         private Label label39;
         private Label label38;
-        private Button button7;
+        private Button buscar;
     }
 }
