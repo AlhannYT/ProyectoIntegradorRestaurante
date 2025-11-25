@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(menu));
             usuariolabel = new Label();
             panel1 = new Panel();
@@ -62,6 +63,11 @@
             label5 = new Label();
             oculto = new Panel();
             recargarbtn = new Button();
+            toolTip1 = new ToolTip(components);
+            teclaorden = new Label();
+            teclapedido = new Label();
+            teclareserv = new Label();
+            teclacompra = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -545,6 +551,54 @@
             recargarbtn.Visible = false;
             recargarbtn.Click += recargarbtn_Click;
             // 
+            // teclaorden
+            // 
+            teclaorden.Anchor = AnchorStyles.Left;
+            teclaorden.AutoSize = true;
+            teclaorden.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            teclaorden.ForeColor = Color.DimGray;
+            teclaorden.Location = new Point(244, 407);
+            teclaorden.Name = "teclaorden";
+            teclaorden.Size = new Size(37, 15);
+            teclaorden.TabIndex = 23;
+            teclaorden.Text = "Alt+F";
+            // 
+            // teclapedido
+            // 
+            teclapedido.Anchor = AnchorStyles.Left;
+            teclapedido.AutoSize = true;
+            teclapedido.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            teclapedido.ForeColor = Color.DimGray;
+            teclapedido.Location = new Point(244, 445);
+            teclapedido.Name = "teclapedido";
+            teclapedido.Size = new Size(40, 15);
+            teclapedido.TabIndex = 23;
+            teclapedido.Text = "Alt+D";
+            // 
+            // teclareserv
+            // 
+            teclareserv.Anchor = AnchorStyles.Left;
+            teclareserv.AutoSize = true;
+            teclareserv.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            teclareserv.ForeColor = Color.DimGray;
+            teclareserv.Location = new Point(244, 483);
+            teclareserv.Name = "teclareserv";
+            teclareserv.Size = new Size(39, 15);
+            teclareserv.TabIndex = 23;
+            teclareserv.Text = "Alt+R";
+            // 
+            // teclacompra
+            // 
+            teclacompra.Anchor = AnchorStyles.Left;
+            teclacompra.AutoSize = true;
+            teclacompra.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            teclacompra.ForeColor = Color.DimGray;
+            teclacompra.Location = new Point(244, 521);
+            teclacompra.Name = "teclacompra";
+            teclacompra.Size = new Size(38, 15);
+            teclacompra.TabIndex = 23;
+            teclacompra.Text = "Alt+C";
+            // 
             // menu
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -552,6 +606,10 @@
             BackgroundImage = Properties.Resources.tenedor1;
             BackgroundImageLayout = ImageLayout.Center;
             ClientSize = new Size(1266, 839);
+            Controls.Add(teclacompra);
+            Controls.Add(teclareserv);
+            Controls.Add(teclapedido);
+            Controls.Add(teclaorden);
             Controls.Add(oculto);
             Controls.Add(barrasup);
             Controls.Add(barraizq);
@@ -564,11 +622,13 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             IsMdiContainer = true;
+            KeyPreview = true;
             Margin = new Padding(2, 3, 2, 3);
             Name = "menu";
             Text = "Menu";
             WindowState = FormWindowState.Maximized;
             Load += menu_Load;
+            KeyDown += menu_KeyDown;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
@@ -616,5 +676,10 @@
         private Panel oculto;
         public Button recargarbtn;
         private Button button1;
+        private ToolTip toolTip1;
+        private Label teclaorden;
+        private Label teclapedido;
+        private Label teclareserv;
+        private Label teclacompra;
     }
 }

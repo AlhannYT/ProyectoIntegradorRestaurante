@@ -130,8 +130,14 @@
   <data name="editarcliente" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\editarcliente.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="llave (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\llave (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="perfilcliente" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\perfilcliente.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="separar flecha" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\separar flecha.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="banco (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\banco (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -220,6 +226,9 @@
   <data name="cancelardoc" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cancelardoc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="separar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\separar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="cuchillo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cuchillo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -298,11 +307,17 @@
   <data name="alt-de-impuestos" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\alt-de-impuestos.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="comer-plato" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\comer-plato.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="tv" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\tv.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="cajero-automatico" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cajero-automatico.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="escudo24x" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\escudo24x.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pedir-comida-online (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pedir-comida-online (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -415,8 +430,8 @@
   <data name="tipos" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\tipos.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="actualizar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\actualizar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="vista previa1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\vista previa1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="dinero" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dinero.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -429,6 +444,9 @@
   </data>
   <data name="recetablanco" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\recetablanco.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="flechanegra" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flechanegra.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="folder" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\folder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -454,6 +472,9 @@
   <data name="llave" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\llave.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="gorra" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gorra.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pedir-comida-online (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pedir-comida-online (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -462,6 +483,9 @@
   </data>
   <data name="salirproducto1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\salirproducto1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cursor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cursor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="tipodepago" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\tipodepago.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -477,6 +501,9 @@
   </data>
   <data name="cajero1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cajero1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="separarmesa" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\separarmesa.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="caja" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\caja.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -532,8 +559,8 @@
   <data name="cruz" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cruz.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="cancelar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\cancelar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="unir" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\unir.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ojos-cruzados" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ojos-cruzados.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -610,6 +637,9 @@
   <data name="mesa-redonda" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mesa-redonda.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="separar1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\separar1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="calendario-reloj" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\calendario-reloj.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -618,6 +648,12 @@
   </data>
   <data name="ocupado" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ocupado.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="flecharoja" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flecharoja.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pantalla" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pantalla.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="tenedor1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\tenedor1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -637,6 +673,9 @@
   <data name="logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="actualizar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\actualizar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="salirproducto" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\salirproducto.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -652,8 +691,8 @@
   <data name="billete-de-banco" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\billete-de-banco.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="gorra" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\gorra.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="anadir1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\anadir1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="check" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\check.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -685,6 +724,9 @@
   <data name="banco" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\banco.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="cancelar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cancelar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="formularios1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\formularios1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -694,7 +736,7 @@
   <data name="nuevodoc1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\nuevodoc1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="anadir1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\anadir1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="division" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\division.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

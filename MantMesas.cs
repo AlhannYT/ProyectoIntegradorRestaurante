@@ -57,8 +57,8 @@ namespace Proyecto_restaurante
                     if (MesaID == 0)
                     {
                         string queryInsertar = @"
-                        INSERT INTO Mesa (IdSala, Numero, Capacidad, Estado, Ocupado)
-                        VALUES (@IdSala, @Numero, @Capacidad, @Estado, @Ocupado)";
+                        INSERT INTO Mesa (IdSala, Numero, Capacidad, Estado, Ocupado, Reservado, IdGrupo, EsPrincipal)
+                        VALUES (@IdSala, @Numero, @Capacidad, @Estado, @Ocupado, 0, 0, 0)";
 
                         using (SqlCommand insertarCommand = new SqlCommand(queryInsertar, conexion))
                         {
@@ -123,7 +123,7 @@ namespace Proyecto_restaurante
         private void limpiarbtn_Click(object sender, EventArgs e)
         {
             txtnumeroMesa.Text = "";
-            capacidadtxt.Text = "";
+            txtcapacidad.Text = "";
             idsalaconsulta.Text = "";
             salatxt.Text = "";
             ocupadochk.Checked = false;

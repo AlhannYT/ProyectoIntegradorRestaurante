@@ -278,6 +278,7 @@
             // 
             // txtbuscador
             // 
+            txtbuscador.CharacterCasing = CharacterCasing.Upper;
             txtbuscador.ForeColor = SystemColors.ScrollBar;
             txtbuscador.Location = new Point(8, 62);
             txtbuscador.Name = "txtbuscador";
@@ -364,6 +365,7 @@
             // 
             // identtxt
             // 
+            identtxt.CharacterCasing = CharacterCasing.Upper;
             identtxt.Location = new Point(112, 109);
             identtxt.Name = "identtxt";
             identtxt.Size = new Size(178, 29);
@@ -525,6 +527,7 @@
             // 
             // textBox3
             // 
+            textBox3.CharacterCasing = CharacterCasing.Upper;
             textBox3.Location = new Point(407, 36);
             textBox3.Name = "textBox3";
             textBox3.PlaceholderText = "Direccion completa";
@@ -644,6 +647,7 @@
             // 
             // textBox2
             // 
+            textBox2.CharacterCasing = CharacterCasing.Upper;
             textBox2.Location = new Point(339, 36);
             textBox2.Name = "textBox2";
             textBox2.PlaceholderText = "Etiqueta";
@@ -652,6 +656,7 @@
             // 
             // txtcodigo
             // 
+            txtcodigo.CharacterCasing = CharacterCasing.Upper;
             txtcodigo.Location = new Point(9, 36);
             txtcodigo.Name = "txtcodigo";
             txtcodigo.PlaceholderText = "Etiqueta";
@@ -701,6 +706,7 @@
             // 
             // correotxt
             // 
+            correotxt.CharacterCasing = CharacterCasing.Upper;
             correotxt.Location = new Point(33, 261);
             correotxt.Name = "correotxt";
             correotxt.Size = new Size(355, 29);
@@ -708,6 +714,7 @@
             // 
             // nombreprovtxt
             // 
+            nombreprovtxt.CharacterCasing = CharacterCasing.Upper;
             nombreprovtxt.Location = new Point(33, 185);
             nombreprovtxt.Name = "nombreprovtxt";
             nombreprovtxt.Size = new Size(355, 29);

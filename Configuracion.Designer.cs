@@ -132,6 +132,7 @@
             tabPage6 = new TabPage();
             precmaximo = new TextBox();
             precminimo = new CheckBox();
+            CrearOrdenReservado = new CheckBox();
             checkBox2 = new CheckBox();
             label21 = new Label();
             tabPage7 = new TabPage();
@@ -479,6 +480,7 @@
             // 
             // txtbuscador
             // 
+            txtbuscador.CharacterCasing = CharacterCasing.Upper;
             txtbuscador.ForeColor = SystemColors.ScrollBar;
             txtbuscador.Location = new Point(8, 71);
             txtbuscador.Name = "txtbuscador";
@@ -808,6 +810,7 @@
             // 
             // textBox1
             // 
+            textBox1.CharacterCasing = CharacterCasing.Upper;
             textBox1.ForeColor = SystemColors.ScrollBar;
             textBox1.Location = new Point(10, 71);
             textBox1.Margin = new Padding(4);
@@ -1057,6 +1060,7 @@
             // 
             // txtRegistroUsuario
             // 
+            txtRegistroUsuario.CharacterCasing = CharacterCasing.Upper;
             txtRegistroUsuario.Location = new Point(114, 162);
             txtRegistroUsuario.Margin = new Padding(4);
             txtRegistroUsuario.Name = "txtRegistroUsuario";
@@ -1066,6 +1070,7 @@
             // 
             // txtRegistroPass
             // 
+            txtRegistroPass.CharacterCasing = CharacterCasing.Upper;
             txtRegistroPass.Location = new Point(114, 240);
             txtRegistroPass.Margin = new Padding(4);
             txtRegistroPass.Name = "txtRegistroPass";
@@ -1075,6 +1080,7 @@
             // 
             // txtconfirmarpass
             // 
+            txtconfirmarpass.CharacterCasing = CharacterCasing.Upper;
             txtconfirmarpass.Location = new Point(114, 321);
             txtconfirmarpass.Margin = new Padding(4);
             txtconfirmarpass.Name = "txtconfirmarpass";
@@ -1220,9 +1226,9 @@
             // 
             vistaprevia.BackColor = Color.Silver;
             vistaprevia.Controls.Add(pictureBox2);
-            vistaprevia.Location = new Point(78, 54);
+            vistaprevia.Location = new Point(77, 56);
             vistaprevia.Name = "vistaprevia";
-            vistaprevia.Size = new Size(476, 295);
+            vistaprevia.Size = new Size(477, 293);
             vistaprevia.TabIndex = 79;
             // 
             // pictureBox2
@@ -1237,7 +1243,7 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = Properties.Resources.vista_previa;
+            pictureBox1.Image = Properties.Resources.vista_previa1;
             pictureBox1.Location = new Point(9, 34);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(545, 315);
@@ -1423,6 +1429,7 @@
             tabPage6.BackColor = SystemColors.WindowFrame;
             tabPage6.Controls.Add(precmaximo);
             tabPage6.Controls.Add(precminimo);
+            tabPage6.Controls.Add(CrearOrdenReservado);
             tabPage6.Controls.Add(checkBox2);
             tabPage6.Controls.Add(label21);
             tabPage6.Location = new Point(4, 30);
@@ -1430,11 +1437,11 @@
             tabPage6.Padding = new Padding(3);
             tabPage6.Size = new Size(631, 354);
             tabPage6.TabIndex = 1;
-            tabPage6.Text = "Pedidos";
+            tabPage6.Text = "Ordenes";
             // 
             // precmaximo
             // 
-            precmaximo.Location = new Point(112, 95);
+            precmaximo.Location = new Point(112, 137);
             precmaximo.Name = "precmaximo";
             precmaximo.Size = new Size(69, 29);
             precmaximo.TabIndex = 2;
@@ -1444,19 +1451,31 @@
             precminimo.AutoSize = true;
             precminimo.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             precminimo.ForeColor = Color.White;
-            precminimo.Location = new Point(15, 59);
+            precminimo.Location = new Point(15, 101);
             precminimo.Name = "precminimo";
             precminimo.Size = new Size(141, 25);
             precminimo.TabIndex = 1;
             precminimo.Text = "Precio Mínimo";
             precminimo.UseVisualStyleBackColor = true;
             // 
+            // CrearOrdenReservado
+            // 
+            CrearOrdenReservado.AutoSize = true;
+            CrearOrdenReservado.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            CrearOrdenReservado.ForeColor = Color.White;
+            CrearOrdenReservado.Location = new Point(15, 17);
+            CrearOrdenReservado.Name = "CrearOrdenReservado";
+            CrearOrdenReservado.Size = new Size(270, 25);
+            CrearOrdenReservado.TabIndex = 1;
+            CrearOrdenReservado.Text = "Crear Orden de Mesa Reservada";
+            CrearOrdenReservado.UseVisualStyleBackColor = true;
+            // 
             // checkBox2
             // 
             checkBox2.AutoSize = true;
             checkBox2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             checkBox2.ForeColor = Color.White;
-            checkBox2.Location = new Point(15, 17);
+            checkBox2.Location = new Point(15, 59);
             checkBox2.Name = "checkBox2";
             checkBox2.Size = new Size(226, 25);
             checkBox2.TabIndex = 1;
@@ -1468,7 +1487,7 @@
             label21.AutoSize = true;
             label21.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label21.ForeColor = Color.White;
-            label21.Location = new Point(15, 99);
+            label21.Location = new Point(15, 141);
             label21.Name = "label21";
             label21.Size = new Size(91, 21);
             label21.TabIndex = 101;
@@ -2194,5 +2213,6 @@
         private Label label21;
         private ComboBox rolcmbx;
         private Label label34;
+        private CheckBox CrearOrdenReservado;
     }
 }

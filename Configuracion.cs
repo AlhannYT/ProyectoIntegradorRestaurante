@@ -350,7 +350,15 @@ namespace Proyecto_restaurante
         private void buscarempleado_Click(object sender, EventArgs e)
         {
             string conexionString = ConexionBD.ConexionSQL();
-            string empleado = "SELECT \r\n    e.IdEmpleado,\r\n    e.IdPersona AS Persona,\r\n    p.NombreCompleto\r\nFROM Empleado e\r\nLEFT JOIN Persona p ON e.IdPersona = p.IdPersona\r\nLEFT JOIN PersonaDocumento pd ON p.IdPersona = pd.IdPersona\r\nWHERE e.Activo = 1 AND p.Activo = 1;";
+            string empleado = @"
+                SELECT 
+                    e.IdEmpleado,
+                    e.IdPersona AS Persona,
+                    p.NombreCompleto
+                FROM Empleado e
+                LEFT JOIN Persona p ON e.IdPersona = p.IdPersona
+                LEFT JOIN PersonaDocumento pd ON p.IdPersona = pd.IdPersona
+                WHERE e.Activo = 1 AND p.Activo = 1;";
 
             SqlDataAdapter adaptador = new SqlDataAdapter(empleado, conexionString);
 
@@ -484,11 +492,12 @@ namespace Proyecto_restaurante
 
                     if (existe == 0)
                     {
-                        string queryInsertar = "INSERT INTO PermisosUsuario (IdUsuario, Admin) VALUES (@IdUsuario, @Admin)";
+                        string queryInsertar = "INSERT INTO PermisosUsuario (IdUsuario, Admin, CrearOrdenReservacion) VALUES (@IdUsuario, @Admin, @CrearOrdenReservacion)";
                         using (SqlCommand cmdInsertar = new SqlCommand(queryInsertar, conexion))
                         {
                             cmdInsertar.Parameters.AddWithValue("@IdUsuario", idUsuario);
                             cmdInsertar.Parameters.AddWithValue("@Admin", admin.Checked ? 1 : 0);
+                            cmdInsertar.Parameters.AddWithValue("@CrearOrdenReservacion", CrearOrdenReservado.Checked ? 1 : 0);
                             cmdInsertar.ExecuteNonQuery();
                         }
 
@@ -496,11 +505,12 @@ namespace Proyecto_restaurante
                     }
                     else
                     {
-                        string queryActualizar = "UPDATE PermisosUsuario SET Admin = @Admin WHERE IdUsuario = @IdUsuario";
+                        string queryActualizar = "UPDATE PermisosUsuario SET Admin = @Admin, CrearOrdenReservacion = @CrearOrdenReservacion WHERE IdUsuario = @IdUsuario";
                         using (SqlCommand cmdActualizar = new SqlCommand(queryActualizar, conexion))
                         {
                             cmdActualizar.Parameters.AddWithValue("@IdUsuario", idUsuario);
                             cmdActualizar.Parameters.AddWithValue("@Admin", admin.Checked ? 1 : 0);
+                            cmdActualizar.Parameters.AddWithValue("@CrearOrdenReservacion", CrearOrdenReservado.Checked ? 1 : 0);
                             cmdActualizar.ExecuteNonQuery();
                         }
 

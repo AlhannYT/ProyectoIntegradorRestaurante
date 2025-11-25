@@ -25,14 +25,18 @@ namespace Proyecto_restaurante
         }
 
         public string usuarioActual;
-
+        string nombrePC = Environment.MachineName;
         public int administrador;
 
         private void cerrarbtn_Click(object sender, EventArgs e)
         {
-            inicio cerrarsesion = new inicio();
-            cerrarsesion.Show();
-            this.Close();
+            DialogResult salir = MessageBox.Show("¿Desea Cerrar Sesión?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (salir == DialogResult.Yes)
+            {
+                inicio cerrarsesion = new inicio();
+                cerrarsesion.Show();
+                this.Close();
+            }
         }
 
         private void CambiarColorMDI(Color color)
@@ -46,8 +50,6 @@ namespace Proyecto_restaurante
                 }
             }
         }
-
-        string nombrePC = Environment.MachineName;
 
         private void menu_Load(object sender, EventArgs e)
         {
@@ -97,6 +99,10 @@ namespace Proyecto_restaurante
             label5.BackColor = colorPanel;
             label4.BackColor = colorPanel;
             oculto.BackColor = colorPanel;
+            teclacompra.BackColor = colorPanel;
+            teclaorden.BackColor = colorPanel;
+            teclapedido.BackColor = colorPanel;
+            teclareserv.BackColor = colorPanel;
             this.CambiarColorMDI(colorPanel);
         }
 
@@ -181,6 +187,7 @@ namespace Proyecto_restaurante
 
             Pedidos pedidos = new Pedidos();
             pedidos.NombrePC = nombrePC;
+            pedidos.NombreUsuario = usuarioActual;
             pedidos.Location = new Point(200, 50); ;
             pedidos.MdiParent = this;
             pedidos.Show();
@@ -258,6 +265,18 @@ namespace Proyecto_restaurante
                         label1.ImageAlign = ContentAlignment.MiddleCenter;
                         label2.ImageAlign = ContentAlignment.MiddleCenter;
                         ajustestxt.ImageAlign = ContentAlignment.MiddleCenter;
+                        toolTip1.SetToolTip(button5, "Articulos");
+                        toolTip1.SetToolTip(button1, "Pedidos (Delivery)");
+                        toolTip1.SetToolTip(button8, "Mesas");
+                        toolTip1.SetToolTip(button2, "Clientes");
+                        toolTip1.SetToolTip(button6, "Proveedores");
+                        toolTip1.SetToolTip(button10, "Ordenes (Local)");
+                        toolTip1.SetToolTip(button9, "Compras");
+                        toolTip1.SetToolTip(reservacion, "Reservacion");
+                        toolTip1.SetToolTip(button11, "Generales");
+                        toolTip1.SetToolTip(button13, "Empleados");
+                        toolTip1.SetToolTip(reportesbtn, "Reportes");
+                        toolTip1.SetToolTip(button14, "Tipos");
                     }
                 }
 
@@ -274,12 +293,11 @@ namespace Proyecto_restaurante
                         btn.Width = 217;
                         button12.Width = 42;
                         button5.Text = "Articulos";
-                        button1.Text = "Delivery";
+                        button1.Text = "Pedidos (Delivery)";
                         button8.Text = "Mesas";
                         button2.Text = "Clientes";
-                        button5.Text = "Articulos";
                         button6.Text = "Proveedores";
-                        button10.Text = "Pedidos";
+                        button10.Text = "Ordenes (Local)";
                         button14.Text = "Tipos";
                         button9.Text = "Compras";
                         reservacion.Text = "Reservacion";
@@ -301,8 +319,6 @@ namespace Proyecto_restaurante
                 estadobarra = 1;
             }
         }
-
-
 
         private void reservacion_Click(object sender, EventArgs e)
         {
@@ -411,6 +427,39 @@ namespace Proyecto_restaurante
             delivery.NombrePC = nombrePC;
             delivery.MdiParent = this;
             delivery.Show();
+        }
+
+        private void menu_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Alt && e.KeyCode == Keys.F)
+            {
+                button10_Click(sender, e);
+            }
+
+            if (e.Alt && e.KeyCode == Keys.R)
+            {
+                reservacion_Click(sender, e);
+            }
+
+            if (e.Alt && e.KeyCode == Keys.D)
+            {
+                button1_Click(sender, e);
+            }
+
+            if (e.Alt && e.KeyCode == Keys.C)
+            {
+                button9_Click(sender, e);
+            }
+
+            if (e.Control && e.Shift && e.KeyCode == Keys.C)
+            {
+                button12_Click(sender, e);
+            }
+
+            if (e.KeyCode == Keys.Escape)
+            {
+                //cerrarbtn_Click(sender, e);
+            }
         }
     }
 }

@@ -11,7 +11,6 @@ namespace Proyecto_restaurante
         public inicio()
         {
             InitializeComponent();
-            //timer1.Start();
         }
 
         private static string rutaUsuario = @"C:\SistemaArchivos\Usuarios\Usuarios.txt";
@@ -438,12 +437,14 @@ namespace Proyecto_restaurante
                     {
                         txtusuario.Text = usuarioGuardado;
                         recordarchk.Checked = true;
+                        recordarchk.BackColor = Color.LightGreen;
                         txtpass.Focus();
                     }
                 }
                 else
                 {
                     txtusuario.Text = string.Empty;
+                    recordarchk.BackColor = SystemColors.Window;
                     recordarchk.Checked = false;
                 }
             }
@@ -457,6 +458,18 @@ namespace Proyecto_restaurante
         {
             if (!string.IsNullOrEmpty(txtusuario.Text))
                 txtpass.Focus();
+        }
+
+        private void recordarchk_CheckedChanged(object sender, EventArgs e)
+        {
+            if (recordarchk.Checked)
+            {
+                recordarchk.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                recordarchk.BackColor = SystemColors.Window;
+            }
         }
     }
 }

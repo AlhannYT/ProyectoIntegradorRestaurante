@@ -50,7 +50,7 @@
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label5.ForeColor = SystemColors.Control;
-            label5.Location = new Point(480, 16);
+            label5.Location = new Point(480, 15);
             label5.Name = "label5";
             label5.Size = new Size(291, 40);
             label5.TabIndex = 28;
@@ -85,6 +85,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Sistema de TV";
             WindowState = FormWindowState.Maximized;
+            Load += TelevisionSistema_Load;
             ResumeLayout(false);
             PerformLayout();
         }
