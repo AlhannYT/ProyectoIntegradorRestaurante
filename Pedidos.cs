@@ -560,6 +560,8 @@ namespace Proyecto_restaurante
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
 
+            cajerolabel.Text = "     Cajero: " +NombreUsuario;
+
             mesasprincipal.Controls.Clear();
 
             List<MesaInfo> mesas = new List<MesaInfo>();
@@ -778,6 +780,10 @@ namespace Proyecto_restaurante
             CrearOrden.Enabled = true;
             EditarOrden.Enabled = true;
             FacturarOrden.Enabled = true;
+            ocupadachk.Enabled = true;
+            reservadachk.Enabled = true;
+            buscarmesatxt.Clear();
+            buscarmesatxt.Enabled = true;
             VerificarOrden();
             Pedidos_Load(sender, e);
         }
@@ -1651,6 +1657,9 @@ namespace Proyecto_restaurante
             MesaLabel.Text = $"     Mesa asignada: {textoMesas}";
             mesasprincipal.Enabled = false;
             panelacciones.Enabled = false;
+            ocupadachk.Enabled = false;
+            reservadachk.Enabled = false;
+            buscarmesatxt.Enabled = false;
             EditarEstado = 0;
             habilitarbotones();
             VerificarOrden();

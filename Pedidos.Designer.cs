@@ -68,12 +68,12 @@
             FacturarOrden = new Button();
             EditarOrden = new Button();
             CrearOrden = new Button();
-            textBox1 = new TextBox();
+            buscarmesatxt = new TextBox();
             label5 = new Label();
             label33 = new Label();
             panel13 = new Panel();
-            checkBox2 = new CheckBox();
-            checkBox1 = new CheckBox();
+            ocupadachk = new CheckBox();
+            reservadachk = new CheckBox();
             eliminarbtn = new Button();
             label35 = new Label();
             tabPage1 = new TabPage();
@@ -129,7 +129,7 @@
             txtidpedido = new TextBox();
             txtnombrecompleto = new TextBox();
             panel8 = new Panel();
-            label14 = new Label();
+            cajerolabel = new Label();
             panel14 = new Panel();
             MesaLabel = new Label();
             tabPage2 = new TabPage();
@@ -475,7 +475,7 @@
             panel6.Controls.Add(panel15);
             panel6.Controls.Add(label34);
             panel6.Controls.Add(panelacciones);
-            panel6.Controls.Add(textBox1);
+            panel6.Controls.Add(buscarmesatxt);
             panel6.Controls.Add(label5);
             panel6.Controls.Add(label33);
             panel6.Controls.Add(panel13);
@@ -714,14 +714,14 @@
             CrearOrden.UseVisualStyleBackColor = true;
             CrearOrden.Click += CrearOrden_Click;
             // 
-            // textBox1
+            // buscarmesatxt
             // 
-            textBox1.CharacterCasing = CharacterCasing.Upper;
-            textBox1.Location = new Point(6, 65);
-            textBox1.Name = "textBox1";
-            textBox1.PlaceholderText = "Buscar Mesa";
-            textBox1.Size = new Size(457, 29);
-            textBox1.TabIndex = 8;
+            buscarmesatxt.CharacterCasing = CharacterCasing.Upper;
+            buscarmesatxt.Location = new Point(6, 65);
+            buscarmesatxt.Name = "buscarmesatxt";
+            buscarmesatxt.PlaceholderText = "Buscar Mesa";
+            buscarmesatxt.Size = new Size(457, 29);
+            buscarmesatxt.TabIndex = 8;
             // 
             // label5
             // 
@@ -748,41 +748,41 @@
             // panel13
             // 
             panel13.BackColor = Color.DimGray;
-            panel13.Controls.Add(checkBox2);
-            panel13.Controls.Add(checkBox1);
+            panel13.Controls.Add(ocupadachk);
+            panel13.Controls.Add(reservadachk);
             panel13.Controls.Add(eliminarbtn);
             panel13.Location = new Point(471, 63);
             panel13.Name = "panel13";
             panel13.Size = new Size(137, 33);
             panel13.TabIndex = 70;
             // 
-            // checkBox2
+            // ocupadachk
             // 
-            checkBox2.AutoSize = true;
-            checkBox2.Cursor = Cursors.Hand;
-            checkBox2.Font = new Font("Segoe UI", 13F);
-            checkBox2.Image = Properties.Resources.ocupado;
-            checkBox2.Location = new Point(5, 2);
-            checkBox2.Name = "checkBox2";
-            checkBox2.Size = new Size(41, 29);
-            checkBox2.TabIndex = 67;
-            checkBox2.Text = "  ";
-            toolTip1.SetToolTip(checkBox2, "Ocupado");
-            checkBox2.UseVisualStyleBackColor = false;
+            ocupadachk.AutoSize = true;
+            ocupadachk.Cursor = Cursors.Hand;
+            ocupadachk.Font = new Font("Segoe UI", 13F);
+            ocupadachk.Image = Properties.Resources.ocupado;
+            ocupadachk.Location = new Point(5, 2);
+            ocupadachk.Name = "ocupadachk";
+            ocupadachk.Size = new Size(41, 29);
+            ocupadachk.TabIndex = 67;
+            ocupadachk.Text = "  ";
+            toolTip1.SetToolTip(ocupadachk, "Ocupado");
+            ocupadachk.UseVisualStyleBackColor = false;
             // 
-            // checkBox1
+            // reservadachk
             // 
-            checkBox1.AutoSize = true;
-            checkBox1.Cursor = Cursors.Hand;
-            checkBox1.Font = new Font("Segoe UI", 13F);
-            checkBox1.Image = Properties.Resources.reservado;
-            checkBox1.Location = new Point(58, 2);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(41, 29);
-            checkBox1.TabIndex = 68;
-            checkBox1.Text = "  ";
-            toolTip1.SetToolTip(checkBox1, "Reservado");
-            checkBox1.UseVisualStyleBackColor = true;
+            reservadachk.AutoSize = true;
+            reservadachk.Cursor = Cursors.Hand;
+            reservadachk.Font = new Font("Segoe UI", 13F);
+            reservadachk.Image = Properties.Resources.reservado;
+            reservadachk.Location = new Point(58, 2);
+            reservadachk.Name = "reservadachk";
+            reservadachk.Size = new Size(41, 29);
+            reservadachk.TabIndex = 68;
+            reservadachk.Text = "  ";
+            toolTip1.SetToolTip(reservadachk, "Reservado");
+            reservadachk.UseVisualStyleBackColor = true;
             // 
             // eliminarbtn
             // 
@@ -1425,24 +1425,24 @@
             // panel8
             // 
             panel8.BackColor = Color.DimGray;
-            panel8.Controls.Add(label14);
+            panel8.Controls.Add(cajerolabel);
             panel8.Location = new Point(254, 139);
             panel8.Name = "panel8";
             panel8.Size = new Size(246, 33);
             panel8.TabIndex = 71;
             // 
-            // label14
+            // cajerolabel
             // 
-            label14.AutoSize = true;
-            label14.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label14.ForeColor = SystemColors.Control;
-            label14.Image = Properties.Resources.persona2;
-            label14.ImageAlign = ContentAlignment.MiddleLeft;
-            label14.Location = new Point(6, 6);
-            label14.Name = "label14";
-            label14.Size = new Size(87, 21);
-            label14.TabIndex = 3;
-            label14.Text = "     Cajero: ";
+            cajerolabel.AutoSize = true;
+            cajerolabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            cajerolabel.ForeColor = SystemColors.Control;
+            cajerolabel.Image = Properties.Resources.persona2;
+            cajerolabel.ImageAlign = ContentAlignment.MiddleLeft;
+            cajerolabel.Location = new Point(6, 6);
+            cajerolabel.Name = "cajerolabel";
+            cajerolabel.Size = new Size(87, 21);
+            cajerolabel.TabIndex = 3;
+            cajerolabel.Text = "     Cajero: ";
             // 
             // panel14
             // 
@@ -2529,20 +2529,20 @@
         private FlowLayoutPanel mesasprincipal;
         private Panel panelacciones;
         private Button CrearOrden;
-        private TextBox textBox1;
+        private TextBox buscarmesatxt;
         private Label label33;
         private Button FacturarOrden;
         private Button EditarOrden;
         private Label label5;
         private Panel panel13;
-        private CheckBox checkBox2;
-        private CheckBox checkBox1;
+        private CheckBox ocupadachk;
+        private CheckBox reservadachk;
         private Button eliminarbtn;
         private Label label34;
         private Label MesaLabel;
         private Panel panel14;
         private Panel panel8;
-        private Label label14;
+        private Label cajerolabel;
         private Button eliminar;
         private Button button1;
         private Button button2;
