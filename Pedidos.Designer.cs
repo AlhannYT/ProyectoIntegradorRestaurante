@@ -2119,7 +2119,7 @@
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label8.ForeColor = SystemColors.Control;
-            label8.Location = new Point(6, 9);
+            label8.Location = new Point(6, 12);
             label8.Name = "label8";
             label8.Size = new Size(53, 21);
             label8.TabIndex = 9;
@@ -2130,7 +2130,7 @@
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label9.ForeColor = SystemColors.Control;
-            label9.Location = new Point(6, 39);
+            label9.Location = new Point(6, 42);
             label9.Name = "label9";
             label9.Size = new Size(33, 21);
             label9.TabIndex = 10;
@@ -2139,7 +2139,7 @@
             // fecini
             // 
             fecini.Format = DateTimePickerFormat.Short;
-            fecini.Location = new Point(64, 5);
+            fecini.Location = new Point(64, 8);
             fecini.Name = "fecini";
             fecini.Size = new Size(123, 29);
             fecini.TabIndex = 7;
@@ -2147,7 +2147,7 @@
             // fecfin
             // 
             fecfin.Format = DateTimePickerFormat.Short;
-            fecfin.Location = new Point(64, 35);
+            fecfin.Location = new Point(64, 38);
             fecfin.Name = "fecfin";
             fecfin.Size = new Size(123, 29);
             fecfin.TabIndex = 8;
@@ -2192,6 +2192,7 @@
             buscar.Text = "Buscar";
             buscar.TextAlign = ContentAlignment.MiddleLeft;
             buscar.UseVisualStyleBackColor = false;
+            buscar.Click += buscar_Click;
             // 
             // facturarbtn
             // 

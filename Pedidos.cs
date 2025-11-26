@@ -28,6 +28,7 @@ namespace Proyecto_restaurante
         public string NombreUsuario;
         private int Autorizar = 0;
         private int IDMesa = 0;
+        private int NumeroMesa = 0;
         private int OcupadoMesa = 0;
         private int ReservadoMesa = 0;
         private int EditarEstado = 0;
@@ -126,12 +127,12 @@ namespace Proyecto_restaurante
 
         private void Pedidos_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.F1)
+            if (tabControl1.SelectedIndex == 0 && e.KeyCode == Keys.F1)
             {
                 CrearOrden_Click(null, null);
             }
 
-            if (e.KeyCode == Keys.F2)
+            if (tabControl1.SelectedIndex == 0 && e.KeyCode == Keys.F2)
             {
                 EditarOrden_Click(null, null);
             }
@@ -144,11 +145,6 @@ namespace Proyecto_restaurante
             if (tabControl1.SelectedIndex == 2 && e.KeyCode == Keys.F3)
             {
                 facturarbtn.PerformClick();
-            }
-
-            if (e.Control && e.Shift && e.KeyCode == Keys.X)
-            {
-                this.Close();
             }
 
             if (e.Alt && e.KeyCode == Keys.D1)
@@ -476,6 +472,7 @@ namespace Proyecto_restaurante
                 EditarOrden.Enabled = true;
                 FacturarOrden.Enabled = true;
                 SepararMesa.Enabled = false;
+                OcupadoMesa = 1;
                 ReservadoMesa = 0;
             }
             else
@@ -484,6 +481,7 @@ namespace Proyecto_restaurante
                 EditarOrden.Enabled = false;
                 FacturarOrden.Enabled = false;
                 SepararMesa.Enabled = true;
+                OcupadoMesa = 0;
                 ReservadoMesa = 0;
             }
 
@@ -493,9 +491,9 @@ namespace Proyecto_restaurante
                 EditarOrden.Enabled = false;
                 FacturarOrden.Enabled = false;
                 ReservadoMesa = 1;
+                OcupadoMesa = 0;
             }
         }
-
 
         private void RestaurarColor(Button btn, int ocupado, int reservado)
         {
@@ -565,7 +563,7 @@ namespace Proyecto_restaurante
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
 
-            cajerolabel.Text = "     Cajero: " +NombreUsuario;
+            cajerolabel.Text = "     Cajero: " + NombreUsuario;
 
             mesasprincipal.Controls.Clear();
 
@@ -705,40 +703,7 @@ namespace Proyecto_restaurante
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string consultaBase = @"
-            SELECT 
-                p.IdPedido,
-                p.IdMesa,
-                p.NombreCliente AS [Cliente],
-                m.Numero AS [Mesa], 
-	            m.IdSala as [Sala],
-                p.Fecha,
-                p.Total,
-                p.Estado
-            FROM Pedido p
-            INNER JOIN Mesa m ON p.IdMesa = m.IdMesa";
-
-            string filtro = "";
-
-            if (facturadochk.Checked)
-                filtro = " WHERE p.Estado = 'Facturado'";
-            else if (pendientechk.Checked)
-                filtro = " WHERE p.Estado = 'Pendiente'";
-            else if (canceladochk.Checked)
-                filtro = " WHERE p.Estado = 'Cancelado'";
-            else if (todoschk.Checked)
-                filtro = "";
-
-            string consultaFinal = consultaBase + filtro + " ORDER BY p.IdPedido DESC";
-
-            SqlDataAdapter adaptador = new SqlDataAdapter(consultaFinal, conexionString);
-            DataTable dt = new DataTable();
-
-            adaptador.Fill(dt);
-
-            tabladatospedidos.DataSource = dt;
-            tabladatospedidos.Columns["IdMesa"].Visible = false;
-            volverdetalle_Click(sender, e);
+            buscar.Focus();
         }
 
         private void limpiarbtn_Click(object sender, EventArgs e)
@@ -1030,7 +995,7 @@ namespace Proyecto_restaurante
 
         private void cancelarpedido_Click(object sender, EventArgs e)
         {
-            DialogResult editar = MessageBox.Show("¿Desea cancelar este pedido?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult editar = MessageBox.Show("¿Desea cancelar esta factura?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (editar == DialogResult.Yes)
             {
@@ -1051,7 +1016,7 @@ namespace Proyecto_restaurante
                                 int rowsAffected = command.ExecuteNonQuery();
                                 if (rowsAffected > 0)
                                 {
-                                    MessageBox.Show("Pedido cancelado con éxito.");
+                                    MessageBox.Show("Factura cancelada con éxito.");
                                     limpiarbtn_Click(sender, e);
                                     tabControl1_SelectedIndexChanged(sender, e);
                                 }
@@ -1074,7 +1039,7 @@ namespace Proyecto_restaurante
             }
             else
             {
-                MessageBox.Show("Operación cancelada.");
+                //MessageBox.Show("Operación cancelada.");
             }
         }
 
@@ -1087,7 +1052,7 @@ namespace Proyecto_restaurante
                 todoschk.Checked = false;
                 PedidoID = 0;
                 cancelarpedido.Enabled = true;
-                tabControl1_SelectedIndexChanged(sender, e);
+                FiltroDatosBusqueda();
             }
         }
 
@@ -1100,7 +1065,7 @@ namespace Proyecto_restaurante
                 todoschk.Checked = false;
                 PedidoID = 0;
                 cancelarpedido.Enabled = true;
-                tabControl1_SelectedIndexChanged(sender, e);
+                FiltroDatosBusqueda();
             }
         }
 
@@ -1113,7 +1078,7 @@ namespace Proyecto_restaurante
                 todoschk.Checked = false;
                 PedidoID = 0;
                 cancelarpedido.Enabled = false;
-                tabControl1_SelectedIndexChanged(sender, e);
+                FiltroDatosBusqueda();
             }
         }
 
@@ -1126,7 +1091,7 @@ namespace Proyecto_restaurante
                 canceladochk.Checked = false;
                 PedidoID = 0;
                 cancelarpedido.Enabled = false;
-                tabControl1_SelectedIndexChanged(sender, e);
+                FiltroDatosBusqueda();
             }
         }
 
@@ -1152,13 +1117,11 @@ namespace Proyecto_restaurante
                     SELECT 
                         IdPedido,
                         NombreCliente,
-                        m.Numero AS [Mesa], 
-	                    m.IdSala as [Sala],
+                        IdMesa,
                         Total,
-                        p.Estado,
+                        Estado,
                         Fecha
-                    FROM Pedido p
-                    INNER JOIN Mesa m ON p.IdMesa = m.IdMesa
+                    FROM Pedido
                     WHERE
                         (NombreCliente LIKE @buscar
                         OR CAST(IdPedido AS VARCHAR) LIKE @buscar
@@ -1871,8 +1834,6 @@ namespace Proyecto_restaurante
                 return;
             }
 
-
-
             tabControl1.SelectedIndex = 1;
             mesasprincipal.Enabled = false;
             panelacciones.Enabled = false;
@@ -2303,6 +2264,11 @@ namespace Proyecto_restaurante
 
             numerotxt.Text = posNum;
             numerotxt.SelectionStart = numerotxt.Text.Length;
+        }
+
+        private void buscar_Click(object sender, EventArgs e)
+        {
+            FiltroDatosBusqueda();
         }
     }
 }

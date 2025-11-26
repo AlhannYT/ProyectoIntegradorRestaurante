@@ -99,10 +99,7 @@ namespace Proyecto_restaurante
             label5.BackColor = colorPanel;
             label4.BackColor = colorPanel;
             oculto.BackColor = colorPanel;
-            teclacompra.BackColor = colorPanel;
-            teclaorden.BackColor = colorPanel;
-            teclapedido.BackColor = colorPanel;
-            teclareserv.BackColor = colorPanel;
+            
             this.CambiarColorMDI(colorPanel);
         }
 
