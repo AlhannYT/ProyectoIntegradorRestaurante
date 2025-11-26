@@ -493,7 +493,7 @@
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label2.ForeColor = SystemColors.Control;
             label2.Image = Properties.Resources.busqueda1;
-            label2.Location = new Point(589, 11);
+            label2.Location = new Point(368, 10);
             label2.Name = "label2";
             label2.Size = new Size(18, 21);
             label2.TabIndex = 98;
@@ -515,7 +515,7 @@
             textBox1.Location = new Point(3, 5);
             textBox1.Name = "textBox1";
             textBox1.PlaceholderText = "Buscar Plato";
-            textBox1.Size = new Size(608, 32);
+            textBox1.Size = new Size(391, 32);
             textBox1.TabIndex = 97;
             // 
             // panel4
@@ -575,7 +575,7 @@
             // 
             panelComanda.Controls.Add(comandapanel);
             panelComanda.Controls.Add(flowLayoutPanel3);
-            panelComanda.Location = new Point(1982, 69);
+            panelComanda.Location = new Point(1982, 71);
             panelComanda.Name = "panelComanda";
             panelComanda.Size = new Size(652, 629);
             panelComanda.TabIndex = 101;

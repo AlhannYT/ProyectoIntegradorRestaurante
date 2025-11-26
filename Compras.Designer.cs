@@ -208,7 +208,6 @@
             IdRespoCompratxt.Size = new Size(45, 29);
             IdRespoCompratxt.TabIndex = 13;
             IdRespoCompratxt.TabStop = false;
-            IdRespoCompratxt.TextAlign = HorizontalAlignment.Center;
             // 
             // ResponsableCompratxt
             // 
@@ -245,7 +244,6 @@
             idproveedortxt.Size = new Size(45, 29);
             idproveedortxt.TabIndex = 10;
             idproveedortxt.TabStop = false;
-            idproveedortxt.TextAlign = HorizontalAlignment.Center;
             idproveedortxt.TextChanged += idproveedortxt_TextChanged;
             // 
             // DireccionProvTxt
@@ -328,7 +326,7 @@
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label4.ForeColor = SystemColors.Control;
-            label4.Location = new Point(207, 5);
+            label4.Location = new Point(225, 5);
             label4.Name = "label4";
             label4.Size = new Size(290, 32);
             label4.TabIndex = 3;
@@ -357,7 +355,6 @@
             txtidcompra.TabIndex = 0;
             txtidcompra.TabStop = false;
             txtidcompra.Text = "ID";
-            txtidcompra.TextAlign = HorizontalAlignment.Center;
             // 
             // FechaCompra
             // 
@@ -412,6 +409,8 @@
             panel2.BackColor = Color.FromArgb(64, 64, 64);
             panel2.Controls.Add(detallecompra);
             panel2.Controls.Add(label21);
+            panel2.Controls.Add(CantArticuloLabel);
+            panel2.Controls.Add(label2);
             panel2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             panel2.Location = new Point(3, 299);
             panel2.Name = "panel2";
@@ -428,9 +427,10 @@
             detallecompra.Location = new Point(5, 39);
             detallecompra.MultiSelect = false;
             detallecompra.Name = "detallecompra";
+            detallecompra.RowHeadersVisible = false;
             detallecompra.RowHeadersWidth = 51;
             detallecompra.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            detallecompra.Size = new Size(784, 298);
+            detallecompra.Size = new Size(784, 308);
             detallecompra.TabIndex = 0;
             // 
             // label21
@@ -449,7 +449,7 @@
             CantArticuloLabel.AutoSize = true;
             CantArticuloLabel.Font = new Font("Segoe UI", 12F);
             CantArticuloLabel.ForeColor = SystemColors.Control;
-            CantArticuloLabel.Location = new Point(183, 8);
+            CantArticuloLabel.Location = new Point(185, 347);
             CantArticuloLabel.Name = "CantArticuloLabel";
             CantArticuloLabel.Size = new Size(19, 21);
             CantArticuloLabel.TabIndex = 5;
@@ -460,7 +460,7 @@
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label2.ForeColor = SystemColors.Control;
-            label2.Location = new Point(1, 8);
+            label2.Location = new Point(3, 347);
             label2.Name = "label2";
             label2.Size = new Size(178, 21);
             label2.TabIndex = 4;
@@ -509,7 +509,7 @@
             label11.BackColor = Color.Transparent;
             label11.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             label11.ForeColor = Color.White;
-            label11.Location = new Point(633, 11);
+            label11.Location = new Point(632, 13);
             label11.Name = "label11";
             label11.Size = new Size(28, 25);
             label11.TabIndex = 51;
@@ -519,7 +519,7 @@
             // 
             itbisingredtxt.Enabled = false;
             itbisingredtxt.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            itbisingredtxt.Location = new Point(578, 10);
+            itbisingredtxt.Location = new Point(576, 11);
             itbisingredtxt.Name = "itbisingredtxt";
             itbisingredtxt.PlaceholderText = "ITBIS";
             itbisingredtxt.Size = new Size(51, 29);
@@ -528,7 +528,7 @@
             // NumericUpCantidad
             // 
             NumericUpCantidad.Font = new Font("Segoe UI", 12F);
-            NumericUpCantidad.Location = new Point(665, 10);
+            NumericUpCantidad.Location = new Point(665, 11);
             NumericUpCantidad.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
             NumericUpCantidad.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             NumericUpCantidad.Name = "NumericUpCantidad";
@@ -540,7 +540,7 @@
             // 
             txtnombre.Enabled = false;
             txtnombre.Font = new Font("Segoe UI", 12F);
-            txtnombre.Location = new Point(151, 10);
+            txtnombre.Location = new Point(152, 11);
             txtnombre.Name = "txtnombre";
             txtnombre.PlaceholderText = "Ingrediente";
             txtnombre.Size = new Size(285, 29);
@@ -549,7 +549,7 @@
             // buscarprodbtn
             // 
             buscarprodbtn.Image = Properties.Resources.carrito_de_compras;
-            buscarprodbtn.Location = new Point(8, 10);
+            buscarprodbtn.Location = new Point(9, 11);
             buscarprodbtn.Name = "buscarprodbtn";
             buscarprodbtn.Size = new Size(29, 29);
             buscarprodbtn.TabIndex = 0;
@@ -559,7 +559,7 @@
             // AgregarBtn
             // 
             AgregarBtn.Image = Properties.Resources.angulo_hacia_abajo;
-            AgregarBtn.Location = new Point(757, 10);
+            AgregarBtn.Location = new Point(754, 11);
             AgregarBtn.Name = "AgregarBtn";
             AgregarBtn.Size = new Size(29, 29);
             AgregarBtn.TabIndex = 0;
@@ -569,7 +569,7 @@
             // txtpreciocompra
             // 
             txtpreciocompra.Font = new Font("Segoe UI", 12F);
-            txtpreciocompra.Location = new Point(442, 10);
+            txtpreciocompra.Location = new Point(442, 11);
             txtpreciocompra.Name = "txtpreciocompra";
             txtpreciocompra.PlaceholderText = "Precio";
             txtpreciocompra.Size = new Size(129, 29);
@@ -579,7 +579,7 @@
             // 
             IdIngredientetxt.Enabled = false;
             IdIngredientetxt.Font = new Font("Segoe UI", 12F);
-            IdIngredientetxt.Location = new Point(41, 10);
+            IdIngredientetxt.Location = new Point(43, 11);
             IdIngredientetxt.Name = "IdIngredientetxt";
             IdIngredientetxt.PlaceholderText = "ID";
             IdIngredientetxt.ReadOnly = true;
@@ -589,7 +589,6 @@
             // PanelIngredientes
             // 
             PanelIngredientes.BackColor = Color.FromArgb(64, 64, 64);
-            PanelIngredientes.Controls.Add(label15);
             PanelIngredientes.Controls.Add(panel7);
             PanelIngredientes.Controls.Add(recargaringredbtn);
             PanelIngredientes.Controls.Add(label12);
@@ -598,9 +597,9 @@
             PanelIngredientes.Controls.Add(txtbusquedapanelprod);
             PanelIngredientes.Controls.Add(saliringredbtn);
             PanelIngredientes.Controls.Add(tablaingrediente);
-            PanelIngredientes.Location = new Point(3, 723);
+            PanelIngredientes.Location = new Point(3, 687);
             PanelIngredientes.Name = "PanelIngredientes";
-            PanelIngredientes.Size = new Size(806, 605);
+            PanelIngredientes.Size = new Size(824, 684);
             PanelIngredientes.TabIndex = 1;
             PanelIngredientes.Visible = false;
             // 
@@ -611,7 +610,7 @@
             label15.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label15.ForeColor = SystemColors.WindowFrame;
             label15.Image = Properties.Resources.filtroblanco;
-            label15.Location = new Point(487, 88);
+            label15.Location = new Point(3, 6);
             label15.Name = "label15";
             label15.Size = new Size(18, 21);
             label15.TabIndex = 38;
@@ -621,10 +620,11 @@
             // 
             panel7.BackColor = Color.DimGray;
             panel7.BorderStyle = BorderStyle.FixedSingle;
+            panel7.Controls.Add(label15);
             panel7.Controls.Add(checkingredactivo);
-            panel7.Location = new Point(521, 82);
+            panel7.Location = new Point(667, 83);
             panel7.Name = "panel7";
-            panel7.Size = new Size(66, 32);
+            panel7.Size = new Size(101, 32);
             panel7.TabIndex = 49;
             // 
             // checkingredactivo
@@ -635,7 +635,7 @@
             checkingredactivo.Cursor = Cursors.Hand;
             checkingredactivo.Font = new Font("Segoe UI", 13F);
             checkingredactivo.Image = Properties.Resources.sicheck;
-            checkingredactivo.Location = new Point(15, 2);
+            checkingredactivo.Location = new Point(40, 2);
             checkingredactivo.Name = "checkingredactivo";
             checkingredactivo.Size = new Size(41, 29);
             checkingredactivo.TabIndex = 0;
@@ -646,7 +646,7 @@
             // recargaringredbtn
             // 
             recargaringredbtn.Image = Properties.Resources.actualizar;
-            recargaringredbtn.Location = new Point(9, 37);
+            recargaringredbtn.Location = new Point(21, 37);
             recargaringredbtn.Name = "recargaringredbtn";
             recargaringredbtn.Size = new Size(29, 29);
             recargaringredbtn.TabIndex = 47;
@@ -661,7 +661,7 @@
             label12.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label12.ForeColor = SystemColors.Control;
             label12.Image = Properties.Resources.busqueda1;
-            label12.Location = new Point(445, 89);
+            label12.Location = new Point(631, 89);
             label12.Name = "label12";
             label12.Size = new Size(18, 21);
             label12.TabIndex = 43;
@@ -670,7 +670,7 @@
             // eliminarbtn
             // 
             eliminarbtn.Image = Properties.Resources.limpio;
-            eliminarbtn.Location = new Point(607, 84);
+            eliminarbtn.Location = new Point(774, 85);
             eliminarbtn.Name = "eliminarbtn";
             eliminarbtn.Size = new Size(29, 29);
             eliminarbtn.TabIndex = 42;
@@ -682,7 +682,7 @@
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.ForeColor = SystemColors.Control;
-            label3.Location = new Point(324, 16);
+            label3.Location = new Point(336, 16);
             label3.Name = "label3";
             label3.Size = new Size(158, 32);
             label3.TabIndex = 1;
@@ -690,16 +690,16 @@
             // 
             // txtbusquedapanelprod
             // 
-            txtbusquedapanelprod.Location = new Point(9, 85);
+            txtbusquedapanelprod.Location = new Point(21, 85);
             txtbusquedapanelprod.Name = "txtbusquedapanelprod";
             txtbusquedapanelprod.PlaceholderText = "Buscar Ingredientes";
-            txtbusquedapanelprod.Size = new Size(460, 29);
+            txtbusquedapanelprod.Size = new Size(632, 29);
             txtbusquedapanelprod.TabIndex = 2;
             txtbusquedapanelprod.TextChanged += txtbusquedapanelprod_TextChanged;
             // 
             // saliringredbtn
             // 
-            saliringredbtn.Location = new Point(691, 16);
+            saliringredbtn.Location = new Point(703, 16);
             saliringredbtn.Name = "saliringredbtn";
             saliringredbtn.Size = new Size(98, 44);
             saliringredbtn.TabIndex = 1;
@@ -712,12 +712,12 @@
             tablaingrediente.AllowUserToAddRows = false;
             tablaingrediente.AllowUserToDeleteRows = false;
             tablaingrediente.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            tablaingrediente.Location = new Point(9, 119);
+            tablaingrediente.Location = new Point(21, 119);
             tablaingrediente.MultiSelect = false;
             tablaingrediente.Name = "tablaingrediente";
             tablaingrediente.RowHeadersWidth = 51;
             tablaingrediente.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tablaingrediente.Size = new Size(782, 411);
+            tablaingrediente.Size = new Size(782, 529);
             tablaingrediente.TabIndex = 0;
             tablaingrediente.CellDoubleClick += tablaingrediente_CellDoubleClick;
             // 
@@ -725,12 +725,13 @@
             // 
             tabControl1.Controls.Add(tabPageReg);
             tabControl1.Controls.Add(tabPageOrdenes);
+            tabControl1.Dock = DockStyle.Fill;
             tabControl1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tabControl1.ItemSize = new Size(73, 26);
-            tabControl1.Location = new Point(-1, -2);
+            tabControl1.Location = new Point(0, 0);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(1920, 1080);
+            tabControl1.Size = new Size(807, 707);
             tabControl1.TabIndex = 3;
             // 
             // tabPageReg
@@ -746,7 +747,7 @@
             tabPageReg.Location = new Point(4, 30);
             tabPageReg.Name = "tabPageReg";
             tabPageReg.Padding = new Padding(3);
-            tabPageReg.Size = new Size(1912, 1046);
+            tabPageReg.Size = new Size(799, 673);
             tabPageReg.TabIndex = 1;
             tabPageReg.Text = "Registro";
             // 
@@ -754,7 +755,6 @@
             // 
             PanelProv.BackColor = Color.FromArgb(64, 64, 64);
             PanelProv.Controls.Add(panel9);
-            PanelProv.Controls.Add(label16);
             PanelProv.Controls.Add(recargarprovbtn);
             PanelProv.Controls.Add(eliminarbtn2);
             PanelProv.Controls.Add(label14);
@@ -762,9 +762,9 @@
             PanelProv.Controls.Add(salirprovbtn);
             PanelProv.Controls.Add(label19);
             PanelProv.Controls.Add(tablaprov);
-            PanelProv.Location = new Point(888, 12);
+            PanelProv.Location = new Point(813, 3);
             PanelProv.Name = "PanelProv";
-            PanelProv.Size = new Size(806, 605);
+            PanelProv.Size = new Size(824, 684);
             PanelProv.TabIndex = 5;
             PanelProv.Visible = false;
             // 
@@ -773,10 +773,11 @@
             panel9.BackColor = Color.DimGray;
             panel9.BorderStyle = BorderStyle.FixedSingle;
             panel9.Controls.Add(checkactivoprov);
+            panel9.Controls.Add(label16);
             panel9.Controls.Add(checkprovinformal);
-            panel9.Location = new Point(524, 75);
+            panel9.Location = new Point(629, 76);
             panel9.Name = "panel9";
-            panel9.Size = new Size(106, 32);
+            panel9.Size = new Size(139, 32);
             panel9.TabIndex = 65;
             // 
             // checkactivoprov
@@ -787,7 +788,7 @@
             checkactivoprov.Cursor = Cursors.Hand;
             checkactivoprov.Font = new Font("Segoe UI", 13F);
             checkactivoprov.Image = Properties.Resources.sicheck;
-            checkactivoprov.Location = new Point(59, 2);
+            checkactivoprov.Location = new Point(93, 2);
             checkactivoprov.Name = "checkactivoprov";
             checkactivoprov.Size = new Size(41, 29);
             checkactivoprov.TabIndex = 0;
@@ -801,7 +802,7 @@
             checkprovinformal.Cursor = Cursors.Hand;
             checkprovinformal.Font = new Font("Segoe UI", 13F);
             checkprovinformal.Image = Properties.Resources.informal;
-            checkprovinformal.Location = new Point(9, 2);
+            checkprovinformal.Location = new Point(38, 2);
             checkprovinformal.Name = "checkprovinformal";
             checkprovinformal.Size = new Size(41, 29);
             checkprovinformal.TabIndex = 63;
@@ -816,7 +817,7 @@
             label16.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label16.ForeColor = SystemColors.WindowFrame;
             label16.Image = Properties.Resources.filtroblanco;
-            label16.Location = new Point(491, 81);
+            label16.Location = new Point(6, 6);
             label16.Name = "label16";
             label16.Size = new Size(18, 21);
             label16.TabIndex = 64;
@@ -825,7 +826,7 @@
             // recargarprovbtn
             // 
             recargarprovbtn.Image = Properties.Resources.actualizar;
-            recargarprovbtn.Location = new Point(16, 28);
+            recargarprovbtn.Location = new Point(25, 28);
             recargarprovbtn.Name = "recargarprovbtn";
             recargarprovbtn.Size = new Size(29, 29);
             recargarprovbtn.TabIndex = 49;
@@ -836,7 +837,7 @@
             // eliminarbtn2
             // 
             eliminarbtn2.Image = Properties.Resources.limpio;
-            eliminarbtn2.Location = new Point(648, 77);
+            eliminarbtn2.Location = new Point(774, 78);
             eliminarbtn2.Name = "eliminarbtn2";
             eliminarbtn2.Size = new Size(29, 29);
             eliminarbtn2.TabIndex = 48;
@@ -850,7 +851,7 @@
             label14.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label14.ForeColor = SystemColors.Control;
             label14.Image = Properties.Resources.busqueda1;
-            label14.Location = new Point(452, 82);
+            label14.Location = new Point(602, 82);
             label14.Name = "label14";
             label14.Size = new Size(18, 21);
             label14.TabIndex = 44;
@@ -859,16 +860,16 @@
             // txtprovbusqueda
             // 
             txtprovbusqueda.Font = new Font("Segoe UI", 12F);
-            txtprovbusqueda.Location = new Point(13, 78);
+            txtprovbusqueda.Location = new Point(22, 78);
             txtprovbusqueda.Name = "txtprovbusqueda";
             txtprovbusqueda.PlaceholderText = "Buscar Proveedor";
-            txtprovbusqueda.Size = new Size(460, 29);
+            txtprovbusqueda.Size = new Size(601, 29);
             txtprovbusqueda.TabIndex = 8;
             txtprovbusqueda.TextChanged += txtprovbusqueda_TextChanged;
             // 
             // salirprovbtn
             // 
-            salirprovbtn.Location = new Point(677, 12);
+            salirprovbtn.Location = new Point(686, 12);
             salirprovbtn.Name = "salirprovbtn";
             salirprovbtn.Size = new Size(111, 45);
             salirprovbtn.TabIndex = 7;
@@ -881,7 +882,7 @@
             label19.AutoSize = true;
             label19.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label19.ForeColor = SystemColors.Control;
-            label19.Location = new Point(340, 15);
+            label19.Location = new Point(349, 15);
             label19.Name = "label19";
             label19.Size = new Size(133, 32);
             label19.TabIndex = 3;
@@ -893,14 +894,14 @@
             tablaprov.AllowUserToResizeRows = false;
             tablaprov.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             tablaprov.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            tablaprov.Location = new Point(12, 113);
+            tablaprov.Location = new Point(21, 113);
             tablaprov.MultiSelect = false;
             tablaprov.Name = "tablaprov";
             tablaprov.ReadOnly = true;
             tablaprov.RowHeadersVisible = false;
             tablaprov.RowHeadersWidth = 51;
             tablaprov.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tablaprov.Size = new Size(782, 411);
+            tablaprov.Size = new Size(782, 529);
             tablaprov.TabIndex = 6;
             tablaprov.CellDoubleClick += tablaprov_CellDoubleClick;
             // 
@@ -936,11 +937,9 @@
             panelSubTotal.BorderStyle = BorderStyle.FixedSingle;
             panelSubTotal.Controls.Add(ItbisLabel);
             panelSubTotal.Controls.Add(label8);
-            panelSubTotal.Controls.Add(CantArticuloLabel);
             panelSubTotal.Controls.Add(SubtotalLabel);
             panelSubTotal.Controls.Add(TotalLabel);
             panelSubTotal.Controls.Add(label9);
-            panelSubTotal.Controls.Add(label2);
             panelSubTotal.Controls.Add(label10);
             panelSubTotal.Location = new Point(5, 135);
             panelSubTotal.Name = "panelSubTotal";
@@ -952,7 +951,7 @@
             ItbisLabel.AutoSize = true;
             ItbisLabel.Font = new Font("Segoe UI", 12F);
             ItbisLabel.ForeColor = SystemColors.Control;
-            ItbisLabel.Location = new Point(61, 57);
+            ItbisLabel.Location = new Point(61, 38);
             ItbisLabel.Name = "ItbisLabel";
             ItbisLabel.Size = new Size(19, 21);
             ItbisLabel.TabIndex = 6;
@@ -963,7 +962,7 @@
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label8.ForeColor = SystemColors.Control;
-            label8.Location = new Point(2, 57);
+            label8.Location = new Point(2, 38);
             label8.Name = "label8";
             label8.Size = new Size(52, 21);
             label8.TabIndex = 6;
@@ -974,7 +973,7 @@
             SubtotalLabel.AutoSize = true;
             SubtotalLabel.Font = new Font("Segoe UI", 12F);
             SubtotalLabel.ForeColor = SystemColors.Control;
-            SubtotalLabel.Location = new Point(83, 33);
+            SubtotalLabel.Location = new Point(83, 8);
             SubtotalLabel.Name = "SubtotalLabel";
             SubtotalLabel.Size = new Size(19, 21);
             SubtotalLabel.TabIndex = 3;
@@ -985,7 +984,7 @@
             TotalLabel.AutoSize = true;
             TotalLabel.Font = new Font("Segoe UI", 12F);
             TotalLabel.ForeColor = SystemColors.Control;
-            TotalLabel.Location = new Point(61, 82);
+            TotalLabel.Location = new Point(61, 71);
             TotalLabel.Name = "TotalLabel";
             TotalLabel.Size = new Size(19, 21);
             TotalLabel.TabIndex = 3;
@@ -996,7 +995,7 @@
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label9.ForeColor = SystemColors.Control;
-            label9.Location = new Point(2, 82);
+            label9.Location = new Point(2, 71);
             label9.Name = "label9";
             label9.Size = new Size(52, 21);
             label9.TabIndex = 3;
@@ -1007,7 +1006,7 @@
             label10.AutoSize = true;
             label10.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label10.ForeColor = SystemColors.Control;
-            label10.Location = new Point(1, 32);
+            label10.Location = new Point(1, 7);
             label10.Name = "label10";
             label10.Size = new Size(79, 21);
             label10.TabIndex = 3;
@@ -1025,7 +1024,7 @@
             tabPageOrdenes.Location = new Point(4, 30);
             tabPageOrdenes.Name = "tabPageOrdenes";
             tabPageOrdenes.Padding = new Padding(3);
-            tabPageOrdenes.Size = new Size(1912, 1046);
+            tabPageOrdenes.Size = new Size(799, 673);
             tabPageOrdenes.TabIndex = 0;
             tabPageOrdenes.Text = "Historial";
             // 
@@ -1034,9 +1033,9 @@
             panel11.BackColor = Color.FromArgb(64, 64, 64);
             panel11.BorderStyle = BorderStyle.FixedSingle;
             panel11.Controls.Add(tabladatoscompra);
-            panel11.Location = new Point(9, 170);
+            panel11.Location = new Point(2, 170);
             panel11.Name = "panel11";
-            panel11.Size = new Size(795, 426);
+            panel11.Size = new Size(795, 499);
             panel11.TabIndex = 18;
             // 
             // tabladatoscompra
@@ -1052,7 +1051,7 @@
             tabladatoscompra.RowHeadersVisible = false;
             tabladatoscompra.RowHeadersWidth = 51;
             tabladatoscompra.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tabladatoscompra.Size = new Size(789, 416);
+            tabladatoscompra.Size = new Size(789, 487);
             tabladatoscompra.TabIndex = 5;
             // 
             // label17
@@ -1061,7 +1060,7 @@
             label17.BackColor = Color.White;
             label17.ForeColor = SystemColors.Control;
             label17.Image = Properties.Resources.busqueda;
-            label17.Location = new Point(342, 139);
+            label17.Location = new Point(341, 139);
             label17.Name = "label17";
             label17.Size = new Size(18, 21);
             label17.TabIndex = 16;
@@ -1070,7 +1069,7 @@
             // txtbusquedafactura
             // 
             txtbusquedafactura.ForeColor = Color.Gray;
-            txtbusquedafactura.Location = new Point(9, 135);
+            txtbusquedafactura.Location = new Point(5, 135);
             txtbusquedafactura.Name = "txtbusquedafactura";
             txtbusquedafactura.PlaceholderText = "Buscar";
             txtbusquedafactura.Size = new Size(355, 29);
@@ -1085,7 +1084,7 @@
             panel10.Controls.Add(Anuladochk);
             panel10.Controls.Add(pendientechk);
             panel10.Controls.Add(facturadochk);
-            panel10.Location = new Point(373, 135);
+            panel10.Location = new Point(366, 135);
             panel10.Name = "panel10";
             panel10.Size = new Size(428, 29);
             panel10.TabIndex = 17;
@@ -1152,7 +1151,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = SystemColors.Control;
-            label1.Location = new Point(252, 8);
+            label1.Location = new Point(272, 8);
             label1.Name = "label1";
             label1.Size = new Size(254, 32);
             label1.TabIndex = 13;
@@ -1170,7 +1169,7 @@
             panel8.Controls.Add(cancelarpedido);
             panel8.Controls.Add(imprimirbtn);
             panel8.Controls.Add(facturarbtn);
-            panel8.Location = new Point(9, 55);
+            panel8.Location = new Point(2, 55);
             panel8.Name = "panel8";
             panel8.Size = new Size(794, 74);
             panel8.TabIndex = 12;
@@ -1270,7 +1269,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.WindowFrame;
-            ClientSize = new Size(799, 663);
+            ClientSize = new Size(807, 707);
             Controls.Add(tabControl1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");

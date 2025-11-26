@@ -1923,6 +1923,26 @@ namespace Proyecto_restaurante.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap servicio_de_habitaciones {
+            get {
+                object obj = ResourceManager.GetObject("servicio-de-habitaciones", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap servicio_de_habitaciones1 {
+            get {
+                object obj = ResourceManager.GetObject("servicio-de-habitaciones1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap sicheck {
             get {
                 object obj = ResourceManager.GetObject("sicheck", resourceCulture);

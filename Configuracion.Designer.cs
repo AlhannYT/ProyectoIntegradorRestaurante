@@ -179,6 +179,7 @@
             label32 = new Label();
             panel10 = new Panel();
             button12 = new Button();
+            datosRestaurante = new Button();
             barraizq.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
@@ -229,6 +230,7 @@
             barraizq.Controls.Add(button2);
             barraizq.Controls.Add(asignarcaja);
             barraizq.Controls.Add(sistema);
+            barraizq.Controls.Add(datosRestaurante);
             barraizq.Controls.Add(button7);
             barraizq.Controls.Add(label1);
             barraizq.Controls.Add(button26);
@@ -245,7 +247,7 @@
             usuarios.Cursor = Cursors.Hand;
             usuarios.Image = Properties.Resources.usuario;
             usuarios.ImageAlign = ContentAlignment.MiddleRight;
-            usuarios.Location = new Point(7, 157);
+            usuarios.Location = new Point(7, 203);
             usuarios.Margin = new Padding(2);
             usuarios.Name = "usuarios";
             usuarios.Size = new Size(202, 38);
@@ -259,7 +261,7 @@
             // 
             button2.Image = Properties.Resources.llenar;
             button2.ImageAlign = ContentAlignment.MiddleRight;
-            button2.Location = new Point(7, 117);
+            button2.Location = new Point(7, 163);
             button2.Margin = new Padding(2);
             button2.Name = "button2";
             button2.Size = new Size(202, 38);
@@ -273,7 +275,7 @@
             // 
             asignarcaja.Image = Properties.Resources.cajero2;
             asignarcaja.ImageAlign = ContentAlignment.MiddleRight;
-            asignarcaja.Location = new Point(7, 77);
+            asignarcaja.Location = new Point(7, 123);
             asignarcaja.Margin = new Padding(2);
             asignarcaja.Name = "asignarcaja";
             asignarcaja.Size = new Size(202, 38);
@@ -288,7 +290,7 @@
             sistema.BackColor = Color.Gold;
             sistema.Image = Properties.Resources.herramientas1;
             sistema.ImageAlign = ContentAlignment.MiddleRight;
-            sistema.Location = new Point(7, 197);
+            sistema.Location = new Point(7, 243);
             sistema.Margin = new Padding(2);
             sistema.Name = "sistema";
             sistema.Size = new Size(202, 38);
@@ -302,7 +304,7 @@
             // 
             button7.Image = Properties.Resources.caja;
             button7.ImageAlign = ContentAlignment.MiddleRight;
-            button7.Location = new Point(7, 37);
+            button7.Location = new Point(7, 83);
             button7.Margin = new Padding(2);
             button7.Name = "button7";
             button7.Size = new Size(202, 38);
@@ -321,9 +323,9 @@
             label1.Location = new Point(10, 8);
             label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(72, 25);
+            label1.Size = new Size(140, 25);
             label1.TabIndex = 14;
-            label1.Text = "Config";
+            label1.Text = "Configuración";
             label1.Click += label1_Click;
             // 
             // button26
@@ -1980,6 +1982,19 @@
             button12.Text = "      Procesar cambios";
             button12.UseVisualStyleBackColor = true;
             // 
+            // datosRestaurante
+            // 
+            datosRestaurante.Image = Properties.Resources.servicio_de_habitaciones1;
+            datosRestaurante.ImageAlign = ContentAlignment.MiddleRight;
+            datosRestaurante.Location = new Point(7, 43);
+            datosRestaurante.Margin = new Padding(2);
+            datosRestaurante.Name = "datosRestaurante";
+            datosRestaurante.Size = new Size(202, 38);
+            datosRestaurante.TabIndex = 15;
+            datosRestaurante.Text = "Datos de Restaurante";
+            datosRestaurante.TextAlign = ContentAlignment.MiddleLeft;
+            datosRestaurante.UseVisualStyleBackColor = true;
+            // 
             // Configuracion
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -2214,5 +2229,6 @@
         private ComboBox rolcmbx;
         private Label label34;
         private CheckBox CrearOrdenReservado;
+        private Button datosRestaurante;
     }
 }

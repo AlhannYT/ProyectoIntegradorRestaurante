@@ -233,11 +233,14 @@
             // 
             tabladatos.AllowUserToAddRows = false;
             tabladatos.AllowUserToDeleteRows = false;
+            tabladatos.AllowUserToResizeRows = false;
+            tabladatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             tabladatos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tabladatos.Location = new Point(11, 100);
             tabladatos.MultiSelect = false;
             tabladatos.Name = "tabladatos";
             tabladatos.ReadOnly = true;
+            tabladatos.RowHeadersVisible = false;
             tabladatos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             tabladatos.Size = new Size(575, 510);
             tabladatos.TabIndex = 54;
@@ -386,12 +389,14 @@
             puestoconsulta.AllowUserToAddRows = false;
             puestoconsulta.AllowUserToDeleteRows = false;
             puestoconsulta.AllowUserToResizeRows = false;
+            puestoconsulta.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             puestoconsulta.ClipboardCopyMode = DataGridViewClipboardCopyMode.Disable;
             puestoconsulta.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             puestoconsulta.Location = new Point(4, 63);
             puestoconsulta.MultiSelect = false;
             puestoconsulta.Name = "puestoconsulta";
             puestoconsulta.ReadOnly = true;
+            puestoconsulta.RowHeadersVisible = false;
             puestoconsulta.RowHeadersWidth = 51;
             puestoconsulta.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             puestoconsulta.Size = new Size(219, 90);
@@ -432,6 +437,7 @@
             // 
             // rolcmbx
             // 
+            rolcmbx.DropDownStyle = ComboBoxStyle.DropDownList;
             rolcmbx.FormattingEnabled = true;
             rolcmbx.Items.AddRange(new object[] { "Gerente", "Administrator", "Supervisor", "Cajero", "Mesero", "Repartidor", "Cocinero" });
             rolcmbx.Location = new Point(19, 294);
