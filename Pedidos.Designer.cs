@@ -96,6 +96,9 @@
             nota = new Button();
             labelcantidadarticulos = new Label();
             panel3 = new Panel();
+            panelCuentaSeparada = new Panel();
+            grupoCuenta = new ComboBox();
+            nuevoGrupo = new Button();
             separarcuenta = new Button();
             bajarproductobtn = new Button();
             buscarproductobtn = new Button();
@@ -206,6 +209,7 @@
             facturadochk = new CheckBox();
             toolTip1 = new ToolTip(components);
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            label14 = new Label();
             tabControl1.SuspendLayout();
             tabPage6.SuspendLayout();
             autorizacionpanel.SuspendLayout();
@@ -227,6 +231,7 @@
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)detalleorden).BeginInit();
             panel3.SuspendLayout();
+            panelCuentaSeparada.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numCantidad).BeginInit();
             panel4.SuspendLayout();
             panel9.SuspendLayout();
@@ -970,6 +975,7 @@
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(64, 64, 64);
+            panel2.Controls.Add(label14);
             panel2.Controls.Add(label6);
             panel2.Controls.Add(detalleorden);
             panel2.Controls.Add(label21);
@@ -1047,6 +1053,7 @@
             // panel3
             // 
             panel3.BackColor = Color.FromArgb(64, 64, 64);
+            panel3.Controls.Add(panelCuentaSeparada);
             panel3.Controls.Add(separarcuenta);
             panel3.Controls.Add(bajarproductobtn);
             panel3.Controls.Add(buscarproductobtn);
@@ -1060,22 +1067,56 @@
             panel3.Size = new Size(793, 50);
             panel3.TabIndex = 0;
             // 
+            // panelCuentaSeparada
+            // 
+            panelCuentaSeparada.BackColor = Color.Gray;
+            panelCuentaSeparada.Controls.Add(grupoCuenta);
+            panelCuentaSeparada.Controls.Add(nuevoGrupo);
+            panelCuentaSeparada.Enabled = false;
+            panelCuentaSeparada.Location = new Point(660, 5);
+            panelCuentaSeparada.Name = "panelCuentaSeparada";
+            panelCuentaSeparada.Size = new Size(128, 41);
+            panelCuentaSeparada.TabIndex = 4;
+            // 
+            // grupoCuenta
+            // 
+            grupoCuenta.BackColor = SystemColors.ActiveCaption;
+            grupoCuenta.DropDownStyle = ComboBoxStyle.DropDownList;
+            grupoCuenta.FormattingEnabled = true;
+            grupoCuenta.Location = new Point(5, 6);
+            grupoCuenta.Name = "grupoCuenta";
+            grupoCuenta.Size = new Size(87, 29);
+            grupoCuenta.TabIndex = 3;
+            // 
+            // nuevoGrupo
+            // 
+            nuevoGrupo.BackColor = SystemColors.ActiveCaption;
+            nuevoGrupo.Image = Properties.Resources.mas;
+            nuevoGrupo.Location = new Point(96, 6);
+            nuevoGrupo.Name = "nuevoGrupo";
+            nuevoGrupo.Size = new Size(29, 29);
+            nuevoGrupo.TabIndex = 2;
+            toolTip1.SetToolTip(nuevoGrupo, "Grupo Nuevo");
+            nuevoGrupo.UseVisualStyleBackColor = false;
+            nuevoGrupo.Click += nuevoGrupo_Click;
+            // 
             // separarcuenta
             // 
             separarcuenta.Enabled = false;
             separarcuenta.Image = Properties.Resources.separar_flecha;
-            separarcuenta.Location = new Point(751, 11);
+            separarcuenta.Location = new Point(625, 11);
             separarcuenta.Name = "separarcuenta";
             separarcuenta.Size = new Size(29, 29);
             separarcuenta.TabIndex = 2;
             toolTip1.SetToolTip(separarcuenta, "Separar Cuenta");
             separarcuenta.UseVisualStyleBackColor = true;
+            separarcuenta.Click += separarcuenta_Click;
             // 
             // bajarproductobtn
             // 
             bajarproductobtn.Enabled = false;
             bajarproductobtn.Image = Properties.Resources.mas;
-            bajarproductobtn.Location = new Point(717, 11);
+            bajarproductobtn.Location = new Point(592, 11);
             bajarproductobtn.Name = "bajarproductobtn";
             bajarproductobtn.Size = new Size(29, 29);
             bajarproductobtn.TabIndex = 2;
@@ -1087,7 +1128,7 @@
             // 
             buscarproductobtn.Enabled = false;
             buscarproductobtn.Image = Properties.Resources.carrito_de_compras;
-            buscarproductobtn.Location = new Point(12, 11);
+            buscarproductobtn.Location = new Point(6, 11);
             buscarproductobtn.Name = "buscarproductobtn";
             buscarproductobtn.Size = new Size(29, 29);
             buscarproductobtn.TabIndex = 2;
@@ -1098,11 +1139,11 @@
             // numCantidad
             // 
             numCantidad.Enabled = false;
-            numCantidad.Location = new Point(631, 11);
+            numCantidad.Location = new Point(512, 11);
             numCantidad.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
             numCantidad.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numCantidad.Name = "numCantidad";
-            numCantidad.Size = new Size(81, 29);
+            numCantidad.Size = new Size(76, 29);
             numCantidad.TabIndex = 1;
             numCantidad.Value = new decimal(new int[] { 1, 0, 0, 0 });
             numCantidad.KeyPress += numCantidad_KeyPress;
@@ -1110,36 +1151,36 @@
             // txtnombreproducto
             // 
             txtnombreproducto.Enabled = false;
-            txtnombreproducto.Location = new Point(138, 11);
+            txtnombreproducto.Location = new Point(107, 11);
             txtnombreproducto.Name = "txtnombreproducto";
             txtnombreproducto.PlaceholderText = "Nombre";
-            txtnombreproducto.Size = new Size(321, 29);
+            txtnombreproducto.Size = new Size(257, 29);
             txtnombreproducto.TabIndex = 0;
             // 
             // txtiva
             // 
             txtiva.Enabled = false;
-            txtiva.Location = new Point(575, 11);
+            txtiva.Location = new Point(462, 11);
             txtiva.Name = "txtiva";
             txtiva.PlaceholderText = "ITBIS";
-            txtiva.Size = new Size(51, 29);
+            txtiva.Size = new Size(46, 29);
             txtiva.TabIndex = 0;
             // 
             // txtprecioproducto
             // 
-            txtprecioproducto.Location = new Point(464, 11);
+            txtprecioproducto.Location = new Point(368, 11);
             txtprecioproducto.Name = "txtprecioproducto";
             txtprecioproducto.PlaceholderText = "Precio";
-            txtprecioproducto.Size = new Size(106, 29);
+            txtprecioproducto.Size = new Size(90, 29);
             txtprecioproducto.TabIndex = 0;
             // 
             // txtcodigoproducto
             // 
             txtcodigoproducto.Enabled = false;
-            txtcodigoproducto.Location = new Point(46, 11);
+            txtcodigoproducto.Location = new Point(39, 11);
             txtcodigoproducto.Name = "txtcodigoproducto";
             txtcodigoproducto.PlaceholderText = "ID";
-            txtcodigoproducto.Size = new Size(87, 29);
+            txtcodigoproducto.Size = new Size(64, 29);
             txtcodigoproducto.TabIndex = 0;
             // 
             // panel4
@@ -2308,6 +2349,17 @@
             facturadochk.UseVisualStyleBackColor = true;
             facturadochk.CheckedChanged += facturadochk_CheckedChanged;
             // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Font = new Font("Segoe UI", 12F);
+            label14.ForeColor = SystemColors.Control;
+            label14.Location = new Point(382, 334);
+            label14.Name = "label14";
+            label14.Size = new Size(412, 21);
+            label14.TabIndex = 75;
+            label14.Text = "Combinaciones:    Alt+Q: Alternar Agregar/Eliminar Grupo";
+            // 
             // Pedidos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -2357,6 +2409,7 @@
             ((System.ComponentModel.ISupportInitialize)detalleorden).EndInit();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
+            panelCuentaSeparada.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)numCantidad).EndInit();
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
@@ -2579,5 +2632,9 @@
         private Label label39;
         private Label label38;
         private Button buscar;
+        private ComboBox grupoCuenta;
+        private Button nuevoGrupo;
+        private Panel panelCuentaSeparada;
+        private Label label14;
     }
 }
