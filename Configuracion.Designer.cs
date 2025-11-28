@@ -182,6 +182,7 @@
             panel10 = new Panel();
             button12 = new Button();
             toolTip1 = new ToolTip(components);
+            archivoDGII = new Button();
             barraizq.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
@@ -232,6 +233,7 @@
             barraizq.Controls.Add(button2);
             barraizq.Controls.Add(asignarcaja);
             barraizq.Controls.Add(sistema);
+            barraizq.Controls.Add(archivoDGII);
             barraizq.Controls.Add(datosRestaurante);
             barraizq.Controls.Add(button7);
             barraizq.Controls.Add(label1);
@@ -249,7 +251,7 @@
             usuarios.Cursor = Cursors.Hand;
             usuarios.Image = Properties.Resources.usuario;
             usuarios.ImageAlign = ContentAlignment.MiddleRight;
-            usuarios.Location = new Point(7, 203);
+            usuarios.Location = new Point(7, 243);
             usuarios.Margin = new Padding(2);
             usuarios.Name = "usuarios";
             usuarios.Size = new Size(202, 38);
@@ -263,7 +265,7 @@
             // 
             button2.Image = Properties.Resources.llenar;
             button2.ImageAlign = ContentAlignment.MiddleRight;
-            button2.Location = new Point(7, 163);
+            button2.Location = new Point(7, 203);
             button2.Margin = new Padding(2);
             button2.Name = "button2";
             button2.Size = new Size(202, 38);
@@ -277,7 +279,7 @@
             // 
             asignarcaja.Image = Properties.Resources.cajero2;
             asignarcaja.ImageAlign = ContentAlignment.MiddleRight;
-            asignarcaja.Location = new Point(7, 123);
+            asignarcaja.Location = new Point(7, 163);
             asignarcaja.Margin = new Padding(2);
             asignarcaja.Name = "asignarcaja";
             asignarcaja.Size = new Size(202, 38);
@@ -292,7 +294,7 @@
             sistema.BackColor = Color.Gold;
             sistema.Image = Properties.Resources.herramientas1;
             sistema.ImageAlign = ContentAlignment.MiddleRight;
-            sistema.Location = new Point(7, 243);
+            sistema.Location = new Point(7, 283);
             sistema.Margin = new Padding(2);
             sistema.Name = "sistema";
             sistema.Size = new Size(202, 38);
@@ -319,7 +321,7 @@
             // 
             button7.Image = Properties.Resources.caja;
             button7.ImageAlign = ContentAlignment.MiddleRight;
-            button7.Location = new Point(7, 83);
+            button7.Location = new Point(7, 123);
             button7.Margin = new Padding(2);
             button7.Name = "button7";
             button7.Size = new Size(202, 38);
@@ -334,13 +336,14 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;
+            label1.Image = Properties.Resources.opcion;
             label1.ImageAlign = ContentAlignment.MiddleRight;
-            label1.Location = new Point(10, 8);
+            label1.Location = new Point(10, 9);
             label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(140, 25);
+            label1.Size = new Size(170, 25);
             label1.TabIndex = 14;
-            label1.Text = "Configuración";
+            label1.Text = "Configuración      ";
             // 
             // button26
             // 
@@ -1995,6 +1998,19 @@
             button12.Text = "      Procesar cambios";
             button12.UseVisualStyleBackColor = true;
             // 
+            // archivoDGII
+            // 
+            archivoDGII.Image = Properties.Resources.logodgii1;
+            archivoDGII.ImageAlign = ContentAlignment.MiddleRight;
+            archivoDGII.Location = new Point(7, 83);
+            archivoDGII.Margin = new Padding(2);
+            archivoDGII.Name = "archivoDGII";
+            archivoDGII.Size = new Size(202, 38);
+            archivoDGII.TabIndex = 15;
+            archivoDGII.Text = "Archivo DGII";
+            archivoDGII.TextAlign = ContentAlignment.MiddleLeft;
+            archivoDGII.UseVisualStyleBackColor = true;
+            // 
             // Configuracion
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -2231,5 +2247,6 @@
         private CheckBox CrearOrdenReservado;
         private Button datosRestaurante;
         private ToolTip toolTip1;
+        private Button archivoDGII;
     }
 }

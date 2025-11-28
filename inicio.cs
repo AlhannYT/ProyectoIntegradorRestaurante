@@ -375,6 +375,7 @@ namespace Proyecto_restaurante
                 "Facturas",
                 "Productos",
                 "Proveedor",
+                "DGIITXT",
                 "Usuarios"
             };
 

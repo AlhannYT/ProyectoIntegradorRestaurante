@@ -64,6 +64,11 @@
             oculto = new Panel();
             recargarbtn = new Button();
             toolTip1 = new ToolTip(components);
+            panel3 = new Panel();
+            NombrePCtxt = new Label();
+            label37 = new Label();
+            sistemasPanel = new Panel();
+            deslizar = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -71,6 +76,8 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             barraizq.SuspendLayout();
             oculto.SuspendLayout();
+            panel3.SuspendLayout();
+            sistemasPanel.SuspendLayout();
             SuspendLayout();
             // 
             // usuariolabel
@@ -464,7 +471,7 @@
             creditoslabel.AutoSize = true;
             creditoslabel.BackColor = Color.Transparent;
             creditoslabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            creditoslabel.Location = new Point(928, 809);
+            creditoslabel.Location = new Point(689, 1);
             creditoslabel.Margin = new Padding(2, 0, 2, 0);
             creditoslabel.Name = "creditoslabel";
             creditoslabel.Size = new Size(331, 21);
@@ -476,7 +483,7 @@
             abrirtTV.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             abrirtTV.Cursor = Cursors.Hand;
             abrirtTV.Image = Properties.Resources.tv;
-            abrirtTV.Location = new Point(1215, 760);
+            abrirtTV.Location = new Point(130, 48);
             abrirtTV.Margin = new Padding(2);
             abrirtTV.Name = "abrirtTV";
             abrirtTV.Size = new Size(44, 38);
@@ -490,7 +497,7 @@
             abrirTablet.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             abrirTablet.Cursor = Cursors.Hand;
             abrirTablet.Image = Properties.Resources.tablet;
-            abrirTablet.Location = new Point(1215, 716);
+            abrirTablet.Location = new Point(130, 4);
             abrirTablet.Margin = new Padding(2);
             abrirTablet.Name = "abrirTablet";
             abrirTablet.Size = new Size(44, 38);
@@ -503,9 +510,10 @@
             // 
             label4.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             label4.AutoSize = true;
-            label4.BackColor = Color.Transparent;
+            label4.BackColor = Color.FromArgb(64, 64, 64);
             label4.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(1117, 769);
+            label4.ForeColor = Color.White;
+            label4.Location = new Point(32, 57);
             label4.Margin = new Padding(2, 0, 2, 0);
             label4.Name = "label4";
             label4.Size = new Size(94, 21);
@@ -516,9 +524,10 @@
             // 
             label5.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             label5.AutoSize = true;
-            label5.BackColor = Color.Transparent;
+            label5.BackColor = Color.FromArgb(64, 64, 64);
             label5.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new Point(1090, 725);
+            label5.ForeColor = Color.White;
+            label5.Location = new Point(5, 13);
             label5.Margin = new Padding(2, 0, 2, 0);
             label5.Name = "label5";
             label5.Size = new Size(121, 21);
@@ -547,6 +556,70 @@
             recargarbtn.Visible = false;
             recargarbtn.Click += recargarbtn_Click;
             // 
+            // panel3
+            // 
+            panel3.BackColor = Color.White;
+            panel3.Controls.Add(NombrePCtxt);
+            panel3.Controls.Add(creditoslabel);
+            panel3.Controls.Add(label37);
+            panel3.Dock = DockStyle.Bottom;
+            panel3.Location = new Point(239, 813);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(1027, 26);
+            panel3.TabIndex = 23;
+            // 
+            // NombrePCtxt
+            // 
+            NombrePCtxt.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            NombrePCtxt.AutoSize = true;
+            NombrePCtxt.BackColor = Color.Transparent;
+            NombrePCtxt.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            NombrePCtxt.Location = new Point(4, 1);
+            NombrePCtxt.Margin = new Padding(2, 0, 2, 0);
+            NombrePCtxt.Name = "NombrePCtxt";
+            NombrePCtxt.Size = new Size(38, 21);
+            NombrePCtxt.TabIndex = 2;
+            NombrePCtxt.Text = "PC: ";
+            // 
+            // label37
+            // 
+            label37.Anchor = AnchorStyles.Bottom;
+            label37.AutoSize = true;
+            label37.Font = new Font("Segoe UI", 12F);
+            label37.ForeColor = Color.Black;
+            label37.Image = Properties.Resources.teclado__1_;
+            label37.ImageAlign = ContentAlignment.MiddleLeft;
+            label37.Location = new Point(102, 1);
+            label37.Name = "label37";
+            label37.Size = new Size(646, 21);
+            label37.TabIndex = 75;
+            label37.Text = "      : F5: Recargar Menu, Alt+F: Ordenes, Alt+D: Pedidos, Alt+R: Reservacion, Alt+C: Compras";
+            // 
+            // sistemasPanel
+            // 
+            sistemasPanel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            sistemasPanel.BackColor = Color.FromArgb(64, 64, 64);
+            sistemasPanel.Controls.Add(abrirTablet);
+            sistemasPanel.Controls.Add(label4);
+            sistemasPanel.Controls.Add(label5);
+            sistemasPanel.Controls.Add(abrirtTV);
+            sistemasPanel.Location = new Point(1052, 722);
+            sistemasPanel.Name = "sistemasPanel";
+            sistemasPanel.Size = new Size(178, 90);
+            sistemasPanel.TabIndex = 25;
+            sistemasPanel.Visible = false;
+            // 
+            // deslizar
+            // 
+            deslizar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            deslizar.Image = Properties.Resources.flechaizquierdaroja;
+            deslizar.Location = new Point(1230, 722);
+            deslizar.Name = "deslizar";
+            deslizar.Size = new Size(33, 89);
+            deslizar.TabIndex = 26;
+            deslizar.UseVisualStyleBackColor = true;
+            deslizar.Click += deslizar_Click;
+            // 
             // menu
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -554,14 +627,12 @@
             BackgroundImage = Properties.Resources.tenedor1;
             BackgroundImageLayout = ImageLayout.Center;
             ClientSize = new Size(1266, 839);
+            Controls.Add(deslizar);
+            Controls.Add(sistemasPanel);
+            Controls.Add(panel3);
             Controls.Add(oculto);
             Controls.Add(barrasup);
             Controls.Add(barraizq);
-            Controls.Add(abrirTablet);
-            Controls.Add(abrirtTV);
-            Controls.Add(label5);
-            Controls.Add(label4);
-            Controls.Add(creditoslabel);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -582,8 +653,11 @@
             barraizq.ResumeLayout(false);
             barraizq.PerformLayout();
             oculto.ResumeLayout(false);
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
+            sistemasPanel.ResumeLayout(false);
+            sistemasPanel.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -621,5 +695,10 @@
         public Button recargarbtn;
         private Button button1;
         private ToolTip toolTip1;
+        private Panel panel3;
+        public Label NombrePCtxt;
+        private Panel sistemasPanel;
+        private Button deslizar;
+        private Label label37;
     }
 }

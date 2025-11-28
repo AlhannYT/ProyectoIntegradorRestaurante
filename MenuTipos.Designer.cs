@@ -257,9 +257,9 @@
             label1.Location = new Point(4, 2);
             label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(80, 25);
+            label1.Size = new Size(90, 25);
             label1.TabIndex = 14;
-            label1.Text = "Tipos    ";
+            label1.Text = "Tipos      ";
             label1.Click += label1_Click;
             // 
             // barraizq

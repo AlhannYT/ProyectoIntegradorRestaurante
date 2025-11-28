@@ -9,6 +9,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Proyecto_restaurante
 {
@@ -27,6 +28,8 @@ namespace Proyecto_restaurante
         public string usuarioActual;
         string nombrePC = Environment.MachineName;
         public int administrador;
+        public int estadobarra = 1;
+        public int sistemas = 0;
 
         private void cerrarbtn_Click(object sender, EventArgs e)
         {
@@ -58,6 +61,7 @@ namespace Proyecto_restaurante
             Color colorPanel = Color.Silver;
 
             button5.Focus();
+            sistemas = 0;
 
             try
             {
@@ -92,14 +96,14 @@ namespace Proyecto_restaurante
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+            NombrePCtxt.Text = "PC: " + nombrePC.ToString();
+
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
             this.WindowState = FormWindowState.Maximized;
-            creditoslabel.BackColor = colorPanel;
-            label5.BackColor = colorPanel;
-            label4.BackColor = colorPanel;
             oculto.BackColor = colorPanel;
             
+            deslizar.PerformClick();
             this.CambiarColorMDI(colorPanel);
         }
 
@@ -239,7 +243,6 @@ namespace Proyecto_restaurante
 
         }
 
-        public int estadobarra = 1;
 
         private void button12_Click(object sender, EventArgs e)
         {
@@ -456,6 +459,35 @@ namespace Proyecto_restaurante
             if (e.KeyCode == Keys.Escape)
             {
                 //cerrarbtn_Click(sender, e);
+            }
+
+            if (e.KeyCode == Keys.F5)
+            {
+                
+                RecargarMenu();
+            }
+        }
+
+        private void RecargarMenu()
+        {
+            menu_Load(null, null);
+            MessageBox.Show("Sistema Recargado Exitosamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void deslizar_Click(object sender, EventArgs e)
+        {
+
+            if (sistemas == 0)
+            {
+                deslizar.Image = Proyecto_restaurante.Properties.Resources.flechaizquierdaroja;
+                sistemasPanel.Visible = false;
+                sistemas = 1;
+            }
+            else
+            {
+                deslizar.Image = Proyecto_restaurante.Properties.Resources.flechaderecharoja;
+                sistemasPanel.Visible = true;
+                sistemas = 0;
             }
         }
     }
