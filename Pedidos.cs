@@ -212,8 +212,8 @@ namespace Proyecto_restaurante
                     if (EditarEstado == 0)
                     {
                         string queryPedido = @"
-                        INSERT INTO Pedido (Fecha, IdMesa, Origen, IdClientePersona, NombreCliente, Estado, Total, Nota, Direccion)
-                        VALUES (@Fecha, @IdMesa, @Origen, @IdClientePersona, @NombreCliente, @Estado, @Total, @Nota, @Direccion);
+                        INSERT INTO Pedido (Fecha, IdMesa, Origen, IdClientePersona, NombreCliente, Estado, Total, Nota)
+                        VALUES (@Fecha, @IdMesa, @Origen, @IdClientePersona, @NombreCliente, @Estado, @Total, @Nota);
                         SELECT SCOPE_IDENTITY();";
 
                         SqlCommand cmdPedido = new SqlCommand(queryPedido, conexion, transaccion);
@@ -226,7 +226,6 @@ namespace Proyecto_restaurante
                         cmdPedido.Parameters.AddWithValue("@Estado", "Pendiente");
                         cmdPedido.Parameters.AddWithValue("@Total", Convert.ToDecimal(labeltotal.Text));
                         cmdPedido.Parameters.AddWithValue("@Nota", notatxt.Text);
-                        cmdPedido.Parameters.AddWithValue("@Direccion", direcciontxt.Text);
 
                         idPedidoGenerado = Convert.ToInt32(cmdPedido.ExecuteScalar());
                     }
@@ -242,8 +241,7 @@ namespace Proyecto_restaurante
                             IdClientePersona = @IdClientePersona,
                             NombreCliente = @NombreCliente,
                             Total = @Total,
-                            Nota = @Nota,
-                            Direccion = @Direccion
+                            Nota = @Nota
                         WHERE IdPedido = @IdPedido";
 
                         SqlCommand cmdUpdate = new SqlCommand(queryUpdatePedido, conexion, transaccion);
@@ -254,7 +252,6 @@ namespace Proyecto_restaurante
                         cmdUpdate.Parameters.AddWithValue("@NombreCliente", txtnombrecompleto.Text);
                         cmdUpdate.Parameters.AddWithValue("@Total", Convert.ToDecimal(labeltotal.Text));
                         cmdUpdate.Parameters.AddWithValue("@Nota", notatxt.Text);
-                        cmdUpdate.Parameters.AddWithValue("@Direccion", direcciontxt.Text);
                         cmdUpdate.Parameters.AddWithValue("@IdPedido", PedidoID);
 
                         cmdUpdate.ExecuteNonQuery();
@@ -421,7 +418,7 @@ namespace Proyecto_restaurante
 
             DataGridViewRow row = new DataGridViewRow();
             row.CreateCells(detalleorden);
-            if(grupoCuenta.Items.Count > 0)
+            if (grupoCuenta.Items.Count > 0)
             {
                 string grupoTexto = grupoCuenta.SelectedItem.ToString();
                 int grupoNumero = int.Parse(grupoTexto.Split(' ')[1]);
@@ -436,7 +433,7 @@ namespace Proyecto_restaurante
                 row.Cells[4].Value = itbis;
                 row.Cells[5].Value = cantidad;
                 row.Cells[6].Value = (precio + itbis) * cantidad;
-            }    
+            }
 
             detalleorden.Rows.Add(row);
 
@@ -581,7 +578,6 @@ namespace Proyecto_restaurante
             btn.Click += BtnMesa_Click;
             return btn;
         }
-
 
         public class MesaInfo
         {
@@ -761,7 +757,7 @@ namespace Proyecto_restaurante
             txtnombrecompleto.Text = "AL CONTADO";
             idclientetxt.Text = "1";
             numerotxt.Clear();
-            direcciontxt.Clear();
+            rnc.Clear();
 
             txtcodigoproducto.Clear();
             txtnombreproducto.Clear();
@@ -1719,6 +1715,7 @@ namespace Proyecto_restaurante
             reservadachk.Enabled = false;
             buscarmesatxt.Enabled = false;
             EditarEstado = 0;
+            tipodoccmbx.SelectedIndex = 0;
             habilitarbotones();
             VerificarOrden();
         }
@@ -2006,7 +2003,7 @@ namespace Proyecto_restaurante
                         }
 
                         PedidoID = Convert.ToInt32(dr["IdPedido"]);
-                        Total = Convert.ToDecimal(dr["Total"]);   // ← IMPORTANTE
+                        Total = Convert.ToDecimal(dr["Total"]);
 
                         tabControl1.SelectedIndex = 2;
                         facturarDesdeMesa = true;
@@ -2016,11 +2013,11 @@ namespace Proyecto_restaurante
             }
         }
 
-
         private void DetalleOrden(int idPedido, SqlConnection cn)
         {
             string sqlDet = @"
             SELECT  d.IdProducto,
+                    d.Grupo,
                     p.Nombre,
                     d.PrecioUnitario,
                     p.Itbis,
@@ -2028,7 +2025,7 @@ namespace Proyecto_restaurante
                     d.Cantidad * d.PrecioUnitario AS Importe
             FROM DetallePedido d
             INNER JOIN ProductoVenta p ON p.IdProducto = d.IdProducto
-            WHERE d.IdPedido = @IdPedido;";
+            WHERE d.IdPedido =  @IdPedido;";
 
             using (SqlCommand cmd = new SqlCommand(sqlDet, cn))
             {
@@ -2042,6 +2039,7 @@ namespace Proyecto_restaurante
                     {
                         int fila = detalleorden.Rows.Add();
 
+                        detalleorden.Rows[fila].Cells["cuenta"].Value = dr["Grupo"];
                         detalleorden.Rows[fila].Cells["codigoProducto"].Value = dr["IdProducto"];
                         detalleorden.Rows[fila].Cells["nombreProducto"].Value = dr["Nombre"];
                         detalleorden.Rows[fila].Cells["precio"].Value = dr["PrecioUnitario"];
@@ -2235,11 +2233,6 @@ namespace Proyecto_restaurante
             MessageBox.Show("Seleccione las mesas que desea separar.");
         }
 
-        private void Volver_Click(object sender, EventArgs e)
-        {
-            tabControl1.SelectedIndex = 0;
-        }
-
         private void continuar_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedIndex = 1;
@@ -2363,7 +2356,7 @@ namespace Proyecto_restaurante
 
         private void separarcuenta_Click(object sender, EventArgs e)
         {
-            if(CuentaSeparada == 1)
+            if (CuentaSeparada == 1)
             {
                 MessageBox.Show("La cuenta ya está separada.");
                 return;
@@ -2382,7 +2375,7 @@ namespace Proyecto_restaurante
                     nuevoGrupo.PerformClick();
                 }
             }
-            
+
         }
 
         private void nuevoGrupo_Click(object sender, EventArgs e)
@@ -2400,13 +2393,56 @@ namespace Proyecto_restaurante
                 grupoCuenta.Items.Remove("Grupo " + OrdenGrupo.ToString());
                 grupoCuenta.SelectedIndex = grupoCuenta.Items.Count - 1;
                 OrdenGrupo = OrdenGrupo - 1;
-                
+
                 if (OrdenGrupo < 1)
                 {
                     grupoCuenta.Items.Clear();
                     OrdenGrupo = 0;
                 }
             }
+        }
+
+        private void rnc_TextChanged(object sender, EventArgs e)
+        {
+            if (tipodoccmbx.SelectedIndex == 0)
+            {
+                string posicion = rnc.Text; posicion = posicion.Replace("-", "");
+                if (posicion.Length > 10)
+                {
+                    posicion = posicion.Substring(0, 10);
+                }
+                if (posicion.Length > 3)
+                {
+                    posicion = posicion.Insert(3, "-");
+                }
+
+                rnc.Text = posicion; rnc.SelectionStart = rnc.Text.Length;
+            }
+            else if (tipodoccmbx.SelectedIndex == 1)
+            {
+                string posicion = rnc.Text; posicion = posicion.Replace("-", "");
+
+                if (posicion.Length > 11)
+                {
+                    posicion = posicion.Substring(0, 11);
+                }
+
+                if (posicion.Length > 3)
+                {
+                    posicion = posicion.Insert(3, "-");
+                }
+                if (posicion.Length > 11)
+                {
+                    posicion = posicion.Insert(11, "-");
+                }
+
+                rnc.Text = posicion; rnc.SelectionStart = rnc.Text.Length;
+            }
+        }
+
+        private void tipodoccmbx_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            rnc.Clear();
         }
     }
 }

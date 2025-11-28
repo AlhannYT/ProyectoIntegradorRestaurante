@@ -94,88 +94,20 @@ namespace Proyecto_restaurante
                 MessageBox.Show($"Ocurrió un error al cargar los datos: {ex.Message}");
             }
 
-            //if (filtrochk.Checked == true)
-            //{
-            //    string consulta = "select id, nombre_cliente, apellido_cliente, identificacion, telefono from cliente where estado = 1";
+            if (telefonocliente.ColumnCount == 0)
+            {
+                telefonocliente.Columns.Add("nombre", "Etiqueta");
+                telefonocliente.Columns.Add("numero", "Número");
+                telefonocliente.Columns.Add("principal", "Principal");
+            }
 
-            //    SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
-
-            //    DataTable dt = new DataTable();
-
-            //    adaptador.Fill(dt);
-
-            //    tabladatos.DataSource = dt;
-            //}
-            //else
-            //{
-            //    string consulta = "select id, nombre_cliente, apellido_cliente, identificacion, telefono from cliente where estado = 0";
-            //    SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
-            //    DataTable dt = new DataTable();
-            //    adaptador.Fill(dt);
-            //    tabladatos.DataSource = dt;
-            //}
+            if (direccioncliente.ColumnCount == 0)
+            {
+                direccioncliente.Columns.Add("nombre", "Etiqueta");
+                direccioncliente.Columns.Add("direccion", "Dirección");
+                direccioncliente.Columns.Add("principal", "Principal");
+            }
         }
-
-        //private void FiltroDatosBusqueda(string busqueda)
-        //{
-        //    string conexionString = ConexionBD.ConexionSQL();
-
-        //    using (SqlConnection conectar = new SqlConnection(conexionString))
-        //    {
-        //        if (filtrochk.Checked == true)
-        //        {
-        //            try
-        //            {
-        //                conectar.Open();
-
-        //                string query = @"
-        //                SELECT id, nombre_cliente, apellido_cliente, identificacion, telefono FROM cliente
-        //                WHERE CAST(id AS VARCHAR) LIKE @buscar OR
-        //                nombre_cliente LIKE @buscar OR
-        //                apellido_cliente LIKE @buscar and estado = 1";
-
-        //                using (SqlCommand comando = new SqlCommand(query, conectar))
-        //                {
-        //                    comando.Parameters.AddWithValue("@buscar", "%" + busqueda + "%");
-
-        //                    SqlDataAdapter da = new SqlDataAdapter(comando);
-        //                    DataTable dt = new DataTable();
-        //                    da.Fill(dt);
-
-        //                    tabladatos.DataSource = dt;
-        //                }
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                MessageBox.Show($"Error: {ex.Message}");
-        //            }
-        //        }
-        //        else if (filtrochk.Checked == false)
-        //        {
-        //            try
-        //            {
-        //                conectar.Open();
-        //                string query = @"
-        //                SELECT id, nombre_cliente, apellido_cliente, identificacion, telefono FROM cliente
-        //                WHERE CAST(id AS VARCHAR) LIKE @buscar OR
-        //                nombre_cliente LIKE @buscar OR
-        //                apellido_cliente LIKE @buscar and estado = 0";
-        //                using (SqlCommand comando = new SqlCommand(query, conectar))
-        //                {
-        //                    comando.Parameters.AddWithValue("@buscar", "%" + busqueda + "%");
-        //                    SqlDataAdapter da = new SqlDataAdapter(comando);
-        //                    DataTable dt = new DataTable();
-        //                    da.Fill(dt);
-        //                    tabladatos.DataSource = dt;
-        //                }
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                MessageBox.Show($"Error: {ex.Message}");
-        //            }
-        //        }
-        //    }
-        //}
 
         private void eliminarbtn_Click(object sender, EventArgs e)
         {
@@ -211,7 +143,6 @@ namespace Proyecto_restaurante
         private void agregar_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedIndex = 1;
-            //IDModificar = "";
         }
 
         private void guardarbtn_Click(object sender, EventArgs e)
@@ -279,21 +210,39 @@ namespace Proyecto_restaurante
                         {
                             if (fila.IsNewRow) continue;
 
-                            string queryReceta = @"
-                                INSERT INTO Receta (IdProducto, IdIngrediente, IdUnidadMedida, Cantidad, Activo)
-                                VALUES (@IdProducto, @IdIngrediente, @IdUnidadMedida, @Cantidad, 1)";
+                            string queryTelefono = @"
+                                INSERT INTO PersonaTelefono (IdPersona, Numero, EsPrincipal, NombreTelefono)
+                                VALUES (@IdPersona, @Numero, @EsPrincipal, @NombreTelefono)";
 
-                            using (SqlCommand cmdReceta = new SqlCommand(queryReceta, conexion))
+                            using (SqlCommand cmdTelefono = new SqlCommand(queryTelefono, conexion))
                             {
-                                //cmdReceta.Parameters.AddWithValue("@IdProducto", nuevoIdProducto);
-                                //cmdReceta.Parameters.AddWithValue("@IdIngrediente", idIngrediente);
-                                //cmdReceta.Parameters.AddWithValue("@IdUnidadMedida", idUnidadMedida);
-                                //cmdReceta.Parameters.AddWithValue("@Cantidad", cantidad);
-
-                                cmdReceta.ExecuteNonQuery();
+                                cmdTelefono.Parameters.AddWithValue("@IdPersona", PersonaID);
+                                cmdTelefono.Parameters.AddWithValue("@Numero", telefonocliente.SelectedCells[1].Value.ToString());
+                                cmdTelefono.Parameters.AddWithValue("@EsPrincipal", Convert.ToInt32(telefonocliente.SelectedRows[3].Cells["pricipal"].Value));
+                                cmdTelefono.Parameters.AddWithValue("@NombreTelefono", telefonocliente.SelectedCells[2].Value.ToString());
+                                
+                                cmdTelefono.ExecuteNonQuery();
                             }
                         }
 
+                        foreach (DataGridViewRow fila in direccioncliente.Rows)
+                        {
+                            if (fila.IsNewRow) continue;
+
+                            string queryDireccion = @"
+                                INSERT INTO PersonaDireccion (IdPersona, Direccion, EsPrincipal, Nombre)
+                                VALUES (@IdPersona, @Direccion, @EsPrincipal, @Nombre)";
+
+                            using (SqlCommand cmdDireccion = new SqlCommand(queryDireccion, conexion))
+                            {
+                                cmdDireccion.Parameters.AddWithValue("@IdPersona", PersonaID);
+                                cmdDireccion.Parameters.AddWithValue("@Nombre", telefonocliente.SelectedCells[0].Value.ToString());
+                                cmdDireccion.Parameters.AddWithValue("@Direccion", telefonocliente.SelectedCells[1].Value.ToString());
+                                cmdDireccion.Parameters.AddWithValue("@EsPrincipal", Convert.ToInt32(telefonocliente.SelectedRows[2].Cells["pricipal"].Value));
+                                
+                                cmdDireccion.ExecuteNonQuery();
+                            }
+                        }
 
                         trans.Commit();
                         MessageBox.Show("Cliente registrado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -348,6 +297,7 @@ namespace Proyecto_restaurante
             imagencliente.Image = Proyecto_restaurante.Properties.Resources.perfilcliente;
             txtnombre.Text = "";
             identtxt.Text = "";
+            tipodoccmbx.SelectedIndex = -1;
 
             txtapellido.Text = "";
 
@@ -356,6 +306,8 @@ namespace Proyecto_restaurante
 
             estadochk.Checked = true;
             txtnombre.Focus();
+            direccioncliente.Rows.Clear();
+            telefonocliente.Rows.Clear();
         }
 
         private void limpiarbtn_Click(object sender, EventArgs e)
@@ -363,7 +315,6 @@ namespace Proyecto_restaurante
             RestablecerFormulario();
             ConsultaClientes_Load(sender, e);
         }
-
 
         private void txtnumero_TextChanged(object sender, EventArgs e)
         {
@@ -460,8 +411,6 @@ namespace Proyecto_restaurante
             }
         }
 
-        private int idCliente;
-
         private void tabladatos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -489,7 +438,7 @@ namespace Proyecto_restaurante
         {
             if (tabladatos.SelectedRows.Count > 0)
             {
-                int idCliente = Convert.ToInt32(tabladatos.SelectedRows[0].Cells["id"].Value);
+                int idCliente = Convert.ToInt32(tabladatos.SelectedRows[0].Cells["IdCliente"].Value);
 
                 IDModificar = idCliente.ToString();
 
@@ -534,28 +483,111 @@ namespace Proyecto_restaurante
 
         private void identtxt_TextChanged(object sender, EventArgs e)
         {
-            string posicion = identtxt.Text; posicion = posicion.Replace("-", "");
-
-            if (posicion.Length > 11)
+            if (tipodoccmbx.SelectedIndex == 0)
             {
-                posicion = posicion.Substring(0, 11);
-            }
+                string posicion = identtxt.Text; posicion = posicion.Replace("-", "");
 
-            if (posicion.Length > 3)
-            {
-                posicion = posicion.Insert(3, "-");
-            }
-            if (posicion.Length > 11)
-            {
-                posicion = posicion.Insert(11, "-");
-            }
+                if (posicion.Length > 11)
+                {
+                    posicion = posicion.Substring(0, 11);
+                }
 
-            identtxt.Text = posicion; identtxt.SelectionStart = identtxt.Text.Length;
+                if (posicion.Length > 3)
+                {
+                    posicion = posicion.Insert(3, "-");
+                }
+                if (posicion.Length > 11)
+                {
+                    posicion = posicion.Insert(11, "-");
+                }
+
+                identtxt.Text = posicion; identtxt.SelectionStart = identtxt.Text.Length;
+            }
+            else if (tipodoccmbx.SelectedIndex == 1)
+            {
+                string posicion = identtxt.Text; posicion = posicion.Replace("-", "");
+                if (posicion.Length > 10)
+                {
+                    posicion = posicion.Substring(0, 10);
+                }
+                if (posicion.Length > 3)
+                {
+                    posicion = posicion.Insert(3, "-");
+                }
+
+                identtxt.Text = posicion; identtxt.SelectionStart = identtxt.Text.Length;
+            }
         }
 
         private void tipodoccmbx_SelectedIndexChanged(object sender, EventArgs e)
         {
             identtxt_TextChanged(null, null);
+        }
+
+        private void bajarTelefono_Click(object sender, EventArgs e)
+        {
+            if (nombrenumerotxt.Text == "" || numerotxt.Text == "")
+            {
+                MessageBox.Show("Campos Vacíos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            DataGridViewRow row = new DataGridViewRow();
+            row.CreateCells(telefonocliente);
+
+            row.Cells[0].Value = nombrenumerotxt.Text;
+            row.Cells[1].Value = numerotxt.Text;
+            row.Cells[2].Value = numPrincipalcmbx.Checked;
+
+            telefonocliente.Rows.Add(row);
+
+            if (numPrincipalcmbx.Checked)
+            {
+                numPrincipalcmbx.Checked = false;
+                numPrincipalcmbx.Enabled = false;
+            }
+            else
+            {
+                numPrincipalcmbx.Checked = false;
+                numPrincipalcmbx.Enabled = true;
+            }
+
+            nombrenumerotxt.Clear();
+            numerotxt.Clear();
+            numPrincipalcmbx.Checked = false;
+        }
+
+        private void bajardireccion_Click(object sender, EventArgs e)
+        {
+            if(nombredirecciontxt.Text == "" || direcciontxt.Text == "")
+            {
+                MessageBox.Show("Campos Vacíos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            DataGridViewRow row = new DataGridViewRow();
+            row.CreateCells(direccioncliente);
+
+            row.Cells[0].Value = nombredirecciontxt.Text;
+            row.Cells[1].Value = direcciontxt.Text;
+            row.Cells[2].Value = principalDireccion.Checked;
+
+            direccioncliente.Rows.Add(row);
+
+            if (principalDireccion.Checked)
+            {
+                principalDireccion.Checked = false;
+                principalDireccion.Enabled = false;
+            }
+            else
+            {
+                principalDireccion.Checked = false;
+                principalDireccion.Enabled = true;
+            }
+
+            nombredirecciontxt.Clear();
+            direcciontxt.Clear();
+            principalDireccion.Checked = false;
         }
     }
 }

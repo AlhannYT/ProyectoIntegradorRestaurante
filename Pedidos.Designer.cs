@@ -109,7 +109,6 @@
             txtprecioproducto = new TextBox();
             txtcodigoproducto = new TextBox();
             panel4 = new Panel();
-            Volver = new Button();
             labelcaja = new Label();
             panel9 = new Panel();
             labelsubtotal = new Label();
@@ -121,7 +120,8 @@
             label11 = new Label();
             guardarordenbtn = new Button();
             panel1 = new Panel();
-            direcciontxt = new TextBox();
+            tipodoccmbx = new ComboBox();
+            rnc = new TextBox();
             numerotxt = new TextBox();
             pictureBox2 = new PictureBox();
             pictureBox1 = new PictureBox();
@@ -1198,7 +1198,6 @@
             // panel4
             // 
             panel4.BackColor = SystemColors.WindowFrame;
-            panel4.Controls.Add(Volver);
             panel4.Controls.Add(labelcaja);
             panel4.Controls.Add(panel9);
             panel4.Controls.Add(fechapedido);
@@ -1209,19 +1208,6 @@
             panel4.Name = "panel4";
             panel4.Size = new Size(281, 179);
             panel4.TabIndex = 0;
-            // 
-            // Volver
-            // 
-            Volver.Image = Properties.Resources.atrás;
-            Volver.ImageAlign = ContentAlignment.MiddleLeft;
-            Volver.Location = new Point(179, 3);
-            Volver.Name = "Volver";
-            Volver.Size = new Size(97, 29);
-            Volver.TabIndex = 27;
-            Volver.Text = " Volver";
-            Volver.TextAlign = ContentAlignment.MiddleRight;
-            Volver.UseVisualStyleBackColor = true;
-            Volver.Click += Volver_Click;
             // 
             // labelcaja
             // 
@@ -1341,7 +1327,8 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(64, 64, 64);
-            panel1.Controls.Add(direcciontxt);
+            panel1.Controls.Add(tipodoccmbx);
+            panel1.Controls.Add(rnc);
             panel1.Controls.Add(numerotxt);
             panel1.Controls.Add(pictureBox2);
             panel1.Controls.Add(pictureBox1);
@@ -1359,29 +1346,42 @@
             panel1.Size = new Size(509, 179);
             panel1.TabIndex = 0;
             // 
-            // direcciontxt
+            // tipodoccmbx
             // 
-            direcciontxt.CharacterCasing = CharacterCasing.Upper;
-            direcciontxt.Location = new Point(254, 102);
-            direcciontxt.Name = "direcciontxt";
-            direcciontxt.PlaceholderText = "Dirección";
-            direcciontxt.Size = new Size(246, 29);
-            direcciontxt.TabIndex = 0;
+            tipodoccmbx.BackColor = SystemColors.ActiveCaption;
+            tipodoccmbx.DropDownStyle = ComboBoxStyle.DropDownList;
+            tipodoccmbx.FormattingEnabled = true;
+            tipodoccmbx.Items.AddRange(new object[] { "RNC", "Cédula" });
+            tipodoccmbx.Location = new Point(46, 103);
+            tipodoccmbx.Name = "tipodoccmbx";
+            tipodoccmbx.Size = new Size(77, 29);
+            tipodoccmbx.TabIndex = 3;
+            tipodoccmbx.SelectedIndexChanged += tipodoccmbx_SelectedIndexChanged;
+            // 
+            // rnc
+            // 
+            rnc.CharacterCasing = CharacterCasing.Upper;
+            rnc.Location = new Point(127, 103);
+            rnc.Name = "rnc";
+            rnc.PlaceholderText = "RNC/Cédula";
+            rnc.Size = new Size(154, 29);
+            rnc.TabIndex = 0;
+            rnc.TextChanged += rnc_TextChanged;
             // 
             // numerotxt
             // 
-            numerotxt.Location = new Point(46, 102);
+            numerotxt.Location = new Point(321, 68);
             numerotxt.Name = "numerotxt";
-            numerotxt.PlaceholderText = "Numero de telefono";
-            numerotxt.Size = new Size(163, 29);
+            numerotxt.PlaceholderText = "Teléfono (Opcional)";
+            numerotxt.Size = new Size(179, 29);
             numerotxt.TabIndex = 0;
             numerotxt.TextChanged += numerotxt_TextChanged;
             // 
             // pictureBox2
             // 
             pictureBox2.BackColor = SystemColors.Window;
-            pictureBox2.Image = Properties.Resources.marcador;
-            pictureBox2.Location = new Point(222, 102);
+            pictureBox2.Image = Properties.Resources.cedula;
+            pictureBox2.Location = new Point(12, 103);
             pictureBox2.Margin = new Padding(3, 2, 3, 2);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(27, 29);
@@ -1393,7 +1393,7 @@
             // 
             pictureBox1.BackColor = SystemColors.Window;
             pictureBox1.Image = Properties.Resources.telefono;
-            pictureBox1.Location = new Point(12, 102);
+            pictureBox1.Location = new Point(289, 68);
             pictureBox1.Margin = new Padding(3, 2, 3, 2);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(27, 29);
@@ -1452,7 +1452,7 @@
             idclientetxt.Location = new Point(46, 68);
             idclientetxt.Name = "idclientetxt";
             idclientetxt.PlaceholderText = "ID";
-            idclientetxt.Size = new Size(45, 29);
+            idclientetxt.Size = new Size(29, 29);
             idclientetxt.TabIndex = 0;
             idclientetxt.Text = "1";
             // 
@@ -1467,10 +1467,10 @@
             // txtnombrecompleto
             // 
             txtnombrecompleto.CharacterCasing = CharacterCasing.Upper;
-            txtnombrecompleto.Location = new Point(94, 68);
+            txtnombrecompleto.Location = new Point(80, 68);
             txtnombrecompleto.Name = "txtnombrecompleto";
             txtnombrecompleto.PlaceholderText = "Nombre del cliente";
-            txtnombrecompleto.Size = new Size(406, 29);
+            txtnombrecompleto.Size = new Size(201, 29);
             txtnombrecompleto.TabIndex = 0;
             txtnombrecompleto.Text = "AL CONTADO";
             txtnombrecompleto.TextChanged += txtnombrecompleto_TextChanged;
@@ -2524,8 +2524,6 @@
         private DateTimePicker fecfin;
         private Label label21;
         private TextBox idclientetxt;
-        private TextBox direcciontxt;
-        private PictureBox pictureBox2;
         private Panel panel10;
         private Panel detallepanelcompleto;
         private Panel detallepagopanel;
@@ -2607,7 +2605,6 @@
         private Button SepararMesa;
         private Label label22;
         private Panel panel15;
-        private Button Volver;
         private Label label35;
         private Panel panel19;
         private Panel panel18;
@@ -2637,5 +2634,8 @@
         private Button nuevoGrupo;
         private Panel panelCuentaSeparada;
         private Label label14;
+        private TextBox rnc;
+        private PictureBox pictureBox2;
+        private ComboBox tipodoccmbx;
     }
 }

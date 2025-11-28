@@ -52,17 +52,17 @@
             panel2 = new Panel();
             panel5 = new Panel();
             label19 = new Label();
-            textBox3 = new TextBox();
+            direcciontxt = new TextBox();
             numerotxt = new TextBox();
             label13 = new Label();
-            checkBox2 = new CheckBox();
-            checkBox1 = new CheckBox();
+            principalDireccion = new CheckBox();
+            numPrincipalcmbx = new CheckBox();
             direccioncliente = new DataGridView();
             telefonocliente = new DataGridView();
-            button7 = new Button();
-            button4 = new Button();
-            button6 = new Button();
-            button3 = new Button();
+            eliminarDireccion = new Button();
+            bajardireccion = new Button();
+            eliminarNumero = new Button();
+            bajarTelefono = new Button();
             nombredirecciontxt = new TextBox();
             nombrenumerotxt = new TextBox();
             panel3 = new Panel();
@@ -376,17 +376,17 @@
             // 
             panel5.BackColor = Color.FromArgb(64, 64, 64);
             panel5.Controls.Add(label19);
-            panel5.Controls.Add(textBox3);
+            panel5.Controls.Add(direcciontxt);
             panel5.Controls.Add(numerotxt);
             panel5.Controls.Add(label13);
-            panel5.Controls.Add(checkBox2);
-            panel5.Controls.Add(checkBox1);
+            panel5.Controls.Add(principalDireccion);
+            panel5.Controls.Add(numPrincipalcmbx);
             panel5.Controls.Add(direccioncliente);
             panel5.Controls.Add(telefonocliente);
-            panel5.Controls.Add(button7);
-            panel5.Controls.Add(button4);
-            panel5.Controls.Add(button6);
-            panel5.Controls.Add(button3);
+            panel5.Controls.Add(eliminarDireccion);
+            panel5.Controls.Add(bajardireccion);
+            panel5.Controls.Add(eliminarNumero);
+            panel5.Controls.Add(bajarTelefono);
             panel5.Controls.Add(nombredirecciontxt);
             panel5.Controls.Add(nombrenumerotxt);
             panel5.Location = new Point(11, 365);
@@ -407,14 +407,14 @@
             label19.TabIndex = 55;
             label19.Text = "Direccion     ";
             // 
-            // textBox3
+            // direcciontxt
             // 
-            textBox3.CharacterCasing = CharacterCasing.Upper;
-            textBox3.Location = new Point(408, 36);
-            textBox3.Name = "textBox3";
-            textBox3.PlaceholderText = "Dirección";
-            textBox3.Size = new Size(166, 29);
-            textBox3.TabIndex = 79;
+            direcciontxt.CharacterCasing = CharacterCasing.Upper;
+            direcciontxt.Location = new Point(408, 36);
+            direcciontxt.Name = "direcciontxt";
+            direcciontxt.PlaceholderText = "Dirección";
+            direcciontxt.Size = new Size(166, 29);
+            direcciontxt.TabIndex = 79;
             // 
             // numerotxt
             // 
@@ -438,27 +438,27 @@
             label13.TabIndex = 55;
             label13.Text = "Número de telefono     ";
             // 
-            // checkBox2
+            // principalDireccion
             // 
-            checkBox2.AutoSize = true;
-            checkBox2.ForeColor = Color.White;
-            checkBox2.Location = new Point(580, 38);
-            checkBox2.Name = "checkBox2";
-            checkBox2.Size = new Size(89, 25);
-            checkBox2.TabIndex = 90;
-            checkBox2.Text = "Principal";
-            checkBox2.UseVisualStyleBackColor = true;
+            principalDireccion.AutoSize = true;
+            principalDireccion.ForeColor = Color.White;
+            principalDireccion.Location = new Point(580, 38);
+            principalDireccion.Name = "principalDireccion";
+            principalDireccion.Size = new Size(89, 25);
+            principalDireccion.TabIndex = 90;
+            principalDireccion.Text = "Principal";
+            principalDireccion.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // numPrincipalcmbx
             // 
-            checkBox1.AutoSize = true;
-            checkBox1.ForeColor = Color.White;
-            checkBox1.Location = new Point(199, 38);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(89, 25);
-            checkBox1.TabIndex = 90;
-            checkBox1.Text = "Principal";
-            checkBox1.UseVisualStyleBackColor = true;
+            numPrincipalcmbx.AutoSize = true;
+            numPrincipalcmbx.ForeColor = Color.White;
+            numPrincipalcmbx.Location = new Point(199, 38);
+            numPrincipalcmbx.Name = "numPrincipalcmbx";
+            numPrincipalcmbx.Size = new Size(89, 25);
+            numPrincipalcmbx.TabIndex = 90;
+            numPrincipalcmbx.Text = "Principal";
+            numPrincipalcmbx.UseVisualStyleBackColor = true;
             // 
             // direccioncliente
             // 
@@ -494,45 +494,45 @@
             telefonocliente.Size = new Size(281, 129);
             telefonocliente.TabIndex = 74;
             // 
-            // button7
+            // eliminarDireccion
             // 
-            button7.BackColor = Color.Red;
-            button7.Enabled = false;
-            button7.Image = Properties.Resources.basurablanco;
-            button7.Location = new Point(673, 171);
-            button7.Name = "button7";
-            button7.Size = new Size(28, 29);
-            button7.TabIndex = 77;
-            button7.UseVisualStyleBackColor = false;
+            eliminarDireccion.BackColor = Color.Red;
+            eliminarDireccion.Image = Properties.Resources.basurablanco;
+            eliminarDireccion.Location = new Point(673, 171);
+            eliminarDireccion.Name = "eliminarDireccion";
+            eliminarDireccion.Size = new Size(28, 29);
+            eliminarDireccion.TabIndex = 77;
+            eliminarDireccion.UseVisualStyleBackColor = false;
             // 
-            // button4
+            // bajardireccion
             // 
-            button4.Image = Properties.Resources.angulo_hacia_abajo;
-            button4.Location = new Point(673, 36);
-            button4.Name = "button4";
-            button4.Size = new Size(28, 29);
-            button4.TabIndex = 77;
-            button4.UseVisualStyleBackColor = true;
+            bajardireccion.Image = Properties.Resources.angulo_hacia_abajo;
+            bajardireccion.Location = new Point(673, 36);
+            bajardireccion.Name = "bajardireccion";
+            bajardireccion.Size = new Size(28, 29);
+            bajardireccion.TabIndex = 77;
+            bajardireccion.UseVisualStyleBackColor = true;
+            bajardireccion.Click += bajardireccion_Click;
             // 
-            // button6
+            // eliminarNumero
             // 
-            button6.BackColor = Color.Red;
-            button6.Enabled = false;
-            button6.Image = Properties.Resources.basurablanco;
-            button6.Location = new Point(293, 169);
-            button6.Name = "button6";
-            button6.Size = new Size(28, 29);
-            button6.TabIndex = 77;
-            button6.UseVisualStyleBackColor = false;
+            eliminarNumero.BackColor = Color.Red;
+            eliminarNumero.Image = Properties.Resources.basurablanco;
+            eliminarNumero.Location = new Point(293, 169);
+            eliminarNumero.Name = "eliminarNumero";
+            eliminarNumero.Size = new Size(28, 29);
+            eliminarNumero.TabIndex = 77;
+            eliminarNumero.UseVisualStyleBackColor = false;
             // 
-            // button3
+            // bajarTelefono
             // 
-            button3.Image = Properties.Resources.angulo_hacia_abajo;
-            button3.Location = new Point(293, 36);
-            button3.Name = "button3";
-            button3.Size = new Size(28, 29);
-            button3.TabIndex = 77;
-            button3.UseVisualStyleBackColor = true;
+            bajarTelefono.Image = Properties.Resources.angulo_hacia_abajo;
+            bajarTelefono.Location = new Point(293, 36);
+            bajarTelefono.Name = "bajarTelefono";
+            bajarTelefono.Size = new Size(28, 29);
+            bajarTelefono.TabIndex = 77;
+            bajarTelefono.UseVisualStyleBackColor = true;
+            bajarTelefono.Click += bajarTelefono_Click;
             // 
             // nombredirecciontxt
             // 
@@ -829,17 +829,17 @@
         private Panel panel2;
         private Panel panel5;
         private Label label19;
-        private TextBox textBox3;
+        private TextBox direcciontxt;
         private TextBox numerotxt;
         private Label label13;
-        private CheckBox checkBox2;
-        private CheckBox checkBox1;
+        private CheckBox principalDireccion;
+        private CheckBox numPrincipalcmbx;
         private DataGridView direccioncliente;
         private DataGridView telefonocliente;
-        private Button button7;
-        private Button button4;
-        private Button button6;
-        private Button button3;
+        private Button eliminarDireccion;
+        private Button bajardireccion;
+        private Button eliminarNumero;
+        private Button bajarTelefono;
         private TextBox nombredirecciontxt;
         private TextBox nombrenumerotxt;
         private Label nombrelabel;

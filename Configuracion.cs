@@ -60,7 +60,6 @@ namespace Proyecto_restaurante
                             {
                                 MessageBox.Show("Caja creada con exito!.");
                                 limpiarbtn_Click(sender, e);
-                                MantCajas_Load(sender, e);
                                 recargarbtn_Click(sender, e);
                             }
                             else
@@ -86,7 +85,6 @@ namespace Proyecto_restaurante
                             {
                                 MessageBox.Show("Caja actualizada con éxito.");
                                 limpiarbtn_Click(sender, e);
-                                MantCajas_Load(sender, e);
                                 recargarbtn_Click(sender, e);
                             }
                             else
@@ -127,46 +125,6 @@ namespace Proyecto_restaurante
                 estadocajachk.ForeColor = Color.Red;
             }
         }
-
-        private void MantCajas_Load(object sender, EventArgs e)
-        {
-            string conexionString = ConexionBD.ConexionSQL();
-
-            //using (SqlConnection conexion = new SqlConnection(conexionString))
-            //{
-            //    try
-            //    {
-            //        conexion.Open();
-
-            //        string query = "SELECT usuario FROM login_usuario where estado = 1";
-            //        using (SqlCommand comando = new SqlCommand(query, conexion))
-            //        {
-            //            using (SqlDataReader lector = comando.ExecuteReader())
-            //            {
-            //                while (lector.Read())
-            //                {
-            //                    //responsablecmbx.Items.Add(lector["usuario"].ToString());
-            //                }
-            //            }
-            //        }
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        MessageBox.Show($"Ocurrió un error al cargar las salas: {ex.Message}");
-            //    }
-            //}
-
-            string consulta = "select id, numero_caja, nombre_caja, responsable, estado from cajas";
-
-            SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
-
-            DataTable dt = new DataTable();
-
-            adaptador.Fill(dt);
-
-            tabladatos.DataSource = dt;
-        }
-
 
         private void FiltroDatosBusqueda(string busqueda)
         {
@@ -217,13 +175,7 @@ namespace Proyecto_restaurante
 
         private void recargarbtn_Click(object sender, EventArgs e)
         {
-            //MantCajas_Load(sender, e);
-        }
-
-        private void agregar_Click(object sender, EventArgs e)
-        {
-            tabControl1.SelectedIndex = 1;
-            IDModificar = "";
+            
         }
 
         private void Configuracion_Load(object sender, EventArgs e)
@@ -385,7 +337,6 @@ namespace Proyecto_restaurante
                 EstadobuscarEmpleado = 1;
             }
         }
-
         private void button10_Click(object sender, EventArgs e)
         {
             idempleadotxt.Text = idempleadoconsulta.Text;
@@ -553,7 +504,6 @@ namespace Proyecto_restaurante
                 }
             }
         }
-
 
         private void button29_Click(object sender, EventArgs e)
         {
@@ -770,7 +720,6 @@ namespace Proyecto_restaurante
                             {
                                 MessageBox.Show("Caja asignada con exito!.");
                                 limpiarbtn_Click(sender, e);
-                                MantCajas_Load(sender, e);
                                 recargarbtn_Click(sender, e);
                             }
                             else
