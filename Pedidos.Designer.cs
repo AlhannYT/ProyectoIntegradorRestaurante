@@ -90,6 +90,7 @@
             label17 = new Label();
             tablapanelproducto = new DataGridView();
             panel2 = new Panel();
+            label14 = new Label();
             label6 = new Label();
             detalleorden = new DataGridView();
             label21 = new Label();
@@ -209,7 +210,6 @@
             facturadochk = new CheckBox();
             toolTip1 = new ToolTip(components);
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            label14 = new Label();
             tabControl1.SuspendLayout();
             tabPage6.SuspendLayout();
             autorizacionpanel.SuspendLayout();
@@ -986,6 +986,17 @@
             panel2.Size = new Size(793, 361);
             panel2.TabIndex = 1;
             // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Font = new Font("Segoe UI", 12F);
+            label14.ForeColor = SystemColors.Control;
+            label14.Location = new Point(171, 334);
+            label14.Name = "label14";
+            label14.Size = new Size(614, 21);
+            label14.TabIndex = 75;
+            label14.Text = "Combinaciones: Ctrl + Espacio: Separar cuenta, Alt+Q: Alternar Agregar/Eliminar Grupo";
+            // 
             // label6
             // 
             label6.AutoSize = true;
@@ -993,9 +1004,9 @@
             label6.ForeColor = SystemColors.Control;
             label6.Location = new Point(5, 334);
             label6.Name = "label6";
-            label6.Size = new Size(152, 21);
+            label6.Size = new Size(83, 21);
             label6.TabIndex = 3;
-            label6.Text = "Cantidad de Items:";
+            label6.Text = "Cantidad:";
             // 
             // detalleorden
             // 
@@ -1044,7 +1055,7 @@
             labelcantidadarticulos.AutoSize = true;
             labelcantidadarticulos.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelcantidadarticulos.ForeColor = SystemColors.Control;
-            labelcantidadarticulos.Location = new Point(161, 334);
+            labelcantidadarticulos.Location = new Point(88, 334);
             labelcantidadarticulos.Name = "labelcantidadarticulos";
             labelcantidadarticulos.Size = new Size(19, 21);
             labelcantidadarticulos.TabIndex = 3;
@@ -1102,6 +1113,7 @@
             // 
             // separarcuenta
             // 
+            separarcuenta.BackColor = Color.White;
             separarcuenta.Enabled = false;
             separarcuenta.Image = Properties.Resources.separar_flecha;
             separarcuenta.Location = new Point(625, 11);
@@ -1109,7 +1121,7 @@
             separarcuenta.Size = new Size(29, 29);
             separarcuenta.TabIndex = 2;
             toolTip1.SetToolTip(separarcuenta, "Separar Cuenta");
-            separarcuenta.UseVisualStyleBackColor = true;
+            separarcuenta.UseVisualStyleBackColor = false;
             separarcuenta.Click += separarcuenta_Click;
             // 
             // bajarproductobtn
@@ -2348,17 +2360,6 @@
             facturadochk.Text = "Facturado";
             facturadochk.UseVisualStyleBackColor = true;
             facturadochk.CheckedChanged += facturadochk_CheckedChanged;
-            // 
-            // label14
-            // 
-            label14.AutoSize = true;
-            label14.Font = new Font("Segoe UI", 12F);
-            label14.ForeColor = SystemColors.Control;
-            label14.Location = new Point(382, 334);
-            label14.Name = "label14";
-            label14.Size = new Size(412, 21);
-            label14.TabIndex = 75;
-            label14.Text = "Combinaciones:    Alt+Q: Alternar Agregar/Eliminar Grupo";
             // 
             // Pedidos
             // 

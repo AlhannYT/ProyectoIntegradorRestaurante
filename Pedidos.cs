@@ -152,6 +152,11 @@ namespace Proyecto_restaurante
                 facturarbtn.PerformClick();
             }
 
+            if (tabControl1.SelectedIndex == 1 && e.Control && e.KeyCode == Keys.Space)
+            {
+                separarcuenta.PerformClick();
+            }
+
             if (e.Alt && e.KeyCode == Keys.D1)
             {
                 tabControl1.SelectedIndex = 0;
@@ -268,8 +273,8 @@ namespace Proyecto_restaurante
                     }
 
                     string queryDetalle = @"
-                    INSERT INTO DetallePedido (IdPedido, IdProducto, Cantidad, PrecioUnitario)
-                    VALUES (@IdPedido, @IdProducto, @Cantidad, @PrecioUnitario);";
+                    INSERT INTO DetallePedido (IdPedido, IdProducto, Cantidad, PrecioUnitario, Grupo)
+                    VALUES (@IdPedido, @IdProducto, @Cantidad, @PrecioUnitario, @Grupo);";
 
                     foreach (DataGridViewRow fila in detalleorden.Rows)
                     {
@@ -280,6 +285,7 @@ namespace Proyecto_restaurante
                         cmdDetalle.Parameters.AddWithValue("@IdProducto", Convert.ToInt32(fila.Cells["codigoProducto"].Value));
                         cmdDetalle.Parameters.AddWithValue("@Cantidad", Convert.ToDecimal(fila.Cells["Cantidad"].Value));
                         cmdDetalle.Parameters.AddWithValue("@PrecioUnitario", Convert.ToDecimal(fila.Cells["Precio"].Value));
+                        cmdDetalle.Parameters.AddWithValue("@Grupo", Convert.ToDecimal(fila.Cells["cuenta"].Value));
 
                         cmdDetalle.ExecuteNonQuery();
                     }
@@ -415,14 +421,22 @@ namespace Proyecto_restaurante
 
             DataGridViewRow row = new DataGridViewRow();
             row.CreateCells(detalleorden);
-
-            row.Cells[0].Value = Convert.ToInt32(grupoCuenta.SelectedValue) + 1;
-            row.Cells[1].Value = codigoProducto;
-            row.Cells[2].Value = nombreProducto;
-            row.Cells[3].Value = precio;
-            row.Cells[4].Value = itbis;
-            row.Cells[5].Value = cantidad;
-            row.Cells[6].Value = (precio + itbis) * cantidad;
+            if(grupoCuenta.Items.Count > 0)
+            {
+                string grupoTexto = grupoCuenta.SelectedItem.ToString();
+                int grupoNumero = int.Parse(grupoTexto.Split(' ')[1]);
+                row.Cells[0].Value = grupoNumero;
+            }
+            else
+            {
+                row.Cells[0].Value = "0";
+                row.Cells[1].Value = codigoProducto;
+                row.Cells[2].Value = nombreProducto;
+                row.Cells[3].Value = precio;
+                row.Cells[4].Value = itbis;
+                row.Cells[5].Value = cantidad;
+                row.Cells[6].Value = (precio + itbis) * cantidad;
+            }    
 
             detalleorden.Rows.Add(row);
 
@@ -436,6 +450,7 @@ namespace Proyecto_restaurante
 
             guardarordenbtn.Enabled = true;
         }
+
 
         private Button botonActivo = null;
 
@@ -734,6 +749,15 @@ namespace Proyecto_restaurante
             IDMesa = 0;
             idMesaSeleccionada = -1;
             PedidoID = 0;
+            EditarEstado = 0;
+            NumeroMesa = 0;
+            OcupadoMesa = 0;
+            ReservadoMesa = 0;
+            EditarEstado = 0;
+            CuentaSeparada = 0;
+            ModoElminar = 0;
+            OrdenGrupo = 0;
+
             txtnombrecompleto.Text = "AL CONTADO";
             idclientetxt.Text = "1";
             numerotxt.Clear();
@@ -742,6 +766,7 @@ namespace Proyecto_restaurante
             txtcodigoproducto.Clear();
             txtnombreproducto.Clear();
             txtprecioproducto.Clear();
+            grupoCuenta.Items.Clear();
             numCantidad.Value = numCantidad.Minimum;
             numCantidad.Enabled = false;
             txtiva.Clear();
@@ -762,12 +787,12 @@ namespace Proyecto_restaurante
             txtprecioproducto.Enabled = false;
             bajarproductobtn.Enabled = false;
             guardarordenbtn.Enabled = false;
-
             buscarclientebtn.Enabled = false;
             nota.Enabled = false;
-
             guardarordenbtn.Enabled = false;
             MesaLabel.Text = "     Mesa asignada: ";
+            panelCuentaSeparada.Enabled = false;
+            separarcuenta.BackColor = Color.White;
             mesasprincipal.Enabled = true;
             panelacciones.Enabled = true;
             CrearOrden.Enabled = true;
@@ -2338,31 +2363,44 @@ namespace Proyecto_restaurante
 
         private void separarcuenta_Click(object sender, EventArgs e)
         {
-            DialogResult confirmar = MessageBox.Show("Activar Cuenta Separada LIMPIA la orden actual", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-            if (confirmar == DialogResult.Yes)
+            if(CuentaSeparada == 1)
             {
-                panelCuentaSeparada.Enabled = true;
-                CuentaSeparada = 1;
-                detalleorden.Rows.Clear();
+                MessageBox.Show("La cuenta ya está separada.");
+                return;
             }
+            else
+            {
+                DialogResult confirmar = MessageBox.Show("Activar Cuenta Separada LIMPIA la orden actual", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (confirmar == DialogResult.Yes)
+                {
+                    panelCuentaSeparada.Enabled = true;
+                    CuentaSeparada = 1;
+                    separarcuenta.BackColor = Color.Gold;
+                    separarcuenta.Enabled = false;
+                    detalleorden.Rows.Clear();
+                    nuevoGrupo.PerformClick();
+                }
+            }
+            
         }
 
         private void nuevoGrupo_Click(object sender, EventArgs e)
         {
             if (ModoElminar == 0)
             {
+                toolTip1.SetToolTip(nuevoGrupo, "Nuevo Grupo");
                 OrdenGrupo = OrdenGrupo + 1;
                 grupoCuenta.Items.Add("Grupo " + OrdenGrupo.ToString());
                 grupoCuenta.SelectedIndex = grupoCuenta.Items.Count - 1;
-                toolTip1.SetToolTip(nuevoGrupo, "Nuevo Grupo");
             }
             else if (ModoElminar == 1)
             {
+                toolTip1.SetToolTip(nuevoGrupo, "Eliminar Grupo");
                 grupoCuenta.Items.Remove("Grupo " + OrdenGrupo.ToString());
                 grupoCuenta.SelectedIndex = grupoCuenta.Items.Count - 1;
                 OrdenGrupo = OrdenGrupo - 1;
-                toolTip1.SetToolTip(nuevoGrupo, "Eliminar Grupo");
+                
                 if (OrdenGrupo < 1)
                 {
                     grupoCuenta.Items.Clear();

@@ -97,5 +97,10 @@ namespace Proyecto_restaurante
             idMesaSeleccionada = mesa.Id;
         }
 
+        private void nuevaOrden_Click(object sender, EventArgs e)
+        {
+            mesapanel.Location = new Point(3, 64);
+            mesapanel.Visible = true;
+        }
     }
 }

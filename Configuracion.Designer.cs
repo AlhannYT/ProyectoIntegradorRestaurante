@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Configuracion));
             barraizq = new Panel();
             usuarios = new Button();
             button2 = new Button();
             asignarcaja = new Button();
             sistema = new Button();
+            datosRestaurante = new Button();
             button7 = new Button();
             label1 = new Label();
             button26 = new Button();
@@ -179,7 +181,7 @@
             label32 = new Label();
             panel10 = new Panel();
             button12 = new Button();
-            datosRestaurante = new Button();
+            toolTip1 = new ToolTip(components);
             barraizq.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
@@ -300,6 +302,19 @@
             sistema.UseVisualStyleBackColor = false;
             sistema.Click += button5_Click;
             // 
+            // datosRestaurante
+            // 
+            datosRestaurante.Image = Properties.Resources.servicio_de_habitaciones1;
+            datosRestaurante.ImageAlign = ContentAlignment.MiddleRight;
+            datosRestaurante.Location = new Point(7, 43);
+            datosRestaurante.Margin = new Padding(2);
+            datosRestaurante.Name = "datosRestaurante";
+            datosRestaurante.Size = new Size(202, 38);
+            datosRestaurante.TabIndex = 15;
+            datosRestaurante.Text = "Datos de Restaurante";
+            datosRestaurante.TextAlign = ContentAlignment.MiddleLeft;
+            datosRestaurante.UseVisualStyleBackColor = true;
+            // 
             // button7
             // 
             button7.Image = Properties.Resources.caja;
@@ -326,7 +341,6 @@
             label1.Size = new Size(140, 25);
             label1.TabIndex = 14;
             label1.Text = "Configuración";
-            label1.Click += label1_Click;
             // 
             // button26
             // 
@@ -1319,7 +1333,6 @@
             label22.Size = new Size(384, 40);
             label22.TabIndex = 39;
             label22.Text = "Seleccionar color de fondo";
-            label22.Click += label22_Click;
             // 
             // permisospanel
             // 
@@ -1982,19 +1995,6 @@
             button12.Text = "      Procesar cambios";
             button12.UseVisualStyleBackColor = true;
             // 
-            // datosRestaurante
-            // 
-            datosRestaurante.Image = Properties.Resources.servicio_de_habitaciones1;
-            datosRestaurante.ImageAlign = ContentAlignment.MiddleRight;
-            datosRestaurante.Location = new Point(7, 43);
-            datosRestaurante.Margin = new Padding(2);
-            datosRestaurante.Name = "datosRestaurante";
-            datosRestaurante.Size = new Size(202, 38);
-            datosRestaurante.TabIndex = 15;
-            datosRestaurante.Text = "Datos de Restaurante";
-            datosRestaurante.TextAlign = ContentAlignment.MiddleLeft;
-            datosRestaurante.UseVisualStyleBackColor = true;
-            // 
             // Configuracion
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -2230,5 +2230,6 @@
         private Label label34;
         private CheckBox CrearOrdenReservado;
         private Button datosRestaurante;
+        private ToolTip toolTip1;
     }
 }

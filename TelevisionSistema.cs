@@ -32,7 +32,7 @@ namespace Proyecto_restaurante
         private void TelevisionSistema_Load(object sender, EventArgs e)
         {
             Recargar = new System.Windows.Forms.Timer();
-            Recargar.Interval = 7000;
+            Recargar.Interval = 15000;
             Recargar.Tick += Recargar_Tick;
             Recargar.Start();
 

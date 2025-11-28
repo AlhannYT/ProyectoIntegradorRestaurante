@@ -371,7 +371,7 @@ namespace Proyecto_restaurante
             if (EstadobuscarEmpleado == 1)
             {
                 buscarempleado.Image = Proyecto_restaurante.Properties.Resources.cancelar1;
-                //toolTip1.SetToolTip(buscarpuesto, "Cancelar búsqueda");
+                toolTip1.SetToolTip(buscarempleado, "Cancelar búsqueda");
                 empleadopanel.Visible = true;
 
                 EstadobuscarEmpleado = 0;
@@ -379,7 +379,7 @@ namespace Proyecto_restaurante
             else
             {
                 buscarempleado.Image = Proyecto_restaurante.Properties.Resources.busqueda1;
-                //toolTip1.SetToolTip(buscarpuesto, "Buscar departamento");
+                toolTip1.SetToolTip(buscarempleado, "Buscar Empleado");
                 empleadopanel.Visible = false;
 
                 EstadobuscarEmpleado = 1;
@@ -559,10 +559,7 @@ namespace Proyecto_restaurante
         {
             if (tablausuarios.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Debe seleccionar un usuario.",
-                                "Advertencia",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Warning);
+                MessageBox.Show("Debe seleccionar un usuario.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -637,8 +634,7 @@ namespace Proyecto_restaurante
                 }
             }
 
-            MessageBox.Show("Exito, reinicie el sistema para que se apliquen los cambios!.",
-                            "Configuración", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Exito, reinicie el sistema para que se apliquen los cambios!.", "Configuración", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void buscarcolor_Click(object sender, EventArgs e)
@@ -688,7 +684,7 @@ namespace Proyecto_restaurante
             if (EstadobuscarPC == 1)
             {
                 buscarPC.Image = Proyecto_restaurante.Properties.Resources.cancelar1;
-                //toolTip1.SetToolTip(buscarpuesto, "Cancelar búsqueda");
+                toolTip1.SetToolTip(buscarPC, "Cancelar búsqueda");
                 pcpanel.Visible = true;
 
                 EstadobuscarPC = 0;
@@ -696,7 +692,7 @@ namespace Proyecto_restaurante
             else
             {
                 buscarPC.Image = Proyecto_restaurante.Properties.Resources.busqueda1;
-                //toolTip1.SetToolTip(buscarpuesto, "Buscar departamento");
+                toolTip1.SetToolTip(buscarPC, "Buscar PC");
                 pcpanel.Visible = false;
 
                 EstadobuscarPC = 1;
@@ -734,7 +730,7 @@ namespace Proyecto_restaurante
             if (EstadobuscarCaja == 1)
             {
                 buscarCaja.Image = Proyecto_restaurante.Properties.Resources.cancelar1;
-                //toolTip1.SetToolTip(buscarpuesto, "Cancelar búsqueda");
+                toolTip1.SetToolTip(buscarCaja, "Cancelar búsqueda");
                 cajapanel.Visible = true;
 
                 EstadobuscarCaja = 0;
@@ -742,7 +738,7 @@ namespace Proyecto_restaurante
             else
             {
                 buscarCaja.Image = Proyecto_restaurante.Properties.Resources.busqueda1;
-                //toolTip1.SetToolTip(buscarpuesto, "Buscar departamento");
+                toolTip1.SetToolTip(buscarCaja, "Buscar caja");
                 cajapanel.Visible = false;
 
                 EstadobuscarCaja = 1;
@@ -818,17 +814,7 @@ namespace Proyecto_restaurante
             sistemaconfiguracion.Visible = true;
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void tabPage1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label22_Click(object sender, EventArgs e)
         {
 
         }
