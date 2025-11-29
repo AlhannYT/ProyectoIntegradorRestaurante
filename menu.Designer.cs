@@ -483,7 +483,7 @@
             abrirtTV.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             abrirtTV.Cursor = Cursors.Hand;
             abrirtTV.Image = Properties.Resources.tv;
-            abrirtTV.Location = new Point(130, 48);
+            abrirtTV.Location = new Point(129, 48);
             abrirtTV.Margin = new Padding(2);
             abrirtTV.Name = "abrirtTV";
             abrirtTV.Size = new Size(44, 38);
@@ -497,7 +497,7 @@
             abrirTablet.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             abrirTablet.Cursor = Cursors.Hand;
             abrirTablet.Image = Properties.Resources.tablet;
-            abrirTablet.Location = new Point(130, 4);
+            abrirTablet.Location = new Point(129, 4);
             abrirTablet.Margin = new Padding(2);
             abrirTablet.Name = "abrirTablet";
             abrirTablet.Size = new Size(44, 38);
@@ -603,9 +603,9 @@
             sistemasPanel.Controls.Add(label4);
             sistemasPanel.Controls.Add(label5);
             sistemasPanel.Controls.Add(abrirtTV);
-            sistemasPanel.Location = new Point(1052, 722);
+            sistemasPanel.Location = new Point(1053, 722);
             sistemasPanel.Name = "sistemasPanel";
-            sistemasPanel.Size = new Size(178, 90);
+            sistemasPanel.Size = new Size(177, 90);
             sistemasPanel.TabIndex = 25;
             sistemasPanel.Visible = false;
             // 
@@ -617,6 +617,7 @@
             deslizar.Name = "deslizar";
             deslizar.Size = new Size(33, 89);
             deslizar.TabIndex = 26;
+            toolTip1.SetToolTip(deslizar, "Sistemas de simulación");
             deslizar.UseVisualStyleBackColor = true;
             deslizar.Click += deslizar_Click;
             // 
