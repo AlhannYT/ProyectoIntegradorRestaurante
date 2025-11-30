@@ -45,8 +45,15 @@
             button10 = new Button();
             label2 = new Label();
             barrasup = new Panel();
+            panel6 = new Panel();
+            label7 = new Label();
+            labelfecha = new Label();
+            label6 = new Label();
+            labelhora = new Label();
             pictureBox1 = new PictureBox();
             barraizq = new Panel();
+            panel4 = new Panel();
+            NombrePCtxt = new Label();
             button12 = new Button();
             reservacion = new Button();
             button11 = new Button();
@@ -64,20 +71,27 @@
             oculto = new Panel();
             recargarbtn = new Button();
             toolTip1 = new ToolTip(components);
+            deslizar = new Button();
             panel3 = new Panel();
-            NombrePCtxt = new Label();
             label37 = new Label();
             sistemasPanel = new Panel();
-            deslizar = new Button();
+            horatimer = new System.Windows.Forms.Timer(components);
+            cambiarfechapanel = new Panel();
+            cambiarFechaDTP = new DateTimePicker();
+            button4 = new Button();
+            labelcambiofecha = new Label();
+            button3 = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             barrasup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             barraizq.SuspendLayout();
+            panel4.SuspendLayout();
             oculto.SuspendLayout();
             panel3.SuspendLayout();
             sistemasPanel.SuspendLayout();
+            cambiarfechapanel.SuspendLayout();
             SuspendLayout();
             // 
             // usuariolabel
@@ -280,6 +294,11 @@
             barrasup.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             barrasup.BackColor = Color.FromArgb(64, 64, 64);
             barrasup.BorderStyle = BorderStyle.FixedSingle;
+            barrasup.Controls.Add(panel6);
+            barrasup.Controls.Add(label7);
+            barrasup.Controls.Add(labelfecha);
+            barrasup.Controls.Add(label6);
+            barrasup.Controls.Add(labelhora);
             barrasup.Controls.Add(panel1);
             barrasup.Controls.Add(panel2);
             barrasup.Controls.Add(pictureBox1);
@@ -289,6 +308,66 @@
             barrasup.Name = "barrasup";
             barrasup.Size = new Size(1027, 71);
             barrasup.TabIndex = 18;
+            // 
+            // panel6
+            // 
+            panel6.BackColor = SystemColors.WindowFrame;
+            panel6.Location = new Point(329, 7);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(4, 55);
+            panel6.TabIndex = 8;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label7.ForeColor = Color.White;
+            label7.Location = new Point(344, 35);
+            label7.Name = "label7";
+            label7.Size = new Size(75, 30);
+            label7.TabIndex = 7;
+            label7.Text = "Fecha:";
+            label7.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // labelfecha
+            // 
+            labelfecha.AutoSize = true;
+            labelfecha.BackColor = Color.Gray;
+            labelfecha.Cursor = Cursors.Hand;
+            labelfecha.Font = new Font("Segoe UI", 15.75F);
+            labelfecha.ForeColor = Color.White;
+            labelfecha.Location = new Point(425, 35);
+            labelfecha.Name = "labelfecha";
+            labelfecha.Size = new Size(67, 30);
+            labelfecha.TabIndex = 7;
+            labelfecha.Text = "Fecha";
+            labelfecha.TextAlign = ContentAlignment.MiddleLeft;
+            toolTip1.SetToolTip(labelfecha, "Cambiar Fecha");
+            labelfecha.Click += labelfecha_Click;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label6.ForeColor = Color.White;
+            label6.Location = new Point(344, 2);
+            label6.Name = "label6";
+            label6.Size = new Size(67, 30);
+            label6.TabIndex = 7;
+            label6.Text = "Hora:";
+            label6.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // labelhora
+            // 
+            labelhora.AutoSize = true;
+            labelhora.Font = new Font("Segoe UI", 15.75F);
+            labelhora.ForeColor = Color.White;
+            labelhora.Location = new Point(425, 2);
+            labelhora.Name = "labelhora";
+            labelhora.Size = new Size(58, 30);
+            labelhora.TabIndex = 7;
+            labelhora.Text = "Hora";
+            labelhora.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // pictureBox1
             // 
@@ -307,6 +386,7 @@
             // 
             barraizq.BackColor = SystemColors.WindowFrame;
             barraizq.BorderStyle = BorderStyle.FixedSingle;
+            barraizq.Controls.Add(panel4);
             barraizq.Controls.Add(button12);
             barraizq.Controls.Add(reservacion);
             barraizq.Controls.Add(button11);
@@ -331,11 +411,35 @@
             barraizq.Size = new Size(239, 839);
             barraizq.TabIndex = 19;
             // 
+            // panel4
+            // 
+            panel4.BackColor = Color.White;
+            panel4.Controls.Add(NombrePCtxt);
+            panel4.Dock = DockStyle.Top;
+            panel4.Location = new Point(0, 0);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(237, 23);
+            panel4.TabIndex = 20;
+            // 
+            // NombrePCtxt
+            // 
+            NombrePCtxt.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            NombrePCtxt.AutoSize = true;
+            NombrePCtxt.BackColor = Color.Transparent;
+            NombrePCtxt.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            NombrePCtxt.ForeColor = Color.Black;
+            NombrePCtxt.Location = new Point(2, 1);
+            NombrePCtxt.Margin = new Padding(2, 0, 2, 0);
+            NombrePCtxt.Name = "NombrePCtxt";
+            NombrePCtxt.Size = new Size(38, 21);
+            NombrePCtxt.TabIndex = 2;
+            NombrePCtxt.Text = "PC: ";
+            // 
             // button12
             // 
             button12.Cursor = Cursors.Hand;
             button12.Image = Properties.Resources._3_rayas;
-            button12.Location = new Point(9, 20);
+            button12.Location = new Point(9, 35);
             button12.Name = "button12";
             button12.Size = new Size(42, 29);
             button12.TabIndex = 1;
@@ -556,10 +660,21 @@
             recargarbtn.Visible = false;
             recargarbtn.Click += recargarbtn_Click;
             // 
+            // deslizar
+            // 
+            deslizar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            deslizar.Image = Properties.Resources.flechaizquierdaroja;
+            deslizar.Location = new Point(1230, 722);
+            deslizar.Name = "deslizar";
+            deslizar.Size = new Size(33, 89);
+            deslizar.TabIndex = 26;
+            toolTip1.SetToolTip(deslizar, "Sistemas de simulación");
+            deslizar.UseVisualStyleBackColor = true;
+            deslizar.Click += deslizar_Click;
+            // 
             // panel3
             // 
             panel3.BackColor = Color.White;
-            panel3.Controls.Add(NombrePCtxt);
             panel3.Controls.Add(creditoslabel);
             panel3.Controls.Add(label37);
             panel3.Dock = DockStyle.Bottom;
@@ -568,28 +683,15 @@
             panel3.Size = new Size(1027, 26);
             panel3.TabIndex = 23;
             // 
-            // NombrePCtxt
-            // 
-            NombrePCtxt.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            NombrePCtxt.AutoSize = true;
-            NombrePCtxt.BackColor = Color.Transparent;
-            NombrePCtxt.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            NombrePCtxt.Location = new Point(4, 1);
-            NombrePCtxt.Margin = new Padding(2, 0, 2, 0);
-            NombrePCtxt.Name = "NombrePCtxt";
-            NombrePCtxt.Size = new Size(38, 21);
-            NombrePCtxt.TabIndex = 2;
-            NombrePCtxt.Text = "PC: ";
-            // 
             // label37
             // 
-            label37.Anchor = AnchorStyles.Bottom;
+            label37.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label37.AutoSize = true;
             label37.Font = new Font("Segoe UI", 12F);
             label37.ForeColor = Color.Black;
             label37.Image = Properties.Resources.teclado__1_;
             label37.ImageAlign = ContentAlignment.MiddleLeft;
-            label37.Location = new Point(102, 1);
+            label37.Location = new Point(4, 1);
             label37.Name = "label37";
             label37.Size = new Size(646, 21);
             label37.TabIndex = 75;
@@ -609,17 +711,74 @@
             sistemasPanel.TabIndex = 25;
             sistemasPanel.Visible = false;
             // 
-            // deslizar
+            // horatimer
             // 
-            deslizar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            deslizar.Image = Properties.Resources.flechaizquierdaroja;
-            deslizar.Location = new Point(1230, 722);
-            deslizar.Name = "deslizar";
-            deslizar.Size = new Size(33, 89);
-            deslizar.TabIndex = 26;
-            toolTip1.SetToolTip(deslizar, "Sistemas de simulación");
-            deslizar.UseVisualStyleBackColor = true;
-            deslizar.Click += deslizar_Click;
+            horatimer.Enabled = true;
+            horatimer.Tick += horatimer_Tick;
+            // 
+            // cambiarfechapanel
+            // 
+            cambiarfechapanel.BackColor = Color.Gray;
+            cambiarfechapanel.Controls.Add(cambiarFechaDTP);
+            cambiarfechapanel.Controls.Add(button4);
+            cambiarfechapanel.Controls.Add(labelcambiofecha);
+            cambiarfechapanel.Controls.Add(button3);
+            cambiarfechapanel.Location = new Point(665, 73);
+            cambiarfechapanel.Name = "cambiarfechapanel";
+            cambiarfechapanel.Size = new Size(258, 250);
+            cambiarfechapanel.TabIndex = 28;
+            cambiarfechapanel.Visible = false;
+            cambiarfechapanel.VisibleChanged += cambiarfechapanel_VisibleChanged;
+            // 
+            // cambiarFechaDTP
+            // 
+            cambiarFechaDTP.Anchor = AnchorStyles.Top;
+            cambiarFechaDTP.Checked = false;
+            cambiarFechaDTP.Format = DateTimePickerFormat.Short;
+            cambiarFechaDTP.Location = new Point(8, 6);
+            cambiarFechaDTP.Name = "cambiarFechaDTP";
+            cambiarFechaDTP.Size = new Size(242, 23);
+            cambiarFechaDTP.TabIndex = 0;
+            // 
+            // button4
+            // 
+            button4.Cursor = Cursors.Hand;
+            button4.Image = Properties.Resources.cambiar_fecha;
+            button4.ImageAlign = ContentAlignment.MiddleRight;
+            button4.Location = new Point(134, 205);
+            button4.Margin = new Padding(2);
+            button4.Name = "button4";
+            button4.Size = new Size(116, 38);
+            button4.TabIndex = 2;
+            button4.Text = "Cambiar fecha";
+            button4.TextAlign = ContentAlignment.MiddleLeft;
+            button4.UseVisualStyleBackColor = true;
+            // 
+            // labelcambiofecha
+            // 
+            labelcambiofecha.BackColor = Color.Transparent;
+            labelcambiofecha.Cursor = Cursors.Hand;
+            labelcambiofecha.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelcambiofecha.ForeColor = Color.White;
+            labelcambiofecha.Location = new Point(8, 81);
+            labelcambiofecha.Name = "labelcambiofecha";
+            labelcambiofecha.Size = new Size(242, 103);
+            labelcambiofecha.TabIndex = 7;
+            labelcambiofecha.Text = "Fecha de cambio";
+            labelcambiofecha.Click += labelfecha_Click;
+            // 
+            // button3
+            // 
+            button3.Cursor = Cursors.Hand;
+            button3.Image = Properties.Resources.atrás;
+            button3.ImageAlign = ContentAlignment.MiddleRight;
+            button3.Location = new Point(8, 205);
+            button3.Margin = new Padding(2);
+            button3.Name = "button3";
+            button3.Size = new Size(116, 38);
+            button3.TabIndex = 2;
+            button3.Text = "Volver";
+            button3.UseVisualStyleBackColor = true;
             // 
             // menu
             // 
@@ -628,6 +787,7 @@
             BackgroundImage = Properties.Resources.tenedor1;
             BackgroundImageLayout = ImageLayout.Center;
             ClientSize = new Size(1266, 839);
+            Controls.Add(cambiarfechapanel);
             Controls.Add(deslizar);
             Controls.Add(sistemasPanel);
             Controls.Add(panel3);
@@ -650,14 +810,18 @@
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             barrasup.ResumeLayout(false);
+            barrasup.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             barraizq.ResumeLayout(false);
             barraizq.PerformLayout();
+            panel4.ResumeLayout(false);
+            panel4.PerformLayout();
             oculto.ResumeLayout(false);
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             sistemasPanel.ResumeLayout(false);
             sistemasPanel.PerformLayout();
+            cambiarfechapanel.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -701,5 +865,17 @@
         private Panel sistemasPanel;
         private Button deslizar;
         private Label label37;
+        private Panel panel4;
+        private Label labelfecha;
+        private Label labelhora;
+        private System.Windows.Forms.Timer horatimer;
+        private Label label7;
+        private Label label6;
+        private Panel panel6;
+        private Panel cambiarfechapanel;
+        private DateTimePicker cambiarFechaDTP;
+        private Button button4;
+        private Button button3;
+        private Label labelcambiofecha;
     }
 }

@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -38,7 +39,6 @@ namespace Proyecto_restaurante
 
             CP_CargarGrid();
             CP_Limpiar();
-
         }
 
         private void CP_CargarGrid()
@@ -126,7 +126,6 @@ namespace Proyecto_restaurante
                 return n > 0;
             }
         }
-
 
         private void CP_Guardar()
         {
@@ -309,7 +308,7 @@ namespace Proyecto_restaurante
             bool soloActivos = prodfiltrochk != null && prodfiltrochk.Checked;
 
             string sql = @"
-                            SELECT IdProductoTipo, Nombre, Activo, Ingrediente
+                            SELECT IdProductoTipo, Nombre, Activo, Ingrediente, Bebida
                             FROM dbo.ProductoTipo
                             WHERE (@f = '' OR Nombre LIKE '%' + @f + '%')"
                                         + (soloActivos ? " AND Activo = 1" : "") +
@@ -340,6 +339,8 @@ namespace Proyecto_restaurante
                     prodtidt.Columns["Activo"].HeaderText = "Activo";
                 if (prodtidt.Columns.Contains("Ingrediente"))
                     prodtidt.Columns["Ingrediente"].HeaderText = "¿Ingrediente?";
+                if (prodtidt.Columns.Contains("Bebida"))
+                    prodtidt.Columns["Bebida"].HeaderText = "¿Bebida?";
             }
         }
 
@@ -349,7 +350,8 @@ namespace Proyecto_restaurante
             if (idprod != null) idprod.Text = "";
             if (prodtxt != null) prodtxt.Text = "";
             if (estadoprod != null) estadoprod.Checked = true;
-            if (ingredientechk != null) ingredientechk.Checked = true; // por tu DEFAULT (1)
+            if (ingredientechk != null) ingredientechk.Checked = true;
+            if (bebidachk != null) bebidachk.Checked = true; // por tu DEFAULT (1)
             prodtxt?.Focus();
         }
 
@@ -393,6 +395,7 @@ namespace Proyecto_restaurante
 
             bool activo = estadoprod != null && estadoprod.Checked;
             bool ingrediente = ingredientechk != null && ingredientechk.Checked;
+            bool bebida = bebidachk != null && bebidachk.Checked;
 
             using (var cn = new SqlConnection(conexionString))
             {
@@ -400,12 +403,13 @@ namespace Proyecto_restaurante
 
                 if (string.IsNullOrEmpty(ProductoTipoId))
                 {
-                    string sql = "INSERT INTO dbo.ProductoTipo (Nombre, Activo, Ingrediente) VALUES (@Nombre, @Activo, @Ingrediente);";
+                    string sql = "INSERT INTO dbo.ProductoTipo (Nombre, Activo, Ingrediente, Bebida) VALUES (@Nombre, @Activo, @Ingrediente, @Bebida);";
                     using (var cmd = new SqlCommand(sql, cn))
                     {
                         cmd.Parameters.AddWithValue("@Nombre", prodtxt.Text.Trim());
                         cmd.Parameters.AddWithValue("@Activo", activo ? 1 : 0);
                         cmd.Parameters.AddWithValue("@Ingrediente", ingrediente ? 1 : 0);
+                        cmd.Parameters.AddWithValue("@Bebida", bebida ? 1 : 0);
 
                         MessageBox.Show(cmd.ExecuteNonQuery() > 0
                             ? "Tipo registrado con éxito."
@@ -414,13 +418,14 @@ namespace Proyecto_restaurante
                 }
                 else
                 {
-                    string sql = "UPDATE dbo.ProductoTipo SET Nombre=@Nombre, Activo=@Activo, Ingrediente=@Ingrediente WHERE IdProductoTipo=@Id;";
+                    string sql = "UPDATE dbo.ProductoTipo SET Nombre=@Nombre, Activo=@Activo, Ingrediente=@Ingrediente, Bebida=@Bebida WHERE IdProductoTipo=@Id;";
                     using (var cmd = new SqlCommand(sql, cn))
                     {
                         cmd.Parameters.AddWithValue("@Id", int.Parse(ProductoTipoId));
                         cmd.Parameters.AddWithValue("@Nombre", prodtxt.Text.Trim());
                         cmd.Parameters.AddWithValue("@Activo", activo ? 1 : 0);
                         cmd.Parameters.AddWithValue("@Ingrediente", ingrediente ? 1 : 0);
+                        cmd.Parameters.AddWithValue("@Bebida", bebida ? 1 : 0);
 
                         MessageBox.Show(cmd.ExecuteNonQuery() > 0
                             ? "Tipo actualizado con éxito."
@@ -463,7 +468,6 @@ namespace Proyecto_restaurante
             }
         }
 
-
         private void button5_Click(object sender, EventArgs e)
         {
             metodopanel.Location = new Point(225, 12);
@@ -474,7 +478,6 @@ namespace Proyecto_restaurante
             MP_CargarGrid();
             MP_Limpiar();
         }
-
 
         private void MP_CargarGrid()
         {
@@ -515,7 +518,6 @@ namespace Proyecto_restaurante
             }
         }
 
-
         private void MP_Limpiar()
         {
             MetodoPagoId = "";
@@ -524,7 +526,6 @@ namespace Proyecto_restaurante
             if (estadometodo != null) estadometodo.Checked = true;
             metodotxt.Focus();
         }
-
 
         private bool MP_Validar()
         {
@@ -562,7 +563,6 @@ namespace Proyecto_restaurante
                 return n > 0;
             }
         }
-
 
         private void MP_Guardar()
         {
@@ -605,7 +605,6 @@ namespace Proyecto_restaurante
             MP_CargarGrid();
         }
 
-
         private void MP_CargarDesdeGridRow(int rowIndex)
         {
             if (rowIndex < 0) return;
@@ -630,7 +629,6 @@ namespace Proyecto_restaurante
                 estadometodo.Checked = true;
             }
         }
-
 
         private void Puesto_CargarGrid()
         {
@@ -682,7 +680,6 @@ namespace Proyecto_restaurante
             }
         }
 
-
         private void button2_Click(object sender, EventArgs e)
         {
             puestopanel.Location = new Point(225, 12);
@@ -692,9 +689,7 @@ namespace Proyecto_restaurante
 
             Puesto_CargarGrid();
             Puesto_Limpiar();
-
         }
-
 
         private void Departamento_CargarGrid()
         {
@@ -749,7 +744,6 @@ namespace Proyecto_restaurante
             }
         }
 
-
         private void Departamento_CargarDesdeGridFila()
         {
             if (depdt.CurrentRow == null) return;
@@ -768,7 +762,6 @@ namespace Proyecto_restaurante
                 activo = Convert.ToBoolean(actObj);
             estadodepa.Checked = activo;
         }
-
 
         private void button3_Click(object sender, EventArgs e)
         {
@@ -815,12 +808,6 @@ namespace Proyecto_restaurante
         private void metfiltrochk_CheckedChanged(object sender, EventArgs e)
         {
             MP_CargarGrid();
-
-        }
-
-        private void metodotxt_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
         }
 
         private void Puesto_CargarDepartamentosGrid()
@@ -986,10 +973,8 @@ namespace Proyecto_restaurante
                         }
                     }
 
-                    // Insertar o actualizar
                     if (string.IsNullOrEmpty(DepaID))
                     {
-                        // INSERT
                         string queryInsertar = "INSERT INTO Departamento (Nombre, Activo) VALUES (@Nombre, @Activo)";
                         using (SqlCommand insertarCommand = new SqlCommand(queryInsertar, conexion))
                         {
@@ -1010,7 +995,6 @@ namespace Proyecto_restaurante
                     }
                     else
                     {
-                        // UPDATE
                         string queryActualizar = "UPDATE Departamento SET Nombre = @Nombre, Activo = @Activo WHERE IdDepartamento = @IdDepartamento";
                         using (SqlCommand actualizarCommand = new SqlCommand(queryActualizar, conexion))
                         {
@@ -1066,7 +1050,7 @@ namespace Proyecto_restaurante
                 {
                     conexion.Open();
 
-                    if (string.IsNullOrEmpty(PuestoID)) // NUEVO
+                    if (string.IsNullOrEmpty(PuestoID))
                     {
                         string queryInsertar = @"
                                                 INSERT INTO Puesto (IdDepartamento, Nombre, Activo)
@@ -1086,7 +1070,7 @@ namespace Proyecto_restaurante
                                 MessageBox.Show("No se pudo guardar los datos.");
                         }
                     }
-                    else // EDITAR
+                    else
                     {
                         string queryActualizar = @"
                                                     UPDATE Puesto
@@ -1150,7 +1134,6 @@ namespace Proyecto_restaurante
             Departamento_Limpiar();
         }
 
-
         private void Puesto_CargarDesdeGridRow(int rowIndex)
         {
             if (rowIndex < 0) return;
@@ -1178,7 +1161,6 @@ namespace Proyecto_restaurante
             if (actObj != null && actObj != DBNull.Value) activo = Convert.ToBoolean(actObj);
             estadopuesto.Checked = activo;
         }
-
 
         private void selecpuest_Click(object sender, EventArgs e)
         {
@@ -1248,7 +1230,6 @@ namespace Proyecto_restaurante
 
                     if (string.IsNullOrEmpty(TipoDocID))
                     {
-                        // INSERT
                         string queryInsertar = "INSERT INTO TipoDocumento (Nombre, Activo) VALUES (@Nombre, @Activo)";
                         using (SqlCommand insertarCommand = new SqlCommand(queryInsertar, conexion))
                         {
@@ -1269,7 +1250,6 @@ namespace Proyecto_restaurante
                     }
                     else
                     {
-                        // UPDATE
                         string queryActualizar = "UPDATE TipoDocumento SET Nombre = @Nombre, Activo = @Activo WHERE IdTipoDocumento = @IdTipoDoc";
                         using (SqlCommand actualizarCommand = new SqlCommand(queryActualizar, conexion))
                         {
@@ -1304,7 +1284,6 @@ namespace Proyecto_restaurante
         {
             MP_Guardar();
         }
-
 
         private void UM_CargarGrid()
         {
@@ -1372,7 +1351,6 @@ namespace Proyecto_restaurante
             nombreunidadtxt.Focus();
         }
 
-
         private bool UM_Validar(out decimal valor)
         {
             valor = 0m;
@@ -1380,20 +1358,17 @@ namespace Proyecto_restaurante
             if (string.IsNullOrWhiteSpace(nombreunidadtxt.Text))
             { MessageBox.Show("El nombre es obligatorio."); nombreunidadtxt.Focus(); return false; }
 
-            // Acepta coma o punto
             string txt = (valorunidadtxt.Text ?? "").Replace(',', '.');
             if (!decimal.TryParse(txt, System.Globalization.NumberStyles.Number,
                 System.Globalization.CultureInfo.InvariantCulture, out valor) || valor <= 0)
             { MessageBox.Show("El valor debe ser > 0 (ej: 1 o 0.001)"); valorunidadtxt.Focus(); return false; }
 
-            // Duplicados por nombre (excluyendo el mismo ID si estás editando)
             if (UM_ExisteNombre(nombreunidadtxt.Text, UnidadID))
             { MessageBox.Show("Ya existe una unidad con ese nombre."); nombreunidadtxt.Focus(); return false; }
 
             return true;
         }
 
-        // Chequea si ya existe el nombre
         private bool UM_ExisteNombre(string nombre, string idActual)
         {
             string sql = @"SELECT COUNT(1) FROM UnidadMedida 
@@ -1411,7 +1386,6 @@ namespace Proyecto_restaurante
             }
         }
 
-        // INSERT / UPDATE
         private void UM_Guardar()
         {
             if (!UM_Validar(out decimal valor)) return;
@@ -1424,7 +1398,6 @@ namespace Proyecto_restaurante
 
                     if (string.IsNullOrEmpty(UnidadID))
                     {
-                        // INSERT
                         string q = @"INSERT INTO UnidadMedida (Nombre, Valor, Activo)
                              VALUES (@Nombre, @Valor, @Activo)";
                         using (SqlCommand cmd = new SqlCommand(q, conexion))
@@ -1444,7 +1417,6 @@ namespace Proyecto_restaurante
                     }
                     else
                     {
-                        // UPDATE
                         string q = @"UPDATE UnidadMedida
                              SET Nombre=@Nombre, Valor=@Valor, Activo=@Activo
                              WHERE IdUnidadMedida=@Id";
@@ -1474,7 +1446,6 @@ namespace Proyecto_restaurante
             }
         }
 
-        // Carga una fila del grid a los campos 
         private void UM_CargarDesdeGridRow(int rowIndex)
         {
             if (rowIndex < 0) return;
@@ -1497,7 +1468,6 @@ namespace Proyecto_restaurante
             if (actObj != null && actObj != DBNull.Value) activo = Convert.ToBoolean(actObj);
             unidadestadochk.Checked = activo;
         }
-
 
         private void MSI_CargarGrid()
         {
@@ -1524,7 +1494,6 @@ namespace Proyecto_restaurante
                 dataGridView1.AutoGenerateColumns = true;
                 dataGridView1.DataSource = dt;
 
-                // Encabezados y formato
                 if (dataGridView1.Columns.Contains("IdMotivo"))
                 {
                     var c = dataGridView1.Columns["IdMotivo"];
@@ -1539,7 +1508,6 @@ namespace Proyecto_restaurante
             }
         }
 
-
         private void MSI_Limpiar()
         {
             MotivoId = "";
@@ -1549,7 +1517,6 @@ namespace Proyecto_restaurante
             motivotxt.Focus();
         }
 
-        // Validacion
         private bool MSI_Validar()
         {
             if (string.IsNullOrWhiteSpace(motivotxt.Text))
@@ -1567,7 +1534,6 @@ namespace Proyecto_restaurante
             }
             return true;
         }
-
 
         private bool MSI_ExisteNombre(string nombre, string idActual)
         {
@@ -1587,7 +1553,6 @@ namespace Proyecto_restaurante
             }
         }
 
-        // INSERT / UPDATE
         private void MSI_Guardar()
         {
             if (!MSI_Validar()) return;
@@ -1598,7 +1563,6 @@ namespace Proyecto_restaurante
 
                 if (string.IsNullOrEmpty(MotivoId))
                 {
-                    // INSERT
                     string sql = "INSERT INTO dbo.MotivoSalidaInventario (Nombre, Activo) VALUES (@Nombre, @Activo);";
                     using (var cmd = new SqlCommand(sql, cn))
                     {
@@ -1612,7 +1576,6 @@ namespace Proyecto_restaurante
                 }
                 else
                 {
-                    // UPDATE
                     string sql = "UPDATE dbo.MotivoSalidaInventario SET Nombre=@Nombre, Activo=@Activo WHERE IdMotivo=@Id;";
                     using (var cmd = new SqlCommand(sql, cn))
                     {
@@ -1656,42 +1619,6 @@ namespace Proyecto_restaurante
             }
         }
 
-
-        private void puestopanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void unidadpanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void nombreunidadtxt_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void puestotxt_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void depapuestotxt_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void idunidad_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void idpuesto_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void button13_Click(object sender, EventArgs e)
         {
             Puesto_Limpiar();
@@ -1702,29 +1629,9 @@ namespace Proyecto_restaurante
             TipoDoc_Limpiar();
         }
 
-        private void depapanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void button7_Click(object sender, EventArgs e)
         {
             MP_Limpiar();
-        }
-
-        private void depatxt_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void metodotxt_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void idenpanel_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
         private void selecdepa_Click(object sender, EventArgs e)
@@ -1752,19 +1659,9 @@ namespace Proyecto_restaurante
             UM_CargarDesdeGridRow(e.RowIndex);
         }
 
-        private void valorunidadtxt_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void button31_Click(object sender, EventArgs e)
         {
             UM_Limpiar();
-        }
-
-        private void unidadestadochk_CheckedChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void button30_Click(object sender, EventArgs e)
@@ -1773,29 +1670,14 @@ namespace Proyecto_restaurante
                 UM_CargarDesdeGridRow(dataGridView2.CurrentRow.Index);
         }
 
-        private void puestodt_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         private void unidadfiltrochk_CheckedChanged(object sender, EventArgs e)
         {
             UM_CargarGrid();
         }
 
-        private void motivopanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void guardarmotivo_Click(object sender, EventArgs e)
         {
             MSI_Guardar();
-        }
-
-        private void motivotxt_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void motivofiltrochk_CheckedChanged(object sender, EventArgs e)
@@ -1829,29 +1711,9 @@ namespace Proyecto_restaurante
             MSI_Limpiar();
         }
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void estadomotivo_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void idmetpago_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void button9_Click(object sender, EventArgs e)
         {
             MP_Limpiar();
-        }
-
-        private void estadometodo_CheckedChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void selecmetodo_Click(object sender, EventArgs e)
@@ -1870,35 +1732,9 @@ namespace Proyecto_restaurante
             MP_CargarDesdeGridRow(e.RowIndex);
         }
 
-        private void categpanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void categtxt_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void idcateg_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void button22_Click(object sender, EventArgs e)
         {
             CP_Limpiar();
-        }
-
-
-        private void panel11_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
         private void button24_Click(object sender, EventArgs e)
@@ -1930,31 +1766,6 @@ namespace Proyecto_restaurante
         private void categdt_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             CP_CargarDesdeGridRow(e.RowIndex);
-        }
-
-        private void estadocateg_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label26_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void idprod_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void estadoprod_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ingredientechk_CheckedChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void button19_Click(object sender, EventArgs e)
@@ -1993,26 +1804,6 @@ namespace Proyecto_restaurante
             PT_CargarDesdeGridRow(e.RowIndex);
         }
 
-        private void prodtxt_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void iddepapuestotxt_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void estadopuesto_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void departdt_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
@@ -2040,11 +1831,6 @@ namespace Proyecto_restaurante
             Puesto_CargarDepartamentosGrid();
         }
 
-        private void label34_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void puestobuscar_TextChanged(object sender, EventArgs e)
         {
             Puesto_CargarGrid();
@@ -2053,16 +1839,6 @@ namespace Proyecto_restaurante
         private void puestofiltrochk_CheckedChanged(object sender, EventArgs e)
         {
             Puesto_CargarGrid();
-        }
-
-        private void label12_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void iddepa_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void button16_Click(object sender, EventArgs e)
@@ -2080,11 +1856,6 @@ namespace Proyecto_restaurante
             Departamento_CargarGrid();
         }
 
-        private void label16_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void depapuestobuscar_TextChanged(object sender, EventArgs e)
         {
             Puesto_CargarDepartamentosGrid();
@@ -2097,16 +1868,6 @@ namespace Proyecto_restaurante
                 iddepapuestotxt.Text = departdt.SelectedCells[0].Value.ToString();
                 depapuestotxt.Text = departdt.SelectedCells[1].Value.ToString();
             }
-        }
-
-        private void iddocid_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void identtxt_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void identfiltrochk_CheckedChanged(object sender, EventArgs e)
@@ -2141,9 +1902,20 @@ namespace Proyecto_restaurante
             TipoDoc_CargarGrid();
         }
 
-        private void label38_Click(object sender, EventArgs e)
+        private void ingredientechk_CheckedChanged(object sender, EventArgs e)
         {
+            if (ingredientechk.Checked)
+            {
+                bebidachk.Checked = false;
+            }
+        }
 
+        private void bebidachk_CheckedChanged(object sender, EventArgs e)
+        {
+            if (bebidachk.Checked)
+            {
+                ingredientechk.Checked = false;
+            }
         }
     }
 }

@@ -189,11 +189,6 @@ namespace Proyecto_restaurante
             {
                 Cerrar();
             }
-
-            if (tabControl1.SelectedIndex == 1 && e.KeyCode == Keys.Enter)
-            {
-                bajarproductobtn.PerformClick();
-            }
         }
 
         private void guardarordenbtn_Click(object sender, EventArgs e)
@@ -270,8 +265,8 @@ namespace Proyecto_restaurante
                     }
 
                     string queryDetalle = @"
-                    INSERT INTO DetallePedido (IdPedido, IdProducto, Cantidad, PrecioUnitario, Grupo)
-                    VALUES (@IdPedido, @IdProducto, @Cantidad, @PrecioUnitario, @Grupo);";
+                    INSERT INTO DetallePedido (IdPedido, IdProducto, Cantidad, PrecioUnitario, Cuenta)
+                    VALUES (@IdPedido, @IdProducto, @Cantidad, @PrecioUnitario, @Cuenta);";
 
                     foreach (DataGridViewRow fila in detalleorden.Rows)
                     {
@@ -282,14 +277,14 @@ namespace Proyecto_restaurante
                         cmdDetalle.Parameters.AddWithValue("@IdProducto", Convert.ToInt32(fila.Cells["codigoProducto"].Value));
                         cmdDetalle.Parameters.AddWithValue("@Cantidad", Convert.ToDecimal(fila.Cells["Cantidad"].Value));
                         cmdDetalle.Parameters.AddWithValue("@PrecioUnitario", Convert.ToDecimal(fila.Cells["Precio"].Value));
-                        cmdDetalle.Parameters.AddWithValue("@Grupo", Convert.ToDecimal(fila.Cells["cuenta"].Value));
+                        cmdDetalle.Parameters.AddWithValue("@Cuenta", Convert.ToDecimal(fila.Cells["cuenta"].Value));
 
                         cmdDetalle.ExecuteNonQuery();
                     }
 
                     string queryInsertarComanda = @"
-                    INSERT INTO Comanda (IdPedido, IdMesa, IdProducto, Cantidad, Estado)
-                    VALUES (@IdPedido, @IdMesa, @IdProducto, @Cantidad, @Estado);";
+                    INSERT INTO Comanda (IdPedido, IdMesa, IdProducto, Cantidad, Estado, Cuenta)
+                    VALUES (@IdPedido, @IdMesa, @IdProducto, @Cantidad, @Estado, @Cuenta);";
 
                     foreach (DataGridViewRow fila in detalleorden.Rows)
                     {
@@ -301,6 +296,7 @@ namespace Proyecto_restaurante
                         cmdComanda.Parameters.AddWithValue("@IdMesa", idMesaSeleccionada);
                         cmdComanda.Parameters.AddWithValue("@IdProducto", Convert.ToInt32(fila.Cells["codigoProducto"].Value));
                         cmdComanda.Parameters.AddWithValue("@Cantidad", Convert.ToDecimal(fila.Cells["Cantidad"].Value));
+                        cmdComanda.Parameters.AddWithValue("@Cuenta", Convert.ToDecimal(fila.Cells["cuenta"].Value));
                         cmdComanda.Parameters.AddWithValue("@Estado", "Cocina");
 
                         cmdComanda.ExecuteNonQuery();
@@ -447,7 +443,6 @@ namespace Proyecto_restaurante
 
             guardarordenbtn.Enabled = true;
         }
-
 
         private Button botonActivo = null;
 
@@ -2017,7 +2012,7 @@ namespace Proyecto_restaurante
         {
             string sqlDet = @"
             SELECT  d.IdProducto,
-                    d.Grupo,
+                    d.Cuenta,
                     p.Nombre,
                     d.PrecioUnitario,
                     p.Itbis,

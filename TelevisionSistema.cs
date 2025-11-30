@@ -55,7 +55,7 @@ namespace Proyecto_restaurante
                        CM.IdProducto,
                        PV.Nombre,
                        CM.Cantidad,
-	                   CM.Grupo,
+                       CM.Cuenta,
                        CM.Estado
                 FROM Comanda CM
                 INNER JOIN ProductoVenta PV ON CM.IdProducto = PV.IdProducto
@@ -69,7 +69,7 @@ namespace Proyecto_restaurante
                     while (dr.Read())
                     {
                         int idPedido = Convert.ToInt32(dr["IdPedido"]);
-                        int grupo = Convert.ToInt32(dr["Grupo"]);
+                        int cuenta = Convert.ToInt32(dr["Cuenta"]);
                         int idProducto = Convert.ToInt32(dr["IdProducto"]);
                         string nombre = dr["Nombre"].ToString();
                         decimal cantidad = Convert.ToDecimal(dr["Cantidad"]);
@@ -77,14 +77,14 @@ namespace Proyecto_restaurante
                         Image img = CargarImagen(idProducto);
 
                         panelOrdenes.Controls.Add(
-                            PanelComanda(idPedido, grupo, nombre, (int)cantidad, img)
+                            PanelComanda(idPedido, cuenta, nombre, (int)cantidad, img)
                         );
                     }
                 }
             }
         }
 
-        private Panel PanelComanda(int idPedido, int grupo, string nombre, int cantidad, Image imagen)
+        private Panel PanelComanda(int idPedido, int cuenta, string nombre, int cantidad, Image imagen)
         {
             Panel ficha = new Panel();
             ficha.Width = 200;
@@ -94,7 +94,7 @@ namespace Proyecto_restaurante
             ficha.BorderStyle = BorderStyle.FixedSingle;
 
             Label lblPedido = new Label();
-            lblPedido.Text = $"Orden: {idPedido}, Grupo: {grupo}";
+            lblPedido.Text = $"Orden: {idPedido}, Cuenta: {cuenta}";
             lblPedido.Font = new Font("Segoe UI", 12, FontStyle.Bold);
             lblPedido.AutoSize = true;
             lblPedido.Location = new Point(5, 5);

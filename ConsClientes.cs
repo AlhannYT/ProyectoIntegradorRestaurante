@@ -27,6 +27,13 @@ namespace Proyecto_restaurante
 
         public int ClienteID;
         public int PersonaID;
+        public int EditarCliente = 0;
+        public int DirActivado = 0;
+        public int TelActivado = 0;
+        public int EliminarNum = 0;
+        public int EliminarDir = 0;
+
+        string conexionString = ConexionBD.ConexionSQL();
 
         private System.Windows.Forms.ToolTip toolTip1;
 
@@ -36,8 +43,6 @@ namespace Proyecto_restaurante
             toolTip1.SetToolTip(recargarbtn, "Recargar");
             toolTip1.SetToolTip(filtrochk, "Estado");
             toolTip1.SetToolTip(eliminarbtn, "Limpiar filtros");
-
-            string conexionString = ConexionBD.ConexionSQL();
 
             string consultaId = "SELECT ISNULL(MAX(IdCliente), 0) + 1 FROM Cliente";
 
@@ -142,6 +147,7 @@ namespace Proyecto_restaurante
 
         private void agregar_Click(object sender, EventArgs e)
         {
+            EditarCliente = 0;
             tabControl1.SelectedIndex = 1;
         }
 
@@ -150,7 +156,7 @@ namespace Proyecto_restaurante
             Regex letrasRegex = new Regex(@"^[a-zA-Z\s]+$");
             Regex numerosRegex = new Regex(@"^[\d-]+$");
 
-            if (string.IsNullOrWhiteSpace(txtnombre.Text) || string.IsNullOrWhiteSpace(txtapellido.Text) || string.IsNullOrWhiteSpace(emailtxt.Text))
+            if (string.IsNullOrWhiteSpace(txtnombre.Text) || string.IsNullOrWhiteSpace(txtapellido.Text))
             {
                 MessageBox.Show("No debe dejar campos vacíos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -168,8 +174,6 @@ namespace Proyecto_restaurante
                 return;
             }
 
-            string conexionString = ConexionBD.ConexionSQL();
-
             using (SqlConnection conexion = new SqlConnection(conexionString))
             {
                 conexion.Open();
@@ -177,7 +181,7 @@ namespace Proyecto_restaurante
 
                 try
                 {
-                    if (ClienteID == 0)
+                    if (EditarCliente == 0)
                     {
                         string nuevaPersona = @"
                         INSERT INTO Persona (Nombre, Apellido, Email, Activo, CreadoEn)
@@ -196,31 +200,49 @@ namespace Proyecto_restaurante
 
                         string nuevoCliente = @"
                         INSERT INTO Cliente (IdPersona, IdTipoDoc)
-                        VALUES (@IdPersona, @IdTipoDoc)";
+                        VALUES (@IdPersona, @IdTipoDoc);
+                        SELECT SCOPE_IDENTITY();";
 
                         using (SqlCommand insertarCliente = new SqlCommand(nuevoCliente, conexion, trans))
                         {
                             insertarCliente.Parameters.AddWithValue("@IdPersona", PersonaID);
                             insertarCliente.Parameters.AddWithValue("@IdTipoDoc", Convert.ToInt32(tipodoccmbx.SelectedValue));
 
-                            insertarCliente.ExecuteNonQuery();
+                            ClienteID = Convert.ToInt32(insertarCliente.ExecuteScalar());
+                        }
+
+                        string nuevoDoc = @"
+                        INSERT INTO PersonaDocumento (IdPersona, IdTipoDocumento, Numero, EsPrincipal)
+                        VALUES (@IdPersona, @IdTipoDoc, @Numero, 1)";
+
+                        using (SqlCommand insertarDocumento = new SqlCommand(nuevoDoc, conexion, trans))
+                        {
+                            insertarDocumento.Parameters.AddWithValue("@IdPersona", PersonaID);
+                            insertarDocumento.Parameters.AddWithValue("@IdTipoDoc", Convert.ToInt32(tipodoccmbx.SelectedValue));
+                            insertarDocumento.Parameters.AddWithValue("@Numero", identtxt.Text);
+
+                            insertarDocumento.ExecuteNonQuery();
                         }
 
                         foreach (DataGridViewRow fila in telefonocliente.Rows)
                         {
                             if (fila.IsNewRow) continue;
 
-                            string queryTelefono = @"
-                                INSERT INTO PersonaTelefono (IdPersona, Numero, EsPrincipal, NombreTelefono)
-                                VALUES (@IdPersona, @Numero, @EsPrincipal, @NombreTelefono)";
+                            string nombre = fila.Cells["nombre"].Value?.ToString();
+                            string numero = fila.Cells["numero"].Value?.ToString();
+                            int esPrincipal = Convert.ToBoolean(fila.Cells["principal"].Value) ? 1 : 0;
 
-                            using (SqlCommand cmdTelefono = new SqlCommand(queryTelefono, conexion))
+                            string queryTelefono = @"
+                            INSERT INTO PersonaTelefono (IdPersona, Numero, EsPrincipal, NombreTelefono)
+                            VALUES (@IdPersona, @Numero, @EsPrincipal, @NombreTelefono)";
+
+                            using (SqlCommand cmdTelefono = new SqlCommand(queryTelefono, conexion, trans))
                             {
                                 cmdTelefono.Parameters.AddWithValue("@IdPersona", PersonaID);
-                                cmdTelefono.Parameters.AddWithValue("@Numero", telefonocliente.SelectedCells[1].Value.ToString());
-                                cmdTelefono.Parameters.AddWithValue("@EsPrincipal", Convert.ToInt32(telefonocliente.SelectedRows[3].Cells["pricipal"].Value));
-                                cmdTelefono.Parameters.AddWithValue("@NombreTelefono", telefonocliente.SelectedCells[2].Value.ToString());
-                                
+                                cmdTelefono.Parameters.AddWithValue("@Numero", numero);
+                                cmdTelefono.Parameters.AddWithValue("@EsPrincipal", esPrincipal);
+                                cmdTelefono.Parameters.AddWithValue("@NombreTelefono", nombre);
+
                                 cmdTelefono.ExecuteNonQuery();
                             }
                         }
@@ -229,27 +251,29 @@ namespace Proyecto_restaurante
                         {
                             if (fila.IsNewRow) continue;
 
-                            string queryDireccion = @"
-                                INSERT INTO PersonaDireccion (IdPersona, Direccion, EsPrincipal, Nombre)
-                                VALUES (@IdPersona, @Direccion, @EsPrincipal, @Nombre)";
+                            string nombre = fila.Cells["nombre"].Value?.ToString();
+                            string direccion = fila.Cells["direccion"].Value?.ToString();
+                            int esPrincipal = Convert.ToBoolean(fila.Cells["principal"].Value) ? 1 : 0;
 
-                            using (SqlCommand cmdDireccion = new SqlCommand(queryDireccion, conexion))
+                            string queryDireccion = @"
+                            INSERT INTO PersonaDireccion (IdPersona, Direccion, EsPrincipal, Nombre)
+                            VALUES (@IdPersona, @Direccion, @EsPrincipal, @Nombre)";
+
+                            using (SqlCommand cmdDireccion = new SqlCommand(queryDireccion, conexion, trans))
                             {
                                 cmdDireccion.Parameters.AddWithValue("@IdPersona", PersonaID);
-                                cmdDireccion.Parameters.AddWithValue("@Nombre", telefonocliente.SelectedCells[0].Value.ToString());
-                                cmdDireccion.Parameters.AddWithValue("@Direccion", telefonocliente.SelectedCells[1].Value.ToString());
-                                cmdDireccion.Parameters.AddWithValue("@EsPrincipal", Convert.ToInt32(telefonocliente.SelectedRows[2].Cells["pricipal"].Value));
-                                
+                                cmdDireccion.Parameters.AddWithValue("@Nombre", nombre);
+                                cmdDireccion.Parameters.AddWithValue("@Direccion", direccion);
+                                cmdDireccion.Parameters.AddWithValue("@EsPrincipal", esPrincipal);
+
                                 cmdDireccion.ExecuteNonQuery();
                             }
                         }
 
                         trans.Commit();
                         MessageBox.Show("Cliente registrado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        RestablecerFormulario();
-                        ConsultaClientes_Load(sender, e);
                     }
-                    else
+                    else if (EditarCliente == 1)
                     {
                         string actualizarPersona = @"
                         UPDATE Persona 
@@ -278,11 +302,25 @@ namespace Proyecto_restaurante
                             actualizarClienteCmd.ExecuteNonQuery();
                         }
 
+                        string actualizarDoc = @"
+                        UPDATE PersonaDocumento
+                        SET Numero = @Numero
+                        WHERE IdPersona = @IdPersona AND EsPrincipal = 1";
+
+                        using (SqlCommand cmdDoc = new SqlCommand(actualizarDoc, conexion, trans))
+                        {
+                            cmdDoc.Parameters.AddWithValue("@IdPersona", PersonaID);
+                            cmdDoc.Parameters.AddWithValue("@Numero", identtxt.Text);
+                            cmdDoc.ExecuteNonQuery();
+                        }
+
+
                         trans.Commit();
                         MessageBox.Show("Cliente actualizado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        RestablecerFormulario();
-                        ConsultaClientes_Load(sender, e);
                     }
+
+                    RestablecerFormulario();
+                    ConsultaClientes_Load(sender, e);
                 }
                 catch (Exception ex)
                 {
@@ -292,17 +330,27 @@ namespace Proyecto_restaurante
             }
         }
 
+
         private void RestablecerFormulario()
         {
             imagencliente.Image = Proyecto_restaurante.Properties.Resources.perfilcliente;
-            txtnombre.Text = "";
-            identtxt.Text = "";
+            txtnombre.Clear();
+            identtxt.Clear();
             tipodoccmbx.SelectedIndex = -1;
 
-            txtapellido.Text = "";
+            txtapellido.Clear();
 
             ClienteID = 0;
             PersonaID = 0;
+
+            emailtxt.Text = "";
+            telefonocliente.Rows.Clear();
+            direccioncliente.Rows.Clear();
+
+            numerotxt.Clear();
+            nombredirecciontxt.Clear();
+            direcciontxt.Clear();
+            nombrenumerotxt.Clear();
 
             estadochk.Checked = true;
             txtnombre.Focus();
@@ -432,23 +480,126 @@ namespace Proyecto_restaurante
             }
         }
 
-        public string IDModificar = "";
-
         private void Editar_Click(object sender, EventArgs e)
         {
             if (tabladatos.SelectedRows.Count > 0)
             {
                 int idCliente = Convert.ToInt32(tabladatos.SelectedRows[0].Cells["IdCliente"].Value);
 
-                IDModificar = idCliente.ToString();
+                EditarCliente = 1;
 
-                //CargarDatosCliente(idCliente);
+                CargarDatosCliente(idCliente);
 
                 tabControl1.SelectedIndex = 1;
             }
             else
             {
                 MessageBox.Show("Seleccione un cliente para editar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void CargarDatosCliente(int idCliente)
+        {
+
+            using (SqlConnection conexion = new SqlConnection(conexionString))
+            {
+                conexion.Open();
+
+                string query = @"
+                SELECT 
+                    c.IdCliente,
+                    c.IdPersona,
+                    c.IdTipoDoc,
+
+                    p.Nombre,
+                    p.Apellido,
+                    p.Email,
+                    p.Activo
+                FROM Cliente c
+                INNER JOIN Persona p ON c.IdPersona = p.IdPersona
+                WHERE c.IdCliente = @IdCliente";
+
+                SqlCommand cmd = new SqlCommand(query, conexion);
+                cmd.Parameters.AddWithValue("@IdCliente", idCliente);
+
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                if (!dr.Read())
+                {
+                    MessageBox.Show("Cliente no encontrado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                ClienteID = idCliente;
+                PersonaID = Convert.ToInt32(dr["IdPersona"]);
+
+                txtnombre.Text = dr["Nombre"].ToString();
+                txtapellido.Text = dr["Apellido"].ToString();
+                emailtxt.Text = dr["Email"].ToString();
+                estadochk.Checked = Convert.ToBoolean(dr["Activo"]);
+
+                tipodoccmbx.SelectedValue = Convert.ToInt32(dr["IdTipoDoc"]);
+
+                dr.Close();
+
+                string queryDoc = @"
+                SELECT Numero 
+                FROM PersonaDocumento
+                WHERE IdPersona = @IdPersona AND EsPrincipal = 1";
+
+                SqlCommand cmdDoc = new SqlCommand(queryDoc, conexion);
+                cmdDoc.Parameters.AddWithValue("@IdPersona", PersonaID);
+
+                object numeroDoc = cmdDoc.ExecuteScalar();
+                identtxt.Text = numeroDoc?.ToString() ?? "";
+
+                telefonocliente.Rows.Clear();
+
+                string queryTels = @"
+                SELECT NombreTelefono, Numero, EsPrincipal
+                FROM PersonaTelefono
+                WHERE IdPersona = @IdPersona";
+
+                SqlCommand cmdTels = new SqlCommand(queryTels, conexion);
+                cmdTels.Parameters.AddWithValue("@IdPersona", PersonaID);
+
+                SqlDataReader drTels = cmdTels.ExecuteReader();
+
+                while (drTels.Read())
+                {
+                    telefonocliente.Rows.Add(
+                        drTels["NombreTelefono"].ToString(),
+                        drTels["Numero"].ToString(),
+                        Convert.ToBoolean(drTels["EsPrincipal"])
+                    );
+                }
+
+                drTels.Close();
+
+                direccioncliente.Rows.Clear();
+
+                string queryDire = @"
+                SELECT Nombre, Direccion, EsPrincipal
+                FROM PersonaDireccion
+                WHERE IdPersona = @IdPersona";
+
+                SqlCommand cmdDire = new SqlCommand(queryDire, conexion);
+                cmdDire.Parameters.AddWithValue("@IdPersona", PersonaID);
+
+                SqlDataReader drDir = cmdDire.ExecuteReader();
+
+                while (drDir.Read())
+                {
+                    direccioncliente.Rows.Add(
+                        drDir["Nombre"].ToString(),
+                        drDir["Direccion"].ToString(),
+                        Convert.ToBoolean(drDir["EsPrincipal"])
+                    );
+                }
+
+                idclientetxt.Text = idCliente.ToString();
+
+                drDir.Close();
             }
         }
 
@@ -522,6 +673,7 @@ namespace Proyecto_restaurante
         private void tipodoccmbx_SelectedIndexChanged(object sender, EventArgs e)
         {
             identtxt_TextChanged(null, null);
+            identtxt.Clear();
         }
 
         private void bajarTelefono_Click(object sender, EventArgs e)
@@ -541,7 +693,7 @@ namespace Proyecto_restaurante
 
             telefonocliente.Rows.Add(row);
 
-            if (numPrincipalcmbx.Checked)
+            if (TelActivado == 1)
             {
                 numPrincipalcmbx.Checked = false;
                 numPrincipalcmbx.Enabled = false;
@@ -559,7 +711,7 @@ namespace Proyecto_restaurante
 
         private void bajardireccion_Click(object sender, EventArgs e)
         {
-            if(nombredirecciontxt.Text == "" || direcciontxt.Text == "")
+            if (nombredirecciontxt.Text == "" || direcciontxt.Text == "")
             {
                 MessageBox.Show("Campos Vacíos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -574,7 +726,7 @@ namespace Proyecto_restaurante
 
             direccioncliente.Rows.Add(row);
 
-            if (principalDireccion.Checked)
+            if (DirActivado == 1)
             {
                 principalDireccion.Checked = false;
                 principalDireccion.Enabled = false;
@@ -588,6 +740,83 @@ namespace Proyecto_restaurante
             nombredirecciontxt.Clear();
             direcciontxt.Clear();
             principalDireccion.Checked = false;
+        }
+
+        private void numPrincipalcmbx_CheckedChanged(object sender, EventArgs e)
+        {
+            if (numPrincipalcmbx.Checked == true)
+            {
+                TelActivado = 1;
+            }
+            else
+            {
+                TelActivado = 0;
+            }
+        }
+
+        private void principalDireccion_CheckedChanged(object sender, EventArgs e)
+        {
+            if (principalDireccion.Checked == true)
+            {
+                DirActivado = 1;
+            }
+            else
+            {
+                DirActivado = 0;
+            }
+        }
+
+        private void eliminarNumero_Click(object sender, EventArgs e)
+        {
+            if (telefonocliente.SelectedRows.Count > 0)
+            {
+                int fila = telefonocliente.SelectedRows[0].Index;
+                telefonocliente.Rows.RemoveAt(fila);
+                EliminarNum = 0;
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar una fila.", "Aviso",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void eliminarDireccion_Click(object sender, EventArgs e)
+        {
+            if (direccioncliente.SelectedRows.Count > 0)
+            {
+                int fila = direccioncliente.SelectedRows[0].Index;
+                direccioncliente.Rows.RemoveAt(fila);
+                EliminarDir = 0;
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar una fila.", "Aviso",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void telefonocliente_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            EliminarNum = 1;
+        }
+
+        private void direccioncliente_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            EliminarDir = 1;
+        }
+
+        private void ConsClientes_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (tabControl1.SelectedIndex == 1 && EliminarNum == 1 && e.KeyCode == Keys.Delete)
+            {
+                eliminarNumero.PerformClick();
+            }
+
+            if (tabControl1.SelectedIndex == 1 && EliminarDir == 1 && e.KeyCode == Keys.Delete)
+            {
+                eliminarDireccion.PerformClick();
+            }
         }
     }
 }

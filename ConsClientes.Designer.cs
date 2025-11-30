@@ -47,6 +47,9 @@
             filtrochk = new CheckBox();
             tabPage2 = new TabPage();
             tipodoccmbx = new ComboBox();
+            label11 = new Label();
+            label10 = new Label();
+            label5 = new Label();
             label14 = new Label();
             panel4 = new Panel();
             panel2 = new Panel();
@@ -309,6 +312,9 @@
             // 
             tabPage2.BackColor = SystemColors.WindowFrame;
             tabPage2.Controls.Add(tipodoccmbx);
+            tabPage2.Controls.Add(label11);
+            tabPage2.Controls.Add(label10);
+            tabPage2.Controls.Add(label5);
             tabPage2.Controls.Add(label14);
             tabPage2.Controls.Add(panel4);
             tabPage2.Controls.Add(panel2);
@@ -347,6 +353,39 @@
             tipodoccmbx.TabIndex = 100;
             tipodoccmbx.SelectedIndexChanged += tipodoccmbx_SelectedIndexChanged;
             // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label11.ForeColor = Color.Red;
+            label11.Location = new Point(246, 241);
+            label11.Name = "label11";
+            label11.Size = new Size(17, 21);
+            label11.TabIndex = 99;
+            label11.Text = "*";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label10.ForeColor = Color.Red;
+            label10.Location = new Point(246, 169);
+            label10.Name = "label10";
+            label10.Size = new Size(17, 21);
+            label10.TabIndex = 99;
+            label10.Text = "*";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label5.ForeColor = Color.Red;
+            label5.Location = new Point(246, 97);
+            label5.Name = "label5";
+            label5.Size = new Size(17, 21);
+            label5.TabIndex = 99;
+            label5.Text = "*";
+            // 
             // label14
             // 
             label14.AutoSize = true;
@@ -360,14 +399,14 @@
             // 
             // panel4
             // 
-            panel4.Location = new Point(458, 365);
+            panel4.Location = new Point(455, 365);
             panel4.Name = "panel4";
-            panel4.Size = new Size(258, 26);
+            panel4.Size = new Size(261, 26);
             panel4.TabIndex = 98;
             // 
             // panel2
             // 
-            panel2.Location = new Point(214, 365);
+            panel2.Location = new Point(211, 365);
             panel2.Name = "panel2";
             panel2.Size = new Size(129, 26);
             panel2.TabIndex = 97;
@@ -389,9 +428,9 @@
             panel5.Controls.Add(bajarTelefono);
             panel5.Controls.Add(nombredirecciontxt);
             panel5.Controls.Add(nombrenumerotxt);
-            panel5.Location = new Point(11, 365);
+            panel5.Location = new Point(9, 365);
             panel5.Name = "panel5";
-            panel5.Size = new Size(705, 206);
+            panel5.Size = new Size(708, 206);
             panel5.TabIndex = 96;
             // 
             // label19
@@ -448,6 +487,7 @@
             principalDireccion.TabIndex = 90;
             principalDireccion.Text = "Principal";
             principalDireccion.UseVisualStyleBackColor = true;
+            principalDireccion.CheckedChanged += principalDireccion_CheckedChanged;
             // 
             // numPrincipalcmbx
             // 
@@ -459,6 +499,7 @@
             numPrincipalcmbx.TabIndex = 90;
             numPrincipalcmbx.Text = "Principal";
             numPrincipalcmbx.UseVisualStyleBackColor = true;
+            numPrincipalcmbx.CheckedChanged += numPrincipalcmbx_CheckedChanged;
             // 
             // direccioncliente
             // 
@@ -476,6 +517,7 @@
             direccioncliente.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             direccioncliente.Size = new Size(329, 129);
             direccioncliente.TabIndex = 74;
+            direccioncliente.CellClick += direccioncliente_CellClick;
             // 
             // telefonocliente
             // 
@@ -493,6 +535,7 @@
             telefonocliente.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             telefonocliente.Size = new Size(281, 129);
             telefonocliente.TabIndex = 74;
+            telefonocliente.CellClick += telefonocliente_CellClick;
             // 
             // eliminarDireccion
             // 
@@ -503,6 +546,7 @@
             eliminarDireccion.Size = new Size(28, 29);
             eliminarDireccion.TabIndex = 77;
             eliminarDireccion.UseVisualStyleBackColor = false;
+            eliminarDireccion.Click += eliminarDireccion_Click;
             // 
             // bajardireccion
             // 
@@ -523,6 +567,7 @@
             eliminarNumero.Size = new Size(28, 29);
             eliminarNumero.TabIndex = 77;
             eliminarNumero.UseVisualStyleBackColor = false;
+            eliminarNumero.Click += eliminarNumero_Click;
             // 
             // bajarTelefono
             // 
@@ -769,12 +814,14 @@
             Controls.Add(tabControl1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            KeyPreview = true;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "ConsClientes";
             StartPosition = FormStartPosition.Manual;
             Text = "Clientes";
             Load += ConsultaClientes_Load;
+            KeyDown += ConsClientes_KeyDown;
             ((System.ComponentModel.ISupportInitialize)tabladatos).EndInit();
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
@@ -849,5 +896,8 @@
         private TextBox identtxt;
         private TextBox emailtxt;
         private Label label4;
+        private Label label11;
+        private Label label10;
+        private Label label5;
     }
 }
