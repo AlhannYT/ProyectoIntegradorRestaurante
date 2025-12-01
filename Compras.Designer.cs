@@ -67,8 +67,8 @@
             txtpreciocompra = new TextBox();
             IdIngredientetxt = new TextBox();
             PanelIngredientes = new Panel();
-            label15 = new Label();
             panel7 = new Panel();
+            label15 = new Label();
             checkingredactivo = new CheckBox();
             recargaringredbtn = new Button();
             label12 = new Label();
@@ -82,8 +82,8 @@
             PanelProv = new Panel();
             panel9 = new Panel();
             checkactivoprov = new CheckBox();
-            checkprovinformal = new CheckBox();
             label16 = new Label();
+            checkprovinformal = new CheckBox();
             recargarprovbtn = new Button();
             eliminarbtn2 = new Button();
             label14 = new Label();
@@ -100,27 +100,38 @@
             TotalLabel = new Label();
             label9 = new Label();
             label10 = new Label();
-            tabPageOrdenes = new TabPage();
+            TabPageHistorialCompras = new TabPage();
+            panel12 = new Panel();
+            panel13 = new Panel();
+            label20 = new Label();
+            checkBox1 = new CheckBox();
+            button1 = new Button();
+            label22 = new Label();
+            button2 = new Button();
+            label23 = new Label();
+            textBox1 = new TextBox();
+            button3 = new Button();
+            TablaDetalleHistorial = new DataGridView();
             panel11 = new Panel();
-            tabladatoscompra = new DataGridView();
+            TablaDatosCompra = new DataGridView();
             label17 = new Label();
-            txtbusquedafactura = new TextBox();
+            BusquedaCompraTxt = new TextBox();
             panel10 = new Panel();
             label18 = new Label();
-            todoschk = new CheckBox();
-            Anuladochk = new CheckBox();
-            pendientechk = new CheckBox();
-            facturadochk = new CheckBox();
+            TodosChk = new CheckBox();
+            AnuladoChk = new CheckBox();
+            PendienteChk = new CheckBox();
+            RecibidaChk = new CheckBox();
             label1 = new Label();
             panel8 = new Panel();
             label7 = new Label();
             label13 = new Label();
             fecini = new DateTimePicker();
             fecfin = new DateTimePicker();
-            editar = new Button();
-            cancelarpedido = new Button();
-            imprimirbtn = new Button();
-            facturarbtn = new Button();
+            EditarBtn = new Button();
+            CancelarBtn = new Button();
+            ImprimirBtn = new Button();
+            ConfirmarRecepcionBtn = new Button();
             panel1.SuspendLayout();
             panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -142,9 +153,12 @@
             ((System.ComponentModel.ISupportInitialize)tablaprov).BeginInit();
             panel4.SuspendLayout();
             panelSubTotal.SuspendLayout();
-            tabPageOrdenes.SuspendLayout();
+            TabPageHistorialCompras.SuspendLayout();
+            panel12.SuspendLayout();
+            panel13.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)TablaDetalleHistorial).BeginInit();
             panel11.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)tabladatoscompra).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)TablaDatosCompra).BeginInit();
             panel10.SuspendLayout();
             panel8.SuspendLayout();
             SuspendLayout();
@@ -244,10 +258,10 @@
             idproveedortxt.Size = new Size(45, 29);
             idproveedortxt.TabIndex = 10;
             idproveedortxt.TabStop = false;
-            idproveedortxt.TextChanged += idproveedortxt_TextChanged;
             // 
             // DireccionProvTxt
             // 
+            DireccionProvTxt.Enabled = false;
             DireccionProvTxt.Font = new Font("Segoe UI", 12F);
             DireccionProvTxt.Location = new Point(254, 125);
             DireccionProvTxt.Name = "DireccionProvTxt";
@@ -270,6 +284,7 @@
             // 
             // TelefProvTxt
             // 
+            TelefProvTxt.Enabled = false;
             TelefProvTxt.Font = new Font("Segoe UI", 12F);
             TelefProvTxt.Location = new Point(52, 125);
             TelefProvTxt.Name = "TelefProvTxt";
@@ -303,6 +318,7 @@
             // 
             // txtnombrecompleto
             // 
+            txtnombrecompleto.Enabled = false;
             txtnombrecompleto.Font = new Font("Segoe UI", 12F);
             txtnombrecompleto.Location = new Point(103, 89);
             txtnombrecompleto.Name = "txtnombrecompleto";
@@ -326,11 +342,11 @@
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label4.ForeColor = SystemColors.Control;
-            label4.Location = new Point(225, 5);
+            label4.Location = new Point(234, 5);
             label4.Name = "label4";
-            label4.Size = new Size(290, 32);
+            label4.Size = new Size(264, 32);
             label4.TabIndex = 3;
-            label4.Text = "Compra de Ingredientes";
+            label4.Text = "Compra de Mercancia";
             // 
             // label6
             // 
@@ -427,11 +443,13 @@
             detallecompra.Location = new Point(5, 39);
             detallecompra.MultiSelect = false;
             detallecompra.Name = "detallecompra";
+            detallecompra.ReadOnly = true;
             detallecompra.RowHeadersVisible = false;
             detallecompra.RowHeadersWidth = 51;
             detallecompra.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             detallecompra.Size = new Size(784, 308);
             detallecompra.TabIndex = 0;
+            detallecompra.CellDoubleClick += detallecompra_CellDoubleClick;
             // 
             // label21
             // 
@@ -542,7 +560,7 @@
             txtnombre.Font = new Font("Segoe UI", 12F);
             txtnombre.Location = new Point(152, 11);
             txtnombre.Name = "txtnombre";
-            txtnombre.PlaceholderText = "Ingrediente";
+            txtnombre.PlaceholderText = "Producto";
             txtnombre.Size = new Size(285, 29);
             txtnombre.TabIndex = 0;
             // 
@@ -603,6 +621,17 @@
             PanelIngredientes.TabIndex = 1;
             PanelIngredientes.Visible = false;
             // 
+            // panel7
+            // 
+            panel7.BackColor = Color.DimGray;
+            panel7.BorderStyle = BorderStyle.FixedSingle;
+            panel7.Controls.Add(label15);
+            panel7.Controls.Add(checkingredactivo);
+            panel7.Location = new Point(667, 83);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(101, 32);
+            panel7.TabIndex = 49;
+            // 
             // label15
             // 
             label15.AutoSize = true;
@@ -615,17 +644,6 @@
             label15.Size = new Size(18, 21);
             label15.TabIndex = 38;
             label15.Text = "  ";
-            // 
-            // panel7
-            // 
-            panel7.BackColor = Color.DimGray;
-            panel7.BorderStyle = BorderStyle.FixedSingle;
-            panel7.Controls.Add(label15);
-            panel7.Controls.Add(checkingredactivo);
-            panel7.Location = new Point(667, 83);
-            panel7.Name = "panel7";
-            panel7.Size = new Size(101, 32);
-            panel7.TabIndex = 49;
             // 
             // checkingredactivo
             // 
@@ -711,10 +729,13 @@
             // 
             tablaingrediente.AllowUserToAddRows = false;
             tablaingrediente.AllowUserToDeleteRows = false;
+            tablaingrediente.AllowUserToResizeRows = false;
+            tablaingrediente.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             tablaingrediente.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tablaingrediente.Location = new Point(21, 119);
             tablaingrediente.MultiSelect = false;
             tablaingrediente.Name = "tablaingrediente";
+            tablaingrediente.ReadOnly = true;
             tablaingrediente.RowHeadersWidth = 51;
             tablaingrediente.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             tablaingrediente.Size = new Size(782, 529);
@@ -724,7 +745,7 @@
             // tabControl1
             // 
             tabControl1.Controls.Add(tabPageReg);
-            tabControl1.Controls.Add(tabPageOrdenes);
+            tabControl1.Controls.Add(TabPageHistorialCompras);
             tabControl1.Dock = DockStyle.Fill;
             tabControl1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tabControl1.ItemSize = new Size(73, 26);
@@ -733,17 +754,18 @@
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new Size(807, 707);
             tabControl1.TabIndex = 3;
+            tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
             // 
             // tabPageReg
             // 
             tabPageReg.BackColor = Color.FromArgb(87, 128, 87);
             tabPageReg.Controls.Add(PanelProv);
-            tabPageReg.Controls.Add(panel4);
             tabPageReg.Controls.Add(panel3);
             tabPageReg.Controls.Add(PanelIngredientes);
             tabPageReg.Controls.Add(panel1);
             tabPageReg.Controls.Add(panel5);
             tabPageReg.Controls.Add(panel2);
+            tabPageReg.Controls.Add(panel4);
             tabPageReg.Location = new Point(4, 30);
             tabPageReg.Name = "tabPageReg";
             tabPageReg.Padding = new Padding(3);
@@ -796,6 +818,19 @@
             checkactivoprov.UseVisualStyleBackColor = true;
             checkactivoprov.CheckedChanged += checkactivoprov_CheckedChanged;
             // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.BackColor = Color.Transparent;
+            label16.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label16.ForeColor = SystemColors.WindowFrame;
+            label16.Image = Properties.Resources.filtroblanco;
+            label16.Location = new Point(6, 6);
+            label16.Name = "label16";
+            label16.Size = new Size(18, 21);
+            label16.TabIndex = 64;
+            label16.Text = "  ";
+            // 
             // checkprovinformal
             // 
             checkprovinformal.AutoSize = true;
@@ -809,19 +844,6 @@
             checkprovinformal.Text = "  ";
             checkprovinformal.UseVisualStyleBackColor = true;
             checkprovinformal.CheckedChanged += checkprovinformal_CheckedChanged;
-            // 
-            // label16
-            // 
-            label16.AutoSize = true;
-            label16.BackColor = Color.Transparent;
-            label16.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label16.ForeColor = SystemColors.WindowFrame;
-            label16.Image = Properties.Resources.filtroblanco;
-            label16.Location = new Point(6, 6);
-            label16.Name = "label16";
-            label16.Size = new Size(18, 21);
-            label16.TabIndex = 64;
-            label16.Text = "  ";
             // 
             // recargarprovbtn
             // 
@@ -891,6 +913,7 @@
             // tablaprov
             // 
             tablaprov.AllowUserToAddRows = false;
+            tablaprov.AllowUserToDeleteRows = false;
             tablaprov.AllowUserToResizeRows = false;
             tablaprov.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             tablaprov.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -1012,47 +1035,182 @@
             label10.TabIndex = 3;
             label10.Text = "Subtotal:";
             // 
-            // tabPageOrdenes
+            // TabPageHistorialCompras
             // 
-            tabPageOrdenes.BackColor = Color.FromArgb(87, 128, 87);
-            tabPageOrdenes.Controls.Add(panel11);
-            tabPageOrdenes.Controls.Add(label17);
-            tabPageOrdenes.Controls.Add(txtbusquedafactura);
-            tabPageOrdenes.Controls.Add(panel10);
-            tabPageOrdenes.Controls.Add(label1);
-            tabPageOrdenes.Controls.Add(panel8);
-            tabPageOrdenes.Location = new Point(4, 30);
-            tabPageOrdenes.Name = "tabPageOrdenes";
-            tabPageOrdenes.Padding = new Padding(3);
-            tabPageOrdenes.Size = new Size(799, 673);
-            tabPageOrdenes.TabIndex = 0;
-            tabPageOrdenes.Text = "Historial";
+            TabPageHistorialCompras.BackColor = Color.FromArgb(87, 128, 87);
+            TabPageHistorialCompras.Controls.Add(panel12);
+            TabPageHistorialCompras.Controls.Add(panel11);
+            TabPageHistorialCompras.Controls.Add(label17);
+            TabPageHistorialCompras.Controls.Add(BusquedaCompraTxt);
+            TabPageHistorialCompras.Controls.Add(panel10);
+            TabPageHistorialCompras.Controls.Add(label1);
+            TabPageHistorialCompras.Controls.Add(panel8);
+            TabPageHistorialCompras.Location = new Point(4, 30);
+            TabPageHistorialCompras.Name = "TabPageHistorialCompras";
+            TabPageHistorialCompras.Padding = new Padding(3);
+            TabPageHistorialCompras.Size = new Size(799, 673);
+            TabPageHistorialCompras.TabIndex = 0;
+            TabPageHistorialCompras.Text = "Historial";
+            // 
+            // panel12
+            // 
+            panel12.BackColor = Color.FromArgb(64, 64, 64);
+            panel12.Controls.Add(panel13);
+            panel12.Controls.Add(button1);
+            panel12.Controls.Add(label22);
+            panel12.Controls.Add(button2);
+            panel12.Controls.Add(label23);
+            panel12.Controls.Add(textBox1);
+            panel12.Controls.Add(button3);
+            panel12.Controls.Add(TablaDetalleHistorial);
+            panel12.Location = new Point(886, 55);
+            panel12.Name = "panel12";
+            panel12.Size = new Size(824, 684);
+            panel12.TabIndex = 19;
+            panel12.Visible = false;
+            // 
+            // panel13
+            // 
+            panel13.BackColor = Color.DimGray;
+            panel13.BorderStyle = BorderStyle.FixedSingle;
+            panel13.Controls.Add(label20);
+            panel13.Controls.Add(checkBox1);
+            panel13.Location = new Point(667, 83);
+            panel13.Name = "panel13";
+            panel13.Size = new Size(101, 32);
+            panel13.TabIndex = 49;
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.BackColor = Color.Transparent;
+            label20.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label20.ForeColor = SystemColors.WindowFrame;
+            label20.Image = Properties.Resources.filtroblanco;
+            label20.Location = new Point(3, 6);
+            label20.Name = "label20";
+            label20.Size = new Size(18, 21);
+            label20.TabIndex = 38;
+            label20.Text = "  ";
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Checked = true;
+            checkBox1.CheckState = CheckState.Checked;
+            checkBox1.Cursor = Cursors.Hand;
+            checkBox1.Font = new Font("Segoe UI", 13F);
+            checkBox1.Image = Properties.Resources.sicheck;
+            checkBox1.Location = new Point(40, 2);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(41, 29);
+            checkBox1.TabIndex = 0;
+            checkBox1.Text = "  ";
+            checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            button1.Image = Properties.Resources.actualizar;
+            button1.Location = new Point(21, 37);
+            button1.Name = "button1";
+            button1.Size = new Size(29, 29);
+            button1.TabIndex = 47;
+            button1.TabStop = false;
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.BackColor = Color.White;
+            label22.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label22.ForeColor = SystemColors.Control;
+            label22.Image = Properties.Resources.busqueda1;
+            label22.Location = new Point(631, 89);
+            label22.Name = "label22";
+            label22.Size = new Size(18, 21);
+            label22.TabIndex = 43;
+            label22.Text = "  ";
+            // 
+            // button2
+            // 
+            button2.Image = Properties.Resources.limpio;
+            button2.Location = new Point(774, 85);
+            button2.Name = "button2";
+            button2.Size = new Size(29, 29);
+            button2.TabIndex = 42;
+            button2.UseVisualStyleBackColor = true;
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label23.ForeColor = SystemColors.Control;
+            label23.Location = new Point(328, 16);
+            label23.Name = "label23";
+            label23.Size = new Size(198, 32);
+            label23.TabIndex = 1;
+            label23.Text = "Detalle Historial";
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(21, 85);
+            textBox1.Name = "textBox1";
+            textBox1.PlaceholderText = "Buscar Compra";
+            textBox1.Size = new Size(632, 29);
+            textBox1.TabIndex = 2;
+            // 
+            // button3
+            // 
+            button3.Location = new Point(703, 16);
+            button3.Name = "button3";
+            button3.Size = new Size(98, 44);
+            button3.TabIndex = 1;
+            button3.Text = "Salir";
+            button3.UseVisualStyleBackColor = true;
+            // 
+            // TablaDetalleHistorial
+            // 
+            TablaDetalleHistorial.AllowUserToAddRows = false;
+            TablaDetalleHistorial.AllowUserToDeleteRows = false;
+            TablaDetalleHistorial.AllowUserToResizeRows = false;
+            TablaDetalleHistorial.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            TablaDetalleHistorial.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            TablaDetalleHistorial.Location = new Point(21, 119);
+            TablaDetalleHistorial.MultiSelect = false;
+            TablaDetalleHistorial.Name = "TablaDetalleHistorial";
+            TablaDetalleHistorial.ReadOnly = true;
+            TablaDetalleHistorial.RowHeadersWidth = 51;
+            TablaDetalleHistorial.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            TablaDetalleHistorial.Size = new Size(782, 529);
+            TablaDetalleHistorial.TabIndex = 0;
             // 
             // panel11
             // 
             panel11.BackColor = Color.FromArgb(64, 64, 64);
             panel11.BorderStyle = BorderStyle.FixedSingle;
-            panel11.Controls.Add(tabladatoscompra);
+            panel11.Controls.Add(TablaDatosCompra);
             panel11.Location = new Point(2, 170);
             panel11.Name = "panel11";
             panel11.Size = new Size(795, 499);
             panel11.TabIndex = 18;
             // 
-            // tabladatoscompra
+            // TablaDatosCompra
             // 
-            tabladatoscompra.AllowUserToAddRows = false;
-            tabladatoscompra.AllowUserToResizeRows = false;
-            tabladatoscompra.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            tabladatoscompra.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            tabladatoscompra.Location = new Point(2, 4);
-            tabladatoscompra.MultiSelect = false;
-            tabladatoscompra.Name = "tabladatoscompra";
-            tabladatoscompra.ReadOnly = true;
-            tabladatoscompra.RowHeadersVisible = false;
-            tabladatoscompra.RowHeadersWidth = 51;
-            tabladatoscompra.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tabladatoscompra.Size = new Size(789, 487);
-            tabladatoscompra.TabIndex = 5;
+            TablaDatosCompra.AllowUserToAddRows = false;
+            TablaDatosCompra.AllowUserToDeleteRows = false;
+            TablaDatosCompra.AllowUserToResizeRows = false;
+            TablaDatosCompra.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            TablaDatosCompra.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            TablaDatosCompra.Location = new Point(2, 4);
+            TablaDatosCompra.MultiSelect = false;
+            TablaDatosCompra.Name = "TablaDatosCompra";
+            TablaDatosCompra.ReadOnly = true;
+            TablaDatosCompra.RowHeadersVisible = false;
+            TablaDatosCompra.RowHeadersWidth = 51;
+            TablaDatosCompra.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            TablaDatosCompra.Size = new Size(789, 487);
+            TablaDatosCompra.TabIndex = 5;
+            TablaDatosCompra.CellDoubleClick += TablaDatosCompra_CellDoubleClick;
             // 
             // label17
             // 
@@ -1066,24 +1224,25 @@
             label17.TabIndex = 16;
             label17.Text = "  ";
             // 
-            // txtbusquedafactura
+            // BusquedaCompraTxt
             // 
-            txtbusquedafactura.ForeColor = Color.Gray;
-            txtbusquedafactura.Location = new Point(5, 135);
-            txtbusquedafactura.Name = "txtbusquedafactura";
-            txtbusquedafactura.PlaceholderText = "Buscar";
-            txtbusquedafactura.Size = new Size(355, 29);
-            txtbusquedafactura.TabIndex = 15;
+            BusquedaCompraTxt.ForeColor = Color.Gray;
+            BusquedaCompraTxt.Location = new Point(5, 135);
+            BusquedaCompraTxt.Name = "BusquedaCompraTxt";
+            BusquedaCompraTxt.PlaceholderText = "Buscar";
+            BusquedaCompraTxt.Size = new Size(355, 29);
+            BusquedaCompraTxt.TabIndex = 15;
+            BusquedaCompraTxt.TextChanged += BusquedaCompraTxt_TextChanged;
             // 
             // panel10
             // 
             panel10.BackColor = Color.FromArgb(64, 64, 64);
             panel10.BorderStyle = BorderStyle.FixedSingle;
             panel10.Controls.Add(label18);
-            panel10.Controls.Add(todoschk);
-            panel10.Controls.Add(Anuladochk);
-            panel10.Controls.Add(pendientechk);
-            panel10.Controls.Add(facturadochk);
+            panel10.Controls.Add(TodosChk);
+            panel10.Controls.Add(AnuladoChk);
+            panel10.Controls.Add(PendienteChk);
+            panel10.Controls.Add(RecibidaChk);
             panel10.Location = new Point(366, 135);
             panel10.Name = "panel10";
             panel10.Size = new Size(428, 29);
@@ -1100,51 +1259,55 @@
             label18.TabIndex = 7;
             label18.Text = "  ";
             // 
-            // todoschk
+            // TodosChk
             // 
-            todoschk.AutoSize = true;
-            todoschk.ForeColor = Color.White;
-            todoschk.Location = new Point(350, 2);
-            todoschk.Name = "todoschk";
-            todoschk.Size = new Size(69, 25);
-            todoschk.TabIndex = 6;
-            todoschk.Text = "Todos";
-            todoschk.UseVisualStyleBackColor = true;
+            TodosChk.AutoSize = true;
+            TodosChk.ForeColor = Color.White;
+            TodosChk.Location = new Point(350, 2);
+            TodosChk.Name = "TodosChk";
+            TodosChk.Size = new Size(69, 25);
+            TodosChk.TabIndex = 6;
+            TodosChk.Text = "Todos";
+            TodosChk.UseVisualStyleBackColor = true;
+            TodosChk.CheckedChanged += TodosChk_CheckedChanged;
             // 
-            // Anuladochk
+            // AnuladoChk
             // 
-            Anuladochk.AutoSize = true;
-            Anuladochk.ForeColor = Color.White;
-            Anuladochk.Location = new Point(242, 2);
-            Anuladochk.Name = "Anuladochk";
-            Anuladochk.Size = new Size(87, 25);
-            Anuladochk.TabIndex = 6;
-            Anuladochk.Text = "Anulado";
-            Anuladochk.UseVisualStyleBackColor = true;
+            AnuladoChk.AutoSize = true;
+            AnuladoChk.ForeColor = Color.White;
+            AnuladoChk.Location = new Point(242, 2);
+            AnuladoChk.Name = "AnuladoChk";
+            AnuladoChk.Size = new Size(87, 25);
+            AnuladoChk.TabIndex = 6;
+            AnuladoChk.Text = "Anulado";
+            AnuladoChk.UseVisualStyleBackColor = true;
+            AnuladoChk.CheckedChanged += AnuladoChk_CheckedChanged;
             // 
-            // pendientechk
+            // PendienteChk
             // 
-            pendientechk.AutoSize = true;
-            pendientechk.Checked = true;
-            pendientechk.CheckState = CheckState.Checked;
-            pendientechk.ForeColor = Color.White;
-            pendientechk.Location = new Point(34, 1);
-            pendientechk.Name = "pendientechk";
-            pendientechk.Size = new Size(97, 25);
-            pendientechk.TabIndex = 6;
-            pendientechk.Text = "Pendiente";
-            pendientechk.UseVisualStyleBackColor = true;
+            PendienteChk.AutoSize = true;
+            PendienteChk.Checked = true;
+            PendienteChk.CheckState = CheckState.Checked;
+            PendienteChk.ForeColor = Color.White;
+            PendienteChk.Location = new Point(34, 1);
+            PendienteChk.Name = "PendienteChk";
+            PendienteChk.Size = new Size(97, 25);
+            PendienteChk.TabIndex = 6;
+            PendienteChk.Text = "Pendiente";
+            PendienteChk.UseVisualStyleBackColor = true;
+            PendienteChk.CheckedChanged += PendienteChk_CheckedChanged;
             // 
-            // facturadochk
+            // RecibidaChk
             // 
-            facturadochk.AutoSize = true;
-            facturadochk.ForeColor = Color.White;
-            facturadochk.Location = new Point(141, 2);
-            facturadochk.Name = "facturadochk";
-            facturadochk.Size = new Size(88, 25);
-            facturadochk.TabIndex = 6;
-            facturadochk.Text = "Recibida";
-            facturadochk.UseVisualStyleBackColor = true;
+            RecibidaChk.AutoSize = true;
+            RecibidaChk.ForeColor = Color.White;
+            RecibidaChk.Location = new Point(141, 2);
+            RecibidaChk.Name = "RecibidaChk";
+            RecibidaChk.Size = new Size(88, 25);
+            RecibidaChk.TabIndex = 6;
+            RecibidaChk.Text = "Recibida";
+            RecibidaChk.UseVisualStyleBackColor = true;
+            RecibidaChk.CheckedChanged += RecibidaChk_CheckedChanged;
             // 
             // label1
             // 
@@ -1165,10 +1328,10 @@
             panel8.Controls.Add(label13);
             panel8.Controls.Add(fecini);
             panel8.Controls.Add(fecfin);
-            panel8.Controls.Add(editar);
-            panel8.Controls.Add(cancelarpedido);
-            panel8.Controls.Add(imprimirbtn);
-            panel8.Controls.Add(facturarbtn);
+            panel8.Controls.Add(EditarBtn);
+            panel8.Controls.Add(CancelarBtn);
+            panel8.Controls.Add(ImprimirBtn);
+            panel8.Controls.Add(ConfirmarRecepcionBtn);
             panel8.Location = new Point(2, 55);
             panel8.Name = "panel8";
             panel8.Size = new Size(794, 74);
@@ -1179,7 +1342,7 @@
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label7.ForeColor = SystemColors.Control;
-            label7.Location = new Point(6, 9);
+            label7.Location = new Point(38, 12);
             label7.Name = "label7";
             label7.Size = new Size(101, 21);
             label7.TabIndex = 9;
@@ -1190,7 +1353,7 @@
             label13.AutoSize = true;
             label13.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label13.ForeColor = SystemColors.Control;
-            label13.Location = new Point(142, 9);
+            label13.Location = new Point(192, 12);
             label13.Name = "label13";
             label13.Size = new Size(79, 21);
             label13.TabIndex = 10;
@@ -1199,70 +1362,76 @@
             // fecini
             // 
             fecini.Format = DateTimePickerFormat.Short;
-            fecini.Location = new Point(6, 33);
+            fecini.Location = new Point(28, 36);
             fecini.Name = "fecini";
             fecini.Size = new Size(123, 29);
             fecini.TabIndex = 7;
+            fecini.ValueChanged += fecini_ValueChanged;
             // 
             // fecfin
             // 
             fecfin.Format = DateTimePickerFormat.Short;
-            fecfin.Location = new Point(135, 33);
+            fecfin.Location = new Point(169, 36);
             fecfin.Name = "fecfin";
             fecfin.Size = new Size(123, 29);
             fecfin.TabIndex = 8;
+            fecfin.ValueChanged += fecfin_ValueChanged;
             // 
-            // editar
+            // EditarBtn
             // 
-            editar.BackColor = Color.FromArgb(255, 192, 128);
-            editar.Image = Properties.Resources.editar;
-            editar.ImageAlign = ContentAlignment.MiddleLeft;
-            editar.Location = new Point(438, 9);
-            editar.Name = "editar";
-            editar.Size = new Size(114, 56);
-            editar.TabIndex = 1;
-            editar.Text = "Editar";
-            editar.TextAlign = ContentAlignment.MiddleRight;
-            editar.UseVisualStyleBackColor = false;
+            EditarBtn.BackColor = Color.FromArgb(255, 192, 128);
+            EditarBtn.Image = Properties.Resources.editar;
+            EditarBtn.ImageAlign = ContentAlignment.MiddleLeft;
+            EditarBtn.Location = new Point(438, 9);
+            EditarBtn.Name = "EditarBtn";
+            EditarBtn.Size = new Size(114, 56);
+            EditarBtn.TabIndex = 1;
+            EditarBtn.Text = "Editar";
+            EditarBtn.TextAlign = ContentAlignment.MiddleRight;
+            EditarBtn.UseVisualStyleBackColor = false;
+            EditarBtn.Click += EditarBtn_Click;
             // 
-            // cancelarpedido
+            // CancelarBtn
             // 
-            cancelarpedido.BackColor = Color.FromArgb(255, 128, 128);
-            cancelarpedido.Image = Properties.Resources.cancelardoc;
-            cancelarpedido.ImageAlign = ContentAlignment.MiddleLeft;
-            cancelarpedido.Location = new Point(676, 9);
-            cancelarpedido.Name = "cancelarpedido";
-            cancelarpedido.Size = new Size(114, 56);
-            cancelarpedido.TabIndex = 0;
-            cancelarpedido.Text = "Cancelar";
-            cancelarpedido.TextAlign = ContentAlignment.MiddleRight;
-            cancelarpedido.UseVisualStyleBackColor = false;
+            CancelarBtn.BackColor = Color.FromArgb(255, 128, 128);
+            CancelarBtn.Image = Properties.Resources.cancelardoc;
+            CancelarBtn.ImageAlign = ContentAlignment.MiddleLeft;
+            CancelarBtn.Location = new Point(676, 9);
+            CancelarBtn.Name = "CancelarBtn";
+            CancelarBtn.Size = new Size(114, 56);
+            CancelarBtn.TabIndex = 0;
+            CancelarBtn.Text = "Cancelar";
+            CancelarBtn.TextAlign = ContentAlignment.MiddleRight;
+            CancelarBtn.UseVisualStyleBackColor = false;
+            CancelarBtn.Click += CancelarBtn_Click;
             // 
-            // imprimirbtn
+            // ImprimirBtn
             // 
-            imprimirbtn.BackColor = Color.FromArgb(192, 255, 255);
-            imprimirbtn.Image = Properties.Resources.imprimir;
-            imprimirbtn.ImageAlign = ContentAlignment.MiddleLeft;
-            imprimirbtn.Location = new Point(557, 9);
-            imprimirbtn.Name = "imprimirbtn";
-            imprimirbtn.Size = new Size(114, 56);
-            imprimirbtn.TabIndex = 0;
-            imprimirbtn.Text = "Imprimir";
-            imprimirbtn.TextAlign = ContentAlignment.MiddleRight;
-            imprimirbtn.UseVisualStyleBackColor = false;
+            ImprimirBtn.BackColor = Color.FromArgb(192, 255, 255);
+            ImprimirBtn.Image = Properties.Resources.imprimir;
+            ImprimirBtn.ImageAlign = ContentAlignment.MiddleLeft;
+            ImprimirBtn.Location = new Point(557, 9);
+            ImprimirBtn.Name = "ImprimirBtn";
+            ImprimirBtn.Size = new Size(114, 56);
+            ImprimirBtn.TabIndex = 0;
+            ImprimirBtn.Text = "Imprimir";
+            ImprimirBtn.TextAlign = ContentAlignment.MiddleRight;
+            ImprimirBtn.UseVisualStyleBackColor = false;
+            ImprimirBtn.Click += ImprimirBtn_Click;
             // 
-            // facturarbtn
+            // ConfirmarRecepcionBtn
             // 
-            facturarbtn.BackColor = Color.FromArgb(128, 255, 128);
-            facturarbtn.Image = Properties.Resources.facturar;
-            facturarbtn.ImageAlign = ContentAlignment.MiddleLeft;
-            facturarbtn.Location = new Point(319, 9);
-            facturarbtn.Name = "facturarbtn";
-            facturarbtn.Size = new Size(114, 56);
-            facturarbtn.TabIndex = 0;
-            facturarbtn.Text = "Facturar";
-            facturarbtn.TextAlign = ContentAlignment.MiddleRight;
-            facturarbtn.UseVisualStyleBackColor = false;
+            ConfirmarRecepcionBtn.BackColor = Color.FromArgb(128, 255, 128);
+            ConfirmarRecepcionBtn.Image = Properties.Resources.comprar;
+            ConfirmarRecepcionBtn.ImageAlign = ContentAlignment.MiddleLeft;
+            ConfirmarRecepcionBtn.Location = new Point(319, 9);
+            ConfirmarRecepcionBtn.Name = "ConfirmarRecepcionBtn";
+            ConfirmarRecepcionBtn.Size = new Size(114, 56);
+            ConfirmarRecepcionBtn.TabIndex = 0;
+            ConfirmarRecepcionBtn.Text = "Confirmar";
+            ConfirmarRecepcionBtn.TextAlign = ContentAlignment.MiddleRight;
+            ConfirmarRecepcionBtn.UseVisualStyleBackColor = false;
+            ConfirmarRecepcionBtn.Click += ConfirmarRecepcionBtn_Click;
             // 
             // Compras
             // 
@@ -1311,10 +1480,15 @@
             panel4.PerformLayout();
             panelSubTotal.ResumeLayout(false);
             panelSubTotal.PerformLayout();
-            tabPageOrdenes.ResumeLayout(false);
-            tabPageOrdenes.PerformLayout();
+            TabPageHistorialCompras.ResumeLayout(false);
+            TabPageHistorialCompras.PerformLayout();
+            panel12.ResumeLayout(false);
+            panel12.PerformLayout();
+            panel13.ResumeLayout(false);
+            panel13.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)TablaDetalleHistorial).EndInit();
             panel11.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)tabladatoscompra).EndInit();
+            ((System.ComponentModel.ISupportInitialize)TablaDatosCompra).EndInit();
             panel10.ResumeLayout(false);
             panel10.PerformLayout();
             panel8.ResumeLayout(false);
@@ -1349,7 +1523,7 @@
         private TextBox txtidcompra;
         private Label label6;
         private TabControl tabControl1;
-        private TabPage tabPageOrdenes;
+        private TabPage TabPageHistorialCompras;
         private TabPage tabPageReg;
         private Panel panel4;
         private Label LabelProv;
@@ -1385,10 +1559,10 @@
         private Label label13;
         private DateTimePicker fecini;
         private DateTimePicker fecfin;
-        private Button editar;
-        private Button cancelarpedido;
-        private Button imprimirbtn;
-        private Button facturarbtn;
+        private Button EditarBtn;
+        private Button CancelarBtn;
+        private Button ImprimirBtn;
+        private Button ConfirmarRecepcionBtn;
         private Panel PanelProv;
         private TextBox txtprovbusqueda;
         private Button salirprovbtn;
@@ -1402,19 +1576,30 @@
         private CheckBox checkprovinformal;
         private Label label16;
         private Label label17;
-        private TextBox txtbusquedafactura;
+        private TextBox BusquedaCompraTxt;
         private Panel panel10;
         private Label label18;
-        private CheckBox todoschk;
-        private CheckBox Anuladochk;
-        private CheckBox pendientechk;
-        private CheckBox facturadochk;
+        private CheckBox TodosChk;
+        private CheckBox AnuladoChk;
+        private CheckBox PendienteChk;
+        private CheckBox RecibidaChk;
         private Panel panel11;
-        private DataGridView tabladatoscompra;
+        private DataGridView TablaDatosCompra;
         private CheckBox ProvInformalChk;
         private TextBox IdRespoCompratxt;
         private Label label8;
         private Label ItbisLabel;
         private Label label11;
+        private Panel panel12;
+        private Panel panel13;
+        private Label label20;
+        private CheckBox checkBox1;
+        public Button button1;
+        private Label label22;
+        private Button button2;
+        private Label label23;
+        private TextBox textBox1;
+        private Button button3;
+        private DataGridView TablaDetalleHistorial;
     }
 }

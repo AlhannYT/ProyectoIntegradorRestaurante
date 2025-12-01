@@ -2,22 +2,23 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
 
 namespace Proyecto_restaurante
 {
     public partial class Compras : Form
     {
-        
+
         private readonly string conexionString = ConexionBD.ConexionSQL();
 
-        
+
         private decimal subtotalAcumulado = 0;
         private decimal impuestosAcumulados = 0;
         private decimal totalAcumulado = 0;
         private int cantidadTotalUnidades = 0;
 
-        
+
         private int productoSeleccionadoId = 0;
         private string unidadSeleccionada = "";
         private decimal itbisSeleccionadoPorciento = 0; // 0 = exento, 18 = 18%
@@ -25,11 +26,12 @@ namespace Proyecto_restaurante
         // Responsable que viene de la pantalla de login / menu principal (opcional)
         public string responsableCompra;
 
+
         public Compras()
         {
             InitializeComponent();
 
-            
+
             this.SetStyle(ControlStyles.AllPaintingInWmPaint |
                           ControlStyles.UserPaint |
                           ControlStyles.OptimizedDoubleBuffer, true);
@@ -40,15 +42,25 @@ namespace Proyecto_restaurante
 
         private void Compras_Load(object sender, EventArgs e)
         {
-            // Si se quiere mostrar el responsable base (ej admin)
+            FechaCompra.Value = DateTime.Now;
+
+            LimpiarFormulario();
+
+            // Responsable (nombre) que viene del login
             if (!string.IsNullOrWhiteSpace(responsableCompra))
             {
                 ResponsableCompratxt.Text = responsableCompra;
             }
 
-            FechaCompra.Value = DateTime.Now;
-            CargarSiguienteNumeroCompra();
-            LimpiarFormulario();
+            // Por ahora, IdEmpleadoResponsable fijo = 1 si esta vacío
+            if (string.IsNullOrWhiteSpace(IdRespoCompratxt.Text))
+                IdRespoCompratxt.Text = "1";
+
+            IdRespoCompratxt.ReadOnly = true;
+            ResponsableCompratxt.ReadOnly = true;
+
+            ProvInformalChk.Checked = false;
+            ActualizarUIInformal();
         }
 
         private void buscarprodbtn_Click(object sender, EventArgs e)
@@ -79,7 +91,7 @@ namespace Proyecto_restaurante
 
             DataGridViewRow row = tablaingrediente.Rows[e.RowIndex];
 
-            // Tomamos datos del producto (ProductoVenta)
+            
             productoSeleccionadoId = Convert.ToInt32(row.Cells["IdProducto"].Value);
             string nombre = row.Cells["Nombre"].Value.ToString();
             decimal precioCompra = Convert.ToDecimal(row.Cells["PrecioCompra"].Value);
@@ -93,7 +105,7 @@ namespace Proyecto_restaurante
                 itbisSeleccionadoPorciento = Convert.ToDecimal(itbisObj);  // ej. 0 o 18
             }
 
-            
+
             IdIngredientetxt.Text = productoSeleccionadoId.ToString();
             txtnombre.Text = nombre;
             txtpreciocompra.Text = precioCompra.ToString("0.00");
@@ -110,7 +122,6 @@ namespace Proyecto_restaurante
             AgregarLineaDetalle();
         }
 
-        // Guardar compra (estado Pendiente)
         private void ComprarBtn_Click(object sender, EventArgs e)
         {
             GuardarCompraPendiente();
@@ -119,6 +130,20 @@ namespace Proyecto_restaurante
         private void NuevoBtn_Click(object sender, EventArgs e)
         {
             LimpiarFormulario();
+            compraEnEdicionId = null;
+            ActualizarUIInformal();
+
+
+            if (!string.IsNullOrWhiteSpace(responsableCompra))
+            {
+                ResponsableCompratxt.Text = responsableCompra;
+            }
+
+            if (string.IsNullOrWhiteSpace(IdRespoCompratxt.Text))
+                IdRespoCompratxt.Text = "1";
+
+            IdRespoCompratxt.ReadOnly = true;
+            ResponsableCompratxt.ReadOnly = true;
         }
 
         private void BusquedaProvBtn_Click(object sender, EventArgs e)
@@ -127,21 +152,18 @@ namespace Proyecto_restaurante
             CargarProveedoresEnPanel("");
         }
 
-        
         private void txtprovbusqueda_TextChanged(object sender, EventArgs e)
         {
             string filtro = txtprovbusqueda.Text.Trim();
             CargarProveedoresEnPanel(filtro);
         }
 
-        
         private void recargarprovbtn_Click(object sender, EventArgs e)
         {
             txtprovbusqueda.Clear();
             CargarProveedoresEnPanel("");
         }
 
-       
         private void checkactivoprov_CheckedChanged(object sender, EventArgs e)
         {
             CargarProveedoresEnPanel(txtprovbusqueda.Text.Trim());
@@ -152,7 +174,6 @@ namespace Proyecto_restaurante
             CargarProveedoresEnPanel(txtprovbusqueda.Text.Trim());
         }
 
-        // Doble clic en proveedor se selecciona para cabecera de compra
         private void tablaprov_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
@@ -167,9 +188,16 @@ namespace Proyecto_restaurante
 
             idproveedortxt.Text = idPersonaProveedor.ToString();
             txtnombrecompleto.Text = nombreCompleto;
-            TelefProvTxt.Text = telefono;
-            DireccionProvTxt.Text = direccion;
+
+            TelefProvTxt.Text = string.IsNullOrWhiteSpace(telefono) ? "No definido" : telefono;
+            DireccionProvTxt.Text = string.IsNullOrWhiteSpace(direccion) ? "No definido" : direccion;
+
+            TelefProvTxt.ForeColor = string.IsNullOrWhiteSpace(telefono) ? Color.DimGray : Color.White;
+            DireccionProvTxt.ForeColor = string.IsNullOrWhiteSpace(direccion) ? Color.DimGray : Color.White;
+
+            
             ProvInformalChk.Checked = informal;
+            ActualizarUIInformal();
 
             OcultarPanelProveedores();
         }
@@ -184,6 +212,10 @@ namespace Proyecto_restaurante
             detallecompra.Columns.Clear();
             detallecompra.AutoGenerateColumns = false;
             detallecompra.AllowUserToAddRows = false;
+
+            detallecompra.ReadOnly = true;
+            detallecompra.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            detallecompra.MultiSelect = false;
 
             var colId = new DataGridViewTextBoxColumn
             {
@@ -266,24 +298,20 @@ namespace Proyecto_restaurante
             PanelProv.Location = new Point(4, 444);
         }
 
-        
+
         private void LimpiarFormulario()
         {
+
             // Cabecera
             txtidcompra.Clear();
-
+            compraEnEdicionId = null;
             idproveedortxt.Clear();
             txtnombrecompleto.Clear();
             TelefProvTxt.Clear();
             DireccionProvTxt.Clear();
-            ProvInformalChk.Checked = false;
-
-            
-            IdRespoCompratxt.Clear();
 
             FechaCompra.Value = DateTime.Now;
 
-           
             productoSeleccionadoId = 0;
             unidadSeleccionada = "";
             itbisSeleccionadoPorciento = 0;
@@ -294,7 +322,6 @@ namespace Proyecto_restaurante
             itbisingredtxt.Clear();
 
             NumericUpCantidad.Value = NumericUpCantidad.Minimum;
-
             detallecompra.Rows.Clear();
 
             subtotalAcumulado = 0;
@@ -310,10 +337,15 @@ namespace Proyecto_restaurante
             ComprarBtn.Enabled = false;
             AgregarBtn.Enabled = false;
 
+            ConfigurarModoCabecera(false);
+
+            ProvInformalChk.Checked = false;
+            ActualizarUIInformal();
+
             CargarSiguienteNumeroCompra();
         }
 
-    
+
         private void RecalcularTotales()
         {
             subtotalAcumulado = 0;
@@ -358,7 +390,7 @@ namespace Proyecto_restaurante
             ComprarBtn.Enabled = detallecompra.Rows.Count > 0;
         }
 
-        
+
         private void CargarSiguienteNumeroCompra()
         {
             using (SqlConnection con = new SqlConnection(conexionString))
@@ -374,9 +406,8 @@ namespace Proyecto_restaurante
             }
         }
 
-        
+
         //  CARGA DE DATOS: INGREDIENTES Y PROVEEDORES
-        // Ingredientes = ProductoVenta donde ProductoTipo.Ingrediente = 1
         private void CargarProductosEnPanel(string filtro)
         {
             using (SqlConnection con = new SqlConnection(conexionString))
@@ -384,7 +415,7 @@ namespace Proyecto_restaurante
                 con.Open();
 
                 string sql = @"
-            SELECT 
+                SELECT 
                 p.IdProducto,
                 p.Nombre,
                 ISNULL(p.PrecioCompra, 0) AS PrecioCompra,
@@ -423,7 +454,7 @@ namespace Proyecto_restaurante
             }
         }
 
-        
+
         private void CargarProveedoresEnPanel(string filtro)
         {
             using (SqlConnection con = new SqlConnection(conexionString))
@@ -434,7 +465,7 @@ namespace Proyecto_restaurante
                 bool soloInformales = checkprovinformal.Checked;
 
                 string sql = @"
-                    SELECT 
+                        SELECT 
                         p.IdProveedor,
                         per.IdPersona,
                         per.NombreCompleto,
@@ -442,16 +473,16 @@ namespace Proyecto_restaurante
                         ISNULL(d.Direccion, '') AS Direccion,
                         p.Informal,
                         p.Activo
-                    FROM Proveedor p
-                    INNER JOIN Persona per ON p.IdPersona = per.IdPersona
-                    LEFT JOIN PersonaTelefono t 
+                        FROM Proveedor p
+                        INNER JOIN Persona per ON p.IdPersona = per.IdPersona
+                        LEFT JOIN PersonaTelefono t 
                         ON t.IdPersona = per.IdPersona AND t.EsPrincipal = 1
-                    LEFT JOIN PersonaDireccion d 
+                        LEFT JOIN PersonaDireccion d 
                         ON d.IdPersona = per.IdPersona AND d.EsPrincipal = 1
-                    WHERE (@f = '' OR per.NombreCompleto LIKE '%' + @f + '%' OR t.Numero LIKE '%' + @f + '%')
-                      AND (@soloActivos = 0 OR p.Activo = 1)
-                      AND (@soloInformales = 0 OR p.Informal = 1)
-                    ORDER BY per.NombreCompleto;";
+                        WHERE (@f = '' OR per.NombreCompleto LIKE '%' + @f + '%' OR t.Numero LIKE '%' + @f + '%')
+                        AND (@soloActivos = 0 OR p.Activo = 1)
+                        AND (@soloInformales = 0 OR p.Informal = 1)
+                        ORDER BY per.NombreCompleto;";
 
                 using (SqlDataAdapter da = new SqlDataAdapter(sql, con))
                 {
@@ -478,8 +509,8 @@ namespace Proyecto_restaurante
             }
         }
 
-            //  LOGICA DEL DETALLE Y GUARDADO DE COMPRA
-        
+        //  LOGICA DEL DETALLE Y GUARDADO DE COMPRA
+
         private void AgregarLineaDetalle()
         {
             if (productoSeleccionadoId <= 0)
@@ -513,7 +544,7 @@ namespace Proyecto_restaurante
                 return;
             }
 
-            
+
             int rowIndex = detallecompra.Rows.Add();
             DataGridViewRow rowDetalle = detallecompra.Rows[rowIndex];
 
@@ -524,10 +555,10 @@ namespace Proyecto_restaurante
             rowDetalle.Cells["CostoUnitario"].Value = costoUnit;
             rowDetalle.Cells["ItbisPorciento"].Value = itbisSeleccionadoPorciento;
 
-            
+
             RecalcularTotales();
 
-            
+
             productoSeleccionadoId = 0;
             unidadSeleccionada = "";
             itbisSeleccionadoPorciento = 0;
@@ -540,27 +571,26 @@ namespace Proyecto_restaurante
             AgregarBtn.Enabled = false;
         }
 
-        // Guarda compra en estado Pendiente (todavia no maneja stock)
         private void GuardarCompraPendiente()
         {
             if (detallecompra.Rows.Count == 0)
             {
-                MessageBox.Show("No hay ingredientes en el detalle.");
+                MessageBox.Show("No hay productos en la compra.");
                 return;
             }
 
-            
-            if (!int.TryParse(idproveedortxt.Text, out int idProveedorPersona))
+
+            if (!int.TryParse(idproveedortxt.Text, out int idProveedor))
             {
-                MessageBox.Show("Seleccione un proveedor válido.");
+                MessageBox.Show("Seleccione un proveedor válido antes de guardar la compra.");
                 return;
             }
 
-            // Empleado responsable (opcional)
             int? idEmpleadoResponsable = null;
-            if (int.TryParse(IdRespoCompratxt.Text, out int empId))
+
+            if (int.TryParse(IdRespoCompratxt.Text, out int idEmp) && idEmp > 0)
             {
-                idEmpleadoResponsable = empId;
+                idEmpleadoResponsable = idEmp;
             }
 
             using (SqlConnection con = new SqlConnection(conexionString))
@@ -570,37 +600,77 @@ namespace Proyecto_restaurante
 
                 try
                 {
-                    
-                    string sqlCompra = @"
-                        INSERT INTO Compra
-                        (Fecha, FechaRecepcion, IdProveedorPersona, Subtotal, Impuestos, Total, Estado, IdEmpleadoResponsable)
-                        VALUES (@Fecha, NULL, @IdProveedor, @Subtotal, @Impuestos, @Total, 'Pendiente', @IdEmpleado);
-                        SELECT SCOPE_IDENTITY();";
-
                     int idCompraGenerada;
 
-                    using (SqlCommand cmdCompra = new SqlCommand(sqlCompra, con, tran))
+                    if (compraEnEdicionId.HasValue)
                     {
-                        cmdCompra.Parameters.AddWithValue("@Fecha", FechaCompra.Value);
-                        cmdCompra.Parameters.AddWithValue("@IdProveedor", idProveedorPersona);
-                        cmdCompra.Parameters.AddWithValue("@Subtotal", subtotalAcumulado);
-                        cmdCompra.Parameters.AddWithValue("@Impuestos", impuestosAcumulados);
-                        cmdCompra.Parameters.AddWithValue("@Total", totalAcumulado);
+                        string sqlUpdate = @"
+                        UPDATE Compra
+                        SET Fecha = @Fecha,
+                        IdProveedorPersona = @IdProveedor,
+                        Subtotal = @Subtotal,
+                        Impuestos = @Impuestos,
+                        Total = @Total
+                        WHERE IdCompra = @IdCompra
+                        AND Estado = 'Pendiente';";
 
-                        if (idEmpleadoResponsable.HasValue)
-                            cmdCompra.Parameters.AddWithValue("@IdEmpleado", idEmpleadoResponsable.Value);
-                        else
-                            cmdCompra.Parameters.AddWithValue("@IdEmpleado", DBNull.Value);
+                        using (SqlCommand cmdUp = new SqlCommand(sqlUpdate, con, tran))
+                        {
+                            cmdUp.Parameters.AddWithValue("@Fecha", FechaCompra.Value);
+                            cmdUp.Parameters.AddWithValue("@IdProveedor", idProveedor);
+                            cmdUp.Parameters.AddWithValue("@Subtotal", subtotalAcumulado);
+                            cmdUp.Parameters.AddWithValue("@Impuestos", impuestosAcumulados);
+                            cmdUp.Parameters.AddWithValue("@Total", totalAcumulado);
+                            cmdUp.Parameters.AddWithValue("@IdCompra", compraEnEdicionId.Value);
 
-                        object result = cmdCompra.ExecuteScalar();
-                        idCompraGenerada = Convert.ToInt32(result);
+                            int filasCab = cmdUp.ExecuteNonQuery();
+                            if (filasCab == 0)
+                            {
+                                tran.Rollback();
+                                MessageBox.Show("No se pudo actualizar la compra. Verifique que siga en estado Pendiente.");
+                                return;
+                            }
+                        }
+
+                        string sqlBorrarDet = "DELETE FROM DetalleCompra WHERE IdCompra = @IdCompra;";
+                        using (SqlCommand cmdDel = new SqlCommand(sqlBorrarDet, con, tran))
+                        {
+                            cmdDel.Parameters.AddWithValue("@IdCompra", compraEnEdicionId.Value);
+                            cmdDel.ExecuteNonQuery();
+                        }
+
+                        idCompraGenerada = compraEnEdicionId.Value;
+                    }
+                    else
+                    {
+                        string sqlCompra = @"
+                            INSERT INTO Compra
+                            (Fecha, FechaRecepcion, IdProveedorPersona, Subtotal, Impuestos, Total, Estado, IdEmpleadoResponsable)
+                            VALUES (@Fecha, NULL, @IdProveedor, @Subtotal, @Impuestos, @Total, 'Pendiente', @IdEmpleado);
+                            SELECT SCOPE_IDENTITY();";
+
+                        using (SqlCommand cmdCompra = new SqlCommand(sqlCompra, con, tran))
+                        {
+                            cmdCompra.Parameters.AddWithValue("@Fecha", FechaCompra.Value);
+                            cmdCompra.Parameters.AddWithValue("@IdProveedor", idProveedor);
+                            cmdCompra.Parameters.AddWithValue("@Subtotal", subtotalAcumulado);
+                            cmdCompra.Parameters.AddWithValue("@Impuestos", impuestosAcumulados);
+                            cmdCompra.Parameters.AddWithValue("@Total", totalAcumulado);
+
+                            if (idEmpleadoResponsable.HasValue)
+                                cmdCompra.Parameters.AddWithValue("@IdEmpleado", idEmpleadoResponsable.Value);
+                            else
+                                cmdCompra.Parameters.AddWithValue("@IdEmpleado", DBNull.Value);
+
+                            object result = cmdCompra.ExecuteScalar();
+                            idCompraGenerada = Convert.ToInt32(result);
+                        }
                     }
 
-                    
                     string sqlDetalle = @"
-                        INSERT INTO DetalleCompra
-                        (IdCompra, IdProducto, Cantidad, CostoUnitario)
-                        VALUES (@IdCompra, @IdProducto, @Cantidad, @CostoUnitario);";
+                    INSERT INTO DetalleCompra
+                    (IdCompra, IdProducto, Cantidad, CostoUnitario)
+                    VALUES (@IdCompra, @IdProducto, @Cantidad, @CostoUnitario);";
 
                     foreach (DataGridViewRow row in detallecompra.Rows)
                     {
@@ -623,7 +693,11 @@ namespace Proyecto_restaurante
 
                     tran.Commit();
 
-                    MessageBox.Show("Compra registrada como Pendiente.");
+                    if (compraEnEdicionId.HasValue)
+                        MessageBox.Show("Compra pendiente actualizada correctamente.");
+                    else
+                        MessageBox.Show("Compra registrada como Pendiente.");
+
                     LimpiarFormulario();
                 }
                 catch (Exception ex)
@@ -633,6 +707,7 @@ namespace Proyecto_restaurante
                 }
             }
         }
+
 
         private void checkingredactivo_CheckedChanged(object sender, EventArgs e)
         {
@@ -654,9 +729,789 @@ namespace Proyecto_restaurante
             CargarProveedoresEnPanel("");
         }
 
-        private void idproveedortxt_TextChanged(object sender, EventArgs e)
+        private void CargarHistorialCompras()
+        {
+            using (SqlConnection con = new SqlConnection(conexionString))
+            {
+                con.Open();
+
+                string sql = @"
+                SELECT 
+                c.IdCompra,
+                c.Fecha,
+                p.NombreCompleto AS Proveedor,
+                c.Estado,
+                c.Subtotal,
+                c.Impuestos,
+                c.Total
+                FROM Compra c
+                INNER JOIN Persona p ON c.IdProveedorPersona = p.IdPersona
+                WHERE c.Fecha >= @desde
+                AND c.Fecha < DATEADD(DAY, 1, @hasta)";
+
+                if (!TodosChk.Checked)
+                {
+                    if (PendienteChk.Checked)
+                        sql += " AND c.Estado = 'Pendiente'";
+                    else if (RecibidaChk.Checked)
+                        sql += " AND c.Estado = 'Recibida'";
+                    else if (AnuladoChk.Checked)
+                        sql += " AND c.Estado = 'Anulada'";
+                }
+
+                if (!string.IsNullOrWhiteSpace(BusquedaCompraTxt.Text))
+                {
+                    sql += @"
+                    AND (p.NombreCompleto LIKE '%' + @buscar + '%' 
+                    OR CAST(c.IdCompra AS varchar(10)) LIKE '%' + @buscar + '%')";
+                }
+
+                using (SqlDataAdapter da = new SqlDataAdapter(sql, con))
+                {
+                    da.SelectCommand.Parameters.AddWithValue("@desde", fecini.Value.Date);
+                    da.SelectCommand.Parameters.AddWithValue("@hasta", fecfin.Value.Date);
+                    da.SelectCommand.Parameters.AddWithValue("@buscar", BusquedaCompraTxt.Text.Trim());
+
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    TablaDatosCompra.DataSource = dt;
+                }
+            }
+
+            ConfigurarGridHistorial();
+        }
+
+        private void ConfigurarGridHistorial()
+        {
+            if (TablaDatosCompra.Columns.Contains("IdCompra"))
+                TablaDatosCompra.Columns["IdCompra"].HeaderText = "N°";
+
+            if (TablaDatosCompra.Columns.Contains("Fecha"))
+                TablaDatosCompra.Columns["Fecha"].HeaderText = "Fecha";
+
+            if (TablaDatosCompra.Columns.Contains("Proveedor"))
+                TablaDatosCompra.Columns["Proveedor"].HeaderText = "Proveedor";
+
+            if (TablaDatosCompra.Columns.Contains("Estado"))
+                TablaDatosCompra.Columns["Estado"].HeaderText = "Estado";
+
+            if (TablaDatosCompra.Columns.Contains("Subtotal"))
+                TablaDatosCompra.Columns["Subtotal"].HeaderText = "Subtotal";
+
+            if (TablaDatosCompra.Columns.Contains("Impuestos"))
+                TablaDatosCompra.Columns["Impuestos"].HeaderText = "ITBIS";
+
+            if (TablaDatosCompra.Columns.Contains("Total"))
+                TablaDatosCompra.Columns["Total"].HeaderText = "Total";
+
+            // Opcional: formatear montos
+            if (TablaDatosCompra.Columns.Contains("Subtotal"))
+                TablaDatosCompra.Columns["Subtotal"].DefaultCellStyle.Format = "N2";
+            if (TablaDatosCompra.Columns.Contains("Impuestos"))
+                TablaDatosCompra.Columns["Impuestos"].DefaultCellStyle.Format = "N2";
+            if (TablaDatosCompra.Columns.Contains("Total"))
+                TablaDatosCompra.Columns["Total"].DefaultCellStyle.Format = "N2";
+        }
+
+        // Cuando cambie de pestaña, si estoy en Historial, recargo
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedTab == TabPageHistorialCompras)
+            {
+                CargarHistorialCompras();
+            }
+        }
+
+        // Cambios de fecha
+        private void fecini_ValueChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedTab == TabPageHistorialCompras)
+                CargarHistorialCompras();
+        }
+
+        private void fecfin_ValueChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedTab == TabPageHistorialCompras)
+                CargarHistorialCompras();
+        }
+
+        // Búsqueda por texto
+        private void BusquedaCompraTxt_TextChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedTab == TabPageHistorialCompras)
+                CargarHistorialCompras();
+        }
+
+        private void PendienteChk_CheckedChanged(object sender, EventArgs e)
+        {
+            if (PendienteChk.Checked)
+            {
+                RecibidaChk.Checked = false;
+                AnuladoChk.Checked = false;
+                TodosChk.Checked = false;
+            }
+
+            if (tabControl1.SelectedTab == TabPageHistorialCompras)
+                CargarHistorialCompras();
+        }
+
+        private void RecibidaChk_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RecibidaChk.Checked)
+            {
+                PendienteChk.Checked = false;
+                AnuladoChk.Checked = false;
+                TodosChk.Checked = false;
+            }
+
+            if (tabControl1.SelectedTab == TabPageHistorialCompras)
+                CargarHistorialCompras();
+        }
+
+        private void AnuladoChk_CheckedChanged(object sender, EventArgs e)
+        {
+            if (AnuladoChk.Checked)
+            {
+                PendienteChk.Checked = false;
+                RecibidaChk.Checked = false;
+                TodosChk.Checked = false;
+            }
+
+            if (tabControl1.SelectedTab == TabPageHistorialCompras)
+                CargarHistorialCompras();
+        }
+
+        private void TodosChk_CheckedChanged(object sender, EventArgs e)
+        {
+            if (TodosChk.Checked)
+            {
+                PendienteChk.Checked = false;
+                RecibidaChk.Checked = false;
+                AnuladoChk.Checked = false;
+            }
+
+            if (tabControl1.SelectedTab == TabPageHistorialCompras)
+                CargarHistorialCompras();
+        }
+
+        // Devuelve el IdCompra de la fila seleccionada en el historial
+        private int? ObtenerIdCompraSeleccionada()
+        {
+            if (TablaDatosCompra.CurrentRow == null || TablaDatosCompra.CurrentRow.IsNewRow)
+                return null;
+
+            object val = TablaDatosCompra.CurrentRow.Cells["IdCompra"].Value;
+            if (val == null || val == DBNull.Value)
+                return null;
+
+            return Convert.ToInt32(val);
+        }
+
+        private void ConfirmarRecepcionBtn_Click(object sender, EventArgs e)
+        {
+            int? idCompra = ObtenerIdCompraSeleccionada();
+            if (!idCompra.HasValue)
+            {
+                MessageBox.Show("Seleccione una compra en la lista.");
+                return;
+            }
+
+            string estadoActual = TablaDatosCompra.CurrentRow.Cells["Estado"].Value?.ToString();
+
+            if (estadoActual == "Recibida")
+            {
+                MessageBox.Show("Esta compra ya está marcada como Recibida.");
+                return;
+            }
+
+            if (estadoActual == "Anulada")
+            {
+                MessageBox.Show("No se puede recibir una compra Anulada.");
+                return;
+            }
+
+            var resp = MessageBox.Show(
+                "¿Confirmar recepción de esta compra y actualizar el stock?",
+                "Confirmar recepción",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (resp != DialogResult.Yes)
+                return;
+
+            using (SqlConnection con = new SqlConnection(conexionString))
+            {
+                con.Open();
+                SqlTransaction tran = con.BeginTransaction();
+
+                try
+                {
+                    string sqlUpdateCompra = @"
+                    UPDATE Compra
+                    SET Estado = 'Recibida',
+                    FechaRecepcion = SYSDATETIME()
+                    WHERE IdCompra = @IdCompra
+                    AND Estado = 'Pendiente';";
+
+                    int rowsCompra;
+                    using (SqlCommand cmd = new SqlCommand(sqlUpdateCompra, con, tran))
+                    {
+                        cmd.Parameters.AddWithValue("@IdCompra", idCompra.Value);
+                        rowsCompra = cmd.ExecuteNonQuery();
+                    }
+
+                    if (rowsCompra == 0)
+                    {
+                        tran.Rollback();
+                        MessageBox.Show("La compra ya fue procesada o no está en estado Pendiente.");
+                        CargarHistorialCompras();
+                        return;
+                    }
+
+                    string sqlDetalle = @"
+                    SELECT IdProducto, Cantidad
+                    FROM DetalleCompra
+                    WHERE IdCompra = @IdCompra;";
+
+                    var items = new System.Collections.Generic.List<(int IdProd, decimal Cant)>();
+
+                    using (SqlCommand cmdDet = new SqlCommand(sqlDetalle, con, tran))
+                    {
+                        cmdDet.Parameters.AddWithValue("@IdCompra", idCompra.Value);
+
+                        using (SqlDataReader dr = cmdDet.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                int idProd = dr.GetInt32(0);
+                                decimal cantidad = dr.GetDecimal(1);
+                                items.Add((idProd, cantidad));
+                            }
+                        }
+                    }
+
+                    string sqlStock = @"
+                    UPDATE ProductoVenta
+                    SET Existencia = ISNULL(Existencia,0) + @Cantidad
+                    WHERE IdProducto = @IdProducto;";
+
+                    using (SqlCommand cmdStock = new SqlCommand(sqlStock, con, tran))
+                    {
+                        cmdStock.Parameters.Add("@Cantidad", SqlDbType.Decimal);
+                        cmdStock.Parameters.Add("@IdProducto", SqlDbType.Int);
+
+                        foreach (var item in items)
+                        {
+                            cmdStock.Parameters["@Cantidad"].Value = item.Cant;
+                            cmdStock.Parameters["@IdProducto"].Value = item.IdProd;
+                            cmdStock.ExecuteNonQuery();
+                        }
+                    }
+
+                    tran.Commit();
+                    MessageBox.Show("Compra marcada como Recibida y stock actualizado.");
+                    CargarHistorialCompras();
+                }
+                catch (Exception ex)
+                {
+                    tran.Rollback();
+                    MessageBox.Show("Error al confirmar la recepción: " + ex.Message);
+                }
+            }
+        }
+
+        private void CancelarBtn_Click(object sender, EventArgs e)
         {
 
+            int? idCompra = ObtenerIdCompraSeleccionada();
+            if (!idCompra.HasValue)
+            {
+                MessageBox.Show("Seleccione una compra en la lista.");
+                return;
+            }
+
+            string estadoActual = TablaDatosCompra.CurrentRow.Cells["Estado"].Value?.ToString();
+
+            if (estadoActual == "Recibida")
+            {
+                MessageBox.Show("No se puede anular una compra ya Recibida.");
+                return;
+            }
+
+            if (estadoActual == "Anulada")
+            {
+                MessageBox.Show("Esta compra ya está Anulada.");
+                return;
+            }
+
+            var resp = MessageBox.Show("¿Seguro que desea anular esta compra?",
+              "Anular compra", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (resp != DialogResult.Yes)
+                return;
+
+            using (SqlConnection con = new SqlConnection(conexionString))
+            {
+                con.Open();
+
+                string sql = @"
+                UPDATE Compra
+                SET Estado = 'Anulada'
+                WHERE IdCompra = @IdCompra
+                AND Estado = 'Pendiente';";
+
+                using (SqlCommand cmd = new SqlCommand(sql, con))
+                {
+                    cmd.Parameters.AddWithValue("@IdCompra", idCompra.Value);
+                    int rows = cmd.ExecuteNonQuery();
+
+                    if (rows == 0)
+                    {
+                        MessageBox.Show("No se pudo anular la compra. Verifique el estado actual.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Compra anulada correctamente.");
+                    }
+                }
+            }
+
+            CargarHistorialCompras();
+        }
+
+        // Para saber si estoy creando una compra nueva o editando una existente
+        private int? compraEnEdicionId = null;
+
+        private void ActualizarUIInformal()
+        {
+            
+            ProvInformalChk.AutoCheck = false;
+            ProvInformalChk.Enabled = false;
+
+            
+            ProvInformalChk.ForeColor = ProvInformalChk.Checked
+                ? Color.LightSalmon   
+                : Color.Gainsboro;    
+        }
+
+        /*private void CargarDetalleCompraHistorial(int idCompra)
+        {
+            using (SqlConnection con = new SqlConnection(conexionString))
+            {
+                con.Open();
+
+                string sql = @"
+                SELECT 
+                dc.IdDetalle,
+                dc.IdProducto,
+                p.Nombre,
+                u.Nombre AS Unidad,
+                dc.Cantidad,
+                dc.CostoUnitario,
+                dc.Subtotal,
+                ISNULL(p.Itbis, 0) AS ItbisPorciento
+                FROM DetalleCompra dc
+                INNER JOIN ProductoVenta p   ON dc.IdProducto      = p.IdProducto
+                INNER JOIN UnidadMedida u    ON p.IdUnidadMedida   = u.IdUnidadMedida
+                WHERE dc.IdCompra = @IdCompra
+                ORDER BY dc.IdDetalle;";
+
+                using (SqlDataAdapter da = new SqlDataAdapter(sql, con))
+                {
+                    da.SelectCommand.Parameters.AddWithValue("@IdCompra", idCompra);
+
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    TablaDetalleHistorial.DataSource = dt;
+
+                    if (TablaDetalleHistorial.Columns.Contains("IdDetalle"))
+                        TablaDetalleHistorial.Columns["IdDetalle"].HeaderText = "Det.";
+                    if (TablaDetalleHistorial.Columns.Contains("IdProducto"))
+                        TablaDetalleHistorial.Columns["IdProducto"].HeaderText = "ID Prod.";
+                    if (TablaDetalleHistorial.Columns.Contains("Nombre"))
+                        TablaDetalleHistorial.Columns["Nombre"].HeaderText = "Producto";
+                    if (TablaDetalleHistorial.Columns.Contains("Unidad"))
+                        TablaDetalleHistorial.Columns["Unidad"].HeaderText = "Unidad";
+                    if (TablaDetalleHistorial.Columns.Contains("Cantidad"))
+                        TablaDetalleHistorial.Columns["Cantidad"].HeaderText = "Cant.";
+                    if (TablaDetalleHistorial.Columns.Contains("CostoUnitario"))
+                        TablaDetalleHistorial.Columns["CostoUnitario"].HeaderText = "Costo";
+                    if (TablaDetalleHistorial.Columns.Contains("Subtotal"))
+                        TablaDetalleHistorial.Columns["Subtotal"].HeaderText = "Subtotal";
+                    if (TablaDetalleHistorial.Columns.Contains("ItbisPorciento"))
+                        TablaDetalleHistorial.Columns["ItbisPorciento"].HeaderText = "ITBIS %";
+                }
+            }
+        }
+        */
+       /* private void TablaDatosCompra_SelectionChanged(object sender, EventArgs e)
+        {
+            if (TablaDatosCompra.CurrentRow == null) return;
+
+            if (TablaDatosCompra.CurrentRow.Cells["IdCompra"].Value == null) return;
+
+            int idCompra = Convert.ToInt32(TablaDatosCompra.CurrentRow.Cells["IdCompra"].Value);
+
+            CargarDetalleCompraHistorial(idCompra);
+        }
+       */
+
+        private void detallecompra_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            DataGridViewRow row = detallecompra.Rows[e.RowIndex];
+
+            // Cargar datos de la fila a los controles de arriba
+            productoSeleccionadoId = Convert.ToInt32(row.Cells["IdProducto"].Value);
+            unidadSeleccionada = row.Cells["Unidad"].Value.ToString();
+
+            decimal itbisLinea = 0;
+            if (row.Cells["ItbisPorciento"].Value != null && row.Cells["ItbisPorciento"].Value != DBNull.Value)
+                itbisLinea = Convert.ToDecimal(row.Cells["ItbisPorciento"].Value);
+
+            itbisSeleccionadoPorciento = itbisLinea;
+
+            IdIngredientetxt.Text = productoSeleccionadoId.ToString();
+            txtnombre.Text = row.Cells["Nombre"].Value.ToString();
+            txtpreciocompra.Text = Convert.ToDecimal(row.Cells["CostoUnitario"].Value).ToString("0.00");
+            NumericUpCantidad.Value = Convert.ToDecimal(row.Cells["Cantidad"].Value);
+
+            // Quitamos la fila del grid para que al volver a agregar se reemplace
+            detallecompra.Rows.RemoveAt(e.RowIndex);
+            RecalcularTotales();
+
+            AgregarBtn.Enabled = true;
+        }
+
+        private void ConfigurarModoCabecera(bool esEdicion)
+        {
+
+            idproveedortxt.ReadOnly = true;
+            txtnombrecompleto.ReadOnly = true;
+            TelefProvTxt.ReadOnly = true;
+            DireccionProvTxt.ReadOnly = true;
+            IdRespoCompratxt.ReadOnly = true;
+            ResponsableCompratxt.ReadOnly = true;
+            ProvInformalChk.Enabled = false;
+
+            BusquedaProvBtn.Enabled = !esEdicion;
+        }
+
+        private void CargarResponsablePorIdEmpleado(int idEmpleado)
+        {
+            using (SqlConnection con = new SqlConnection(conexionString))
+            {
+                con.Open();
+
+                string sql = @"
+                SELECT per.NombreCompleto
+                FROM Empleado e
+                INNER JOIN Persona per ON e.IdPersona = per.IdPersona
+                WHERE e.IdEmpleado = @IdEmpleado;";
+
+                using (SqlCommand cmd = new SqlCommand(sql, con))
+                {
+                    cmd.Parameters.AddWithValue("@IdEmpleado", idEmpleado);
+
+                    object res = cmd.ExecuteScalar();
+                    if (res != null && res != DBNull.Value)
+                    {
+                        ResponsableCompratxt.Text = res.ToString();
+                    }
+                }
+            }
+        }
+
+
+        private void TablaDatosCompra_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            DataGridViewRow fila = TablaDatosCompra.Rows[e.RowIndex];
+
+            if (fila.Cells["IdCompra"].Value == null)
+                return;
+
+            int idCompra = Convert.ToInt32(fila.Cells["IdCompra"].Value);
+            string estado = fila.Cells["Estado"].Value?.ToString();
+
+            if (estado != "Pendiente")
+            {
+                MessageBox.Show("Solo se pueden editar compras en estado Pendiente.");
+                return;
+            }
+
+            CargarCompraParaEdicion(idCompra);
+            tabControl1.SelectedTab = tabPageReg;
+        }
+        private void CargarCompraParaEdicion(int idCompra)
+        {
+
+            LimpiarFormulario();
+            compraEnEdicionId = idCompra;
+            txtidcompra.Text = idCompra.ToString();
+            
+            ConfigurarModoCabecera(true);
+
+            using (SqlConnection con = new SqlConnection(conexionString))
+            {
+                con.Open();
+
+                // Cabecera: fecha + proveedor + si es informal + responsable
+                string sqlCab = @"
+                SELECT 
+                c.Fecha,
+                c.IdProveedorPersona,
+                prov.Informal AS EsInformal,
+                perProv.NombreCompleto AS NombreProveedor,
+                tel.Numero   AS Telefono,
+                dir.Direccion,
+                c.IdEmpleadoResponsable,
+                perResp.NombreCompleto AS NombreResponsable
+                FROM Compra c
+                LEFT JOIN Persona perProv 
+                ON c.IdProveedorPersona = perProv.IdPersona
+                LEFT JOIN Proveedor prov
+                ON prov.IdPersona = perProv.IdPersona
+                LEFT JOIN PersonaTelefono tel 
+                ON perProv.IdPersona = tel.IdPersona AND tel.EsPrincipal = 1
+                LEFT JOIN PersonaDireccion dir 
+                ON perProv.IdPersona = dir.IdPersona AND dir.EsPrincipal = 1
+                LEFT JOIN Empleado emp
+                ON c.IdEmpleadoResponsable = emp.IdEmpleado
+                LEFT JOIN Persona perResp
+                ON emp.IdPersona = perResp.IdPersona
+                WHERE c.IdCompra = @IdCompra;";
+
+                using (SqlCommand cmdCab = new SqlCommand(sqlCab, con))
+                {
+                    cmdCab.Parameters.AddWithValue("@IdCompra", idCompra);
+
+                    using (SqlDataReader dr = cmdCab.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            
+                            FechaCompra.Value = Convert.ToDateTime(dr["Fecha"]);
+
+                            if (dr["IdProveedorPersona"] != DBNull.Value)
+                                idproveedortxt.Text = dr["IdProveedorPersona"].ToString();
+                            else
+                                idproveedortxt.Text = "";
+
+                            
+                            txtnombrecompleto.Text = dr["NombreProveedor"] == DBNull.Value
+                                ? ""
+                                : dr["NombreProveedor"].ToString();
+
+                            
+                            string tel = dr["Telefono"] == DBNull.Value ? "" : dr["Telefono"].ToString();
+                            string dir = dr["Direccion"] == DBNull.Value ? "" : dr["Direccion"].ToString();
+
+                            TelefProvTxt.Text = string.IsNullOrWhiteSpace(tel) ? "No definido" : tel;
+                            DireccionProvTxt.Text = string.IsNullOrWhiteSpace(dir) ? "No definido" : dir;
+
+                            TelefProvTxt.ForeColor =
+                                string.IsNullOrWhiteSpace(tel) ? Color.DimGray : Color.White;
+                            DireccionProvTxt.ForeColor =
+                                string.IsNullOrWhiteSpace(dir) ? Color.DimGray : Color.White;
+
+                            // Flag Informal desde la tabla Proveedor
+                            bool informal = false;
+                            if (dr["EsInformal"] != DBNull.Value)
+                                informal = Convert.ToBoolean(dr["EsInformal"]);
+
+                            ProvInformalChk.Checked = informal;
+                            ActualizarUIInformal();
+
+                            // Responsable
+                            if (dr["IdEmpleadoResponsable"] != DBNull.Value)
+                                IdRespoCompratxt.Text = dr["IdEmpleadoResponsable"].ToString();
+
+                            if (dr["NombreResponsable"] != DBNull.Value)
+                                ResponsableCompratxt.Text = dr["NombreResponsable"].ToString();
+                        }
+                    }
+                }
+
+                // Detalle
+                string sqlDet = @"
+                SELECT 
+                dc.IdProducto,
+                p.Nombre,
+                u.Nombre AS Unidad,
+                dc.Cantidad,
+                dc.CostoUnitario,
+                ISNULL(p.Itbis, 0) AS ItbisPorciento
+                FROM DetalleCompra dc
+                INNER JOIN ProductoVenta p ON dc.IdProducto = p.IdProducto
+                INNER JOIN UnidadMedida u ON p.IdUnidadMedida = u.IdUnidadMedida
+                WHERE dc.IdCompra = @IdCompra
+                ORDER BY dc.IdDetalle;";
+
+                using (SqlCommand cmdDet = new SqlCommand(sqlDet, con))
+                {
+                    cmdDet.Parameters.AddWithValue("@IdCompra", idCompra);
+
+                    using (SqlDataReader drDet = cmdDet.ExecuteReader())
+                    {
+                        while (drDet.Read())
+                        {
+                            int rowIndex = detallecompra.Rows.Add();
+                            DataGridViewRow row = detallecompra.Rows[rowIndex];
+
+                            row.Cells["IdProducto"].Value = drDet["IdProducto"];
+                            row.Cells["Nombre"].Value = drDet["Nombre"];
+                            row.Cells["Unidad"].Value = drDet["Unidad"];
+                            row.Cells["Cantidad"].Value = drDet["Cantidad"];
+                            row.Cells["CostoUnitario"].Value = drDet["CostoUnitario"];
+                            row.Cells["ItbisPorciento"].Value = drDet["ItbisPorciento"];
+                        }
+                    }
+                }
+            }
+
+            RecalcularTotales();
+        }
+
+        private void EditarBtn_Click(object sender, EventArgs e)
+        {
+            int? idCompra = ObtenerIdCompraSeleccionada();
+            if (!idCompra.HasValue)
+            {
+                MessageBox.Show("Seleccione una compra en la lista.");
+                return;
+            }
+
+            string estado = TablaDatosCompra.CurrentRow.Cells["Estado"].Value?.ToString();
+
+            if (estado != "Pendiente")
+            {
+                MessageBox.Show("Solo se pueden editar compras en estado Pendiente.");
+                return;
+            }
+
+            CargarCompraParaEdicion(idCompra.Value);
+            tabControl1.SelectedTab = tabPageReg;
+        }
+
+        private void ImprimirBtn_Click(object sender, EventArgs e)
+        {
+            int? idCompra = ObtenerIdCompraSeleccionada();
+            if (!idCompra.HasValue)
+            {
+                MessageBox.Show("Seleccione una compra en la lista.");
+                return;
+            }
+
+            StringBuilder sb = new StringBuilder();
+
+            using (SqlConnection con = new SqlConnection(conexionString))
+            {
+                con.Open();
+
+                // Cabecera: compra + proveedor + responsable
+                string sqlCab = @"
+                 SELECT 
+                c.IdCompra,
+                c.Fecha,
+                c.Estado,
+                c.Subtotal,
+                c.Impuestos,
+                c.Total,
+                prov.NombreCompleto           AS NombreProveedor,
+                ISNULL(emp.NombreCompleto,'') AS NombreResponsable
+                FROM Compra c
+                INNER JOIN Persona prov
+                ON c.IdProveedorPersona = prov.IdPersona
+                LEFT JOIN Empleado e
+                ON c.IdEmpleadoResponsable = e.IdEmpleado
+                LEFT JOIN Persona emp
+                ON e.IdPersona = emp.IdPersona
+                WHERE c.IdCompra = @IdCompra;";
+
+                DateTime fecha = DateTime.Now;
+                string estado = "";
+                decimal subtotal = 0, itbis = 0, total = 0;
+                string proveedor = "", responsable = "";
+
+                using (SqlCommand cmdCab = new SqlCommand(sqlCab, con))
+                {
+                    cmdCab.Parameters.AddWithValue("@IdCompra", idCompra.Value);
+
+                    using (SqlDataReader dr = cmdCab.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            fecha = Convert.ToDateTime(dr["Fecha"]);
+                            estado = dr["Estado"].ToString();
+                            subtotal = Convert.ToDecimal(dr["Subtotal"]);
+                            itbis = Convert.ToDecimal(dr["Impuestos"]);
+                            total = Convert.ToDecimal(dr["Total"]);
+                            proveedor = dr["NombreProveedor"].ToString();
+                            responsable = dr["NombreResponsable"].ToString();
+                        }
+                    }
+                }
+
+                sb.AppendLine("GLORIA RESTAURANT");
+                sb.AppendLine("COMPROBANTE DE COMPRA");
+                sb.AppendLine(new string('-', 40));
+                sb.AppendLine($"Compra N°: {idCompra.Value}");
+                sb.AppendLine($"Fecha:     {fecha:g}");
+                sb.AppendLine($"Proveedor: {proveedor}");
+                if (!string.IsNullOrEmpty(responsable))
+                    sb.AppendLine($"Responsable: {responsable}");
+                sb.AppendLine($"Estado:    {estado}");
+                sb.AppendLine(new string('-', 40));
+                sb.AppendLine("Detalle");
+                sb.AppendLine(new string('-', 40));
+
+                // Detalle de productos
+                string sqlDet = @"
+                SELECT 
+                p.Nombre,
+                dc.Cantidad,
+                dc.CostoUnitario,
+                dc.Subtotal
+                 FROM DetalleCompra dc
+                INNER JOIN ProductoVenta p 
+                ON dc.IdProducto = p.IdProducto
+                WHERE dc.IdCompra = @IdCompra
+                ORDER BY dc.IdDetalle;";
+
+                using (SqlCommand cmdDet = new SqlCommand(sqlDet, con))
+                {
+                    cmdDet.Parameters.AddWithValue("@IdCompra", idCompra.Value);
+
+                    using (SqlDataReader drDet = cmdDet.ExecuteReader())
+                    {
+                        while (drDet.Read())
+                        {
+                            string nom = drDet["Nombre"].ToString();
+                            decimal cant = Convert.ToDecimal(drDet["Cantidad"]);
+                            decimal cost = Convert.ToDecimal(drDet["CostoUnitario"]);
+                            decimal sub = Convert.ToDecimal(drDet["Subtotal"]);
+
+                            sb.AppendLine(nom);
+                            sb.AppendLine($"  x{cant}  @ {cost:N2} = {sub:N2}");
+                        }
+                    }
+                }
+
+                sb.AppendLine(new string('-', 40));
+                sb.AppendLine($"Subtotal: {subtotal:N2}");
+                sb.AppendLine($"ITBIS:    {itbis:N2}");
+                sb.AppendLine($"Total:    {total:N2}");
+            }
+
+            MessageBox.Show(sb.ToString(), "Resumen de compra",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
+
+
 }
