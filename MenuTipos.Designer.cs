@@ -123,6 +123,7 @@
             label22 = new Label();
             button19 = new Button();
             prodfiltrochk = new CheckBox();
+            bebidachk = new CheckBox();
             ingredientechk = new CheckBox();
             estadoprod = new CheckBox();
             prodbuscar = new TextBox();
@@ -257,10 +258,9 @@
             label1.Location = new Point(4, 2);
             label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(80, 25);
+            label1.Size = new Size(90, 25);
             label1.TabIndex = 14;
-            label1.Text = "Tipos    ";
-            label1.Click += label1_Click;
+            label1.Text = "Tipos      ";
             // 
             // barraizq
             // 
@@ -467,7 +467,6 @@
             estadometodo.TabIndex = 6;
             estadometodo.Text = "Activo";
             estadometodo.UseVisualStyleBackColor = true;
-            estadometodo.CheckedChanged += estadometodo_CheckedChanged;
             // 
             // metbuscar
             // 
@@ -500,7 +499,6 @@
             idmetpago.Name = "idmetpago";
             idmetpago.Size = new Size(56, 23);
             idmetpago.TabIndex = 2;
-            idmetpago.TextChanged += idmetpago_TextChanged;
             // 
             // metodotxt
             // 
@@ -509,8 +507,6 @@
             metodotxt.Name = "metodotxt";
             metodotxt.Size = new Size(199, 23);
             metodotxt.TabIndex = 2;
-            metodotxt.TextChanged += metodotxt_TextChanged;
-            metodotxt.KeyPress += metodotxt_KeyPress;
             // 
             // label4
             // 
@@ -613,7 +609,6 @@
             idenpanel.Size = new Size(513, 410);
             idenpanel.TabIndex = 21;
             idenpanel.Visible = false;
-            idenpanel.Paint += idenpanel_Paint;
             // 
             // seleciden
             // 
@@ -711,7 +706,6 @@
             iddocid.Name = "iddocid";
             iddocid.Size = new Size(56, 23);
             iddocid.TabIndex = 2;
-            iddocid.TextChanged += iddocid_TextChanged;
             // 
             // identtxt
             // 
@@ -719,7 +713,6 @@
             identtxt.Name = "identtxt";
             identtxt.Size = new Size(199, 23);
             identtxt.TabIndex = 2;
-            identtxt.TextChanged += identtxt_TextChanged;
             // 
             // label8
             // 
@@ -831,7 +824,6 @@
             puestopanel.Size = new Size(513, 410);
             puestopanel.TabIndex = 21;
             puestopanel.Visible = false;
-            puestopanel.Paint += puestopanel_Paint;
             // 
             // selectdepapuest
             // 
@@ -871,7 +863,6 @@
             label34.TabIndex = 0;
             label34.Text = "  ";
             label34.Visible = false;
-            label34.Click += label34_Click;
             // 
             // label12
             // 
@@ -885,7 +876,6 @@
             label12.Size = new Size(18, 21);
             label12.TabIndex = 0;
             label12.Text = "  ";
-            label12.Click += label12_Click;
             // 
             // btndepabuscar
             // 
@@ -953,7 +943,6 @@
             estadopuesto.TabIndex = 6;
             estadopuesto.Text = "Activo";
             estadopuesto.UseVisualStyleBackColor = true;
-            estadopuesto.CheckedChanged += estadopuesto_CheckedChanged;
             // 
             // depapuestobuscar
             // 
@@ -1008,7 +997,6 @@
             puestodt.TabIndex = 3;
             puestodt.TabStop = false;
             puestodt.CellClick += puestodt_CellClick;
-            puestodt.CellContentClick += puestodt_CellContentClick;
             puestodt.CellDoubleClick += puestodt_CellDoubleClick;
             // 
             // idpuesto
@@ -1018,7 +1006,6 @@
             idpuesto.Name = "idpuesto";
             idpuesto.Size = new Size(56, 23);
             idpuesto.TabIndex = 2;
-            idpuesto.TextChanged += idpuesto_TextChanged;
             // 
             // iddepapuestotxt
             // 
@@ -1028,7 +1015,6 @@
             iddepapuestotxt.Name = "iddepapuestotxt";
             iddepapuestotxt.Size = new Size(43, 23);
             iddepapuestotxt.TabIndex = 2;
-            iddepapuestotxt.TextChanged += iddepapuestotxt_TextChanged;
             // 
             // depapuestotxt
             // 
@@ -1038,7 +1024,6 @@
             depapuestotxt.Name = "depapuestotxt";
             depapuestotxt.Size = new Size(86, 23);
             depapuestotxt.TabIndex = 2;
-            depapuestotxt.TextChanged += depapuestotxt_TextChanged;
             // 
             // puestotxt
             // 
@@ -1047,7 +1032,6 @@
             puestotxt.Name = "puestotxt";
             puestotxt.Size = new Size(199, 23);
             puestotxt.TabIndex = 2;
-            puestotxt.TextChanged += puestotxt_TextChanged;
             // 
             // label13
             // 
@@ -1105,7 +1089,6 @@
             label16.Size = new Size(92, 32);
             label16.TabIndex = 0;
             label16.Text = "Puesto";
-            label16.Click += label16_Click;
             // 
             // panel5
             // 
@@ -1162,7 +1145,6 @@
             depapanel.Size = new Size(513, 410);
             depapanel.TabIndex = 21;
             depapanel.Visible = false;
-            depapanel.Paint += depapanel_Paint;
             // 
             // selecdepa
             // 
@@ -1260,7 +1242,6 @@
             iddepa.Name = "iddepa";
             iddepa.Size = new Size(56, 23);
             iddepa.TabIndex = 2;
-            iddepa.TextChanged += iddepa_TextChanged;
             // 
             // depatxt
             // 
@@ -1268,7 +1249,6 @@
             depatxt.Name = "depatxt";
             depatxt.Size = new Size(199, 23);
             depatxt.TabIndex = 2;
-            depatxt.TextChanged += depatxt_TextChanged;
             // 
             // label18
             // 
@@ -1356,6 +1336,7 @@
             prodpanel.Controls.Add(label22);
             prodpanel.Controls.Add(button19);
             prodpanel.Controls.Add(prodfiltrochk);
+            prodpanel.Controls.Add(bebidachk);
             prodpanel.Controls.Add(ingredientechk);
             prodpanel.Controls.Add(estadoprod);
             prodpanel.Controls.Add(prodbuscar);
@@ -1424,6 +1405,21 @@
             prodfiltrochk.UseVisualStyleBackColor = true;
             prodfiltrochk.CheckedChanged += prodfiltrochk_CheckedChanged;
             // 
+            // bebidachk
+            // 
+            bebidachk.AutoSize = true;
+            bebidachk.Checked = true;
+            bebidachk.CheckState = CheckState.Checked;
+            bebidachk.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            bebidachk.ForeColor = Color.White;
+            bebidachk.Location = new Point(317, 140);
+            bebidachk.Name = "bebidachk";
+            bebidachk.Size = new Size(82, 25);
+            bebidachk.TabIndex = 6;
+            bebidachk.Text = "Bebida";
+            bebidachk.UseVisualStyleBackColor = true;
+            bebidachk.CheckedChanged += bebidachk_CheckedChanged;
+            // 
             // ingredientechk
             // 
             ingredientechk.AutoSize = true;
@@ -1452,7 +1448,6 @@
             estadoprod.TabIndex = 6;
             estadoprod.Text = "Activo";
             estadoprod.UseVisualStyleBackColor = true;
-            estadoprod.CheckedChanged += estadoprod_CheckedChanged;
             // 
             // prodbuscar
             // 
@@ -1485,7 +1480,6 @@
             idprod.Name = "idprod";
             idprod.Size = new Size(56, 23);
             idprod.TabIndex = 2;
-            idprod.TextChanged += idprod_TextChanged;
             // 
             // prodtxt
             // 
@@ -1493,7 +1487,6 @@
             prodtxt.Name = "prodtxt";
             prodtxt.Size = new Size(199, 23);
             prodtxt.TabIndex = 2;
-            prodtxt.TextChanged += prodtxt_TextChanged;
             // 
             // label23
             // 
@@ -1540,7 +1533,6 @@
             label26.Size = new Size(120, 32);
             label26.TabIndex = 0;
             label26.Text = "Producto";
-            label26.Click += label26_Click;
             // 
             // panel9
             // 
@@ -1597,7 +1589,6 @@
             categpanel.Size = new Size(513, 410);
             categpanel.TabIndex = 21;
             categpanel.Visible = false;
-            categpanel.Paint += categpanel_Paint;
             // 
             // seleccateg
             // 
@@ -1663,7 +1654,6 @@
             estadocateg.TabIndex = 6;
             estadocateg.Text = "Activo";
             estadocateg.UseVisualStyleBackColor = true;
-            estadocateg.CheckedChanged += estadocateg_CheckedChanged;
             // 
             // categbuscar
             // 
@@ -1696,7 +1686,6 @@
             idcateg.Name = "idcateg";
             idcateg.Size = new Size(56, 23);
             idcateg.TabIndex = 2;
-            idcateg.TextChanged += idcateg_TextChanged;
             // 
             // categtxt
             // 
@@ -1704,7 +1693,6 @@
             categtxt.Name = "categtxt";
             categtxt.Size = new Size(199, 23);
             categtxt.TabIndex = 2;
-            categtxt.TextChanged += categtxt_TextChanged;
             // 
             // label28
             // 
@@ -1761,7 +1749,6 @@
             panel11.Name = "panel11";
             panel11.Size = new Size(314, 57);
             panel11.TabIndex = 4;
-            panel11.Paint += panel11_Paint;
             // 
             // button23
             // 
@@ -1821,7 +1808,6 @@
             motivopanel.Size = new Size(513, 410);
             motivopanel.TabIndex = 21;
             motivopanel.Visible = false;
-            motivopanel.Paint += motivopanel_Paint;
             // 
             // selecmotivo
             // 
@@ -1886,7 +1872,6 @@
             estadomotivo.TabIndex = 6;
             estadomotivo.Text = "Activo";
             estadomotivo.UseVisualStyleBackColor = true;
-            estadomotivo.CheckedChanged += estadomotivo_CheckedChanged;
             // 
             // movitobusqueda
             // 
@@ -1919,7 +1904,6 @@
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(56, 23);
             textBox2.TabIndex = 2;
-            textBox2.TextChanged += textBox2_TextChanged;
             // 
             // motivotxt
             // 
@@ -1927,7 +1911,6 @@
             motivotxt.Name = "motivotxt";
             motivotxt.Size = new Size(199, 23);
             motivotxt.TabIndex = 2;
-            motivotxt.TextChanged += motivotxt_TextChanged;
             // 
             // label35
             // 
@@ -1975,7 +1958,6 @@
             label38.TabIndex = 0;
             label38.Text = "Motivo de Salida \r\nde Inventario";
             label38.TextAlign = ContentAlignment.MiddleCenter;
-            label38.Click += label38_Click;
             // 
             // panel4
             // 
@@ -2034,7 +2016,6 @@
             unidadpanel.Size = new Size(513, 410);
             unidadpanel.TabIndex = 21;
             unidadpanel.Visible = false;
-            unidadpanel.Paint += unidadpanel_Paint;
             // 
             // button30
             // 
@@ -2099,7 +2080,6 @@
             unidadestadochk.TabIndex = 6;
             unidadestadochk.Text = "Activo";
             unidadestadochk.UseVisualStyleBackColor = true;
-            unidadestadochk.CheckedChanged += unidadestadochk_CheckedChanged;
             // 
             // unidadbusqueda
             // 
@@ -2132,7 +2112,6 @@
             idunidad.Name = "idunidad";
             idunidad.Size = new Size(56, 23);
             idunidad.TabIndex = 2;
-            idunidad.TextChanged += idunidad_TextChanged;
             // 
             // valorunidadtxt
             // 
@@ -2140,7 +2119,6 @@
             valorunidadtxt.Name = "valorunidadtxt";
             valorunidadtxt.Size = new Size(199, 23);
             valorunidadtxt.TabIndex = 2;
-            valorunidadtxt.TextChanged += valorunidadtxt_TextChanged;
             // 
             // nombreunidadtxt
             // 
@@ -2148,7 +2126,6 @@
             nombreunidadtxt.Name = "nombreunidadtxt";
             nombreunidadtxt.Size = new Size(199, 23);
             nombreunidadtxt.TabIndex = 2;
-            nombreunidadtxt.TextChanged += nombreunidadtxt_TextChanged;
             // 
             // label40
             // 
@@ -2466,5 +2443,6 @@
         private Button button32;
         private Button button33;
         private TextBox iddepapuestotxt;
+        private CheckBox bebidachk;
     }
 }

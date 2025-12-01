@@ -28,9 +28,14 @@ namespace Proyecto_restaurante
         public string NombreUsuario;
         private int Autorizar = 0;
         private int IDMesa = 0;
+        private int idMesaSeleccionada = 0;
+        private int NumeroMesa = 0;
         private int OcupadoMesa = 0;
         private int ReservadoMesa = 0;
         private int EditarEstado = 0;
+        private int CuentaSeparada = 0;
+        private int ModoElminar = 0;
+        private int OrdenGrupo = 0;
         private int PedidoID;
         private decimal Total;
         private int TipoPago = 0;
@@ -40,6 +45,7 @@ namespace Proyecto_restaurante
         private decimal subtotalAcumulado = 0;
         bool modoUnion = false;
         bool modoSeparar = false;
+        private bool facturarDesdeMesa = false;
 
         List<int> mesasDelGrupo = new List<int>();
 
@@ -126,12 +132,12 @@ namespace Proyecto_restaurante
 
         private void Pedidos_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.F1)
+            if (tabControl1.SelectedIndex == 0 && e.KeyCode == Keys.F1)
             {
                 CrearOrden_Click(null, null);
             }
 
-            if (e.KeyCode == Keys.F2)
+            if (tabControl1.SelectedIndex == 0 && e.KeyCode == Keys.F2)
             {
                 EditarOrden_Click(null, null);
             }
@@ -146,9 +152,9 @@ namespace Proyecto_restaurante
                 facturarbtn.PerformClick();
             }
 
-            if (e.Control && e.Shift && e.KeyCode == Keys.X)
+            if (tabControl1.SelectedIndex == 1 && e.Control && e.KeyCode == Keys.Space)
             {
-                this.Close();
+                separarcuenta.PerformClick();
             }
 
             if (e.Alt && e.KeyCode == Keys.D1)
@@ -164,6 +170,19 @@ namespace Proyecto_restaurante
             if (e.Alt && e.KeyCode == Keys.D3)
             {
                 tabControl1.SelectedIndex = 2;
+            }
+
+            if (panelCuentaSeparada.Enabled == true && ModoElminar == 0 && tabControl1.SelectedIndex == 1 && e.Alt && e.KeyCode == Keys.Q)
+            {
+                nuevoGrupo.Image = Proyecto_restaurante.Properties.Resources.menos_pequeno;
+                nuevoGrupo.BackColor = Color.LightCoral;
+                ModoElminar = 1;
+            }
+            else if (panelCuentaSeparada.Enabled == true && ModoElminar == 1 && tabControl1.SelectedIndex == 1 && e.Alt && e.KeyCode == Keys.Q)
+            {
+                nuevoGrupo.Image = Proyecto_restaurante.Properties.Resources.mas;
+                nuevoGrupo.BackColor = SystemColors.ActiveCaption;
+                ModoElminar = 0;
             }
 
             if (e.KeyCode == Keys.Escape)
@@ -188,8 +207,8 @@ namespace Proyecto_restaurante
                     if (EditarEstado == 0)
                     {
                         string queryPedido = @"
-                        INSERT INTO Pedido (Fecha, IdMesa, Origen, IdClientePersona, NombreCliente, Estado, Total, Nota, Direccion)
-                        VALUES (@Fecha, @IdMesa, @Origen, @IdClientePersona, @NombreCliente, @Estado, @Total, @Nota, @Direccion);
+                        INSERT INTO Pedido (Fecha, IdMesa, Origen, IdClientePersona, NombreCliente, Estado, Total, Nota)
+                        VALUES (@Fecha, @IdMesa, @Origen, @IdClientePersona, @NombreCliente, @Estado, @Total, @Nota);
                         SELECT SCOPE_IDENTITY();";
 
                         SqlCommand cmdPedido = new SqlCommand(queryPedido, conexion, transaccion);
@@ -202,7 +221,6 @@ namespace Proyecto_restaurante
                         cmdPedido.Parameters.AddWithValue("@Estado", "Pendiente");
                         cmdPedido.Parameters.AddWithValue("@Total", Convert.ToDecimal(labeltotal.Text));
                         cmdPedido.Parameters.AddWithValue("@Nota", notatxt.Text);
-                        cmdPedido.Parameters.AddWithValue("@Direccion", direcciontxt.Text);
 
                         idPedidoGenerado = Convert.ToInt32(cmdPedido.ExecuteScalar());
                     }
@@ -218,8 +236,7 @@ namespace Proyecto_restaurante
                             IdClientePersona = @IdClientePersona,
                             NombreCliente = @NombreCliente,
                             Total = @Total,
-                            Nota = @Nota,
-                            Direccion = @Direccion
+                            Nota = @Nota
                         WHERE IdPedido = @IdPedido";
 
                         SqlCommand cmdUpdate = new SqlCommand(queryUpdatePedido, conexion, transaccion);
@@ -230,7 +247,6 @@ namespace Proyecto_restaurante
                         cmdUpdate.Parameters.AddWithValue("@NombreCliente", txtnombrecompleto.Text);
                         cmdUpdate.Parameters.AddWithValue("@Total", Convert.ToDecimal(labeltotal.Text));
                         cmdUpdate.Parameters.AddWithValue("@Nota", notatxt.Text);
-                        cmdUpdate.Parameters.AddWithValue("@Direccion", direcciontxt.Text);
                         cmdUpdate.Parameters.AddWithValue("@IdPedido", PedidoID);
 
                         cmdUpdate.ExecuteNonQuery();
@@ -249,8 +265,8 @@ namespace Proyecto_restaurante
                     }
 
                     string queryDetalle = @"
-                    INSERT INTO DetallePedido (IdPedido, IdProducto, Cantidad, PrecioUnitario)
-                    VALUES (@IdPedido, @IdProducto, @Cantidad, @PrecioUnitario);";
+                    INSERT INTO DetallePedido (IdPedido, IdProducto, Cantidad, PrecioUnitario, Cuenta)
+                    VALUES (@IdPedido, @IdProducto, @Cantidad, @PrecioUnitario, @Cuenta);";
 
                     foreach (DataGridViewRow fila in detalleorden.Rows)
                     {
@@ -261,13 +277,14 @@ namespace Proyecto_restaurante
                         cmdDetalle.Parameters.AddWithValue("@IdProducto", Convert.ToInt32(fila.Cells["codigoProducto"].Value));
                         cmdDetalle.Parameters.AddWithValue("@Cantidad", Convert.ToDecimal(fila.Cells["Cantidad"].Value));
                         cmdDetalle.Parameters.AddWithValue("@PrecioUnitario", Convert.ToDecimal(fila.Cells["Precio"].Value));
+                        cmdDetalle.Parameters.AddWithValue("@Cuenta", Convert.ToDecimal(fila.Cells["cuenta"].Value));
 
                         cmdDetalle.ExecuteNonQuery();
                     }
 
                     string queryInsertarComanda = @"
-                    INSERT INTO Comanda (IdPedido, IdMesa, IdProducto, Cantidad, Estado)
-                    VALUES (@IdPedido, @IdMesa, @IdProducto, @Cantidad, @Estado);";
+                    INSERT INTO Comanda (IdPedido, IdMesa, IdProducto, Cantidad, Estado, Cuenta)
+                    VALUES (@IdPedido, @IdMesa, @IdProducto, @Cantidad, @Estado, @Cuenta);";
 
                     foreach (DataGridViewRow fila in detalleorden.Rows)
                     {
@@ -279,6 +296,7 @@ namespace Proyecto_restaurante
                         cmdComanda.Parameters.AddWithValue("@IdMesa", idMesaSeleccionada);
                         cmdComanda.Parameters.AddWithValue("@IdProducto", Convert.ToInt32(fila.Cells["codigoProducto"].Value));
                         cmdComanda.Parameters.AddWithValue("@Cantidad", Convert.ToDecimal(fila.Cells["Cantidad"].Value));
+                        cmdComanda.Parameters.AddWithValue("@Cuenta", Convert.ToDecimal(fila.Cells["cuenta"].Value));
                         cmdComanda.Parameters.AddWithValue("@Estado", "Cocina");
 
                         cmdComanda.ExecuteNonQuery();
@@ -396,12 +414,22 @@ namespace Proyecto_restaurante
 
             DataGridViewRow row = new DataGridViewRow();
             row.CreateCells(detalleorden);
-            row.Cells[0].Value = codigoProducto;
-            row.Cells[1].Value = nombreProducto;
-            row.Cells[2].Value = precio;
-            row.Cells[3].Value = itbis;
-            row.Cells[4].Value = cantidad;
-            row.Cells[5].Value = (precio + itbis) * cantidad;
+            if (grupoCuenta.Items.Count > 0)
+            {
+                string grupoTexto = grupoCuenta.SelectedItem.ToString();
+                int grupoNumero = int.Parse(grupoTexto.Split(' ')[1]);
+                row.Cells[0].Value = grupoNumero;
+            }
+            else
+            {
+                row.Cells[0].Value = "0";
+                row.Cells[1].Value = codigoProducto;
+                row.Cells[2].Value = nombreProducto;
+                row.Cells[3].Value = precio;
+                row.Cells[4].Value = itbis;
+                row.Cells[5].Value = cantidad;
+                row.Cells[6].Value = (precio + itbis) * cantidad;
+            }
 
             detalleorden.Rows.Add(row);
 
@@ -417,7 +445,6 @@ namespace Proyecto_restaurante
         }
 
         private Button botonActivo = null;
-        private int idMesaSeleccionada = 0;
 
         private void BtnMesa_Click(object sender, EventArgs e)
         {
@@ -427,6 +454,7 @@ namespace Proyecto_restaurante
             dynamic mesaInfo = btn.Tag;
 
             int idMesa = mesaInfo.Id;
+            string numMesa = mesaInfo.Numero;
             int estadoMesa = mesaInfo.Estado;
             int reservadoMesa = mesaInfo.Reservado;
 
@@ -469,6 +497,7 @@ namespace Proyecto_restaurante
             botonActivo = btn;
             btn.BackColor = Color.DodgerBlue;
             idMesaSeleccionada = idMesa;
+            NumeroMesa = Convert.ToInt32(numMesa);
 
             if (estadoMesa == 1)
             {
@@ -476,6 +505,7 @@ namespace Proyecto_restaurante
                 EditarOrden.Enabled = true;
                 FacturarOrden.Enabled = true;
                 SepararMesa.Enabled = false;
+                OcupadoMesa = 1;
                 ReservadoMesa = 0;
             }
             else
@@ -484,6 +514,7 @@ namespace Proyecto_restaurante
                 EditarOrden.Enabled = false;
                 FacturarOrden.Enabled = false;
                 SepararMesa.Enabled = true;
+                OcupadoMesa = 0;
                 ReservadoMesa = 0;
             }
 
@@ -493,9 +524,9 @@ namespace Proyecto_restaurante
                 EditarOrden.Enabled = false;
                 FacturarOrden.Enabled = false;
                 ReservadoMesa = 1;
+                OcupadoMesa = 0;
             }
         }
-
 
         private void RestaurarColor(Button btn, int ocupado, int reservado)
         {
@@ -517,21 +548,16 @@ namespace Proyecto_restaurante
             btn.Font = new Font("Segoe UI", 10, FontStyle.Bold);
 
             if (reservado == 1)
-            {
                 btn.BackColor = Color.MediumPurple;
-            }
             else if (ocupado == 1)
-            {
                 btn.BackColor = Color.LightCoral;
-            }
             else
-            {
                 btn.BackColor = Color.LightGreen;
-            }
 
             btn.Tag = new
             {
                 Id = id,
+                Numero = numero,
                 Estado = ocupado,
                 Reservado = reservado,
                 ListaMesas = unidas
@@ -545,7 +571,6 @@ namespace Proyecto_restaurante
                 $"Capacidad: {capacidad}";
 
             btn.Click += BtnMesa_Click;
-
             return btn;
         }
 
@@ -565,7 +590,7 @@ namespace Proyecto_restaurante
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
 
-            cajerolabel.Text = "     Cajero: " +NombreUsuario;
+            cajerolabel.Text = "     Cajero: " + NombreUsuario;
 
             mesasprincipal.Controls.Clear();
 
@@ -692,6 +717,7 @@ namespace Proyecto_restaurante
 
             if (detalleorden.ColumnCount == 0)
             {
+                detalleorden.Columns.Add("cuenta", "Cuenta");
                 detalleorden.Columns.Add("codigoProducto", "Codigo");
                 detalleorden.Columns.Add("nombreProducto", "Nombre");
                 detalleorden.Columns.Add("precio", "Precio");
@@ -705,40 +731,8 @@ namespace Proyecto_restaurante
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string consultaBase = @"
-            SELECT 
-                p.IdPedido,
-                p.IdMesa,
-                p.NombreCliente AS [Cliente],
-                m.Numero AS [Mesa], 
-	            m.IdSala as [Sala],
-                p.Fecha,
-                p.Total,
-                p.Estado
-            FROM Pedido p
-            INNER JOIN Mesa m ON p.IdMesa = m.IdMesa";
-
-            string filtro = "";
-
-            if (facturadochk.Checked)
-                filtro = " WHERE p.Estado = 'Facturado'";
-            else if (pendientechk.Checked)
-                filtro = " WHERE p.Estado = 'Pendiente'";
-            else if (canceladochk.Checked)
-                filtro = " WHERE p.Estado = 'Cancelado'";
-            else if (todoschk.Checked)
-                filtro = "";
-
-            string consultaFinal = consultaBase + filtro + " ORDER BY p.IdPedido DESC";
-
-            SqlDataAdapter adaptador = new SqlDataAdapter(consultaFinal, conexionString);
-            DataTable dt = new DataTable();
-
-            adaptador.Fill(dt);
-
-            tabladatospedidos.DataSource = dt;
-            tabladatospedidos.Columns["IdMesa"].Visible = false;
-            volverdetalle_Click(sender, e);
+            buscar.Focus();
+            buscar.PerformClick();
         }
 
         private void limpiarbtn_Click(object sender, EventArgs e)
@@ -746,14 +740,24 @@ namespace Proyecto_restaurante
             IDMesa = 0;
             idMesaSeleccionada = -1;
             PedidoID = 0;
+            EditarEstado = 0;
+            NumeroMesa = 0;
+            OcupadoMesa = 0;
+            ReservadoMesa = 0;
+            EditarEstado = 0;
+            CuentaSeparada = 0;
+            ModoElminar = 0;
+            OrdenGrupo = 0;
+
             txtnombrecompleto.Text = "AL CONTADO";
             idclientetxt.Text = "1";
             numerotxt.Clear();
-            direcciontxt.Clear();
+            rnc.Clear();
 
             txtcodigoproducto.Clear();
             txtnombreproducto.Clear();
             txtprecioproducto.Clear();
+            grupoCuenta.Items.Clear();
             numCantidad.Value = numCantidad.Minimum;
             numCantidad.Enabled = false;
             txtiva.Clear();
@@ -774,12 +778,12 @@ namespace Proyecto_restaurante
             txtprecioproducto.Enabled = false;
             bajarproductobtn.Enabled = false;
             guardarordenbtn.Enabled = false;
-
             buscarclientebtn.Enabled = false;
             nota.Enabled = false;
-
             guardarordenbtn.Enabled = false;
             MesaLabel.Text = "     Mesa asignada: ";
+            panelCuentaSeparada.Enabled = false;
+            separarcuenta.BackColor = Color.White;
             mesasprincipal.Enabled = true;
             panelacciones.Enabled = true;
             CrearOrden.Enabled = true;
@@ -812,7 +816,49 @@ namespace Proyecto_restaurante
                 return;
             }
 
-            Total = Convert.ToDecimal(tabladatospedidos.CurrentRow.Cells["Total"].Value);
+            if (!facturarDesdeMesa)
+            {
+                if (tabladatospedidos.CurrentRow == null)
+                {
+                    MessageBox.Show("Debe seleccionar una factura.");
+                    return;
+                }
+
+                object valorTotal = tabladatospedidos.CurrentRow.Cells["Total"].Value;
+
+                if (valorTotal == null || valorTotal == DBNull.Value || valorTotal.ToString() == "")
+                {
+                    MessageBox.Show("El valor del total no es válido.");
+                    return;
+                }
+
+                Total = Convert.ToDecimal(valorTotal);
+            }
+            else
+            {
+                if (Total <= 0)
+                {
+                    using (SqlConnection cn = new SqlConnection(conexionString))
+                    {
+                        cn.Open();
+                        SqlCommand cmd = new SqlCommand(
+                            "SELECT Total FROM Pedido WHERE IdPedido = @id",
+                            cn
+                        );
+                        cmd.Parameters.AddWithValue("@id", PedidoID);
+                        object vTotal = cmd.ExecuteScalar();
+
+                        if (vTotal == null || vTotal == DBNull.Value)
+                        {
+                            MessageBox.Show("No se pudo obtener el total del pedido.");
+                            return;
+                        }
+
+                        Total = Convert.ToDecimal(vTotal);
+                    }
+                }
+            }
+            facturarDesdeMesa = false;
 
             string estadoPedido = "";
 
@@ -1030,7 +1076,7 @@ namespace Proyecto_restaurante
 
         private void cancelarpedido_Click(object sender, EventArgs e)
         {
-            DialogResult editar = MessageBox.Show("¿Desea cancelar este pedido?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult editar = MessageBox.Show("¿Desea cancelar esta factura?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (editar == DialogResult.Yes)
             {
@@ -1051,7 +1097,7 @@ namespace Proyecto_restaurante
                                 int rowsAffected = command.ExecuteNonQuery();
                                 if (rowsAffected > 0)
                                 {
-                                    MessageBox.Show("Pedido cancelado con éxito.");
+                                    MessageBox.Show("Factura cancelada con éxito.");
                                     limpiarbtn_Click(sender, e);
                                     tabControl1_SelectedIndexChanged(sender, e);
                                 }
@@ -1074,7 +1120,7 @@ namespace Proyecto_restaurante
             }
             else
             {
-                MessageBox.Show("Operación cancelada.");
+                //MessageBox.Show("Operación cancelada.");
             }
         }
 
@@ -1087,7 +1133,7 @@ namespace Proyecto_restaurante
                 todoschk.Checked = false;
                 PedidoID = 0;
                 cancelarpedido.Enabled = true;
-                tabControl1_SelectedIndexChanged(sender, e);
+                FiltroDatosBusqueda();
             }
         }
 
@@ -1100,7 +1146,7 @@ namespace Proyecto_restaurante
                 todoschk.Checked = false;
                 PedidoID = 0;
                 cancelarpedido.Enabled = true;
-                tabControl1_SelectedIndexChanged(sender, e);
+                FiltroDatosBusqueda();
             }
         }
 
@@ -1113,7 +1159,7 @@ namespace Proyecto_restaurante
                 todoschk.Checked = false;
                 PedidoID = 0;
                 cancelarpedido.Enabled = false;
-                tabControl1_SelectedIndexChanged(sender, e);
+                FiltroDatosBusqueda();
             }
         }
 
@@ -1126,7 +1172,7 @@ namespace Proyecto_restaurante
                 canceladochk.Checked = false;
                 PedidoID = 0;
                 cancelarpedido.Enabled = false;
-                tabControl1_SelectedIndexChanged(sender, e);
+                FiltroDatosBusqueda();
             }
         }
 
@@ -1152,13 +1198,11 @@ namespace Proyecto_restaurante
                     SELECT 
                         IdPedido,
                         NombreCliente,
-                        m.Numero AS [Mesa], 
-	                    m.IdSala as [Sala],
+                        IdMesa,
                         Total,
-                        p.Estado,
+                        Estado,
                         Fecha
-                    FROM Pedido p
-                    INNER JOIN Mesa m ON p.IdMesa = m.IdMesa
+                    FROM Pedido
                     WHERE
                         (NombreCliente LIKE @buscar
                         OR CAST(IdPedido AS VARCHAR) LIKE @buscar
@@ -1666,6 +1710,7 @@ namespace Proyecto_restaurante
             reservadachk.Enabled = false;
             buscarmesatxt.Enabled = false;
             EditarEstado = 0;
+            tipodoccmbx.SelectedIndex = 0;
             habilitarbotones();
             VerificarOrden();
         }
@@ -1871,17 +1916,15 @@ namespace Proyecto_restaurante
                 return;
             }
 
-
-
             tabControl1.SelectedIndex = 1;
             mesasprincipal.Enabled = false;
             panelacciones.Enabled = false;
             EditarEstado = 1;
-            CargarOrdenDeMesa(idMesaSeleccionada);
+            CargarOrdenDeMesa(idMesaSeleccionada, NumeroMesa);
             VerificarOrden();
         }
 
-        private void CargarOrdenDeMesa(int idMesa)
+        private void CargarOrdenDeMesa(int idMesa, int numMesa)
         {
             using (SqlConnection cn = new SqlConnection(conexionString))
             {
@@ -1920,7 +1963,7 @@ namespace Proyecto_restaurante
                         labeltotal.Text = Convert.ToDecimal(dr["Total"]).ToString();
                         notatxt.Text = dr["Nota"] == DBNull.Value ? "" : dr["Nota"].ToString();
 
-                        MesaLabel.Text = $"     Mesa asignada: {idMesa}";
+                        MesaLabel.Text = $"     Mesa asignada: {NumeroMesa}";
                     }
                 }
 
@@ -1942,8 +1985,6 @@ namespace Proyecto_restaurante
                 WHERE IdMesa = @IdMesa AND Estado = 'Pendiente'
                 ORDER BY Fecha DESC;";
 
-                int idPedido = 0;
-
                 using (SqlCommand cmd = new SqlCommand(sqlCab, cn))
                 {
                     cmd.Parameters.AddWithValue("@IdMesa", idMesa);
@@ -1952,17 +1993,18 @@ namespace Proyecto_restaurante
                     {
                         if (!dr.Read())
                         {
-                            MessageBox.Show("La mesa no tiene ordenes pendientes.");
+                            MessageBox.Show("La mesa no tiene órdenes pendientes.");
                             return;
                         }
 
-                        idPedido = Convert.ToInt32(dr["IdPedido"]);
-                        PedidoID = idPedido;
+                        PedidoID = Convert.ToInt32(dr["IdPedido"]);
+                        Total = Convert.ToDecimal(dr["Total"]);
+
                         tabControl1.SelectedIndex = 2;
+                        facturarDesdeMesa = true;
                         facturarbtn.PerformClick();
                     }
                 }
-
             }
         }
 
@@ -1970,6 +2012,7 @@ namespace Proyecto_restaurante
         {
             string sqlDet = @"
             SELECT  d.IdProducto,
+                    d.Cuenta,
                     p.Nombre,
                     d.PrecioUnitario,
                     p.Itbis,
@@ -1977,7 +2020,7 @@ namespace Proyecto_restaurante
                     d.Cantidad * d.PrecioUnitario AS Importe
             FROM DetallePedido d
             INNER JOIN ProductoVenta p ON p.IdProducto = d.IdProducto
-            WHERE d.IdPedido = @IdPedido;";
+            WHERE d.IdPedido =  @IdPedido;";
 
             using (SqlCommand cmd = new SqlCommand(sqlDet, cn))
             {
@@ -1991,6 +2034,7 @@ namespace Proyecto_restaurante
                     {
                         int fila = detalleorden.Rows.Add();
 
+                        detalleorden.Rows[fila].Cells["cuenta"].Value = dr["Grupo"];
                         detalleorden.Rows[fila].Cells["codigoProducto"].Value = dr["IdProducto"];
                         detalleorden.Rows[fila].Cells["nombreProducto"].Value = dr["Nombre"];
                         detalleorden.Rows[fila].Cells["precio"].Value = dr["PrecioUnitario"];
@@ -2184,11 +2228,6 @@ namespace Proyecto_restaurante
             MessageBox.Show("Seleccione las mesas que desea separar.");
         }
 
-        private void Volver_Click(object sender, EventArgs e)
-        {
-            tabControl1.SelectedIndex = 0;
-        }
-
         private void continuar_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedIndex = 1;
@@ -2303,6 +2342,102 @@ namespace Proyecto_restaurante
 
             numerotxt.Text = posNum;
             numerotxt.SelectionStart = numerotxt.Text.Length;
+        }
+
+        private void buscar_Click(object sender, EventArgs e)
+        {
+            FiltroDatosBusqueda();
+        }
+
+        private void separarcuenta_Click(object sender, EventArgs e)
+        {
+            if (CuentaSeparada == 1)
+            {
+                MessageBox.Show("La cuenta ya está separada.");
+                return;
+            }
+            else
+            {
+                DialogResult confirmar = MessageBox.Show("Activar Cuenta Separada LIMPIA la orden actual", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (confirmar == DialogResult.Yes)
+                {
+                    panelCuentaSeparada.Enabled = true;
+                    CuentaSeparada = 1;
+                    separarcuenta.BackColor = Color.Gold;
+                    separarcuenta.Enabled = false;
+                    detalleorden.Rows.Clear();
+                    nuevoGrupo.PerformClick();
+                }
+            }
+
+        }
+
+        private void nuevoGrupo_Click(object sender, EventArgs e)
+        {
+            if (ModoElminar == 0)
+            {
+                toolTip1.SetToolTip(nuevoGrupo, "Nuevo Grupo");
+                OrdenGrupo = OrdenGrupo + 1;
+                grupoCuenta.Items.Add("Grupo " + OrdenGrupo.ToString());
+                grupoCuenta.SelectedIndex = grupoCuenta.Items.Count - 1;
+            }
+            else if (ModoElminar == 1)
+            {
+                toolTip1.SetToolTip(nuevoGrupo, "Eliminar Grupo");
+                grupoCuenta.Items.Remove("Grupo " + OrdenGrupo.ToString());
+                grupoCuenta.SelectedIndex = grupoCuenta.Items.Count - 1;
+                OrdenGrupo = OrdenGrupo - 1;
+
+                if (OrdenGrupo < 1)
+                {
+                    grupoCuenta.Items.Clear();
+                    OrdenGrupo = 0;
+                }
+            }
+        }
+
+        private void rnc_TextChanged(object sender, EventArgs e)
+        {
+            if (tipodoccmbx.SelectedIndex == 0)
+            {
+                string posicion = rnc.Text; posicion = posicion.Replace("-", "");
+                if (posicion.Length > 10)
+                {
+                    posicion = posicion.Substring(0, 10);
+                }
+                if (posicion.Length > 3)
+                {
+                    posicion = posicion.Insert(3, "-");
+                }
+
+                rnc.Text = posicion; rnc.SelectionStart = rnc.Text.Length;
+            }
+            else if (tipodoccmbx.SelectedIndex == 1)
+            {
+                string posicion = rnc.Text; posicion = posicion.Replace("-", "");
+
+                if (posicion.Length > 11)
+                {
+                    posicion = posicion.Substring(0, 11);
+                }
+
+                if (posicion.Length > 3)
+                {
+                    posicion = posicion.Insert(3, "-");
+                }
+                if (posicion.Length > 11)
+                {
+                    posicion = posicion.Insert(11, "-");
+                }
+
+                rnc.Text = posicion; rnc.SelectionStart = rnc.Text.Length;
+            }
+        }
+
+        private void tipodoccmbx_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            rnc.Clear();
         }
     }
 }

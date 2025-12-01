@@ -9,6 +9,8 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Runtime.InteropServices;
 
 namespace Proyecto_restaurante
 {
@@ -24,9 +26,19 @@ namespace Proyecto_restaurante
             this.UpdateStyles();
         }
 
+        string conexionString = ConexionBD.ConexionSQL();
+
         public string usuarioActual;
         string nombrePC = Environment.MachineName;
         public int administrador;
+        public int estadobarra = 1;
+        public int sistemas = 0;
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr SendMessage(IntPtr hWnd, int msg, int wParam, int lParam);
+
+        const int WM_LBUTTONDOWN = 0x0201;
+        const int WM_LBUTTONUP = 0x0202;
 
         private void cerrarbtn_Click(object sender, EventArgs e)
         {
@@ -53,11 +65,15 @@ namespace Proyecto_restaurante
 
         private void menu_Load(object sender, EventArgs e)
         {
-            string conexionString = ConexionBD.ConexionSQL();
-
             Color colorPanel = Color.Silver;
 
             button5.Focus();
+            sistemas = 0;
+
+            if(cambiarfechapanel.Visible == true)
+            {
+                cambiarfechapanel.Visible = false;
+            }
 
             try
             {
@@ -92,17 +108,21 @@ namespace Proyecto_restaurante
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+            if (estadobarra == 1)
+            {
+                NombrePCtxt.Text = "PC: " + nombrePC.ToString();
+            }
+            else
+            {
+                NombrePCtxt.Text = "  ";
+            }
+
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
             this.WindowState = FormWindowState.Maximized;
-            creditoslabel.BackColor = colorPanel;
-            label5.BackColor = colorPanel;
-            label4.BackColor = colorPanel;
             oculto.BackColor = colorPanel;
-            teclacompra.BackColor = colorPanel;
-            teclaorden.BackColor = colorPanel;
-            teclapedido.BackColor = colorPanel;
-            teclareserv.BackColor = colorPanel;
+
+            deslizar.PerformClick();
             this.CambiarColorMDI(colorPanel);
         }
 
@@ -171,7 +191,6 @@ namespace Proyecto_restaurante
             ConsProductos.MdiParent = this;
 
             ConsProductos.Show();
-
         }
 
         private void button10_Click(object sender, EventArgs e)
@@ -242,8 +261,6 @@ namespace Proyecto_restaurante
 
         }
 
-        public int estadobarra = 1;
-
         private void button12_Click(object sender, EventArgs e)
         {
 
@@ -262,6 +279,7 @@ namespace Proyecto_restaurante
                         label2.Text = "  ";
                         label3.Text = "  ";
                         ajustestxt.Text = "  ";
+                        NombrePCtxt.Text = "  ";
                         label1.ImageAlign = ContentAlignment.MiddleCenter;
                         label2.ImageAlign = ContentAlignment.MiddleCenter;
                         ajustestxt.ImageAlign = ContentAlignment.MiddleCenter;
@@ -304,6 +322,7 @@ namespace Proyecto_restaurante
                         button11.Text = "Generales";
                         button13.Text = "Empleados";
                         reportesbtn.Text = "Reportes";
+                        NombrePCtxt.Text = "PC: " + nombrePC;
                         btn.ImageAlign = ContentAlignment.MiddleRight;
                         button12.ImageAlign = ContentAlignment.MiddleCenter;
                         label1.Text = "Mantenimientos    ";
@@ -459,6 +478,71 @@ namespace Proyecto_restaurante
             if (e.KeyCode == Keys.Escape)
             {
                 //cerrarbtn_Click(sender, e);
+            }
+
+            if (e.KeyCode == Keys.F5)
+            {
+
+                RecargarMenu();
+            }
+        }
+
+        private void RecargarMenu()
+        {
+            menu_Load(null, null);
+            MessageBox.Show("Sistema Recargado Exitosamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void deslizar_Click(object sender, EventArgs e)
+        {
+
+            if (sistemas == 0)
+            {
+                deslizar.Image = Proyecto_restaurante.Properties.Resources.flechaizquierdaroja;
+                sistemasPanel.Visible = false;
+                sistemas = 1;
+            }
+            else
+            {
+                deslizar.Image = Proyecto_restaurante.Properties.Resources.flechaderecharoja;
+                sistemasPanel.Visible = true;
+                sistemas = 0;
+            }
+        }
+
+        private void horatimer_Tick(object sender, EventArgs e)
+        {
+            labelhora.Text = DateTime.Now.ToString("h:mm:ss tt");
+            labelfecha.Text = DateTime.Now.ToLongDateString();
+            labelcambiofecha.Text = cambiarFechaDTP.Value.ToLongDateString();
+        }
+
+        private void AbrirCalendario(DateTimePicker dtp)
+        {
+            int x = dtp.Width - 10;
+            int y = dtp.Height / 2;
+            int lParam = (y << 16) | (x & 0xFFFF);
+
+            SendMessage(dtp.Handle, WM_LBUTTONDOWN, 1, lParam);
+            SendMessage(dtp.Handle, WM_LBUTTONUP, 1, lParam);
+        }
+
+        private void labelfecha_Click(object sender, EventArgs e)
+        {
+            cambiarfechapanel.Visible = !cambiarfechapanel.Visible;
+        }
+
+        private void cambiarfechapanel_VisibleChanged(object sender, EventArgs e)
+        {
+            if (cambiarfechapanel.Visible)
+            {
+                cambiarFechaDTP.Value = DateTime.Today;
+
+                this.BeginInvoke((MethodInvoker)(() =>
+                {
+                    cambiarFechaDTP.Focus();
+                    AbrirCalendario(cambiarFechaDTP);
+                }));
             }
         }
     }

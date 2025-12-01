@@ -90,12 +90,16 @@
             label17 = new Label();
             tablapanelproducto = new DataGridView();
             panel2 = new Panel();
+            label14 = new Label();
             label6 = new Label();
             detalleorden = new DataGridView();
             label21 = new Label();
             nota = new Button();
             labelcantidadarticulos = new Label();
             panel3 = new Panel();
+            panelCuentaSeparada = new Panel();
+            grupoCuenta = new ComboBox();
+            nuevoGrupo = new Button();
             separarcuenta = new Button();
             bajarproductobtn = new Button();
             buscarproductobtn = new Button();
@@ -105,7 +109,6 @@
             txtprecioproducto = new TextBox();
             txtcodigoproducto = new TextBox();
             panel4 = new Panel();
-            Volver = new Button();
             labelcaja = new Label();
             panel9 = new Panel();
             labelsubtotal = new Label();
@@ -117,7 +120,8 @@
             label11 = new Label();
             guardarordenbtn = new Button();
             panel1 = new Panel();
-            direcciontxt = new TextBox();
+            tipodoccmbx = new ComboBox();
+            rnc = new TextBox();
             numerotxt = new TextBox();
             pictureBox2 = new PictureBox();
             pictureBox1 = new PictureBox();
@@ -227,6 +231,7 @@
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)detalleorden).BeginInit();
             panel3.SuspendLayout();
+            panelCuentaSeparada.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numCantidad).BeginInit();
             panel4.SuspendLayout();
             panel9.SuspendLayout();
@@ -970,6 +975,7 @@
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(64, 64, 64);
+            panel2.Controls.Add(label14);
             panel2.Controls.Add(label6);
             panel2.Controls.Add(detalleorden);
             panel2.Controls.Add(label21);
@@ -980,6 +986,17 @@
             panel2.Size = new Size(793, 361);
             panel2.TabIndex = 1;
             // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Font = new Font("Segoe UI", 12F);
+            label14.ForeColor = SystemColors.Control;
+            label14.Location = new Point(171, 334);
+            label14.Name = "label14";
+            label14.Size = new Size(614, 21);
+            label14.TabIndex = 75;
+            label14.Text = "Combinaciones: Ctrl + Espacio: Separar cuenta, Alt+Q: Alternar Agregar/Eliminar Grupo";
+            // 
             // label6
             // 
             label6.AutoSize = true;
@@ -987,9 +1004,9 @@
             label6.ForeColor = SystemColors.Control;
             label6.Location = new Point(5, 334);
             label6.Name = "label6";
-            label6.Size = new Size(152, 21);
+            label6.Size = new Size(83, 21);
             label6.TabIndex = 3;
-            label6.Text = "Cantidad de Items:";
+            label6.Text = "Cantidad:";
             // 
             // detalleorden
             // 
@@ -1038,7 +1055,7 @@
             labelcantidadarticulos.AutoSize = true;
             labelcantidadarticulos.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelcantidadarticulos.ForeColor = SystemColors.Control;
-            labelcantidadarticulos.Location = new Point(161, 334);
+            labelcantidadarticulos.Location = new Point(88, 334);
             labelcantidadarticulos.Name = "labelcantidadarticulos";
             labelcantidadarticulos.Size = new Size(19, 21);
             labelcantidadarticulos.TabIndex = 3;
@@ -1047,6 +1064,7 @@
             // panel3
             // 
             panel3.BackColor = Color.FromArgb(64, 64, 64);
+            panel3.Controls.Add(panelCuentaSeparada);
             panel3.Controls.Add(separarcuenta);
             panel3.Controls.Add(bajarproductobtn);
             panel3.Controls.Add(buscarproductobtn);
@@ -1060,22 +1078,57 @@
             panel3.Size = new Size(793, 50);
             panel3.TabIndex = 0;
             // 
+            // panelCuentaSeparada
+            // 
+            panelCuentaSeparada.BackColor = Color.Gray;
+            panelCuentaSeparada.Controls.Add(grupoCuenta);
+            panelCuentaSeparada.Controls.Add(nuevoGrupo);
+            panelCuentaSeparada.Enabled = false;
+            panelCuentaSeparada.Location = new Point(660, 5);
+            panelCuentaSeparada.Name = "panelCuentaSeparada";
+            panelCuentaSeparada.Size = new Size(128, 41);
+            panelCuentaSeparada.TabIndex = 4;
+            // 
+            // grupoCuenta
+            // 
+            grupoCuenta.BackColor = SystemColors.ActiveCaption;
+            grupoCuenta.DropDownStyle = ComboBoxStyle.DropDownList;
+            grupoCuenta.FormattingEnabled = true;
+            grupoCuenta.Location = new Point(5, 6);
+            grupoCuenta.Name = "grupoCuenta";
+            grupoCuenta.Size = new Size(87, 29);
+            grupoCuenta.TabIndex = 3;
+            // 
+            // nuevoGrupo
+            // 
+            nuevoGrupo.BackColor = SystemColors.ActiveCaption;
+            nuevoGrupo.Image = Properties.Resources.mas;
+            nuevoGrupo.Location = new Point(96, 6);
+            nuevoGrupo.Name = "nuevoGrupo";
+            nuevoGrupo.Size = new Size(29, 29);
+            nuevoGrupo.TabIndex = 2;
+            toolTip1.SetToolTip(nuevoGrupo, "Grupo Nuevo");
+            nuevoGrupo.UseVisualStyleBackColor = false;
+            nuevoGrupo.Click += nuevoGrupo_Click;
+            // 
             // separarcuenta
             // 
+            separarcuenta.BackColor = Color.White;
             separarcuenta.Enabled = false;
             separarcuenta.Image = Properties.Resources.separar_flecha;
-            separarcuenta.Location = new Point(751, 11);
+            separarcuenta.Location = new Point(625, 11);
             separarcuenta.Name = "separarcuenta";
             separarcuenta.Size = new Size(29, 29);
             separarcuenta.TabIndex = 2;
             toolTip1.SetToolTip(separarcuenta, "Separar Cuenta");
-            separarcuenta.UseVisualStyleBackColor = true;
+            separarcuenta.UseVisualStyleBackColor = false;
+            separarcuenta.Click += separarcuenta_Click;
             // 
             // bajarproductobtn
             // 
             bajarproductobtn.Enabled = false;
             bajarproductobtn.Image = Properties.Resources.mas;
-            bajarproductobtn.Location = new Point(717, 11);
+            bajarproductobtn.Location = new Point(592, 11);
             bajarproductobtn.Name = "bajarproductobtn";
             bajarproductobtn.Size = new Size(29, 29);
             bajarproductobtn.TabIndex = 2;
@@ -1087,7 +1140,7 @@
             // 
             buscarproductobtn.Enabled = false;
             buscarproductobtn.Image = Properties.Resources.carrito_de_compras;
-            buscarproductobtn.Location = new Point(12, 11);
+            buscarproductobtn.Location = new Point(6, 11);
             buscarproductobtn.Name = "buscarproductobtn";
             buscarproductobtn.Size = new Size(29, 29);
             buscarproductobtn.TabIndex = 2;
@@ -1098,11 +1151,11 @@
             // numCantidad
             // 
             numCantidad.Enabled = false;
-            numCantidad.Location = new Point(631, 11);
+            numCantidad.Location = new Point(512, 11);
             numCantidad.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
             numCantidad.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numCantidad.Name = "numCantidad";
-            numCantidad.Size = new Size(81, 29);
+            numCantidad.Size = new Size(76, 29);
             numCantidad.TabIndex = 1;
             numCantidad.Value = new decimal(new int[] { 1, 0, 0, 0 });
             numCantidad.KeyPress += numCantidad_KeyPress;
@@ -1110,42 +1163,41 @@
             // txtnombreproducto
             // 
             txtnombreproducto.Enabled = false;
-            txtnombreproducto.Location = new Point(138, 11);
+            txtnombreproducto.Location = new Point(107, 11);
             txtnombreproducto.Name = "txtnombreproducto";
             txtnombreproducto.PlaceholderText = "Nombre";
-            txtnombreproducto.Size = new Size(321, 29);
+            txtnombreproducto.Size = new Size(257, 29);
             txtnombreproducto.TabIndex = 0;
             // 
             // txtiva
             // 
             txtiva.Enabled = false;
-            txtiva.Location = new Point(575, 11);
+            txtiva.Location = new Point(462, 11);
             txtiva.Name = "txtiva";
             txtiva.PlaceholderText = "ITBIS";
-            txtiva.Size = new Size(51, 29);
+            txtiva.Size = new Size(46, 29);
             txtiva.TabIndex = 0;
             // 
             // txtprecioproducto
             // 
-            txtprecioproducto.Location = new Point(464, 11);
+            txtprecioproducto.Location = new Point(368, 11);
             txtprecioproducto.Name = "txtprecioproducto";
             txtprecioproducto.PlaceholderText = "Precio";
-            txtprecioproducto.Size = new Size(106, 29);
+            txtprecioproducto.Size = new Size(90, 29);
             txtprecioproducto.TabIndex = 0;
             // 
             // txtcodigoproducto
             // 
             txtcodigoproducto.Enabled = false;
-            txtcodigoproducto.Location = new Point(46, 11);
+            txtcodigoproducto.Location = new Point(39, 11);
             txtcodigoproducto.Name = "txtcodigoproducto";
             txtcodigoproducto.PlaceholderText = "ID";
-            txtcodigoproducto.Size = new Size(87, 29);
+            txtcodigoproducto.Size = new Size(64, 29);
             txtcodigoproducto.TabIndex = 0;
             // 
             // panel4
             // 
             panel4.BackColor = SystemColors.WindowFrame;
-            panel4.Controls.Add(Volver);
             panel4.Controls.Add(labelcaja);
             panel4.Controls.Add(panel9);
             panel4.Controls.Add(fechapedido);
@@ -1156,19 +1208,6 @@
             panel4.Name = "panel4";
             panel4.Size = new Size(281, 179);
             panel4.TabIndex = 0;
-            // 
-            // Volver
-            // 
-            Volver.Image = Properties.Resources.atrás;
-            Volver.ImageAlign = ContentAlignment.MiddleLeft;
-            Volver.Location = new Point(179, 3);
-            Volver.Name = "Volver";
-            Volver.Size = new Size(97, 29);
-            Volver.TabIndex = 27;
-            Volver.Text = " Volver";
-            Volver.TextAlign = ContentAlignment.MiddleRight;
-            Volver.UseVisualStyleBackColor = true;
-            Volver.Click += Volver_Click;
             // 
             // labelcaja
             // 
@@ -1288,7 +1327,8 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(64, 64, 64);
-            panel1.Controls.Add(direcciontxt);
+            panel1.Controls.Add(tipodoccmbx);
+            panel1.Controls.Add(rnc);
             panel1.Controls.Add(numerotxt);
             panel1.Controls.Add(pictureBox2);
             panel1.Controls.Add(pictureBox1);
@@ -1306,29 +1346,42 @@
             panel1.Size = new Size(509, 179);
             panel1.TabIndex = 0;
             // 
-            // direcciontxt
+            // tipodoccmbx
             // 
-            direcciontxt.CharacterCasing = CharacterCasing.Upper;
-            direcciontxt.Location = new Point(254, 102);
-            direcciontxt.Name = "direcciontxt";
-            direcciontxt.PlaceholderText = "Dirección";
-            direcciontxt.Size = new Size(246, 29);
-            direcciontxt.TabIndex = 0;
+            tipodoccmbx.BackColor = SystemColors.ActiveCaption;
+            tipodoccmbx.DropDownStyle = ComboBoxStyle.DropDownList;
+            tipodoccmbx.FormattingEnabled = true;
+            tipodoccmbx.Items.AddRange(new object[] { "RNC", "Cédula" });
+            tipodoccmbx.Location = new Point(46, 103);
+            tipodoccmbx.Name = "tipodoccmbx";
+            tipodoccmbx.Size = new Size(77, 29);
+            tipodoccmbx.TabIndex = 3;
+            tipodoccmbx.SelectedIndexChanged += tipodoccmbx_SelectedIndexChanged;
+            // 
+            // rnc
+            // 
+            rnc.CharacterCasing = CharacterCasing.Upper;
+            rnc.Location = new Point(127, 103);
+            rnc.Name = "rnc";
+            rnc.PlaceholderText = "RNC/Cédula";
+            rnc.Size = new Size(154, 29);
+            rnc.TabIndex = 0;
+            rnc.TextChanged += rnc_TextChanged;
             // 
             // numerotxt
             // 
-            numerotxt.Location = new Point(46, 102);
+            numerotxt.Location = new Point(321, 68);
             numerotxt.Name = "numerotxt";
-            numerotxt.PlaceholderText = "Numero de telefono";
-            numerotxt.Size = new Size(163, 29);
+            numerotxt.PlaceholderText = "Teléfono (Opcional)";
+            numerotxt.Size = new Size(179, 29);
             numerotxt.TabIndex = 0;
             numerotxt.TextChanged += numerotxt_TextChanged;
             // 
             // pictureBox2
             // 
             pictureBox2.BackColor = SystemColors.Window;
-            pictureBox2.Image = Properties.Resources.marcador;
-            pictureBox2.Location = new Point(222, 102);
+            pictureBox2.Image = Properties.Resources.cedula;
+            pictureBox2.Location = new Point(12, 103);
             pictureBox2.Margin = new Padding(3, 2, 3, 2);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(27, 29);
@@ -1340,7 +1393,7 @@
             // 
             pictureBox1.BackColor = SystemColors.Window;
             pictureBox1.Image = Properties.Resources.telefono;
-            pictureBox1.Location = new Point(12, 102);
+            pictureBox1.Location = new Point(289, 68);
             pictureBox1.Margin = new Padding(3, 2, 3, 2);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(27, 29);
@@ -1399,7 +1452,7 @@
             idclientetxt.Location = new Point(46, 68);
             idclientetxt.Name = "idclientetxt";
             idclientetxt.PlaceholderText = "ID";
-            idclientetxt.Size = new Size(45, 29);
+            idclientetxt.Size = new Size(29, 29);
             idclientetxt.TabIndex = 0;
             idclientetxt.Text = "1";
             // 
@@ -1414,10 +1467,10 @@
             // txtnombrecompleto
             // 
             txtnombrecompleto.CharacterCasing = CharacterCasing.Upper;
-            txtnombrecompleto.Location = new Point(94, 68);
+            txtnombrecompleto.Location = new Point(80, 68);
             txtnombrecompleto.Name = "txtnombrecompleto";
             txtnombrecompleto.PlaceholderText = "Nombre del cliente";
-            txtnombrecompleto.Size = new Size(406, 29);
+            txtnombrecompleto.Size = new Size(201, 29);
             txtnombrecompleto.TabIndex = 0;
             txtnombrecompleto.Text = "AL CONTADO";
             txtnombrecompleto.TextChanged += txtnombrecompleto_TextChanged;
@@ -2119,7 +2172,7 @@
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label8.ForeColor = SystemColors.Control;
-            label8.Location = new Point(6, 9);
+            label8.Location = new Point(6, 12);
             label8.Name = "label8";
             label8.Size = new Size(53, 21);
             label8.TabIndex = 9;
@@ -2130,7 +2183,7 @@
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label9.ForeColor = SystemColors.Control;
-            label9.Location = new Point(6, 39);
+            label9.Location = new Point(6, 42);
             label9.Name = "label9";
             label9.Size = new Size(33, 21);
             label9.TabIndex = 10;
@@ -2139,7 +2192,7 @@
             // fecini
             // 
             fecini.Format = DateTimePickerFormat.Short;
-            fecini.Location = new Point(64, 5);
+            fecini.Location = new Point(64, 8);
             fecini.Name = "fecini";
             fecini.Size = new Size(123, 29);
             fecini.TabIndex = 7;
@@ -2147,7 +2200,7 @@
             // fecfin
             // 
             fecfin.Format = DateTimePickerFormat.Short;
-            fecfin.Location = new Point(64, 35);
+            fecfin.Location = new Point(64, 38);
             fecfin.Name = "fecfin";
             fecfin.Size = new Size(123, 29);
             fecfin.TabIndex = 8;
@@ -2192,6 +2245,7 @@
             buscar.Text = "Buscar";
             buscar.TextAlign = ContentAlignment.MiddleLeft;
             buscar.UseVisualStyleBackColor = false;
+            buscar.Click += buscar_Click;
             // 
             // facturarbtn
             // 
@@ -2356,6 +2410,7 @@
             ((System.ComponentModel.ISupportInitialize)detalleorden).EndInit();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
+            panelCuentaSeparada.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)numCantidad).EndInit();
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
@@ -2469,8 +2524,6 @@
         private DateTimePicker fecfin;
         private Label label21;
         private TextBox idclientetxt;
-        private TextBox direcciontxt;
-        private PictureBox pictureBox2;
         private Panel panel10;
         private Panel detallepanelcompleto;
         private Panel detallepagopanel;
@@ -2552,7 +2605,6 @@
         private Button SepararMesa;
         private Label label22;
         private Panel panel15;
-        private Button Volver;
         private Label label35;
         private Panel panel19;
         private Panel panel18;
@@ -2578,5 +2630,12 @@
         private Label label39;
         private Label label38;
         private Button buscar;
+        private ComboBox grupoCuenta;
+        private Button nuevoGrupo;
+        private Panel panelCuentaSeparada;
+        private Label label14;
+        private TextBox rnc;
+        private PictureBox pictureBox2;
+        private ComboBox tipodoccmbx;
     }
 }

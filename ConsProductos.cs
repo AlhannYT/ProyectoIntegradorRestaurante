@@ -196,7 +196,17 @@ namespace Proyecto_restaurante
 
                 using (SqlConnection conexion = new SqlConnection(conexionString))
                 {
-                    string consulta = "SELECT \r\n    PV.IdProducto,\r\n    PV.Nombre,\r\n    UM.Nombre as Medida\r\nFROM ProductoVenta PV\r\nINNER JOIN ProductoTipo PT\r\n    ON PV.IdProductoTipo = PT.IdProductoTipo\r\nINNER JOIN UnidadMedida UM\r\n    ON PV.IdUnidadMedida = UM.IdUnidadMedida\r\nWHERE PT.Ingrediente = 1;";
+                    string consulta = @"
+                    SELECT
+                        PV.IdProducto,
+                        PV.Nombre,
+                        UM.Nombre as Medida
+                    FROM ProductoVenta PV
+                    INNER JOIN ProductoTipo PT
+                    ON PV.IdProductoTipo = PT.IdProductoTipo
+                    INNER JOIN UnidadMedida UM
+                    ON PV.IdUnidadMedida = UM.IdUnidadMedida
+                    WHERE PT.Ingrediente = 1;";
                     SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
                     DataTable dt = new DataTable();
                     adaptador.Fill(dt);
@@ -604,6 +614,8 @@ namespace Proyecto_restaurante
             idprodreceta.Text = ingredientesconsulta.SelectedCells[0].Value.ToString();
             nombreprodreceta.Text = ingredientesconsulta.SelectedCells[1].Value.ToString();
             unimedidareceta.Text = ingredientesconsulta.SelectedCells[2].Value.ToString();
+
+            numCantidad.Focus();
         }
 
         private void agregarbtn_Click(object sender, EventArgs e)

@@ -237,6 +237,7 @@
             nuevaOrden.Text = "Nueva Orden";
             nuevaOrden.TextAlign = ContentAlignment.BottomCenter;
             nuevaOrden.UseVisualStyleBackColor = true;
+            nuevaOrden.Click += nuevaOrden_Click;
             // 
             // comandaVer
             // 
