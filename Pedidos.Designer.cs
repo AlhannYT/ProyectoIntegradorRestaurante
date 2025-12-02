@@ -1367,10 +1367,11 @@
             rnc.Size = new Size(154, 29);
             rnc.TabIndex = 0;
             rnc.TextChanged += rnc_TextChanged;
+            rnc.KeyPress += rnc_KeyPress;
             // 
             // numerotxt
             // 
-            numerotxt.Location = new Point(321, 68);
+            numerotxt.Location = new Point(321, 103);
             numerotxt.Name = "numerotxt";
             numerotxt.PlaceholderText = "Teléfono (Opcional)";
             numerotxt.Size = new Size(179, 29);
@@ -1388,12 +1389,13 @@
             pictureBox2.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox2.TabIndex = 4;
             pictureBox2.TabStop = false;
+            toolTip1.SetToolTip(pictureBox2, "Doc. Identificación.");
             // 
             // pictureBox1
             // 
             pictureBox1.BackColor = SystemColors.Window;
             pictureBox1.Image = Properties.Resources.telefono;
-            pictureBox1.Location = new Point(289, 68);
+            pictureBox1.Location = new Point(289, 103);
             pictureBox1.Margin = new Padding(3, 2, 3, 2);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(27, 29);
@@ -1470,7 +1472,7 @@
             txtnombrecompleto.Location = new Point(80, 68);
             txtnombrecompleto.Name = "txtnombrecompleto";
             txtnombrecompleto.PlaceholderText = "Nombre del cliente";
-            txtnombrecompleto.Size = new Size(201, 29);
+            txtnombrecompleto.Size = new Size(420, 29);
             txtnombrecompleto.TabIndex = 0;
             txtnombrecompleto.Text = "AL CONTADO";
             txtnombrecompleto.TextChanged += txtnombrecompleto_TextChanged;

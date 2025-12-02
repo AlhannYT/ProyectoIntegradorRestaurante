@@ -2034,7 +2034,7 @@ namespace Proyecto_restaurante
                     {
                         int fila = detalleorden.Rows.Add();
 
-                        detalleorden.Rows[fila].Cells["cuenta"].Value = dr["Grupo"];
+                        detalleorden.Rows[fila].Cells["cuenta"].Value = dr["Cuenta"];
                         detalleorden.Rows[fila].Cells["codigoProducto"].Value = dr["IdProducto"];
                         detalleorden.Rows[fila].Cells["nombreProducto"].Value = dr["Nombre"];
                         detalleorden.Rows[fila].Cells["precio"].Value = dr["PrecioUnitario"];
@@ -2402,9 +2402,9 @@ namespace Proyecto_restaurante
             if (tipodoccmbx.SelectedIndex == 0)
             {
                 string posicion = rnc.Text; posicion = posicion.Replace("-", "");
-                if (posicion.Length > 10)
+                if (posicion.Length > 11)
                 {
-                    posicion = posicion.Substring(0, 10);
+                    posicion = posicion.Substring(0, 11);
                 }
                 if (posicion.Length > 3)
                 {
@@ -2438,6 +2438,128 @@ namespace Proyecto_restaurante
         private void tipodoccmbx_SelectedIndexChanged(object sender, EventArgs e)
         {
             rnc.Clear();
+        }
+
+        private void rnc_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true;
+                BuscarRNC();
+            }
+        }
+
+        private void BuscarRNC()
+        {
+            string rncDigitado = rnc.Text.Replace("-", "").Trim();
+
+            if (rncDigitado.Length == 0)
+                return;
+
+            bool encontrado = BuscarEnArchivoDGII(rncDigitado);
+
+            if (!encontrado)
+            {
+                BuscarRNCenSQL(rncDigitado);
+            }
+        }
+
+        private bool BuscarEnArchivoDGII(string rnc)
+        {
+            string archivoDGII = @"C:\SistemaArchivos\DGIITXT\DGII_RNC.TXT";
+
+            if (!File.Exists(archivoDGII))
+                return false;
+
+            try
+            {
+                using (StreamReader sr = new StreamReader(archivoDGII))
+                {
+                    string linea;
+
+                    while ((linea = sr.ReadLine()) != null)
+                    {
+                        if (linea.StartsWith(rnc + "|"))
+                        {
+                            string[] partes = linea.Split('|');
+
+                            if (partes.Length < 3)
+                                return false;
+
+                            string nombre = partes[1].Trim();
+                            string estado = partes[partes.Length - 2].Trim().ToUpper();
+
+                            if (estado == "ACTIVO")
+                            {
+                                txtnombrecompleto.Text = nombre;
+                                numerotxt.Text = "";
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                return false;
+            }
+
+            return false;
+        }
+
+        private void BuscarRNCenSQL(string rnc)
+        {
+            string conexionString = ConexionBD.ConexionSQL();
+
+            try
+            {
+                using (SqlConnection conexion = new SqlConnection(conexionString))
+                {
+                    conexion.Open();
+
+                    string query = @"
+                    SELECT TOP 1 
+                        p.IdPersona,
+                        p.Nombre,
+                        p.Apellido,
+                        (p.Nombre + ' ' + p.Apellido) AS NombreCompleto,
+                        t.Numero AS TelefonoPrincipal
+                    FROM Persona p
+                    INNER JOIN PersonaDocumento d ON p.IdPersona = d.IdPersona
+                    OUTER APPLY (
+                        SELECT TOP 1 Numero 
+                        FROM PersonaTelefono 
+                        WHERE IdPersona = p.IdPersona AND EsPrincipal = 1
+                    ) t
+                    WHERE REPLACE(d.Numero, '-', '') = @RNC
+                      AND d.IdTipoDocumento = 1;";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conexion))
+                    {
+                        cmd.Parameters.AddWithValue("@RNC", rnc);
+
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            if (dr.Read())
+                            {
+                                txtnombrecompleto.Text = dr["NombreCompleto"].ToString();
+                                numerotxt.Text = dr["TelefonoPrincipal"]?.ToString() ?? "";
+
+                                return;
+                            }
+                        }
+                    }
+                }
+
+            }
+            catch
+            {
+                
+            }
         }
     }
 }

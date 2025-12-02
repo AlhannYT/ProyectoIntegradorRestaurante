@@ -552,6 +552,7 @@
             reportesbtn.Text = "Reportes";
             reportesbtn.TextAlign = ContentAlignment.MiddleLeft;
             reportesbtn.UseVisualStyleBackColor = true;
+            reportesbtn.Click += reportesbtn_Click;
             // 
             // button1
             // 

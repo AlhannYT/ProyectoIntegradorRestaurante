@@ -32,6 +32,10 @@ namespace Proyecto_restaurante
         public int PersonaID;
         public int PermisosUsuarioID;
 
+        string rutaOrigen = @"";
+
+        string rutaDestino = @"C:\SistemaArchivos\DGIITXT\";
+
         private void guardatbtn_Click(object sender, EventArgs e)
         {
             string conexionString = ConexionBD.ConexionSQL();
@@ -175,7 +179,7 @@ namespace Proyecto_restaurante
 
         private void recargarbtn_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void Configuracion_Load(object sender, EventArgs e)
@@ -545,6 +549,8 @@ namespace Proyecto_restaurante
             colores.Visible = false;
             permisospanel.Visible = false;
             sistemaconfiguracion.Visible = false;
+            DGIIPanel.Visible = false;
+            datosPanel.Visible = false;
         }
 
         private void agregar_Click_1(object sender, EventArgs e)
@@ -763,10 +769,65 @@ namespace Proyecto_restaurante
             sistemaconfiguracion.Visible = true;
         }
 
-        private void tabPage1_Click(object sender, EventArgs e)
+        private void buscarArchivo_Click(object sender, EventArgs e)
         {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Title = "Seleccionar archivo DGII";
+            ofd.Filter = "Archivos TXT (*.txt)|*.txt";
+            ofd.InitialDirectory = @"C:\";
 
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                rutaOrigentxt.Text = "Ruta Origen: " + ofd.FileName;
+                rutaOrigen = ofd.FileName;
+            }
+        }
+
+        private void archivoDGII_Click(object sender, EventArgs e)
+        {
+            DGIIPanel.Location = new Point(221, 4);
+            DGIIPanel.BringToFront();
+            DGIIPanel.Visible = true;
+        }
+
+        private void ImportarArchivo_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string origen = rutaOrigen;
+
+                string destinoCarpeta = rutaDestino;
+
+                if (string.IsNullOrWhiteSpace(origen) || !File.Exists(origen))
+                {
+                    MessageBox.Show("Debe seleccionar un archivo válido.", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (!Directory.Exists(destinoCarpeta))
+                    Directory.CreateDirectory(destinoCarpeta);
+
+                string nombreArchivo = Path.GetFileName(origen);
+                string destinoCompleto = Path.Combine(destinoCarpeta, nombreArchivo);
+
+                File.Copy(origen, destinoCompleto, true);
+
+                MessageBox.Show("Archivo copiado correctamente.", "Éxito",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al copiar el archivo: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void datosRestaurante_Click(object sender, EventArgs e)
+        {
+            datosPanel.Location = new Point(221, 4);
+            datosPanel.BringToFront();
+            datosPanel.Visible = true;
         }
     }
 }
-
