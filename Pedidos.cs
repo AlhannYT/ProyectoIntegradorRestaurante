@@ -224,7 +224,6 @@ namespace Proyecto_restaurante
 
                         idPedidoGenerado = Convert.ToInt32(cmdPedido.ExecuteScalar());
                     }
-
                     else if (EditarEstado == 1)
                     {
                         idPedidoGenerado = PedidoID;

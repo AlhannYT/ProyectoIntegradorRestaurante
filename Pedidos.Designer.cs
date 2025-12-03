@@ -282,7 +282,7 @@
             tabPage6.Controls.Add(panel6);
             tabPage6.Location = new Point(4, 30);
             tabPage6.Name = "tabPage6";
-            tabPage6.Size = new Size(804, 608);
+            tabPage6.Size = new Size(1732, 608);
             tabPage6.TabIndex = 2;
             tabPage6.Text = "Mesas";
             // 
@@ -825,7 +825,7 @@
             tabPage1.Location = new Point(4, 30);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(804, 608);
+            tabPage1.Size = new Size(1732, 608);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Ordenar";
             // 
