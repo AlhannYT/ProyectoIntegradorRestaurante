@@ -99,6 +99,7 @@
             label17 = new Label();
             tablapanelproducto = new DataGridView();
             panel2 = new Panel();
+            eliminarFila = new Button();
             label14 = new Label();
             label6 = new Label();
             detalleorden = new DataGridView();
@@ -402,14 +403,14 @@
             autorizacionpanel.Controls.Add(label38);
             autorizacionpanel.Location = new Point(807, 5);
             autorizacionpanel.Name = "autorizacionpanel";
-            autorizacionpanel.Size = new Size(606, 500);
+            autorizacionpanel.Size = new Size(606, 507);
             autorizacionpanel.TabIndex = 12;
             autorizacionpanel.Visible = false;
             // 
             // contraimagen
             // 
             contraimagen.Image = Properties.Resources.clave;
-            contraimagen.Location = new Point(194, 245);
+            contraimagen.Location = new Point(194, 248);
             contraimagen.Name = "contraimagen";
             contraimagen.Size = new Size(22, 28);
             contraimagen.SizeMode = PictureBoxSizeMode.Zoom;
@@ -419,7 +420,7 @@
             // usuarioimagen
             // 
             usuarioimagen.Image = Properties.Resources.persona2;
-            usuarioimagen.Location = new Point(194, 203);
+            usuarioimagen.Location = new Point(194, 206);
             usuarioimagen.Name = "usuarioimagen";
             usuarioimagen.Size = new Size(22, 28);
             usuarioimagen.SizeMode = PictureBoxSizeMode.Zoom;
@@ -433,7 +434,7 @@
             passView.FlatStyle = FlatStyle.Flat;
             passView.ForeColor = SystemColors.Window;
             passView.Image = Properties.Resources.ojo;
-            passView.Location = new Point(383, 246);
+            passView.Location = new Point(383, 249);
             passView.Name = "passView";
             passView.Size = new Size(28, 25);
             passView.TabIndex = 18;
@@ -443,7 +444,7 @@
             // 
             cancelarAutorizar.Image = Properties.Resources.cancelar1;
             cancelarAutorizar.ImageAlign = ContentAlignment.MiddleLeft;
-            cancelarAutorizar.Location = new Point(308, 298);
+            cancelarAutorizar.Location = new Point(308, 301);
             cancelarAutorizar.Name = "cancelarAutorizar";
             cancelarAutorizar.Size = new Size(104, 29);
             cancelarAutorizar.TabIndex = 17;
@@ -455,7 +456,7 @@
             // 
             autorizar.Image = Properties.Resources.llave__1_;
             autorizar.ImageAlign = ContentAlignment.MiddleLeft;
-            autorizar.Location = new Point(194, 298);
+            autorizar.Location = new Point(194, 301);
             autorizar.Name = "autorizar";
             autorizar.Size = new Size(104, 29);
             autorizar.TabIndex = 17;
@@ -466,7 +467,7 @@
             // txtpass
             // 
             txtpass.CharacterCasing = CharacterCasing.Upper;
-            txtpass.Location = new Point(219, 244);
+            txtpass.Location = new Point(219, 247);
             txtpass.Name = "txtpass";
             txtpass.PlaceholderText = "Contraseña";
             txtpass.Size = new Size(193, 29);
@@ -476,7 +477,7 @@
             // txtusuario
             // 
             txtusuario.CharacterCasing = CharacterCasing.Upper;
-            txtusuario.Location = new Point(219, 202);
+            txtusuario.Location = new Point(219, 205);
             txtusuario.Name = "txtusuario";
             txtusuario.PlaceholderText = "Usuario";
             txtusuario.Size = new Size(193, 29);
@@ -501,7 +502,7 @@
             label38.AutoSize = true;
             label38.Font = new Font("Segoe UI", 12F);
             label38.ForeColor = SystemColors.Control;
-            label38.Location = new Point(194, 173);
+            label38.Location = new Point(194, 176);
             label38.Name = "label38";
             label38.Size = new Size(100, 21);
             label38.TabIndex = 3;
@@ -517,7 +518,7 @@
             bloqueomesas.Controls.Add(label36);
             bloqueomesas.Location = new Point(807, 491);
             bloqueomesas.Name = "bloqueomesas";
-            bloqueomesas.Size = new Size(606, 500);
+            bloqueomesas.Size = new Size(606, 507);
             bloqueomesas.TabIndex = 12;
             bloqueomesas.Visible = false;
             // 
@@ -548,7 +549,7 @@
             // pictureBox4
             // 
             pictureBox4.Image = Properties.Resources.bloqueado;
-            pictureBox4.Location = new Point(251, 235);
+            pictureBox4.Location = new Point(251, 238);
             pictureBox4.Name = "pictureBox4";
             pictureBox4.Size = new Size(100, 118);
             pictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
@@ -560,7 +561,7 @@
             label36.AutoSize = true;
             label36.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label36.ForeColor = SystemColors.Control;
-            label36.Location = new Point(147, 148);
+            label36.Location = new Point(147, 151);
             label36.Name = "label36";
             label36.Size = new Size(313, 64);
             label36.TabIndex = 3;
@@ -680,9 +681,9 @@
             // panel15
             // 
             panel15.Controls.Add(label22);
-            panel15.Location = new Point(614, 394);
+            panel15.Location = new Point(614, 397);
             panel15.Name = "panel15";
-            panel15.Size = new Size(178, 101);
+            panel15.Size = new Size(178, 97);
             panel15.TabIndex = 72;
             // 
             // label22
@@ -690,7 +691,7 @@
             label22.AutoSize = true;
             label22.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label22.ForeColor = SystemColors.Control;
-            label22.Location = new Point(29, 64);
+            label22.Location = new Point(29, 62);
             label22.Name = "label22";
             label22.Size = new Size(120, 32);
             label22.TabIndex = 3;
@@ -735,6 +736,7 @@
             ordenesNotif.SizeMode = PictureBoxSizeMode.Zoom;
             ordenesNotif.TabIndex = 77;
             ordenesNotif.TabStop = false;
+            toolTip1.SetToolTip(ordenesNotif, "Ordenes sin entregar");
             ordenesNotif.Visible = false;
             // 
             // SepararMesa
@@ -953,7 +955,7 @@
             tabPage1.Location = new Point(4, 30);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(2161, 637);
+            tabPage1.Size = new Size(804, 637);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Ordenar";
             // 
@@ -1103,6 +1105,7 @@
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(64, 64, 64);
+            panel2.Controls.Add(eliminarFila);
             panel2.Controls.Add(label14);
             panel2.Controls.Add(label6);
             panel2.Controls.Add(detalleorden);
@@ -1113,6 +1116,18 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(793, 361);
             panel2.TabIndex = 1;
+            // 
+            // eliminarFila
+            // 
+            eliminarFila.BackColor = Color.Red;
+            eliminarFila.Enabled = false;
+            eliminarFila.Image = Properties.Resources.basurablanco;
+            eliminarFila.Location = new Point(6, 3);
+            eliminarFila.Name = "eliminarFila";
+            eliminarFila.Size = new Size(29, 29);
+            eliminarFila.TabIndex = 78;
+            eliminarFila.UseVisualStyleBackColor = false;
+            eliminarFila.Click += eliminarFila_Click;
             // 
             // label14
             // 
@@ -1346,9 +1361,9 @@
             tipoComp.DropDownStyle = ComboBoxStyle.DropDownList;
             tipoComp.FormattingEnabled = true;
             tipoComp.Items.AddRange(new object[] { "B01", "B02" });
-            tipoComp.Location = new Point(121, 5);
+            tipoComp.Location = new Point(119, 5);
             tipoComp.Name = "tipoComp";
-            tipoComp.Size = new Size(52, 29);
+            tipoComp.Size = new Size(50, 29);
             tipoComp.TabIndex = 3;
             tipoComp.SelectedIndexChanged += tipoComp_SelectedIndexChanged;
             // 
@@ -1481,10 +1496,11 @@
             // Comprobantetxt
             // 
             Comprobantetxt.Enabled = false;
-            Comprobantetxt.Location = new Point(176, 5);
+            Comprobantetxt.Location = new Point(170, 5);
             Comprobantetxt.Name = "Comprobantetxt";
-            Comprobantetxt.Size = new Size(99, 29);
+            Comprobantetxt.Size = new Size(105, 29);
             Comprobantetxt.TabIndex = 0;
+            Comprobantetxt.TextAlign = HorizontalAlignment.Right;
             // 
             // panel1
             // 
@@ -1696,7 +1712,7 @@
             tabPage2.Location = new Point(4, 30);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(2161, 637);
+            tabPage2.Size = new Size(804, 637);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Facturas";
             // 
@@ -2816,5 +2832,6 @@
         private FlowLayoutPanel flowComanda;
         private Button salirComanda;
         private PictureBox ordenesNotif;
+        private Button eliminarFila;
     }
 }

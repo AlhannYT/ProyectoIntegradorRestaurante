@@ -29,12 +29,14 @@ namespace Proyecto_restaurante
         string conexionString = ConexionBD.ConexionSQL();
 
         public string usuarioActual;
+        public int IdUsuarioActual;
         string nombrePC = Environment.MachineName;
         public int administrador;
         public int estadobarra = 1;
         public int sistemas = 0;
 
         [DllImport("user32.dll")]
+
         private static extern IntPtr SendMessage(IntPtr hWnd, int msg, int wParam, int lParam);
 
         const int WM_LBUTTONDOWN = 0x0201;
@@ -207,7 +209,8 @@ namespace Proyecto_restaurante
             Pedidos pedidos = new Pedidos();
             pedidos.NombrePC = nombrePC;
             pedidos.NombreUsuario = usuarioActual;
-            pedidos.Location = new Point(200, 50); ;
+            pedidos.IdUsuario = IdUsuarioActual;
+            pedidos.Location = new Point(200, 50);
             pedidos.MdiParent = this;
             pedidos.Show();
         }

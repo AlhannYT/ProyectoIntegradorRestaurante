@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
+using PdfSharp.Snippets.Drawing;
 
 namespace Proyecto_restaurante
 {
@@ -26,6 +27,7 @@ namespace Proyecto_restaurante
         private string pedidoActual;
         public string NombrePC;
         public string NombreUsuario;
+        public int IdUsuario = 0;
         private int Autorizar = 0;
         private int IDMesa = 0;
         private int idMesaSeleccionada = 0;
@@ -36,6 +38,7 @@ namespace Proyecto_restaurante
         private int CuentaSeparada = 0;
         private int ModoElminar = 0;
         private int OrdenGrupo = 0;
+        public int EliminarFila = 0;
         private int PedidoID;
         private decimal Total;
         private int TipoPago = 0;
@@ -43,6 +46,9 @@ namespace Proyecto_restaurante
         private decimal TotalAplicado = 0m;
         private decimal totalAcumulado = 0;
         private decimal subtotalAcumulado = 0;
+        public string comprobanteFinal;
+        bool cargandoOrden = false;
+
         bool modoUnion = false;
         bool modoSeparar = false;
 
@@ -64,14 +70,17 @@ namespace Proyecto_restaurante
             panelclientes.Visible = true;
 
             string consultaCliente = @"
-                SELECT 
+            SELECT 
                 e.IdCliente,
-                p.NombreCompleto,
-                pd.Numero AS Cedula
+                p.NombreCompleto as Nombre,
+                pd.Numero AS Cedula,
+                tl.Numero AS Telefono,
+                pd.IdTipoDocumento AS TipoDoc
             FROM Cliente e
             LEFT JOIN Persona p ON e.IdPersona = p.IdPersona
             LEFT JOIN PersonaDocumento pd ON p.IdPersona = pd.IdPersona
-            WHERE e.Activo = 1 AND p.Activo = 1 and IdCliente > 1;"; //Esto es para que no traiga AL CONTADO directamente sino que traiga los demas clientes
+            LEFT JOIN PersonaTelefono tl ON p.IdPersona = tl.IdPersona AND tl.EsPrincipal = 1
+            WHERE e.Activo = 1 AND p.Activo = 1 AND e.IdCliente > 1;"; //Esto es para que no traiga AL CONTADO directamente sino que traiga los demas clientes
 
             using (SqlDataAdapter adaptador = new SqlDataAdapter(consultaCliente, conexionString))
             {
@@ -80,6 +89,10 @@ namespace Proyecto_restaurante
                 adaptador.Fill(dt);
 
                 tablaclientes.DataSource = dt;
+
+                if (tablaclientes.Columns.Contains("TipoDoc"))
+                    tablaclientes.Columns["TipoDoc"].Visible = false;
+
             }
         }
 
@@ -120,7 +133,7 @@ namespace Proyecto_restaurante
             FROM ProductoVenta pv
             INNER JOIN ProductoTipo pt
             ON pv.IdProductoTipo = pt.IdProductoTipo
-            WHERE pv.Activo = 1 AND pt.Ingrediente = 0;";
+            WHERE pv.Activo = 1 AND pt.Ingrediente = 0 OR pt.Bebida = 1;";
 
             SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexionString);
             DataTable dt = new DataTable();
@@ -162,6 +175,11 @@ namespace Proyecto_restaurante
                 separarcuenta.PerformClick();
             }
 
+            if (tabControl1.SelectedIndex == 1 && e.KeyCode == Keys.Delete)
+            {
+                eliminarFila.PerformClick();
+            }
+
             if (e.Alt && e.KeyCode == Keys.D1)
             {
                 tabControl1.SelectedIndex = 0;
@@ -200,7 +218,11 @@ namespace Proyecto_restaurante
         {
             bool commitRealizado = false;
             int idPedidoGenerado = 0;
-            string comprobanteFinal = GenerarComprobante();
+
+            if (EditarEstado == 0)
+            {
+                comprobanteFinal = GenerarComprobante();
+            }
 
             using (SqlConnection conexion = new SqlConnection(conexionString))
             {
@@ -213,11 +235,10 @@ namespace Proyecto_restaurante
                     {
                         string queryPedido = @"
                         INSERT INTO Pedido 
-                        (Fecha, IdMesa, Origen, IdClientePersona, NombreCliente, Estado, Total, Nota, Comprobante)
+                        (Fecha, IdMesa, Origen, IdClientePersona, NombreCliente, Estado, Total, Nota, Comprobante, CreadoPor)
                         VALUES 
-                        (@Fecha, @IdMesa, @Origen, @IdClientePersona, @NombreCliente, @Estado, @Total, @Nota, @Comprobante);
+                        (@Fecha, @IdMesa, @Origen, @IdClientePersona, @NombreCliente, @Estado, @Total, @Nota, @Comprobante, @Usuario);
                         SELECT SCOPE_IDENTITY();";
-
 
                         SqlCommand cmdPedido = new SqlCommand(queryPedido, conexion, transaccion);
 
@@ -230,6 +251,7 @@ namespace Proyecto_restaurante
                         cmdPedido.Parameters.AddWithValue("@Total", Convert.ToDecimal(labeltotal.Text));
                         cmdPedido.Parameters.AddWithValue("@Nota", notatxt.Text);
                         cmdPedido.Parameters.AddWithValue("@Comprobante", comprobanteFinal);
+                        cmdPedido.Parameters.AddWithValue("@Usuario", IdUsuario);
 
                         idPedidoGenerado = Convert.ToInt32(cmdPedido.ExecuteScalar());
 
@@ -246,8 +268,7 @@ namespace Proyecto_restaurante
                             IdClientePersona = @IdClientePersona,
                             NombreCliente = @NombreCliente,
                             Total = @Total,
-                            Nota = @Nota,
-                            Comprobante = @Comprobante
+                            Nota = @Nota
                         WHERE IdPedido = @IdPedido";
 
                         SqlCommand cmdUpdate = new SqlCommand(queryUpdatePedido, conexion, transaccion);
@@ -391,6 +412,7 @@ namespace Proyecto_restaurante
             nota.Enabled = true;
             guardarordenbtn.Enabled = true;
             separarcuenta.Enabled = true;
+            eliminarFila.Enabled = true;
         }
 
         private void tablapanelproducto_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -414,10 +436,32 @@ namespace Proyecto_restaurante
         {
             if (e.RowIndex >= 0)
             {
-                DataGridViewRow row = tablaclientes.Rows[e.RowIndex];
+                idclientetxt.Clear();
+                txtnombrecompleto.Clear();
+                rnc.Clear();
+                numerotxt.Clear();
 
-                string nombreCompleto = row.Cells["NombreCompleto"].Value.ToString();
+                DataGridViewRow row = tablaclientes.Rows[e.RowIndex];
+                string idCLiente = row.Cells["IdCliente"].Value.ToString();
+                string nombreCompleto = row.Cells["Nombre"].Value.ToString();
+                string CedulaCliente = row.Cells["Cedula"].Value.ToString();
+                string telefono = row.Cells["Telefono"].Value.ToString();
+
+                idclientetxt.Text = idCLiente;
                 txtnombrecompleto.Text = nombreCompleto;
+                rnc.Text = CedulaCliente;
+                numerotxt.Text = telefono;
+
+                int tipoDoc = Convert.ToInt32(tablaclientes.CurrentRow.Cells["TipoDoc"].Value);
+
+                if (tipoDoc == 1)
+                {
+                    tipodoccmbx.SelectedIndex = 1;
+                }
+                else if (tipoDoc == 5) //Por alguna razón el RNC está como 5 en la base de datos
+                {
+                    tipodoccmbx.SelectedIndex = 0;
+                }
             }
 
             panelclientes.Visible = false;
@@ -649,7 +693,8 @@ namespace Proyecto_restaurante
 
             cajerolabel.Text = "     Cajero: " + NombreUsuario;
 
-            tipoComp.SelectedIndex = 1;
+            if (!cargandoOrden)
+                tipoComp.SelectedIndex = 1;
 
             mesasprincipal.Controls.Clear();
 
@@ -658,8 +703,7 @@ namespace Proyecto_restaurante
             using (SqlConnection cn = new SqlConnection(conexionString))
             {
                 cn.Open();
-                SqlCommand cmd = new SqlCommand(
-                    "SELECT IdMesa, Numero, Capacidad, Ocupado, Reservado, IdGrupo, EsPrincipal FROM Mesa", cn);
+                SqlCommand cmd = new SqlCommand(@"SELECT IdMesa, Numero, Capacidad, Ocupado, Reservado, IdGrupo, EsPrincipal FROM Mesa", cn);
 
                 SqlDataReader dr = cmd.ExecuteReader();
 
@@ -798,6 +842,8 @@ namespace Proyecto_restaurante
 
         private void Comprobantes()
         {
+            if (cargandoOrden) return;
+
             int tipo = tipoComp.SelectedIndex == 0 ? 1 : 2;
 
             string query = "SELECT TOP 1 SecuenciaActual FROM Comprobantes WHERE Tipo = @Tipo ORDER BY IdComprobante DESC";
@@ -898,7 +944,7 @@ namespace Proyecto_restaurante
                 {
                     int cantidad = Convert.ToInt32(cmd.ExecuteScalar());
 
-                    if(cantidad > 0) 
+                    if (cantidad > 0)
                     {
                         ordenesNotif.Visible = true;
                     }
@@ -909,7 +955,6 @@ namespace Proyecto_restaurante
                 }
             }
         }
-
 
         private void tabladatospedidos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -972,6 +1017,7 @@ namespace Proyecto_restaurante
                     }
                 }
             }
+
             facturarDesdeMesa = false;
 
             string estadoPedido = "";
@@ -1494,14 +1540,14 @@ namespace Proyecto_restaurante
                     conectar.Open();
 
                     string query = @"
-                            SELECT id, codigo_producto, nombre_producto, categoria, precio_venta, iva, existencia, codigo_de_barra 
-                            FROM productos
-                            WHERE (CAST(id AS VARCHAR) LIKE @buscar OR
-                            codigo_producto LIKE @buscar OR
-                            nombre_producto LIKE @buscar OR
-                            categoria LIKE @buscar OR
-                            codigo_de_barra LIKE @buscar)
-                            AND existencia > 0";
+                    SELECT id, codigo_producto, nombre_producto, categoria, precio_venta, iva, existencia, codigo_de_barra 
+                    FROM productos
+                    WHERE (CAST(id AS VARCHAR) LIKE @buscar OR
+                    codigo_producto LIKE @buscar OR
+                    nombre_producto LIKE @buscar OR
+                    categoria LIKE @buscar OR
+                    codigo_de_barra LIKE @buscar)
+                    AND existencia > 0";
 
                     using (SqlCommand comando = new SqlCommand(query, conectar))
                     {
@@ -2031,9 +2077,12 @@ namespace Proyecto_restaurante
             }
 
             tabControl1.SelectedIndex = 1;
+
             mesasprincipal.Enabled = false;
             panelacciones.Enabled = false;
+
             EditarEstado = 1;
+
             CargarOrdenDeMesa(idMesaSeleccionada, NumeroMesa);
             VerificarOrden();
         }
@@ -2048,7 +2097,7 @@ namespace Proyecto_restaurante
                 SELECT TOP 1 IdPedido, Fecha, IdMesa, IdClientePersona, 
                        NombreCliente, Total, Nota, Comprobante
                 FROM Pedido
-                WHERE IdMesa = 1 AND Estado = 'Pendiente'
+                WHERE IdMesa = @IdMesa AND Estado = 'Pendiente'
                 ORDER BY Fecha DESC;";
 
                 int idPedido = 0;
@@ -2076,15 +2125,23 @@ namespace Proyecto_restaurante
                         txtnombrecompleto.Text = dr["NombreCliente"].ToString();
                         labeltotal.Text = Convert.ToDecimal(dr["Total"]).ToString();
                         notatxt.Text = dr["Nota"] == DBNull.Value ? "" : dr["Nota"].ToString();
-                        Comprobantetxt.Text = dr["Comprobante"].ToString();
+
+                        cargandoOrden = true;
+
+                        Comprobantetxt.Text = dr["Comprobante"] == DBNull.Value ? "" : dr["Comprobante"].ToString();
 
                         MesaLabel.Text = $"     Mesa asignada: {NumeroMesa}";
                     }
                 }
 
                 DetalleOrden(idPedido, cn);
+
                 tipoComp.SelectedIndex = -1;
+
                 tipoComp.Enabled = false;
+
+                cargandoOrden = false;
+
                 habilitarbotones();
             }
         }
@@ -2487,7 +2544,6 @@ namespace Proyecto_restaurante
                     nuevoGrupo.PerformClick();
                 }
             }
-
         }
 
         private void nuevoGrupo_Click(object sender, EventArgs e)
@@ -2554,7 +2610,7 @@ namespace Proyecto_restaurante
 
         private void tipodoccmbx_SelectedIndexChanged(object sender, EventArgs e)
         {
-            rnc.Clear();
+            //rnc.Clear();
         }
 
         private void rnc_KeyPress(object sender, KeyPressEventArgs e)
@@ -2640,20 +2696,20 @@ namespace Proyecto_restaurante
 
                     string query = @"
                     SELECT TOP 1 
-                        p.IdPersona,
-                        p.Nombre,
-                        p.Apellido,
-                        (p.Nombre + ' ' + p.Apellido) AS NombreCompleto,
-                        t.Numero AS TelefonoPrincipal
-                    FROM Persona p
-                    INNER JOIN PersonaDocumento d ON p.IdPersona = d.IdPersona
-                    OUTER APPLY (
-                        SELECT TOP 1 Numero 
-                        FROM PersonaTelefono 
-                        WHERE IdPersona = p.IdPersona AND EsPrincipal = 1
-                    ) t
-                    WHERE REPLACE(d.Numero, '-', '') = @RNC
-                      AND d.IdTipoDocumento = 1;";
+                            p.IdPersona,
+                            p.Nombre,
+                            p.Apellido,
+                            (p.Nombre + ' ' + p.Apellido) AS NombreCompleto,
+                            t.Numero AS TelefonoPrincipal
+                        FROM Persona p
+                        INNER JOIN PersonaDocumento d ON p.IdPersona = d.IdPersona
+                        OUTER APPLY (
+                            SELECT TOP 1 Numero 
+                            FROM PersonaTelefono 
+                            WHERE IdPersona = p.IdPersona AND EsPrincipal = 1
+                        ) t
+                        WHERE REPLACE(d.Numero, '-', '') = @RNC
+                          AND d.IdTipoDocumento = 1;";
 
                     using (SqlCommand cmd = new SqlCommand(query, conexion))
                     {
@@ -2671,7 +2727,6 @@ namespace Proyecto_restaurante
                         }
                     }
                 }
-
             }
             catch
             {
@@ -2704,7 +2759,7 @@ namespace Proyecto_restaurante
         private void EntregarOrden_Click(object sender, EventArgs e)
         {
             modoEntregar = true;
-
+            EntregarOrden.BackColor = Color.Gold;
             SiEntrega.Visible = true;
             NoEntrega.Visible = true;
         }
@@ -2869,6 +2924,8 @@ namespace Proyecto_restaurante
 
                     cmd.ExecuteNonQuery();
                 }
+
+                EntregarOrden.BackColor = Color.FromArgb(224, 224, 224);
             }
 
             MessageBox.Show("Órdenes marcadas como entregadas.");
@@ -2880,8 +2937,24 @@ namespace Proyecto_restaurante
             modoEntregar = false;
             ordenesSeleccionadas.Clear();
             LimpiarSeleccionVisual();
-            SiUnion.Visible = false;
-            NoUnion.Visible = false;
+            SiEntrega.Visible = false;
+            NoEntrega.Visible = false;
+
+            EntregarOrden.BackColor = Color.FromArgb(224, 224, 224);
+        }
+
+        private void eliminarFila_Click(object sender, EventArgs e)
+        {
+            if (detalleorden.SelectedRows.Count > 0)
+            {
+                int fila = detalleorden.SelectedRows[0].Index;
+                detalleorden.Rows.RemoveAt(fila);
+                EliminarFila = 0;
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar una fila.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }

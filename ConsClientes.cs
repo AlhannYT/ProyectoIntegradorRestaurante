@@ -774,8 +774,7 @@ namespace Proyecto_restaurante
             }
             else
             {
-                MessageBox.Show("Debe seleccionar una fila.", "Aviso",
-                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Debe seleccionar una fila.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 

@@ -16,6 +16,8 @@ namespace Proyecto_restaurante
         private static string rutaUsuario = @"C:\SistemaArchivos\Usuarios\Usuarios.txt";
         public string rutaArchivo = @"C:\SistemaArchivos\Conexion\ConexionesSQL.txt";
 
+        public int idUsuario = 0;
+
         private void iniciobtn_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtusuario.Text) || string.IsNullOrEmpty(txtpass.Text))
@@ -37,7 +39,7 @@ namespace Proyecto_restaurante
                     FROM Usuario 
                     WHERE Login = @usuario AND Contrasena = @pass AND Activo = 1";
 
-                    int idUsuario = 0;
+                    
                     using (SqlCommand cmd = new SqlCommand(queryUsuario, conexion))
                     {
                         cmd.Parameters.AddWithValue("@usuario", txtusuario.Text);
@@ -103,6 +105,7 @@ namespace Proyecto_restaurante
 
                     menu.usuariolabel.Text = $"USUARIO ACTUAL:\n{txtusuario.Text}";
                     menu.usuarioActual = txtusuario.Text;
+                    menu.IdUsuarioActual = idUsuario;
 
                     Directory.CreateDirectory(Path.GetDirectoryName(rutaUsuario));
 
