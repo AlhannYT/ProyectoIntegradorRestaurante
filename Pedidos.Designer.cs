@@ -138,6 +138,7 @@
             numerotxt = new TextBox();
             pictureBox2 = new PictureBox();
             pictureBox1 = new PictureBox();
+            AvisoCuentaSeparada = new Label();
             label2 = new Label();
             label20 = new Label();
             label1 = new Label();
@@ -150,10 +151,54 @@
             panel14 = new Panel();
             MesaLabel = new Label();
             tabPage2 = new TabPage();
-            detallepanelcompleto = new Panel();
-            bloqueopanel = new Panel();
+            cancelarPanel = new Panel();
+            despuesDe = new RadioButton();
+            antesDe = new RadioButton();
             pictureBox3 = new PictureBox();
+            pictureBox6 = new PictureBox();
+            passView2 = new CheckBox();
+            volverCancelar = new Button();
+            autorizarCancelar = new Button();
+            passCancelar = new TextBox();
+            usuarioCancelar = new TextBox();
+            label18 = new Label();
+            label24 = new Label();
+            label23 = new Label();
+            detallepanelcompleto = new Panel();
+            detallepagopanel = new Panel();
+            eliminarDetalle = new Button();
+            TotalAPagar = new TextBox();
+            label42 = new Label();
+            pictureBox5 = new PictureBox();
+            tabControl3 = new TabControl();
+            tabPage7 = new TabPage();
             label4 = new Label();
+            restante1txt = new TextBox();
+            label41 = new Label();
+            aplicarefectivo = new Button();
+            efectivotxt = new TextBox();
+            tabPage8 = new TabPage();
+            label15 = new Label();
+            restante2txt = new TextBox();
+            tarjetacmbx = new ComboBox();
+            label43 = new Label();
+            label44 = new Label();
+            aplicartarjeta = new Button();
+            tarjetaMonto = new TextBox();
+            tarjetaref = new TextBox();
+            tabPage9 = new TabPage();
+            label16 = new Label();
+            restante3txt = new TextBox();
+            transfMonto = new TextBox();
+            bancocmbx = new ComboBox();
+            label46 = new Label();
+            label47 = new Label();
+            aplicartransf = new Button();
+            bancoref = new TextBox();
+            detallePagoDT = new DataGridView();
+            label49 = new Label();
+            button9 = new Button();
+            button8 = new Button();
             devueltapanel = new Panel();
             devueltatxt = new TextBox();
             label32 = new Label();
@@ -164,43 +209,6 @@
             label30 = new Label();
             totalpagar = new TextBox();
             label29 = new Label();
-            detallepagopanel = new Panel();
-            tabControl2 = new TabControl();
-            tabPage3 = new TabPage();
-            eliminar = new Button();
-            efectivodt = new DataGridView();
-            label18 = new Label();
-            label16 = new Label();
-            volverdetalle = new Button();
-            pagarefectivo = new Button();
-            aplicarefectivo = new Button();
-            totalrealef = new TextBox();
-            efectivotxt = new TextBox();
-            tabPage5 = new TabPage();
-            button1 = new Button();
-            tarjetacmbx = new ComboBox();
-            tarjetadt = new DataGridView();
-            label27 = new Label();
-            label23 = new Label();
-            label24 = new Label();
-            button6 = new Button();
-            pagartarjeta = new Button();
-            aplicartarjeta = new Button();
-            totalrealtar = new TextBox();
-            tarjetaref = new TextBox();
-            tabPage4 = new TabPage();
-            button2 = new Button();
-            transferenciadt = new DataGridView();
-            bancocmbx = new ComboBox();
-            label28 = new Label();
-            label25 = new Label();
-            label26 = new Label();
-            button10 = new Button();
-            pagartransf = new Button();
-            aplicartransf = new Button();
-            totalrealtransf = new TextBox();
-            bancoref = new TextBox();
-            label15 = new Label();
             label13 = new Label();
             txtbusquedafactura = new TextBox();
             label10 = new Label();
@@ -257,19 +265,19 @@
             panel8.SuspendLayout();
             panel14.SuspendLayout();
             tabPage2.SuspendLayout();
-            detallepanelcompleto.SuspendLayout();
-            bloqueopanel.SuspendLayout();
+            cancelarPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
+            detallepanelcompleto.SuspendLayout();
+            detallepagopanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
+            tabControl3.SuspendLayout();
+            tabPage7.SuspendLayout();
+            tabPage8.SuspendLayout();
+            tabPage9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)detallePagoDT).BeginInit();
             devueltapanel.SuspendLayout();
             panel12.SuspendLayout();
-            detallepagopanel.SuspendLayout();
-            tabControl2.SuspendLayout();
-            tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)efectivodt).BeginInit();
-            tabPage5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)tarjetadt).BeginInit();
-            tabPage4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)transferenciadt).BeginInit();
             panel7.SuspendLayout();
             panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tabladatospedidos).BeginInit();
@@ -439,6 +447,7 @@
             passView.Size = new Size(28, 25);
             passView.TabIndex = 18;
             passView.UseVisualStyleBackColor = false;
+            passView.CheckedChanged += passView_CheckedChanged;
             // 
             // cancelarAutorizar
             // 
@@ -490,21 +499,21 @@
             label39.ForeColor = SystemColors.Control;
             label39.Image = Properties.Resources.escudo24x;
             label39.ImageAlign = ContentAlignment.MiddleRight;
-            label39.Location = new Point(165, 26);
+            label39.Location = new Point(169, 26);
             label39.Name = "label39";
-            label39.Size = new Size(276, 32);
+            label39.Size = new Size(269, 32);
             label39.TabIndex = 3;
-            label39.Text = "Control de Usuarios     ";
+            label39.Text = "Control de Usuarios    ";
             label39.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label38
             // 
             label38.AutoSize = true;
-            label38.Font = new Font("Segoe UI", 12F);
+            label38.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label38.ForeColor = SystemColors.Control;
             label38.Location = new Point(194, 176);
             label38.Name = "label38";
-            label38.Size = new Size(100, 21);
+            label38.Size = new Size(112, 21);
             label38.TabIndex = 3;
             label38.Text = "Autorización:";
             label38.TextAlign = ContentAlignment.MiddleCenter;
@@ -771,7 +780,7 @@
             // SiUnion
             // 
             SiUnion.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SiUnion.Image = Properties.Resources.sicheck;
+            SiUnion.Image = Properties.Resources.sicheck_oscuro;
             SiUnion.ImageAlign = ContentAlignment.MiddleRight;
             SiUnion.Location = new Point(11, 397);
             SiUnion.Name = "SiUnion";
@@ -1122,10 +1131,11 @@
             eliminarFila.BackColor = Color.Red;
             eliminarFila.Enabled = false;
             eliminarFila.Image = Properties.Resources.basurablanco;
-            eliminarFila.Location = new Point(6, 3);
+            eliminarFila.Location = new Point(4, 3);
             eliminarFila.Name = "eliminarFila";
-            eliminarFila.Size = new Size(29, 29);
+            eliminarFila.Size = new Size(29, 28);
             eliminarFila.TabIndex = 78;
+            toolTip1.SetToolTip(eliminarFila, "[Supr/Delete]");
             eliminarFila.UseVisualStyleBackColor = false;
             eliminarFila.Click += eliminarFila_Click;
             // 
@@ -1161,12 +1171,14 @@
             detalleorden.Location = new Point(4, 33);
             detalleorden.MultiSelect = false;
             detalleorden.Name = "detalleorden";
-            detalleorden.ReadOnly = true;
             detalleorden.RowHeadersVisible = false;
             detalleorden.RowHeadersWidth = 51;
             detalleorden.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             detalleorden.Size = new Size(784, 298);
             detalleorden.TabIndex = 5;
+            detalleorden.CellBeginEdit += detalleorden_CellBeginEdit;
+            detalleorden.CellEndEdit += detalleorden_CellEndEdit;
+            detalleorden.SelectionChanged += detalleorden_SelectionChanged;
             // 
             // label21
             // 
@@ -1510,6 +1522,7 @@
             panel1.Controls.Add(numerotxt);
             panel1.Controls.Add(pictureBox2);
             panel1.Controls.Add(pictureBox1);
+            panel1.Controls.Add(AvisoCuentaSeparada);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(label20);
             panel1.Controls.Add(label1);
@@ -1580,6 +1593,18 @@
             pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox1.TabIndex = 4;
             pictureBox1.TabStop = false;
+            // 
+            // AvisoCuentaSeparada
+            // 
+            AvisoCuentaSeparada.AutoSize = true;
+            AvisoCuentaSeparada.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            AvisoCuentaSeparada.ForeColor = Color.Gold;
+            AvisoCuentaSeparada.Location = new Point(331, 38);
+            AvisoCuentaSeparada.Name = "AvisoCuentaSeparada";
+            AvisoCuentaSeparada.Size = new Size(167, 25);
+            AvisoCuentaSeparada.TabIndex = 3;
+            AvisoCuentaSeparada.Text = "(Cuenta separada)";
+            AvisoCuentaSeparada.Visible = false;
             // 
             // label2
             // 
@@ -1702,6 +1727,7 @@
             // tabPage2
             // 
             tabPage2.BackColor = Color.FromArgb(87, 128, 87);
+            tabPage2.Controls.Add(cancelarPanel);
             tabPage2.Controls.Add(detallepanelcompleto);
             tabPage2.Controls.Add(label13);
             tabPage2.Controls.Add(txtbusquedafactura);
@@ -1716,49 +1742,562 @@
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Facturas";
             // 
-            // detallepanelcompleto
+            // cancelarPanel
             // 
-            detallepanelcompleto.BackColor = Color.Gray;
-            detallepanelcompleto.Controls.Add(bloqueopanel);
-            detallepanelcompleto.Controls.Add(devueltapanel);
-            detallepanelcompleto.Controls.Add(detallepagopanel);
-            detallepanelcompleto.Location = new Point(807, 6);
-            detallepanelcompleto.Name = "detallepanelcompleto";
-            detallepanelcompleto.Size = new Size(810, 618);
-            detallepanelcompleto.TabIndex = 9;
+            cancelarPanel.BackColor = Color.FromArgb(64, 64, 64);
+            cancelarPanel.Controls.Add(despuesDe);
+            cancelarPanel.Controls.Add(antesDe);
+            cancelarPanel.Controls.Add(pictureBox3);
+            cancelarPanel.Controls.Add(pictureBox6);
+            cancelarPanel.Controls.Add(passView2);
+            cancelarPanel.Controls.Add(volverCancelar);
+            cancelarPanel.Controls.Add(autorizarCancelar);
+            cancelarPanel.Controls.Add(passCancelar);
+            cancelarPanel.Controls.Add(usuarioCancelar);
+            cancelarPanel.Controls.Add(label18);
+            cancelarPanel.Controls.Add(label24);
+            cancelarPanel.Controls.Add(label23);
+            cancelarPanel.Location = new Point(825, 9);
+            cancelarPanel.Name = "cancelarPanel";
+            cancelarPanel.Size = new Size(810, 680);
+            cancelarPanel.TabIndex = 13;
+            cancelarPanel.Visible = false;
             // 
-            // bloqueopanel
+            // despuesDe
             // 
-            bloqueopanel.BackColor = Color.FromArgb(64, 64, 64);
-            bloqueopanel.Controls.Add(pictureBox3);
-            bloqueopanel.Controls.Add(label4);
-            bloqueopanel.Location = new Point(3, 265);
-            bloqueopanel.Name = "bloqueopanel";
-            bloqueopanel.Size = new Size(333, 322);
-            bloqueopanel.TabIndex = 11;
-            bloqueopanel.Visible = false;
+            despuesDe.AutoSize = true;
+            despuesDe.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            despuesDe.ForeColor = Color.White;
+            despuesDe.Location = new Point(296, 394);
+            despuesDe.Name = "despuesDe";
+            despuesDe.Size = new Size(206, 25);
+            despuesDe.TabIndex = 22;
+            despuesDe.Text = "Después de preparar (-)";
+            toolTip1.SetToolTip(despuesDe, "No devuelve items a inventario");
+            despuesDe.UseVisualStyleBackColor = true;
+            despuesDe.CheckedChanged += despuesDe_CheckedChanged;
+            // 
+            // antesDe
+            // 
+            antesDe.AutoSize = true;
+            antesDe.Checked = true;
+            antesDe.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            antesDe.ForeColor = Color.White;
+            antesDe.Location = new Point(296, 361);
+            antesDe.Name = "antesDe";
+            antesDe.Size = new Size(190, 25);
+            antesDe.TabIndex = 22;
+            antesDe.TabStop = true;
+            antesDe.Text = "Antes de preparar (+)";
+            toolTip1.SetToolTip(antesDe, "Devuelve items a inventario");
+            antesDe.UseVisualStyleBackColor = true;
+            antesDe.CheckedChanged += antesDe_CheckedChanged;
             // 
             // pictureBox3
             // 
-            pictureBox3.Image = Properties.Resources.bloqueado;
-            pictureBox3.Location = new Point(116, 146);
+            pictureBox3.Image = Properties.Resources.clave;
+            pictureBox3.Location = new Point(296, 273);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(100, 118);
+            pictureBox3.Size = new Size(22, 28);
             pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox3.TabIndex = 0;
+            pictureBox3.TabIndex = 20;
             pictureBox3.TabStop = false;
+            // 
+            // pictureBox6
+            // 
+            pictureBox6.Image = Properties.Resources.persona2;
+            pictureBox6.Location = new Point(296, 231);
+            pictureBox6.Name = "pictureBox6";
+            pictureBox6.Size = new Size(22, 28);
+            pictureBox6.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox6.TabIndex = 21;
+            pictureBox6.TabStop = false;
+            // 
+            // passView2
+            // 
+            passView2.Appearance = Appearance.Button;
+            passView2.BackColor = SystemColors.Window;
+            passView2.FlatStyle = FlatStyle.Flat;
+            passView2.ForeColor = SystemColors.Window;
+            passView2.Image = Properties.Resources.ojo;
+            passView2.Location = new Point(485, 274);
+            passView2.Name = "passView2";
+            passView2.Size = new Size(28, 25);
+            passView2.TabIndex = 18;
+            passView2.UseVisualStyleBackColor = false;
+            passView2.CheckedChanged += passView_CheckedChanged;
+            // 
+            // volverCancelar
+            // 
+            volverCancelar.Image = Properties.Resources.cancelar1;
+            volverCancelar.ImageAlign = ContentAlignment.MiddleLeft;
+            volverCancelar.Location = new Point(410, 456);
+            volverCancelar.Name = "volverCancelar";
+            volverCancelar.Size = new Size(104, 29);
+            volverCancelar.TabIndex = 17;
+            volverCancelar.Text = "Volver";
+            volverCancelar.UseVisualStyleBackColor = true;
+            volverCancelar.Click += volverCancelar_Click;
+            // 
+            // autorizarCancelar
+            // 
+            autorizarCancelar.Image = Properties.Resources.llave__1_;
+            autorizarCancelar.ImageAlign = ContentAlignment.MiddleLeft;
+            autorizarCancelar.Location = new Point(296, 456);
+            autorizarCancelar.Name = "autorizarCancelar";
+            autorizarCancelar.Size = new Size(104, 29);
+            autorizarCancelar.TabIndex = 17;
+            autorizarCancelar.Text = "Autorizar";
+            autorizarCancelar.UseVisualStyleBackColor = true;
+            autorizarCancelar.Click += autorizarCancelar_Click;
+            // 
+            // passCancelar
+            // 
+            passCancelar.CharacterCasing = CharacterCasing.Upper;
+            passCancelar.Location = new Point(321, 272);
+            passCancelar.Name = "passCancelar";
+            passCancelar.PlaceholderText = "Contraseña";
+            passCancelar.Size = new Size(193, 29);
+            passCancelar.TabIndex = 16;
+            passCancelar.UseSystemPasswordChar = true;
+            // 
+            // usuarioCancelar
+            // 
+            usuarioCancelar.CharacterCasing = CharacterCasing.Upper;
+            usuarioCancelar.Location = new Point(321, 230);
+            usuarioCancelar.Name = "usuarioCancelar";
+            usuarioCancelar.PlaceholderText = "Usuario";
+            usuarioCancelar.Size = new Size(193, 29);
+            usuarioCancelar.TabIndex = 15;
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label18.ForeColor = SystemColors.Control;
+            label18.Image = Properties.Resources.escudo24x;
+            label18.ImageAlign = ContentAlignment.MiddleRight;
+            label18.Location = new Point(271, 26);
+            label18.Name = "label18";
+            label18.Size = new Size(269, 32);
+            label18.TabIndex = 3;
+            label18.Text = "Control de Usuarios    ";
+            label18.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label24.ForeColor = SystemColors.Control;
+            label24.Location = new Point(296, 330);
+            label24.Name = "label24";
+            label24.Size = new Size(168, 21);
+            label24.TabIndex = 3;
+            label24.Text = "Tipo de Cancelación:";
+            label24.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label23.ForeColor = SystemColors.Control;
+            label23.Location = new Point(296, 201);
+            label23.Name = "label23";
+            label23.Size = new Size(112, 21);
+            label23.TabIndex = 3;
+            label23.Text = "Autorización:";
+            label23.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // detallepanelcompleto
+            // 
+            detallepanelcompleto.BackColor = Color.Gray;
+            detallepanelcompleto.Controls.Add(detallepagopanel);
+            detallepanelcompleto.Controls.Add(devueltapanel);
+            detallepanelcompleto.Location = new Point(5, 649);
+            detallepanelcompleto.Name = "detallepanelcompleto";
+            detallepanelcompleto.Size = new Size(810, 680);
+            detallepanelcompleto.TabIndex = 9;
+            // 
+            // detallepagopanel
+            // 
+            detallepagopanel.BackColor = Color.FromArgb(64, 64, 64);
+            detallepagopanel.Controls.Add(eliminarDetalle);
+            detallepagopanel.Controls.Add(TotalAPagar);
+            detallepagopanel.Controls.Add(label42);
+            detallepagopanel.Controls.Add(pictureBox5);
+            detallepagopanel.Controls.Add(tabControl3);
+            detallepagopanel.Controls.Add(detallePagoDT);
+            detallepagopanel.Controls.Add(label49);
+            detallepagopanel.Controls.Add(button9);
+            detallepagopanel.Controls.Add(button8);
+            detallepagopanel.Location = new Point(429, 1);
+            detallepagopanel.Name = "detallepagopanel";
+            detallepagopanel.Size = new Size(380, 453);
+            detallepagopanel.TabIndex = 2;
+            // 
+            // eliminarDetalle
+            // 
+            eliminarDetalle.BackColor = Color.Red;
+            eliminarDetalle.Image = Properties.Resources.basurablanco;
+            eliminarDetalle.Location = new Point(344, 230);
+            eliminarDetalle.Name = "eliminarDetalle";
+            eliminarDetalle.Size = new Size(29, 28);
+            eliminarDetalle.TabIndex = 79;
+            toolTip1.SetToolTip(eliminarDetalle, "[Supr/Delete]");
+            eliminarDetalle.UseVisualStyleBackColor = false;
+            eliminarDetalle.Click += eliminarDetalle_Click;
+            // 
+            // TotalAPagar
+            // 
+            TotalAPagar.Enabled = false;
+            TotalAPagar.Location = new Point(274, 53);
+            TotalAPagar.Name = "TotalAPagar";
+            TotalAPagar.Size = new Size(97, 29);
+            TotalAPagar.TabIndex = 0;
+            toolTip1.SetToolTip(TotalAPagar, "Total a pagar");
+            // 
+            // label42
+            // 
+            label42.AutoSize = true;
+            label42.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label42.ForeColor = SystemColors.Control;
+            label42.Location = new Point(7, 234);
+            label42.Name = "label42";
+            label42.Size = new Size(65, 21);
+            label42.TabIndex = 4;
+            label42.Text = "Detalle";
+            // 
+            // pictureBox5
+            // 
+            pictureBox5.Image = Properties.Resources.simbolodolar;
+            pictureBox5.Location = new Point(253, 55);
+            pictureBox5.Name = "pictureBox5";
+            pictureBox5.Size = new Size(24, 25);
+            pictureBox5.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox5.TabIndex = 15;
+            pictureBox5.TabStop = false;
+            toolTip1.SetToolTip(pictureBox5, "Total a pagar");
+            // 
+            // tabControl3
+            // 
+            tabControl3.Controls.Add(tabPage7);
+            tabControl3.Controls.Add(tabPage8);
+            tabControl3.Controls.Add(tabPage9);
+            tabControl3.Location = new Point(3, 54);
+            tabControl3.Name = "tabControl3";
+            tabControl3.SelectedIndex = 0;
+            tabControl3.Size = new Size(374, 174);
+            tabControl3.TabIndex = 0;
+            // 
+            // tabPage7
+            // 
+            tabPage7.BackColor = SystemColors.WindowFrame;
+            tabPage7.Controls.Add(label4);
+            tabPage7.Controls.Add(restante1txt);
+            tabPage7.Controls.Add(label41);
+            tabPage7.Controls.Add(aplicarefectivo);
+            tabPage7.Controls.Add(efectivotxt);
+            tabPage7.Location = new Point(4, 30);
+            tabPage7.Name = "tabPage7";
+            tabPage7.Padding = new Padding(3);
+            tabPage7.RightToLeft = RightToLeft.No;
+            tabPage7.Size = new Size(366, 140);
+            tabPage7.TabIndex = 0;
+            tabPage7.Text = "Efectivo";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label4.ForeColor = SystemColors.Control;
-            label4.Location = new Point(71, 59);
+            label4.Location = new Point(184, 7);
             label4.Name = "label4";
-            label4.Size = new Size(190, 64);
-            label4.TabIndex = 3;
-            label4.Text = "Bloqueado por\r\ndetalle anterior";
-            label4.TextAlign = ContentAlignment.MiddleCenter;
+            label4.Size = new Size(76, 21);
+            label4.TabIndex = 4;
+            label4.Text = "Restante";
+            // 
+            // restante1txt
+            // 
+            restante1txt.Enabled = false;
+            restante1txt.Location = new Point(267, 3);
+            restante1txt.Name = "restante1txt";
+            restante1txt.Size = new Size(97, 29);
+            restante1txt.TabIndex = 0;
+            // 
+            // label41
+            // 
+            label41.AutoSize = true;
+            label41.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label41.ForeColor = SystemColors.Control;
+            label41.Location = new Point(6, 81);
+            label41.Name = "label41";
+            label41.Size = new Size(72, 21);
+            label41.TabIndex = 4;
+            label41.Text = "Efectivo";
+            // 
+            // aplicarefectivo
+            // 
+            aplicarefectivo.Image = Properties.Resources.dinero2;
+            aplicarefectivo.ImageAlign = ContentAlignment.MiddleLeft;
+            aplicarefectivo.Location = new Point(237, 105);
+            aplicarefectivo.Name = "aplicarefectivo";
+            aplicarefectivo.Size = new Size(123, 29);
+            aplicarefectivo.TabIndex = 1;
+            aplicarefectivo.Text = "Aplicar";
+            aplicarefectivo.UseVisualStyleBackColor = true;
+            aplicarefectivo.Click += aplicarefectivo_Click;
+            // 
+            // efectivotxt
+            // 
+            efectivotxt.Location = new Point(6, 105);
+            efectivotxt.Name = "efectivotxt";
+            efectivotxt.PlaceholderText = "Total Efectivo";
+            efectivotxt.Size = new Size(224, 29);
+            efectivotxt.TabIndex = 0;
+            // 
+            // tabPage8
+            // 
+            tabPage8.BackColor = SystemColors.WindowFrame;
+            tabPage8.Controls.Add(label15);
+            tabPage8.Controls.Add(restante2txt);
+            tabPage8.Controls.Add(tarjetacmbx);
+            tabPage8.Controls.Add(label43);
+            tabPage8.Controls.Add(label44);
+            tabPage8.Controls.Add(aplicartarjeta);
+            tabPage8.Controls.Add(tarjetaMonto);
+            tabPage8.Controls.Add(tarjetaref);
+            tabPage8.Location = new Point(4, 24);
+            tabPage8.Name = "tabPage8";
+            tabPage8.Size = new Size(366, 146);
+            tabPage8.TabIndex = 2;
+            tabPage8.Text = "Tarjeta";
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label15.ForeColor = SystemColors.Control;
+            label15.Location = new Point(184, 7);
+            label15.Name = "label15";
+            label15.Size = new Size(76, 21);
+            label15.TabIndex = 16;
+            label15.Text = "Restante";
+            // 
+            // restante2txt
+            // 
+            restante2txt.Enabled = false;
+            restante2txt.Location = new Point(267, 3);
+            restante2txt.Name = "restante2txt";
+            restante2txt.Size = new Size(97, 29);
+            restante2txt.TabIndex = 15;
+            // 
+            // tarjetacmbx
+            // 
+            tarjetacmbx.DropDownStyle = ComboBoxStyle.DropDownList;
+            tarjetacmbx.FormattingEnabled = true;
+            tarjetacmbx.Items.AddRange(new object[] { "1. VISA", "2. MASTERCARD", "3. AMERICAN EXPRESS" });
+            tarjetacmbx.Location = new Point(74, 44);
+            tarjetacmbx.Name = "tarjetacmbx";
+            tarjetacmbx.Size = new Size(286, 29);
+            tarjetacmbx.TabIndex = 14;
+            // 
+            // label43
+            // 
+            label43.AutoSize = true;
+            label43.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label43.ForeColor = SystemColors.Control;
+            label43.Location = new Point(6, 48);
+            label43.Name = "label43";
+            label43.Size = new Size(62, 21);
+            label43.TabIndex = 11;
+            label43.Text = "Tarjeta";
+            // 
+            // label44
+            // 
+            label44.AutoSize = true;
+            label44.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label44.ForeColor = SystemColors.Control;
+            label44.Location = new Point(6, 81);
+            label44.Name = "label44";
+            label44.Size = new Size(91, 21);
+            label44.TabIndex = 11;
+            label44.Text = "Referencia";
+            // 
+            // aplicartarjeta
+            // 
+            aplicartarjeta.Image = Properties.Resources.tarjeta_de_credito__1_;
+            aplicartarjeta.ImageAlign = ContentAlignment.MiddleLeft;
+            aplicartarjeta.Location = new Point(237, 105);
+            aplicartarjeta.Name = "aplicartarjeta";
+            aplicartarjeta.Size = new Size(123, 29);
+            aplicartarjeta.TabIndex = 10;
+            aplicartarjeta.Text = "Aplicar";
+            aplicartarjeta.UseVisualStyleBackColor = true;
+            aplicartarjeta.Click += aplicartarjeta_Click;
+            // 
+            // tarjetaMonto
+            // 
+            tarjetaMonto.Location = new Point(107, 105);
+            tarjetaMonto.Name = "tarjetaMonto";
+            tarjetaMonto.PlaceholderText = "Monto";
+            tarjetaMonto.Size = new Size(123, 29);
+            tarjetaMonto.TabIndex = 7;
+            // 
+            // tarjetaref
+            // 
+            tarjetaref.CharacterCasing = CharacterCasing.Upper;
+            tarjetaref.Location = new Point(6, 105);
+            tarjetaref.Name = "tarjetaref";
+            tarjetaref.PlaceholderText = "N° Referencia";
+            tarjetaref.Size = new Size(100, 29);
+            tarjetaref.TabIndex = 7;
+            // 
+            // tabPage9
+            // 
+            tabPage9.BackColor = SystemColors.WindowFrame;
+            tabPage9.Controls.Add(label16);
+            tabPage9.Controls.Add(restante3txt);
+            tabPage9.Controls.Add(transfMonto);
+            tabPage9.Controls.Add(bancocmbx);
+            tabPage9.Controls.Add(label46);
+            tabPage9.Controls.Add(label47);
+            tabPage9.Controls.Add(aplicartransf);
+            tabPage9.Controls.Add(bancoref);
+            tabPage9.Location = new Point(4, 24);
+            tabPage9.Name = "tabPage9";
+            tabPage9.Padding = new Padding(3);
+            tabPage9.Size = new Size(366, 146);
+            tabPage9.TabIndex = 1;
+            tabPage9.Text = "Transferencia";
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label16.ForeColor = SystemColors.Control;
+            label16.Location = new Point(184, 7);
+            label16.Name = "label16";
+            label16.Size = new Size(76, 21);
+            label16.TabIndex = 83;
+            label16.Text = "Restante";
+            // 
+            // restante3txt
+            // 
+            restante3txt.Enabled = false;
+            restante3txt.Location = new Point(267, 3);
+            restante3txt.Name = "restante3txt";
+            restante3txt.Size = new Size(97, 29);
+            restante3txt.TabIndex = 82;
+            // 
+            // transfMonto
+            // 
+            transfMonto.Location = new Point(107, 105);
+            transfMonto.Name = "transfMonto";
+            transfMonto.PlaceholderText = "Monto";
+            transfMonto.Size = new Size(123, 29);
+            transfMonto.TabIndex = 81;
+            // 
+            // bancocmbx
+            // 
+            bancocmbx.DropDownStyle = ComboBoxStyle.DropDownList;
+            bancocmbx.FormattingEnabled = true;
+            bancocmbx.Items.AddRange(new object[] { "1. BANCO POPULAR DOMINICANO", "2. BANCO DE RESERVAS (BANRESERVAS)", "3. BANCO BHD LEÓN", "4. SCOTIABANK REPÚBLICA DOMINICANA", "5. BANCO SANTA CRUZ", "6. BANCO CARIBE", "7. BANCO VIMENCA", "8. BANCO ADEMI" });
+            bancocmbx.Location = new Point(74, 44);
+            bancocmbx.Name = "bancocmbx";
+            bancocmbx.Size = new Size(286, 29);
+            bancocmbx.TabIndex = 16;
+            // 
+            // label46
+            // 
+            label46.AutoSize = true;
+            label46.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label46.ForeColor = SystemColors.Control;
+            label46.Location = new Point(6, 48);
+            label46.Name = "label46";
+            label46.Size = new Size(57, 21);
+            label46.TabIndex = 15;
+            label46.Text = "Banco";
+            // 
+            // label47
+            // 
+            label47.AutoSize = true;
+            label47.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label47.ForeColor = SystemColors.Control;
+            label47.Location = new Point(6, 81);
+            label47.Name = "label47";
+            label47.Size = new Size(91, 21);
+            label47.TabIndex = 11;
+            label47.Text = "Referencia";
+            // 
+            // aplicartransf
+            // 
+            aplicartransf.Image = Properties.Resources.banco__1_;
+            aplicartransf.ImageAlign = ContentAlignment.MiddleLeft;
+            aplicartransf.Location = new Point(237, 105);
+            aplicartransf.Name = "aplicartransf";
+            aplicartransf.Size = new Size(123, 29);
+            aplicartransf.TabIndex = 10;
+            aplicartransf.Text = "Aplicar";
+            aplicartransf.UseVisualStyleBackColor = true;
+            aplicartransf.Click += aplicartransf_Click;
+            // 
+            // bancoref
+            // 
+            bancoref.CharacterCasing = CharacterCasing.Upper;
+            bancoref.Location = new Point(6, 105);
+            bancoref.Name = "bancoref";
+            bancoref.PlaceholderText = "N° Referencia";
+            bancoref.Size = new Size(100, 29);
+            bancoref.TabIndex = 7;
+            // 
+            // detallePagoDT
+            // 
+            detallePagoDT.AllowUserToAddRows = false;
+            detallePagoDT.AllowUserToDeleteRows = false;
+            detallePagoDT.AllowUserToResizeRows = false;
+            detallePagoDT.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            detallePagoDT.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            detallePagoDT.Location = new Point(7, 260);
+            detallePagoDT.Name = "detallePagoDT";
+            detallePagoDT.RowHeadersVisible = false;
+            detallePagoDT.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            detallePagoDT.Size = new Size(366, 133);
+            detallePagoDT.TabIndex = 14;
+            // 
+            // label49
+            // 
+            label49.AutoSize = true;
+            label49.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label49.ForeColor = SystemColors.Control;
+            label49.Location = new Point(93, 4);
+            label49.Name = "label49";
+            label49.Size = new Size(194, 32);
+            label49.TabIndex = 3;
+            label49.Text = "Detalle de pago";
+            // 
+            // button9
+            // 
+            button9.Image = Properties.Resources.pagar;
+            button9.ImageAlign = ContentAlignment.MiddleLeft;
+            button9.Location = new Point(196, 399);
+            button9.Name = "button9";
+            button9.Size = new Size(177, 46);
+            button9.TabIndex = 1;
+            button9.Text = "Procesar";
+            button9.UseVisualStyleBackColor = true;
+            button9.Click += pagarefectivo_Click;
+            // 
+            // button8
+            // 
+            button8.Image = Properties.Resources.atrás;
+            button8.ImageAlign = ContentAlignment.MiddleLeft;
+            button8.Location = new Point(7, 399);
+            button8.Name = "button8";
+            button8.Size = new Size(177, 46);
+            button8.TabIndex = 1;
+            button8.Text = "Volver";
+            button8.UseVisualStyleBackColor = true;
+            button8.Click += volverdetalle_Click;
             // 
             // devueltapanel
             // 
@@ -1867,436 +2406,6 @@
             label29.TabIndex = 12;
             label29.Text = "Total:";
             // 
-            // detallepagopanel
-            // 
-            detallepagopanel.BackColor = Color.FromArgb(64, 64, 64);
-            detallepagopanel.Controls.Add(tabControl2);
-            detallepagopanel.Controls.Add(label15);
-            detallepagopanel.Location = new Point(476, 0);
-            detallepagopanel.Name = "detallepagopanel";
-            detallepagopanel.Size = new Size(333, 402);
-            detallepagopanel.TabIndex = 2;
-            // 
-            // tabControl2
-            // 
-            tabControl2.Controls.Add(tabPage3);
-            tabControl2.Controls.Add(tabPage5);
-            tabControl2.Controls.Add(tabPage4);
-            tabControl2.Location = new Point(3, 51);
-            tabControl2.Name = "tabControl2";
-            tabControl2.SelectedIndex = 0;
-            tabControl2.Size = new Size(327, 346);
-            tabControl2.TabIndex = 0;
-            tabControl2.SelectedIndexChanged += tabControl2_SelectedIndexChanged;
-            // 
-            // tabPage3
-            // 
-            tabPage3.BackColor = SystemColors.WindowFrame;
-            tabPage3.Controls.Add(eliminar);
-            tabPage3.Controls.Add(efectivodt);
-            tabPage3.Controls.Add(label18);
-            tabPage3.Controls.Add(label16);
-            tabPage3.Controls.Add(volverdetalle);
-            tabPage3.Controls.Add(pagarefectivo);
-            tabPage3.Controls.Add(aplicarefectivo);
-            tabPage3.Controls.Add(totalrealef);
-            tabPage3.Controls.Add(efectivotxt);
-            tabPage3.Location = new Point(4, 30);
-            tabPage3.Name = "tabPage3";
-            tabPage3.Padding = new Padding(3);
-            tabPage3.RightToLeft = RightToLeft.No;
-            tabPage3.Size = new Size(319, 312);
-            tabPage3.TabIndex = 0;
-            tabPage3.Text = "Efectivo";
-            // 
-            // eliminar
-            // 
-            eliminar.BackColor = Color.Red;
-            eliminar.Image = Properties.Resources.basurablanco;
-            eliminar.Location = new Point(6, 8);
-            eliminar.Name = "eliminar";
-            eliminar.Size = new Size(28, 29);
-            eliminar.TabIndex = 78;
-            eliminar.UseVisualStyleBackColor = false;
-            eliminar.Click += eliminar_Click;
-            // 
-            // efectivodt
-            // 
-            efectivodt.AllowUserToAddRows = false;
-            efectivodt.AllowUserToResizeRows = false;
-            efectivodt.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            efectivodt.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            efectivodt.Location = new Point(6, 138);
-            efectivodt.Name = "efectivodt";
-            efectivodt.RowHeadersVisible = false;
-            efectivodt.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            efectivodt.Size = new Size(307, 116);
-            efectivodt.TabIndex = 14;
-            // 
-            // label18
-            // 
-            label18.AutoSize = true;
-            label18.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label18.ForeColor = SystemColors.Control;
-            label18.Location = new Point(6, 81);
-            label18.Name = "label18";
-            label18.Size = new Size(72, 21);
-            label18.TabIndex = 4;
-            label18.Text = "Efectivo";
-            // 
-            // label16
-            // 
-            label16.AutoSize = true;
-            label16.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label16.ForeColor = SystemColors.Control;
-            label16.Location = new Point(137, 12);
-            label16.Name = "label16";
-            label16.Size = new Size(52, 21);
-            label16.TabIndex = 4;
-            label16.Text = "Total:";
-            // 
-            // volverdetalle
-            // 
-            volverdetalle.Image = Properties.Resources.atrás;
-            volverdetalle.ImageAlign = ContentAlignment.MiddleLeft;
-            volverdetalle.Location = new Point(6, 258);
-            volverdetalle.Name = "volverdetalle";
-            volverdetalle.Size = new Size(152, 46);
-            volverdetalle.TabIndex = 1;
-            volverdetalle.Text = "Volver";
-            volverdetalle.UseVisualStyleBackColor = true;
-            volverdetalle.Click += volverdetalle_Click;
-            // 
-            // pagarefectivo
-            // 
-            pagarefectivo.Image = Properties.Resources.pagar;
-            pagarefectivo.ImageAlign = ContentAlignment.MiddleLeft;
-            pagarefectivo.Location = new Point(161, 258);
-            pagarefectivo.Name = "pagarefectivo";
-            pagarefectivo.Size = new Size(152, 46);
-            pagarefectivo.TabIndex = 1;
-            pagarefectivo.Text = "Procesar";
-            pagarefectivo.UseVisualStyleBackColor = true;
-            pagarefectivo.Click += pagarefectivo_Click;
-            // 
-            // aplicarefectivo
-            // 
-            aplicarefectivo.Image = Properties.Resources.dinero2;
-            aplicarefectivo.ImageAlign = ContentAlignment.MiddleLeft;
-            aplicarefectivo.Location = new Point(190, 105);
-            aplicarefectivo.Name = "aplicarefectivo";
-            aplicarefectivo.Size = new Size(123, 29);
-            aplicarefectivo.TabIndex = 1;
-            aplicarefectivo.Text = "Aplicar";
-            aplicarefectivo.UseVisualStyleBackColor = true;
-            aplicarefectivo.Click += aplicarefectivo_Click;
-            // 
-            // totalrealef
-            // 
-            totalrealef.Enabled = false;
-            totalrealef.Location = new Point(190, 8);
-            totalrealef.Name = "totalrealef";
-            totalrealef.Size = new Size(123, 29);
-            totalrealef.TabIndex = 0;
-            // 
-            // efectivotxt
-            // 
-            efectivotxt.Location = new Point(6, 105);
-            efectivotxt.Name = "efectivotxt";
-            efectivotxt.PlaceholderText = "Total Efectivo";
-            efectivotxt.Size = new Size(178, 29);
-            efectivotxt.TabIndex = 0;
-            // 
-            // tabPage5
-            // 
-            tabPage5.BackColor = SystemColors.WindowFrame;
-            tabPage5.Controls.Add(button1);
-            tabPage5.Controls.Add(tarjetacmbx);
-            tabPage5.Controls.Add(tarjetadt);
-            tabPage5.Controls.Add(label27);
-            tabPage5.Controls.Add(label23);
-            tabPage5.Controls.Add(label24);
-            tabPage5.Controls.Add(button6);
-            tabPage5.Controls.Add(pagartarjeta);
-            tabPage5.Controls.Add(aplicartarjeta);
-            tabPage5.Controls.Add(totalrealtar);
-            tabPage5.Controls.Add(tarjetaref);
-            tabPage5.Location = new Point(4, 24);
-            tabPage5.Name = "tabPage5";
-            tabPage5.Size = new Size(319, 318);
-            tabPage5.TabIndex = 2;
-            tabPage5.Text = "Tarjeta";
-            // 
-            // button1
-            // 
-            button1.BackColor = Color.Red;
-            button1.Image = Properties.Resources.basurablanco;
-            button1.Location = new Point(6, 8);
-            button1.Name = "button1";
-            button1.Size = new Size(28, 29);
-            button1.TabIndex = 79;
-            button1.UseVisualStyleBackColor = false;
-            button1.Click += button1_Click;
-            // 
-            // tarjetacmbx
-            // 
-            tarjetacmbx.DropDownStyle = ComboBoxStyle.DropDownList;
-            tarjetacmbx.FormattingEnabled = true;
-            tarjetacmbx.Items.AddRange(new object[] { "1. VISA", "2. MASTERCARD", "3. AMERICAN EXPRESS" });
-            tarjetacmbx.Location = new Point(74, 44);
-            tarjetacmbx.Name = "tarjetacmbx";
-            tarjetacmbx.Size = new Size(239, 29);
-            tarjetacmbx.TabIndex = 14;
-            // 
-            // tarjetadt
-            // 
-            tarjetadt.AllowUserToAddRows = false;
-            tarjetadt.AllowUserToResizeRows = false;
-            tarjetadt.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            tarjetadt.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            tarjetadt.Location = new Point(6, 138);
-            tarjetadt.Name = "tarjetadt";
-            tarjetadt.RowHeadersVisible = false;
-            tarjetadt.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tarjetadt.Size = new Size(307, 116);
-            tarjetadt.TabIndex = 13;
-            // 
-            // label27
-            // 
-            label27.AutoSize = true;
-            label27.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label27.ForeColor = SystemColors.Control;
-            label27.Location = new Point(6, 48);
-            label27.Name = "label27";
-            label27.Size = new Size(62, 21);
-            label27.TabIndex = 11;
-            label27.Text = "Tarjeta";
-            // 
-            // label23
-            // 
-            label23.AutoSize = true;
-            label23.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label23.ForeColor = SystemColors.Control;
-            label23.Location = new Point(6, 81);
-            label23.Name = "label23";
-            label23.Size = new Size(91, 21);
-            label23.TabIndex = 11;
-            label23.Text = "Referencia";
-            // 
-            // label24
-            // 
-            label24.AutoSize = true;
-            label24.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label24.ForeColor = SystemColors.Control;
-            label24.Location = new Point(137, 12);
-            label24.Name = "label24";
-            label24.Size = new Size(52, 21);
-            label24.TabIndex = 12;
-            label24.Text = "Total:";
-            // 
-            // button6
-            // 
-            button6.Image = Properties.Resources.atrás;
-            button6.ImageAlign = ContentAlignment.MiddleLeft;
-            button6.Location = new Point(6, 258);
-            button6.Name = "button6";
-            button6.Size = new Size(152, 46);
-            button6.TabIndex = 8;
-            button6.Text = "Volver";
-            button6.UseVisualStyleBackColor = true;
-            button6.Click += button6_Click;
-            // 
-            // pagartarjeta
-            // 
-            pagartarjeta.Image = Properties.Resources.pagar;
-            pagartarjeta.ImageAlign = ContentAlignment.MiddleLeft;
-            pagartarjeta.Location = new Point(161, 258);
-            pagartarjeta.Name = "pagartarjeta";
-            pagartarjeta.Size = new Size(152, 46);
-            pagartarjeta.TabIndex = 9;
-            pagartarjeta.Text = "Procesar";
-            pagartarjeta.UseVisualStyleBackColor = true;
-            pagartarjeta.Click += pagartarjeta_Click;
-            // 
-            // aplicartarjeta
-            // 
-            aplicartarjeta.Image = Properties.Resources.tarjeta_de_credito__1_;
-            aplicartarjeta.ImageAlign = ContentAlignment.MiddleLeft;
-            aplicartarjeta.Location = new Point(190, 105);
-            aplicartarjeta.Name = "aplicartarjeta";
-            aplicartarjeta.Size = new Size(123, 29);
-            aplicartarjeta.TabIndex = 10;
-            aplicartarjeta.Text = "Aplicar";
-            aplicartarjeta.UseVisualStyleBackColor = true;
-            aplicartarjeta.Click += aplicartarjeta_Click;
-            // 
-            // totalrealtar
-            // 
-            totalrealtar.Enabled = false;
-            totalrealtar.Location = new Point(190, 8);
-            totalrealtar.Name = "totalrealtar";
-            totalrealtar.Size = new Size(123, 29);
-            totalrealtar.TabIndex = 6;
-            // 
-            // tarjetaref
-            // 
-            tarjetaref.Location = new Point(6, 105);
-            tarjetaref.Name = "tarjetaref";
-            tarjetaref.PlaceholderText = "N° Referencia";
-            tarjetaref.Size = new Size(178, 29);
-            tarjetaref.TabIndex = 7;
-            // 
-            // tabPage4
-            // 
-            tabPage4.BackColor = SystemColors.WindowFrame;
-            tabPage4.Controls.Add(button2);
-            tabPage4.Controls.Add(transferenciadt);
-            tabPage4.Controls.Add(bancocmbx);
-            tabPage4.Controls.Add(label28);
-            tabPage4.Controls.Add(label25);
-            tabPage4.Controls.Add(label26);
-            tabPage4.Controls.Add(button10);
-            tabPage4.Controls.Add(pagartransf);
-            tabPage4.Controls.Add(aplicartransf);
-            tabPage4.Controls.Add(totalrealtransf);
-            tabPage4.Controls.Add(bancoref);
-            tabPage4.Location = new Point(4, 24);
-            tabPage4.Name = "tabPage4";
-            tabPage4.Padding = new Padding(3);
-            tabPage4.Size = new Size(319, 318);
-            tabPage4.TabIndex = 1;
-            tabPage4.Text = "Transferencia";
-            // 
-            // button2
-            // 
-            button2.BackColor = Color.Red;
-            button2.Image = Properties.Resources.basurablanco;
-            button2.Location = new Point(6, 8);
-            button2.Name = "button2";
-            button2.Size = new Size(28, 29);
-            button2.TabIndex = 80;
-            button2.UseVisualStyleBackColor = false;
-            button2.Click += button2_Click;
-            // 
-            // transferenciadt
-            // 
-            transferenciadt.AllowUserToAddRows = false;
-            transferenciadt.AllowUserToResizeRows = false;
-            transferenciadt.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            transferenciadt.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            transferenciadt.Location = new Point(6, 138);
-            transferenciadt.Name = "transferenciadt";
-            transferenciadt.RowHeadersVisible = false;
-            transferenciadt.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            transferenciadt.Size = new Size(307, 116);
-            transferenciadt.TabIndex = 17;
-            // 
-            // bancocmbx
-            // 
-            bancocmbx.DropDownStyle = ComboBoxStyle.DropDownList;
-            bancocmbx.FormattingEnabled = true;
-            bancocmbx.Items.AddRange(new object[] { "1. BANCO POPULAR DOMINICANO", "2. BANCO DE RESERVAS (BANRESERVAS)", "3. BANCO BHD LEÓN", "4. SCOTIABANK REPÚBLICA DOMINICANA", "5. BANCO SANTA CRUZ", "6. BANCO CARIBE", "7. BANCO VIMENCA", "8. BANCO ADEMI" });
-            bancocmbx.Location = new Point(74, 44);
-            bancocmbx.Name = "bancocmbx";
-            bancocmbx.Size = new Size(239, 29);
-            bancocmbx.TabIndex = 16;
-            // 
-            // label28
-            // 
-            label28.AutoSize = true;
-            label28.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label28.ForeColor = SystemColors.Control;
-            label28.Location = new Point(6, 48);
-            label28.Name = "label28";
-            label28.Size = new Size(57, 21);
-            label28.TabIndex = 15;
-            label28.Text = "Banco";
-            // 
-            // label25
-            // 
-            label25.AutoSize = true;
-            label25.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label25.ForeColor = SystemColors.Control;
-            label25.Location = new Point(6, 81);
-            label25.Name = "label25";
-            label25.Size = new Size(91, 21);
-            label25.TabIndex = 11;
-            label25.Text = "Referencia";
-            // 
-            // label26
-            // 
-            label26.AutoSize = true;
-            label26.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label26.ForeColor = SystemColors.Control;
-            label26.Location = new Point(137, 12);
-            label26.Name = "label26";
-            label26.Size = new Size(52, 21);
-            label26.TabIndex = 12;
-            label26.Text = "Total:";
-            // 
-            // button10
-            // 
-            button10.Image = Properties.Resources.atrás;
-            button10.ImageAlign = ContentAlignment.MiddleLeft;
-            button10.Location = new Point(6, 258);
-            button10.Name = "button10";
-            button10.Size = new Size(152, 46);
-            button10.TabIndex = 8;
-            button10.Text = "Volver";
-            button10.UseVisualStyleBackColor = true;
-            button10.Click += button10_Click;
-            // 
-            // pagartransf
-            // 
-            pagartransf.Image = Properties.Resources.pagar;
-            pagartransf.ImageAlign = ContentAlignment.MiddleLeft;
-            pagartransf.Location = new Point(161, 258);
-            pagartransf.Name = "pagartransf";
-            pagartransf.Size = new Size(152, 46);
-            pagartransf.TabIndex = 9;
-            pagartransf.Text = "Procesar";
-            pagartransf.UseVisualStyleBackColor = true;
-            pagartransf.Click += pagartransf_Click;
-            // 
-            // aplicartransf
-            // 
-            aplicartransf.Image = Properties.Resources.banco__1_;
-            aplicartransf.ImageAlign = ContentAlignment.MiddleLeft;
-            aplicartransf.Location = new Point(190, 105);
-            aplicartransf.Name = "aplicartransf";
-            aplicartransf.Size = new Size(123, 29);
-            aplicartransf.TabIndex = 10;
-            aplicartransf.Text = "Aplicar";
-            aplicartransf.UseVisualStyleBackColor = true;
-            aplicartransf.Click += aplicartransf_Click;
-            // 
-            // totalrealtransf
-            // 
-            totalrealtransf.Enabled = false;
-            totalrealtransf.Location = new Point(190, 8);
-            totalrealtransf.Name = "totalrealtransf";
-            totalrealtransf.Size = new Size(123, 29);
-            totalrealtransf.TabIndex = 6;
-            // 
-            // bancoref
-            // 
-            bancoref.Location = new Point(6, 105);
-            bancoref.Name = "bancoref";
-            bancoref.PlaceholderText = "N° Referencia";
-            bancoref.Size = new Size(178, 29);
-            bancoref.TabIndex = 7;
-            // 
-            // label15
-            // 
-            label15.AutoSize = true;
-            label15.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label15.ForeColor = SystemColors.Control;
-            label15.Location = new Point(69, 5);
-            label15.Name = "label15";
-            label15.Size = new Size(194, 32);
-            label15.TabIndex = 3;
-            label15.Text = "Detalle de pago";
-            // 
             // label13
             // 
             label13.AutoSize = true;
@@ -2312,7 +2421,7 @@
             // txtbusquedafactura
             // 
             txtbusquedafactura.CharacterCasing = CharacterCasing.Upper;
-            txtbusquedafactura.ForeColor = Color.Gray;
+            txtbusquedafactura.ForeColor = Color.Black;
             txtbusquedafactura.Location = new Point(8, 141);
             txtbusquedafactura.Name = "txtbusquedafactura";
             txtbusquedafactura.PlaceholderText = "Buscar";
@@ -2609,26 +2718,26 @@
             panel14.PerformLayout();
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
-            detallepanelcompleto.ResumeLayout(false);
-            bloqueopanel.ResumeLayout(false);
-            bloqueopanel.PerformLayout();
+            cancelarPanel.ResumeLayout(false);
+            cancelarPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
+            detallepanelcompleto.ResumeLayout(false);
+            detallepagopanel.ResumeLayout(false);
+            detallepagopanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
+            tabControl3.ResumeLayout(false);
+            tabPage7.ResumeLayout(false);
+            tabPage7.PerformLayout();
+            tabPage8.ResumeLayout(false);
+            tabPage8.PerformLayout();
+            tabPage9.ResumeLayout(false);
+            tabPage9.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)detallePagoDT).EndInit();
             devueltapanel.ResumeLayout(false);
             devueltapanel.PerformLayout();
             panel12.ResumeLayout(false);
             panel12.PerformLayout();
-            detallepagopanel.ResumeLayout(false);
-            detallepagopanel.PerformLayout();
-            tabControl2.ResumeLayout(false);
-            tabPage3.ResumeLayout(false);
-            tabPage3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)efectivodt).EndInit();
-            tabPage5.ResumeLayout(false);
-            tabPage5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)tarjetadt).EndInit();
-            tabPage4.ResumeLayout(false);
-            tabPage4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)transferenciadt).EndInit();
             panel7.ResumeLayout(false);
             panel7.PerformLayout();
             panel5.ResumeLayout(false);
@@ -2709,38 +2818,6 @@
         private TextBox idclientetxt;
         private Panel panel10;
         private Panel detallepanelcompleto;
-        private Panel detallepagopanel;
-        private TabControl tabControl2;
-        private TabPage tabPage3;
-        private Label label18;
-        private Label label16;
-        private Button volverdetalle;
-        private Button pagarefectivo;
-        private Button aplicarefectivo;
-        private TextBox totalrealef;
-        private TextBox efectivotxt;
-        private TabPage tabPage5;
-        private ComboBox tarjetacmbx;
-        private DataGridView tarjetadt;
-        private Label label27;
-        private Label label23;
-        private Label label24;
-        private Button button6;
-        private Button pagartarjeta;
-        private Button aplicartarjeta;
-        private TextBox totalrealtar;
-        private TextBox tarjetaref;
-        private TabPage tabPage4;
-        private ComboBox bancocmbx;
-        private Label label28;
-        private Label label25;
-        private Label label26;
-        private Button button10;
-        private Button pagartransf;
-        private Button aplicartransf;
-        private TextBox totalrealtransf;
-        private TextBox bancoref;
-        private Label label15;
         private Panel devueltapanel;
         private TextBox devueltatxt;
         private Label label32;
@@ -2754,11 +2831,6 @@
         private Button nota;
         private Panel notapanel;
         private TextBox notatxt;
-        private DataGridView efectivodt;
-        private DataGridView transferenciadt;
-        private Panel bloqueopanel;
-        private PictureBox pictureBox3;
-        private Label label4;
         private TabPage tabPage6;
         private Panel panel6;
         private FlowLayoutPanel mesasprincipal;
@@ -2778,9 +2850,6 @@
         private Panel panel14;
         private Panel panel8;
         private Label cajerolabel;
-        private Button eliminar;
-        private Button button1;
-        private Button button2;
         private Button UnirMesa;
         private Button separarcuenta;
         private Button NoUnion;
@@ -2833,5 +2902,55 @@
         private Button salirComanda;
         private PictureBox ordenesNotif;
         private Button eliminarFila;
+        private Label AvisoCuentaSeparada;
+        private Panel detallepagopanel;
+        private TabControl tabControl3;
+        private TabPage tabPage7;
+        private Button eliminar;
+        private Label label41;
+        private Button aplicarefectivo;
+        private TextBox TotalAPagar;
+        private TextBox efectivotxt;
+        private TabPage tabPage8;
+        private Button volverCancelar;
+        private ComboBox tarjetacmbx;
+        private Label label43;
+        private Label label44;
+        private Button aplicartarjeta;
+        private TextBox tarjetaref;
+        private TabPage tabPage9;
+        private Button button16;
+        private ComboBox bancocmbx;
+        private Label label46;
+        private Label label47;
+        private Button aplicartransf;
+        private TextBox bancoref;
+        private DataGridView detallePagoDT;
+        private Label label49;
+        private Button button9;
+        private Button button8;
+        private PictureBox pictureBox5;
+        private Label label42;
+        private TextBox tarjetaMonto;
+        private TextBox transfMonto;
+        private Button eliminarDetalle;
+        private Label label4;
+        private TextBox restante1txt;
+        private Label label15;
+        private TextBox restante2txt;
+        private Label label16;
+        private TextBox restante3txt;
+        private Panel cancelarPanel;
+        private PictureBox pictureBox3;
+        private PictureBox pictureBox6;
+        private CheckBox passView2;
+        private Button autorizarCancelar;
+        private TextBox passCancelar;
+        private TextBox usuarioCancelar;
+        private Label label18;
+        private Label label23;
+        private RadioButton despuesDe;
+        private RadioButton antesDe;
+        private Label label24;
     }
 }
