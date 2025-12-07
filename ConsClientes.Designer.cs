@@ -47,9 +47,7 @@
             filtrochk = new CheckBox();
             tabPage2 = new TabPage();
             tipodoccmbx = new ComboBox();
-            label11 = new Label();
             label10 = new Label();
-            label5 = new Label();
             label14 = new Label();
             panel4 = new Panel();
             panel2 = new Panel();
@@ -312,9 +310,7 @@
             // 
             tabPage2.BackColor = SystemColors.WindowFrame;
             tabPage2.Controls.Add(tipodoccmbx);
-            tabPage2.Controls.Add(label11);
             tabPage2.Controls.Add(label10);
-            tabPage2.Controls.Add(label5);
             tabPage2.Controls.Add(label14);
             tabPage2.Controls.Add(panel4);
             tabPage2.Controls.Add(panel2);
@@ -353,38 +349,16 @@
             tipodoccmbx.TabIndex = 100;
             tipodoccmbx.SelectedIndexChanged += tipodoccmbx_SelectedIndexChanged;
             // 
-            // label11
-            // 
-            label11.AutoSize = true;
-            label11.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label11.ForeColor = Color.Red;
-            label11.Location = new Point(246, 241);
-            label11.Name = "label11";
-            label11.Size = new Size(17, 21);
-            label11.TabIndex = 99;
-            label11.Text = "*";
-            // 
             // label10
             // 
             label10.AutoSize = true;
             label10.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label10.ForeColor = Color.Red;
-            label10.Location = new Point(246, 169);
+            label10.Location = new Point(457, 169);
             label10.Name = "label10";
             label10.Size = new Size(17, 21);
             label10.TabIndex = 99;
             label10.Text = "*";
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label5.ForeColor = Color.Red;
-            label5.Location = new Point(246, 97);
-            label5.Name = "label5";
-            label5.Size = new Size(17, 21);
-            label5.TabIndex = 99;
-            label5.Text = "*";
             // 
             // label14
             // 
@@ -504,7 +478,6 @@
             // direccioncliente
             // 
             direccioncliente.AllowUserToAddRows = false;
-            direccioncliente.AllowUserToDeleteRows = false;
             direccioncliente.AllowUserToResizeRows = false;
             direccioncliente.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             direccioncliente.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -522,7 +495,6 @@
             // telefonocliente
             // 
             telefonocliente.AllowUserToAddRows = false;
-            telefonocliente.AllowUserToDeleteRows = false;
             telefonocliente.AllowUserToResizeRows = false;
             telefonocliente.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             telefonocliente.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -699,7 +671,7 @@
             emailtxt.CharacterCasing = CharacterCasing.Upper;
             emailtxt.Location = new Point(11, 309);
             emailtxt.Name = "emailtxt";
-            emailtxt.Size = new Size(229, 29);
+            emailtxt.Size = new Size(440, 29);
             emailtxt.TabIndex = 2;
             emailtxt.KeyPress += txtapellido_KeyPress;
             // 
@@ -708,7 +680,7 @@
             txtapellido.CharacterCasing = CharacterCasing.Upper;
             txtapellido.Location = new Point(11, 237);
             txtapellido.Name = "txtapellido";
-            txtapellido.Size = new Size(229, 29);
+            txtapellido.Size = new Size(440, 29);
             txtapellido.TabIndex = 2;
             txtapellido.KeyPress += txtapellido_KeyPress;
             // 
@@ -729,13 +701,14 @@
             identtxt.Size = new Size(148, 29);
             identtxt.TabIndex = 1;
             identtxt.TextChanged += identtxt_TextChanged;
+            identtxt.KeyPress += identtxt_KeyPress;
             // 
             // txtnombre
             // 
             txtnombre.CharacterCasing = CharacterCasing.Upper;
             txtnombre.Location = new Point(11, 165);
             txtnombre.Name = "txtnombre";
-            txtnombre.Size = new Size(229, 29);
+            txtnombre.Size = new Size(440, 29);
             txtnombre.TabIndex = 1;
             txtnombre.KeyPress += txtnombre_KeyPress;
             // 
@@ -896,8 +869,6 @@
         private TextBox identtxt;
         private TextBox emailtxt;
         private Label label4;
-        private Label label11;
         private Label label10;
-        private Label label5;
     }
 }

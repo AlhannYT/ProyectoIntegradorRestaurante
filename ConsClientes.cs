@@ -156,9 +156,9 @@ namespace Proyecto_restaurante
             Regex letrasRegex = new Regex(@"^[a-zA-Z\s]+$");
             Regex numerosRegex = new Regex(@"^[\d-]+$");
 
-            if (string.IsNullOrWhiteSpace(txtnombre.Text) || string.IsNullOrWhiteSpace(txtapellido.Text))
+            if (string.IsNullOrWhiteSpace(txtnombre.Text))
             {
-                MessageBox.Show("No debe dejar campos vacíos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Nombre Obligatorio.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -329,7 +329,6 @@ namespace Proyecto_restaurante
                 }
             }
         }
-
 
         private void RestablecerFormulario()
         {
@@ -510,7 +509,6 @@ namespace Proyecto_restaurante
                     c.IdCliente,
                     c.IdPersona,
                     c.IdTipoDoc,
-
                     p.Nombre,
                     p.Apellido,
                     p.Email,
@@ -657,9 +655,9 @@ namespace Proyecto_restaurante
             else if (tipodoccmbx.SelectedIndex == 1)
             {
                 string posicion = identtxt.Text; posicion = posicion.Replace("-", "");
-                if (posicion.Length > 10)
+                if (posicion.Length > 11)
                 {
-                    posicion = posicion.Substring(0, 10);
+                    posicion = posicion.Substring(0, 11);
                 }
                 if (posicion.Length > 3)
                 {
@@ -776,8 +774,7 @@ namespace Proyecto_restaurante
             }
             else
             {
-                MessageBox.Show("Debe seleccionar una fila.", "Aviso",
-                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Debe seleccionar una fila.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -816,6 +813,76 @@ namespace Proyecto_restaurante
             if (tabControl1.SelectedIndex == 1 && EliminarDir == 1 && e.KeyCode == Keys.Delete)
             {
                 eliminarDireccion.PerformClick();
+            }
+        }
+
+        private void identtxt_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true;
+                BuscarRNC();
+            }
+        }
+
+        private void BuscarRNC()
+        {
+            if (tipodoccmbx.SelectedIndex != 1)
+                return;
+
+            string archivoDGII = @"C:\SistemaArchivos\DGIITXT\DGII_RNC.TXT";
+
+            if (!File.Exists(archivoDGII))
+            {
+                MessageBox.Show("No se encontró el archivo DGII_RNC.TXT", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            string rncBuscado = identtxt.Text.Replace("-", "").Trim();
+
+            if (rncBuscado.Length == 0)
+                return;
+
+            try
+            {
+                using (StreamReader sr = new StreamReader(archivoDGII))
+                {
+                    string linea;
+
+                    while ((linea = sr.ReadLine()) != null)
+                    {
+                        if (linea.StartsWith(rncBuscado + "|"))
+                        {
+                            string[] partes = linea.Split('|');
+
+                            if (partes.Length < 3)
+                                continue;
+
+                            string nombre = partes[1].Trim();
+                            string estado = partes[partes.Length - 2].Trim().ToUpper();
+                            
+                            if (estado == "ACTIVO")
+                            {
+                                txtnombre.Text = nombre;
+                                return;
+                            }
+                            else
+                            {
+                                MessageBox.Show("RNC Suspendido.", "Información",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                return;
+                            }
+                        }
+                    }
+                }
+
+                MessageBox.Show("RNC no encontrado en el archivo DGII.", "No encontrado",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error leyendo archivo: " + ex.Message);
             }
         }
     }

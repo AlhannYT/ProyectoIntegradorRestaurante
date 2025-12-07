@@ -35,6 +35,7 @@
             button2 = new Button();
             asignarcaja = new Button();
             sistema = new Button();
+            archivoDGII = new Button();
             datosRestaurante = new Button();
             button7 = new Button();
             label1 = new Label();
@@ -182,7 +183,24 @@
             panel10 = new Panel();
             button12 = new Button();
             toolTip1 = new ToolTip(components);
-            archivoDGII = new Button();
+            DGIIPanel = new Panel();
+            panel14 = new Panel();
+            ImportarArchivo = new Button();
+            label37 = new Label();
+            label40 = new Label();
+            rutaOrigentxt = new Label();
+            buscarArchivo = new Button();
+            datosPanel = new Panel();
+            panel17 = new Panel();
+            button20 = new Button();
+            button22 = new Button();
+            label43 = new Label();
+            label36 = new Label();
+            textBox3 = new TextBox();
+            label39 = new Label();
+            textBox4 = new TextBox();
+            label35 = new Label();
+            textBox2 = new TextBox();
             barraizq.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
@@ -223,6 +241,10 @@
             tabPage9.SuspendLayout();
             tabPage10.SuspendLayout();
             panel10.SuspendLayout();
+            DGIIPanel.SuspendLayout();
+            panel14.SuspendLayout();
+            datosPanel.SuspendLayout();
+            panel17.SuspendLayout();
             SuspendLayout();
             // 
             // barraizq
@@ -304,6 +326,20 @@
             sistema.UseVisualStyleBackColor = false;
             sistema.Click += button5_Click;
             // 
+            // archivoDGII
+            // 
+            archivoDGII.Image = Properties.Resources.logodgii1;
+            archivoDGII.ImageAlign = ContentAlignment.MiddleRight;
+            archivoDGII.Location = new Point(7, 83);
+            archivoDGII.Margin = new Padding(2);
+            archivoDGII.Name = "archivoDGII";
+            archivoDGII.Size = new Size(202, 38);
+            archivoDGII.TabIndex = 15;
+            archivoDGII.Text = "Archivo DGII";
+            archivoDGII.TextAlign = ContentAlignment.MiddleLeft;
+            archivoDGII.UseVisualStyleBackColor = true;
+            archivoDGII.Click += archivoDGII_Click;
+            // 
             // datosRestaurante
             // 
             datosRestaurante.Image = Properties.Resources.servicio_de_habitaciones1;
@@ -316,6 +352,7 @@
             datosRestaurante.Text = "Datos de Restaurante";
             datosRestaurante.TextAlign = ContentAlignment.MiddleLeft;
             datosRestaurante.UseVisualStyleBackColor = true;
+            datosRestaurante.Click += datosRestaurante_Click;
             // 
             // button7
             // 
@@ -389,7 +426,6 @@
             tabPage1.Size = new Size(637, 522);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Consulta";
-            tabPage1.Click += tabPage1_Click;
             // 
             // eliminarbtn
             // 
@@ -1354,6 +1390,7 @@
             permisospanel.Name = "permisospanel";
             permisospanel.Size = new Size(659, 570);
             permisospanel.TabIndex = 47;
+            permisospanel.Visible = false;
             // 
             // rolcmbx
             // 
@@ -1998,18 +2035,203 @@
             button12.Text = "      Procesar cambios";
             button12.UseVisualStyleBackColor = true;
             // 
-            // archivoDGII
+            // DGIIPanel
             // 
-            archivoDGII.Image = Properties.Resources.logodgii1;
-            archivoDGII.ImageAlign = ContentAlignment.MiddleRight;
-            archivoDGII.Location = new Point(7, 83);
-            archivoDGII.Margin = new Padding(2);
-            archivoDGII.Name = "archivoDGII";
-            archivoDGII.Size = new Size(202, 38);
-            archivoDGII.TabIndex = 15;
-            archivoDGII.Text = "Archivo DGII";
-            archivoDGII.TextAlign = ContentAlignment.MiddleLeft;
-            archivoDGII.UseVisualStyleBackColor = true;
+            DGIIPanel.Controls.Add(panel14);
+            DGIIPanel.Controls.Add(label37);
+            DGIIPanel.Controls.Add(label40);
+            DGIIPanel.Controls.Add(rutaOrigentxt);
+            DGIIPanel.Controls.Add(buscarArchivo);
+            DGIIPanel.Location = new Point(2216, 4);
+            DGIIPanel.Name = "DGIIPanel";
+            DGIIPanel.Size = new Size(659, 570);
+            DGIIPanel.TabIndex = 45;
+            DGIIPanel.Visible = false;
+            // 
+            // panel14
+            // 
+            panel14.BackColor = Color.FromArgb(64, 64, 64);
+            panel14.Controls.Add(ImportarArchivo);
+            panel14.Location = new Point(125, 445);
+            panel14.Name = "panel14";
+            panel14.Size = new Size(409, 74);
+            panel14.TabIndex = 89;
+            // 
+            // ImportarArchivo
+            // 
+            ImportarArchivo.Image = Properties.Resources.import;
+            ImportarArchivo.ImageAlign = ContentAlignment.MiddleLeft;
+            ImportarArchivo.Location = new Point(114, 8);
+            ImportarArchivo.Name = "ImportarArchivo";
+            ImportarArchivo.Size = new Size(181, 58);
+            ImportarArchivo.TabIndex = 44;
+            ImportarArchivo.Text = "Importar";
+            ImportarArchivo.UseVisualStyleBackColor = true;
+            ImportarArchivo.Click += ImportarArchivo_Click;
+            // 
+            // label37
+            // 
+            label37.AutoSize = true;
+            label37.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold);
+            label37.ForeColor = SystemColors.Control;
+            label37.Location = new Point(168, 35);
+            label37.Name = "label37";
+            label37.Size = new Size(322, 40);
+            label37.TabIndex = 39;
+            label37.Text = "Importar Archivo DGII";
+            // 
+            // label40
+            // 
+            label40.AutoSize = true;
+            label40.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label40.ForeColor = Color.White;
+            label40.Location = new Point(164, 257);
+            label40.Name = "label40";
+            label40.Size = new Size(338, 21);
+            label40.TabIndex = 84;
+            label40.Text = "Ruta Destino: C:\\SistemaArchivos\\DGIITXT\\";
+            label40.TextAlign = ContentAlignment.TopCenter;
+            // 
+            // rutaOrigentxt
+            // 
+            rutaOrigentxt.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            rutaOrigentxt.ForeColor = Color.White;
+            rutaOrigentxt.Location = new Point(164, 175);
+            rutaOrigentxt.Name = "rutaOrigentxt";
+            rutaOrigentxt.Size = new Size(338, 82);
+            rutaOrigentxt.TabIndex = 84;
+            rutaOrigentxt.Text = "Ruta Origen: ";
+            rutaOrigentxt.TextAlign = ContentAlignment.TopCenter;
+            // 
+            // buscarArchivo
+            // 
+            buscarArchivo.BackColor = Color.Gold;
+            buscarArchivo.ForeColor = Color.Black;
+            buscarArchivo.Image = Properties.Resources.carpeta_abierta;
+            buscarArchivo.ImageAlign = ContentAlignment.MiddleRight;
+            buscarArchivo.Location = new Point(221, 311);
+            buscarArchivo.Name = "buscarArchivo";
+            buscarArchivo.Size = new Size(216, 41);
+            buscarArchivo.TabIndex = 92;
+            buscarArchivo.Text = "Buscar archivo";
+            buscarArchivo.UseVisualStyleBackColor = false;
+            buscarArchivo.Click += buscarArchivo_Click;
+            // 
+            // datosPanel
+            // 
+            datosPanel.Controls.Add(panel17);
+            datosPanel.Controls.Add(label43);
+            datosPanel.Controls.Add(label36);
+            datosPanel.Controls.Add(textBox3);
+            datosPanel.Controls.Add(label39);
+            datosPanel.Controls.Add(textBox4);
+            datosPanel.Controls.Add(label35);
+            datosPanel.Controls.Add(textBox2);
+            datosPanel.Location = new Point(2216, 580);
+            datosPanel.Name = "datosPanel";
+            datosPanel.Size = new Size(659, 570);
+            datosPanel.TabIndex = 45;
+            datosPanel.Visible = false;
+            // 
+            // panel17
+            // 
+            panel17.BackColor = Color.FromArgb(64, 64, 64);
+            panel17.Controls.Add(button20);
+            panel17.Controls.Add(button22);
+            panel17.Location = new Point(125, 445);
+            panel17.Name = "panel17";
+            panel17.Size = new Size(409, 74);
+            panel17.TabIndex = 89;
+            // 
+            // button20
+            // 
+            button20.Image = Properties.Resources.guardar;
+            button20.ImageAlign = ContentAlignment.MiddleLeft;
+            button20.Location = new Point(12, 8);
+            button20.Name = "button20";
+            button20.Size = new Size(181, 58);
+            button20.TabIndex = 43;
+            button20.Text = "Guardar";
+            button20.UseVisualStyleBackColor = true;
+            // 
+            // button22
+            // 
+            button22.Image = Properties.Resources.nuevodoc;
+            button22.ImageAlign = ContentAlignment.MiddleLeft;
+            button22.Location = new Point(216, 8);
+            button22.Name = "button22";
+            button22.Size = new Size(181, 58);
+            button22.TabIndex = 44;
+            button22.Text = "Nuevo";
+            button22.UseVisualStyleBackColor = true;
+            // 
+            // label43
+            // 
+            label43.AutoSize = true;
+            label43.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold);
+            label43.ForeColor = SystemColors.Control;
+            label43.Location = new Point(173, 35);
+            label43.Name = "label43";
+            label43.Size = new Size(311, 40);
+            label43.TabIndex = 39;
+            label43.Text = "Datos de Restaurante";
+            // 
+            // label36
+            // 
+            label36.AutoSize = true;
+            label36.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label36.ForeColor = Color.White;
+            label36.Location = new Point(174, 184);
+            label36.Name = "label36";
+            label36.Size = new Size(43, 21);
+            label36.TabIndex = 84;
+            label36.Text = "RNC";
+            // 
+            // textBox3
+            // 
+            textBox3.Font = new Font("Segoe UI", 12F);
+            textBox3.Location = new Point(174, 209);
+            textBox3.Name = "textBox3";
+            textBox3.Size = new Size(311, 29);
+            textBox3.TabIndex = 86;
+            // 
+            // label39
+            // 
+            label39.AutoSize = true;
+            label39.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label39.ForeColor = Color.White;
+            label39.Location = new Point(174, 332);
+            label39.Name = "label39";
+            label39.Size = new Size(77, 21);
+            label39.TabIndex = 84;
+            label39.Text = "Teléfono";
+            // 
+            // textBox4
+            // 
+            textBox4.Font = new Font("Segoe UI", 12F);
+            textBox4.Location = new Point(174, 357);
+            textBox4.Name = "textBox4";
+            textBox4.Size = new Size(311, 29);
+            textBox4.TabIndex = 86;
+            // 
+            // label35
+            // 
+            label35.AutoSize = true;
+            label35.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label35.ForeColor = Color.White;
+            label35.Location = new Point(174, 258);
+            label35.Name = "label35";
+            label35.Size = new Size(73, 21);
+            label35.TabIndex = 84;
+            label35.Text = "Nombre";
+            // 
+            // textBox2
+            // 
+            textBox2.Font = new Font("Segoe UI", 12F);
+            textBox2.Location = new Point(174, 283);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(311, 29);
+            textBox2.TabIndex = 86;
             // 
             // Configuracion
             // 
@@ -2021,6 +2243,8 @@
             Controls.Add(colores);
             Controls.Add(usuariospanel);
             Controls.Add(sistemaconfiguracion);
+            Controls.Add(datosPanel);
+            Controls.Add(DGIIPanel);
             Controls.Add(asignarPCPanel);
             Controls.Add(cajaspanel);
             Controls.Add(barraizq);
@@ -2090,6 +2314,12 @@
             tabPage10.ResumeLayout(false);
             tabPage10.PerformLayout();
             panel10.ResumeLayout(false);
+            DGIIPanel.ResumeLayout(false);
+            DGIIPanel.PerformLayout();
+            panel14.ResumeLayout(false);
+            datosPanel.ResumeLayout(false);
+            datosPanel.PerformLayout();
+            panel17.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -2248,5 +2478,23 @@
         private Button datosRestaurante;
         private ToolTip toolTip1;
         private Button archivoDGII;
+        private Panel DGIIPanel;
+        private Panel panel14;
+        private Label label37;
+        private Panel datosPanel;
+        private Panel panel17;
+        private Button button20;
+        private Button button22;
+        private Label label43;
+        private Button ImportarArchivo;
+        private Label label36;
+        private TextBox textBox3;
+        private Label label35;
+        private TextBox textBox2;
+        private Label rutaOrigentxt;
+        private Label label40;
+        private Button buscarArchivo;
+        private Label label39;
+        private TextBox textBox4;
     }
 }
