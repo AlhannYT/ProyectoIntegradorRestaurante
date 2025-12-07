@@ -105,7 +105,6 @@
             txtidpedido = new TextBox();
             txtnombrecompleto = new TextBox();
             tabPage2 = new TabPage();
-            label12 = new Label();
             label14 = new Label();
             label10 = new Label();
             todoschk = new CheckBox();
@@ -120,6 +119,8 @@
             fecini = new DateTimePicker();
             fecfin = new DateTimePicker();
             dataGridView2 = new DataGridView();
+            panel10 = new Panel();
+            label12 = new Label();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             detallepanelcompleto.SuspendLayout();
@@ -144,6 +145,7 @@
             tabPage2.SuspendLayout();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
+            panel10.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -979,33 +981,19 @@
             // 
             // tabPage2
             // 
-            tabPage2.BackColor = Color.FromArgb(85, 151, 100);
-            tabPage2.Controls.Add(label12);
+            tabPage2.BackColor = Color.FromArgb(87, 128, 87);
             tabPage2.Controls.Add(label14);
             tabPage2.Controls.Add(label10);
-            tabPage2.Controls.Add(todoschk);
-            tabPage2.Controls.Add(canceladochk);
-            tabPage2.Controls.Add(pendientechk);
             tabPage2.Controls.Add(txtbusquedafactura);
             tabPage2.Controls.Add(panel3);
             tabPage2.Controls.Add(dataGridView2);
+            tabPage2.Controls.Add(panel10);
             tabPage2.Location = new Point(4, 30);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
             tabPage2.Size = new Size(839, 474);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Reservaciones";
-            // 
-            // label12
-            // 
-            label12.AutoSize = true;
-            label12.ForeColor = SystemColors.Control;
-            label12.Image = Properties.Resources.filtrar;
-            label12.Location = new Point(523, 138);
-            label12.Name = "label12";
-            label12.Size = new Size(18, 21);
-            label12.TabIndex = 17;
-            label12.Text = "  ";
             // 
             // label14
             // 
@@ -1033,34 +1021,40 @@
             // todoschk
             // 
             todoschk.AutoSize = true;
-            todoschk.Location = new Point(762, 136);
+            todoschk.BackColor = Color.FromArgb(64, 64, 64);
+            todoschk.ForeColor = Color.White;
+            todoschk.Location = new Point(246, 2);
             todoschk.Name = "todoschk";
             todoschk.Size = new Size(69, 25);
             todoschk.TabIndex = 9;
             todoschk.Text = "Todos";
-            todoschk.UseVisualStyleBackColor = true;
+            todoschk.UseVisualStyleBackColor = false;
             // 
             // canceladochk
             // 
             canceladochk.AutoSize = true;
-            canceladochk.Location = new Point(656, 136);
+            canceladochk.BackColor = Color.FromArgb(64, 64, 64);
+            canceladochk.ForeColor = Color.White;
+            canceladochk.Location = new Point(135, 2);
             canceladochk.Name = "canceladochk";
             canceladochk.Size = new Size(101, 25);
             canceladochk.TabIndex = 10;
             canceladochk.Text = "Cancelado";
-            canceladochk.UseVisualStyleBackColor = true;
+            canceladochk.UseVisualStyleBackColor = false;
             // 
             // pendientechk
             // 
             pendientechk.AutoSize = true;
+            pendientechk.BackColor = Color.FromArgb(64, 64, 64);
             pendientechk.Checked = true;
             pendientechk.CheckState = CheckState.Checked;
-            pendientechk.Location = new Point(554, 136);
+            pendientechk.ForeColor = Color.White;
+            pendientechk.Location = new Point(31, 1);
             pendientechk.Name = "pendientechk";
             pendientechk.Size = new Size(97, 25);
             pendientechk.TabIndex = 11;
             pendientechk.Text = "Pendiente";
-            pendientechk.UseVisualStyleBackColor = true;
+            pendientechk.UseVisualStyleBackColor = false;
             // 
             // txtbusquedafactura
             // 
@@ -1073,7 +1067,7 @@
             // 
             // panel3
             // 
-            panel3.BackColor = SystemColors.WindowFrame;
+            panel3.BackColor = Color.FromArgb(64, 64, 64);
             panel3.Controls.Add(cancelarpedido);
             panel3.Controls.Add(label8);
             panel3.Controls.Add(facturarbtn);
@@ -1158,6 +1152,30 @@
             dataGridView2.Size = new Size(826, 296);
             dataGridView2.TabIndex = 0;
             // 
+            // panel10
+            // 
+            panel10.BackColor = Color.FromArgb(64, 64, 64);
+            panel10.BorderStyle = BorderStyle.FixedSingle;
+            panel10.Controls.Add(label12);
+            panel10.Controls.Add(pendientechk);
+            panel10.Controls.Add(todoschk);
+            panel10.Controls.Add(canceladochk);
+            panel10.Location = new Point(498, 134);
+            panel10.Name = "panel10";
+            panel10.Size = new Size(335, 29);
+            panel10.TabIndex = 18;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.ForeColor = SystemColors.Control;
+            label12.Image = Properties.Resources.filtroblanco;
+            label12.Location = new Point(3, 3);
+            label12.Name = "label12";
+            label12.Size = new Size(18, 21);
+            label12.TabIndex = 19;
+            label12.Text = "  ";
+            // 
             // Reservacion
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1210,6 +1228,8 @@
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
+            panel10.ResumeLayout(false);
+            panel10.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -1254,7 +1274,6 @@
         private TextBox txtbusquedafactura;
         private Label label10;
         private Label label14;
-        private Label label12;
         private TextBox idclientetxt;
         private FlowLayoutPanel flowmesa;
         private Panel detallepanelcompleto;
@@ -1305,5 +1324,7 @@
         private TextBox totalrealtransf;
         private TextBox bancoref;
         private Label label15;
+        private Panel panel10;
+        private Label label12;
     }
 }

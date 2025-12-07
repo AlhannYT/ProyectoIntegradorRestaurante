@@ -1452,6 +1452,7 @@
             idclientetxt.Location = new Point(46, 68);
             idclientetxt.Name = "idclientetxt";
             idclientetxt.PlaceholderText = "ID";
+            idclientetxt.ReadOnly = true;
             idclientetxt.Size = new Size(29, 29);
             idclientetxt.TabIndex = 0;
             idclientetxt.Text = "1";
@@ -1461,6 +1462,7 @@
             txtidpedido.Enabled = false;
             txtidpedido.Location = new Point(39, 5);
             txtidpedido.Name = "txtidpedido";
+            txtidpedido.ReadOnly = true;
             txtidpedido.Size = new Size(87, 29);
             txtidpedido.TabIndex = 0;
             // 

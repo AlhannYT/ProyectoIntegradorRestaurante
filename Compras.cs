@@ -91,7 +91,7 @@ namespace Proyecto_restaurante
 
             DataGridViewRow row = tablaingrediente.Rows[e.RowIndex];
 
-            
+
             productoSeleccionadoId = Convert.ToInt32(row.Cells["IdProducto"].Value);
             string nombre = row.Cells["Nombre"].Value.ToString();
             decimal precioCompra = Convert.ToDecimal(row.Cells["PrecioCompra"].Value);
@@ -195,7 +195,7 @@ namespace Proyecto_restaurante
             TelefProvTxt.ForeColor = string.IsNullOrWhiteSpace(telefono) ? Color.DimGray : Color.White;
             DireccionProvTxt.ForeColor = string.IsNullOrWhiteSpace(direccion) ? Color.DimGray : Color.White;
 
-            
+
             ProvInformalChk.Checked = informal;
             ActualizarUIInformal();
 
@@ -1085,14 +1085,14 @@ namespace Proyecto_restaurante
 
         private void ActualizarUIInformal()
         {
-            
+
             ProvInformalChk.AutoCheck = false;
             ProvInformalChk.Enabled = false;
 
-            
+
             ProvInformalChk.ForeColor = ProvInformalChk.Checked
-                ? Color.LightSalmon   
-                : Color.Gainsboro;    
+                ? Color.LightSalmon
+                : Color.Gainsboro;
         }
 
         /*private void CargarDetalleCompraHistorial(int idCompra)
@@ -1146,17 +1146,17 @@ namespace Proyecto_restaurante
             }
         }
         */
-       /* private void TablaDatosCompra_SelectionChanged(object sender, EventArgs e)
-        {
-            if (TablaDatosCompra.CurrentRow == null) return;
+        /* private void TablaDatosCompra_SelectionChanged(object sender, EventArgs e)
+         {
+             if (TablaDatosCompra.CurrentRow == null) return;
 
-            if (TablaDatosCompra.CurrentRow.Cells["IdCompra"].Value == null) return;
+             if (TablaDatosCompra.CurrentRow.Cells["IdCompra"].Value == null) return;
 
-            int idCompra = Convert.ToInt32(TablaDatosCompra.CurrentRow.Cells["IdCompra"].Value);
+             int idCompra = Convert.ToInt32(TablaDatosCompra.CurrentRow.Cells["IdCompra"].Value);
 
-            CargarDetalleCompraHistorial(idCompra);
-        }
-       */
+             CargarDetalleCompraHistorial(idCompra);
+         }
+        */
 
         private void detallecompra_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -1253,7 +1253,7 @@ namespace Proyecto_restaurante
             LimpiarFormulario();
             compraEnEdicionId = idCompra;
             txtidcompra.Text = idCompra.ToString();
-            
+
             ConfigurarModoCabecera(true);
 
             using (SqlConnection con = new SqlConnection(conexionString))
@@ -1294,7 +1294,7 @@ namespace Proyecto_restaurante
                     {
                         if (dr.Read())
                         {
-                            
+
                             FechaCompra.Value = Convert.ToDateTime(dr["Fecha"]);
 
                             if (dr["IdProveedorPersona"] != DBNull.Value)
@@ -1302,12 +1302,12 @@ namespace Proyecto_restaurante
                             else
                                 idproveedortxt.Text = "";
 
-                            
+
                             txtnombrecompleto.Text = dr["NombreProveedor"] == DBNull.Value
                                 ? ""
                                 : dr["NombreProveedor"].ToString();
 
-                            
+
                             string tel = dr["Telefono"] == DBNull.Value ? "" : dr["Telefono"].ToString();
                             string dir = dr["Direccion"] == DBNull.Value ? "" : dr["Direccion"].ToString();
 

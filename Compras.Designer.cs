@@ -1229,7 +1229,7 @@
             BusquedaCompraTxt.ForeColor = Color.Gray;
             BusquedaCompraTxt.Location = new Point(5, 135);
             BusquedaCompraTxt.Name = "BusquedaCompraTxt";
-            BusquedaCompraTxt.PlaceholderText = "Buscar";
+            BusquedaCompraTxt.PlaceholderText = "Buscar Compras";
             BusquedaCompraTxt.Size = new Size(355, 29);
             BusquedaCompraTxt.TabIndex = 15;
             BusquedaCompraTxt.TextChanged += BusquedaCompraTxt_TextChanged;
@@ -1245,7 +1245,7 @@
             panel10.Controls.Add(RecibidaChk);
             panel10.Location = new Point(366, 135);
             panel10.Name = "panel10";
-            panel10.Size = new Size(428, 29);
+            panel10.Size = new Size(430, 29);
             panel10.TabIndex = 17;
             // 
             // label18
@@ -1263,7 +1263,7 @@
             // 
             TodosChk.AutoSize = true;
             TodosChk.ForeColor = Color.White;
-            TodosChk.Location = new Point(350, 2);
+            TodosChk.Location = new Point(349, 2);
             TodosChk.Name = "TodosChk";
             TodosChk.Size = new Size(69, 25);
             TodosChk.TabIndex = 6;
@@ -1275,7 +1275,7 @@
             // 
             AnuladoChk.AutoSize = true;
             AnuladoChk.ForeColor = Color.White;
-            AnuladoChk.Location = new Point(242, 2);
+            AnuladoChk.Location = new Point(249, 2);
             AnuladoChk.Name = "AnuladoChk";
             AnuladoChk.Size = new Size(87, 25);
             AnuladoChk.TabIndex = 6;
@@ -1289,7 +1289,7 @@
             PendienteChk.Checked = true;
             PendienteChk.CheckState = CheckState.Checked;
             PendienteChk.ForeColor = Color.White;
-            PendienteChk.Location = new Point(34, 1);
+            PendienteChk.Location = new Point(40, 1);
             PendienteChk.Name = "PendienteChk";
             PendienteChk.Size = new Size(97, 25);
             PendienteChk.TabIndex = 6;
@@ -1301,7 +1301,7 @@
             // 
             RecibidaChk.AutoSize = true;
             RecibidaChk.ForeColor = Color.White;
-            RecibidaChk.Location = new Point(141, 2);
+            RecibidaChk.Location = new Point(147, 2);
             RecibidaChk.Name = "RecibidaChk";
             RecibidaChk.Size = new Size(88, 25);
             RecibidaChk.TabIndex = 6;
@@ -1342,7 +1342,7 @@
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label7.ForeColor = SystemColors.Control;
-            label7.Location = new Point(38, 12);
+            label7.Location = new Point(28, 9);
             label7.Name = "label7";
             label7.Size = new Size(101, 21);
             label7.TabIndex = 9;
@@ -1353,7 +1353,7 @@
             label13.AutoSize = true;
             label13.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label13.ForeColor = SystemColors.Control;
-            label13.Location = new Point(192, 12);
+            label13.Location = new Point(189, 9);
             label13.Name = "label13";
             label13.Size = new Size(79, 21);
             label13.TabIndex = 10;
@@ -1362,7 +1362,7 @@
             // fecini
             // 
             fecini.Format = DateTimePickerFormat.Short;
-            fecini.Location = new Point(28, 36);
+            fecini.Location = new Point(18, 33);
             fecini.Name = "fecini";
             fecini.Size = new Size(123, 29);
             fecini.TabIndex = 7;
@@ -1371,7 +1371,7 @@
             // fecfin
             // 
             fecfin.Format = DateTimePickerFormat.Short;
-            fecfin.Location = new Point(169, 36);
+            fecfin.Location = new Point(166, 33);
             fecfin.Name = "fecfin";
             fecfin.Size = new Size(123, 29);
             fecfin.TabIndex = 8;

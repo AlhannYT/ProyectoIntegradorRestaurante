@@ -111,6 +111,7 @@
             // 
             // iniciobtn
             // 
+            iniciobtn.Cursor = Cursors.Hand;
             iniciobtn.Image = Properties.Resources.entrar1;
             iniciobtn.ImageAlign = ContentAlignment.MiddleLeft;
             iniciobtn.Location = new Point(211, 321);
@@ -133,6 +134,7 @@
             // 
             passView.Appearance = Appearance.Button;
             passView.BackColor = SystemColors.Window;
+            passView.Cursor = Cursors.Hand;
             passView.FlatStyle = FlatStyle.Flat;
             passView.ForeColor = SystemColors.Window;
             passView.Image = Properties.Resources.ojo;
@@ -184,6 +186,7 @@
             // 
             // sqlbtn
             // 
+            sqlbtn.Cursor = Cursors.Hand;
             sqlbtn.Image = Properties.Resources.sql;
             sqlbtn.Location = new Point(9, 44);
             sqlbtn.Name = "sqlbtn";
@@ -197,6 +200,7 @@
             // 
             recordarchk.Appearance = Appearance.Button;
             recordarchk.BackColor = SystemColors.Window;
+            recordarchk.Cursor = Cursors.Hand;
             recordarchk.FlatStyle = FlatStyle.Flat;
             recordarchk.Font = new Font("Segoe UI", 10F);
             recordarchk.ForeColor = SystemColors.Window;
