@@ -27,7 +27,7 @@ namespace Proyecto_restaurante
         private int NumeroMesa = 0;
         private int EditarEstado = 0;
 
-        private string IdClientePersonaST = "";
+        private string IdClientePersonaST = "1"; // Cliente al contado
 
         private int CuentaSeparada = 0;
         private int OrdenGrupo = 0;
@@ -58,7 +58,7 @@ namespace Proyecto_restaurante
 
         List<int> mesasSeleccionadasUnion = new List<int>();
 
-        private List<Button> ordenesSeleccionadas = new List<Button>();
+        private List<Panel> ordenesSeleccionadas = new List<Panel>();
 
         private List<CuentaItem> listaGrupos = new List<CuentaItem>();
 
@@ -1364,28 +1364,25 @@ namespace Proyecto_restaurante
 
                         Image img = CargarImagen(Convert.ToInt32(dr["IdProducto"]));
 
-                        Button boton = BotonComanda(idPedido, cuenta, nombre, cantidad, img, idProducto);
+                        Panel card = BotonComanda(idPedido, cuenta, nombre, cantidad, img, idProducto);
 
-                        flowComanda.Controls.Add(boton);
+                        flowComanda.Controls.Add(card);
                     }
                 }
             }
         }
 
-        private Button BotonComanda(int idPedido, int cuenta, string nombre, int cantidad, Image imagen, int idProducto)
+        private Panel BotonComanda(int idPedido, int cuenta, string nombre, int cantidad, Image imagen, int idProducto)
         {
-            Button btn = new Button();
-            btn.Width = 200;
-            btn.Height = 270;
-            btn.Margin = new Padding(15);
-            btn.FlatStyle = FlatStyle.Flat;
-            btn.BackColor = Color.White;
-            btn.FlatAppearance.BorderColor = Color.Black;
-            btn.FlatAppearance.BorderSize = 2;
-            btn.TextAlign = ContentAlignment.MiddleLeft;
-            btn.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            Panel card = new Panel();
+            card.Width = 200;
+            card.Height = 260;
+            card.BackColor = Color.White;
+            card.BorderStyle = BorderStyle.FixedSingle;
+            card.Margin = new Padding(15);
+            card.Cursor = Cursors.Hand;
 
-            btn.Tag = new
+            card.Tag = new
             {
                 Pedido = idPedido,
                 Cuenta = cuenta,
@@ -1394,44 +1391,66 @@ namespace Proyecto_restaurante
                 IdProducto = idProducto
             };
 
-            btn.Text =
+            PictureBox pic = new PictureBox();
+            pic.Width = 190;
+            pic.Height = 120;
+            pic.Top = 5;
+            pic.Left = 5;
+            pic.SizeMode = PictureBoxSizeMode.Zoom;
+            pic.Image = imagen ?? Properties.Resources.paisaje;
+
+            Label lbl = new Label();
+            lbl.Width = 190;
+            lbl.Height = 120;
+            lbl.Left = 5;
+            lbl.Top = 130;
+            lbl.TextAlign = ContentAlignment.TopLeft;
+            lbl.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+
+            lbl.Text =
                 $"ORDEN: {idPedido}\n" +
                 $"CUENTA: {cuenta}\n\n" +
                 $"{nombre.ToUpper()}\n" +
                 $"CANTIDAD: {cantidad}";
 
-            btn.Image = imagen;
-            btn.ImageAlign = ContentAlignment.TopCenter;
-            btn.TextAlign = ContentAlignment.BottomCenter;
+            card.Click += BotonComanda_Click;
+            pic.Click += BotonComanda_Click;
+            lbl.Click += BotonComanda_Click;
 
-            btn.Padding = new Padding(5);
+            card.Controls.Add(pic);
+            card.Controls.Add(lbl);
 
-            btn.Click += BotonComanda_Click;
-
-            return btn;
+            return card;
         }
+
 
         private void BotonComanda_Click(object sender, EventArgs e)
         {
             if (!modoEntregar)
-            {
-                //MessageBox.Show("Activa la opción ENTREGAR para seleccionar órdenes.");
                 return;
-            }
 
-            Button btn = sender as Button;
+            Panel card = ObtenerPanelPadre(sender);
+            if (card == null) return;
 
-            if (ordenesSeleccionadas.Contains(btn))
+            if (ordenesSeleccionadas.Contains(card))
             {
-                ordenesSeleccionadas.Remove(btn);
-                btn.BackColor = Color.White;
+                ordenesSeleccionadas.Remove(card);
+                card.BackColor = Color.White;
             }
             else
             {
-                ordenesSeleccionadas.Add(btn);
-                btn.BackColor = Color.LightBlue;
+                ordenesSeleccionadas.Add(card);
+                card.BackColor = Color.LightBlue;
             }
         }
+
+        private Panel ObtenerPanelPadre(object sender)
+        {
+            if (sender is Panel p) return p;
+            if (sender is Control c && c.Parent is Panel p2) return p2;
+            return null;
+        }
+
 
         private Image CargarImagen(int idProducto)
         {
@@ -1541,8 +1560,8 @@ namespace Proyecto_restaurante
         {
             foreach (Control ctrl in flowComanda.Controls)
             {
-                if (ctrl is Button btn)
-                    btn.BackColor = Color.White;
+                if (ctrl is Panel panel)
+                    panel.BackColor = Color.White;
             }
         }
 

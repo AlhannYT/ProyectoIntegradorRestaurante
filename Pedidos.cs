@@ -9,10 +9,11 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Drawing;
+
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
-using PdfSharp.Snippets.Drawing;
+
+
 
 namespace Proyecto_restaurante
 {
@@ -41,7 +42,7 @@ namespace Proyecto_restaurante
         public int EliminarFila = 0;
         private int PedidoID;
         private decimal Total;
-        private string IdClientePersonaST = "";
+        private string IdClientePersonaST = "1"; //Al contado por defecto
 
         decimal TotalPedido = 0m;
         decimal TotalAplicado = 0m;
@@ -64,7 +65,7 @@ namespace Proyecto_restaurante
 
         List<int> mesasSeleccionadasUnion = new List<int>();
 
-        private List<Button> ordenesSeleccionadas = new List<Button>();
+        private List<Panel> ordenesSeleccionadas = new List<Panel>();
 
         private List<CuentaItem> listaGrupos = new List<CuentaItem>();
 
@@ -1497,102 +1498,136 @@ namespace Proyecto_restaurante
             }
         }
 
-        private void GenerarFacturaPDF(int facturaId)
+        private void GenerarFacturaPDF(int idPedido)
         {
             try
             {
                 string folderPath = @"C:\SistemaArchivos\Facturas\";
 
                 if (!Directory.Exists(folderPath))
-                {
                     Directory.CreateDirectory(folderPath);
-                }
 
-                string filePath = Path.Combine(folderPath, $"factura_{facturaId}.pdf");
-
+                string filePath = Path.Combine(folderPath, $"Pedido_{idPedido}.pdf");
 
                 PdfSharp.Pdf.PdfDocument document = new PdfSharp.Pdf.PdfDocument();
-                document.Info.Title = $"Factura {facturaId}";
-
+                document.Info.Title = $"Pedido {idPedido}";
 
                 PdfSharp.Pdf.PdfPage page = document.AddPage();
-
-
                 XGraphics gfx = XGraphics.FromPdfPage(page);
 
+                XFont titleFont = new XFont("Segoe UI", 20, XFontStyleEx.Bold);
+                XFont headerFont = new XFont("Segoe UI", 12, XFontStyleEx.Bold);
+                XFont textFont = new XFont("Segoe UI", 12, XFontStyleEx.Regular);
+                XFont smallFont = new XFont("Segoe UI", 10, XFontStyleEx.Regular);
 
-                XFont titleFont = new XFont("Verdana", 20);
-                XFont textFont = new XFont("Verdana", 14);
-                XFont smallFont = new XFont("Verdana", 12);
+                double currentY = 40;
+                double marginLeft = 30;
+                double lineHeight = 20;
+
+                gfx.DrawString("ORDEN", titleFont, XBrushes.Black, new XRect(0, currentY, page.Width, 40), XStringFormats.TopCenter);
+
+                currentY += 50;
+
+                string nombreCliente = "", fecha = "", mesa = "", comprobante = "";
+                decimal totalFactura = 0;
+
+                using (SqlConnection con = new SqlConnection(conexionString))
+                {
+                    con.Open();
+
+                    string sqlPedido = @"
+                SELECT IdPedido, Fecha, NombreCliente, IdMesa, Total, Comprobante
+                FROM Pedido
+                WHERE IdPedido = @id";
+
+                    SqlCommand cmd = new SqlCommand(sqlPedido, con);
+                    cmd.Parameters.AddWithValue("@id", idPedido);
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            fecha = Convert.ToDateTime(dr["Fecha"]).ToString("dd/MM/yyyy HH:mm");
+                            nombreCliente = dr["NombreCliente"].ToString();
+                            mesa = dr["IdMesa"].ToString();
+                            comprobante = dr["Comprobante"]?.ToString() ?? "";
+                            totalFactura = Convert.ToDecimal(dr["Total"]);
+                        }
+                    }
+                }
+
+                gfx.DrawString($"Pedido: {idPedido}", headerFont, XBrushes.Black, marginLeft, currentY); currentY += lineHeight;
+                gfx.DrawString($"Cliente: {nombreCliente}", textFont, XBrushes.Black, marginLeft, currentY); currentY += lineHeight;
+                gfx.DrawString($"Mesa: {mesa}", textFont, XBrushes.Black, marginLeft, currentY); currentY += lineHeight;
+                gfx.DrawString($"Fecha: {fecha}", textFont, XBrushes.Black, marginLeft, currentY); currentY += lineHeight;
+
+                if (!string.IsNullOrWhiteSpace(comprobante))
+                {
+                    gfx.DrawString($"Comprobante: {comprobante}", textFont, XBrushes.Black, marginLeft, currentY);
+                    currentY += lineHeight;
+                }
+
+                currentY += 10;
+                gfx.DrawLine(XPens.Black, marginLeft, currentY, page.Width - marginLeft, currentY);
+                currentY += 20;
+
+                gfx.DrawString("DETALLE", headerFont, XBrushes.Black, marginLeft, currentY);
+                currentY += lineHeight;
+
+                gfx.DrawString("Producto", headerFont, XBrushes.Black, marginLeft, currentY);
+                gfx.DrawString("Cant.", headerFont, XBrushes.Black, marginLeft + 250, currentY);
+                gfx.DrawString("Precio", headerFont, XBrushes.Black, marginLeft + 320, currentY);
+                gfx.DrawString("Subtotal", headerFont, XBrushes.Black, marginLeft + 400, currentY);
+
+                currentY += lineHeight;
+
+                gfx.DrawLine(XPens.Black, marginLeft, currentY, page.Width - marginLeft, currentY);
+                currentY += 10;
 
 
-                double marginLeft = 40;
-                double marginTop = 40;
-                double lineHeight = 25;
-                double currentY = marginTop;
+                using (SqlConnection con = new SqlConnection(conexionString))
+                {
+                    con.Open();
 
+                    string sqlDetalle = @"
+                SELECT d.Cantidad, d.PrecioUnitario, 
+                       (d.Cantidad * d.PrecioUnitario) AS Subtotal,
+                       p.Nombre
+                FROM DetallePedido d
+                INNER JOIN ProductoVenta p ON p.IdProducto = d.IdProducto
+                WHERE d.IdPedido = @id";
 
-                gfx.DrawString("Factura", titleFont, XBrushes.Black,
-                    new XRect(marginLeft, currentY, page.Width - marginLeft * 2, page.Height),
-                    XStringFormats.TopCenter);
+                    SqlCommand cmd = new SqlCommand(sqlDetalle, con);
+                    cmd.Parameters.AddWithValue("@id", idPedido);
 
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            string prod = dr["Nombre"].ToString();
+                            decimal cant = Convert.ToDecimal(dr["Cantidad"]);
+                            decimal precio = Convert.ToDecimal(dr["PrecioUnitario"]);
+                            decimal sub = Convert.ToDecimal(dr["Subtotal"]);
+
+                            gfx.DrawString(prod, textFont, XBrushes.Black, marginLeft, currentY);
+                            gfx.DrawString(cant.ToString(), textFont, XBrushes.Black, marginLeft + 250, currentY);
+                            gfx.DrawString(precio.ToString("N2"), textFont, XBrushes.Black, marginLeft + 320, currentY);
+                            gfx.DrawString(sub.ToString("N2"), textFont, XBrushes.Black, marginLeft + 400, currentY);
+
+                            currentY += lineHeight;
+                        }
+                    }
+                }
+
+                currentY += 10;
+                gfx.DrawLine(XPens.Black, marginLeft, currentY, page.Width - marginLeft, currentY);
+                currentY += 20;
+
+                gfx.DrawString($"TOTAL: RD$ {totalFactura:N2}", titleFont, XBrushes.Black, marginLeft + 250, currentY);
                 currentY += lineHeight * 2;
 
-                using (SqlConnection conexion = new SqlConnection(conexionString))
-                {
-                    conexion.Open();
-
-                    string queryFactura = "SELECT id_pedido, nombre_cliente, mesa, fecha, total FROM facturas WHERE id = @idFactura";
-                    SqlCommand cmdFactura = new SqlCommand(queryFactura, conexion);
-                    cmdFactura.Parameters.AddWithValue("@idFactura", facturaId);
-
-                    SqlDataReader readerFactura = cmdFactura.ExecuteReader();
-                    if (readerFactura.Read())
-                    {
-                        string idPedido = readerFactura["id_pedido"].ToString();
-                        string nombreCliente = readerFactura["nombre_cliente"].ToString();
-                        string nombreMesa = readerFactura["mesa"].ToString();
-                        string fecha = readerFactura["fecha"].ToString();
-                        decimal total = Convert.ToDecimal(readerFactura["total"]);
-
-                        gfx.DrawString($"ID Pedido: {idPedido}", textFont, XBrushes.Black,
-                            new XRect(marginLeft, currentY, page.Width - marginLeft * 2, page.Height), XStringFormats.TopLeft);
-                        currentY += lineHeight;
-
-                        gfx.DrawString($"Cliente: {nombreCliente}", textFont, XBrushes.Black,
-                            new XRect(marginLeft, currentY, page.Width - marginLeft * 2, page.Height), XStringFormats.TopLeft);
-                        currentY += lineHeight;
-
-                        gfx.DrawString($"Mesa: {nombreMesa}", textFont, XBrushes.Black,
-                            new XRect(marginLeft, currentY, page.Width - marginLeft * 2, page.Height), XStringFormats.TopLeft);
-                        currentY += lineHeight;
-
-                        gfx.DrawString($"Fecha: {fecha}", textFont, XBrushes.Black,
-                            new XRect(marginLeft, currentY, page.Width - marginLeft * 2, page.Height), XStringFormats.TopLeft);
-                        currentY += lineHeight;
-
-
-                        gfx.DrawLine(XPens.Black, marginLeft, currentY, page.Width - marginLeft, currentY);
-                        currentY += lineHeight;
-
-                        gfx.DrawString($"Total: {total.ToString("C")}", textFont, XBrushes.Black,
-                            new XRect(marginLeft, currentY, page.Width - marginLeft * 2, page.Height), XStringFormats.TopLeft);
-                        currentY += lineHeight;
-
-                        gfx.DrawLine(XPens.Black, marginLeft, currentY, page.Width - marginLeft, currentY);
-                        currentY += lineHeight;
-
-
-                        gfx.DrawString("Gracias por su visita.", smallFont, XBrushes.Black,
-                            new XRect(marginLeft, currentY, page.Width - marginLeft * 2, page.Height), XStringFormats.TopLeft);
-                        currentY += lineHeight;
-
-                        gfx.DrawString("¡Vuelva pronto!", smallFont, XBrushes.Black,
-                            new XRect(marginLeft, currentY, page.Width - marginLeft * 2, page.Height), XStringFormats.TopLeft);
-                    }
-
-                    readerFactura.Close();
-                }
+                gfx.DrawString("Gracias por su compra", smallFont, XBrushes.Black,
+                    new XRect(marginLeft, currentY, page.Width, 20), XStringFormats.TopLeft);
 
                 document.Save(filePath);
 
@@ -1601,12 +1636,15 @@ namespace Proyecto_restaurante
                     FileName = filePath,
                     UseShellExecute = true
                 });
+
+                MessageBox.Show("Factura generada correctamente.", "Éxito");
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al generar el PDF: {ex.Message}\nDetalles: {ex.StackTrace}");
+                MessageBox.Show("Error al generar el PDF: " + ex.Message);
             }
         }
+
 
         private void imprimirbtn_Click(object sender, EventArgs e)
         {
@@ -1615,7 +1653,6 @@ namespace Proyecto_restaurante
                 try
                 {
                     GenerarFacturaPDF(PedidoID);
-                    MessageBox.Show("Factura generada correctamente.");
                 }
                 catch (Exception ex)
                 {
@@ -2923,20 +2960,17 @@ namespace Proyecto_restaurante
             NoEntrega.Visible = true;
         }
 
-        private Button BotonComanda(int idPedido, int cuenta, string nombre, int cantidad, Image imagen, int idProducto)
+        private Panel BotonComanda(int idPedido, int cuenta, string nombre, int cantidad, Image imagen, int idProducto)
         {
-            Button btn = new Button();
-            btn.Width = 200;
-            btn.Height = 270;
-            btn.Margin = new Padding(15);
-            btn.FlatStyle = FlatStyle.Flat;
-            btn.BackColor = Color.White;
-            btn.FlatAppearance.BorderColor = Color.Black;
-            btn.FlatAppearance.BorderSize = 2;
-            btn.TextAlign = ContentAlignment.MiddleLeft;
-            btn.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            Panel card = new Panel();
+            card.Width = 200;
+            card.Height = 260;
+            card.BackColor = Color.White;
+            card.BorderStyle = BorderStyle.FixedSingle;
+            card.Margin = new Padding(15);
+            card.Cursor = Cursors.Hand;
 
-            btn.Tag = new
+            card.Tag = new
             {
                 Pedido = idPedido,
                 Cuenta = cuenta,
@@ -2945,21 +2979,36 @@ namespace Proyecto_restaurante
                 IdProducto = idProducto
             };
 
-            btn.Text =
+            PictureBox pic = new PictureBox();
+            pic.Width = 190;
+            pic.Height = 120;
+            pic.Top = 5;
+            pic.Left = 5;
+            pic.SizeMode = PictureBoxSizeMode.Zoom;
+            pic.Image = imagen ?? Properties.Resources.paisaje;
+
+            Label lbl = new Label();
+            lbl.Width = 190;
+            lbl.Height = 120;
+            lbl.Left = 5;
+            lbl.Top = 130;
+            lbl.TextAlign = ContentAlignment.TopLeft;
+            lbl.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+
+            lbl.Text =
                 $"ORDEN: {idPedido}\n" +
                 $"CUENTA: {cuenta}\n\n" +
                 $"{nombre.ToUpper()}\n" +
                 $"CANTIDAD: {cantidad}";
 
-            btn.Image = imagen;
-            btn.ImageAlign = ContentAlignment.TopCenter;
-            btn.TextAlign = ContentAlignment.BottomCenter;
+            card.Click += BotonComanda_Click;
+            pic.Click += BotonComanda_Click;
+            lbl.Click += BotonComanda_Click;
 
-            btn.Padding = new Padding(5);
+            card.Controls.Add(pic);
+            card.Controls.Add(lbl);
 
-            btn.Click += BotonComanda_Click;
-
-            return btn;
+            return card;
         }
 
         private void CargarComanda()
@@ -2993,9 +3042,9 @@ namespace Proyecto_restaurante
 
                         Image img = CargarImagen(Convert.ToInt32(dr["IdProducto"]));
 
-                        Button boton = BotonComanda(idPedido, cuenta, nombre, cantidad, img, idProducto);
+                        Panel card = BotonComanda(idPedido, cuenta, nombre, cantidad, img, idProducto);
 
-                        flowComanda.Controls.Add(boton);
+                        flowComanda.Controls.Add(card);
                     }
                 }
             }
@@ -3004,31 +3053,37 @@ namespace Proyecto_restaurante
         private void BotonComanda_Click(object sender, EventArgs e)
         {
             if (!modoEntregar)
-            {
-                //MessageBox.Show("Activa la opción ENTREGAR para seleccionar órdenes.");
                 return;
-            }
 
-            Button btn = sender as Button;
+            Panel card = ObtenerPanelPadre(sender);
+            if (card == null) return;
 
-            if (ordenesSeleccionadas.Contains(btn))
+            if (ordenesSeleccionadas.Contains(card))
             {
-                ordenesSeleccionadas.Remove(btn);
-                btn.BackColor = Color.White;
+                ordenesSeleccionadas.Remove(card);
+                card.BackColor = Color.White;
             }
             else
             {
-                ordenesSeleccionadas.Add(btn);
-                btn.BackColor = Color.LightBlue;
+                ordenesSeleccionadas.Add(card);
+                card.BackColor = Color.LightBlue;
             }
         }
+
+        private Panel ObtenerPanelPadre(object sender)
+        {
+            if (sender is Panel p) return p;
+            if (sender is Control c && c.Parent is Panel p2) return p2;
+            return null;
+        }
+
 
         private void LimpiarSeleccionVisual()
         {
             foreach (Control ctrl in flowComanda.Controls)
             {
-                if (ctrl is Button btn)
-                    btn.BackColor = Color.White;
+                if (ctrl is Panel panel)
+                    panel.BackColor = Color.White;
             }
         }
 
