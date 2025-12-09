@@ -506,6 +506,7 @@
             // 
             // siguiente
             // 
+            siguiente.Enabled = false;
             siguiente.Font = new Font("Segoe UI", 14F);
             siguiente.Image = Properties.Resources.next;
             siguiente.ImageAlign = ContentAlignment.MiddleRight;
@@ -1324,12 +1325,12 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.WindowFrame;
             ClientSize = new Size(670, 811);
+            Controls.Add(barraAcciones);
             Controls.Add(infoAdicional);
             Controls.Add(seleccionarmesapanel);
             Controls.Add(panelOrdenar);
             Controls.Add(panelComanda);
             Controls.Add(mesapanel);
-            Controls.Add(barraAcciones);
             FormBorderStyle = FormBorderStyle.None;
             Name = "TabletSistema";
             StartPosition = FormStartPosition.CenterScreen;

@@ -82,6 +82,17 @@ namespace Proyecto_restaurante
                 mesapanel.Visible = false;
                 barraAcciones.Visible = false;
                 panelOrdenar.Visible = false;
+                detalleorden.Rows.Clear();
+                txtcodigoproducto.Clear();
+                txtnombreproducto.Clear();
+                txtprecioproducto.Clear();
+                txtiva.Clear();
+                CuentaSeparada = 0;
+                AvisoCuentaSeparada.Visible = false;
+                panelCuentaSeparada.Enabled = false;
+                grupoCuenta.Items.Clear();
+                RecalcularTotales();
+                siguiente.Enabled = false;
 
                 button1.Visible = false;
             }
@@ -241,6 +252,7 @@ namespace Proyecto_restaurante
 
             dynamic mesa = btnSeleccionado.Tag;
             idMesaSeleccionada = mesa.Id;
+            siguiente.Enabled = true;
         }
 
         private void nuevaOrden_Click(object sender, EventArgs e)

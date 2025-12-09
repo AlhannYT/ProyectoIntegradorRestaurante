@@ -673,7 +673,7 @@ namespace Proyecto_restaurante
         private void buscarCaja_Click(object sender, EventArgs e)
         {
             string conexionString = ConexionBD.ConexionSQL();
-            string puesto = "select Numero, Nombre from Caja";
+            string puesto = "select IdCaja, Nombre from Caja";
 
             SqlDataAdapter adaptador = new SqlDataAdapter(puesto, conexionString);
 
