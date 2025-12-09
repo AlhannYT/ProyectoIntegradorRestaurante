@@ -118,9 +118,9 @@
             panel7 = new Panel();
             label11 = new Label();
             tabEventos = new TabPage();
-            SeleccionarSalaPanel = new Panel();
             notapanel = new Panel();
             notatxt = new TextBox();
+            SeleccionarSalaPanel = new Panel();
             IdSalaConTxtB = new TextBox();
             NombreSalaTxtB = new TextBox();
             DesplegarBtn = new Button();
@@ -133,12 +133,6 @@
             pendientechk = new CheckBox();
             todoschk = new CheckBox();
             canceladochk = new CheckBox();
-            label32 = new Label();
-            label33 = new Label();
-            BuscarOrganizadorTxtB = new TextBox();
-            EditarClienteBtn = new Button();
-            PersonaDGV = new DataGridView();
-            CrearClienteNuevoBtn = new Button();
             label30 = new Label();
             label29 = new Label();
             NomCompletoOrgTxtB = new TextBox();
@@ -165,18 +159,24 @@
             NombreEventoTxt = new TextBox();
             label19 = new Label();
             EventoMesasP = new FlowLayoutPanel();
-            panel9 = new Panel();
+            panelTituloEvento = new Panel();
             label38 = new Label();
             panel23 = new Panel();
-            panel13 = new Panel();
+            panelOrganizador = new Panel();
+            label31 = new Label();
+            PersonaDGV = new DataGridView();
+            label33 = new Label();
+            EditarClienteBtn = new Button();
+            CrearClienteNuevoBtn = new Button();
+            BuscarOrganizadorTxtB = new TextBox();
+            label32 = new Label();
+            panel14 = new Panel();
+            label34 = new Label();
+            panelInfo = new Panel();
             nombrelabel = new Label();
             idenlabel = new Label();
             telefonolabel = new Label();
-            panel14 = new Panel();
-            label34 = new Label();
-            panelOrganizador = new Panel();
-            label31 = new Label();
-            panel22 = new Panel();
+            panel9 = new Panel();
             tabControl2.SuspendLayout();
             tabPage3.SuspendLayout();
             panelacciones.SuspendLayout();
@@ -193,16 +193,17 @@
             panel6.SuspendLayout();
             panel7.SuspendLayout();
             tabEventos.SuspendLayout();
-            SeleccionarSalaPanel.SuspendLayout();
             notapanel.SuspendLayout();
+            SeleccionarSalaPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)SalaConEventoDGV).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)PersonaDGV).BeginInit();
             ((System.ComponentModel.ISupportInitialize)CantPersonaNUD).BeginInit();
             panel2.SuspendLayout();
-            panel9.SuspendLayout();
-            panel13.SuspendLayout();
-            panel14.SuspendLayout();
+            panelTituloEvento.SuspendLayout();
             panelOrganizador.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)PersonaDGV).BeginInit();
+            panel14.SuspendLayout();
+            panelInfo.SuspendLayout();
+            panel9.SuspendLayout();
             SuspendLayout();
             // 
             // toolTip1
@@ -329,6 +330,7 @@
             LimpiarFormEventoBtn.TabIndex = 112;
             toolTip1.SetToolTip(LimpiarFormEventoBtn, "Limpiar Formulario");
             LimpiarFormEventoBtn.UseVisualStyleBackColor = true;
+            LimpiarFormEventoBtn.Click += LimpiarFormEventoBtn_Click;
             // 
             // BuscarOrganizadorBtn
             // 
@@ -348,7 +350,7 @@
             // 
             LimpiarCCBtn.Cursor = Cursors.Hand;
             LimpiarCCBtn.Image = Properties.Resources.limpio;
-            LimpiarCCBtn.Location = new Point(1281, 63);
+            LimpiarCCBtn.Location = new Point(527, 57);
             LimpiarCCBtn.Name = "LimpiarCCBtn";
             LimpiarCCBtn.Size = new Size(31, 29);
             LimpiarCCBtn.TabIndex = 130;
@@ -365,7 +367,7 @@
             FiltroActivoChk.Cursor = Cursors.Hand;
             FiltroActivoChk.Font = new Font("Segoe UI", 13F);
             FiltroActivoChk.Image = Properties.Resources.sicheck;
-            FiltroActivoChk.Location = new Point(1229, 64);
+            FiltroActivoChk.Location = new Point(475, 58);
             FiltroActivoChk.Name = "FiltroActivoChk";
             FiltroActivoChk.Size = new Size(41, 29);
             FiltroActivoChk.TabIndex = 139;
@@ -378,7 +380,7 @@
             // 
             ActualizarCCBtn.Cursor = Cursors.Hand;
             ActualizarCCBtn.Image = Properties.Resources.actualizar;
-            ActualizarCCBtn.Location = new Point(668, 9);
+            ActualizarCCBtn.Location = new Point(675, 12);
             ActualizarCCBtn.Name = "ActualizarCCBtn";
             ActualizarCCBtn.Size = new Size(29, 29);
             ActualizarCCBtn.TabIndex = 51;
@@ -513,7 +515,7 @@
             tabControl2.Location = new Point(0, 0);
             tabControl2.Name = "tabControl2";
             tabControl2.SelectedIndex = 0;
-            tabControl2.Size = new Size(2195, 862);
+            tabControl2.Size = new Size(713, 524);
             tabControl2.TabIndex = 27;
             // 
             // tabPage3
@@ -530,7 +532,7 @@
             tabPage3.Location = new Point(4, 30);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new Padding(3);
-            tabPage3.Size = new Size(2187, 828);
+            tabPage3.Size = new Size(705, 490);
             tabPage3.TabIndex = 0;
             tabPage3.Text = "Consulta";
             // 
@@ -679,7 +681,7 @@
             tabPage4.Location = new Point(4, 30);
             tabPage4.Name = "tabPage4";
             tabPage4.Padding = new Padding(3);
-            tabPage4.Size = new Size(2187, 828);
+            tabPage4.Size = new Size(705, 490);
             tabPage4.TabIndex = 1;
             tabPage4.Text = "Mesas";
             // 
@@ -1001,7 +1003,7 @@
             tabPage1.Controls.Add(panel7);
             tabPage1.Location = new Point(4, 30);
             tabPage1.Name = "tabPage1";
-            tabPage1.Size = new Size(2187, 828);
+            tabPage1.Size = new Size(705, 490);
             tabPage1.TabIndex = 2;
             tabPage1.Text = "Salas";
             // 
@@ -1238,6 +1240,7 @@
             // tabEventos
             // 
             tabEventos.BackColor = SystemColors.WindowFrame;
+            tabEventos.Controls.Add(notapanel);
             tabEventos.Controls.Add(SeleccionarSalaPanel);
             tabEventos.Controls.Add(NotaBtn);
             tabEventos.Controls.Add(FechaCreacionDTP);
@@ -1246,14 +1249,6 @@
             tabEventos.Controls.Add(pendientechk);
             tabEventos.Controls.Add(todoschk);
             tabEventos.Controls.Add(canceladochk);
-            tabEventos.Controls.Add(label32);
-            tabEventos.Controls.Add(label33);
-            tabEventos.Controls.Add(BuscarOrganizadorTxtB);
-            tabEventos.Controls.Add(EditarClienteBtn);
-            tabEventos.Controls.Add(PersonaDGV);
-            tabEventos.Controls.Add(CrearClienteNuevoBtn);
-            tabEventos.Controls.Add(LimpiarCCBtn);
-            tabEventos.Controls.Add(FiltroActivoChk);
             tabEventos.Controls.Add(label30);
             tabEventos.Controls.Add(BuscarOrganizadorBtn);
             tabEventos.Controls.Add(label29);
@@ -1280,50 +1275,49 @@
             tabEventos.Controls.Add(NombreEventoTxt);
             tabEventos.Controls.Add(label19);
             tabEventos.Controls.Add(EventoMesasP);
-            tabEventos.Controls.Add(panel9);
-            tabEventos.Controls.Add(panel13);
-            tabEventos.Controls.Add(panel14);
+            tabEventos.Controls.Add(panelTituloEvento);
             tabEventos.Controls.Add(panelOrganizador);
             tabEventos.Location = new Point(4, 30);
             tabEventos.Name = "tabEventos";
-            tabEventos.Size = new Size(2187, 828);
+            tabEventos.Size = new Size(705, 490);
             tabEventos.TabIndex = 3;
             tabEventos.Text = "Eventos";
-            // 
-            // SeleccionarSalaPanel
-            // 
-            SeleccionarSalaPanel.BackColor = Color.FromArgb(64, 64, 64);
-            SeleccionarSalaPanel.Controls.Add(notapanel);
-            SeleccionarSalaPanel.Controls.Add(IdSalaConTxtB);
-            SeleccionarSalaPanel.Controls.Add(NombreSalaTxtB);
-            SeleccionarSalaPanel.Controls.Add(DesplegarBtn);
-            SeleccionarSalaPanel.Controls.Add(label27);
-            SeleccionarSalaPanel.Controls.Add(SalaConEventoDGV);
-            SeleccionarSalaPanel.Location = new Point(8, 387);
-            SeleccionarSalaPanel.Name = "SeleccionarSalaPanel";
-            SeleccionarSalaPanel.Size = new Size(252, 155);
-            SeleccionarSalaPanel.TabIndex = 116;
-            SeleccionarSalaPanel.Visible = false;
             // 
             // notapanel
             // 
             notapanel.BackColor = Color.Gray;
             notapanel.Controls.Add(notatxt);
-            notapanel.Location = new Point(0, 3);
+            notapanel.Cursor = Cursors.IBeam;
+            notapanel.Location = new Point(8, 228);
             notapanel.Name = "notapanel";
-            notapanel.Size = new Size(252, 153);
+            notapanel.Size = new Size(252, 138);
             notapanel.TabIndex = 158;
             notapanel.Visible = false;
             // 
             // notatxt
             // 
-            notatxt.CharacterCasing = CharacterCasing.Upper;
-            notatxt.Location = new Point(6, 9);
+            notatxt.Location = new Point(5, 8);
             notatxt.Multiline = true;
             notatxt.Name = "notatxt";
             notatxt.PlaceholderText = "Escribir nota aquí...";
-            notatxt.Size = new Size(240, 136);
+            notatxt.Size = new Size(240, 121);
             notatxt.TabIndex = 157;
+            notatxt.Enter += notatxt_Enter;
+            notatxt.Leave += notatxt_Leave;
+            // 
+            // SeleccionarSalaPanel
+            // 
+            SeleccionarSalaPanel.BackColor = Color.FromArgb(64, 64, 64);
+            SeleccionarSalaPanel.Controls.Add(IdSalaConTxtB);
+            SeleccionarSalaPanel.Controls.Add(NombreSalaTxtB);
+            SeleccionarSalaPanel.Controls.Add(DesplegarBtn);
+            SeleccionarSalaPanel.Controls.Add(label27);
+            SeleccionarSalaPanel.Controls.Add(SalaConEventoDGV);
+            SeleccionarSalaPanel.Location = new Point(8, 334);
+            SeleccionarSalaPanel.Name = "SeleccionarSalaPanel";
+            SeleccionarSalaPanel.Size = new Size(252, 155);
+            SeleccionarSalaPanel.TabIndex = 116;
+            SeleccionarSalaPanel.Visible = false;
             // 
             // IdSalaConTxtB
             // 
@@ -1472,83 +1466,6 @@
             canceladochk.TabIndex = 144;
             canceladochk.Text = "Cancelado";
             canceladochk.UseVisualStyleBackColor = false;
-            // 
-            // label32
-            // 
-            label32.AutoSize = true;
-            label32.BackColor = Color.White;
-            label32.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label32.ForeColor = SystemColors.Control;
-            label32.Image = Properties.Resources.busqueda;
-            label32.Location = new Point(1165, 68);
-            label32.Name = "label32";
-            label32.Size = new Size(18, 21);
-            label32.TabIndex = 126;
-            label32.Text = "  ";
-            // 
-            // label33
-            // 
-            label33.AutoSize = true;
-            label33.BackColor = Color.FromArgb(64, 64, 64);
-            label33.Font = new Font("Segoe UI", 18F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
-            label33.ForeColor = SystemColors.Control;
-            label33.Location = new Point(1340, 101);
-            label33.Name = "label33";
-            label33.Size = new Size(116, 32);
-            label33.TabIndex = 134;
-            label33.Text = "Acciones";
-            // 
-            // BuscarOrganizadorTxtB
-            // 
-            BuscarOrganizadorTxtB.CharacterCasing = CharacterCasing.Upper;
-            BuscarOrganizadorTxtB.Font = new Font("Segoe UI", 12F);
-            BuscarOrganizadorTxtB.ForeColor = SystemColors.ScrollBar;
-            BuscarOrganizadorTxtB.Location = new Point(769, 64);
-            BuscarOrganizadorTxtB.Name = "BuscarOrganizadorTxtB";
-            BuscarOrganizadorTxtB.PlaceholderText = "Buscar cliente organizador/a";
-            BuscarOrganizadorTxtB.Size = new Size(423, 29);
-            BuscarOrganizadorTxtB.TabIndex = 127;
-            // 
-            // EditarClienteBtn
-            // 
-            EditarClienteBtn.Cursor = Cursors.Hand;
-            EditarClienteBtn.Image = Properties.Resources.editarcliente1;
-            EditarClienteBtn.Location = new Point(1323, 218);
-            EditarClienteBtn.Name = "EditarClienteBtn";
-            EditarClienteBtn.Size = new Size(142, 72);
-            EditarClienteBtn.TabIndex = 132;
-            EditarClienteBtn.Text = "Editar";
-            EditarClienteBtn.TextAlign = ContentAlignment.BottomCenter;
-            EditarClienteBtn.UseVisualStyleBackColor = true;
-            // 
-            // PersonaDGV
-            // 
-            PersonaDGV.AllowUserToAddRows = false;
-            PersonaDGV.AllowUserToDeleteRows = false;
-            PersonaDGV.AllowUserToResizeRows = false;
-            PersonaDGV.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            PersonaDGV.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            PersonaDGV.Location = new Point(769, 99);
-            PersonaDGV.MultiSelect = false;
-            PersonaDGV.Name = "PersonaDGV";
-            PersonaDGV.ReadOnly = true;
-            PersonaDGV.RowHeadersVisible = false;
-            PersonaDGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            PersonaDGV.Size = new Size(543, 386);
-            PersonaDGV.TabIndex = 128;
-            PersonaDGV.CellContentDoubleClick += PersonaDGV_CellDoubleClick;
-            // 
-            // CrearClienteNuevoBtn
-            // 
-            CrearClienteNuevoBtn.Cursor = Cursors.Hand;
-            CrearClienteNuevoBtn.Image = Properties.Resources.cliente1;
-            CrearClienteNuevoBtn.Location = new Point(1323, 141);
-            CrearClienteNuevoBtn.Name = "CrearClienteNuevoBtn";
-            CrearClienteNuevoBtn.Size = new Size(142, 72);
-            CrearClienteNuevoBtn.TabIndex = 133;
-            CrearClienteNuevoBtn.Text = "Nuevo";
-            CrearClienteNuevoBtn.TextAlign = ContentAlignment.BottomCenter;
-            CrearClienteNuevoBtn.UseVisualStyleBackColor = true;
             // 
             // label30
             // 
@@ -1821,20 +1738,20 @@
             EventoMesasP.Size = new Size(432, 274);
             EventoMesasP.TabIndex = 26;
             // 
-            // panel9
+            // panelTituloEvento
             // 
-            panel9.BackColor = Color.FromArgb(64, 64, 64);
-            panel9.Controls.Add(panel21);
-            panel9.Controls.Add(ActualizarFormEventoBtn);
-            panel9.Controls.Add(panel15);
-            panel9.Controls.Add(label38);
-            panel9.Controls.Add(panel20);
-            panel9.Controls.Add(panel16);
-            panel9.Controls.Add(panel23);
-            panel9.Location = new Point(0, 3);
-            panel9.Name = "panel9";
-            panel9.Size = new Size(705, 51);
-            panel9.TabIndex = 113;
+            panelTituloEvento.BackColor = Color.FromArgb(64, 64, 64);
+            panelTituloEvento.Controls.Add(panel21);
+            panelTituloEvento.Controls.Add(ActualizarFormEventoBtn);
+            panelTituloEvento.Controls.Add(panel15);
+            panelTituloEvento.Controls.Add(label38);
+            panelTituloEvento.Controls.Add(panel20);
+            panelTituloEvento.Controls.Add(panel16);
+            panelTituloEvento.Controls.Add(panel23);
+            panelTituloEvento.Location = new Point(0, 3);
+            panelTituloEvento.Name = "panelTituloEvento";
+            panelTituloEvento.Size = new Size(705, 51);
+            panelTituloEvento.TabIndex = 113;
             // 
             // label38
             // 
@@ -1858,16 +1775,147 @@
             panel23.Size = new Size(138, 32);
             panel23.TabIndex = 159;
             // 
-            // panel13
+            // panelOrganizador
             // 
-            panel13.BackColor = Color.FromArgb(64, 64, 64);
-            panel13.Controls.Add(nombrelabel);
-            panel13.Controls.Add(idenlabel);
-            panel13.Controls.Add(telefonolabel);
-            panel13.Location = new Point(1318, 99);
-            panel13.Name = "panel13";
-            panel13.Size = new Size(153, 386);
-            panel13.TabIndex = 141;
+            panelOrganizador.BackColor = SystemColors.WindowFrame;
+            panelOrganizador.Controls.Add(LimpiarCCBtn);
+            panelOrganizador.Controls.Add(PersonaDGV);
+            panelOrganizador.Controls.Add(label33);
+            panelOrganizador.Controls.Add(EditarClienteBtn);
+            panelOrganizador.Controls.Add(CrearClienteNuevoBtn);
+            panelOrganizador.Controls.Add(FiltroActivoChk);
+            panelOrganizador.Controls.Add(BuscarOrganizadorTxtB);
+            panelOrganizador.Controls.Add(label32);
+            panelOrganizador.Controls.Add(panel14);
+            panelOrganizador.Controls.Add(panelInfo);
+            panelOrganizador.Controls.Add(panel9);
+            panelOrganizador.Location = new Point(807, 3);
+            panelOrganizador.Name = "panelOrganizador";
+            panelOrganizador.Size = new Size(715, 482);
+            panelOrganizador.TabIndex = 140;
+            // 
+            // label31
+            // 
+            label31.AutoSize = true;
+            label31.BackColor = Color.FromArgb(64, 64, 64);
+            label31.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label31.ForeColor = SystemColors.Control;
+            label31.Location = new Point(210, 2);
+            label31.Name = "label31";
+            label31.Size = new Size(295, 40);
+            label31.TabIndex = 131;
+            label31.Text = "Consulta de Clientes";
+            // 
+            // PersonaDGV
+            // 
+            PersonaDGV.AllowUserToAddRows = false;
+            PersonaDGV.AllowUserToDeleteRows = false;
+            PersonaDGV.AllowUserToResizeRows = false;
+            PersonaDGV.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            PersonaDGV.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            PersonaDGV.Location = new Point(15, 93);
+            PersonaDGV.MultiSelect = false;
+            PersonaDGV.Name = "PersonaDGV";
+            PersonaDGV.ReadOnly = true;
+            PersonaDGV.RowHeadersVisible = false;
+            PersonaDGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            PersonaDGV.Size = new Size(543, 390);
+            PersonaDGV.TabIndex = 128;
+            PersonaDGV.CellContentDoubleClick += PersonaDGV_CellDoubleClick;
+            // 
+            // label33
+            // 
+            label33.AutoSize = true;
+            label33.BackColor = Color.FromArgb(64, 64, 64);
+            label33.Font = new Font("Segoe UI", 18F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
+            label33.ForeColor = SystemColors.Control;
+            label33.Location = new Point(579, 94);
+            label33.Name = "label33";
+            label33.Size = new Size(116, 32);
+            label33.TabIndex = 134;
+            label33.Text = "Acciones";
+            // 
+            // EditarClienteBtn
+            // 
+            EditarClienteBtn.Cursor = Cursors.Hand;
+            EditarClienteBtn.Image = Properties.Resources.editarcliente1;
+            EditarClienteBtn.Location = new Point(567, 211);
+            EditarClienteBtn.Name = "EditarClienteBtn";
+            EditarClienteBtn.Size = new Size(142, 72);
+            EditarClienteBtn.TabIndex = 132;
+            EditarClienteBtn.Text = "Editar";
+            EditarClienteBtn.TextAlign = ContentAlignment.BottomCenter;
+            EditarClienteBtn.UseVisualStyleBackColor = true;
+            // 
+            // CrearClienteNuevoBtn
+            // 
+            CrearClienteNuevoBtn.Cursor = Cursors.Hand;
+            CrearClienteNuevoBtn.Image = Properties.Resources.cliente1;
+            CrearClienteNuevoBtn.Location = new Point(567, 134);
+            CrearClienteNuevoBtn.Name = "CrearClienteNuevoBtn";
+            CrearClienteNuevoBtn.Size = new Size(142, 72);
+            CrearClienteNuevoBtn.TabIndex = 133;
+            CrearClienteNuevoBtn.Text = "Nuevo";
+            CrearClienteNuevoBtn.TextAlign = ContentAlignment.BottomCenter;
+            CrearClienteNuevoBtn.UseVisualStyleBackColor = true;
+            // 
+            // BuscarOrganizadorTxtB
+            // 
+            BuscarOrganizadorTxtB.CharacterCasing = CharacterCasing.Upper;
+            BuscarOrganizadorTxtB.Font = new Font("Segoe UI", 12F);
+            BuscarOrganizadorTxtB.ForeColor = SystemColors.ScrollBar;
+            BuscarOrganizadorTxtB.Location = new Point(15, 58);
+            BuscarOrganizadorTxtB.Name = "BuscarOrganizadorTxtB";
+            BuscarOrganizadorTxtB.PlaceholderText = "Buscar cliente organizador/a";
+            BuscarOrganizadorTxtB.Size = new Size(423, 29);
+            BuscarOrganizadorTxtB.TabIndex = 127;
+            // 
+            // label32
+            // 
+            label32.AutoSize = true;
+            label32.BackColor = Color.White;
+            label32.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label32.ForeColor = SystemColors.Control;
+            label32.Image = Properties.Resources.busqueda;
+            label32.Location = new Point(411, 62);
+            label32.Name = "label32";
+            label32.Size = new Size(18, 21);
+            label32.TabIndex = 126;
+            label32.Text = "  ";
+            // 
+            // panel14
+            // 
+            panel14.BackColor = Color.FromArgb(64, 64, 64);
+            panel14.BorderStyle = BorderStyle.FixedSingle;
+            panel14.Controls.Add(label34);
+            panel14.Location = new Point(440, 56);
+            panel14.Name = "panel14";
+            panel14.Size = new Size(86, 32);
+            panel14.TabIndex = 142;
+            // 
+            // label34
+            // 
+            label34.AutoSize = true;
+            label34.BackColor = Color.Transparent;
+            label34.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label34.ForeColor = SystemColors.WindowFrame;
+            label34.Image = Properties.Resources.filtroblanco;
+            label34.Location = new Point(3, 5);
+            label34.Name = "label34";
+            label34.Size = new Size(18, 21);
+            label34.TabIndex = 38;
+            label34.Text = "  ";
+            // 
+            // panelInfo
+            // 
+            panelInfo.BackColor = Color.FromArgb(64, 64, 64);
+            panelInfo.Controls.Add(nombrelabel);
+            panelInfo.Controls.Add(idenlabel);
+            panelInfo.Controls.Add(telefonolabel);
+            panelInfo.Location = new Point(562, 92);
+            panelInfo.Name = "panelInfo";
+            panelInfo.Size = new Size(153, 390);
+            panelInfo.TabIndex = 141;
             // 
             // nombrelabel
             // 
@@ -1905,67 +1953,22 @@
             telefonolabel.TabIndex = 137;
             telefonolabel.Text = "Teléfono principal:";
             // 
-            // panel14
+            // panel9
             // 
-            panel14.BackColor = Color.FromArgb(64, 64, 64);
-            panel14.BorderStyle = BorderStyle.FixedSingle;
-            panel14.Controls.Add(label34);
-            panel14.Location = new Point(1194, 62);
-            panel14.Name = "panel14";
-            panel14.Size = new Size(86, 32);
-            panel14.TabIndex = 142;
-            // 
-            // label34
-            // 
-            label34.AutoSize = true;
-            label34.BackColor = Color.Transparent;
-            label34.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label34.ForeColor = SystemColors.WindowFrame;
-            label34.Image = Properties.Resources.filtroblanco;
-            label34.Location = new Point(3, 5);
-            label34.Name = "label34";
-            label34.Size = new Size(18, 21);
-            label34.TabIndex = 38;
-            label34.Text = "  ";
-            // 
-            // panelOrganizador
-            // 
-            panelOrganizador.BackColor = SystemColors.WindowFrame;
-            panelOrganizador.Controls.Add(ActualizarCCBtn);
-            panelOrganizador.Controls.Add(label31);
-            panelOrganizador.Controls.Add(panel22);
-            panelOrganizador.Location = new Point(766, 3);
-            panelOrganizador.Name = "panelOrganizador";
-            panelOrganizador.Size = new Size(705, 482);
-            panelOrganizador.TabIndex = 140;
-            // 
-            // label31
-            // 
-            label31.AutoSize = true;
-            label31.BackColor = Color.FromArgb(64, 64, 64);
-            label31.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label31.ForeColor = SystemColors.Control;
-            label31.Location = new Point(208, 1);
-            label31.Name = "label31";
-            label31.Size = new Size(295, 40);
-            label31.TabIndex = 131;
-            label31.Text = "Consulta de Clientes";
-            // 
-            // panel22
-            // 
-            panel22.BackColor = Color.FromArgb(64, 64, 64);
-            panel22.Dock = DockStyle.Top;
-            panel22.Location = new Point(0, 0);
-            panel22.Name = "panel22";
-            panel22.Size = new Size(705, 51);
-            panel22.TabIndex = 159;
+            panel9.BackColor = Color.FromArgb(64, 64, 64);
+            panel9.Controls.Add(label31);
+            panel9.Controls.Add(ActualizarCCBtn);
+            panel9.Location = new Point(0, 0);
+            panel9.Name = "panel9";
+            panel9.Size = new Size(715, 51);
+            panel9.TabIndex = 159;
             // 
             // MantMesas
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.WindowFrame;
-            ClientSize = new Size(2195, 862);
+            ClientSize = new Size(713, 524);
             Controls.Add(tabControl2);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -2003,22 +2006,24 @@
             panel7.PerformLayout();
             tabEventos.ResumeLayout(false);
             tabEventos.PerformLayout();
-            SeleccionarSalaPanel.ResumeLayout(false);
-            SeleccionarSalaPanel.PerformLayout();
             notapanel.ResumeLayout(false);
             notapanel.PerformLayout();
+            SeleccionarSalaPanel.ResumeLayout(false);
+            SeleccionarSalaPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)SalaConEventoDGV).EndInit();
-            ((System.ComponentModel.ISupportInitialize)PersonaDGV).EndInit();
             ((System.ComponentModel.ISupportInitialize)CantPersonaNUD).EndInit();
             panel2.ResumeLayout(false);
-            panel9.ResumeLayout(false);
-            panel9.PerformLayout();
-            panel13.ResumeLayout(false);
-            panel13.PerformLayout();
-            panel14.ResumeLayout(false);
-            panel14.PerformLayout();
+            panelTituloEvento.ResumeLayout(false);
+            panelTituloEvento.PerformLayout();
             panelOrganizador.ResumeLayout(false);
             panelOrganizador.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)PersonaDGV).EndInit();
+            panel14.ResumeLayout(false);
+            panel14.PerformLayout();
+            panelInfo.ResumeLayout(false);
+            panelInfo.PerformLayout();
+            panel9.ResumeLayout(false);
+            panel9.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -2112,7 +2117,7 @@
         private Panel panel6;
         private Panel panel7;
         private Panel panel8;
-        private Panel panel9;
+        private Panel panelTituloEvento;
         public Button ActualizarFormEventoBtn;
         private Panel panel10;
         private NumericUpDown CantPersonaNUD;
@@ -2150,14 +2155,13 @@
         private Label label33;
         private Button EditarClienteBtn;
         private Button CrearClienteNuevoBtn;
-        private Panel panel13;
+        private Panel panelInfo;
         private Label nombrelabel;
         private Label idenlabel;
         private Label telefonolabel;
         private Button NotaBtn;
         private TextBox notatxt;
         private Panel notapanel;
-        private Panel panel22;
         private Panel panel15;
         private Panel panel16;
         private Label label38;
@@ -2170,5 +2174,6 @@
         private Panel panel18;
         private Panel panel19;
         private Panel panel23;
+        private Panel panel9;
     }
 }

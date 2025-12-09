@@ -31,11 +31,11 @@ namespace Proyecto_restaurante
         }
 
         public int MesaID;
-        private int SalaID = 0;  // 0 = nueva sala, >0 = edicion
-        private int EventoID = 0;                 // 0 = nuevo, >0 = edición
+        private int SalaID = 0;  // 0 = nuevo, >0 = edicion
+        private int EventoID = 0;
         private int? ClienteIDEvento = null;      // IdCliente del organizador (puede ser null)
         private List<int> mesasSeleccionadasEvento = new List<int>(); // IdMesa seleccionadas para el evento
-
+        private int estadoBuscarSalaEvento = 1;
         private bool panelSalaEventoVisible = false;
 
         private void ConfigurarDateTimePickersEvento()
@@ -221,7 +221,14 @@ namespace Proyecto_restaurante
                 CargarSalasEnGrid();
                 PrepararNuevoEvento();
                 CargarMesasDisponiblesEvento();
+                ConfigurarDateTimePickersEvento();
+                FechaInicialDTP.Value = DateTime.Now;
+                FechaFinDTP.Value = DateTime.Now;
+                notatxt.Enter += notatxt_Enter;
+                notatxt.Leave += notatxt_Leave;
                 panelOrganizador.Visible = false;
+                panelOrganizador.Parent = tabEventos;
+                panelOrganizador.Anchor = AnchorStyles.None;
             }
 
 
@@ -407,7 +414,7 @@ namespace Proyecto_restaurante
                     else if (anterior.Reservado)
                         botonActivo.BackColor = Color.MediumPurple;
                     else
-                        botonActivo.BackColor = Color.LightGreen;     // libre
+                        botonActivo.BackColor = Color.LightGreen;
                 }
             }
 
@@ -926,12 +933,10 @@ namespace Proyecto_restaurante
 
             CargarProximoIdEvento();
 
-            // Fechas
             FechaCreacionDTP.Value = DateTime.Now;
             FechaInicialDTP.Value = DateTime.Today;
             FechaFinDTP.Value = DateTime.Today;
 
-            // Texto / números
             NomCompletoOrgTxtB.Clear();
             NombreEventoTxt.Clear();
             CantPersonaNUD.Value = 1;
@@ -940,9 +945,9 @@ namespace Proyecto_restaurante
             NomSalaSelecTxtB.Clear();
 
             notatxt.Text = "Escribir nota aquí...";
-            notapanel.Visible = false;   // si quieres que empiece oculto
+            notapanel.Visible = false;
+            notatxt.ForeColor = Color.Gray;
 
-            // Limpiar panel de mesas asignadas
             EventoMesasP.Controls.Clear();
         }
 
@@ -967,7 +972,6 @@ namespace Proyecto_restaurante
                 INNER JOIN Sala s ON m.IdSala = s.IdSala
                 WHERE 1 = 1";
 
-                // Filtro de texto (IdMesa, Numero o NombreSala)
                 if (!string.IsNullOrWhiteSpace(filtro))
                 {
                     sql += @"
@@ -1017,18 +1021,17 @@ namespace Proyecto_restaurante
 
                             bool yaSeleccionada = mesasSeleccionadasEvento.Contains(idMesa);
 
-                            // Color según estado
                             if (ocupada)
                             {
-                                btn.BackColor = Color.LightCoral;      // ocupada
+                                btn.BackColor = Color.LightCoral;
                             }
                             else if (reservada)
                             {
-                                btn.BackColor = Color.MediumPurple;    // reservada
+                                btn.BackColor = Color.MediumPurple;
                             }
                             else
                             {
-                                // libre
+
                                 btn.BackColor = yaSeleccionada ? Color.DodgerBlue : Color.LightGreen;
                             }
 
@@ -1057,7 +1060,6 @@ namespace Proyecto_restaurante
             bool ocupada = datos.Ocupado;
             bool reservada = datos.Reservado;
 
-            // No permitir seleccionar mesas ocupadas o reservadas
             if (ocupada || reservada)
             {
                 MessageBox.Show("Esta mesa no está disponible para asignar al evento.",
@@ -1065,7 +1067,6 @@ namespace Proyecto_restaurante
                 return;
             }
 
-            // Toggle selección en la lista
             if (mesasSeleccionadasEvento.Contains(idMesa))
             {
                 // Quitar de la lista
@@ -1102,7 +1103,7 @@ namespace Proyecto_restaurante
         }
         private void GuardarEventoBtn_Click(object sender, EventArgs e)
         {
-            // Validaciones básicas
+
             if (string.IsNullOrWhiteSpace(NombreEventoTxt.Text))
             {
                 MessageBox.Show("Debe escribir el nombre del evento.");
@@ -1150,7 +1151,12 @@ namespace Proyecto_restaurante
             int personas = (int)CantPersonaNUD.Value;
             DateTime fechaIni = FechaInicialDTP.Value;
             DateTime fechaFin = FechaFinDTP.Value;
-            string nota = string.IsNullOrWhiteSpace(notatxt.Text) ? null : notatxt.Text.Trim();
+            string nota = null;
+            if (!string.IsNullOrWhiteSpace(notatxt.Text) &&
+                notatxt.Text != "Escribir nota aquí...")
+            {
+                nota = notatxt.Text.Trim();
+            }
 
             string conexionString = ConexionBD.ConexionSQL();
 
@@ -1163,17 +1169,17 @@ namespace Proyecto_restaurante
                 {
                     if (EventoID == 0)
                     {
-                        // INSERT
+
                         string sqlInsert = @"
-                    INSERT INTO Evento
-                    (Organizador, FechaInicio, FechaFin, PersonasEstimadas,
-                     IdSala, MontajeMin, DesmontajeMin, Estado, CreadoEn,
-                     NombreEvento, IdCliente, Nota)
-                    VALUES
-                    (@Organizador, @FechaInicio, @FechaFin, @Personas,
-                     @IdSala, @MontajeMin, @DesmontajeMin, @Estado, SYSDATETIME(),
-                     @NombreEvento, @IdCliente, @Nota);
-                    SELECT CAST(SCOPE_IDENTITY() AS int);";
+                        INSERT INTO Evento
+                        (Organizador, FechaInicio, FechaFin, PersonasEstimadas,
+                        IdSala, MontajeMin, DesmontajeMin, Estado, CreadoEn,
+                        NombreEvento, IdCliente, Nota)
+                        VALUES
+                        (@Organizador, @FechaInicio, @FechaFin, @Personas,
+                        @IdSala, @MontajeMin, @DesmontajeMin, @Estado, SYSDATETIME(),
+                        @NombreEvento, @IdCliente, @Nota);
+                        SELECT CAST(SCOPE_IDENTITY() AS int);";
 
                         using (SqlCommand cmd = new SqlCommand(sqlInsert, conexion, trans))
                         {
@@ -1195,7 +1201,6 @@ namespace Proyecto_restaurante
                     }
                     else
                     {
-                        // UPDATE
                         string sqlUpdate = @"
                         UPDATE Evento
                         SET Organizador       = @Organizador,
@@ -1225,7 +1230,7 @@ namespace Proyecto_restaurante
                     }
 
                     // Guardar mesas del evento (EventoMesa)
-                    // 1) Borrar anteriores
+                    // Borrar anteriores
                     string sqlDeleteMesas = "DELETE FROM EventoMesa WHERE IdEvento = @IdEvento;";
                     using (SqlCommand cmdDel = new SqlCommand(sqlDeleteMesas, conexion, trans))
                     {
@@ -1233,7 +1238,6 @@ namespace Proyecto_restaurante
                         cmdDel.ExecuteNonQuery();
                     }
 
-                    // 2) Insertar las seleccionadas
                     string sqlInsertMesa = "INSERT INTO EventoMesa (IdEvento, IdMesa) VALUES (@IdEvento, @IdMesa);";
 
                     foreach (int idMesa in mesasSeleccionadasEvento)
@@ -1263,11 +1267,17 @@ namespace Proyecto_restaurante
 
             if (panelOrganizador.Visible)
             {
-                panelOrganizador.BringToFront();  
+
+                int x = (tabEventos.ClientSize.Width - panelOrganizador.Width) / 2;
+                int y = (tabEventos.ClientSize.Height - panelOrganizador.Height) / 2;
+
+                panelOrganizador.Location = new Point(x, y);
+                panelOrganizador.BringToFront();
 
                 BuscarOrganizadorTxtB.Text = "";
                 FiltroActivoChk.Checked = true;
                 CargarOrganizadores("", true);
+
                 BuscarOrganizadorTxtB.Focus();
             }
         }
@@ -1293,16 +1303,12 @@ namespace Proyecto_restaurante
 
             if (fila.Cells["IdCliente"].Value == null) return;
 
-            // Guardamos el ID del cliente organizador
             ClienteIDEvento = Convert.ToInt32(fila.Cells["IdCliente"].Value);
 
-            // Mostramos el nombre completo en el textbox del formulario de eventos
             NomCompletoOrgTxtB.Text = fila.Cells["NombreCompleto"].Value?.ToString();
 
-            // Opcional: ocultar el panel después de seleccionar
             panelOrganizador.Visible = false;
 
-            // Pasamos el foco al nombre del evento
             NombreEventoTxt.Focus();
         }
 
@@ -1324,7 +1330,6 @@ namespace Proyecto_restaurante
                 INNER JOIN Persona p ON c.IdPersona = p.IdPersona
                 WHERE 1 = 1";
 
-                // Filtro por texto (nombre o correo)
                 if (!string.IsNullOrWhiteSpace(filtroTexto))
                 {
                     sql += @"
@@ -1334,7 +1339,6 @@ namespace Proyecto_restaurante
                 )";
                 }
 
-                // Solo activos (Cliente y Persona)
                 if (soloActivos)
                 {
                     sql += " AND c.Activo = 1 AND p.Activo = 1";
@@ -1356,7 +1360,6 @@ namespace Proyecto_restaurante
                 }
             }
 
-            // Encabezados legibles
             if (PersonaDGV.Columns.Contains("IdCliente"))
                 PersonaDGV.Columns["IdCliente"].HeaderText = "ID";
             if (PersonaDGV.Columns.Contains("NombreCompleto"))
@@ -1382,15 +1385,28 @@ namespace Proyecto_restaurante
 
         private void BuscarSalaBtn_Click(object sender, EventArgs e)
         {
-            if (SeleccionarSalaPanel.Visible)
+            string filtro = NombreSalaTxtB.Text.Trim();
+
+            if (estadoBuscarSalaEvento == 1)
+            {
+                CargarSalasParaEvento(filtro);
+                SeleccionarSalaPanel.Visible = true;
+
+                BuscarSalaBtn.Image = Proyecto_restaurante.Properties.Resources.cancelar1;
+                toolTip1.SetToolTip(BuscarSalaBtn, "Cerrar selección de sala");
+
+                estadoBuscarSalaEvento = 0;
+                NombreSalaTxtB.Focus();
+            }
+            else
             {
                 SeleccionarSalaPanel.Visible = false;
-                return;
-            }
 
-            SeleccionarSalaPanel.Visible = true;
-            CargarSalasParaEvento();
-            NombreSalaTxtB.Focus();
+                BuscarSalaBtn.Image = Proyecto_restaurante.Properties.Resources.busqueda1;
+                toolTip1.SetToolTip(BuscarSalaBtn, "Buscar sala");
+
+                estadoBuscarSalaEvento = 1;
+            }
         }
 
         private void CargarSalasParaEvento(string filtro = "")
@@ -1439,7 +1455,55 @@ namespace Proyecto_restaurante
         }
         private void DesplegarBtn_Click(object sender, EventArgs e)
         {
-            SeleccionarSalaPanel.Visible = !SeleccionarSalaPanel.Visible;
+            if (SalaConEventoDGV.CurrentRow == null || SalaConEventoDGV.CurrentRow.IsNewRow)
+            {
+                MessageBox.Show("Seleccione una sala en la lista.");
+                return;
+            }
+
+            DataGridViewRow row = SalaConEventoDGV.CurrentRow;
+
+            if (!SalaConEventoDGV.Columns.Contains("IdSala") ||
+                row.Cells["IdSala"].Value == null ||
+                row.Cells["IdSala"].Value == DBNull.Value)
+                return;
+
+            int idSala = Convert.ToInt32(row.Cells["IdSala"].Value);
+            string nombreSala = null;
+
+            if (SalaConEventoDGV.Columns.Contains("Nombre"))
+                nombreSala = row.Cells["Nombre"].Value?.ToString();
+
+            IdSalaSelecionadaTxtB.Text = idSala.ToString();
+            NomSalaSelecTxtB.Text = nombreSala;
+
+            int colCap = -1;
+            if (SalaConEventoDGV.Columns.Contains("Capacidad"))
+                colCap = SalaConEventoDGV.Columns["Capacidad"].Index;
+
+            if (colCap >= 0)
+            {
+                object valorCap = row.Cells[colCap].Value;
+
+                if (valorCap != null && valorCap != DBNull.Value)
+                {
+                    if (int.TryParse(valorCap.ToString(), out int capacidad))
+                    {
+                        if (capacidad < CantPersonaNUD.Minimum)
+                            capacidad = (int)CantPersonaNUD.Minimum;
+
+                        if (capacidad > CantPersonaNUD.Maximum)
+                            capacidad = (int)CantPersonaNUD.Maximum;
+
+                        CantPersonaNUD.Value = capacidad;
+                    }
+                }
+            }
+
+            SeleccionarSalaPanel.Visible = false;
+            estadoBuscarSalaEvento = 1;
+            BuscarSalaBtn.Image = Proyecto_restaurante.Properties.Resources.busqueda1;
+            toolTip1.SetToolTip(BuscarSalaBtn, "Buscar sala");
         }
         private void NombreSalaTxtB_TextChanged(object sender, EventArgs e)
         {
@@ -1450,46 +1514,25 @@ namespace Proyecto_restaurante
         {
             if (e.RowIndex < 0) return;
 
-            DataGridViewRow row = SalaConEventoDGV.Rows[e.RowIndex];
-            if (row.Cells["IdSala"].Value == null) return;
-
-            int idSala = Convert.ToInt32(row.Cells["IdSala"].Value);
-            string nombreSala = row.Cells["Nombre"].Value?.ToString();
-
-            IdSalaSelecionadaTxtB.Text = idSala.ToString();
-            NomSalaSelecTxtB.Text = nombreSala;
-
-            if (SalaConEventoDGV.Columns.Contains("Capacidad") &&
-                row.Cells["Capacidad"].Value != null &&
-                row.Cells["Capacidad"].Value != DBNull.Value)
-            {
-                int capacidad;
-                if (int.TryParse(row.Cells["Capacidad"].Value.ToString(), out capacidad))
-                {
-                    if (capacidad < CantPersonaNUD.Minimum)
-                        capacidad = (int)CantPersonaNUD.Minimum;
-                    if (capacidad > CantPersonaNUD.Maximum)
-                        capacidad = (int)CantPersonaNUD.Maximum;
-
-                    CantPersonaNUD.Value = capacidad;
-                }
-            }
-
-            SeleccionarSalaPanel.Visible = false;
-
+            SalaConEventoDGV.CurrentCell = SalaConEventoDGV.Rows[e.RowIndex].Cells[0];
+            DesplegarBtn_Click(sender, EventArgs.Empty);
         }
         private void NotaBtn_Click(object sender, EventArgs e)
         {
             notapanel.Visible = !notapanel.Visible;
-
             if (notapanel.Visible)
+            {
+                notapanel.BringToFront();
                 notatxt.Focus();
+            }
         }
         private void notatxt_Enter(object sender, EventArgs e)
         {
             if (notatxt.Text == "Escribir nota aquí...")
             {
                 notatxt.Text = "";
+                notatxt.ForeColor = Color.Black;
+
             }
         }
         private void notatxt_Leave(object sender, EventArgs e)
@@ -1497,6 +1540,34 @@ namespace Proyecto_restaurante
             if (string.IsNullOrWhiteSpace(notatxt.Text))
             {
                 notatxt.Text = "Escribir nota aquí...";
+                notatxt.ForeColor = Color.Gray;
+            }
+        }
+        private void LimpiarFormEventoBtn_Click(object sender, EventArgs e)
+        {
+            PrepararNuevoEvento();
+            CargarMesasDisponiblesEvento();
+            NombreEventoTxt.Focus();
+        }
+        private void MostrarOcultarPanelOrganizador()
+        {
+            if (!panelOrganizador.Visible)
+            {
+                int x = (tabEventos.ClientSize.Width - panelOrganizador.Width) / 2;
+                int y = (tabEventos.ClientSize.Height - panelOrganizador.Height) / 2;
+
+                panelOrganizador.Location = new Point(x, y);
+                panelOrganizador.BringToFront();
+                panelOrganizador.Visible = true;
+
+                BuscarOrganizadorTxtB.Text = "";
+                FiltroActivoChk.Checked = true;
+                CargarOrganizadores("", true);
+                BuscarOrganizadorTxtB.Focus();
+            }
+            else
+            {
+                panelOrganizador.Visible = false;
             }
         }
     }
