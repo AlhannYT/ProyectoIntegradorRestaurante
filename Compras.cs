@@ -228,7 +228,7 @@ namespace Proyecto_restaurante
             var colNombre = new DataGridViewTextBoxColumn
             {
                 Name = "Nombre",
-                HeaderText = "Ingrediente",
+                HeaderText = "Producto",
                 Width = 180
             };
             detallecompra.Columns.Add(colNombre);
@@ -515,13 +515,13 @@ namespace Proyecto_restaurante
         {
             if (productoSeleccionadoId <= 0)
             {
-                MessageBox.Show("Seleccione un ingrediente primero.");
+                MessageBox.Show("Seleccione un Producto primero.");
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(txtnombre.Text))
             {
-                MessageBox.Show("El nombre del ingrediente está vacío.");
+                MessageBox.Show("El nombre del Producto está vacío.");
                 return;
             }
 
@@ -836,7 +836,6 @@ namespace Proyecto_restaurante
                 CargarHistorialCompras();
         }
 
-        // Búsqueda por texto
         private void BusquedaCompraTxt_TextChanged(object sender, EventArgs e)
         {
             if (tabControl1.SelectedTab == TabPageHistorialCompras)

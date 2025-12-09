@@ -26,10 +26,28 @@ namespace Proyecto_restaurante
             button5.Cursor = Cursors.Hand;
             agregar.Cursor = Cursors.Hand;
             Editar.Cursor = Cursors.Hand;
+
+
         }
 
         public int MesaID;
         private int SalaID = 0;  // 0 = nueva sala, >0 = edicion
+        private int EventoID = 0;                 // 0 = nuevo, >0 = edición
+        private int? ClienteIDEvento = null;      // IdCliente del organizador (puede ser null)
+        private List<int> mesasSeleccionadasEvento = new List<int>(); // IdMesa seleccionadas para el evento
+
+        private bool panelSalaEventoVisible = false;
+
+        private void ConfigurarDateTimePickersEvento()
+        {
+            FechaInicialDTP.Format = DateTimePickerFormat.Custom;
+            FechaInicialDTP.CustomFormat = "dd/MM/yyyy HH:mm";
+            FechaInicialDTP.ShowUpDown = true;
+
+            FechaFinDTP.Format = DateTimePickerFormat.Custom;
+            FechaFinDTP.CustomFormat = "dd/MM/yyyy HH:mm";
+            FechaFinDTP.ShowUpDown = true;
+        }
 
         private void guardarbtn_Click(object sender, EventArgs e)
         {
@@ -198,9 +216,15 @@ namespace Proyecto_restaurante
                         idmesatxt.Text = "?";
                     }
                 }
+
                 PrepararNuevaSala();
                 CargarSalasEnGrid();
+                PrepararNuevoEvento();
+                CargarMesasDisponiblesEvento();
+                panelOrganizador.Visible = false;
             }
+
+
 
             string consultaIdSala = "SELECT ISNULL(MAX(IdSala), 0) + 1 FROM Sala";
 
@@ -224,10 +248,12 @@ namespace Proyecto_restaurante
 
             txtbuscador.Text = "";
             ActivoChk.Checked = false;
+            SeleccionarSalaPanel.Visible = false;
             AplicarFiltrosConsultaMesas();
 
             CargarSalas("", false);
             PrepararNuevaSala();
+
         }
 
         private void CargarPanelMesas(
@@ -302,7 +328,8 @@ namespace Proyecto_restaurante
                                 Height = 100,
                                 Margin = new Padding(10),
                                 TextAlign = ContentAlignment.MiddleCenter,
-                                Font = new Font("Segoe UI", 10, FontStyle.Bold)
+                                Font = new Font("Segoe UI", 10, FontStyle.Bold),
+                                Cursor = Cursors.Hand
                             };
 
                             bool ocupada = Convert.ToBoolean(lector["Ocupado"]);
@@ -311,7 +338,7 @@ namespace Proyecto_restaurante
                             if (ocupada)
                                 btnMesa.BackColor = Color.LightCoral;
                             else if (reservada)
-                                btnMesa.BackColor = Color.LightSkyBlue;
+                                btnMesa.BackColor = Color.MediumPurple;
                             else
                                 btnMesa.BackColor = Color.LightGreen;
 
@@ -378,7 +405,7 @@ namespace Proyecto_restaurante
                     if (anterior.Ocupado)
                         botonActivo.BackColor = Color.LightCoral;
                     else if (anterior.Reservado)
-                        botonActivo.BackColor = Color.LightSkyBlue;
+                        botonActivo.BackColor = Color.MediumPurple;
                     else
                         botonActivo.BackColor = Color.LightGreen;     // libre
                 }
@@ -873,5 +900,605 @@ namespace Proyecto_restaurante
                 txtbuscador.Text = "Buscar por numero de Mesa o Sala";
             }
         }
+
+
+        private void CargarProximoIdEvento()
+        {
+            string conexionString = ConexionBD.ConexionSQL();
+
+            using (SqlConnection conexion = new SqlConnection(conexionString))
+            {
+                conexion.Open();
+                string sql = "SELECT ISNULL(MAX(IdEvento), 0) + 1 FROM Evento;";
+                using (SqlCommand cmd = new SqlCommand(sql, conexion))
+                {
+                    object resultado = cmd.ExecuteScalar();
+                    IdEventoTxtB.Text = Convert.ToInt32(resultado).ToString();
+                }
+            }
+        }
+
+        private void PrepararNuevoEvento()
+        {
+            EventoID = 0;
+            ClienteIDEvento = null;
+            mesasSeleccionadasEvento.Clear();
+
+            CargarProximoIdEvento();
+
+            // Fechas
+            FechaCreacionDTP.Value = DateTime.Now;
+            FechaInicialDTP.Value = DateTime.Today;
+            FechaFinDTP.Value = DateTime.Today;
+
+            // Texto / números
+            NomCompletoOrgTxtB.Clear();
+            NombreEventoTxt.Clear();
+            CantPersonaNUD.Value = 1;
+
+            IdSalaSelecionadaTxtB.Clear();
+            NomSalaSelecTxtB.Clear();
+
+            notatxt.Text = "Escribir nota aquí...";
+            notapanel.Visible = false;   // si quieres que empiece oculto
+
+            // Limpiar panel de mesas asignadas
+            EventoMesasP.Controls.Clear();
+        }
+
+        private void CargarMesasDisponiblesEvento(string filtro = "")
+        {
+            string conexionString = ConexionBD.ConexionSQL();
+
+            using (SqlConnection conexion = new SqlConnection(conexionString))
+            {
+                conexion.Open();
+
+                string sql = @"
+                SELECT 
+                m.IdMesa,
+                m.IdSala,
+                s.Nombre AS NombreSala,
+                m.Numero,
+                m.Capacidad,
+                m.Ocupado,
+                ISNULL(m.Reservado, 0) AS Reservado
+                FROM Mesa m
+                INNER JOIN Sala s ON m.IdSala = s.IdSala
+                WHERE 1 = 1";
+
+                // Filtro de texto (IdMesa, Numero o NombreSala)
+                if (!string.IsNullOrWhiteSpace(filtro))
+                {
+                    sql += @"
+                        AND (
+                       CAST(m.IdMesa  AS varchar(10)) LIKE @filtro
+                       OR CAST(m.Numero  AS varchar(10)) LIKE @filtro
+                       OR s.Nombre LIKE @filtro)";
+                }
+
+                sql += " ORDER BY s.Nombre, m.Numero;";
+
+                using (SqlCommand cmd = new SqlCommand(sql, conexion))
+                {
+                    if (!string.IsNullOrWhiteSpace(filtro))
+                        cmd.Parameters.AddWithValue("@filtro", "%" + filtro + "%");
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        EventoMesasP.Controls.Clear();
+
+                        while (dr.Read())
+                        {
+                            int idMesa = Convert.ToInt32(dr["IdMesa"]);
+                            int numero = Convert.ToInt32(dr["Numero"]);
+                            string nombreSala = dr["NombreSala"].ToString();
+                            int capacidad = Convert.ToInt32(dr["Capacidad"]);
+                            bool ocupada = Convert.ToBoolean(dr["Ocupado"]);
+                            bool reservada = Convert.ToBoolean(dr["Reservado"]);
+
+                            Button btn = new Button
+                            {
+                                Width = 130,
+                                Height = 90,
+                                Margin = new Padding(6),
+                                TextAlign = ContentAlignment.MiddleCenter,
+                                Font = new Font("Segoe UI", 9, FontStyle.Bold),
+                                Cursor = Cursors.Hand
+                            };
+
+                            // Guardamos info simple en Tag
+                            btn.Tag = new
+                            {
+                                IdMesa = idMesa,
+                                Ocupado = ocupada,
+                                Reservado = reservada
+                            };
+
+                            bool yaSeleccionada = mesasSeleccionadasEvento.Contains(idMesa);
+
+                            // Color según estado
+                            if (ocupada)
+                            {
+                                btn.BackColor = Color.LightCoral;      // ocupada
+                            }
+                            else if (reservada)
+                            {
+                                btn.BackColor = Color.MediumPurple;    // reservada
+                            }
+                            else
+                            {
+                                // libre
+                                btn.BackColor = yaSeleccionada ? Color.DodgerBlue : Color.LightGreen;
+                            }
+
+                            btn.Text =
+                                $"Mesa #{numero}\n" +
+                                $"Sala: {nombreSala}\n" +
+                                $"Asientos: {capacidad}";
+
+                            btn.Click += BtnMesaEvento_Click;
+
+                            EventoMesasP.Controls.Add(btn);
+                        }
+                    }
+                }
+            }
+        }
+
+
+        private void BtnMesaEvento_Click(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            if (btn == null) return;
+
+            dynamic datos = btn.Tag;
+            int idMesa = datos.IdMesa;
+            bool ocupada = datos.Ocupado;
+            bool reservada = datos.Reservado;
+
+            // No permitir seleccionar mesas ocupadas o reservadas
+            if (ocupada || reservada)
+            {
+                MessageBox.Show("Esta mesa no está disponible para asignar al evento.",
+                    "Mesa no disponible", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            // Toggle selección en la lista
+            if (mesasSeleccionadasEvento.Contains(idMesa))
+            {
+                // Quitar de la lista
+                mesasSeleccionadasEvento.Remove(idMesa);
+                // Volver a verde (libre)
+                btn.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                // Agregar a la lista
+                mesasSeleccionadasEvento.Add(idMesa);
+                // Azul = seleccionada para el evento
+                btn.BackColor = Color.DodgerBlue;
+            }
+        }
+
+
+        private void BuscarMesaTxtB_TextChanged(object sender, EventArgs e)
+        {
+            string filtro = BuscarMesaTxtB.Text.Trim();
+            CargarMesasDisponiblesEvento(filtro);
+        }
+
+        private void ActualizarFormEventoBtn_Click(object sender, EventArgs e)
+        {
+            CargarMesasDisponiblesEvento(BuscarMesaTxtB.Text.Trim());
+        }
+
+        private void NuevoEventoBtn_Click(object sender, EventArgs e)
+        {
+            PrepararNuevoEvento();
+            CargarMesasDisponiblesEvento();
+            NombreEventoTxt.Focus();
+        }
+        private void GuardarEventoBtn_Click(object sender, EventArgs e)
+        {
+            // Validaciones básicas
+            if (string.IsNullOrWhiteSpace(NombreEventoTxt.Text))
+            {
+                MessageBox.Show("Debe escribir el nombre del evento.");
+                NombreEventoTxt.Focus();
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(NomCompletoOrgTxtB.Text))
+            {
+                MessageBox.Show("Debe indicar el organizador.");
+                NomCompletoOrgTxtB.Focus();
+                return;
+            }
+
+            if (ClienteIDEvento == null)
+            {
+                MessageBox.Show("Debe seleccionar un organizador válido (cliente).", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                BuscarOrganizadorBtn.Focus();
+                return;
+            }
+
+            if (CantPersonaNUD.Value <= 0)
+            {
+                MessageBox.Show("La cantidad de personas debe ser mayor que 0.");
+                CantPersonaNUD.Focus();
+                return;
+            }
+
+            if (FechaFinDTP.Value < FechaInicialDTP.Value)
+            {
+                MessageBox.Show("La fecha de fin no puede ser menor que la fecha de inicio.");
+                return;
+            }
+
+            int? idSalaEvento = null;
+            if (!string.IsNullOrWhiteSpace(IdSalaSelecionadaTxtB.Text))
+            {
+                if (int.TryParse(IdSalaSelecionadaTxtB.Text, out int tmpSala))
+                    idSalaEvento = tmpSala;
+            }
+
+            string organizador = NomCompletoOrgTxtB.Text.Trim();
+            string nombreEvento = NombreEventoTxt.Text.Trim();
+            int personas = (int)CantPersonaNUD.Value;
+            DateTime fechaIni = FechaInicialDTP.Value;
+            DateTime fechaFin = FechaFinDTP.Value;
+            string nota = string.IsNullOrWhiteSpace(notatxt.Text) ? null : notatxt.Text.Trim();
+
+            string conexionString = ConexionBD.ConexionSQL();
+
+            using (SqlConnection conexion = new SqlConnection(conexionString))
+            {
+                conexion.Open();
+                SqlTransaction trans = conexion.BeginTransaction();
+
+                try
+                {
+                    if (EventoID == 0)
+                    {
+                        // INSERT
+                        string sqlInsert = @"
+                    INSERT INTO Evento
+                    (Organizador, FechaInicio, FechaFin, PersonasEstimadas,
+                     IdSala, MontajeMin, DesmontajeMin, Estado, CreadoEn,
+                     NombreEvento, IdCliente, Nota)
+                    VALUES
+                    (@Organizador, @FechaInicio, @FechaFin, @Personas,
+                     @IdSala, @MontajeMin, @DesmontajeMin, @Estado, SYSDATETIME(),
+                     @NombreEvento, @IdCliente, @Nota);
+                    SELECT CAST(SCOPE_IDENTITY() AS int);";
+
+                        using (SqlCommand cmd = new SqlCommand(sqlInsert, conexion, trans))
+                        {
+                            cmd.Parameters.AddWithValue("@Organizador", organizador);
+                            cmd.Parameters.AddWithValue("@FechaInicio", fechaIni);
+                            cmd.Parameters.AddWithValue("@FechaFin", fechaFin);
+                            cmd.Parameters.AddWithValue("@Personas", personas);
+                            cmd.Parameters.AddWithValue("@IdSala", (object)idSalaEvento ?? DBNull.Value);
+                            cmd.Parameters.AddWithValue("@MontajeMin", 0);  // por ahora
+                            cmd.Parameters.AddWithValue("@DesmontajeMin", 0);
+                            cmd.Parameters.AddWithValue("@Estado", "planeado");
+                            cmd.Parameters.AddWithValue("@NombreEvento", nombreEvento);
+                            cmd.Parameters.AddWithValue("@IdCliente", (object)ClienteIDEvento ?? DBNull.Value);
+                            cmd.Parameters.AddWithValue("@Nota", (object)nota ?? DBNull.Value);
+
+                            EventoID = (int)cmd.ExecuteScalar();
+                            IdEventoTxtB.Text = EventoID.ToString();
+                        }
+                    }
+                    else
+                    {
+                        // UPDATE
+                        string sqlUpdate = @"
+                        UPDATE Evento
+                        SET Organizador       = @Organizador,
+                        FechaInicio       = @FechaInicio,
+                        FechaFin         = @FechaFin,
+                        PersonasEstimadas= @Personas,
+                        IdSala           = @IdSala,
+                        NombreEvento     = @NombreEvento,
+                        IdCliente        = @IdCliente,
+                        Nota             = @Nota
+                        WHERE IdEvento = @IdEvento;";
+
+                        using (SqlCommand cmd = new SqlCommand(sqlUpdate, conexion, trans))
+                        {
+                            cmd.Parameters.AddWithValue("@IdEvento", EventoID);
+                            cmd.Parameters.AddWithValue("@Organizador", organizador);
+                            cmd.Parameters.AddWithValue("@FechaInicio", fechaIni);
+                            cmd.Parameters.AddWithValue("@FechaFin", fechaFin);
+                            cmd.Parameters.AddWithValue("@Personas", personas);
+                            cmd.Parameters.AddWithValue("@IdSala", (object)idSalaEvento ?? DBNull.Value);
+                            cmd.Parameters.AddWithValue("@NombreEvento", nombreEvento);
+                            cmd.Parameters.AddWithValue("@IdCliente", (object)ClienteIDEvento ?? DBNull.Value);
+                            cmd.Parameters.AddWithValue("@Nota", (object)nota ?? DBNull.Value);
+
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+
+                    // Guardar mesas del evento (EventoMesa)
+                    // 1) Borrar anteriores
+                    string sqlDeleteMesas = "DELETE FROM EventoMesa WHERE IdEvento = @IdEvento;";
+                    using (SqlCommand cmdDel = new SqlCommand(sqlDeleteMesas, conexion, trans))
+                    {
+                        cmdDel.Parameters.AddWithValue("@IdEvento", EventoID);
+                        cmdDel.ExecuteNonQuery();
+                    }
+
+                    // 2) Insertar las seleccionadas
+                    string sqlInsertMesa = "INSERT INTO EventoMesa (IdEvento, IdMesa) VALUES (@IdEvento, @IdMesa);";
+
+                    foreach (int idMesa in mesasSeleccionadasEvento)
+                    {
+                        using (SqlCommand cmdMesa = new SqlCommand(sqlInsertMesa, conexion, trans))
+                        {
+                            cmdMesa.Parameters.AddWithValue("@IdEvento", EventoID);
+                            cmdMesa.Parameters.AddWithValue("@IdMesa", idMesa);
+                            cmdMesa.ExecuteNonQuery();
+                        }
+                    }
+
+                    trans.Commit();
+                    MessageBox.Show("Evento guardado correctamente.");
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+                    MessageBox.Show("Error al guardar el evento: " + ex.Message);
+                }
+            }
+        }
+
+        private void BuscarOrganizadorBtn_Click(object sender, EventArgs e)
+        {
+            panelOrganizador.Visible = !panelOrganizador.Visible;
+
+            if (panelOrganizador.Visible)
+            {
+                panelOrganizador.BringToFront();  
+
+                BuscarOrganizadorTxtB.Text = "";
+                FiltroActivoChk.Checked = true;
+                CargarOrganizadores("", true);
+                BuscarOrganizadorTxtB.Focus();
+            }
+        }
+        private void BuscarOrganizadorTxtB_TextChanged(object sender, EventArgs e)
+        {
+            string texto = BuscarOrganizadorTxtB.Text.Trim();
+            bool soloActivos = FiltroActivoChk.Checked;
+            CargarOrganizadores(texto, soloActivos);
+        }
+
+        private void FiltroActivoChk_CheckedChanged(object sender, EventArgs e)
+        {
+            string texto = BuscarOrganizadorTxtB.Text.Trim();
+            bool soloActivos = FiltroActivoChk.Checked;
+            CargarOrganizadores(texto, soloActivos);
+        }
+
+        private void PersonaDGV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            DataGridViewRow fila = PersonaDGV.Rows[e.RowIndex];
+
+            if (fila.Cells["IdCliente"].Value == null) return;
+
+            // Guardamos el ID del cliente organizador
+            ClienteIDEvento = Convert.ToInt32(fila.Cells["IdCliente"].Value);
+
+            // Mostramos el nombre completo en el textbox del formulario de eventos
+            NomCompletoOrgTxtB.Text = fila.Cells["NombreCompleto"].Value?.ToString();
+
+            // Opcional: ocultar el panel después de seleccionar
+            panelOrganizador.Visible = false;
+
+            // Pasamos el foco al nombre del evento
+            NombreEventoTxt.Focus();
+        }
+
+        private void CargarOrganizadores(string filtroTexto, bool soloActivos)
+        {
+            string conexionString = ConexionBD.ConexionSQL();
+
+            using (SqlConnection conexion = new SqlConnection(conexionString))
+            {
+                conexion.Open();
+
+                string sql = @"
+                SELECT 
+                c.IdCliente,
+                p.NombreCompleto,
+                p.Email,
+                c.Activo
+                FROM Cliente c
+                INNER JOIN Persona p ON c.IdPersona = p.IdPersona
+                WHERE 1 = 1";
+
+                // Filtro por texto (nombre o correo)
+                if (!string.IsNullOrWhiteSpace(filtroTexto))
+                {
+                    sql += @"
+                AND (
+                    p.NombreCompleto LIKE @filtro
+                    OR p.Email LIKE @filtro
+                )";
+                }
+
+                // Solo activos (Cliente y Persona)
+                if (soloActivos)
+                {
+                    sql += " AND c.Activo = 1 AND p.Activo = 1";
+                }
+
+                sql += " ORDER BY p.NombreCompleto;";
+
+                using (SqlCommand cmd = new SqlCommand(sql, conexion))
+                {
+                    if (!string.IsNullOrWhiteSpace(filtroTexto))
+                        cmd.Parameters.AddWithValue("@filtro", "%" + filtroTexto + "%");
+
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        PersonaDGV.DataSource = dt;
+                    }
+                }
+            }
+
+            // Encabezados legibles
+            if (PersonaDGV.Columns.Contains("IdCliente"))
+                PersonaDGV.Columns["IdCliente"].HeaderText = "ID";
+            if (PersonaDGV.Columns.Contains("NombreCompleto"))
+                PersonaDGV.Columns["NombreCompleto"].HeaderText = "Nombre";
+            if (PersonaDGV.Columns.Contains("Email"))
+                PersonaDGV.Columns["Email"].HeaderText = "Correo";
+            if (PersonaDGV.Columns.Contains("Activo"))
+                PersonaDGV.Columns["Activo"].HeaderText = "Activo";
+        }
+        private void ActualizarCCBtn_Click(object sender, EventArgs e)
+        {
+            string texto = BuscarOrganizadorTxtB.Text.Trim();
+            bool soloActivos = FiltroActivoChk.Checked;
+            CargarOrganizadores(texto, soloActivos);
+        }
+
+        private void LimpiarCCBtn_Click(object sender, EventArgs e)
+        {
+            BuscarOrganizadorTxtB.Text = "";
+            FiltroActivoChk.Checked = true;
+            CargarOrganizadores("", true);
+        }
+
+        private void BuscarSalaBtn_Click(object sender, EventArgs e)
+        {
+            if (SeleccionarSalaPanel.Visible)
+            {
+                SeleccionarSalaPanel.Visible = false;
+                return;
+            }
+
+            SeleccionarSalaPanel.Visible = true;
+            CargarSalasParaEvento();
+            NombreSalaTxtB.Focus();
+        }
+
+        private void CargarSalasParaEvento(string filtro = "")
+        {
+            string conexionString = ConexionBD.ConexionSQL();
+
+            using (SqlConnection con = new SqlConnection(conexionString))
+            {
+                con.Open();
+
+                string sql = @"
+                SELECT 
+                IdSala,
+                Nombre,
+                Piso,
+                Capacidad,
+                Activo
+                FROM Sala
+                WHERE
+                (@filtro = '' 
+                 OR Nombre LIKE '%' + @filtro + '%' 
+                 OR CAST(IdSala AS varchar(10)) LIKE '%' + @filtro + '%')
+                AND Activo = 1
+                ORDER BY Nombre;";
+
+                using (SqlDataAdapter da = new SqlDataAdapter(sql, con))
+                {
+                    da.SelectCommand.Parameters.AddWithValue("@filtro", filtro ?? "");
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    SalaConEventoDGV.DataSource = dt;
+                }
+            }
+
+            if (SalaConEventoDGV.Columns.Contains("IdSala"))
+                SalaConEventoDGV.Columns["IdSala"].HeaderText = "ID";
+            if (SalaConEventoDGV.Columns.Contains("Nombre"))
+                SalaConEventoDGV.Columns["Nombre"].HeaderText = "Sala";
+            if (SalaConEventoDGV.Columns.Contains("Piso"))
+                SalaConEventoDGV.Columns["Piso"].HeaderText = "Piso";
+            if (SalaConEventoDGV.Columns.Contains("Capacidad"))
+                SalaConEventoDGV.Columns["Capacidad"].HeaderText = "Capacidad";
+            if (SalaConEventoDGV.Columns.Contains("Activo"))
+                SalaConEventoDGV.Columns["Activo"].HeaderText = "Activo";
+
+        }
+        private void DesplegarBtn_Click(object sender, EventArgs e)
+        {
+            SeleccionarSalaPanel.Visible = !SeleccionarSalaPanel.Visible;
+        }
+        private void NombreSalaTxtB_TextChanged(object sender, EventArgs e)
+        {
+            string filtro = NombreSalaTxtB.Text.Trim();
+            CargarSalasParaEvento(filtro);
+        }
+        private void SalaConEventoDGV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            DataGridViewRow row = SalaConEventoDGV.Rows[e.RowIndex];
+            if (row.Cells["IdSala"].Value == null) return;
+
+            int idSala = Convert.ToInt32(row.Cells["IdSala"].Value);
+            string nombreSala = row.Cells["Nombre"].Value?.ToString();
+
+            IdSalaSelecionadaTxtB.Text = idSala.ToString();
+            NomSalaSelecTxtB.Text = nombreSala;
+
+            if (SalaConEventoDGV.Columns.Contains("Capacidad") &&
+                row.Cells["Capacidad"].Value != null &&
+                row.Cells["Capacidad"].Value != DBNull.Value)
+            {
+                int capacidad;
+                if (int.TryParse(row.Cells["Capacidad"].Value.ToString(), out capacidad))
+                {
+                    if (capacidad < CantPersonaNUD.Minimum)
+                        capacidad = (int)CantPersonaNUD.Minimum;
+                    if (capacidad > CantPersonaNUD.Maximum)
+                        capacidad = (int)CantPersonaNUD.Maximum;
+
+                    CantPersonaNUD.Value = capacidad;
+                }
+            }
+
+            SeleccionarSalaPanel.Visible = false;
+
+        }
+        private void NotaBtn_Click(object sender, EventArgs e)
+        {
+            notapanel.Visible = !notapanel.Visible;
+
+            if (notapanel.Visible)
+                notatxt.Focus();
+        }
+        private void notatxt_Enter(object sender, EventArgs e)
+        {
+            if (notatxt.Text == "Escribir nota aquí...")
+            {
+                notatxt.Text = "";
+            }
+        }
+        private void notatxt_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(notatxt.Text))
+            {
+                notatxt.Text = "Escribir nota aquí...";
+            }
+        }
     }
+
 }

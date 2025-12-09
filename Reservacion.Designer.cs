@@ -28,9 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Reservacion));
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            PanelClientes = new Panel();
+            nombrelabel = new Label();
+            eliminarbtn = new Button();
+            telefonolabel = new Label();
+            idenlabel = new Label();
+            clienteimg = new PictureBox();
+            label17 = new Label();
+            label19 = new Label();
+            label22 = new Label();
+            txtbuscador = new TextBox();
+            Editar = new Button();
+            tabladatos = new DataGridView();
+            agregar = new Button();
+            recargarbtn = new Button();
+            panel7 = new Panel();
+            label21 = new Label();
+            filtrochk = new CheckBox();
+            panel5 = new Panel();
             detallepanelcompleto = new Panel();
             bloqueopanel = new Panel();
             pictureBox3 = new PictureBox();
@@ -84,6 +103,7 @@
             label4 = new Label();
             label3 = new Label();
             panel8 = new Panel();
+            nota = new Button();
             numericUpDown1 = new NumericUpDown();
             label7 = new Label();
             label6 = new Label();
@@ -104,12 +124,11 @@
             idclientetxt = new TextBox();
             txtidpedido = new TextBox();
             txtnombrecompleto = new TextBox();
+            notapanel = new Panel();
+            notatxt = new TextBox();
             tabPage2 = new TabPage();
             label14 = new Label();
             label10 = new Label();
-            todoschk = new CheckBox();
-            canceladochk = new CheckBox();
-            pendientechk = new CheckBox();
             txtbusquedafactura = new TextBox();
             panel3 = new Panel();
             cancelarpedido = new Button();
@@ -121,8 +140,18 @@
             dataGridView2 = new DataGridView();
             panel10 = new Panel();
             label12 = new Label();
+            pendientechk = new CheckBox();
+            todoschk = new CheckBox();
+            canceladochk = new CheckBox();
+            panel6 = new Panel();
+            toolTip1 = new ToolTip(components);
+            saliringredbtn = new Button();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
+            PanelClientes.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)clienteimg).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)tabladatos).BeginInit();
+            panel7.SuspendLayout();
             detallepanelcompleto.SuspendLayout();
             bloqueopanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -142,6 +171,7 @@
             panel1.SuspendLayout();
             panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            notapanel.SuspendLayout();
             tabPage2.SuspendLayout();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
@@ -150,32 +180,265 @@
             // 
             // tabControl1
             // 
-            tabControl1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
+            tabControl1.Dock = DockStyle.Fill;
             tabControl1.Font = new Font("Segoe UI", 12F);
-            tabControl1.Location = new Point(1, 1);
+            tabControl1.Location = new Point(0, 0);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(847, 508);
+            tabControl1.Size = new Size(1904, 1041);
             tabControl1.TabIndex = 4;
             // 
             // tabPage1
             // 
             tabPage1.BackColor = Color.FromArgb(87, 128, 87);
+            tabPage1.Controls.Add(PanelClientes);
             tabPage1.Controls.Add(detallepanelcompleto);
             tabPage1.Controls.Add(flowmesa);
             tabPage1.Controls.Add(panel2);
             tabPage1.Controls.Add(panel8);
             tabPage1.Controls.Add(panel1);
+            tabPage1.Controls.Add(notapanel);
             tabPage1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tabPage1.ForeColor = SystemColors.ControlText;
             tabPage1.Location = new Point(4, 30);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(839, 474);
+            tabPage1.Size = new Size(1896, 1007);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Reservar";
+            // 
+            // PanelClientes
+            // 
+            PanelClientes.BackColor = Color.FromArgb(64, 64, 64);
+            PanelClientes.Controls.Add(saliringredbtn);
+            PanelClientes.Controls.Add(nombrelabel);
+            PanelClientes.Controls.Add(eliminarbtn);
+            PanelClientes.Controls.Add(telefonolabel);
+            PanelClientes.Controls.Add(idenlabel);
+            PanelClientes.Controls.Add(clienteimg);
+            PanelClientes.Controls.Add(label17);
+            PanelClientes.Controls.Add(label19);
+            PanelClientes.Controls.Add(label22);
+            PanelClientes.Controls.Add(txtbuscador);
+            PanelClientes.Controls.Add(Editar);
+            PanelClientes.Controls.Add(tabladatos);
+            PanelClientes.Controls.Add(agregar);
+            PanelClientes.Controls.Add(recargarbtn);
+            PanelClientes.Controls.Add(panel7);
+            PanelClientes.Controls.Add(panel5);
+            PanelClientes.Location = new Point(3, 491);
+            PanelClientes.Name = "PanelClientes";
+            PanelClientes.Size = new Size(832, 684);
+            PanelClientes.TabIndex = 11;
+            PanelClientes.Visible = false;
+            // 
+            // nombrelabel
+            // 
+            nombrelabel.AutoSize = true;
+            nombrelabel.BackColor = SystemColors.WindowFrame;
+            nombrelabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            nombrelabel.ForeColor = Color.White;
+            nombrelabel.Location = new Point(656, 459);
+            nombrelabel.Name = "nombrelabel";
+            nombrelabel.Size = new Size(156, 21);
+            nombrelabel.TabIndex = 62;
+            nombrelabel.Text = "Nombre Completo:";
+            // 
+            // eliminarbtn
+            // 
+            eliminarbtn.Cursor = Cursors.Hand;
+            eliminarbtn.Image = Properties.Resources.limpio;
+            eliminarbtn.Location = new Point(608, 85);
+            eliminarbtn.Name = "eliminarbtn";
+            eliminarbtn.Size = new Size(31, 29);
+            eliminarbtn.TabIndex = 56;
+            toolTip1.SetToolTip(eliminarbtn, "Limpiar Busqueda");
+            eliminarbtn.UseVisualStyleBackColor = true;
+            // 
+            // telefonolabel
+            // 
+            telefonolabel.AutoSize = true;
+            telefonolabel.BackColor = SystemColors.WindowFrame;
+            telefonolabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            telefonolabel.ForeColor = Color.White;
+            telefonolabel.Location = new Point(656, 592);
+            telefonolabel.Name = "telefonolabel";
+            telefonolabel.Size = new Size(149, 21);
+            telefonolabel.TabIndex = 63;
+            telefonolabel.Text = "Teléfono principal";
+            // 
+            // idenlabel
+            // 
+            idenlabel.AutoSize = true;
+            idenlabel.BackColor = SystemColors.WindowFrame;
+            idenlabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            idenlabel.ForeColor = Color.White;
+            idenlabel.Location = new Point(656, 524);
+            idenlabel.Name = "idenlabel";
+            idenlabel.Size = new Size(107, 21);
+            idenlabel.TabIndex = 64;
+            idenlabel.Text = "Cédula/RNC:";
+            // 
+            // clienteimg
+            // 
+            clienteimg.ErrorImage = Properties.Resources.perfilcliente;
+            clienteimg.Image = Properties.Resources.perfilcliente;
+            clienteimg.InitialImage = Properties.Resources.perfilcliente;
+            clienteimg.Location = new Point(657, 280);
+            clienteimg.Name = "clienteimg";
+            clienteimg.Size = new Size(158, 158);
+            clienteimg.SizeMode = PictureBoxSizeMode.StretchImage;
+            clienteimg.TabIndex = 61;
+            clienteimg.TabStop = false;
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label17.ForeColor = SystemColors.Control;
+            label17.Location = new Point(367, 13);
+            label17.Name = "label17";
+            label17.Size = new Size(104, 32);
+            label17.TabIndex = 57;
+            label17.Text = "Clientes";
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.BackColor = Color.White;
+            label19.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label19.ForeColor = SystemColors.Control;
+            label19.Image = Properties.Resources.busqueda;
+            label19.Location = new Point(488, 88);
+            label19.Name = "label19";
+            label19.Size = new Size(18, 21);
+            label19.TabIndex = 52;
+            label19.Text = "  ";
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.BackColor = SystemColors.WindowFrame;
+            label22.Font = new Font("Segoe UI", 18F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
+            label22.ForeColor = SystemColors.Control;
+            label22.Location = new Point(679, 85);
+            label22.Name = "label22";
+            label22.Size = new Size(116, 32);
+            label22.TabIndex = 60;
+            label22.Text = "Acciones";
+            // 
+            // txtbuscador
+            // 
+            txtbuscador.CharacterCasing = CharacterCasing.Upper;
+            txtbuscador.Font = new Font("Segoe UI", 12F);
+            txtbuscador.ForeColor = SystemColors.ScrollBar;
+            txtbuscador.Location = new Point(37, 84);
+            txtbuscador.Name = "txtbuscador";
+            txtbuscador.PlaceholderText = "Buscar Cliente";
+            txtbuscador.Size = new Size(474, 29);
+            txtbuscador.TabIndex = 53;
+            // 
+            // Editar
+            // 
+            Editar.Cursor = Cursors.Hand;
+            Editar.Image = Properties.Resources.editarcliente1;
+            Editar.Location = new Point(656, 203);
+            Editar.Name = "Editar";
+            Editar.Size = new Size(159, 72);
+            Editar.TabIndex = 58;
+            Editar.Text = "Editar";
+            Editar.TextAlign = ContentAlignment.BottomCenter;
+            Editar.UseVisualStyleBackColor = true;
+            // 
+            // tabladatos
+            // 
+            tabladatos.AllowUserToAddRows = false;
+            tabladatos.AllowUserToDeleteRows = false;
+            tabladatos.AllowUserToResizeRows = false;
+            tabladatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            tabladatos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            tabladatos.Location = new Point(37, 119);
+            tabladatos.MultiSelect = false;
+            tabladatos.Name = "tabladatos";
+            tabladatos.ReadOnly = true;
+            tabladatos.RowHeadersVisible = false;
+            tabladatos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            tabladatos.Size = new Size(602, 541);
+            tabladatos.TabIndex = 54;
+            // 
+            // agregar
+            // 
+            agregar.BackColor = SystemColors.Menu;
+            agregar.Cursor = Cursors.Hand;
+            agregar.Image = Properties.Resources.cliente1;
+            agregar.Location = new Point(656, 126);
+            agregar.Name = "agregar";
+            agregar.Size = new Size(159, 72);
+            agregar.TabIndex = 59;
+            agregar.Text = "Nuevo";
+            agregar.TextAlign = ContentAlignment.BottomCenter;
+            agregar.UseVisualStyleBackColor = false;
+            // 
+            // recargarbtn
+            // 
+            recargarbtn.Cursor = Cursors.Hand;
+            recargarbtn.Image = Properties.Resources.actualizar;
+            recargarbtn.Location = new Point(42, 16);
+            recargarbtn.Name = "recargarbtn";
+            recargarbtn.Size = new Size(29, 29);
+            recargarbtn.TabIndex = 55;
+            recargarbtn.UseVisualStyleBackColor = true;
+            // 
+            // panel7
+            // 
+            panel7.BackColor = SystemColors.WindowFrame;
+            panel7.BorderStyle = BorderStyle.FixedSingle;
+            panel7.Controls.Add(label21);
+            panel7.Controls.Add(filtrochk);
+            panel7.Location = new Point(516, 84);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(86, 32);
+            panel7.TabIndex = 66;
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.BackColor = Color.Transparent;
+            label21.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label21.ForeColor = SystemColors.WindowFrame;
+            label21.Image = Properties.Resources.filtroblanco;
+            label21.Location = new Point(6, 5);
+            label21.Name = "label21";
+            label21.Size = new Size(18, 21);
+            label21.TabIndex = 38;
+            label21.Text = "  ";
+            // 
+            // filtrochk
+            // 
+            filtrochk.AutoSize = true;
+            filtrochk.BackColor = SystemColors.WindowFrame;
+            filtrochk.Checked = true;
+            filtrochk.CheckState = CheckState.Checked;
+            filtrochk.Cursor = Cursors.Hand;
+            filtrochk.Font = new Font("Segoe UI", 13F);
+            filtrochk.Image = Properties.Resources.sicheck;
+            filtrochk.Location = new Point(35, 1);
+            filtrochk.Name = "filtrochk";
+            filtrochk.Size = new Size(41, 29);
+            filtrochk.TabIndex = 65;
+            filtrochk.Text = "  ";
+            toolTip1.SetToolTip(filtrochk, "Estado Activo");
+            filtrochk.UseVisualStyleBackColor = false;
+            // 
+            // panel5
+            // 
+            panel5.BackColor = SystemColors.WindowFrame;
+            panel5.Location = new Point(655, 84);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(160, 529);
+            panel5.TabIndex = 87;
             // 
             // detallepanelcompleto
             // 
@@ -722,7 +985,7 @@
             // 
             // panel2
             // 
-            panel2.BackColor = Color.Gray;
+            panel2.BackColor = SystemColors.WindowFrame;
             panel2.Controls.Add(label4);
             panel2.Controls.Add(label3);
             panel2.Location = new Point(3, 158);
@@ -755,6 +1018,7 @@
             // panel8
             // 
             panel8.BackColor = Color.FromArgb(64, 64, 64);
+            panel8.Controls.Add(nota);
             panel8.Controls.Add(numericUpDown1);
             panel8.Controls.Add(label7);
             panel8.Controls.Add(label6);
@@ -765,11 +1029,25 @@
             panel8.Size = new Size(316, 270);
             panel8.TabIndex = 3;
             // 
+            // nota
+            // 
+            nota.Enabled = false;
+            nota.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            nota.Image = Properties.Resources.nota;
+            nota.ImageAlign = ContentAlignment.MiddleLeft;
+            nota.Location = new Point(111, 114);
+            nota.Name = "nota";
+            nota.Size = new Size(98, 28);
+            nota.TabIndex = 6;
+            nota.Text = "Nota";
+            nota.UseVisualStyleBackColor = true;
+            // 
             // numericUpDown1
             // 
-            numericUpDown1.Location = new Point(181, 67);
+            numericUpDown1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            numericUpDown1.Location = new Point(182, 66);
             numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(120, 23);
+            numericUpDown1.Size = new Size(122, 29);
             numericUpDown1.TabIndex = 5;
             // 
             // label7
@@ -785,31 +1063,33 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label6.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label6.ForeColor = SystemColors.Control;
-            label6.Location = new Point(7, 68);
+            label6.Location = new Point(2, 69);
             label6.Name = "label6";
-            label6.Size = new Size(155, 20);
+            label6.Size = new Size(178, 21);
             label6.TabIndex = 3;
-            label6.Text = "Numero de personas";
+            label6.Text = "Cantidad de Personas:";
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label5.ForeColor = SystemColors.Control;
-            label5.Location = new Point(7, 19);
+            label5.Location = new Point(2, 20);
             label5.Name = "label5";
-            label5.Size = new Size(159, 20);
+            label5.Size = new Size(174, 21);
             label5.TabIndex = 3;
             label5.Text = "Fecha de reservacion:";
             // 
             // fecreservacion
             // 
+            fecreservacion.Cursor = Cursors.Hand;
+            fecreservacion.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             fecreservacion.Format = DateTimePickerFormat.Short;
             fecreservacion.Location = new Point(181, 18);
             fecreservacion.Name = "fecreservacion";
-            fecreservacion.Size = new Size(123, 23);
+            fecreservacion.Size = new Size(123, 29);
             fecreservacion.TabIndex = 4;
             // 
             // panel1
@@ -845,14 +1125,16 @@
             // fechapedido
             // 
             fechapedido.Enabled = false;
+            fechapedido.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             fechapedido.Format = DateTimePickerFormat.Short;
             fechapedido.Location = new Point(151, 8);
             fechapedido.Name = "fechapedido";
-            fechapedido.Size = new Size(123, 23);
+            fechapedido.Size = new Size(123, 29);
             fechapedido.TabIndex = 4;
             // 
             // limpiarbtn
             // 
+            limpiarbtn.Cursor = Cursors.Hand;
             limpiarbtn.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             limpiarbtn.Image = Properties.Resources.nuevo;
             limpiarbtn.ImageAlign = ContentAlignment.MiddleLeft;
@@ -866,17 +1148,18 @@
             // label11
             // 
             label11.AutoSize = true;
-            label11.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label11.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label11.ForeColor = SystemColors.Control;
-            label11.Location = new Point(3, 9);
+            label11.Location = new Point(1, 11);
             label11.Name = "label11";
-            label11.Size = new Size(136, 20);
+            label11.Size = new Size(150, 21);
             label11.TabIndex = 3;
             label11.Text = "Fecha de creacion:";
             // 
             // guardarpedidobtn
             // 
             guardarpedidobtn.BackColor = Color.FromArgb(128, 255, 128);
+            guardarpedidobtn.Cursor = Cursors.Hand;
             guardarpedidobtn.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             guardarpedidobtn.Image = Properties.Resources.next;
             guardarpedidobtn.ImageAlign = ContentAlignment.MiddleLeft;
@@ -893,12 +1176,13 @@
             txtnumero_cliente.Location = new Point(42, 108);
             txtnumero_cliente.Name = "txtnumero_cliente";
             txtnumero_cliente.PlaceholderText = "Número de telefono";
-            txtnumero_cliente.Size = new Size(147, 29);
+            txtnumero_cliente.Size = new Size(169, 29);
             txtnumero_cliente.TabIndex = 0;
             // 
             // pictureBox1
             // 
             pictureBox1.BackColor = SystemColors.Window;
+            pictureBox1.BorderStyle = BorderStyle.FixedSingle;
             pictureBox1.Image = Properties.Resources.telefono;
             pictureBox1.Location = new Point(10, 110);
             pictureBox1.Margin = new Padding(3, 2, 3, 2);
@@ -935,7 +1219,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = SystemColors.Control;
-            label1.Location = new Point(1, 46);
+            label1.Location = new Point(7, 48);
             label1.Name = "label1";
             label1.Size = new Size(110, 21);
             label1.TabIndex = 3;
@@ -943,12 +1227,14 @@
             // 
             // buscarclientebtn
             // 
+            buscarclientebtn.Cursor = Cursors.Hand;
             buscarclientebtn.Image = Properties.Resources.persona3;
             buscarclientebtn.Location = new Point(9, 75);
             buscarclientebtn.Name = "buscarclientebtn";
             buscarclientebtn.RightToLeft = RightToLeft.No;
             buscarclientebtn.Size = new Size(29, 29);
             buscarclientebtn.TabIndex = 2;
+            toolTip1.SetToolTip(buscarclientebtn, "Buscar Cliente");
             buscarclientebtn.UseVisualStyleBackColor = true;
             // 
             // idclientetxt
@@ -969,6 +1255,7 @@
             txtidpedido.Name = "txtidpedido";
             txtidpedido.Size = new Size(87, 29);
             txtidpedido.TabIndex = 0;
+            txtidpedido.Text = "ID";
             // 
             // txtnombrecompleto
             // 
@@ -979,6 +1266,27 @@
             txtnombrecompleto.Size = new Size(413, 29);
             txtnombrecompleto.TabIndex = 0;
             // 
+            // notapanel
+            // 
+            notapanel.BackColor = Color.Gray;
+            notapanel.Controls.Add(notatxt);
+            notapanel.Location = new Point(897, 575);
+            notapanel.Name = "notapanel";
+            notapanel.Size = new Size(281, 159);
+            notapanel.TabIndex = 159;
+            notapanel.Visible = false;
+            // 
+            // notatxt
+            // 
+            notatxt.CharacterCasing = CharacterCasing.Upper;
+            notatxt.Font = new Font("Segoe UI", 12F);
+            notatxt.Location = new Point(8, 10);
+            notatxt.Multiline = true;
+            notatxt.Name = "notatxt";
+            notatxt.PlaceholderText = "Escribir nota aquí...";
+            notatxt.Size = new Size(265, 139);
+            notatxt.TabIndex = 158;
+            // 
             // tabPage2
             // 
             tabPage2.BackColor = Color.FromArgb(87, 128, 87);
@@ -988,10 +1296,11 @@
             tabPage2.Controls.Add(panel3);
             tabPage2.Controls.Add(dataGridView2);
             tabPage2.Controls.Add(panel10);
+            tabPage2.Controls.Add(panel6);
             tabPage2.Location = new Point(4, 30);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(839, 474);
+            tabPage2.Size = new Size(1896, 1007);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Reservaciones";
             // 
@@ -1017,44 +1326,6 @@
             label10.Size = new Size(264, 32);
             label10.TabIndex = 15;
             label10.Text = "Reservacion de mesas";
-            // 
-            // todoschk
-            // 
-            todoschk.AutoSize = true;
-            todoschk.BackColor = Color.FromArgb(64, 64, 64);
-            todoschk.ForeColor = Color.White;
-            todoschk.Location = new Point(246, 2);
-            todoschk.Name = "todoschk";
-            todoschk.Size = new Size(69, 25);
-            todoschk.TabIndex = 9;
-            todoschk.Text = "Todos";
-            todoschk.UseVisualStyleBackColor = false;
-            // 
-            // canceladochk
-            // 
-            canceladochk.AutoSize = true;
-            canceladochk.BackColor = Color.FromArgb(64, 64, 64);
-            canceladochk.ForeColor = Color.White;
-            canceladochk.Location = new Point(135, 2);
-            canceladochk.Name = "canceladochk";
-            canceladochk.Size = new Size(101, 25);
-            canceladochk.TabIndex = 10;
-            canceladochk.Text = "Cancelado";
-            canceladochk.UseVisualStyleBackColor = false;
-            // 
-            // pendientechk
-            // 
-            pendientechk.AutoSize = true;
-            pendientechk.BackColor = Color.FromArgb(64, 64, 64);
-            pendientechk.Checked = true;
-            pendientechk.CheckState = CheckState.Checked;
-            pendientechk.ForeColor = Color.White;
-            pendientechk.Location = new Point(31, 1);
-            pendientechk.Name = "pendientechk";
-            pendientechk.Size = new Size(97, 25);
-            pendientechk.TabIndex = 11;
-            pendientechk.Text = "Pendiente";
-            pendientechk.UseVisualStyleBackColor = false;
             // 
             // txtbusquedafactura
             // 
@@ -1176,12 +1447,75 @@
             label12.TabIndex = 19;
             label12.Text = "  ";
             // 
+            // pendientechk
+            // 
+            pendientechk.AutoSize = true;
+            pendientechk.BackColor = Color.FromArgb(64, 64, 64);
+            pendientechk.Checked = true;
+            pendientechk.CheckState = CheckState.Checked;
+            pendientechk.ForeColor = Color.White;
+            pendientechk.Location = new Point(31, 1);
+            pendientechk.Name = "pendientechk";
+            pendientechk.Size = new Size(97, 25);
+            pendientechk.TabIndex = 11;
+            pendientechk.Text = "Pendiente";
+            pendientechk.UseVisualStyleBackColor = false;
+            // 
+            // todoschk
+            // 
+            todoschk.AutoSize = true;
+            todoschk.BackColor = Color.FromArgb(64, 64, 64);
+            todoschk.ForeColor = Color.White;
+            todoschk.Location = new Point(246, 2);
+            todoschk.Name = "todoschk";
+            todoschk.Size = new Size(69, 25);
+            todoschk.TabIndex = 9;
+            todoschk.Text = "Todos";
+            todoschk.UseVisualStyleBackColor = false;
+            // 
+            // canceladochk
+            // 
+            canceladochk.AutoSize = true;
+            canceladochk.BackColor = Color.FromArgb(64, 64, 64);
+            canceladochk.ForeColor = Color.White;
+            canceladochk.Location = new Point(135, 2);
+            canceladochk.Name = "canceladochk";
+            canceladochk.Size = new Size(101, 25);
+            canceladochk.TabIndex = 10;
+            canceladochk.Text = "Cancelado";
+            canceladochk.UseVisualStyleBackColor = false;
+            // 
+            // panel6
+            // 
+            panel6.BackColor = Color.FromArgb(64, 64, 64);
+            panel6.Location = new Point(7, 165);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(826, 309);
+            panel6.TabIndex = 19;
+            // 
+            // toolTip1
+            // 
+            toolTip1.AutoPopDelay = 4800;
+            toolTip1.InitialDelay = 480;
+            toolTip1.ReshowDelay = 96;
+            toolTip1.ToolTipTitle = "Ayuda";
+            // 
+            // saliringredbtn
+            // 
+            saliringredbtn.Cursor = Cursors.Hand;
+            saliringredbtn.Location = new Point(725, 12);
+            saliringredbtn.Name = "saliringredbtn";
+            saliringredbtn.Size = new Size(98, 44);
+            saliringredbtn.TabIndex = 88;
+            saliringredbtn.Text = "Salir";
+            saliringredbtn.UseVisualStyleBackColor = true;
+            // 
             // Reservacion
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.WindowFrame;
-            ClientSize = new Size(850, 510);
+            ClientSize = new Size(1904, 1041);
             Controls.Add(tabControl1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -1193,6 +1527,12 @@
             Load += Reservacion_Load;
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
+            PanelClientes.ResumeLayout(false);
+            PanelClientes.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)clienteimg).EndInit();
+            ((System.ComponentModel.ISupportInitialize)tabladatos).EndInit();
+            panel7.ResumeLayout(false);
+            panel7.PerformLayout();
             detallepanelcompleto.ResumeLayout(false);
             bloqueopanel.ResumeLayout(false);
             bloqueopanel.PerformLayout();
@@ -1223,6 +1563,8 @@
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            notapanel.ResumeLayout(false);
+            notapanel.PerformLayout();
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
             panel3.ResumeLayout(false);
@@ -1326,5 +1668,29 @@
         private Label label15;
         private Panel panel10;
         private Label label12;
+        private Panel PanelClientes;
+        private Label nombrelabel;
+        private Label telefonolabel;
+        private Label idenlabel;
+        private PictureBox clienteimg;
+        private Label label17;
+        private Label label19;
+        private Label label22;
+        private TextBox txtbuscador;
+        private Button Editar;
+        private DataGridView tabladatos;
+        private Button agregar;
+        private Button recargarbtn;
+        private Button eliminarbtn;
+        private CheckBox filtrochk;
+        private Panel panel7;
+        private Label label21;
+        private Panel panel5;
+        private Panel panel6;
+        private Button nota;
+        private ToolTip toolTip1;
+        private TextBox notatxt;
+        private Panel notapanel;
+        private Button saliringredbtn;
     }
 }

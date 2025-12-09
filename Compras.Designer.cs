@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Compras));
             panel1 = new Panel();
             ProvInformalChk = new CheckBox();
@@ -132,6 +133,7 @@
             CancelarBtn = new Button();
             ImprimirBtn = new Button();
             ConfirmarRecepcionBtn = new Button();
+            toolTip1 = new ToolTip(components);
             panel1.SuspendLayout();
             panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -188,6 +190,7 @@
             // ProvInformalChk
             // 
             ProvInformalChk.AutoSize = true;
+            ProvInformalChk.Cursor = Cursors.Hand;
             ProvInformalChk.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             ProvInformalChk.ForeColor = Color.White;
             ProvInformalChk.Image = Properties.Resources.informal;
@@ -307,12 +310,14 @@
             // 
             // BusquedaProvBtn
             // 
+            BusquedaProvBtn.Cursor = Cursors.Hand;
             BusquedaProvBtn.Image = Properties.Resources.proveedor2;
             BusquedaProvBtn.Location = new Point(18, 89);
             BusquedaProvBtn.Name = "BusquedaProvBtn";
             BusquedaProvBtn.RightToLeft = RightToLeft.No;
             BusquedaProvBtn.Size = new Size(29, 29);
             BusquedaProvBtn.TabIndex = 5;
+            toolTip1.SetToolTip(BusquedaProvBtn, "Buscar Proveedor");
             BusquedaProvBtn.UseVisualStyleBackColor = true;
             BusquedaProvBtn.Click += BusquedaProvBtn_Click;
             // 
@@ -374,6 +379,7 @@
             // 
             // FechaCompra
             // 
+            FechaCompra.Cursor = Cursors.Hand;
             FechaCompra.Enabled = false;
             FechaCompra.Format = DateTimePickerFormat.Short;
             FechaCompra.Location = new Point(141, 40);
@@ -383,6 +389,7 @@
             // 
             // NuevoBtn
             // 
+            NuevoBtn.Cursor = Cursors.Hand;
             NuevoBtn.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             NuevoBtn.Image = Properties.Resources.nuevo;
             NuevoBtn.ImageAlign = ContentAlignment.MiddleLeft;
@@ -397,6 +404,7 @@
             // ComprarBtn
             // 
             ComprarBtn.BackColor = Color.FromArgb(128, 255, 128);
+            ComprarBtn.Cursor = Cursors.Hand;
             ComprarBtn.Enabled = false;
             ComprarBtn.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ComprarBtn.Image = Properties.Resources.comprar1;
@@ -566,16 +574,19 @@
             // 
             // buscarprodbtn
             // 
+            buscarprodbtn.Cursor = Cursors.Hand;
             buscarprodbtn.Image = Properties.Resources.carrito_de_compras;
             buscarprodbtn.Location = new Point(9, 11);
             buscarprodbtn.Name = "buscarprodbtn";
             buscarprodbtn.Size = new Size(29, 29);
             buscarprodbtn.TabIndex = 0;
+            toolTip1.SetToolTip(buscarprodbtn, "Buscar Productos");
             buscarprodbtn.UseVisualStyleBackColor = true;
             buscarprodbtn.Click += buscarprodbtn_Click;
             // 
             // AgregarBtn
             // 
+            AgregarBtn.Cursor = Cursors.Hand;
             AgregarBtn.Image = Properties.Resources.angulo_hacia_abajo;
             AgregarBtn.Location = new Point(754, 11);
             AgregarBtn.Name = "AgregarBtn";
@@ -623,7 +634,7 @@
             // 
             // panel7
             // 
-            panel7.BackColor = Color.DimGray;
+            panel7.BackColor = SystemColors.WindowFrame;
             panel7.BorderStyle = BorderStyle.FixedSingle;
             panel7.Controls.Add(label15);
             panel7.Controls.Add(checkingredactivo);
@@ -663,6 +674,7 @@
             // 
             // recargaringredbtn
             // 
+            recargaringredbtn.Cursor = Cursors.Hand;
             recargaringredbtn.Image = Properties.Resources.actualizar;
             recargaringredbtn.Location = new Point(21, 37);
             recargaringredbtn.Name = "recargaringredbtn";
@@ -687,6 +699,7 @@
             // 
             // eliminarbtn
             // 
+            eliminarbtn.Cursor = Cursors.Hand;
             eliminarbtn.Image = Properties.Resources.limpio;
             eliminarbtn.Location = new Point(774, 85);
             eliminarbtn.Name = "eliminarbtn";
@@ -717,6 +730,7 @@
             // 
             // saliringredbtn
             // 
+            saliringredbtn.Cursor = Cursors.Hand;
             saliringredbtn.Location = new Point(703, 16);
             saliringredbtn.Name = "saliringredbtn";
             saliringredbtn.Size = new Size(98, 44);
@@ -792,7 +806,7 @@
             // 
             // panel9
             // 
-            panel9.BackColor = Color.DimGray;
+            panel9.BackColor = SystemColors.WindowFrame;
             panel9.BorderStyle = BorderStyle.FixedSingle;
             panel9.Controls.Add(checkactivoprov);
             panel9.Controls.Add(label16);
@@ -847,6 +861,7 @@
             // 
             // recargarprovbtn
             // 
+            recargarprovbtn.Cursor = Cursors.Hand;
             recargarprovbtn.Image = Properties.Resources.actualizar;
             recargarprovbtn.Location = new Point(25, 28);
             recargarprovbtn.Name = "recargarprovbtn";
@@ -858,6 +873,7 @@
             // 
             // eliminarbtn2
             // 
+            eliminarbtn2.Cursor = Cursors.Hand;
             eliminarbtn2.Image = Properties.Resources.limpio;
             eliminarbtn2.Location = new Point(774, 78);
             eliminarbtn2.Name = "eliminarbtn2";
@@ -891,6 +907,7 @@
             // 
             // salirprovbtn
             // 
+            salirprovbtn.Cursor = Cursors.Hand;
             salirprovbtn.Location = new Point(686, 12);
             salirprovbtn.Name = "salirprovbtn";
             salirprovbtn.Size = new Size(111, 45);
@@ -1071,7 +1088,7 @@
             // 
             // panel13
             // 
-            panel13.BackColor = Color.DimGray;
+            panel13.BackColor = SystemColors.WindowFrame;
             panel13.BorderStyle = BorderStyle.FixedSingle;
             panel13.Controls.Add(label20);
             panel13.Controls.Add(checkBox1);
@@ -1262,6 +1279,7 @@
             // TodosChk
             // 
             TodosChk.AutoSize = true;
+            TodosChk.Cursor = Cursors.Hand;
             TodosChk.ForeColor = Color.White;
             TodosChk.Location = new Point(349, 2);
             TodosChk.Name = "TodosChk";
@@ -1274,6 +1292,7 @@
             // AnuladoChk
             // 
             AnuladoChk.AutoSize = true;
+            AnuladoChk.Cursor = Cursors.Hand;
             AnuladoChk.ForeColor = Color.White;
             AnuladoChk.Location = new Point(249, 2);
             AnuladoChk.Name = "AnuladoChk";
@@ -1288,6 +1307,7 @@
             PendienteChk.AutoSize = true;
             PendienteChk.Checked = true;
             PendienteChk.CheckState = CheckState.Checked;
+            PendienteChk.Cursor = Cursors.Hand;
             PendienteChk.ForeColor = Color.White;
             PendienteChk.Location = new Point(40, 1);
             PendienteChk.Name = "PendienteChk";
@@ -1300,6 +1320,7 @@
             // RecibidaChk
             // 
             RecibidaChk.AutoSize = true;
+            RecibidaChk.Cursor = Cursors.Hand;
             RecibidaChk.ForeColor = Color.White;
             RecibidaChk.Location = new Point(147, 2);
             RecibidaChk.Name = "RecibidaChk";
@@ -1361,6 +1382,7 @@
             // 
             // fecini
             // 
+            fecini.Cursor = Cursors.Hand;
             fecini.Format = DateTimePickerFormat.Short;
             fecini.Location = new Point(18, 33);
             fecini.Name = "fecini";
@@ -1370,6 +1392,7 @@
             // 
             // fecfin
             // 
+            fecfin.Cursor = Cursors.Hand;
             fecfin.Format = DateTimePickerFormat.Short;
             fecfin.Location = new Point(166, 33);
             fecfin.Name = "fecfin";
@@ -1380,6 +1403,7 @@
             // EditarBtn
             // 
             EditarBtn.BackColor = Color.FromArgb(255, 192, 128);
+            EditarBtn.Cursor = Cursors.Hand;
             EditarBtn.Image = Properties.Resources.editar;
             EditarBtn.ImageAlign = ContentAlignment.MiddleLeft;
             EditarBtn.Location = new Point(438, 9);
@@ -1394,6 +1418,7 @@
             // CancelarBtn
             // 
             CancelarBtn.BackColor = Color.FromArgb(255, 128, 128);
+            CancelarBtn.Cursor = Cursors.Hand;
             CancelarBtn.Image = Properties.Resources.cancelardoc;
             CancelarBtn.ImageAlign = ContentAlignment.MiddleLeft;
             CancelarBtn.Location = new Point(676, 9);
@@ -1408,6 +1433,7 @@
             // ImprimirBtn
             // 
             ImprimirBtn.BackColor = Color.FromArgb(192, 255, 255);
+            ImprimirBtn.Cursor = Cursors.Hand;
             ImprimirBtn.Image = Properties.Resources.imprimir;
             ImprimirBtn.ImageAlign = ContentAlignment.MiddleLeft;
             ImprimirBtn.Location = new Point(557, 9);
@@ -1422,6 +1448,7 @@
             // ConfirmarRecepcionBtn
             // 
             ConfirmarRecepcionBtn.BackColor = Color.FromArgb(128, 255, 128);
+            ConfirmarRecepcionBtn.Cursor = Cursors.Hand;
             ConfirmarRecepcionBtn.Image = Properties.Resources.comprar;
             ConfirmarRecepcionBtn.ImageAlign = ContentAlignment.MiddleLeft;
             ConfirmarRecepcionBtn.Location = new Point(319, 9);
@@ -1432,6 +1459,13 @@
             ConfirmarRecepcionBtn.TextAlign = ContentAlignment.MiddleRight;
             ConfirmarRecepcionBtn.UseVisualStyleBackColor = false;
             ConfirmarRecepcionBtn.Click += ConfirmarRecepcionBtn_Click;
+            // 
+            // toolTip1
+            // 
+            toolTip1.AutoPopDelay = 4800;
+            toolTip1.InitialDelay = 480;
+            toolTip1.ReshowDelay = 96;
+            toolTip1.ToolTipTitle = "Ayuda";
             // 
             // Compras
             // 
@@ -1601,5 +1635,6 @@
         private TextBox textBox1;
         private Button button3;
         private DataGridView TablaDetalleHistorial;
+        private ToolTip toolTip1;
     }
 }
