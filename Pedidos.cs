@@ -41,6 +41,7 @@ namespace Proyecto_restaurante
         public int EliminarFila = 0;
         private int PedidoID;
         private decimal Total;
+        private string IdClientePersonaST = "";
 
         decimal TotalPedido = 0m;
         decimal TotalAplicado = 0m;
@@ -77,7 +78,8 @@ namespace Proyecto_restaurante
             string consultaCliente = @"
             SELECT 
                 e.IdCliente,
-                p.NombreCompleto as Nombre,
+                e.IdPersona,
+                p.NombreCompleto AS Nombre,
                 pd.Numero AS Cedula,
                 tl.Numero AS Telefono,
                 pd.IdTipoDocumento AS TipoDoc
@@ -98,6 +100,8 @@ namespace Proyecto_restaurante
                 if (tablaclientes.Columns.Contains("TipoDoc"))
                     tablaclientes.Columns["TipoDoc"].Visible = false;
 
+                if (tablaclientes.Columns.Contains("IdPersona"))
+                    tablaclientes.Columns["IdPersona"].Visible = false;
             }
         }
 
@@ -250,7 +254,7 @@ namespace Proyecto_restaurante
                         cmdPedido.Parameters.AddWithValue("@Fecha", fechapedido.Value);
                         cmdPedido.Parameters.AddWithValue("@IdMesa", idMesaSeleccionada);
                         cmdPedido.Parameters.AddWithValue("@Origen", "Local");
-                        cmdPedido.Parameters.AddWithValue("@IdClientePersona", Convert.ToInt32(idclientetxt.Text));
+                        cmdPedido.Parameters.AddWithValue("@IdClientePersona", Convert.ToInt32(IdClientePersonaST));
                         cmdPedido.Parameters.AddWithValue("@NombreCliente", txtnombrecompleto.Text);
                         cmdPedido.Parameters.AddWithValue("@Estado", "Pendiente");
                         cmdPedido.Parameters.AddWithValue("@Total", Convert.ToDecimal(labeltotal.Text));
@@ -280,7 +284,7 @@ namespace Proyecto_restaurante
 
                         cmdUpdate.Parameters.AddWithValue("@Fecha", fechapedido.Value);
                         cmdUpdate.Parameters.AddWithValue("@IdMesa", idMesaSeleccionada);
-                        cmdUpdate.Parameters.AddWithValue("@IdClientePersona", Convert.ToInt32(idclientetxt.Text));
+                        cmdUpdate.Parameters.AddWithValue("@IdClientePersona", Convert.ToInt32(IdClientePersonaST));
                         cmdUpdate.Parameters.AddWithValue("@NombreCliente", txtnombrecompleto.Text);
                         cmdUpdate.Parameters.AddWithValue("@Total", Convert.ToDecimal(labeltotal.Text));
                         cmdUpdate.Parameters.AddWithValue("@Nota", notatxt.Text);
@@ -461,11 +465,13 @@ namespace Proyecto_restaurante
                 string nombreCompleto = row.Cells["Nombre"].Value.ToString();
                 string CedulaCliente = row.Cells["Cedula"].Value.ToString();
                 string telefono = row.Cells["Telefono"].Value.ToString();
+                string IdClientePersona = row.Cells["IdPersona"].Value.ToString();
 
                 idclientetxt.Text = idCLiente;
                 txtnombrecompleto.Text = nombreCompleto;
                 rnc.Text = CedulaCliente;
                 numerotxt.Text = telefono;
+                IdClientePersonaST = IdClientePersona;
 
                 int tipoDoc = Convert.ToInt32(tablaclientes.CurrentRow.Cells["TipoDoc"].Value);
 
@@ -513,11 +519,10 @@ namespace Proyecto_restaurante
             DataGridViewRow row = new DataGridViewRow();
             row.CreateCells(detalleorden);
 
-            if (grupoCuenta.Items.Count > 0)
+            if (grupoCuenta.Items.Count > 0 || CuentaSeparada == 1)
             {
                 int grupoNumero = Convert.ToInt32(grupoCuenta.SelectedValue);
 
-                row.Cells[0].Value = grupoNumero;
                 row.Cells[0].Value = grupoNumero;
                 row.Cells[1].Value = codigoProducto;
                 row.Cells[2].Value = nombreProducto;
@@ -3017,6 +3022,7 @@ namespace Proyecto_restaurante
                 btn.BackColor = Color.LightBlue;
             }
         }
+
         private void LimpiarSeleccionVisual()
         {
             foreach (Control ctrl in flowComanda.Controls)

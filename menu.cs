@@ -403,6 +403,8 @@ namespace Proyecto_restaurante
                 }
             }
             TabletSistema tablet = new TabletSistema();
+            tablet.IdUsuario = IdUsuarioActual;
+            tablet.NombreUsuario = usuarioActual;
             tablet.Location = new Point(200, 50);
             tablet.MdiParent = this;
             tablet.Show();

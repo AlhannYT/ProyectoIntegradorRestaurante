@@ -758,7 +758,6 @@
             // labelcambiofecha
             // 
             labelcambiofecha.BackColor = Color.Transparent;
-            labelcambiofecha.Cursor = Cursors.Hand;
             labelcambiofecha.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelcambiofecha.ForeColor = Color.White;
             labelcambiofecha.Location = new Point(8, 81);
@@ -766,7 +765,6 @@
             labelcambiofecha.Size = new Size(242, 103);
             labelcambiofecha.TabIndex = 7;
             labelcambiofecha.Text = "Fecha de cambio";
-            labelcambiofecha.Click += labelfecha_Click;
             // 
             // button3
             // 
