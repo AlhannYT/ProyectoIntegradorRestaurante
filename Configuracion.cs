@@ -447,12 +447,13 @@ namespace Proyecto_restaurante
 
                     if (existe == 0)
                     {
-                        string queryInsertar = "INSERT INTO PermisosUsuario (IdUsuario, Admin, CrearOrdenReservacion) VALUES (@IdUsuario, @Admin, @CrearOrdenReservacion)";
+                        string queryInsertar = "INSERT INTO PermisosUsuario (IdUsuario, Admin, CrearOrdenReservacion, CancelarDoc) VALUES (@IdUsuario, @Admin, @CrearOrdenReservacion, @Cancelar)";
                         using (SqlCommand cmdInsertar = new SqlCommand(queryInsertar, conexion))
                         {
                             cmdInsertar.Parameters.AddWithValue("@IdUsuario", idUsuario);
                             cmdInsertar.Parameters.AddWithValue("@Admin", admin.Checked ? 1 : 0);
                             cmdInsertar.Parameters.AddWithValue("@CrearOrdenReservacion", CrearOrdenReservado.Checked ? 1 : 0);
+                            cmdInsertar.Parameters.AddWithValue("@Cancelar", cancelarDoc.Checked ? 1 : 0);
                             cmdInsertar.ExecuteNonQuery();
                         }
 
@@ -460,12 +461,13 @@ namespace Proyecto_restaurante
                     }
                     else
                     {
-                        string queryActualizar = "UPDATE PermisosUsuario SET Admin = @Admin, CrearOrdenReservacion = @CrearOrdenReservacion WHERE IdUsuario = @IdUsuario";
+                        string queryActualizar = "UPDATE PermisosUsuario SET Admin = @Admin, CrearOrdenReservacion = @CrearOrdenReservacion, CancelarDoc = @Cancelar WHERE IdUsuario = @IdUsuario";
                         using (SqlCommand cmdActualizar = new SqlCommand(queryActualizar, conexion))
                         {
                             cmdActualizar.Parameters.AddWithValue("@IdUsuario", idUsuario);
                             cmdActualizar.Parameters.AddWithValue("@Admin", admin.Checked ? 1 : 0);
                             cmdActualizar.Parameters.AddWithValue("@CrearOrdenReservacion", CrearOrdenReservado.Checked ? 1 : 0);
+                            cmdActualizar.Parameters.AddWithValue("@Cancelar", cancelarDoc.Checked ? 1 : 0);
                             cmdActualizar.ExecuteNonQuery();
                         }
 
@@ -489,25 +491,34 @@ namespace Proyecto_restaurante
             {
                 conexion.Open();
 
-                string query = "SELECT Admin FROM PermisosUsuario WHERE IdUsuario = @IdUsuario";
+                string query = @"
+                SELECT Admin, CrearOrdenReservacion, CancelarDoc
+                FROM PermisosUsuario
+                WHERE IdUsuario = @IdUsuario";
 
                 using (SqlCommand cmd = new SqlCommand(query, conexion))
                 {
                     cmd.Parameters.AddWithValue("@IdUsuario", idUsuario);
 
-                    object result = cmd.ExecuteScalar();
-
-                    if (result != null && result != DBNull.Value)
+                    using (SqlDataReader dr = cmd.ExecuteReader())
                     {
-                        admin.Checked = Convert.ToInt32(result) == 1;
-                    }
-                    else
-                    {
-                        admin.Checked = false;
+                        if (dr.Read())
+                        {
+                            admin.Checked = Convert.ToInt32(dr["Admin"]) == 1;
+                            CrearOrdenReservado.Checked = Convert.ToInt32(dr["CrearOrdenReservacion"]) == 1;
+                            cancelarDoc.Checked = Convert.ToInt32(dr["CancelarDoc"]) == 1;
+                        }
+                        else
+                        {
+                            admin.Checked = false;
+                            CrearOrdenReservado.Checked = false;
+                            cancelarDoc.Checked = false;
+                        }
                     }
                 }
             }
         }
+
 
         private void button29_Click(object sender, EventArgs e)
         {
@@ -767,7 +778,38 @@ namespace Proyecto_restaurante
             sistemaconfiguracion.Location = new Point(221, 4);
             sistemaconfiguracion.BringToFront();
             sistemaconfiguracion.Visible = true;
+
+            CargarConfiguracion();
         }
+
+        private void CargarConfiguracion()
+        {
+            string conexionString = ConexionBD.ConexionSQL();
+
+            using (SqlConnection conexion = new SqlConnection(conexionString))
+            {
+                conexion.Open();
+
+                string query = @"
+                SELECT TOP 1 PorcentajeGanancia 
+                FROM ConfiguracionSistema";
+
+                using (SqlCommand cmd = new SqlCommand(query, conexion))
+                {
+                    object result = cmd.ExecuteScalar();
+
+                    if (result != null && result != DBNull.Value)
+                    {
+                        porcGanancia.Text = result.ToString();
+                    }
+                    else
+                    {
+                        porcGanancia.Text = "0";
+                    }
+                }
+            }
+        }
+
 
         private void buscarArchivo_Click(object sender, EventArgs e)
         {
@@ -828,6 +870,45 @@ namespace Proyecto_restaurante
             datosPanel.Location = new Point(221, 4);
             datosPanel.BringToFront();
             datosPanel.Visible = true;
+        }
+
+        private void procesarConfig_Click(object sender, EventArgs e)
+        {
+            string conexionString = ConexionBD.ConexionSQL();
+
+            using (SqlConnection conexion = new SqlConnection(conexionString))
+            {
+                try
+                {
+                    conexion.Open();
+
+                    if (string.IsNullOrEmpty(IDModificar))
+                    {
+                        string queryInsertar = "Update ConfiguracionSistema set PorcentajeGanancia = @PorcGanancia where IdConfiguracion = 1";
+
+                        using (SqlCommand insertarConfig = new SqlCommand(queryInsertar, conexion))
+                        {
+                            insertarConfig.Parameters.AddWithValue("@PorcGanancia", porcGanancia.Text);
+
+                            int rowsAffected = insertarConfig.ExecuteNonQuery();
+
+                            if (rowsAffected > 0)
+                            {
+                                MessageBox.Show("Configuracion aplicada!.");
+                                recargarbtn_Click(sender, e);
+                            }
+                            else
+                            {
+                                MessageBox.Show("No se pudo aplicar la configuracion");
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ocurrió un error: {ex.Message}");
+                }
+            }
         }
     }
 }

@@ -131,6 +131,7 @@
             panel7 = new Panel();
             tabControl3 = new TabControl();
             tabPage5 = new TabPage();
+            cancelarDoc = new CheckBox();
             admin = new CheckBox();
             tabPage6 = new TabPage();
             precmaximo = new TextBox();
@@ -176,12 +177,13 @@
             sistemaconfiguracion = new Panel();
             tabControl4 = new TabControl();
             tabPage9 = new TabPage();
-            label4 = new Label();
+            label41 = new Label();
+            porcGanancia = new TextBox();
             tabPage10 = new TabPage();
             label12 = new Label();
             label32 = new Label();
             panel10 = new Panel();
-            button12 = new Button();
+            procesarConfig = new Button();
             toolTip1 = new ToolTip(components);
             DGIIPanel = new Panel();
             panel14 = new Panel();
@@ -1459,6 +1461,7 @@
             // tabPage5
             // 
             tabPage5.BackColor = SystemColors.WindowFrame;
+            tabPage5.Controls.Add(cancelarDoc);
             tabPage5.Controls.Add(admin);
             tabPage5.Location = new Point(4, 30);
             tabPage5.Name = "tabPage5";
@@ -1466,6 +1469,18 @@
             tabPage5.Size = new Size(631, 354);
             tabPage5.TabIndex = 0;
             tabPage5.Text = "Sistema";
+            // 
+            // cancelarDoc
+            // 
+            cancelarDoc.AutoSize = true;
+            cancelarDoc.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            cancelarDoc.ForeColor = Color.Red;
+            cancelarDoc.Location = new Point(15, 69);
+            cancelarDoc.Name = "cancelarDoc";
+            cancelarDoc.Size = new Size(196, 25);
+            cancelarDoc.TabIndex = 0;
+            cancelarDoc.Text = "Cancelar Documentos";
+            cancelarDoc.UseVisualStyleBackColor = true;
             // 
             // admin
             // 
@@ -1963,7 +1978,8 @@
             // tabPage9
             // 
             tabPage9.BackColor = SystemColors.WindowFrame;
-            tabPage9.Controls.Add(label4);
+            tabPage9.Controls.Add(label41);
+            tabPage9.Controls.Add(porcGanancia);
             tabPage9.Location = new Point(4, 30);
             tabPage9.Name = "tabPage9";
             tabPage9.Padding = new Padding(3);
@@ -1971,16 +1987,25 @@
             tabPage9.TabIndex = 0;
             tabPage9.Text = "Productos";
             // 
-            // label4
+            // label41
             // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold);
-            label4.ForeColor = SystemColors.Control;
-            label4.Location = new Point(202, 163);
-            label4.Name = "label4";
-            label4.Size = new Size(233, 40);
-            label4.TabIndex = 39;
-            label4.Text = "Nada por ahora";
+            label41.AutoSize = true;
+            label41.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label41.ForeColor = Color.White;
+            label41.Location = new Point(19, 32);
+            label41.Name = "label41";
+            label41.Size = new Size(341, 21);
+            label41.TabIndex = 101;
+            label41.Text = "Porcentaje de margen de ganancia general:";
+            // 
+            // porcGanancia
+            // 
+            porcGanancia.CharacterCasing = CharacterCasing.Upper;
+            porcGanancia.Font = new Font("Segoe UI", 12F);
+            porcGanancia.Location = new Point(361, 29);
+            porcGanancia.Name = "porcGanancia";
+            porcGanancia.Size = new Size(78, 29);
+            porcGanancia.TabIndex = 103;
             // 
             // tabPage10
             // 
@@ -2018,22 +2043,23 @@
             // panel10
             // 
             panel10.BackColor = Color.FromArgb(64, 64, 64);
-            panel10.Controls.Add(button12);
+            panel10.Controls.Add(procesarConfig);
             panel10.Location = new Point(226, 475);
             panel10.Name = "panel10";
             panel10.Size = new Size(206, 74);
             panel10.TabIndex = 76;
             // 
-            // button12
+            // procesarConfig
             // 
-            button12.Image = Properties.Resources.procesar1;
-            button12.ImageAlign = ContentAlignment.MiddleLeft;
-            button12.Location = new Point(13, 8);
-            button12.Name = "button12";
-            button12.Size = new Size(181, 58);
-            button12.TabIndex = 43;
-            button12.Text = "      Procesar cambios";
-            button12.UseVisualStyleBackColor = true;
+            procesarConfig.Image = Properties.Resources.procesar1;
+            procesarConfig.ImageAlign = ContentAlignment.MiddleLeft;
+            procesarConfig.Location = new Point(13, 8);
+            procesarConfig.Name = "procesarConfig";
+            procesarConfig.Size = new Size(181, 58);
+            procesarConfig.TabIndex = 43;
+            procesarConfig.Text = "      Procesar cambios";
+            procesarConfig.UseVisualStyleBackColor = true;
+            procesarConfig.Click += procesarConfig_Click;
             // 
             // DGIIPanel
             // 
@@ -2463,10 +2489,9 @@
         private TabPage tabPage9;
         private TabPage tabPage10;
         private Label label32;
-        private Label label4;
         private Label label12;
         private Panel panel10;
-        private Button button12;
+        private Button procesarConfig;
         public Button sistema;
         private CheckBox checkBox2;
         private TextBox precmaximo;
@@ -2496,5 +2521,8 @@
         private Button buscarArchivo;
         private Label label39;
         private TextBox textBox4;
+        private CheckBox cancelarDoc;
+        private Label label41;
+        private TextBox porcGanancia;
     }
 }
