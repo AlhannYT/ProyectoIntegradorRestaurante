@@ -380,7 +380,6 @@
             // FechaCompra
             // 
             FechaCompra.Cursor = Cursors.Hand;
-            FechaCompra.Enabled = false;
             FechaCompra.Format = DateTimePickerFormat.Short;
             FechaCompra.Location = new Point(141, 40);
             FechaCompra.Name = "FechaCompra";

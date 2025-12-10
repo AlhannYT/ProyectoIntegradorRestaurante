@@ -1430,9 +1430,16 @@
             // 
             // ReservacionMesasDGV
             // 
+            ReservacionMesasDGV.AllowUserToAddRows = false;
+            ReservacionMesasDGV.AllowUserToDeleteRows = false;
+            ReservacionMesasDGV.AllowUserToResizeRows = false;
+            ReservacionMesasDGV.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             ReservacionMesasDGV.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             ReservacionMesasDGV.Location = new Point(7, 171);
             ReservacionMesasDGV.Name = "ReservacionMesasDGV";
+            ReservacionMesasDGV.ReadOnly = true;
+            ReservacionMesasDGV.RowHeadersVisible = false;
+            ReservacionMesasDGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             ReservacionMesasDGV.Size = new Size(826, 296);
             ReservacionMesasDGV.TabIndex = 0;
             // 
