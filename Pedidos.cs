@@ -1371,17 +1371,50 @@ namespace Proyecto_restaurante
 
         private void cancelarpedido_Click(object sender, EventArgs e)
         {
-            DialogResult cancelar = MessageBox.Show("¿Desea cancelar esta factura?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (cancelar == DialogResult.Yes)
+            if (PedidoID <= 0)
             {
-                cancelarPanel.Visible = true;
-                cancelarPanel.BringToFront();
-                cancelarPanel.Location = new Point(0, 0);
+                MessageBox.Show("Seleccione un pedido válido.");
+                return;
             }
-            else
+
+            if (tabladatospedidos.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Operación cancelada.");
+                MessageBox.Show("Seleccione un pedido en la tabla.");
+                return;
+            }
+
+            string estado = tabladatospedidos.SelectedRows[0].Cells["Estado"].Value.ToString();
+
+            if (estado == "Facturado")
+            {
+                MessageBox.Show("No puede cancelar este pedido porque ya está FACTURADO.");
+                return;
+            }
+
+            if (estado == "Cancelado")
+            {
+                MessageBox.Show("Este pedido ya está CANCELADO.");
+                return;
+            }
+
+            if (estado == "Pendiente")
+            {
+                DialogResult cancelar = MessageBox.Show(
+                    "¿Desea cancelar esta factura?",
+                    "Confirmación",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (cancelar == DialogResult.Yes)
+                {
+                    cancelarPanel.Visible = true;
+                    cancelarPanel.BringToFront();
+                    cancelarPanel.Location = new Point(0, 0);
+                }
+                else
+                {
+                    MessageBox.Show("Operación cancelada.");
+                }
             }
         }
 
@@ -1394,6 +1427,7 @@ namespace Proyecto_restaurante
                 todoschk.Checked = false;
                 PedidoID = 0;
                 cancelarpedido.Enabled = true;
+                facturarbtn.Enabled = true;
                 FiltroDatosBusqueda();
             }
         }
@@ -1407,6 +1441,7 @@ namespace Proyecto_restaurante
                 todoschk.Checked = false;
                 PedidoID = 0;
                 cancelarpedido.Enabled = false;
+                facturarbtn.Enabled = false;
                 FiltroDatosBusqueda();
             }
         }
@@ -1420,6 +1455,8 @@ namespace Proyecto_restaurante
                 todoschk.Checked = false;
                 PedidoID = 0;
                 cancelarpedido.Enabled = false;
+                facturarbtn.Enabled = false;
+                cancelarpedido.Enabled = false;
                 FiltroDatosBusqueda();
             }
         }
@@ -1432,7 +1469,8 @@ namespace Proyecto_restaurante
                 pendientechk.Checked = false;
                 canceladochk.Checked = false;
                 PedidoID = 0;
-                cancelarpedido.Enabled = false;
+                cancelarpedido.Enabled = true;
+                facturarbtn.Enabled = true;
                 FiltroDatosBusqueda();
             }
         }
@@ -1785,46 +1823,59 @@ namespace Proyecto_restaurante
             }
         }
 
+        class PagoEfectivoInfo
+        {
+            public decimal MontoDado { get; set; }
+            public decimal MontoAplicado { get; set; }
+            public decimal Devuelta { get; set; }
+        }
+
+        private List<PagoEfectivoInfo> pagosEfectivo = new List<PagoEfectivoInfo>();
+
+
         private void aplicarefectivo_Click(object sender, EventArgs e)
         {
-            if (!decimal.TryParse(efectivotxt.Text, out decimal monto))
+            if (!decimal.TryParse(efectivotxt.Text, out decimal montoDado))
             {
                 MessageBox.Show("Monto inválido.");
                 return;
             }
 
-            if (monto <= 0)
+            if (montoDado <= 0)
             {
                 MessageBox.Show("Debe ingresar un monto válido.");
                 return;
             }
 
-            decimal aplicado = monto;
+            decimal aplicado = montoDado;
             decimal devueltaCalc = 0;
 
-            if (monto > TotalRestante && TotalRestante > 0)
+            if (montoDado > TotalRestante)
             {
                 aplicado = TotalRestante;
-                devueltaCalc = monto - TotalRestante;
+                devueltaCalc = montoDado - TotalRestante;
             }
+
+            pagosEfectivo.Add(new PagoEfectivoInfo
+            {
+                MontoDado = montoDado,
+                MontoAplicado = aplicado,
+                Devuelta = devueltaCalc
+            });
 
             DataGridViewRow row = new DataGridViewRow();
             row.CreateCells(detallePagoDT);
             row.Cells[0].Value = "EF";
             row.Cells[1].Value = "";
             row.Cells[2].Value = "Efectivo";
-            row.Cells[3].Value = monto;
+            row.Cells[3].Value = montoDado;
 
             detallePagoDT.Rows.Add(row);
 
             devueltatxt.Text = devueltaCalc.ToString("N2");
 
             efectivotxt.Clear();
-
             RecalcularTotalesPago();
-
-            if (devueltaCalc > 0)
-                devueltatxt.Text = devueltaCalc.ToString("N2");
         }
 
         private void MostrarDevuelta()
@@ -1833,7 +1884,7 @@ namespace Proyecto_restaurante
             {
                 devueltatxt.Text = (TotalAplicado - TotalPedido).ToString("N2");
                 totalpagar.Text = TotalAPagar.Text;
-            } 
+            }
             else
                 devueltatxt.Text = "0.00";
         }
@@ -1925,6 +1976,8 @@ namespace Proyecto_restaurante
 
         private void RegistrarPago(SqlConnection conexion, SqlTransaction trans)
         {
+            int indexEfectivo = 0;
+
             foreach (DataGridViewRow fila in detallePagoDT.Rows)
             {
                 if (fila.IsNewRow) continue;
@@ -1932,11 +1985,13 @@ namespace Proyecto_restaurante
                 string tipo = fila.Cells[0].Value.ToString();
                 string referencia = fila.Cells[1].Value?.ToString() ?? "";
                 string origen = fila.Cells[2].Value?.ToString() ?? "";
-                decimal monto = Convert.ToDecimal(fila.Cells[3].Value);
 
-                decimal efectivo = 0;
+                decimal totalAplicadoBD = 0;
+                decimal efectivoDado = 0;
+                decimal devuelta = 0;
                 decimal tarjeta = 0;
                 decimal transferencia = 0;
+
                 string tarjetaNombre = DBNull.Value.ToString();
                 string banco = DBNull.Value.ToString();
 
@@ -1948,36 +2003,43 @@ namespace Proyecto_restaurante
 
                 if (tipo == "EF")
                 {
-                    efectivo = monto;
+                    var pago = pagosEfectivo[indexEfectivo];
+
+                    efectivoDado = pago.MontoDado;
+                    totalAplicadoBD = pago.MontoAplicado;
+                    devuelta = pago.Devuelta;
+
+                    indexEfectivo++;
                 }
                 else if (tipo == "TJ")
                 {
-                    tarjeta = monto;
+                    tarjeta = Convert.ToDecimal(fila.Cells[3].Value);
+                    totalAplicadoBD = tarjeta;
                     tarjetaNombre = origen;
                 }
                 else if (tipo == "TR")
                 {
-                    transferencia = monto;
+                    transferencia = Convert.ToDecimal(fila.Cells[3].Value);
+                    totalAplicadoBD = transferencia;
                     banco = origen;
                 }
 
-                decimal devuelta = 0;
-                if (tipo == "EF" && TotalAplicado >= TotalPedido)
-                    devuelta = TotalAplicado - TotalPedido;
-
                 SqlCommand cmd = new SqlCommand(@"
                 INSERT INTO DetallePago (IdPedido, TipoDetalle, Efectivo, Devuelta, Tarjeta, TarjetaNombre, Transferencia, Banco, Total, Estado, Referencia)
-                VALUES (@IdPedido, @TipoDetalle, @Efectivo, @Devuelta, @Tarjeta, @TarjetaNombre, @Transferencia, @Banco, @Total, @Estado, @Referencia)", conexion, trans);
+                VALUES (@IdPedido, @TipoDetalle, @Efectivo, @Devuelta, @Tarjeta, @TarjetaNombre, @Transferencia, @Banco, @Total, @Estado, @Referencia)",
+                conexion, trans);
 
                 cmd.Parameters.AddWithValue("@IdPedido", PedidoID);
                 cmd.Parameters.AddWithValue("@TipoDetalle", tipoSQL);
-                cmd.Parameters.AddWithValue("@Efectivo", efectivo);
+                cmd.Parameters.AddWithValue("@Efectivo", efectivoDado);
                 cmd.Parameters.AddWithValue("@Devuelta", devuelta);
                 cmd.Parameters.AddWithValue("@Tarjeta", tarjeta);
-                cmd.Parameters.AddWithValue("@TarjetaNombre", string.IsNullOrEmpty(tarjetaNombre) ? DBNull.Value : (object)tarjetaNombre);
+                cmd.Parameters.AddWithValue("@TarjetaNombre", string.IsNullOrWhiteSpace(tarjetaNombre) ? DBNull.Value : (object)tarjetaNombre);
                 cmd.Parameters.AddWithValue("@Transferencia", transferencia);
-                cmd.Parameters.AddWithValue("@Banco", string.IsNullOrEmpty(banco) ? DBNull.Value : (object)banco);
-                cmd.Parameters.AddWithValue("@Total", monto);
+                cmd.Parameters.AddWithValue("@Banco", string.IsNullOrWhiteSpace(banco) ? DBNull.Value : (object)banco);
+
+                cmd.Parameters.AddWithValue("@Total", totalAplicadoBD);
+
                 cmd.Parameters.AddWithValue("@Estado", 1);
                 cmd.Parameters.AddWithValue("@Referencia", referencia);
 
@@ -3448,5 +3510,78 @@ namespace Proyecto_restaurante
 
             bajarproductobtn.Enabled = true;
         }
+
+        public int sistemas = 0;
+
+        private void deslizar_Click(object sender, EventArgs e)
+        {
+            if (sistemas == 0)
+            {
+                deslizar.Image = Proyecto_restaurante.Properties.Resources.flechaderecharoja;
+                opcionesCarpeta.Visible = true;
+                sistemas = 1;
+            }
+            else
+            {
+                deslizar.Image = Proyecto_restaurante.Properties.Resources.flechaizquierdaroja;
+                opcionesCarpeta.Visible = false;
+                sistemas = 0;
+            }
+        }
+
+        private string rutaFacturas = @"C:\SistemaArchivos\Facturas";
+
+        private void carpetaFactura_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!Directory.Exists(rutaFacturas))
+                    Directory.CreateDirectory(rutaFacturas);
+
+                System.Diagnostics.Process.Start("explorer.exe", rutaFacturas);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al abrir la carpeta: " + ex.Message);
+            }
+        }
+
+        private void eliminarFacturas_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!Directory.Exists(rutaFacturas))
+                {
+                    MessageBox.Show("La carpeta no existe.");
+                    return;
+                }
+
+                var archivos = Directory.GetFiles(rutaFacturas, "*.pdf");
+
+                if (archivos.Length == 0)
+                {
+                    MessageBox.Show("No hay facturas PDF para eliminar.");
+                    return;
+                }
+
+                DialogResult r = MessageBox.Show(
+                    $"Se eliminarán {archivos.Length} archivos PDF.\n¿Desea continuar?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning
+                );
+
+                if (r == DialogResult.No)
+                    return;
+
+                foreach (var archivo in archivos)
+                    File.Delete(archivo);
+
+                MessageBox.Show("Todas las facturas han sido eliminadas.");
+                deslizar_Click(sender, e);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al eliminar facturas: " + ex.Message);
+            }
+        }
+
     }
 }
