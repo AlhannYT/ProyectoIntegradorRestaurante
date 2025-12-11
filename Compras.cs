@@ -23,7 +23,7 @@ namespace Proyecto_restaurante
         private string unidadSeleccionada = "";
         private decimal itbisSeleccionadoPorciento = 0; // 0 = exento, 18 = 18%
 
-        // Responsable que viene de la pantalla de login / menu principal (opcional)
+        // Responsable que viene de la pantalla de login / menu principal
         public string responsableCompra;
 
 
@@ -46,13 +46,12 @@ namespace Proyecto_restaurante
 
             LimpiarFormulario();
 
-            // Responsable (nombre) que viene del login
             if (!string.IsNullOrWhiteSpace(responsableCompra))
             {
                 ResponsableCompratxt.Text = responsableCompra;
             }
 
-            // Por ahora, IdEmpleadoResponsable fijo = 1 si esta vacío
+            // IdEmpleadoResponsable fijo = 1 si esta vacio
             if (string.IsNullOrWhiteSpace(IdRespoCompratxt.Text))
                 IdRespoCompratxt.Text = "1";
 
@@ -302,7 +301,6 @@ namespace Proyecto_restaurante
         private void LimpiarFormulario()
         {
 
-            // Cabecera
             txtidcompra.Clear();
             compraEnEdicionId = null;
             idproveedortxt.Clear();
@@ -407,7 +405,6 @@ namespace Proyecto_restaurante
         }
 
 
-        //  CARGA DE DATOS: INGREDIENTES Y PROVEEDORES
         private void CargarProductosEnPanel(string filtro)
         {
             using (SqlConnection con = new SqlConnection(conexionString))
@@ -508,8 +505,6 @@ namespace Proyecto_restaurante
                 }
             }
         }
-
-        //  LOGICA DEL DETALLE Y GUARDADO DE COMPRA
 
         private void AgregarLineaDetalle()
         {
@@ -805,7 +800,6 @@ namespace Proyecto_restaurante
             if (TablaDatosCompra.Columns.Contains("Total"))
                 TablaDatosCompra.Columns["Total"].HeaderText = "Total";
 
-            // Opcional: formatear montos
             if (TablaDatosCompra.Columns.Contains("Subtotal"))
                 TablaDatosCompra.Columns["Subtotal"].DefaultCellStyle.Format = "N2";
             if (TablaDatosCompra.Columns.Contains("Impuestos"))
@@ -814,7 +808,6 @@ namespace Proyecto_restaurante
                 TablaDatosCompra.Columns["Total"].DefaultCellStyle.Format = "N2";
         }
 
-        // Cuando cambie de pestaña, si estoy en Historial, recargo
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabControl1.SelectedTab == TabPageHistorialCompras)
@@ -823,7 +816,6 @@ namespace Proyecto_restaurante
             }
         }
 
-        // Cambios de fecha
         private void fecini_ValueChanged(object sender, EventArgs e)
         {
             if (tabControl1.SelectedTab == TabPageHistorialCompras)
@@ -894,7 +886,6 @@ namespace Proyecto_restaurante
                 CargarHistorialCompras();
         }
 
-        // Devuelve el IdCompra de la fila seleccionada en el historial
         private int? ObtenerIdCompraSeleccionada()
         {
             if (TablaDatosCompra.CurrentRow == null || TablaDatosCompra.CurrentRow.IsNewRow)
@@ -1079,7 +1070,7 @@ namespace Proyecto_restaurante
             CargarHistorialCompras();
         }
 
-        // Para saber si estoy creando una compra nueva o editando una existente
+
         private int? compraEnEdicionId = null;
 
         private void ActualizarUIInformal()
@@ -1094,76 +1085,12 @@ namespace Proyecto_restaurante
                 : Color.Gainsboro;
         }
 
-        /*private void CargarDetalleCompraHistorial(int idCompra)
-        {
-            using (SqlConnection con = new SqlConnection(conexionString))
-            {
-                con.Open();
-
-                string sql = @"
-                SELECT 
-                dc.IdDetalle,
-                dc.IdProducto,
-                p.Nombre,
-                u.Nombre AS Unidad,
-                dc.Cantidad,
-                dc.CostoUnitario,
-                dc.Subtotal,
-                ISNULL(p.Itbis, 0) AS ItbisPorciento
-                FROM DetalleCompra dc
-                INNER JOIN ProductoVenta p   ON dc.IdProducto      = p.IdProducto
-                INNER JOIN UnidadMedida u    ON p.IdUnidadMedida   = u.IdUnidadMedida
-                WHERE dc.IdCompra = @IdCompra
-                ORDER BY dc.IdDetalle;";
-
-                using (SqlDataAdapter da = new SqlDataAdapter(sql, con))
-                {
-                    da.SelectCommand.Parameters.AddWithValue("@IdCompra", idCompra);
-
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-
-                    TablaDetalleHistorial.DataSource = dt;
-
-                    if (TablaDetalleHistorial.Columns.Contains("IdDetalle"))
-                        TablaDetalleHistorial.Columns["IdDetalle"].HeaderText = "Det.";
-                    if (TablaDetalleHistorial.Columns.Contains("IdProducto"))
-                        TablaDetalleHistorial.Columns["IdProducto"].HeaderText = "ID Prod.";
-                    if (TablaDetalleHistorial.Columns.Contains("Nombre"))
-                        TablaDetalleHistorial.Columns["Nombre"].HeaderText = "Producto";
-                    if (TablaDetalleHistorial.Columns.Contains("Unidad"))
-                        TablaDetalleHistorial.Columns["Unidad"].HeaderText = "Unidad";
-                    if (TablaDetalleHistorial.Columns.Contains("Cantidad"))
-                        TablaDetalleHistorial.Columns["Cantidad"].HeaderText = "Cant.";
-                    if (TablaDetalleHistorial.Columns.Contains("CostoUnitario"))
-                        TablaDetalleHistorial.Columns["CostoUnitario"].HeaderText = "Costo";
-                    if (TablaDetalleHistorial.Columns.Contains("Subtotal"))
-                        TablaDetalleHistorial.Columns["Subtotal"].HeaderText = "Subtotal";
-                    if (TablaDetalleHistorial.Columns.Contains("ItbisPorciento"))
-                        TablaDetalleHistorial.Columns["ItbisPorciento"].HeaderText = "ITBIS %";
-                }
-            }
-        }
-        */
-        /* private void TablaDatosCompra_SelectionChanged(object sender, EventArgs e)
-         {
-             if (TablaDatosCompra.CurrentRow == null) return;
-
-             if (TablaDatosCompra.CurrentRow.Cells["IdCompra"].Value == null) return;
-
-             int idCompra = Convert.ToInt32(TablaDatosCompra.CurrentRow.Cells["IdCompra"].Value);
-
-             CargarDetalleCompraHistorial(idCompra);
-         }
-        */
-
         private void detallecompra_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
 
             DataGridViewRow row = detallecompra.Rows[e.RowIndex];
 
-            // Cargar datos de la fila a los controles de arriba
             productoSeleccionadoId = Convert.ToInt32(row.Cells["IdProducto"].Value);
             unidadSeleccionada = row.Cells["Unidad"].Value.ToString();
 
@@ -1178,7 +1105,6 @@ namespace Proyecto_restaurante
             txtpreciocompra.Text = Convert.ToDecimal(row.Cells["CostoUnitario"].Value).ToString("0.00");
             NumericUpCantidad.Value = Convert.ToDecimal(row.Cells["Cantidad"].Value);
 
-            // Quitamos la fila del grid para que al volver a agregar se reemplace
             detallecompra.Rows.RemoveAt(e.RowIndex);
             RecalcularTotales();
 
@@ -1198,32 +1124,6 @@ namespace Proyecto_restaurante
 
             BusquedaProvBtn.Enabled = !esEdicion;
         }
-
-        private void CargarResponsablePorIdEmpleado(int idEmpleado)
-        {
-            using (SqlConnection con = new SqlConnection(conexionString))
-            {
-                con.Open();
-
-                string sql = @"
-                SELECT per.NombreCompleto
-                FROM Empleado e
-                INNER JOIN Persona per ON e.IdPersona = per.IdPersona
-                WHERE e.IdEmpleado = @IdEmpleado;";
-
-                using (SqlCommand cmd = new SqlCommand(sql, con))
-                {
-                    cmd.Parameters.AddWithValue("@IdEmpleado", idEmpleado);
-
-                    object res = cmd.ExecuteScalar();
-                    if (res != null && res != DBNull.Value)
-                    {
-                        ResponsableCompratxt.Text = res.ToString();
-                    }
-                }
-            }
-        }
-
 
         private void TablaDatosCompra_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -1259,7 +1159,6 @@ namespace Proyecto_restaurante
             {
                 con.Open();
 
-                // Cabecera: fecha + proveedor + si es informal + responsable
                 string sqlCab = @"
                 SELECT 
                 c.Fecha,
@@ -1318,7 +1217,6 @@ namespace Proyecto_restaurante
                             DireccionProvTxt.ForeColor =
                                 string.IsNullOrWhiteSpace(dir) ? Color.DimGray : Color.White;
 
-                            // Flag Informal desde la tabla Proveedor
                             bool informal = false;
                             if (dr["EsInformal"] != DBNull.Value)
                                 informal = Convert.ToBoolean(dr["EsInformal"]);
@@ -1326,7 +1224,6 @@ namespace Proyecto_restaurante
                             ProvInformalChk.Checked = informal;
                             ActualizarUIInformal();
 
-                            // Responsable
                             if (dr["IdEmpleadoResponsable"] != DBNull.Value)
                                 IdRespoCompratxt.Text = dr["IdEmpleadoResponsable"].ToString();
 
@@ -1336,7 +1233,6 @@ namespace Proyecto_restaurante
                     }
                 }
 
-                // Detalle
                 string sqlDet = @"
                 SELECT 
                 dc.IdProducto,
@@ -1412,7 +1308,6 @@ namespace Proyecto_restaurante
             {
                 con.Open();
 
-                // Cabecera: compra + proveedor + responsable
                 string sqlCab = @"
                  SELECT 
                 c.IdCompra,
@@ -1469,7 +1364,6 @@ namespace Proyecto_restaurante
                 sb.AppendLine("Detalle");
                 sb.AppendLine(new string('-', 40));
 
-                // Detalle de productos
                 string sqlDet = @"
                 SELECT 
                 p.Nombre,

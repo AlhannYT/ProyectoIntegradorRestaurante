@@ -102,17 +102,6 @@
             label9 = new Label();
             label10 = new Label();
             TabPageHistorialCompras = new TabPage();
-            panel12 = new Panel();
-            panel13 = new Panel();
-            label20 = new Label();
-            checkBox1 = new CheckBox();
-            button1 = new Button();
-            label22 = new Label();
-            button2 = new Button();
-            label23 = new Label();
-            textBox1 = new TextBox();
-            button3 = new Button();
-            TablaDetalleHistorial = new DataGridView();
             panel11 = new Panel();
             TablaDatosCompra = new DataGridView();
             label17 = new Label();
@@ -156,9 +145,6 @@
             panel4.SuspendLayout();
             panelSubTotal.SuspendLayout();
             TabPageHistorialCompras.SuspendLayout();
-            panel12.SuspendLayout();
-            panel13.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)TablaDetalleHistorial).BeginInit();
             panel11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TablaDatosCompra).BeginInit();
             panel10.SuspendLayout();
@@ -1054,7 +1040,6 @@
             // TabPageHistorialCompras
             // 
             TabPageHistorialCompras.BackColor = Color.FromArgb(87, 128, 87);
-            TabPageHistorialCompras.Controls.Add(panel12);
             TabPageHistorialCompras.Controls.Add(panel11);
             TabPageHistorialCompras.Controls.Add(label17);
             TabPageHistorialCompras.Controls.Add(BusquedaCompraTxt);
@@ -1067,138 +1052,6 @@
             TabPageHistorialCompras.Size = new Size(799, 673);
             TabPageHistorialCompras.TabIndex = 0;
             TabPageHistorialCompras.Text = "Historial";
-            // 
-            // panel12
-            // 
-            panel12.BackColor = Color.FromArgb(64, 64, 64);
-            panel12.Controls.Add(panel13);
-            panel12.Controls.Add(button1);
-            panel12.Controls.Add(label22);
-            panel12.Controls.Add(button2);
-            panel12.Controls.Add(label23);
-            panel12.Controls.Add(textBox1);
-            panel12.Controls.Add(button3);
-            panel12.Controls.Add(TablaDetalleHistorial);
-            panel12.Location = new Point(886, 55);
-            panel12.Name = "panel12";
-            panel12.Size = new Size(824, 684);
-            panel12.TabIndex = 19;
-            panel12.Visible = false;
-            // 
-            // panel13
-            // 
-            panel13.BackColor = SystemColors.WindowFrame;
-            panel13.BorderStyle = BorderStyle.FixedSingle;
-            panel13.Controls.Add(label20);
-            panel13.Controls.Add(checkBox1);
-            panel13.Location = new Point(667, 83);
-            panel13.Name = "panel13";
-            panel13.Size = new Size(101, 32);
-            panel13.TabIndex = 49;
-            // 
-            // label20
-            // 
-            label20.AutoSize = true;
-            label20.BackColor = Color.Transparent;
-            label20.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label20.ForeColor = SystemColors.WindowFrame;
-            label20.Image = Properties.Resources.filtroblanco;
-            label20.Location = new Point(3, 6);
-            label20.Name = "label20";
-            label20.Size = new Size(18, 21);
-            label20.TabIndex = 38;
-            label20.Text = "  ";
-            // 
-            // checkBox1
-            // 
-            checkBox1.AutoSize = true;
-            checkBox1.Checked = true;
-            checkBox1.CheckState = CheckState.Checked;
-            checkBox1.Cursor = Cursors.Hand;
-            checkBox1.Font = new Font("Segoe UI", 13F);
-            checkBox1.Image = Properties.Resources.sicheck;
-            checkBox1.Location = new Point(40, 2);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(41, 29);
-            checkBox1.TabIndex = 0;
-            checkBox1.Text = "  ";
-            checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            button1.Image = Properties.Resources.actualizar;
-            button1.Location = new Point(21, 37);
-            button1.Name = "button1";
-            button1.Size = new Size(29, 29);
-            button1.TabIndex = 47;
-            button1.TabStop = false;
-            button1.UseVisualStyleBackColor = true;
-            // 
-            // label22
-            // 
-            label22.AutoSize = true;
-            label22.BackColor = Color.White;
-            label22.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label22.ForeColor = SystemColors.Control;
-            label22.Image = Properties.Resources.busqueda1;
-            label22.Location = new Point(631, 89);
-            label22.Name = "label22";
-            label22.Size = new Size(18, 21);
-            label22.TabIndex = 43;
-            label22.Text = "  ";
-            // 
-            // button2
-            // 
-            button2.Image = Properties.Resources.limpio;
-            button2.Location = new Point(774, 85);
-            button2.Name = "button2";
-            button2.Size = new Size(29, 29);
-            button2.TabIndex = 42;
-            button2.UseVisualStyleBackColor = true;
-            // 
-            // label23
-            // 
-            label23.AutoSize = true;
-            label23.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label23.ForeColor = SystemColors.Control;
-            label23.Location = new Point(328, 16);
-            label23.Name = "label23";
-            label23.Size = new Size(198, 32);
-            label23.TabIndex = 1;
-            label23.Text = "Detalle Historial";
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(21, 85);
-            textBox1.Name = "textBox1";
-            textBox1.PlaceholderText = "Buscar Compra";
-            textBox1.Size = new Size(632, 29);
-            textBox1.TabIndex = 2;
-            // 
-            // button3
-            // 
-            button3.Location = new Point(703, 16);
-            button3.Name = "button3";
-            button3.Size = new Size(98, 44);
-            button3.TabIndex = 1;
-            button3.Text = "Salir";
-            button3.UseVisualStyleBackColor = true;
-            // 
-            // TablaDetalleHistorial
-            // 
-            TablaDetalleHistorial.AllowUserToAddRows = false;
-            TablaDetalleHistorial.AllowUserToDeleteRows = false;
-            TablaDetalleHistorial.AllowUserToResizeRows = false;
-            TablaDetalleHistorial.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            TablaDetalleHistorial.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            TablaDetalleHistorial.Location = new Point(21, 119);
-            TablaDetalleHistorial.MultiSelect = false;
-            TablaDetalleHistorial.Name = "TablaDetalleHistorial";
-            TablaDetalleHistorial.ReadOnly = true;
-            TablaDetalleHistorial.RowHeadersWidth = 51;
-            TablaDetalleHistorial.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            TablaDetalleHistorial.Size = new Size(782, 529);
-            TablaDetalleHistorial.TabIndex = 0;
             // 
             // panel11
             // 
@@ -1515,11 +1368,6 @@
             panelSubTotal.PerformLayout();
             TabPageHistorialCompras.ResumeLayout(false);
             TabPageHistorialCompras.PerformLayout();
-            panel12.ResumeLayout(false);
-            panel12.PerformLayout();
-            panel13.ResumeLayout(false);
-            panel13.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)TablaDetalleHistorial).EndInit();
             panel11.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)TablaDatosCompra).EndInit();
             panel10.ResumeLayout(false);
@@ -1623,17 +1471,6 @@
         private Label label8;
         private Label ItbisLabel;
         private Label label11;
-        private Panel panel12;
-        private Panel panel13;
-        private Label label20;
-        private CheckBox checkBox1;
-        public Button button1;
-        private Label label22;
-        private Button button2;
-        private Label label23;
-        private TextBox textBox1;
-        private Button button3;
-        private DataGridView TablaDetalleHistorial;
         private ToolTip toolTip1;
     }
 }
