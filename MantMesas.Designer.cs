@@ -52,6 +52,7 @@
             panel12 = new Panel();
             panel17 = new Panel();
             panel18 = new Panel();
+            RegresarBtn = new Button();
             label5 = new Label();
             eliminarbtn = new Button();
             txtbuscador = new TextBox();
@@ -163,20 +164,13 @@
             label38 = new Label();
             panel23 = new Panel();
             panelOrganizador = new Panel();
-            label31 = new Label();
             PersonaDGV = new DataGridView();
-            label33 = new Label();
-            EditarClienteBtn = new Button();
-            CrearClienteNuevoBtn = new Button();
-            BuscarOrganizadorTxtB = new TextBox();
             label32 = new Label();
+            BuscarOrganizadorTxtB = new TextBox();
             panel14 = new Panel();
             label34 = new Label();
-            panelInfo = new Panel();
-            nombrelabel = new Label();
-            idenlabel = new Label();
-            telefonolabel = new Label();
             panel9 = new Panel();
+            label31 = new Label();
             tabControl2.SuspendLayout();
             tabPage3.SuspendLayout();
             panelacciones.SuspendLayout();
@@ -202,7 +196,6 @@
             panelOrganizador.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PersonaDGV).BeginInit();
             panel14.SuspendLayout();
-            panelInfo.SuspendLayout();
             panel9.SuspendLayout();
             SuspendLayout();
             // 
@@ -350,7 +343,7 @@
             // 
             LimpiarCCBtn.Cursor = Cursors.Hand;
             LimpiarCCBtn.Image = Properties.Resources.limpio;
-            LimpiarCCBtn.Location = new Point(527, 57);
+            LimpiarCCBtn.Location = new Point(671, 66);
             LimpiarCCBtn.Name = "LimpiarCCBtn";
             LimpiarCCBtn.Size = new Size(31, 29);
             LimpiarCCBtn.TabIndex = 130;
@@ -367,7 +360,7 @@
             FiltroActivoChk.Cursor = Cursors.Hand;
             FiltroActivoChk.Font = new Font("Segoe UI", 13F);
             FiltroActivoChk.Image = Properties.Resources.sicheck;
-            FiltroActivoChk.Location = new Point(475, 58);
+            FiltroActivoChk.Location = new Point(618, 66);
             FiltroActivoChk.Name = "FiltroActivoChk";
             FiltroActivoChk.Size = new Size(41, 29);
             FiltroActivoChk.TabIndex = 139;
@@ -380,7 +373,7 @@
             // 
             ActualizarCCBtn.Cursor = Cursors.Hand;
             ActualizarCCBtn.Image = Properties.Resources.actualizar;
-            ActualizarCCBtn.Location = new Point(675, 12);
+            ActualizarCCBtn.Location = new Point(671, 10);
             ActualizarCCBtn.Name = "ActualizarCCBtn";
             ActualizarCCBtn.Size = new Size(29, 29);
             ActualizarCCBtn.TabIndex = 51;
@@ -468,6 +461,20 @@
             panel18.Size = new Size(17, 17);
             panel18.TabIndex = 161;
             toolTip1.SetToolTip(panel18, "Mesa Ocupada");
+            // 
+            // RegresarBtn
+            // 
+            RegresarBtn.Cursor = Cursors.Hand;
+            RegresarBtn.Image = Properties.Resources.atrás;
+            RegresarBtn.Location = new Point(614, 10);
+            RegresarBtn.Name = "RegresarBtn";
+            RegresarBtn.Size = new Size(51, 30);
+            RegresarBtn.TabIndex = 160;
+            RegresarBtn.Text = "          ";
+            RegresarBtn.TextAlign = ContentAlignment.MiddleRight;
+            toolTip1.SetToolTip(RegresarBtn, "Regresar");
+            RegresarBtn.UseVisualStyleBackColor = true;
+            RegresarBtn.Click += RegresarBtn_Click;
             // 
             // label5
             // 
@@ -1780,31 +1787,15 @@
             panelOrganizador.BackColor = SystemColors.WindowFrame;
             panelOrganizador.Controls.Add(LimpiarCCBtn);
             panelOrganizador.Controls.Add(PersonaDGV);
-            panelOrganizador.Controls.Add(label33);
-            panelOrganizador.Controls.Add(EditarClienteBtn);
-            panelOrganizador.Controls.Add(CrearClienteNuevoBtn);
             panelOrganizador.Controls.Add(FiltroActivoChk);
-            panelOrganizador.Controls.Add(BuscarOrganizadorTxtB);
             panelOrganizador.Controls.Add(label32);
+            panelOrganizador.Controls.Add(BuscarOrganizadorTxtB);
             panelOrganizador.Controls.Add(panel14);
-            panelOrganizador.Controls.Add(panelInfo);
             panelOrganizador.Controls.Add(panel9);
             panelOrganizador.Location = new Point(807, 3);
             panelOrganizador.Name = "panelOrganizador";
             panelOrganizador.Size = new Size(715, 482);
             panelOrganizador.TabIndex = 140;
-            // 
-            // label31
-            // 
-            label31.AutoSize = true;
-            label31.BackColor = Color.FromArgb(64, 64, 64);
-            label31.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label31.ForeColor = SystemColors.Control;
-            label31.Location = new Point(210, 2);
-            label31.Name = "label31";
-            label31.Size = new Size(295, 40);
-            label31.TabIndex = 131;
-            label31.Text = "Consulta de Clientes";
             // 
             // PersonaDGV
             // 
@@ -1813,62 +1804,15 @@
             PersonaDGV.AllowUserToResizeRows = false;
             PersonaDGV.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             PersonaDGV.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            PersonaDGV.Location = new Point(15, 93);
+            PersonaDGV.Location = new Point(15, 101);
             PersonaDGV.MultiSelect = false;
             PersonaDGV.Name = "PersonaDGV";
             PersonaDGV.ReadOnly = true;
             PersonaDGV.RowHeadersVisible = false;
             PersonaDGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            PersonaDGV.Size = new Size(543, 390);
+            PersonaDGV.Size = new Size(687, 379);
             PersonaDGV.TabIndex = 128;
             PersonaDGV.CellContentDoubleClick += PersonaDGV_CellDoubleClick;
-            // 
-            // label33
-            // 
-            label33.AutoSize = true;
-            label33.BackColor = Color.FromArgb(64, 64, 64);
-            label33.Font = new Font("Segoe UI", 18F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
-            label33.ForeColor = SystemColors.Control;
-            label33.Location = new Point(579, 94);
-            label33.Name = "label33";
-            label33.Size = new Size(116, 32);
-            label33.TabIndex = 134;
-            label33.Text = "Acciones";
-            // 
-            // EditarClienteBtn
-            // 
-            EditarClienteBtn.Cursor = Cursors.Hand;
-            EditarClienteBtn.Image = Properties.Resources.editarcliente1;
-            EditarClienteBtn.Location = new Point(567, 211);
-            EditarClienteBtn.Name = "EditarClienteBtn";
-            EditarClienteBtn.Size = new Size(142, 72);
-            EditarClienteBtn.TabIndex = 132;
-            EditarClienteBtn.Text = "Editar";
-            EditarClienteBtn.TextAlign = ContentAlignment.BottomCenter;
-            EditarClienteBtn.UseVisualStyleBackColor = true;
-            // 
-            // CrearClienteNuevoBtn
-            // 
-            CrearClienteNuevoBtn.Cursor = Cursors.Hand;
-            CrearClienteNuevoBtn.Image = Properties.Resources.cliente1;
-            CrearClienteNuevoBtn.Location = new Point(567, 134);
-            CrearClienteNuevoBtn.Name = "CrearClienteNuevoBtn";
-            CrearClienteNuevoBtn.Size = new Size(142, 72);
-            CrearClienteNuevoBtn.TabIndex = 133;
-            CrearClienteNuevoBtn.Text = "Nuevo";
-            CrearClienteNuevoBtn.TextAlign = ContentAlignment.BottomCenter;
-            CrearClienteNuevoBtn.UseVisualStyleBackColor = true;
-            // 
-            // BuscarOrganizadorTxtB
-            // 
-            BuscarOrganizadorTxtB.CharacterCasing = CharacterCasing.Upper;
-            BuscarOrganizadorTxtB.Font = new Font("Segoe UI", 12F);
-            BuscarOrganizadorTxtB.ForeColor = SystemColors.ScrollBar;
-            BuscarOrganizadorTxtB.Location = new Point(15, 58);
-            BuscarOrganizadorTxtB.Name = "BuscarOrganizadorTxtB";
-            BuscarOrganizadorTxtB.PlaceholderText = "Buscar cliente organizador/a";
-            BuscarOrganizadorTxtB.Size = new Size(423, 29);
-            BuscarOrganizadorTxtB.TabIndex = 127;
             // 
             // label32
             // 
@@ -1877,18 +1821,29 @@
             label32.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label32.ForeColor = SystemColors.Control;
             label32.Image = Properties.Resources.busqueda;
-            label32.Location = new Point(411, 62);
+            label32.Location = new Point(560, 70);
             label32.Name = "label32";
             label32.Size = new Size(18, 21);
             label32.TabIndex = 126;
             label32.Text = "  ";
+            // 
+            // BuscarOrganizadorTxtB
+            // 
+            BuscarOrganizadorTxtB.CharacterCasing = CharacterCasing.Upper;
+            BuscarOrganizadorTxtB.Font = new Font("Segoe UI", 12F);
+            BuscarOrganizadorTxtB.ForeColor = SystemColors.ScrollBar;
+            BuscarOrganizadorTxtB.Location = new Point(15, 66);
+            BuscarOrganizadorTxtB.Name = "BuscarOrganizadorTxtB";
+            BuscarOrganizadorTxtB.PlaceholderText = "Buscar cliente organizador/a";
+            BuscarOrganizadorTxtB.Size = new Size(567, 29);
+            BuscarOrganizadorTxtB.TabIndex = 127;
             // 
             // panel14
             // 
             panel14.BackColor = Color.FromArgb(64, 64, 64);
             panel14.BorderStyle = BorderStyle.FixedSingle;
             panel14.Controls.Add(label34);
-            panel14.Location = new Point(440, 56);
+            panel14.Location = new Point(584, 64);
             panel14.Name = "panel14";
             panel14.Size = new Size(86, 32);
             panel14.TabIndex = 142;
@@ -1906,62 +1861,28 @@
             label34.TabIndex = 38;
             label34.Text = "  ";
             // 
-            // panelInfo
-            // 
-            panelInfo.BackColor = Color.FromArgb(64, 64, 64);
-            panelInfo.Controls.Add(nombrelabel);
-            panelInfo.Controls.Add(idenlabel);
-            panelInfo.Controls.Add(telefonolabel);
-            panelInfo.Location = new Point(562, 92);
-            panelInfo.Name = "panelInfo";
-            panelInfo.Size = new Size(153, 390);
-            panelInfo.TabIndex = 141;
-            // 
-            // nombrelabel
-            // 
-            nombrelabel.AutoSize = true;
-            nombrelabel.BackColor = Color.FromArgb(64, 64, 64);
-            nombrelabel.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            nombrelabel.ForeColor = Color.White;
-            nombrelabel.Location = new Point(4, 207);
-            nombrelabel.Name = "nombrelabel";
-            nombrelabel.Size = new Size(141, 20);
-            nombrelabel.TabIndex = 136;
-            nombrelabel.Text = "Nombre completo:";
-            // 
-            // idenlabel
-            // 
-            idenlabel.AutoSize = true;
-            idenlabel.BackColor = Color.FromArgb(64, 64, 64);
-            idenlabel.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            idenlabel.ForeColor = Color.White;
-            idenlabel.Location = new Point(4, 261);
-            idenlabel.Name = "idenlabel";
-            idenlabel.Size = new Size(98, 20);
-            idenlabel.TabIndex = 138;
-            idenlabel.Text = "Cédula/RNC:";
-            // 
-            // telefonolabel
-            // 
-            telefonolabel.AutoSize = true;
-            telefonolabel.BackColor = Color.FromArgb(64, 64, 64);
-            telefonolabel.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            telefonolabel.ForeColor = Color.White;
-            telefonolabel.Location = new Point(4, 320);
-            telefonolabel.Name = "telefonolabel";
-            telefonolabel.Size = new Size(138, 20);
-            telefonolabel.TabIndex = 137;
-            telefonolabel.Text = "Teléfono principal:";
-            // 
             // panel9
             // 
             panel9.BackColor = Color.FromArgb(64, 64, 64);
+            panel9.Controls.Add(RegresarBtn);
             panel9.Controls.Add(label31);
             panel9.Controls.Add(ActualizarCCBtn);
             panel9.Location = new Point(0, 0);
             panel9.Name = "panel9";
             panel9.Size = new Size(715, 51);
             panel9.TabIndex = 159;
+            // 
+            // label31
+            // 
+            label31.AutoSize = true;
+            label31.BackColor = Color.FromArgb(64, 64, 64);
+            label31.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label31.ForeColor = SystemColors.Control;
+            label31.Location = new Point(210, 2);
+            label31.Name = "label31";
+            label31.Size = new Size(295, 40);
+            label31.TabIndex = 131;
+            label31.Text = "Consulta de Clientes";
             // 
             // MantMesas
             // 
@@ -2020,8 +1941,6 @@
             ((System.ComponentModel.ISupportInitialize)PersonaDGV).EndInit();
             panel14.ResumeLayout(false);
             panel14.PerformLayout();
-            panelInfo.ResumeLayout(false);
-            panelInfo.PerformLayout();
             panel9.ResumeLayout(false);
             panel9.PerformLayout();
             ResumeLayout(false);
@@ -2152,13 +2071,6 @@
         private CheckBox canceladochk;
         private DateTimePicker FechaCreacionDTP;
         private Label label37;
-        private Label label33;
-        private Button EditarClienteBtn;
-        private Button CrearClienteNuevoBtn;
-        private Panel panelInfo;
-        private Label nombrelabel;
-        private Label idenlabel;
-        private Label telefonolabel;
         private Button NotaBtn;
         private TextBox notatxt;
         private Panel notapanel;
@@ -2175,5 +2087,6 @@
         private Panel panel19;
         private Panel panel23;
         private Panel panel9;
+        private Button RegresarBtn;
     }
 }

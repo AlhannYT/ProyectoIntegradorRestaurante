@@ -310,18 +310,15 @@ namespace Proyecto_restaurante
         }
         private void buscarclientebtn_Click(object sender, EventArgs e)
         {
-            
+
             PanelClientes.Visible = !PanelClientes.Visible;
 
             if (PanelClientes.Visible)
             {
                 PanelClientes.BringToFront();
-
                 txtbuscador.Text = "";
-                filtrochk.Checked = true;  
-
+                filtrochk.Checked = true;
                 CargarClientesReserva("", true);
-
                 txtbuscador.Focus();
             }
         }
@@ -366,7 +363,8 @@ namespace Proyecto_restaurante
                 c.Activo
                 FROM Cliente c
                 INNER JOIN Persona p ON c.IdPersona = p.IdPersona
-                WHERE 1 = 1";
+                WHERE 1 = 1 
+                AND c.IdCliente > 1";
 
                 if (!string.IsNullOrWhiteSpace(filtroTexto))
                 {
@@ -439,9 +437,6 @@ namespace Proyecto_restaurante
             ClienteIDReserva = Convert.ToInt32(fila.Cells["IdCliente"].Value);
             idclientetxt.Text = ClienteIDReserva.ToString();
             txtnombrecompleto.Text = fila.Cells["NombreCompleto"].Value?.ToString();
-
-            // por ahora no tenemos telefono en la consulta, se queda vacio, se llena luego
-            // txtnumero_cliente.Text = ...;
 
             PanelClientes.Visible = false;
         }
@@ -589,5 +584,14 @@ namespace Proyecto_restaurante
             CargarReservas(txtbusquedareserva.Text);
         }
 
+        private void RegresarBtn_Click(object sender, EventArgs e)
+        {
+            PanelClientes.Visible = false;
+
+            if (tabladatoscliente.CurrentRow != null)
+                tabladatoscliente.ClearSelection();
+
+            txtnombrecompleto.Focus();
+        }
     }
 }

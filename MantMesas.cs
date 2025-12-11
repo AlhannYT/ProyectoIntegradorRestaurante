@@ -31,10 +31,10 @@ namespace Proyecto_restaurante
         }
 
         public int MesaID;
-        private int SalaID = 0;  // 0 = nuevo, >0 = edicion
+        private int SalaID = 0;
         private int EventoID = 0;
-        private int? ClienteIDEvento = null;      // IdCliente del organizador (puede ser null)
-        private List<int> mesasSeleccionadasEvento = new List<int>(); // IdMesa seleccionadas para el evento
+        private int? ClienteIDEvento = null;
+        private List<int> mesasSeleccionadasEvento = new List<int>();
         private int estadoBuscarSalaEvento = 1;
         private bool panelSalaEventoVisible = false;
 
@@ -1011,7 +1011,6 @@ namespace Proyecto_restaurante
                                 Cursor = Cursors.Hand
                             };
 
-                            // Guardamos info simple en Tag
                             btn.Tag = new
                             {
                                 IdMesa = idMesa,
@@ -1069,16 +1068,16 @@ namespace Proyecto_restaurante
 
             if (mesasSeleccionadasEvento.Contains(idMesa))
             {
-                // Quitar de la lista
+
                 mesasSeleccionadasEvento.Remove(idMesa);
-                // Volver a verde (libre)
+
                 btn.BackColor = Color.LightGreen;
             }
             else
             {
-                // Agregar a la lista
+
                 mesasSeleccionadasEvento.Add(idMesa);
-                // Azul = seleccionada para el evento
+
                 btn.BackColor = Color.DodgerBlue;
             }
         }
@@ -1328,7 +1327,8 @@ namespace Proyecto_restaurante
                 c.Activo
                 FROM Cliente c
                 INNER JOIN Persona p ON c.IdPersona = p.IdPersona
-                WHERE 1 = 1";
+                WHERE 1 = 1 
+                  AND c.IdCliente > 1";
 
                 if (!string.IsNullOrWhiteSpace(filtroTexto))
                 {
@@ -1569,6 +1569,16 @@ namespace Proyecto_restaurante
             {
                 panelOrganizador.Visible = false;
             }
+        }
+
+        private void RegresarBtn_Click(object sender, EventArgs e)
+        {
+            panelOrganizador.Visible = false;
+
+            if (PersonaDGV.CurrentRow != null)
+                PersonaDGV.ClearSelection();
+        
+            NomCompletoOrgTxtB.Focus();
         }
     }
 

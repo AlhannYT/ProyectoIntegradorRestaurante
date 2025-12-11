@@ -627,7 +627,7 @@
             PanelIngredientes.Controls.Add(tablaingrediente);
             PanelIngredientes.Location = new Point(3, 687);
             PanelIngredientes.Name = "PanelIngredientes";
-            PanelIngredientes.Size = new Size(824, 684);
+            PanelIngredientes.Size = new Size(793, 664);
             PanelIngredientes.TabIndex = 1;
             PanelIngredientes.Visible = false;
             // 
@@ -637,9 +637,9 @@
             panel7.BorderStyle = BorderStyle.FixedSingle;
             panel7.Controls.Add(label15);
             panel7.Controls.Add(checkingredactivo);
-            panel7.Location = new Point(667, 83);
+            panel7.Location = new Point(671, 84);
             panel7.Name = "panel7";
-            panel7.Size = new Size(101, 32);
+            panel7.Size = new Size(84, 32);
             panel7.TabIndex = 49;
             // 
             // label15
@@ -663,7 +663,7 @@
             checkingredactivo.Cursor = Cursors.Hand;
             checkingredactivo.Font = new Font("Segoe UI", 13F);
             checkingredactivo.Image = Properties.Resources.sicheck;
-            checkingredactivo.Location = new Point(40, 2);
+            checkingredactivo.Location = new Point(34, 2);
             checkingredactivo.Name = "checkingredactivo";
             checkingredactivo.Size = new Size(41, 29);
             checkingredactivo.TabIndex = 0;
@@ -675,7 +675,7 @@
             // 
             recargaringredbtn.Cursor = Cursors.Hand;
             recargaringredbtn.Image = Properties.Resources.actualizar;
-            recargaringredbtn.Location = new Point(21, 37);
+            recargaringredbtn.Location = new Point(9, 21);
             recargaringredbtn.Name = "recargaringredbtn";
             recargaringredbtn.Size = new Size(29, 29);
             recargaringredbtn.TabIndex = 47;
@@ -690,7 +690,7 @@
             label12.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label12.ForeColor = SystemColors.Control;
             label12.Image = Properties.Resources.busqueda1;
-            label12.Location = new Point(631, 89);
+            label12.Location = new Point(644, 89);
             label12.Name = "label12";
             label12.Size = new Size(18, 21);
             label12.TabIndex = 43;
@@ -700,7 +700,7 @@
             // 
             eliminarbtn.Cursor = Cursors.Hand;
             eliminarbtn.Image = Properties.Resources.limpio;
-            eliminarbtn.Location = new Point(774, 85);
+            eliminarbtn.Location = new Point(759, 86);
             eliminarbtn.Name = "eliminarbtn";
             eliminarbtn.Size = new Size(29, 29);
             eliminarbtn.TabIndex = 42;
@@ -712,25 +712,25 @@
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.ForeColor = SystemColors.Control;
-            label3.Location = new Point(336, 16);
+            label3.Location = new Point(325, 13);
             label3.Name = "label3";
-            label3.Size = new Size(158, 32);
+            label3.Size = new Size(131, 32);
             label3.TabIndex = 1;
-            label3.Text = "Ingredientes";
+            label3.Text = "Productos";
             // 
             // txtbusquedapanelprod
             // 
-            txtbusquedapanelprod.Location = new Point(21, 85);
+            txtbusquedapanelprod.Location = new Point(4, 85);
             txtbusquedapanelprod.Name = "txtbusquedapanelprod";
-            txtbusquedapanelprod.PlaceholderText = "Buscar Ingredientes";
-            txtbusquedapanelprod.Size = new Size(632, 29);
+            txtbusquedapanelprod.PlaceholderText = "Buscar Producto";
+            txtbusquedapanelprod.Size = new Size(662, 29);
             txtbusquedapanelprod.TabIndex = 2;
             txtbusquedapanelprod.TextChanged += txtbusquedapanelprod_TextChanged;
             // 
             // saliringredbtn
             // 
             saliringredbtn.Cursor = Cursors.Hand;
-            saliringredbtn.Location = new Point(703, 16);
+            saliringredbtn.Location = new Point(665, 13);
             saliringredbtn.Name = "saliringredbtn";
             saliringredbtn.Size = new Size(98, 44);
             saliringredbtn.TabIndex = 1;
@@ -745,13 +745,13 @@
             tablaingrediente.AllowUserToResizeRows = false;
             tablaingrediente.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             tablaingrediente.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            tablaingrediente.Location = new Point(21, 119);
+            tablaingrediente.Location = new Point(5, 121);
             tablaingrediente.MultiSelect = false;
             tablaingrediente.Name = "tablaingrediente";
             tablaingrediente.ReadOnly = true;
             tablaingrediente.RowHeadersWidth = 51;
             tablaingrediente.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tablaingrediente.Size = new Size(782, 529);
+            tablaingrediente.Size = new Size(784, 540);
             tablaingrediente.TabIndex = 0;
             tablaingrediente.CellDoubleClick += tablaingrediente_CellDoubleClick;
             // 
@@ -799,7 +799,7 @@
             PanelProv.Controls.Add(tablaprov);
             PanelProv.Location = new Point(813, 3);
             PanelProv.Name = "PanelProv";
-            PanelProv.Size = new Size(824, 684);
+            PanelProv.Size = new Size(793, 664);
             PanelProv.TabIndex = 5;
             PanelProv.Visible = false;
             // 
@@ -810,9 +810,9 @@
             panel9.Controls.Add(checkactivoprov);
             panel9.Controls.Add(label16);
             panel9.Controls.Add(checkprovinformal);
-            panel9.Location = new Point(629, 76);
+            panel9.Location = new Point(621, 83);
             panel9.Name = "panel9";
-            panel9.Size = new Size(139, 32);
+            panel9.Size = new Size(135, 32);
             panel9.TabIndex = 65;
             // 
             // checkactivoprov
@@ -823,7 +823,7 @@
             checkactivoprov.Cursor = Cursors.Hand;
             checkactivoprov.Font = new Font("Segoe UI", 13F);
             checkactivoprov.Image = Properties.Resources.sicheck;
-            checkactivoprov.Location = new Point(93, 2);
+            checkactivoprov.Location = new Point(87, 2);
             checkactivoprov.Name = "checkactivoprov";
             checkactivoprov.Size = new Size(41, 29);
             checkactivoprov.TabIndex = 0;
@@ -862,7 +862,7 @@
             // 
             recargarprovbtn.Cursor = Cursors.Hand;
             recargarprovbtn.Image = Properties.Resources.actualizar;
-            recargarprovbtn.Location = new Point(25, 28);
+            recargarprovbtn.Location = new Point(9, 21);
             recargarprovbtn.Name = "recargarprovbtn";
             recargarprovbtn.Size = new Size(29, 29);
             recargarprovbtn.TabIndex = 49;
@@ -874,7 +874,7 @@
             // 
             eliminarbtn2.Cursor = Cursors.Hand;
             eliminarbtn2.Image = Properties.Resources.limpio;
-            eliminarbtn2.Location = new Point(774, 78);
+            eliminarbtn2.Location = new Point(760, 84);
             eliminarbtn2.Name = "eliminarbtn2";
             eliminarbtn2.Size = new Size(29, 29);
             eliminarbtn2.TabIndex = 48;
@@ -888,7 +888,7 @@
             label14.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label14.ForeColor = SystemColors.Control;
             label14.Image = Properties.Resources.busqueda1;
-            label14.Location = new Point(602, 82);
+            label14.Location = new Point(593, 89);
             label14.Name = "label14";
             label14.Size = new Size(18, 21);
             label14.TabIndex = 44;
@@ -897,19 +897,19 @@
             // txtprovbusqueda
             // 
             txtprovbusqueda.Font = new Font("Segoe UI", 12F);
-            txtprovbusqueda.Location = new Point(22, 78);
+            txtprovbusqueda.Location = new Point(4, 85);
             txtprovbusqueda.Name = "txtprovbusqueda";
             txtprovbusqueda.PlaceholderText = "Buscar Proveedor";
-            txtprovbusqueda.Size = new Size(601, 29);
+            txtprovbusqueda.Size = new Size(611, 29);
             txtprovbusqueda.TabIndex = 8;
             txtprovbusqueda.TextChanged += txtprovbusqueda_TextChanged;
             // 
             // salirprovbtn
             // 
             salirprovbtn.Cursor = Cursors.Hand;
-            salirprovbtn.Location = new Point(686, 12);
+            salirprovbtn.Location = new Point(671, 13);
             salirprovbtn.Name = "salirprovbtn";
-            salirprovbtn.Size = new Size(111, 45);
+            salirprovbtn.Size = new Size(98, 44);
             salirprovbtn.TabIndex = 7;
             salirprovbtn.Text = "Salir";
             salirprovbtn.UseVisualStyleBackColor = true;
@@ -920,7 +920,7 @@
             label19.AutoSize = true;
             label19.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label19.ForeColor = SystemColors.Control;
-            label19.Location = new Point(349, 15);
+            label19.Location = new Point(316, 10);
             label19.Name = "label19";
             label19.Size = new Size(133, 32);
             label19.TabIndex = 3;
@@ -933,14 +933,14 @@
             tablaprov.AllowUserToResizeRows = false;
             tablaprov.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             tablaprov.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            tablaprov.Location = new Point(21, 113);
+            tablaprov.Location = new Point(5, 121);
             tablaprov.MultiSelect = false;
             tablaprov.Name = "tablaprov";
             tablaprov.ReadOnly = true;
             tablaprov.RowHeadersVisible = false;
             tablaprov.RowHeadersWidth = 51;
             tablaprov.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tablaprov.Size = new Size(782, 529);
+            tablaprov.Size = new Size(784, 540);
             tablaprov.TabIndex = 6;
             tablaprov.CellDoubleClick += tablaprov_CellDoubleClick;
             // 

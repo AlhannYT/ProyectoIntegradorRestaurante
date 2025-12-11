@@ -155,6 +155,7 @@
             // 
             // eliminarbtn
             // 
+            eliminarbtn.Cursor = Cursors.Hand;
             eliminarbtn.Image = Properties.Resources.limpio;
             eliminarbtn.Location = new Point(522, 63);
             eliminarbtn.Name = "eliminarbtn";
@@ -176,6 +177,7 @@
             // 
             // Editar
             // 
+            Editar.Cursor = Cursors.Hand;
             Editar.Image = Properties.Resources.editarcliente1;
             Editar.Location = new Point(558, 175);
             Editar.Name = "Editar";
@@ -188,6 +190,7 @@
             // 
             // agregar
             // 
+            agregar.Cursor = Cursors.Hand;
             agregar.Image = Properties.Resources.cliente1;
             agregar.Location = new Point(558, 98);
             agregar.Name = "agregar";
@@ -282,6 +285,7 @@
             // 
             // recargarbtn
             // 
+            recargarbtn.Cursor = Cursors.Hand;
             recargarbtn.Image = Properties.Resources.actualizar;
             recargarbtn.Location = new Point(10, 12);
             recargarbtn.Name = "recargarbtn";
@@ -512,6 +516,7 @@
             // eliminarDireccion
             // 
             eliminarDireccion.BackColor = Color.Red;
+            eliminarDireccion.Cursor = Cursors.Hand;
             eliminarDireccion.Image = Properties.Resources.basurablanco;
             eliminarDireccion.Location = new Point(673, 171);
             eliminarDireccion.Name = "eliminarDireccion";
@@ -522,6 +527,7 @@
             // 
             // bajardireccion
             // 
+            bajardireccion.Cursor = Cursors.Hand;
             bajardireccion.Image = Properties.Resources.angulo_hacia_abajo;
             bajardireccion.Location = new Point(673, 36);
             bajardireccion.Name = "bajardireccion";
@@ -533,6 +539,7 @@
             // eliminarNumero
             // 
             eliminarNumero.BackColor = Color.Red;
+            eliminarNumero.Cursor = Cursors.Hand;
             eliminarNumero.Image = Properties.Resources.basurablanco;
             eliminarNumero.Location = new Point(293, 169);
             eliminarNumero.Name = "eliminarNumero";
@@ -543,6 +550,7 @@
             // 
             // bajarTelefono
             // 
+            bajarTelefono.Cursor = Cursors.Hand;
             bajarTelefono.Image = Properties.Resources.angulo_hacia_abajo;
             bajarTelefono.Location = new Point(293, 36);
             bajarTelefono.Name = "bajarTelefono";
@@ -581,6 +589,7 @@
             // 
             // guardarbtn
             // 
+            guardarbtn.Cursor = Cursors.Hand;
             guardarbtn.Image = Properties.Resources.guardar;
             guardarbtn.ImageAlign = ContentAlignment.MiddleLeft;
             guardarbtn.Location = new Point(12, 8);
@@ -593,6 +602,7 @@
             // 
             // limpiarbtn
             // 
+            limpiarbtn.Cursor = Cursors.Hand;
             limpiarbtn.Image = Properties.Resources.nuevo;
             limpiarbtn.ImageAlign = ContentAlignment.MiddleLeft;
             limpiarbtn.Location = new Point(216, 8);
@@ -616,6 +626,7 @@
             // seleccionimagenbtn
             // 
             seleccionimagenbtn.BackColor = Color.Lime;
+            seleccionimagenbtn.Cursor = Cursors.Hand;
             seleccionimagenbtn.ForeColor = Color.Black;
             seleccionimagenbtn.Image = Properties.Resources.subir1;
             seleccionimagenbtn.Location = new Point(9, 191);
@@ -641,6 +652,7 @@
             // 
             // button2
             // 
+            button2.Cursor = Cursors.Hand;
             button2.Image = Properties.Resources.atrás;
             button2.ImageAlign = ContentAlignment.MiddleLeft;
             button2.Location = new Point(611, 9);
