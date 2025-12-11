@@ -950,7 +950,6 @@ namespace Proyecto_restaurante
                 detalleorden.Columns.Add("subtotal", "Importe");
             }
 
-            tabControl1_SelectedIndexChanged(sender, e);
             NotifComanda();
             Comprobantes();
         }

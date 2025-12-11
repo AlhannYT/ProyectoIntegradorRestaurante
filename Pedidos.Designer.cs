@@ -1755,11 +1755,10 @@
             // 
             // opcionesCarpeta
             // 
-            opcionesCarpeta.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             opcionesCarpeta.BackColor = Color.FromArgb(64, 64, 64);
             opcionesCarpeta.Controls.Add(eliminarFacturas);
             opcionesCarpeta.Controls.Add(carpetaFactura);
-            opcionesCarpeta.Location = new Point(516, 3);
+            opcionesCarpeta.Location = new Point(515, 4);
             opcionesCarpeta.Name = "opcionesCarpeta";
             opcionesCarpeta.Size = new Size(258, 31);
             opcionesCarpeta.TabIndex = 28;
@@ -1795,9 +1794,8 @@
             // 
             // deslizar
             // 
-            deslizar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             deslizar.Image = Properties.Resources.flechaizquierdaroja;
-            deslizar.Location = new Point(774, 3);
+            deslizar.Location = new Point(773, 4);
             deslizar.Name = "deslizar";
             deslizar.Size = new Size(26, 31);
             deslizar.TabIndex = 27;
@@ -2129,9 +2127,9 @@
             tabPage8.Controls.Add(aplicartarjeta);
             tabPage8.Controls.Add(tarjetaMonto);
             tabPage8.Controls.Add(tarjetaref);
-            tabPage8.Location = new Point(4, 24);
+            tabPage8.Location = new Point(4, 30);
             tabPage8.Name = "tabPage8";
-            tabPage8.Size = new Size(366, 146);
+            tabPage8.Size = new Size(366, 140);
             tabPage8.TabIndex = 2;
             tabPage8.Text = "Tarjeta";
             // 

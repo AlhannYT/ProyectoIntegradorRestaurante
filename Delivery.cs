@@ -29,12 +29,39 @@ namespace Proyecto_restaurante
         private decimal TotalAplicado = 0m;
         private decimal totalAcumulado = 0;
         private decimal subtotalAcumulado = 0;
+        bool modoEntregar = false;
+
+        private List<Panel> ordenesSeleccionadas = new List<Panel>();
+
+        decimal TotalRestante = 0;
+
+        bool cargandoOrden = false;
 
         string conexionString = ConexionBD.ConexionSQL();
 
+        private void Delivery_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Alt && e.KeyCode == Keys.D1)
+            {
+                tabControl1.SelectedIndex = 0;
+            }
+
+            if (e.Alt && e.KeyCode == Keys.D2)
+            {
+                tabControl1.SelectedIndex = 1;
+            }
+
+            if (e.Alt && e.KeyCode == Keys.D3)
+            {
+                tabControl1.SelectedIndex = 2;
+            }
+        }
+
         private void Delivery_Load(object sender, EventArgs e)
         {
-            string conexionString = ConexionBD.ConexionSQL();
+
+            if (!cargandoOrden)
+                tipoComp.SelectedIndex = 1;
 
             string consulta = "SELECT TOP 1 IdPedido FROM Pedido ORDER BY IdPedido DESC";
             string busquedaCaja = @"
@@ -96,6 +123,35 @@ namespace Proyecto_restaurante
                 detalleorden.Columns.Add("ITBIS", "ITBIS");
                 detalleorden.Columns.Add("cantidad", "Cantidad");
                 detalleorden.Columns.Add("subtotal", "Importe");
+            }
+
+            Comprobantes();
+        }
+
+        private void Comprobantes()
+        {
+            if (cargandoOrden) return;
+
+            int tipo = tipoComp.SelectedIndex == 0 ? 1 : 2;
+
+            string query = "SELECT TOP 1 SecuenciaActual FROM Comprobantes WHERE Tipo = @Tipo ORDER BY IdComprobante DESC";
+
+            using (SqlConnection con = new SqlConnection(conexionString))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@Tipo", tipo);
+
+                    object resultado = cmd.ExecuteScalar();
+
+                    int nuevaSecuencia = 1;
+
+                    if (resultado != null && resultado != DBNull.Value)
+                        nuevaSecuencia = Convert.ToInt32(resultado) + 1;
+
+                    Comprobantetxt.Text = nuevaSecuencia.ToString("D8");
+                }
             }
         }
 
@@ -163,42 +219,42 @@ namespace Proyecto_restaurante
             string codigoProducto = txtcodigoproducto.Text;
             string nombreProducto = txtnombreproducto.Text;
 
-            decimal precio;
-            decimal itbis = 0;
-            int cantidad = (int)numCantidad.Value;
-
             if (txtcodigoproducto.Text == "")
             {
                 MessageBox.Show("Agregar producto.");
                 return;
             }
 
-            if (!decimal.TryParse(txtprecioproducto.Text, out precio))
+            if (!decimal.TryParse(txtprecioproducto.Text, out decimal precio))
             {
-                MessageBox.Show("Por favor, ingresa un valor válido para el precio.");
+                MessageBox.Show("Precio inválido.");
                 return;
             }
 
-            decimal subtotal = precio * cantidad;
-            decimal total = subtotal + (subtotal * (itbis / 100));
+            if (!decimal.TryParse(txtiva.Text, out decimal itbis))
+            {
+                MessageBox.Show("ITBIS inválido.");
+                return;
+            }
 
-            subtotalAcumulado += subtotal;
-            totalAcumulado += total;
-
-            labelsubtotal.Text = subtotalAcumulado.ToString("F2");
-            labeltotal.Text = totalAcumulado.ToString("F2");
+            int cantidad = (int)numCantidad.Value;
 
             DataGridViewRow row = new DataGridViewRow();
             row.CreateCells(detalleorden);
+
+            decimal sub = precio * cantidad;
+            decimal tot = sub + (sub * (itbis / 100));
 
             row.Cells[0].Value = codigoProducto;
             row.Cells[1].Value = nombreProducto;
             row.Cells[2].Value = precio;
             row.Cells[3].Value = itbis;
             row.Cells[4].Value = cantidad;
-            row.Cells[5].Value = (precio + itbis) * cantidad;
+            row.Cells[5].Value = tot.ToString("N2");
 
             detalleorden.Rows.Add(row);
+
+            RecalcularTotales();
 
             labelcantidadarticulos.Text = detalleorden.Rows.Count.ToString();
 
@@ -206,9 +262,10 @@ namespace Proyecto_restaurante
             txtnombreproducto.Clear();
             txtprecioproducto.Clear();
             txtiva.Clear();
-            numCantidad.Value = numCantidad.Minimum;
+            numCantidad.Value = 1;
 
             guardarpedidobtn.Enabled = true;
+            detalleorden.Enabled = true;
         }
 
         private void limpiarbtn_Click(object sender, EventArgs e)
@@ -390,10 +447,57 @@ namespace Proyecto_restaurante
             else
             {
                 notapanel.Visible = true;
-                notapanel.Location = new Point(513, 273);
+                notapanel.Location = new Point(515, 306);
 
                 EstadoNota = 1;
             }
+        }
+
+        private void RecalcularTotales()
+        {
+            decimal subtotal = 0;
+            decimal total = 0;
+
+            foreach (DataGridViewRow fila in detalleorden.Rows)
+            {
+                if (fila.IsNewRow) continue;
+
+                decimal precio = Convert.ToDecimal(fila.Cells["precio"].Value);
+                decimal itbis = Convert.ToDecimal(fila.Cells["ITBIS"].Value);
+                int cantidad = Convert.ToInt32(fila.Cells["cantidad"].Value);
+
+                decimal sub = precio * cantidad;
+                decimal tot = sub + (sub * (itbis / 100));
+
+                subtotal += sub;
+                total += tot;
+            }
+
+            labelsubtotal.Text = subtotal.ToString("F2");
+            labeltotal.Text = total.ToString("F2");
+        }
+
+        private void RecalcularTotalesPago()
+        {
+            TotalAplicado = 0;
+
+            foreach (DataGridViewRow fila in detallePagoDT.Rows)
+            {
+                if (fila.IsNewRow) continue;
+                TotalAplicado += Convert.ToDecimal(fila.Cells[3].Value);
+            }
+
+            TotalRestante = TotalPedido - TotalAplicado;
+
+            if (TotalRestante < 0)
+                TotalRestante = 0;
+
+            pagadotxt.Text = TotalAplicado.ToString("N2");
+            restante1txt.Text = TotalRestante.ToString("N2");
+            restante2txt.Text = TotalRestante.ToString("N2");
+            restante3txt.Text = TotalRestante.ToString("N2");
+
+            MostrarDevuelta();
         }
 
         private void repartidorbtn_Click(object sender, EventArgs e)
@@ -496,22 +600,6 @@ namespace Proyecto_restaurante
                 return;
             }
 
-            if (tabladatospedidos.CurrentRow == null)
-            {
-                MessageBox.Show("Debe seleccionar una factura.");
-                return;
-            }
-
-            object valorTotal = tabladatospedidos.CurrentRow.Cells["Total"].Value;
-
-            if (valorTotal == null || valorTotal == DBNull.Value || valorTotal.ToString() == "")
-            {
-                MessageBox.Show("El valor del total no es válido.");
-                return;
-            }
-
-            Total = Convert.ToDecimal(valorTotal);
-
             if (Total <= 0)
             {
                 using (SqlConnection cn = new SqlConnection(conexionString))
@@ -577,92 +665,135 @@ namespace Proyecto_restaurante
             detallepanelcompleto.Location = new Point(0, 0);
             detallepagopanel.Visible = true;
 
-            if (efectivodt.ColumnCount == 0)
+            if (detallePagoDT.ColumnCount == 0)
             {
-                efectivodt.Columns.Add("TipoDetalle", "Tipo");
-                efectivodt.Columns.Add("Total", "Monto");
-                efectivodt.Columns.Add("Efectivo", "Aplicado");
+                detallePagoDT.Columns.Add("tipodetalle", "Tipo");
+                detallePagoDT.Columns.Add("referencia", "Referencia");
+                detallePagoDT.Columns.Add("origen", "Origen");
+                detallePagoDT.Columns.Add("monto", "Aplicado");
 
                 TotalPedido = Convert.ToDecimal(Total);
-                totalrealef.Text = TotalPedido.ToString("N2");
+                TotalRestante = TotalPedido;
+                TotalAPagar.Text = TotalPedido.ToString("N2");
+                restante1txt.Text = TotalRestante.ToString("N2");
+                restante2txt.Text = TotalRestante.ToString("N2");
+                restante3txt.Text = TotalRestante.ToString("N2");
             }
-
-            if (tarjetadt.ColumnCount == 0)
-            {
-                tarjetadt.Columns.Add("TipoDetalle", "Tipo");
-                tarjetadt.Columns.Add("Referencia", "Referencia");
-                tarjetadt.Columns.Add("Tarjeta", "Tarjeta");
-
-                TotalPedido = Convert.ToDecimal(Total);
-                totalrealtar.Text = TotalPedido.ToString("N2");
-            }
-
-            if (transferenciadt.ColumnCount == 0)
-            {
-                transferenciadt.Columns.Add("TipoDetalle", "Tipo");
-                transferenciadt.Columns.Add("Referencia", "Referencia");
-                transferenciadt.Columns.Add("Tarjeta", "Banco");
-
-                TotalPedido = Convert.ToDecimal(Total);
-                totalrealtransf.Text = TotalPedido.ToString("N2");
-            }
-
-            totalrealef.Text = Total.ToString();
-            totalrealtar.Text = Total.ToString();
-            totalrealtransf.Text = Total.ToString();
         }
+
+        class PagoEfectivoInfo
+        {
+            public decimal MontoDado { get; set; }
+            public decimal MontoAplicado { get; set; }
+            public decimal Devuelta { get; set; }
+        }
+
+        private List<PagoEfectivoInfo> pagosEfectivo = new List<PagoEfectivoInfo>();
 
         private void aplicarefectivo_Click(object sender, EventArgs e)
         {
-            if (!decimal.TryParse(efectivotxt.Text, out decimal monto))
+            if (!decimal.TryParse(efectivotxt.Text, out decimal montoDado))
             {
                 MessageBox.Show("Monto inválido.");
                 return;
             }
 
-            decimal totalReal = decimal.Parse(totalrealef.Text);
-
-            if (monto < totalReal)
+            if (montoDado <= 0)
             {
-                MessageBox.Show("El monto ingresado no puede ser menor que el total.");
+                MessageBox.Show("Debe ingresar un monto válido.");
                 return;
             }
 
-            if (monto <= 0)
+            decimal aplicado = montoDado;
+            decimal devueltaCalc = 0;
+
+            if (montoDado > TotalRestante)
             {
-                MessageBox.Show("Monto inválido.");
-                return;
+                aplicado = TotalRestante;
+                devueltaCalc = montoDado - TotalRestante;
             }
+
+            pagosEfectivo.Add(new PagoEfectivoInfo
+            {
+                MontoDado = montoDado,
+                MontoAplicado = aplicado,
+                Devuelta = devueltaCalc
+            });
 
             DataGridViewRow row = new DataGridViewRow();
-            row.CreateCells(efectivodt);
-            row.Cells[0].Value = "Efectivo";
-            row.Cells[1].Value = totalrealef.Text;
-            row.Cells[2].Value = monto;
+            row.CreateCells(detallePagoDT);
+            row.Cells[0].Value = "EF";
+            row.Cells[1].Value = "";
+            row.Cells[2].Value = "Efectivo";
+            row.Cells[3].Value = montoDado;
 
-            pagadotxt.Text = efectivotxt.Text;
+            detallePagoDT.Rows.Add(row);
 
-            efectivodt.Rows.Add(row);
+            devueltatxt.Text = devueltaCalc.ToString("N2");
+
             efectivotxt.Clear();
-            efectivotxt.Enabled = false;
-            aplicarefectivo.Enabled = false;
-            TipoPago = 1;
+            RecalcularTotalesPago();
+        }
+
+        private void MostrarDevuelta()
+        {
+            if (TotalAplicado >= TotalPedido)
+            {
+                devueltatxt.Text = (TotalAplicado - TotalPedido).ToString("N2");
+                totalpagar.Text = TotalAPagar.Text;
+            }
+            else
+                devueltatxt.Text = "0.00";
+        }
+
+        private void RecalcularTotalAplicado()
+        {
+            TotalAplicado = 0;
+
+            foreach (DataGridViewRow fila in detallePagoDT.Rows)
+            {
+                if (fila.IsNewRow) continue;
+                TotalAplicado += Convert.ToDecimal(fila.Cells[3].Value);
+            }
+
+            pagadotxt.Text = TotalAplicado.ToString("N2");
+
+            MostrarDevuelta();
         }
 
         private void aplicartarjeta_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(tarjetaref.Text) || tarjetacmbx.SelectedIndex < 0)
             {
-                MessageBox.Show("Debe seleccionar Tarjeta y referencia.");
+                MessageBox.Show("Debe seleccionar tarjeta y referencia.");
                 return;
             }
 
-            tarjetadt.Rows.Add("Tarjeta", tarjetaref.Text, tarjetacmbx.Text);
+            if (!decimal.TryParse(tarjetaMonto.Text, out decimal monto))
+            {
+                MessageBox.Show("Monto inválido.");
+                return;
+            }
+
+            if (monto > TotalRestante)
+            {
+                MessageBox.Show($"El monto de tarjeta excede el restante ({TotalRestante:N2}).");
+                return;
+            }
+
+            DataGridViewRow row = new DataGridViewRow();
+            row.CreateCells(detallePagoDT);
+            row.Cells[0].Value = "TJ";
+            row.Cells[1].Value = tarjetaref.Text;
+            row.Cells[2].Value = tarjetacmbx.Text;
+            row.Cells[3].Value = monto;
+
+            detallePagoDT.Rows.Add(row);
+
             tarjetaref.Clear();
-            tarjetaref.Enabled = false;
-            tarjetacmbx.Enabled = false;
-            aplicartarjeta.Enabled = false;
-            TipoPago = 2;
+            tarjetaMonto.Clear();
+
+            RecalcularTotalesPago();
         }
 
         private void aplicartransf_Click(object sender, EventArgs e)
@@ -672,33 +803,105 @@ namespace Proyecto_restaurante
                 MessageBox.Show("Debe seleccionar banco y referencia.");
                 return;
             }
-            transferenciadt.Rows.Add("Transferencia", bancoref.Text, bancocmbx.Text);
+
+            if (!decimal.TryParse(transfMonto.Text, out decimal monto))
+            {
+                MessageBox.Show("Monto inválido.");
+                return;
+            }
+
+            if (monto > TotalRestante)
+            {
+                MessageBox.Show($"El monto excede el restante ({TotalRestante:N2}).");
+                return;
+            }
+
+            DataGridViewRow row = new DataGridViewRow();
+            row.CreateCells(detallePagoDT);
+            row.Cells[0].Value = "TR";
+            row.Cells[1].Value = bancoref.Text;
+            row.Cells[2].Value = bancocmbx.Text;
+            row.Cells[3].Value = monto;
+
+            detallePagoDT.Rows.Add(row);
+
             bancoref.Clear();
-            bancoref.Enabled = false;
-            bancocmbx.Enabled = false;
-            aplicartransf.Enabled = false;
-            TipoPago = 3;
+            transfMonto.Clear();
+
+            RecalcularTotalesPago();
         }
 
-        private void pagarefectivo_Click(object sender, EventArgs e)
+        private void RegistrarPago(SqlConnection conexion, SqlTransaction trans)
         {
-            detallepagopanel.Visible = false;
-            detallepagopanel.Location = new Point(1617, 6);
-            totalpagar.Text = totalrealef.Text;
+            int indexEfectivo = 0;
 
-            FacturarPedido();
-            MostrarDevuelta();
+            foreach (DataGridViewRow fila in detallePagoDT.Rows)
+            {
+                if (fila.IsNewRow) continue;
 
-            devueltapanel.Visible = true;
-            devueltapanel.Location = new Point(466, 0);
-        }
+                string tipo = fila.Cells[0].Value.ToString();
+                string referencia = fila.Cells[1].Value?.ToString() ?? "";
+                string origen = fila.Cells[2].Value?.ToString() ?? "";
 
-        private void MostrarDevuelta()
-        {
-            if (TotalAplicado >= TotalPedido)
-                devueltatxt.Text = (TotalAplicado - TotalPedido).ToString("N2");
-            else
-                devueltatxt.Text = "0.00";
+                decimal totalAplicadoBD = 0;
+                decimal efectivoDado = 0;
+                decimal devuelta = 0;
+                decimal tarjeta = 0;
+                decimal transferencia = 0;
+
+                string tarjetaNombre = DBNull.Value.ToString();
+                string banco = DBNull.Value.ToString();
+
+                string tipoSQL = "";
+                if (tipo == "EF") tipoSQL = "Efectivo";
+                else if (tipo == "TJ") tipoSQL = "Tarjeta";
+                else if (tipo == "TR") tipoSQL = "Transferencia";
+                else tipoSQL = tipo;
+
+                if (tipo == "EF")
+                {
+                    var pago = pagosEfectivo[indexEfectivo];
+
+                    efectivoDado = pago.MontoDado;
+                    totalAplicadoBD = pago.MontoAplicado;
+                    devuelta = pago.Devuelta;
+
+                    indexEfectivo++;
+                }
+                else if (tipo == "TJ")
+                {
+                    tarjeta = Convert.ToDecimal(fila.Cells[3].Value);
+                    totalAplicadoBD = tarjeta;
+                    tarjetaNombre = origen;
+                }
+                else if (tipo == "TR")
+                {
+                    transferencia = Convert.ToDecimal(fila.Cells[3].Value);
+                    totalAplicadoBD = transferencia;
+                    banco = origen;
+                }
+
+                SqlCommand cmd = new SqlCommand(@"
+                INSERT INTO DetallePago (IdPedido, TipoDetalle, Efectivo, Devuelta, Tarjeta, TarjetaNombre, Transferencia, Banco, Total, Estado, Referencia)
+                VALUES (@IdPedido, @TipoDetalle, @Efectivo, @Devuelta, @Tarjeta, @TarjetaNombre, @Transferencia, @Banco, @Total, @Estado, @Referencia)",
+                conexion, trans);
+
+                cmd.Parameters.AddWithValue("@IdPedido", PedidoID);
+                cmd.Parameters.AddWithValue("@TipoDetalle", tipoSQL);
+                cmd.Parameters.AddWithValue("@Efectivo", efectivoDado);
+                cmd.Parameters.AddWithValue("@Devuelta", devuelta);
+                cmd.Parameters.AddWithValue("@Tarjeta", tarjeta);
+                cmd.Parameters.AddWithValue("@TarjetaNombre", string.IsNullOrWhiteSpace(tarjetaNombre) ? DBNull.Value : (object)tarjetaNombre);
+                cmd.Parameters.AddWithValue("@Transferencia", transferencia);
+                cmd.Parameters.AddWithValue("@Banco", string.IsNullOrWhiteSpace(banco) ? DBNull.Value : (object)banco);
+
+                cmd.Parameters.AddWithValue("@Total", totalAplicadoBD);
+
+                cmd.Parameters.AddWithValue("@Estado", 1);
+                cmd.Parameters.AddWithValue("@Referencia", referencia);
+
+                cmd.ExecuteNonQuery();
+            }
         }
 
         private void FacturarPedido()
@@ -723,23 +926,11 @@ namespace Proyecto_restaurante
                         return;
                     }
 
-                    string queryMesa = "SELECT IdMesa FROM Pedido WHERE IdPedido = @id";
-                    SqlCommand cmdMesa = new SqlCommand(queryMesa, conexion, trans);
-                    cmdMesa.Parameters.AddWithValue("@id", PedidoID);
-
-                    int idMesa = Convert.ToInt32(cmdMesa.ExecuteScalar());
-
                     SqlCommand cmdFacturar = new SqlCommand(
                         "UPDATE Pedido SET Estado='Facturado' WHERE IdPedido=@id",
                         conexion, trans);
                     cmdFacturar.Parameters.AddWithValue("@id", PedidoID);
                     cmdFacturar.ExecuteNonQuery();
-
-                    SqlCommand cmdLiberar = new SqlCommand(
-                        "UPDATE Mesa SET Ocupado=0 WHERE IdMesa=@mesa",
-                        conexion, trans);
-                    cmdLiberar.Parameters.AddWithValue("@mesa", idMesa);
-                    cmdLiberar.ExecuteNonQuery();
 
                     SqlCommand cmdLiberarComanda = new SqlCommand(
                         "UPDATE Comanda SET Estado='Entregado' WHERE IdPedido=@id",
@@ -762,104 +953,6 @@ namespace Proyecto_restaurante
             }
         }
 
-        private void RegistrarPago(SqlConnection conexion, SqlTransaction trans)
-        {
-            try
-            {
-                string sql = @"
-                INSERT INTO DetallePago
-                (IdPedido, TipoDetalle, Efectivo, Devuelta, Tarjeta, TarjetaNombre, Transferencia, Banco, Total, Estado, Referencia)
-                VALUES
-                (@IdPedido, @TipoDetalle, @Efectivo, @Devuelta, @Tarjeta, @TarjetaNombre, @Transferencia, @Banco, @Total, @Estado, @Referencia)";
-
-                SqlCommand cmd = new SqlCommand(sql, conexion, trans);
-                cmd.Parameters.AddWithValue("@IdPedido", PedidoID);
-                cmd.Parameters.AddWithValue("@Total", TotalPedido);
-                cmd.Parameters.AddWithValue("@Estado", 1);
-
-                decimal devuelta = 0;
-
-                if (TotalAplicado >= TotalPedido)
-                {
-                    devuelta = TotalAplicado - TotalPedido;
-                }
-                else
-                {
-                    devuelta = 0;
-                }
-
-                if (TipoPago == 1)
-                {
-                    decimal monto = 0;
-                    foreach (DataGridViewRow fila in efectivodt.Rows)
-                        if (!fila.IsNewRow)
-                            monto += Convert.ToDecimal(fila.Cells["Efectivo"].Value);
-
-                    cmd.Parameters.AddWithValue("@TipoDetalle", "Efectivo");
-                    cmd.Parameters.AddWithValue("@Efectivo", monto);
-                    cmd.Parameters.AddWithValue("@Devuelta", devuelta);
-                    cmd.Parameters.AddWithValue("@Tarjeta", 0);
-                    cmd.Parameters.AddWithValue("@TarjetaNombre", DBNull.Value);
-                    cmd.Parameters.AddWithValue("@Transferencia", 0);
-                    cmd.Parameters.AddWithValue("@Banco", DBNull.Value);
-                    cmd.Parameters.AddWithValue("@Referencia", DBNull.Value);
-
-                }
-                else if (TipoPago == 2)
-                {
-                    string referencia = "";
-                    string tarjetaNombre = "";
-                    decimal monto = 0;
-
-                    foreach (DataGridViewRow fila in tarjetadt.Rows)
-                    {
-                        if (fila.IsNewRow) continue;
-                        referencia = fila.Cells["Referencia"].Value.ToString();
-                        monto += Convert.ToDecimal(fila.Cells["Tarjeta"].Value);
-                        tarjetaNombre = fila.Cells["TarjetaNombre"].Value.ToString();
-                    }
-
-                    cmd.Parameters.AddWithValue("@TipoDetalle", "Tarjeta");
-                    cmd.Parameters.AddWithValue("@Efectivo", 0);
-                    cmd.Parameters.AddWithValue("@Devuelta", 0);
-                    cmd.Parameters.AddWithValue("@Tarjeta", monto);
-                    cmd.Parameters.AddWithValue("@TarjetaNombre", tarjetaNombre);
-                    cmd.Parameters.AddWithValue("@Transferencia", 0);
-                    cmd.Parameters.AddWithValue("@Banco", DBNull.Value);
-                    cmd.Parameters.AddWithValue("@Referencia", referencia);
-                }
-
-                else if (TipoPago == 3)
-                {
-                    string referencia = "";
-                    string banco = "";
-                    decimal monto = 0;
-
-                    foreach (DataGridViewRow fila in transferenciadt.Rows)
-                    {
-                        if (fila.IsNewRow) continue;
-                        referencia = fila.Cells["Referencia"].Value.ToString();
-                        monto += Convert.ToDecimal(fila.Cells["Transferencia"].Value);
-                        banco = fila.Cells["Banco"].Value.ToString();
-                    }
-
-                    cmd.Parameters.AddWithValue("@TipoDetalle", "Transferencia");
-                    cmd.Parameters.AddWithValue("@Efectivo", 0);
-                    cmd.Parameters.AddWithValue("@Devuelta", 0);
-                    cmd.Parameters.AddWithValue("@Tarjeta", 0);
-                    cmd.Parameters.AddWithValue("@TarjetaNombre", DBNull.Value);
-                    cmd.Parameters.AddWithValue("@Transferencia", monto);
-                    cmd.Parameters.AddWithValue("@Banco", banco);
-                    cmd.Parameters.AddWithValue("@Referencia", referencia);
-                }
-
-                cmd.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error registrando pago: " + ex.Message);
-            }
-        }
 
         private void RebajarInventario(SqlConnection conexion, SqlTransaction trans, int idPedido)
         {
@@ -992,5 +1085,316 @@ namespace Proyecto_restaurante
                 }
             }
         }
+
+        private void pagarefectivo_Click(object sender, EventArgs e)
+        {
+            detallepagopanel.Visible = false;
+            detallepagopanel.Location = new Point(1617, 6);
+
+            FacturarPedido();
+            MostrarDevuelta();
+
+            devueltapanel.Visible = true;
+            devueltapanel.Location = new Point(466, 0);
+        }
+
+        private void volverdetalle_Click(object sender, EventArgs e)
+        {
+            detallepanelcompleto.Visible = false;
+            detallepanelcompleto.Location = new Point(1617, 6);
+            efectivotxt.Clear();
+            tarjetaref.Clear();
+            bancoref.Clear();
+        }
+
+        private void eliminarDetalle_Click(object sender, EventArgs e)
+        {
+            if (detallePagoDT.Rows.Count == 0)
+            {
+                MessageBox.Show("No hay detalles para eliminar.");
+                return;
+            }
+
+            foreach (DataGridViewRow fila in detallePagoDT.SelectedRows)
+            {
+                if (!fila.IsNewRow)
+                    detallePagoDT.Rows.Remove(fila);
+            }
+
+            RecalcularTotalAplicado();
+            RecalcularTotalesPago();
+        }
+
+        private void finalizarbtn_Click(object sender, EventArgs e)
+        {
+            volverdetalle_Click(sender, e);
+            detallepagopanel.Visible = true;
+            detallepagopanel.Location = new Point(476, 0);
+
+            devueltapanel.Visible = false;
+            devueltapanel.Location = new Point(0, 0);
+            Delivery_Load(sender, e);
+        }
+
+        private void tipoComp_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Comprobantes();
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedIndex == 1)
+            {
+                CargarComanda();
+            }
+
+            buscar.Focus();
+            buscar.PerformClick();
+        }
+
+        private void recargarbtn_Click(object sender, EventArgs e)
+        {
+            CargarComanda();
+        }
+
+        private void CargarComanda()
+        {
+            flowComanda.Controls.Clear();
+
+            string conexionString = ConexionBD.ConexionSQL();
+
+            using (SqlConnection conexion = new SqlConnection(conexionString))
+            {
+                conexion.Open();
+
+                string query = @"
+                SELECT CM.IdPedido, CM.Cuenta, CM.IdProducto, PV.Nombre, CM.Cantidad
+                FROM Comanda CM
+                INNER JOIN ProductoVenta PV ON CM.IdProducto = PV.IdProducto
+                WHERE CM.Estado = 'Cocina'
+                ORDER BY CM.IdPedido, CM.Cuenta";
+
+                SqlCommand cmd = new SqlCommand(query, conexion);
+
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        int idPedido = Convert.ToInt32(dr["IdPedido"]);
+                        int idProducto = Convert.ToInt32(dr["IdProducto"]);
+                        int cuenta = Convert.ToInt32(dr["Cuenta"]);
+                        string nombre = dr["Nombre"].ToString();
+                        int cantidad = Convert.ToInt32(dr["Cantidad"]);
+
+                        Image img = CargarImagen(Convert.ToInt32(dr["IdProducto"]));
+
+                        Panel card = BotonComanda(idPedido, cuenta, nombre, cantidad, img, idProducto);
+
+                        flowComanda.Controls.Add(card);
+                    }
+                }
+            }
+        }
+
+        private void BotonComanda_Click(object sender, EventArgs e)
+        {
+            if (!modoEntregar)
+                return;
+
+            Panel card = ObtenerPanelPadre(sender);
+            if (card == null) return;
+
+            if (ordenesSeleccionadas.Contains(card))
+            {
+                ordenesSeleccionadas.Remove(card);
+                card.BackColor = Color.White;
+            }
+            else
+            {
+                ordenesSeleccionadas.Add(card);
+                card.BackColor = Color.LightBlue;
+            }
+        }
+
+        private Panel ObtenerPanelPadre(object sender)
+        {
+            if (sender is Panel p) return p;
+            if (sender is Control c && c.Parent is Panel p2) return p2;
+            return null;
+        }
+
+
+        private void LimpiarSeleccionVisual()
+        {
+            foreach (Control ctrl in flowComanda.Controls)
+            {
+                if (ctrl is Panel panel)
+                    panel.BackColor = Color.White;
+            }
+        }
+
+        private Image CargarImagen(int idProducto)
+        {
+            string basePath = @"C:\SistemaArchivos\Productos\";
+            string[] extensiones = { ".jpg", ".png", ".jpeg" };
+
+            foreach (string ext in extensiones)
+            {
+                string ruta = Path.Combine(basePath, idProducto + ext);
+                if (File.Exists(ruta))
+                {
+                    try
+                    {
+                        using (var temp = new Bitmap(ruta))
+                        {
+                            return new Bitmap(temp);
+                        }
+                    }
+                    catch { }
+                }
+            }
+
+            return null;
+        }
+
+        private void SiEntrega_Click(object sender, EventArgs e)
+        {
+            if (ordenesSeleccionadas.Count == 0)
+            {
+                MessageBox.Show("No hay órdenes seleccionadas.");
+                return;
+            }
+
+            using (SqlConnection cn = new SqlConnection(conexionString))
+            {
+                cn.Open();
+
+                foreach (var btn in ordenesSeleccionadas)
+                {
+                    dynamic info = btn.Tag;
+
+                    SqlCommand cmd = new SqlCommand(
+                    @"UPDATE Comanda 
+                    SET Estado = 'Entregado'
+                    WHERE IdPedido = @p AND Cuenta = @c AND IdProducto = @prod",
+                    cn);
+
+                    cmd.Parameters.AddWithValue("@p", info.Pedido);
+                    cmd.Parameters.AddWithValue("@c", info.Cuenta);
+                    cmd.Parameters.AddWithValue("@prod", info.IdProducto);
+
+                    cmd.ExecuteNonQuery();
+                }
+
+                EntregarOrden.BackColor = Color.FromArgb(224, 224, 224);
+            }
+
+            MessageBox.Show("Órdenes marcadas como entregadas.");
+            SiEntrega.Visible = false;
+            NoEntrega.Visible = false;
+            CargarComanda();
+        }
+
+        private void NoEntrega_Click(object sender, EventArgs e)
+        {
+            modoEntregar = false;
+            ordenesSeleccionadas.Clear();
+            LimpiarSeleccionVisual();
+            SiEntrega.Visible = false;
+            NoEntrega.Visible = false;
+
+            EntregarOrden.BackColor = Color.FromArgb(224, 224, 224);
+        }
+
+        private Panel BotonComanda(int idPedido, int cuenta, string nombre, int cantidad, Image imagen, int idProducto)
+        {
+            Panel card = new Panel();
+            card.Width = 200;
+            card.Height = 260;
+            card.BackColor = Color.White;
+            card.BorderStyle = BorderStyle.FixedSingle;
+            card.Margin = new Padding(15);
+            card.Cursor = Cursors.Hand;
+
+            card.Tag = new
+            {
+                Pedido = idPedido,
+                Cuenta = cuenta,
+                Producto = nombre,
+                Cantidad = cantidad,
+                IdProducto = idProducto
+            };
+
+            PictureBox pic = new PictureBox();
+            pic.Width = 190;
+            pic.Height = 120;
+            pic.Top = 5;
+            pic.Left = 5;
+            pic.SizeMode = PictureBoxSizeMode.Zoom;
+            pic.Image = imagen ?? Properties.Resources.paisaje;
+
+            Label lbl = new Label();
+            lbl.Width = 190;
+            lbl.Height = 120;
+            lbl.Left = 5;
+            lbl.Top = 130;
+            lbl.TextAlign = ContentAlignment.TopLeft;
+            lbl.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+
+            lbl.Text =
+                $"ORDEN: {idPedido}\n" +
+                $"CUENTA: {cuenta}\n\n" +
+                $"{nombre.ToUpper()}\n" +
+                $"CANTIDAD: {cantidad}";
+
+            card.Click += BotonComanda_Click;
+            pic.Click += BotonComanda_Click;
+            lbl.Click += BotonComanda_Click;
+
+            card.Controls.Add(pic);
+            card.Controls.Add(lbl);
+
+            return card;
+        }
+
+        private void EntregarOrden_Click(object sender, EventArgs e)
+        {
+            modoEntregar = true;
+            EntregarOrden.BackColor = Color.Gold;
+            SiEntrega.Visible = true;
+            NoEntrega.Visible = true;
+        }
+
+        private void detalleorden_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            DataGridViewRow row = detalleorden.Rows[e.RowIndex];
+
+            txtcodigoproducto.Text = row.Cells["codigoProducto"].Value.ToString();
+            txtnombreproducto.Text = row.Cells["nombreProducto"].Value.ToString();
+
+            txtprecioproducto.Text = Convert.ToDecimal(row.Cells["precio"].Value).ToString("N2");
+            txtiva.Text = Convert.ToDecimal(row.Cells["ITBIS"].Value).ToString("N2");
+
+            numCantidad.Value = Convert.ToDecimal(row.Cells["cantidad"].Value);
+
+            detalleorden.Rows.RemoveAt(e.RowIndex);
+
+            RecalcularTotales();
+
+            bajarproductobtn.Enabled = true;
+        }
+
+        private void numCantidad_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                bajarproductobtn_Click(sender, e);
+                e.Handled = true;
+            }
+        }
+
+        
     }
 }
