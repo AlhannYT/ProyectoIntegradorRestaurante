@@ -810,7 +810,6 @@ namespace Proyecto_restaurante
             }
         }
 
-
         private void buscarArchivo_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();

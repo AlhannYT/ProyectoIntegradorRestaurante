@@ -62,15 +62,15 @@
             nombreprodreceta = new TextBox();
             recetaingredientes = new DataGridView();
             ingredientesconsulta = new DataGridView();
+            costoIng = new TextBox();
             idprodreceta = new TextBox();
             unimedidareceta = new TextBox();
             agregarbtn = new Button();
-            categoriapanel = new Panel();
-            idconsultatxt = new TextBox();
-            categoriaconsultatxt = new TextBox();
-            button4 = new Button();
-            label9 = new Label();
-            categoriaconsulta = new DataGridView();
+            panel9 = new Panel();
+            panel8 = new Panel();
+            autoCalcular = new CheckBox();
+            panel7 = new Panel();
+            panel5 = new Panel();
             ultimoID = new TextBox();
             label18 = new Label();
             idcategoriatxt = new TextBox();
@@ -103,6 +103,12 @@
             buscarcateg = new Button();
             unidadmedida = new ComboBox();
             ITBIS = new ComboBox();
+            categoriapanel = new Panel();
+            idconsultatxt = new TextBox();
+            categoriaconsultatxt = new TextBox();
+            button4 = new Button();
+            label9 = new Label();
+            categoriaconsulta = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)tabladatos).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)imagenproducto).BeginInit();
@@ -114,11 +120,11 @@
             ((System.ComponentModel.ISupportInitialize)numCantidad).BeginInit();
             ((System.ComponentModel.ISupportInitialize)recetaingredientes).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ingredientesconsulta).BeginInit();
-            categoriapanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)categoriaconsulta).BeginInit();
             imagenpanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)imagenprod).BeginInit();
             panel4.SuspendLayout();
+            categoriapanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)categoriaconsulta).BeginInit();
             SuspendLayout();
             // 
             // label11
@@ -387,7 +393,11 @@
             creacion.Controls.Add(panel6);
             creacion.Controls.Add(panel3);
             creacion.Controls.Add(seleccionpanel);
-            creacion.Controls.Add(categoriapanel);
+            creacion.Controls.Add(panel9);
+            creacion.Controls.Add(panel8);
+            creacion.Controls.Add(autoCalcular);
+            creacion.Controls.Add(panel7);
+            creacion.Controls.Add(panel5);
             creacion.Controls.Add(ultimoID);
             creacion.Controls.Add(label18);
             creacion.Controls.Add(idcategoriatxt);
@@ -416,12 +426,14 @@
             creacion.Controls.Add(buscarcateg);
             creacion.Controls.Add(unidadmedida);
             creacion.Controls.Add(ITBIS);
+            creacion.Controls.Add(categoriapanel);
             creacion.Location = new Point(4, 30);
             creacion.Name = "creacion";
             creacion.Padding = new Padding(3);
             creacion.Size = new Size(839, 656);
             creacion.TabIndex = 1;
             creacion.Text = "Creación";
+            creacion.ToolTipText = "Cálculo automatico";
             // 
             // panel6
             // 
@@ -449,6 +461,7 @@
             seleccionpanel.Controls.Add(nombreprodreceta);
             seleccionpanel.Controls.Add(recetaingredientes);
             seleccionpanel.Controls.Add(ingredientesconsulta);
+            seleccionpanel.Controls.Add(costoIng);
             seleccionpanel.Controls.Add(idprodreceta);
             seleccionpanel.Controls.Add(unimedidareceta);
             seleccionpanel.Controls.Add(agregarbtn);
@@ -508,10 +521,10 @@
             // numCantidad
             // 
             numCantidad.DecimalPlaces = 2;
-            numCantidad.Location = new Point(686, 37);
+            numCantidad.Location = new Point(739, 37);
             numCantidad.Minimum = new decimal(new int[] { 1, 0, 0, 131072 });
             numCantidad.Name = "numCantidad";
-            numCantidad.Size = new Size(108, 29);
+            numCantidad.Size = new Size(57, 29);
             numCantidad.TabIndex = 80;
             numCantidad.Value = new decimal(new int[] { 1, 0, 0, 0 });
             numCantidad.KeyPress += numCantidad_KeyPress;
@@ -531,11 +544,12 @@
             // 
             // nombreprodreceta
             // 
+            nombreprodreceta.CharacterCasing = CharacterCasing.Upper;
             nombreprodreceta.Enabled = false;
-            nombreprodreceta.Location = new Point(413, 37);
+            nombreprodreceta.Location = new Point(400, 37);
             nombreprodreceta.Name = "nombreprodreceta";
             nombreprodreceta.PlaceholderText = "Ingrediente";
-            nombreprodreceta.Size = new Size(182, 29);
+            nombreprodreceta.Size = new Size(187, 29);
             nombreprodreceta.TabIndex = 75;
             // 
             // recetaingredientes
@@ -572,22 +586,34 @@
             ingredientesconsulta.TabIndex = 74;
             ingredientesconsulta.CellClick += ingredientesconsulta_CellClick;
             // 
+            // costoIng
+            // 
+            costoIng.CharacterCasing = CharacterCasing.Upper;
+            costoIng.Enabled = false;
+            costoIng.Location = new Point(674, 37);
+            costoIng.Name = "costoIng";
+            costoIng.PlaceholderText = "Costo";
+            costoIng.Size = new Size(61, 29);
+            costoIng.TabIndex = 79;
+            // 
             // idprodreceta
             // 
+            idprodreceta.CharacterCasing = CharacterCasing.Upper;
             idprodreceta.Enabled = false;
             idprodreceta.Location = new Point(351, 37);
             idprodreceta.Name = "idprodreceta";
             idprodreceta.PlaceholderText = "ID";
-            idprodreceta.Size = new Size(58, 29);
+            idprodreceta.Size = new Size(45, 29);
             idprodreceta.TabIndex = 79;
             // 
             // unimedidareceta
             // 
+            unimedidareceta.CharacterCasing = CharacterCasing.Upper;
             unimedidareceta.Enabled = false;
-            unimedidareceta.Location = new Point(600, 37);
+            unimedidareceta.Location = new Point(591, 37);
             unimedidareceta.Name = "unimedidareceta";
             unimedidareceta.PlaceholderText = "Medida";
-            unimedidareceta.Size = new Size(81, 29);
+            unimedidareceta.Size = new Size(79, 29);
             unimedidareceta.TabIndex = 79;
             // 
             // agregarbtn
@@ -600,77 +626,53 @@
             agregarbtn.UseVisualStyleBackColor = true;
             agregarbtn.Click += agregarbtn_Click;
             // 
-            // categoriapanel
+            // panel9
             // 
-            categoriapanel.BackColor = Color.FromArgb(64, 64, 64);
-            categoriapanel.Controls.Add(idconsultatxt);
-            categoriapanel.Controls.Add(categoriaconsultatxt);
-            categoriapanel.Controls.Add(button4);
-            categoriapanel.Controls.Add(label9);
-            categoriapanel.Controls.Add(categoriaconsulta);
-            categoriapanel.Location = new Point(227, 245);
-            categoriapanel.Name = "categoriapanel";
-            categoriapanel.Size = new Size(204, 242);
-            categoriapanel.TabIndex = 81;
-            categoriapanel.Visible = false;
+            panel9.BackColor = Color.FromArgb(64, 64, 64);
+            panel9.Location = new Point(196, 313);
+            panel9.Name = "panel9";
+            panel9.Size = new Size(15, 9);
+            panel9.TabIndex = 87;
             // 
-            // idconsultatxt
+            // panel8
             // 
-            idconsultatxt.Enabled = false;
-            idconsultatxt.Location = new Point(4, 28);
-            idconsultatxt.Name = "idconsultatxt";
-            idconsultatxt.Size = new Size(36, 29);
-            idconsultatxt.TabIndex = 58;
-            idconsultatxt.TextChanged += txtnombre_prod_TextChanged;
+            panel8.BackColor = Color.FromArgb(64, 64, 64);
+            panel8.Location = new Point(194, 280);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(10, 74);
+            panel8.TabIndex = 87;
             // 
-            // categoriaconsultatxt
+            // autoCalcular
             // 
-            categoriaconsultatxt.Enabled = false;
-            categoriaconsultatxt.Location = new Point(43, 28);
-            categoriaconsultatxt.Name = "categoriaconsultatxt";
-            categoriaconsultatxt.Size = new Size(125, 29);
-            categoriaconsultatxt.TabIndex = 58;
-            categoriaconsultatxt.TextChanged += txtnombre_prod_TextChanged;
+            autoCalcular.AutoSize = true;
+            autoCalcular.Checked = true;
+            autoCalcular.CheckState = CheckState.Checked;
+            autoCalcular.Font = new Font("Segoe UI", 14F);
+            autoCalcular.Image = Properties.Resources.calculadora;
+            autoCalcular.ImageAlign = ContentAlignment.MiddleRight;
+            autoCalcular.Location = new Point(213, 303);
+            autoCalcular.Name = "autoCalcular";
+            autoCalcular.Size = new Size(36, 29);
+            autoCalcular.TabIndex = 86;
+            autoCalcular.Text = " ";
+            autoCalcular.UseVisualStyleBackColor = true;
+            autoCalcular.CheckedChanged += autoCalcular_CheckedChanged;
             // 
-            // button4
+            // panel7
             // 
-            button4.ForeColor = Color.Black;
-            button4.Image = Properties.Resources.angulo_hacia_izquierda;
-            button4.Location = new Point(171, 28);
-            button4.Name = "button4";
-            button4.Size = new Size(28, 29);
-            button4.TabIndex = 60;
-            button4.UseVisualStyleBackColor = true;
-            button4.Click += button4_Click;
+            panel7.BackColor = Color.FromArgb(64, 64, 64);
+            panel7.Location = new Point(181, 345);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(15, 9);
+            panel7.TabIndex = 87;
             // 
-            // label9
+            // panel5
             // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label9.ForeColor = Color.White;
-            label9.Location = new Point(5, 2);
-            label9.Name = "label9";
-            label9.Size = new Size(174, 21);
-            label9.TabIndex = 50;
-            label9.Text = "Seleccionar categoria";
-            // 
-            // categoriaconsulta
-            // 
-            categoriaconsulta.AllowUserToAddRows = false;
-            categoriaconsulta.AllowUserToDeleteRows = false;
-            categoriaconsulta.AllowUserToResizeRows = false;
-            categoriaconsulta.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            categoriaconsulta.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            categoriaconsulta.Location = new Point(4, 63);
-            categoriaconsulta.MultiSelect = false;
-            categoriaconsulta.Name = "categoriaconsulta";
-            categoriaconsulta.ReadOnly = true;
-            categoriaconsulta.RowHeadersVisible = false;
-            categoriaconsulta.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            categoriaconsulta.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            categoriaconsulta.Size = new Size(195, 171);
-            categoriaconsulta.TabIndex = 74;
-            categoriaconsulta.CellClick += categoriaconsulta_CellClick;
+            panel5.BackColor = Color.FromArgb(64, 64, 64);
+            panel5.Location = new Point(181, 280);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(15, 9);
+            panel5.TabIndex = 87;
             // 
             // ultimoID
             // 
@@ -693,12 +695,12 @@
             // 
             // idcategoriatxt
             // 
+            idcategoriatxt.CharacterCasing = CharacterCasing.Upper;
             idcategoriatxt.Enabled = false;
             idcategoriatxt.Location = new Point(234, 140);
             idcategoriatxt.Name = "idcategoriatxt";
             idcategoriatxt.Size = new Size(45, 29);
             idcategoriatxt.TabIndex = 58;
-            idcategoriatxt.TextChanged += txtnombre_prod_TextChanged;
             // 
             // imagenpanel
             // 
@@ -808,6 +810,7 @@
             // 
             // txtprecio_compra
             // 
+            txtprecio_compra.CharacterCasing = CharacterCasing.Upper;
             txtprecio_compra.Enabled = false;
             txtprecio_compra.Location = new Point(16, 270);
             txtprecio_compra.Name = "txtprecio_compra";
@@ -816,24 +819,25 @@
             // 
             // categoriatxt
             // 
+            categoriatxt.CharacterCasing = CharacterCasing.Upper;
             categoriatxt.Enabled = false;
             categoriatxt.Location = new Point(281, 140);
             categoriatxt.Name = "categoriatxt";
             categoriatxt.Size = new Size(117, 29);
             categoriatxt.TabIndex = 58;
-            categoriatxt.TextChanged += txtnombre_prod_TextChanged;
             // 
             // txtnombre_prod
             // 
+            txtnombre_prod.CharacterCasing = CharacterCasing.Upper;
             txtnombre_prod.Enabled = false;
             txtnombre_prod.Location = new Point(16, 205);
             txtnombre_prod.Name = "txtnombre_prod";
             txtnombre_prod.Size = new Size(163, 29);
             txtnombre_prod.TabIndex = 58;
-            txtnombre_prod.TextChanged += txtnombre_prod_TextChanged;
             // 
             // txtcodigo_barras
             // 
+            txtcodigo_barras.CharacterCasing = CharacterCasing.Upper;
             txtcodigo_barras.Enabled = false;
             txtcodigo_barras.Location = new Point(16, 140);
             txtcodigo_barras.Name = "txtcodigo_barras";
@@ -842,6 +846,7 @@
             // 
             // txtprecio_venta
             // 
+            txtprecio_venta.CharacterCasing = CharacterCasing.Upper;
             txtprecio_venta.Enabled = false;
             txtprecio_venta.Location = new Point(16, 335);
             txtprecio_venta.Name = "txtprecio_venta";
@@ -1017,6 +1022,76 @@
             ITBIS.Size = new Size(70, 29);
             ITBIS.TabIndex = 64;
             // 
+            // categoriapanel
+            // 
+            categoriapanel.BackColor = Color.FromArgb(64, 64, 64);
+            categoriapanel.Controls.Add(idconsultatxt);
+            categoriapanel.Controls.Add(categoriaconsultatxt);
+            categoriapanel.Controls.Add(button4);
+            categoriapanel.Controls.Add(label9);
+            categoriapanel.Controls.Add(categoriaconsulta);
+            categoriapanel.Location = new Point(310, 243);
+            categoriapanel.Name = "categoriapanel";
+            categoriapanel.Size = new Size(204, 242);
+            categoriapanel.TabIndex = 81;
+            categoriapanel.Visible = false;
+            // 
+            // idconsultatxt
+            // 
+            idconsultatxt.Enabled = false;
+            idconsultatxt.Location = new Point(4, 28);
+            idconsultatxt.Name = "idconsultatxt";
+            idconsultatxt.Size = new Size(36, 29);
+            idconsultatxt.TabIndex = 58;
+            // 
+            // categoriaconsultatxt
+            // 
+            categoriaconsultatxt.Enabled = false;
+            categoriaconsultatxt.Location = new Point(43, 28);
+            categoriaconsultatxt.Name = "categoriaconsultatxt";
+            categoriaconsultatxt.Size = new Size(125, 29);
+            categoriaconsultatxt.TabIndex = 58;
+            // 
+            // button4
+            // 
+            button4.ForeColor = Color.Black;
+            button4.Image = Properties.Resources.angulo_hacia_izquierda;
+            button4.Location = new Point(171, 28);
+            button4.Name = "button4";
+            button4.Size = new Size(28, 29);
+            button4.TabIndex = 60;
+            button4.UseVisualStyleBackColor = true;
+            button4.Click += button4_Click;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label9.ForeColor = Color.White;
+            label9.Location = new Point(5, 2);
+            label9.Name = "label9";
+            label9.Size = new Size(174, 21);
+            label9.TabIndex = 50;
+            label9.Text = "Seleccionar categoria";
+            // 
+            // categoriaconsulta
+            // 
+            categoriaconsulta.AllowUserToAddRows = false;
+            categoriaconsulta.AllowUserToDeleteRows = false;
+            categoriaconsulta.AllowUserToResizeRows = false;
+            categoriaconsulta.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            categoriaconsulta.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            categoriaconsulta.Location = new Point(4, 63);
+            categoriaconsulta.MultiSelect = false;
+            categoriaconsulta.Name = "categoriaconsulta";
+            categoriaconsulta.ReadOnly = true;
+            categoriaconsulta.RowHeadersVisible = false;
+            categoriaconsulta.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            categoriaconsulta.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            categoriaconsulta.Size = new Size(195, 171);
+            categoriaconsulta.TabIndex = 74;
+            categoriaconsulta.CellClick += categoriaconsulta_CellClick;
+            // 
             // ConsProductos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1048,12 +1123,12 @@
             ((System.ComponentModel.ISupportInitialize)numCantidad).EndInit();
             ((System.ComponentModel.ISupportInitialize)recetaingredientes).EndInit();
             ((System.ComponentModel.ISupportInitialize)ingredientesconsulta).EndInit();
-            categoriapanel.ResumeLayout(false);
-            categoriapanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)categoriaconsulta).EndInit();
             imagenpanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)imagenprod).EndInit();
             panel4.ResumeLayout(false);
+            categoriapanel.ResumeLayout(false);
+            categoriapanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)categoriaconsulta).EndInit();
             ResumeLayout(false);
         }
 
@@ -1133,5 +1208,11 @@
         private Panel panel2;
         private TextBox idprodreceta;
         private Button button7;
+        private TextBox costoIng;
+        private CheckBox autoCalcular;
+        private Panel panel9;
+        private Panel panel8;
+        private Panel panel7;
+        private Panel panel5;
     }
 }

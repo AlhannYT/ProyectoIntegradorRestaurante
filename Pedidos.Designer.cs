@@ -307,7 +307,7 @@
             tabPage6.Controls.Add(panel6);
             tabPage6.Location = new Point(4, 30);
             tabPage6.Name = "tabPage6";
-            tabPage6.Size = new Size(804, 637);
+            tabPage6.Size = new Size(804, 836);
             tabPage6.TabIndex = 2;
             tabPage6.Text = "Mesas";
             // 
@@ -964,7 +964,7 @@
             tabPage1.Location = new Point(4, 30);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(804, 637);
+            tabPage1.Size = new Size(804, 836);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Ordenar";
             // 
@@ -1171,12 +1171,14 @@
             detalleorden.Location = new Point(4, 33);
             detalleorden.MultiSelect = false;
             detalleorden.Name = "detalleorden";
+            detalleorden.ReadOnly = true;
             detalleorden.RowHeadersVisible = false;
             detalleorden.RowHeadersWidth = 51;
             detalleorden.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             detalleorden.Size = new Size(784, 298);
             detalleorden.TabIndex = 5;
             detalleorden.CellBeginEdit += detalleorden_CellBeginEdit;
+            detalleorden.CellDoubleClick += detalleorden_CellDoubleClick;
             detalleorden.CellEndEdit += detalleorden_CellEndEdit;
             detalleorden.SelectionChanged += detalleorden_SelectionChanged;
             // 
@@ -1740,7 +1742,7 @@
             tabPage2.Location = new Point(4, 30);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(2319, 637);
+            tabPage2.Size = new Size(804, 637);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Facturas";
             // 

@@ -24,9 +24,14 @@ namespace Proyecto_restaurante
             this.UpdateStyles();
         }
 
+        string conexionString = ConexionBD.ConexionSQL();
+
+        private System.Windows.Forms.ToolTip toolTip1;
+
         private string CodigoProductoActual;
         private int idProducto = 0;
-        private int idCategoria = 0;
+        private int PorcGanancia = 0;
+        private int ingrediente = 0;
 
         private void tabladatos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -47,11 +52,12 @@ namespace Proyecto_restaurante
             }
         }
 
-        private int ingrediente = 0;
-
         private void ConsProductos_Load(object sender, EventArgs e)
         {
-            string conexionString = ConexionBD.ConexionSQL();
+            toolTip1 = new System.Windows.Forms.ToolTip();
+            toolTip1.SetToolTip(recargarbtn, "Recargar");
+            toolTip1.SetToolTip(autoCalcular, "Calcular Automaticamente");
+            toolTip1.SetToolTip(eliminarbtn, "Limpiar filtros");
 
             string consultaUltimoID = "SELECT ISNULL(MAX(IdProducto), 0) + 1 FROM ProductoVenta";
 
@@ -99,6 +105,12 @@ namespace Proyecto_restaurante
             {
                 imagenproducto.Image = Image.FromFile(rutaImagenProducto);
             }
+
+            CargarConfiguracion();
+
+            recetaingredientes.CellValueChanged += (s, e) => ActualizarPrecioVenta();
+            recetaingredientes.RowsRemoved += (s, e) => ActualizarPrecioVenta();
+            recetaingredientes.UserDeletedRow += (s, e) => ActualizarPrecioVenta();
         }
 
         private void CargarTiposProducto(string conexionString)
@@ -136,7 +148,6 @@ namespace Proyecto_restaurante
                 return;
 
             int idTipo = Convert.ToInt32(tipoproductocmbx.SelectedValue);
-            string conexionString = ConexionBD.ConexionSQL();
 
             using (SqlConnection conexion = new SqlConnection(conexionString))
             {
@@ -168,6 +179,8 @@ namespace Proyecto_restaurante
                 buscarcateg.Enabled = true;
                 unidadmedida.Enabled = true;
                 txtprecio_venta.Enabled = false;
+                autoCalcular.Checked = false;
+                autoCalcular.Enabled = false;
                 guardarbtn.Enabled = true;
                 limpiarbtn.Enabled = true;
 
@@ -187,6 +200,8 @@ namespace Proyecto_restaurante
                 ITBIS.Enabled = true;
                 buscarcateg.Enabled = true;
                 unidadmedida.Enabled = true;
+                autoCalcular.Checked = true;
+                autoCalcular.Enabled = true;
 
                 guardarbtn.Enabled = true;
                 limpiarbtn.Enabled = true;
@@ -200,6 +215,7 @@ namespace Proyecto_restaurante
                     SELECT
                         PV.IdProducto,
                         PV.Nombre,
+                        PV.PrecioCompra as Costo,
                         UM.Nombre as Medida
                     FROM ProductoVenta PV
                     INNER JOIN ProductoTipo PT
@@ -215,14 +231,18 @@ namespace Proyecto_restaurante
                     ingredientesconsulta.Columns["IdProducto"].HeaderText = "ID";
                     ingredientesconsulta.Columns["Nombre"].HeaderText = "Nombre";
                     ingredientesconsulta.Columns["Medida"].HeaderText = "Medida";
+                    ingredientesconsulta.Columns["Costo"].HeaderText = "Costo";
 
                     recetaingredientes.Columns.Clear();
 
                     recetaingredientes.Columns.Add("ID", "ID");
                     recetaingredientes.Columns.Add("Ingrediente", "Ingrediente");
                     recetaingredientes.Columns.Add("Medida", "Medida");
+                    recetaingredientes.Columns.Add("Costo", "Costo");
                     recetaingredientes.Columns.Add("Cantidad", "Cantidad");
                 }
+
+                autoCalcular_CheckedChanged(sender, e);
             }
         }
 
@@ -230,6 +250,32 @@ namespace Proyecto_restaurante
         {
             tabControl1.SelectedIndex = 1;
             tipoproductocmbx.Focus();
+        }
+
+        private void CargarConfiguracion()
+        {
+            using (SqlConnection conexion = new SqlConnection(conexionString))
+            {
+                conexion.Open();
+
+                string query = @"
+                SELECT TOP 1 PorcentajeGanancia 
+                FROM ConfiguracionSistema";
+
+                using (SqlCommand cmd = new SqlCommand(query, conexion))
+                {
+                    object result = cmd.ExecuteScalar();
+
+                    if (result != null && result != DBNull.Value)
+                    {
+                        PorcGanancia = Convert.ToInt32(result);
+                    }
+                    else
+                    {
+                        PorcGanancia = 0;
+                    }
+                }
+            }
         }
 
         private void recargarbtn_Click(object sender, EventArgs e)
@@ -296,8 +342,6 @@ namespace Proyecto_restaurante
                     return;
                 }
             }
-
-            string conexionString = ConexionBD.ConexionSQL();
 
             using (SqlConnection conexion = new SqlConnection(conexionString))
             {
@@ -428,13 +472,13 @@ namespace Proyecto_restaurante
         private void limpiarbtn_Click(object sender, EventArgs e)
         {
             imagenproducto.Image = Proyecto_restaurante.Properties.Resources.paisaje;
-            categoriaconsultatxt.Text = "";
+            categoriaconsultatxt.Clear();
 
-            txtcodigo_barras.Text = "";
-            txtnombre_prod.Text = "";
-            txtprecio_compra.Text = "";
+            txtcodigo_barras.Clear();
+            txtnombre_prod.Clear();
+            txtprecio_compra.Clear();
             codigobarrarandombtn.Text = "";
-            idcategoriatxt.Text = "";
+            idcategoriatxt.Clear();
 
             tipoproductocmbx.SelectedIndex = -1;
             ITBIS.SelectedIndex = -1;
@@ -443,6 +487,7 @@ namespace Proyecto_restaurante
             estadochk.Checked = true;
 
             CodigoProductoActual = string.Empty;
+
             idProducto = 0;
         }
 
@@ -472,18 +517,8 @@ namespace Proyecto_restaurante
 
         private void button1_Click(object sender, EventArgs e)
         {
-
             ITBIS.Items.Clear();
             ConsProductos_Load(sender, e);
-        }
-
-        private void txtnombre_prod_TextChanged(object sender, EventArgs e)
-        {
-            int posicion = txtnombre_prod.SelectionStart;
-
-            txtnombre_prod.Text = txtnombre_prod.Text.ToUpper();
-
-            txtnombre_prod.SelectionStart = posicion;
         }
 
         private void seleccionimagenbtn_Click(object sender, EventArgs e)
@@ -534,10 +569,8 @@ namespace Proyecto_restaurante
 
         private void buscarcateg_Click(object sender, EventArgs e)
         {
-
             if (buscarcatedt == 1)
             {
-                string conexionString = ConexionBD.ConexionSQL();
                 string categoria = "select IdCategoria, Nombre from CategoriaProducto where Activo = 1";
 
                 SqlDataAdapter adaptador = new SqlDataAdapter(categoria, conexionString);
@@ -552,19 +585,20 @@ namespace Proyecto_restaurante
                 categoriaconsulta.Columns["Nombre"].HeaderText = "Nombre";
 
                 buscarcateg.Image = Proyecto_restaurante.Properties.Resources.cancelar1;
-                categoriapanel.Visible = true;
-                categoriapanel.BringToFront();
                 categoriapanel.Location = new Point(432, 112);
+                categoriapanel.BringToFront();
+                categoriapanel.Visible = true;
                 imagenpanel.Visible = false;
                 buscarcatedt = 0;
             }
             else
             {
-                buscarcateg.Image = Proyecto_restaurante.Properties.Resources.busqueda1;
-                categoriapanel.Visible = false;
-                imagenpanel.BringToFront();
-                categoriapanel.Location = new Point(227, 245);
                 imagenpanel.Visible = true;
+                imagenpanel.BringToFront();
+                buscarcateg.Image = Proyecto_restaurante.Properties.Resources.busqueda1;
+                categoriapanel.Visible = false;                
+                categoriapanel.Location = new Point(227, 245);
+                
                 buscarcatedt = 1;
             }
         }
@@ -596,7 +630,7 @@ namespace Proyecto_restaurante
 
         private void filtroingredientes_CheckedChanged(object sender, EventArgs e)
         {
-            if( filtroingredientes.Checked == true)
+            if (filtroingredientes.Checked == true)
             {
                 filtrotodos.Checked = false;
                 filtroplatos.Checked = false;
@@ -613,31 +647,35 @@ namespace Proyecto_restaurante
         {
             idprodreceta.Text = ingredientesconsulta.SelectedCells[0].Value.ToString();
             nombreprodreceta.Text = ingredientesconsulta.SelectedCells[1].Value.ToString();
-            unimedidareceta.Text = ingredientesconsulta.SelectedCells[2].Value.ToString();
+            costoIng.Text = ingredientesconsulta.SelectedCells[2].Value.ToString();
+            unimedidareceta.Text = ingredientesconsulta.SelectedCells[3].Value.ToString();
 
             numCantidad.Focus();
         }
 
         private void agregarbtn_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(idprodreceta.Text) ||
-            string.IsNullOrWhiteSpace(nombreprodreceta.Text))
+            if (string.IsNullOrWhiteSpace(idprodreceta.Text))
             {
                 MessageBox.Show("Seleccione el ingrediente para agregar.");
                 return;
             }
 
-            string id = idprodreceta.Text.Trim();
-            string ingrediente = nombreprodreceta.Text.Trim();
-            string medida = unimedidareceta.Text.Trim();
-            decimal cantidad = numCantidad.Value;
-
-            recetaingredientes.Rows.Add(id, ingrediente, medida, cantidad);
+            recetaingredientes.Rows.Add(
+                idprodreceta.Text,
+                nombreprodreceta.Text,
+                unimedidareceta.Text,
+                costoIng.Text,
+                numCantidad.Value
+            );
 
             idprodreceta.Clear();
             nombreprodreceta.Clear();
             unimedidareceta.Clear();
+            costoIng.Clear();
             numCantidad.Value = 1;
+
+            ActualizarPrecioVenta();
         }
 
         private void numCantidad_KeyPress(object sender, KeyPressEventArgs e)
@@ -647,6 +685,90 @@ namespace Proyecto_restaurante
                 agregarbtn_Click(sender, e);
                 e.Handled = true;
             }
+        }
+
+        private void autoCalcular_CheckedChanged(object sender, EventArgs e)
+        {
+            bool auto = autoCalcular.Checked;
+
+            txtprecio_compra.Enabled = !auto;
+            txtprecio_venta.Enabled = !auto;
+
+            if (auto)
+            {
+                ActualizarPrecioVenta();
+            }
+            else
+            {
+                txtprecio_venta.Clear();
+                txtprecio_compra.Clear();
+                txtprecio_venta.Focus();
+            }
+        }
+
+
+        private decimal CalcularCostoPlato()
+        {
+            decimal costoTotal = 0m;
+
+            using (SqlConnection cn = new SqlConnection(conexionString))
+            {
+                cn.Open();
+
+                foreach (DataGridViewRow fila in recetaingredientes.Rows)
+                {
+                    if (fila.IsNewRow) continue;
+
+                    int idProductoIng = Convert.ToInt32(fila.Cells["ID"].Value);
+                    decimal cantidadReceta = Convert.ToDecimal(fila.Cells["Cantidad"].Value);
+
+                    string sql = @"
+                    SELECT PV.PrecioCompra, UM.Valor
+                    FROM ProductoVenta PV
+                    INNER JOIN UnidadMedida UM ON PV.IdUnidadMedida = UM.IdUnidadMedida
+                    WHERE PV.IdProducto = @idProducto";
+
+                    using (SqlCommand cmd = new SqlCommand(sql, cn))
+                    {
+                        cmd.Parameters.AddWithValue("@idProducto", idProductoIng);
+
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            if (dr.Read())
+                            {
+                                decimal precioCompra = Convert.ToDecimal(dr["PrecioCompra"]);
+                                decimal valorUnidad = Convert.ToDecimal(dr["Valor"]);
+
+                                decimal costoUnitario = precioCompra / valorUnidad;
+                                decimal costoIngrediente = costoUnitario * cantidadReceta;
+
+                                costoTotal += costoIngrediente;
+                            }
+                        }
+                    }
+                }
+            }
+
+            txtprecio_compra.Text = costoTotal.ToString("N2");
+
+            return costoTotal;
+        }
+
+        private decimal CalcularPrecioVenta(decimal costoPlato)
+        {
+            decimal porcentaje = PorcGanancia;
+            return costoPlato * (1 + (porcentaje / 100));
+        }
+
+        private void ActualizarPrecioVenta()
+        {
+            if (!autoCalcular.Checked)
+                return;
+
+            decimal costo = CalcularCostoPlato();
+            decimal precioVenta = CalcularPrecioVenta(costo);
+
+            txtprecio_venta.Text = precioVenta.ToString("N2");
         }
     }
 }

@@ -52,6 +52,7 @@ namespace Proyecto_restaurante
         private decimal subtotalAcumulado = 0;
         public string comprobanteFinal;
         bool cargandoOrden = false;
+        bool cargandoGrupos = false;
         private int gruposMinimos = 1;
 
         bool modoUnion = false;
@@ -523,6 +524,8 @@ namespace Proyecto_restaurante
             if (grupoCuenta.Items.Count > 0 || CuentaSeparada == 1)
             {
                 int grupoNumero = Convert.ToInt32(grupoCuenta.SelectedValue);
+                decimal sub = precio * cantidad;
+                decimal tot = sub + (sub * (itbis / 100));
 
                 row.Cells[0].Value = grupoNumero;
                 row.Cells[1].Value = codigoProducto;
@@ -530,17 +533,20 @@ namespace Proyecto_restaurante
                 row.Cells[3].Value = precio;
                 row.Cells[4].Value = itbis;
                 row.Cells[5].Value = cantidad;
-                row.Cells[6].Value = (precio + itbis) * cantidad;
+                row.Cells[6].Value = tot.ToString("N2");
             }
             else
             {
+                decimal sub = precio * cantidad;
+                decimal tot = sub + (sub * (itbis / 100));
+
                 row.Cells[0].Value = "0";
                 row.Cells[1].Value = codigoProducto;
                 row.Cells[2].Value = nombreProducto;
                 row.Cells[3].Value = precio;
                 row.Cells[4].Value = itbis;
                 row.Cells[5].Value = cantidad;
-                row.Cells[6].Value = (precio + itbis) * cantidad;
+                row.Cells[6].Value = tot.ToString("N2");
             }
 
             detalleorden.Rows.Add(row);
@@ -556,6 +562,7 @@ namespace Proyecto_restaurante
             numCantidad.Value = 1;
 
             guardarordenbtn.Enabled = true;
+            detalleorden.Enabled = true;
         }
 
         private void RecalcularTotales()
@@ -605,7 +612,6 @@ namespace Proyecto_restaurante
             MostrarDevuelta();
         }
 
-
         private void eliminarFila_Click(object sender, EventArgs e)
         {
             if (EditarEstado == 1)
@@ -631,7 +637,6 @@ namespace Proyecto_restaurante
             RecalcularGruposMinimos();
             LimpiarGruposVacios();
         }
-
 
         private void RecalcularGruposMinimos()
         {
@@ -944,14 +949,6 @@ namespace Proyecto_restaurante
                 detalleorden.Columns.Add("cantidad", "Cantidad");
                 detalleorden.Columns.Add("subtotal", "Importe");
             }
-
-            foreach (DataGridViewColumn col in detalleorden.Columns)
-            {
-                col.ReadOnly = true;
-            }
-
-            detalleorden.Columns["precio"].ReadOnly = false;
-            detalleorden.Columns["cantidad"].ReadOnly = false;
 
             tabControl1_SelectedIndexChanged(sender, e);
             NotifComanda();
@@ -1802,32 +1799,41 @@ namespace Proyecto_restaurante
                 return;
             }
 
-            if (monto > TotalRestante)
+            decimal aplicado = monto;
+            decimal devueltaCalc = 0;
+
+            if (monto > TotalRestante && TotalRestante > 0)
             {
-                MessageBox.Show($"El monto ingresado es mayor que el restante ({TotalRestante:N2}).");
-                return;
+                aplicado = TotalRestante;
+                devueltaCalc = monto - TotalRestante;
             }
 
             DataGridViewRow row = new DataGridViewRow();
             row.CreateCells(detallePagoDT);
             row.Cells[0].Value = "EF";
             row.Cells[1].Value = "";
-            row.Cells[2].Value = "";
+            row.Cells[2].Value = "Efectivo";
             row.Cells[3].Value = monto;
 
             detallePagoDT.Rows.Add(row);
 
+            devueltatxt.Text = devueltaCalc.ToString("N2");
+
             efectivotxt.Clear();
 
             RecalcularTotalesPago();
+
+            if (devueltaCalc > 0)
+                devueltatxt.Text = devueltaCalc.ToString("N2");
         }
-
-
 
         private void MostrarDevuelta()
         {
             if (TotalAplicado >= TotalPedido)
+            {
                 devueltatxt.Text = (TotalAplicado - TotalPedido).ToString("N2");
+                totalpagar.Text = TotalAPagar.Text;
+            } 
             else
                 devueltatxt.Text = "0.00";
         }
@@ -1881,7 +1887,6 @@ namespace Proyecto_restaurante
 
             RecalcularTotalesPago();
         }
-
 
         private void aplicartransf_Click(object sender, EventArgs e)
         {
@@ -1979,7 +1984,6 @@ namespace Proyecto_restaurante
                 cmd.ExecuteNonQuery();
             }
         }
-
 
         private void VerificarOrden()
         {
@@ -2225,7 +2229,7 @@ namespace Proyecto_restaurante
 
                 DetalleOrden(idPedido, cn);
 
-                var cuentas = ObtenerCuentasDelPedido(idPedido);
+                var cuentas = CuentasPedido(idPedido);
 
                 grupoCuenta.Items.Clear();
 
@@ -2235,9 +2239,15 @@ namespace Proyecto_restaurante
 
                 listaGrupos = cuentas.Select(c => new CuentaItem { Cuenta = c }).ToList();
 
+                cargandoGrupos = true;
+
+                grupoCuenta.DataSource = null;
                 grupoCuenta.DisplayMember = "NombreGrupo";
                 grupoCuenta.ValueMember = "Cuenta";
                 grupoCuenta.DataSource = listaGrupos;
+
+                cargandoGrupos = false;
+
 
                 if (grupoCuenta.Items.Count > 0)
                 {
@@ -2256,7 +2266,7 @@ namespace Proyecto_restaurante
             }
         }
 
-        private List<decimal> ObtenerCuentasDelPedido(int idPedido)
+        private List<decimal> CuentasPedido(int idPedido)
         {
             List<decimal> cuentas = new List<decimal>();
 
@@ -3399,6 +3409,44 @@ namespace Proyecto_restaurante
             {
                 antesDe.Checked = false;
             }
+        }
+
+        private void detalleorden_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            DataGridViewRow row = detalleorden.Rows[e.RowIndex];
+
+            txtcodigoproducto.Text = row.Cells["codigoProducto"].Value.ToString();
+            txtnombreproducto.Text = row.Cells["nombreProducto"].Value.ToString();
+
+            txtprecioproducto.Text = Convert.ToDecimal(row.Cells["precio"].Value).ToString("N2");
+            txtiva.Text = Convert.ToDecimal(row.Cells["ITBIS"].Value).ToString("N2");
+
+            numCantidad.Value = Convert.ToDecimal(row.Cells["cantidad"].Value);
+
+            if (grupoCuenta.Items.Count > 0)
+            {
+                int cuenta = Convert.ToInt32(row.Cells["cuenta"].Value);
+
+                if (!cargandoGrupos)
+                {
+                    grupoCuenta.SelectedValue = cuenta;
+
+                    if (grupoCuenta.SelectedValue == null)
+                    {
+                        int index = listaGrupos.FindIndex(g => g.Cuenta == cuenta);
+                        if (index >= 0)
+                            grupoCuenta.SelectedIndex = index;
+                    }
+                }
+            }
+
+            detalleorden.Rows.RemoveAt(e.RowIndex);
+
+            RecalcularTotales();
+
+            bajarproductobtn.Enabled = true;
         }
     }
 }
