@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using static Proyecto_restaurante.menu;
 
 namespace Proyecto_restaurante
 {
@@ -42,7 +43,7 @@ namespace Proyecto_restaurante
 
         private void Compras_Load(object sender, EventArgs e)
         {
-            FechaCompra.Value = DateTime.Now;
+            FechaCompra.Value = SistemaFecha.FechaActual;
 
             LimpiarFormulario();
 
@@ -611,7 +612,7 @@ namespace Proyecto_restaurante
 
                         using (SqlCommand cmdUp = new SqlCommand(sqlUpdate, con, tran))
                         {
-                            cmdUp.Parameters.AddWithValue("@Fecha", FechaCompra.Value);
+                            cmdUp.Parameters.AddWithValue("@Fecha", SistemaFecha.FechaActual);
                             cmdUp.Parameters.AddWithValue("@IdProveedor", idProveedor);
                             cmdUp.Parameters.AddWithValue("@Subtotal", subtotalAcumulado);
                             cmdUp.Parameters.AddWithValue("@Impuestos", impuestosAcumulados);
@@ -646,7 +647,7 @@ namespace Proyecto_restaurante
 
                         using (SqlCommand cmdCompra = new SqlCommand(sqlCompra, con, tran))
                         {
-                            cmdCompra.Parameters.AddWithValue("@Fecha", FechaCompra.Value);
+                            cmdCompra.Parameters.AddWithValue("@Fecha", SistemaFecha.FechaActual);
                             cmdCompra.Parameters.AddWithValue("@IdProveedor", idProveedor);
                             cmdCompra.Parameters.AddWithValue("@Subtotal", subtotalAcumulado);
                             cmdCompra.Parameters.AddWithValue("@Impuestos", impuestosAcumulados);
@@ -702,7 +703,6 @@ namespace Proyecto_restaurante
                 }
             }
         }
-
 
         private void checkingredactivo_CheckedChanged(object sender, EventArgs e)
         {

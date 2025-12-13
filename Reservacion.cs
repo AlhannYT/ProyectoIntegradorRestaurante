@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Proyecto_restaurante.menu;
 
 namespace Proyecto_restaurante
 {
@@ -100,8 +101,8 @@ namespace Proyecto_restaurante
 
             CargarProximoIdReserva();
 
-            fechacreacionreserva.Value = DateTime.Now;
-            fecreservacion.Value = DateTime.Now;
+            fechacreacionreserva.Value = SistemaFecha.FechaActual;
+            fecreservacion.Value = SistemaFecha.FechaActual;
 
             idclientetxt.Clear();
             txtnombrecompleto.Clear();
@@ -263,7 +264,6 @@ namespace Proyecto_restaurante
                             txtidreserva.Text = ReservaID.ToString();
                         }
 
-
                         string sqlUpdateMesa = @"
                                 UPDATE Mesa
                                 SET Reservado = 1
@@ -310,7 +310,6 @@ namespace Proyecto_restaurante
         }
         private void buscarclientebtn_Click(object sender, EventArgs e)
         {
-
             PanelClientes.Visible = !PanelClientes.Visible;
 
             if (PanelClientes.Visible)

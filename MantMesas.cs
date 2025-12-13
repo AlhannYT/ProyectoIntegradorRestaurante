@@ -9,6 +9,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Proyecto_restaurante.menu;
 
 namespace Proyecto_restaurante
 {
@@ -222,8 +223,8 @@ namespace Proyecto_restaurante
                 PrepararNuevoEvento();
                 CargarMesasDisponiblesEvento();
                 ConfigurarDateTimePickersEvento();
-                FechaInicialDTP.Value = DateTime.Now;
-                FechaFinDTP.Value = DateTime.Now;
+                FechaInicialDTP.Value = SistemaFecha.FechaActual;
+                FechaFinDTP.Value = SistemaFecha.FechaActual;
                 notatxt.Enter += notatxt_Enter;
                 notatxt.Leave += notatxt_Leave;
                 panelOrganizador.Visible = false;
@@ -933,9 +934,9 @@ namespace Proyecto_restaurante
 
             CargarProximoIdEvento();
 
-            FechaCreacionDTP.Value = DateTime.Now;
-            FechaInicialDTP.Value = DateTime.Today;
-            FechaFinDTP.Value = DateTime.Today;
+            FechaCreacionDTP.Value = SistemaFecha.FechaActual;
+            FechaInicialDTP.Value = SistemaFecha.FechaActual;
+            FechaFinDTP.Value = SistemaFecha.FechaActual;
 
             NomCompletoOrgTxtB.Clear();
             NombreEventoTxt.Clear();

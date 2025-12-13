@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Proyecto_restaurante.menu;
 
 namespace Proyecto_restaurante
 {
@@ -59,6 +60,7 @@ namespace Proyecto_restaurante
 
         private void Delivery_Load(object sender, EventArgs e)
         {
+            fechapedido.Value = SistemaFecha.FechaActual;
 
             if (!cargandoOrden)
                 tipoComp.SelectedIndex = 1;
@@ -343,7 +345,7 @@ namespace Proyecto_restaurante
 
                         SqlCommand cmdInsert = new SqlCommand(queryInsert, conexion, transaccion);
 
-                        cmdInsert.Parameters.AddWithValue("@Fecha", fechapedido.Value);
+                        cmdInsert.Parameters.AddWithValue("@Fecha", SistemaFecha.FechaActual);
                         cmdInsert.Parameters.AddWithValue("@Origen", "Delivery");
                         cmdInsert.Parameters.AddWithValue("@IdClientePersona", Convert.ToInt32(idclientetxt.Text));
                         cmdInsert.Parameters.AddWithValue("@NombreCliente", txtnombrecompleto.Text);
@@ -373,7 +375,7 @@ namespace Proyecto_restaurante
 
                         SqlCommand cmdUpdate = new SqlCommand(queryUpdate, conexion, transaccion);
 
-                        cmdUpdate.Parameters.AddWithValue("@Fecha", fechapedido.Value);
+                        cmdUpdate.Parameters.AddWithValue("@Fecha", SistemaFecha.FechaActual);
                         cmdUpdate.Parameters.AddWithValue("@IdClientePersona", Convert.ToInt32(idclientetxt.Text));
                         cmdUpdate.Parameters.AddWithValue("@NombreCliente", txtnombrecompleto.Text);
                         cmdUpdate.Parameters.AddWithValue("@Total", Convert.ToDecimal(labeltotal.Text));

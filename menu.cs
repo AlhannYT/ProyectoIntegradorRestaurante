@@ -515,12 +515,15 @@ namespace Proyecto_restaurante
             }
         }
 
+
         private void horatimer_Tick(object sender, EventArgs e)
         {
             labelhora.Text = DateTime.Now.ToString("h:mm:ss tt");
-            labelfecha.Text = DateTime.Now.ToLongDateString();
-            labelcambiofecha.Text = cambiarFechaDTP.Value.ToLongDateString();
+
+            labelfecha.Text = SistemaFecha.FechaActual.ToLongDateString() + "    ";
+            labelcambiofecha.Text = SistemaFecha.FechaActual.ToLongDateString();
         }
+
 
         private void AbrirCalendario(DateTimePicker dtp)
         {
@@ -541,7 +544,7 @@ namespace Proyecto_restaurante
         {
             if (cambiarfechapanel.Visible)
             {
-                cambiarFechaDTP.Value = DateTime.Today;
+                cambiarFechaDTP.Value = SistemaFecha.FechaActual;
 
                 this.BeginInvoke((MethodInvoker)(() =>
                 {
@@ -550,6 +553,17 @@ namespace Proyecto_restaurante
                 }));
             }
         }
+
+        public static class SistemaFecha
+        {
+            public static DateTime FechaActual { get; private set; } = DateTime.Today;
+
+            public static void CambiarFecha(DateTime nuevaFecha)
+            {
+                FechaActual = nuevaFecha.Date;
+            }
+        }
+
 
         private void reportesbtn_Click(object sender, EventArgs e)
         {
@@ -565,6 +579,31 @@ namespace Proyecto_restaurante
             reportes.Location = new Point(200, 50);
             reportes.MdiParent = this;
             reportes.Show();
+        }
+
+        private void menu_Click(object sender, EventArgs e)
+        {
+            if (cambiarfechapanel.Visible == true)
+            {
+                cambiarfechapanel.Visible = false;
+            }
+        }
+
+        private void cambiarFechaBtn_Click(object sender, EventArgs e)
+        {
+            SistemaFecha.CambiarFecha(cambiarFechaDTP.Value);
+
+            labelfecha.Text = SistemaFecha.FechaActual.ToLongDateString();
+            labelcambiofecha.Text = SistemaFecha.FechaActual.ToLongDateString();
+
+            cambiarfechapanel.Visible = false;
+
+            MessageBox.Show("Cambio de fecha exitoso!", "Fecha Cambiada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            labelfecha_Click(sender, e);
         }
     }
 }

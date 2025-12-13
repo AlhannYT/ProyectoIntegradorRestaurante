@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PdfSharp.Drawing;
+using PdfSharp.Pdf;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,9 +11,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
-using PdfSharp.Drawing;
-using PdfSharp.Pdf;
+using static Proyecto_restaurante.menu;
 
 
 
@@ -253,7 +253,7 @@ namespace Proyecto_restaurante
 
                         SqlCommand cmdPedido = new SqlCommand(queryPedido, conexion, transaccion);
 
-                        cmdPedido.Parameters.AddWithValue("@Fecha", fechapedido.Value);
+                        cmdPedido.Parameters.AddWithValue("@Fecha", SistemaFecha.FechaActual);
                         cmdPedido.Parameters.AddWithValue("@IdMesa", idMesaSeleccionada);
                         cmdPedido.Parameters.AddWithValue("@Origen", "Local");
                         cmdPedido.Parameters.AddWithValue("@IdClientePersona", Convert.ToInt32(IdClientePersonaST));
@@ -284,7 +284,7 @@ namespace Proyecto_restaurante
 
                         SqlCommand cmdUpdate = new SqlCommand(queryUpdatePedido, conexion, transaccion);
 
-                        cmdUpdate.Parameters.AddWithValue("@Fecha", fechapedido.Value);
+                        cmdUpdate.Parameters.AddWithValue("@Fecha", SistemaFecha.FechaActual);
                         cmdUpdate.Parameters.AddWithValue("@IdMesa", idMesaSeleccionada);
                         cmdUpdate.Parameters.AddWithValue("@IdClientePersona", Convert.ToInt32(IdClientePersonaST));
                         cmdUpdate.Parameters.AddWithValue("@NombreCliente", txtnombrecompleto.Text);
@@ -809,6 +809,8 @@ namespace Proyecto_restaurante
 
         private void Pedidos_Load(object sender, EventArgs e)
         {
+            fechapedido.Value = SistemaFecha.FechaActual;
+
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
 

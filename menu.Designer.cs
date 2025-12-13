@@ -78,7 +78,7 @@
             horatimer = new System.Windows.Forms.Timer(components);
             cambiarfechapanel = new Panel();
             cambiarFechaDTP = new DateTimePicker();
-            button4 = new Button();
+            cambiarFechaBtn = new Button();
             labelcambiofecha = new Label();
             button3 = new Button();
             panel1.SuspendLayout();
@@ -336,11 +336,13 @@
             labelfecha.Cursor = Cursors.Hand;
             labelfecha.Font = new Font("Segoe UI", 15.75F);
             labelfecha.ForeColor = Color.White;
+            labelfecha.Image = Properties.Resources.angulo_abajo_blanco;
+            labelfecha.ImageAlign = ContentAlignment.MiddleRight;
             labelfecha.Location = new Point(425, 35);
             labelfecha.Name = "labelfecha";
-            labelfecha.Size = new Size(67, 30);
+            labelfecha.Size = new Size(91, 30);
             labelfecha.TabIndex = 7;
-            labelfecha.Text = "Fecha";
+            labelfecha.Text = "Fecha    ";
             labelfecha.TextAlign = ContentAlignment.MiddleLeft;
             toolTip1.SetToolTip(labelfecha, "Cambiar Fecha");
             labelfecha.Click += labelfecha_Click;
@@ -721,7 +723,7 @@
             // 
             cambiarfechapanel.BackColor = Color.Gray;
             cambiarfechapanel.Controls.Add(cambiarFechaDTP);
-            cambiarfechapanel.Controls.Add(button4);
+            cambiarfechapanel.Controls.Add(cambiarFechaBtn);
             cambiarfechapanel.Controls.Add(labelcambiofecha);
             cambiarfechapanel.Controls.Add(button3);
             cambiarfechapanel.Location = new Point(665, 73);
@@ -741,19 +743,20 @@
             cambiarFechaDTP.Size = new Size(242, 23);
             cambiarFechaDTP.TabIndex = 0;
             // 
-            // button4
+            // cambiarFechaBtn
             // 
-            button4.Cursor = Cursors.Hand;
-            button4.Image = Properties.Resources.cambiar_fecha;
-            button4.ImageAlign = ContentAlignment.MiddleRight;
-            button4.Location = new Point(134, 205);
-            button4.Margin = new Padding(2);
-            button4.Name = "button4";
-            button4.Size = new Size(116, 38);
-            button4.TabIndex = 2;
-            button4.Text = "Cambiar fecha";
-            button4.TextAlign = ContentAlignment.MiddleLeft;
-            button4.UseVisualStyleBackColor = true;
+            cambiarFechaBtn.Cursor = Cursors.Hand;
+            cambiarFechaBtn.Image = Properties.Resources.cambiar_fecha;
+            cambiarFechaBtn.ImageAlign = ContentAlignment.MiddleRight;
+            cambiarFechaBtn.Location = new Point(134, 205);
+            cambiarFechaBtn.Margin = new Padding(2);
+            cambiarFechaBtn.Name = "cambiarFechaBtn";
+            cambiarFechaBtn.Size = new Size(116, 38);
+            cambiarFechaBtn.TabIndex = 2;
+            cambiarFechaBtn.Text = "Cambiar fecha";
+            cambiarFechaBtn.TextAlign = ContentAlignment.MiddleLeft;
+            cambiarFechaBtn.UseVisualStyleBackColor = true;
+            cambiarFechaBtn.Click += cambiarFechaBtn_Click;
             // 
             // labelcambiofecha
             // 
@@ -778,6 +781,7 @@
             button3.TabIndex = 2;
             button3.Text = "Volver";
             button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
             // 
             // menu
             // 
@@ -803,6 +807,7 @@
             Text = "Menu";
             WindowState = FormWindowState.Maximized;
             Load += menu_Load;
+            Click += menu_Click;
             KeyDown += menu_KeyDown;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
@@ -873,7 +878,7 @@
         private Panel panel6;
         private Panel cambiarfechapanel;
         private DateTimePicker cambiarFechaDTP;
-        private Button button4;
+        private Button cambiarFechaBtn;
         private Button button3;
         private Label labelcambiofecha;
     }
