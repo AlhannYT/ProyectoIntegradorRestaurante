@@ -28,10 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Delivery));
             panel1 = new Panel();
+            pictureBox3 = new PictureBox();
+            tipodoccmbx = new ComboBox();
+            rnc = new TextBox();
             direccioncliente = new TextBox();
-            txtnumero_cliente = new TextBox();
+            numerotxt = new TextBox();
             pictureBox2 = new PictureBox();
             pictureBox1 = new PictureBox();
             label2 = new Label();
@@ -80,6 +84,7 @@
             label19 = new Label();
             tablaclientes = new DataGridView();
             panel2 = new Panel();
+            label37 = new Label();
             label6 = new Label();
             detalleorden = new DataGridView();
             label21 = new Label();
@@ -168,8 +173,8 @@
             canceladochk = new CheckBox();
             pendientechk = new CheckBox();
             facturadochk = new CheckBox();
-            label37 = new Label();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel8.SuspendLayout();
@@ -211,8 +216,11 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(64, 64, 64);
+            panel1.Controls.Add(pictureBox3);
+            panel1.Controls.Add(tipodoccmbx);
+            panel1.Controls.Add(rnc);
             panel1.Controls.Add(direccioncliente);
-            panel1.Controls.Add(txtnumero_cliente);
+            panel1.Controls.Add(numerotxt);
             panel1.Controls.Add(pictureBox2);
             panel1.Controls.Add(pictureBox1);
             panel1.Controls.Add(label2);
@@ -228,30 +236,64 @@
             panel1.Size = new Size(509, 211);
             panel1.TabIndex = 1;
             // 
+            // pictureBox3
+            // 
+            pictureBox3.BackColor = SystemColors.Window;
+            pictureBox3.Image = Properties.Resources.cedula;
+            pictureBox3.Location = new Point(221, 62);
+            pictureBox3.Margin = new Padding(3, 2, 3, 2);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(27, 29);
+            pictureBox3.SizeMode = PictureBoxSizeMode.CenterImage;
+            pictureBox3.TabIndex = 74;
+            pictureBox3.TabStop = false;
+            // 
+            // tipodoccmbx
+            // 
+            tipodoccmbx.BackColor = SystemColors.ActiveCaption;
+            tipodoccmbx.DropDownStyle = ComboBoxStyle.DropDownList;
+            tipodoccmbx.FormattingEnabled = true;
+            tipodoccmbx.Items.AddRange(new object[] { "RNC", "Cédula" });
+            tipodoccmbx.Location = new Point(253, 62);
+            tipodoccmbx.Name = "tipodoccmbx";
+            tipodoccmbx.Size = new Size(77, 29);
+            tipodoccmbx.TabIndex = 73;
+            // 
+            // rnc
+            // 
+            rnc.CharacterCasing = CharacterCasing.Upper;
+            rnc.Location = new Point(334, 62);
+            rnc.Name = "rnc";
+            rnc.PlaceholderText = "RNC/Cédula";
+            rnc.Size = new Size(165, 29);
+            rnc.TabIndex = 72;
+            rnc.TextChanged += rnc_TextChanged;
+            rnc.KeyPress += rnc_KeyPress;
+            // 
             // direccioncliente
             // 
             direccioncliente.CharacterCasing = CharacterCasing.Upper;
             direccioncliente.Font = new Font("Segoe UI", 12F);
-            direccioncliente.Location = new Point(254, 132);
+            direccioncliente.Location = new Point(253, 132);
             direccioncliente.Name = "direccioncliente";
             direccioncliente.PlaceholderText = "Dirección";
             direccioncliente.Size = new Size(246, 29);
             direccioncliente.TabIndex = 0;
             // 
-            // txtnumero_cliente
+            // numerotxt
             // 
-            txtnumero_cliente.Font = new Font("Segoe UI", 12F);
-            txtnumero_cliente.Location = new Point(46, 132);
-            txtnumero_cliente.Name = "txtnumero_cliente";
-            txtnumero_cliente.PlaceholderText = "Numero de telefono";
-            txtnumero_cliente.Size = new Size(163, 29);
-            txtnumero_cliente.TabIndex = 0;
+            numerotxt.Font = new Font("Segoe UI", 12F);
+            numerotxt.Location = new Point(45, 132);
+            numerotxt.Name = "numerotxt";
+            numerotxt.PlaceholderText = "Numero de telefono";
+            numerotxt.Size = new Size(163, 29);
+            numerotxt.TabIndex = 0;
             // 
             // pictureBox2
             // 
             pictureBox2.BackColor = SystemColors.Window;
             pictureBox2.Image = Properties.Resources.marcador;
-            pictureBox2.Location = new Point(222, 132);
+            pictureBox2.Location = new Point(221, 132);
             pictureBox2.Margin = new Padding(3, 2, 3, 2);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(27, 29);
@@ -263,7 +305,7 @@
             // 
             pictureBox1.BackColor = SystemColors.Window;
             pictureBox1.Image = Properties.Resources.telefono;
-            pictureBox1.Location = new Point(12, 132);
+            pictureBox1.Location = new Point(11, 132);
             pictureBox1.Margin = new Padding(3, 2, 3, 2);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(27, 29);
@@ -298,7 +340,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = SystemColors.Control;
-            label1.Location = new Point(11, 70);
+            label1.Location = new Point(10, 66);
             label1.Name = "label1";
             label1.Size = new Size(64, 21);
             label1.TabIndex = 3;
@@ -307,7 +349,7 @@
             // buscarclientebtn
             // 
             buscarclientebtn.Image = Properties.Resources.persona3;
-            buscarclientebtn.Location = new Point(11, 97);
+            buscarclientebtn.Location = new Point(10, 97);
             buscarclientebtn.Name = "buscarclientebtn";
             buscarclientebtn.RightToLeft = RightToLeft.No;
             buscarclientebtn.Size = new Size(29, 29);
@@ -318,7 +360,7 @@
             // idclientetxt
             // 
             idclientetxt.Font = new Font("Segoe UI", 12F);
-            idclientetxt.Location = new Point(46, 97);
+            idclientetxt.Location = new Point(45, 97);
             idclientetxt.Name = "idclientetxt";
             idclientetxt.PlaceholderText = "ID";
             idclientetxt.Size = new Size(45, 29);
@@ -337,7 +379,7 @@
             // 
             txtnombrecompleto.CharacterCasing = CharacterCasing.Upper;
             txtnombrecompleto.Font = new Font("Segoe UI", 12F);
-            txtnombrecompleto.Location = new Point(94, 97);
+            txtnombrecompleto.Location = new Point(93, 97);
             txtnombrecompleto.Name = "txtnombrecompleto";
             txtnombrecompleto.PlaceholderText = "Nombre del cliente";
             txtnombrecompleto.Size = new Size(406, 29);
@@ -351,7 +393,7 @@
             panel8.Controls.Add(repartidorbtn);
             panel8.Controls.Add(nombrerepartidor);
             panel8.Controls.Add(idrepartidor);
-            panel8.Location = new Point(9, 168);
+            panel8.Location = new Point(8, 168);
             panel8.Name = "panel8";
             panel8.Size = new Size(492, 33);
             panel8.TabIndex = 71;
@@ -807,6 +849,17 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(793, 361);
             panel2.TabIndex = 3;
+            // 
+            // label37
+            // 
+            label37.AutoSize = true;
+            label37.Font = new Font("Segoe UI", 12F);
+            label37.ForeColor = SystemColors.Control;
+            label37.Location = new Point(332, 334);
+            label37.Name = "label37";
+            label37.Size = new Size(456, 21);
+            label37.TabIndex = 75;
+            label37.Text = "Combinaciones:    Alt+1, Alt+2, Alt+3: Cambio rapido de pestaña";
             // 
             // label6
             // 
@@ -1815,17 +1868,6 @@
             facturadochk.Text = "Facturado";
             facturadochk.UseVisualStyleBackColor = true;
             // 
-            // label37
-            // 
-            label37.AutoSize = true;
-            label37.Font = new Font("Segoe UI", 12F);
-            label37.ForeColor = SystemColors.Control;
-            label37.Location = new Point(332, 334);
-            label37.Name = "label37";
-            label37.Size = new Size(456, 21);
-            label37.TabIndex = 75;
-            label37.Text = "Combinaciones:    Alt+1, Alt+2, Alt+3: Cambio rapido de pestaña";
-            // 
             // Delivery
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1845,6 +1887,7 @@
             KeyDown += Delivery_KeyDown;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel8.ResumeLayout(false);
@@ -1906,7 +1949,7 @@
 
         private Panel panel1;
         private TextBox direccioncliente;
-        private TextBox txtnumero_cliente;
+        private TextBox numerotxt;
         private PictureBox pictureBox2;
         private PictureBox pictureBox1;
         private Label label2;
@@ -2044,5 +2087,8 @@
         private Label label29;
         private Button recargarbtn;
         private Label label37;
+        private ComboBox tipodoccmbx;
+        private TextBox rnc;
+        private PictureBox pictureBox3;
     }
 }

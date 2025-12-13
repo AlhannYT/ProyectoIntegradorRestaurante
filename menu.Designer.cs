@@ -726,7 +726,7 @@
             cambiarfechapanel.Controls.Add(cambiarFechaBtn);
             cambiarfechapanel.Controls.Add(labelcambiofecha);
             cambiarfechapanel.Controls.Add(button3);
-            cambiarfechapanel.Location = new Point(665, 73);
+            cambiarfechapanel.Location = new Point(667, 73);
             cambiarfechapanel.Name = "cambiarfechapanel";
             cambiarfechapanel.Size = new Size(258, 250);
             cambiarfechapanel.TabIndex = 28;

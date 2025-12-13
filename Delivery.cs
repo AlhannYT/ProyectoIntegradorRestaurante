@@ -30,6 +30,7 @@ namespace Proyecto_restaurante
         private decimal TotalAplicado = 0m;
         private decimal totalAcumulado = 0;
         private decimal subtotalAcumulado = 0;
+        private string IdClientePersonaST = "1"; //Al contado por defecto
         bool modoEntregar = false;
 
         private List<Panel> ordenesSeleccionadas = new List<Panel>();
@@ -64,6 +65,8 @@ namespace Proyecto_restaurante
 
             if (!cargandoOrden)
                 tipoComp.SelectedIndex = 1;
+
+            tipodoccmbx.SelectedIndex = 1;
 
             string consulta = "SELECT TOP 1 IdPedido FROM Pedido ORDER BY IdPedido DESC";
             string busquedaCaja = @"
@@ -197,14 +200,20 @@ namespace Proyecto_restaurante
             panelclientes.Visible = true;
 
             string consultaCliente = @"
-                SELECT 
+            SELECT  
                 e.IdCliente,
-                p.NombreCompleto,
-                pd.Numero AS Cedula
+                e.IdPersona,
+                p.NombreCompleto AS Nombre,
+                pd.Numero AS Cedula,
+                tl.Numero AS Telefono,
+	            dr.Direccion AS Direccion,
+                pd.IdTipoDocumento AS TipoDoc
             FROM Cliente e
             LEFT JOIN Persona p ON e.IdPersona = p.IdPersona
             LEFT JOIN PersonaDocumento pd ON p.IdPersona = pd.IdPersona
-            WHERE e.Activo = 1 AND p.Activo = 1 and IdCliente > 1;"; //Esto es para que no traiga AL CONTADO directamente sino que traiga los demas clientes
+            LEFT JOIN PersonaTelefono tl ON p.IdPersona = tl.IdPersona AND tl.EsPrincipal = 1
+            LEFT JOIN PersonaDireccion dr ON p.IdPersona = dr.IdPersona AND dr.EsPrincipal = 1
+            WHERE e.Activo = 1 AND p.Activo = 1 AND e.IdCliente > 1;"; //Esto es para que no traiga AL CONTADO directamente sino que traiga los demas clientes
 
             using (SqlDataAdapter adaptador = new SqlDataAdapter(consultaCliente, conexionString))
             {
@@ -213,6 +222,12 @@ namespace Proyecto_restaurante
                 adaptador.Fill(dt);
 
                 tablaclientes.DataSource = dt;
+
+                if (tablaclientes.Columns.Contains("TipoDoc"))
+                    tablaclientes.Columns["TipoDoc"].Visible = false;
+
+                if (tablaclientes.Columns.Contains("IdPersona"))
+                    tablaclientes.Columns["IdPersona"].Visible = false;
             }
         }
 
@@ -276,7 +291,7 @@ namespace Proyecto_restaurante
             PedidoID = 0;
             txtnombrecompleto.Text = "AL CONTADO";
             idclientetxt.Text = "1";
-            txtnumero_cliente.Clear();
+            numerotxt.Clear();
 
 
             txtcodigoproducto.Clear();
@@ -305,7 +320,7 @@ namespace Proyecto_restaurante
 
         private void guardarpedidobtn_Click(object sender, EventArgs e)
         {
-            if (txtnombrecompleto.Text == "AL CONTADO" || txtnumero_cliente.Text == "" || direccioncliente.Text == "")
+            if (txtnombrecompleto.Text == "AL CONTADO" || numerotxt.Text == "" || direccioncliente.Text == "")
             {
                 MessageBox.Show("Nombre, Dirección y Teléfono deben tener información.");
                 return;
@@ -560,12 +575,36 @@ namespace Proyecto_restaurante
         {
             if (e.RowIndex >= 0)
             {
+                idclientetxt.Clear();
+                txtnombrecompleto.Clear();
+                rnc.Clear();
+                numerotxt.Clear();
+
                 DataGridViewRow row = tablaclientes.Rows[e.RowIndex];
+                string idCLiente = row.Cells["IdCliente"].Value.ToString();
+                string nombreCompleto = row.Cells["Nombre"].Value.ToString();
+                string CedulaCliente = row.Cells["Cedula"].Value.ToString();
+                string telefono = row.Cells["Telefono"].Value.ToString();
+                string IdClientePersona = row.Cells["IdPersona"].Value.ToString();
+                string Direccion = row.Cells["Direccion"].Value.ToString();
 
-                string nombreCompleto = row.Cells["NombreCompleto"].Value.ToString();
+                idclientetxt.Text = idCLiente;
                 txtnombrecompleto.Text = nombreCompleto;
+                rnc.Text = CedulaCliente;
+                numerotxt.Text = telefono;
+                IdClientePersonaST = IdClientePersona;
+                direccioncliente.Text = Direccion;
 
-                //txtnumero_cliente.Text = row.Cells["telefono"].Value.ToString();
+                int tipoDoc = Convert.ToInt32(tablaclientes.CurrentRow.Cells["TipoDoc"].Value);
+
+                if (tipoDoc == 1)
+                {
+                    tipodoccmbx.SelectedIndex = 1;
+                }
+                else if (tipoDoc == 5) //Por alguna razón el RNC está como 5 en la base de datos
+                {
+                    tipodoccmbx.SelectedIndex = 0;
+                }
             }
 
             panelclientes.Visible = false;
@@ -955,7 +994,6 @@ namespace Proyecto_restaurante
             }
         }
 
-
         private void RebajarInventario(SqlConnection conexion, SqlTransaction trans, int idPedido)
         {
             string queryDetalle = @"
@@ -1170,9 +1208,10 @@ namespace Proyecto_restaurante
                 conexion.Open();
 
                 string query = @"
-                SELECT CM.IdPedido, CM.Cuenta, CM.IdProducto, PV.Nombre, CM.Cantidad
+                SELECT CM.IdPedido, CM.Cuenta, CM.IdProducto, PV.Nombre, CM.Cantidad, MS.Numero as MesaNumero
                 FROM Comanda CM
                 INNER JOIN ProductoVenta PV ON CM.IdProducto = PV.IdProducto
+                INNER JOIN Mesa MS ON CM.IdMesa = MS.IdMesa
                 WHERE CM.Estado = 'Cocina'
                 ORDER BY CM.IdPedido, CM.Cuenta";
 
@@ -1187,10 +1226,11 @@ namespace Proyecto_restaurante
                         int cuenta = Convert.ToInt32(dr["Cuenta"]);
                         string nombre = dr["Nombre"].ToString();
                         int cantidad = Convert.ToInt32(dr["Cantidad"]);
+                        int numero = Convert.ToInt32(dr["MesaNumero"]);
 
                         Image img = CargarImagen(Convert.ToInt32(dr["IdProducto"]));
 
-                        Panel card = BotonComanda(idPedido, cuenta, nombre, cantidad, img, idProducto);
+                        Panel card = BotonComanda(idPedido, cuenta, nombre, numero, cantidad, img, idProducto);
 
                         flowComanda.Controls.Add(card);
                     }
@@ -1224,7 +1264,6 @@ namespace Proyecto_restaurante
             if (sender is Control c && c.Parent is Panel p2) return p2;
             return null;
         }
-
 
         private void LimpiarSeleccionVisual()
         {
@@ -1308,7 +1347,7 @@ namespace Proyecto_restaurante
             EntregarOrden.BackColor = Color.FromArgb(224, 224, 224);
         }
 
-        private Panel BotonComanda(int idPedido, int cuenta, string nombre, int cantidad, Image imagen, int idProducto)
+        private Panel BotonComanda(int idPedido, int cuenta, string nombre, int numero, int cantidad, Image imagen, int idProducto)
         {
             Panel card = new Panel();
             card.Width = 200;
@@ -1323,6 +1362,7 @@ namespace Proyecto_restaurante
                 Pedido = idPedido,
                 Cuenta = cuenta,
                 Producto = nombre,
+                Mesa = numero,
                 Cantidad = cantidad,
                 IdProducto = idProducto
             };
@@ -1344,7 +1384,8 @@ namespace Proyecto_restaurante
             lbl.Font = new Font("Segoe UI", 10, FontStyle.Bold);
 
             lbl.Text =
-                $"ORDEN: {idPedido}\n" +
+                $"ORDEN: {idPedido}, " +
+                $"MESA: {numero}\n" +
                 $"CUENTA: {cuenta}\n\n" +
                 $"{nombre.ToUpper()}\n" +
                 $"CANTIDAD: {cantidad}";
@@ -1397,6 +1438,163 @@ namespace Proyecto_restaurante
             }
         }
 
-        
+        private void rnc_TextChanged(object sender, EventArgs e)
+        {
+            if (tipodoccmbx.SelectedIndex == 0)
+            {
+                string posicion = rnc.Text; posicion = posicion.Replace("-", "");
+                if (posicion.Length > 11)
+                {
+                    posicion = posicion.Substring(0, 11);
+                }
+                if (posicion.Length > 3)
+                {
+                    posicion = posicion.Insert(3, "-");
+                }
+
+                rnc.Text = posicion; rnc.SelectionStart = rnc.Text.Length;
+            }
+            else if (tipodoccmbx.SelectedIndex == 1)
+            {
+                string posicion = rnc.Text; posicion = posicion.Replace("-", "");
+
+                if (posicion.Length > 11)
+                {
+                    posicion = posicion.Substring(0, 11);
+                }
+
+                if (posicion.Length > 3)
+                {
+                    posicion = posicion.Insert(3, "-");
+                }
+                if (posicion.Length > 11)
+                {
+                    posicion = posicion.Insert(11, "-");
+                }
+
+                rnc.Text = posicion; rnc.SelectionStart = rnc.Text.Length;
+            }
+        }
+
+        private void rnc_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true;
+                BuscarRNC();
+            }
+        }
+
+        private void BuscarRNC()
+        {
+            string rncDigitado = rnc.Text.Replace("-", "").Trim();
+
+            if (rncDigitado.Length == 0)
+                return;
+
+            bool encontrado = BuscarEnArchivoDGII(rncDigitado);
+
+            if (!encontrado)
+            {
+                BuscarRNCenSQL(rncDigitado);
+            }
+        }
+
+        private bool BuscarEnArchivoDGII(string rnc)
+        {
+            string archivoDGII = @"C:\SistemaArchivos\DGIITXT\DGII_RNC.TXT";
+
+            if (!File.Exists(archivoDGII))
+                return false;
+
+            try
+            {
+                using (StreamReader sr = new StreamReader(archivoDGII))
+                {
+                    string linea;
+
+                    while ((linea = sr.ReadLine()) != null)
+                    {
+                        if (linea.StartsWith(rnc + "|"))
+                        {
+                            string[] partes = linea.Split('|');
+
+                            if (partes.Length < 3)
+                                return false;
+
+                            string nombre = partes[1].Trim();
+                            string estado = partes[partes.Length - 2].Trim().ToUpper();
+
+                            if (estado == "ACTIVO")
+                            {
+                                txtnombrecompleto.Text = nombre;
+                                numerotxt.Text = "";
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                return false;
+            }
+
+            return false;
+        }
+
+        private void BuscarRNCenSQL(string rnc)
+        {
+            string conexionString = ConexionBD.ConexionSQL();
+
+            try
+            {
+                using (SqlConnection conexion = new SqlConnection(conexionString))
+                {
+                    conexion.Open();
+
+                    string query = @"
+                    SELECT TOP 1 
+                            p.IdPersona,
+                            p.Nombre,
+                            p.Apellido,
+                            (p.Nombre + ' ' + p.Apellido) AS NombreCompleto,
+                            t.Numero AS TelefonoPrincipal
+                        FROM Persona p
+                        INNER JOIN PersonaDocumento d ON p.IdPersona = d.IdPersona
+                        OUTER APPLY (
+                            SELECT TOP 1 Numero 
+                            FROM PersonaTelefono 
+                            WHERE IdPersona = p.IdPersona AND EsPrincipal = 1
+                        ) t
+                        WHERE REPLACE(d.Numero, '-', '') = @RNC
+                          AND d.IdTipoDocumento = 1;";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conexion))
+                    {
+                        cmd.Parameters.AddWithValue("@RNC", rnc);
+
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            if (dr.Read())
+                            {
+                                txtnombrecompleto.Text = dr["NombreCompleto"].ToString();
+                                numerotxt.Text = dr["TelefonoPrincipal"]?.ToString() ?? "";
+
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+        }
     }
 }

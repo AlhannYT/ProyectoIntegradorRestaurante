@@ -13,8 +13,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Proyecto_restaurante.menu;
 
-
-
 namespace Proyecto_restaurante
 {
     public partial class Pedidos : Form
@@ -3033,7 +3031,7 @@ namespace Proyecto_restaurante
             NoEntrega.Visible = true;
         }
 
-        private Panel BotonComanda(int idPedido, int cuenta, string nombre, int cantidad, Image imagen, int idProducto)
+        private Panel BotonComanda(int idPedido, int cuenta, string nombre, int numero, int cantidad, Image imagen, int idProducto)
         {
             Panel card = new Panel();
             card.Width = 200;
@@ -3048,6 +3046,7 @@ namespace Proyecto_restaurante
                 Pedido = idPedido,
                 Cuenta = cuenta,
                 Producto = nombre,
+                Mesa = numero,
                 Cantidad = cantidad,
                 IdProducto = idProducto
             };
@@ -3069,7 +3068,8 @@ namespace Proyecto_restaurante
             lbl.Font = new Font("Segoe UI", 10, FontStyle.Bold);
 
             lbl.Text =
-                $"ORDEN: {idPedido}\n" +
+                $"ORDEN: {idPedido}, " +
+                $"MESA: {numero}\n" +
                 $"CUENTA: {cuenta}\n\n" +
                 $"{nombre.ToUpper()}\n" +
                 $"CANTIDAD: {cantidad}";
@@ -3095,9 +3095,10 @@ namespace Proyecto_restaurante
                 conexion.Open();
 
                 string query = @"
-                SELECT CM.IdPedido, CM.Cuenta, CM.IdProducto, PV.Nombre, CM.Cantidad
+                SELECT CM.IdPedido, CM.Cuenta, CM.IdProducto, PV.Nombre, CM.Cantidad, MS.Numero as MesaNumero
                 FROM Comanda CM
                 INNER JOIN ProductoVenta PV ON CM.IdProducto = PV.IdProducto
+                INNER JOIN Mesa MS ON CM.IdMesa = MS.IdMesa
                 WHERE CM.Estado = 'Cocina'
                 ORDER BY CM.IdPedido, CM.Cuenta";
 
@@ -3112,10 +3113,11 @@ namespace Proyecto_restaurante
                         int cuenta = Convert.ToInt32(dr["Cuenta"]);
                         string nombre = dr["Nombre"].ToString();
                         int cantidad = Convert.ToInt32(dr["Cantidad"]);
+                        int numero = Convert.ToInt32(dr["MesaNumero"]);
 
                         Image img = CargarImagen(Convert.ToInt32(dr["IdProducto"]));
 
-                        Panel card = BotonComanda(idPedido, cuenta, nombre, cantidad, img, idProducto);
+                        Panel card = BotonComanda(idPedido, cuenta, nombre, numero, cantidad, img, idProducto);
 
                         flowComanda.Controls.Add(card);
                     }

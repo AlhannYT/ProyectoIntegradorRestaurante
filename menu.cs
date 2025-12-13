@@ -266,7 +266,6 @@ namespace Proyecto_restaurante
 
         private void button12_Click(object sender, EventArgs e)
         {
-
             if (estadobarra == 1)
             {
                 barraizq.Width = 63;
@@ -300,6 +299,8 @@ namespace Proyecto_restaurante
                         toolTip1.SetToolTip(button14, "Tipos");
                     }
                 }
+
+                cambiarfechapanel.Location = new Point(489, 73);
 
                 estadobarra = 0;
             }
@@ -337,6 +338,8 @@ namespace Proyecto_restaurante
                         ajustestxt.ImageAlign = ContentAlignment.MiddleRight;
                     }
                 }
+
+                cambiarfechapanel.Location = new Point(667, 73);
 
                 estadobarra = 1;
             }
@@ -515,15 +518,13 @@ namespace Proyecto_restaurante
             }
         }
 
-
         private void horatimer_Tick(object sender, EventArgs e)
         {
             labelhora.Text = DateTime.Now.ToString("h:mm:ss tt");
 
             labelfecha.Text = SistemaFecha.FechaActual.ToLongDateString() + "    ";
-            labelcambiofecha.Text = SistemaFecha.FechaActual.ToLongDateString();
+            labelcambiofecha.Text = cambiarFechaDTP.Value.ToLongDateString();
         }
-
 
         private void AbrirCalendario(DateTimePicker dtp)
         {
@@ -537,7 +538,16 @@ namespace Proyecto_restaurante
 
         private void labelfecha_Click(object sender, EventArgs e)
         {
-            cambiarfechapanel.Visible = !cambiarfechapanel.Visible;
+            if(estadobarra == 1)
+            {
+                cambiarfechapanel.Location = new Point(667, 73);
+                cambiarfechapanel.Visible = !cambiarfechapanel.Visible;
+            }
+            else
+            {
+                cambiarfechapanel.Location = new Point(489, 73);
+                cambiarfechapanel.Visible = !cambiarfechapanel.Visible;
+            }
         }
 
         private void cambiarfechapanel_VisibleChanged(object sender, EventArgs e)
@@ -551,6 +561,12 @@ namespace Proyecto_restaurante
                     cambiarFechaDTP.Focus();
                     AbrirCalendario(cambiarFechaDTP);
                 }));
+
+                barraizq.Enabled = false;
+            }
+            else
+            {
+                barraizq.Enabled = true;
             }
         }
 
@@ -563,7 +579,6 @@ namespace Proyecto_restaurante
                 FechaActual = nuevaFecha.Date;
             }
         }
-
 
         private void reportesbtn_Click(object sender, EventArgs e)
         {
@@ -586,6 +601,7 @@ namespace Proyecto_restaurante
             if (cambiarfechapanel.Visible == true)
             {
                 cambiarfechapanel.Visible = false;
+                barraizq.Enabled = true;
             }
         }
 
@@ -604,6 +620,7 @@ namespace Proyecto_restaurante
         private void button3_Click(object sender, EventArgs e)
         {
             labelfecha_Click(sender, e);
+            barraizq.Enabled = true;
         }
     }
 }
