@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Delivery));
             panel1 = new Panel();
             pictureBox3 = new PictureBox();
@@ -285,7 +284,7 @@
             numerotxt.Font = new Font("Segoe UI", 12F);
             numerotxt.Location = new Point(45, 132);
             numerotxt.Name = "numerotxt";
-            numerotxt.PlaceholderText = "Numero de telefono";
+            numerotxt.PlaceholderText = "Número de telefono";
             numerotxt.Size = new Size(163, 29);
             numerotxt.TabIndex = 0;
             // 
@@ -338,11 +337,11 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = SystemColors.Control;
-            label1.Location = new Point(10, 66);
+            label1.Location = new Point(10, 61);
             label1.Name = "label1";
-            label1.Size = new Size(64, 21);
+            label1.Size = new Size(81, 30);
             label1.TabIndex = 3;
             label1.Text = "Cliente";
             // 
@@ -1744,6 +1743,7 @@
             imprimirbtn.Text = "Imprimir";
             imprimirbtn.TextAlign = ContentAlignment.MiddleRight;
             imprimirbtn.UseVisualStyleBackColor = false;
+            imprimirbtn.Click += imprimirbtn_Click;
             // 
             // buscar
             // 

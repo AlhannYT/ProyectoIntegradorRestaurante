@@ -1679,7 +1679,6 @@ namespace Proyecto_restaurante
             }
         }
 
-
         private void imprimirbtn_Click(object sender, EventArgs e)
         {
             if (PedidoID > 0)
@@ -1706,7 +1705,8 @@ namespace Proyecto_restaurante
 
         private void FiltroDatosProducto(string busqueda)
         {
-
+            //No funciona todavia, es codigo viejo
+            /*
             using (SqlConnection conectar = new SqlConnection(conexionString))
             {
                 try
@@ -1738,11 +1738,13 @@ namespace Proyecto_restaurante
                 {
                     MessageBox.Show($"Error: {ex.Message}");
                 }
-            }
+            }*/
         }
 
         private void FiltroDatosClientes(string busqueda)
         {
+            //No funciona todavia, es codigo viejo
+            /*
             using (SqlConnection conectar = new SqlConnection(conexionString))
             {
                 try
@@ -1774,7 +1776,7 @@ namespace Proyecto_restaurante
                 {
                     MessageBox.Show($"Error: {ex.Message}");
                 }
-            }
+            }*/
         }
 
         private void txtclientebusqueda_TextChanged(object sender, EventArgs e)
@@ -2953,8 +2955,6 @@ namespace Proyecto_restaurante
 
         private void BuscarRNCenSQL(string rnc)
         {
-            string conexionString = ConexionBD.ConexionSQL();
-
             try
             {
                 using (SqlConnection conexion = new SqlConnection(conexionString))
@@ -3087,8 +3087,6 @@ namespace Proyecto_restaurante
         private void CargarComanda()
         {
             flowComanda.Controls.Clear();
-
-            string conexionString = ConexionBD.ConexionSQL();
 
             using (SqlConnection conexion = new SqlConnection(conexionString))
             {

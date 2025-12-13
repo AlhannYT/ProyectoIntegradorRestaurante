@@ -1550,7 +1550,7 @@
             tipodoccmbx.DropDownStyle = ComboBoxStyle.DropDownList;
             tipodoccmbx.FormattingEnabled = true;
             tipodoccmbx.Items.AddRange(new object[] { "RNC", "Cédula" });
-            tipodoccmbx.Location = new Point(46, 130);
+            tipodoccmbx.Location = new Point(45, 130);
             tipodoccmbx.Name = "tipodoccmbx";
             tipodoccmbx.Size = new Size(77, 29);
             tipodoccmbx.TabIndex = 3;
@@ -1559,7 +1559,7 @@
             // rnc
             // 
             rnc.CharacterCasing = CharacterCasing.Upper;
-            rnc.Location = new Point(127, 130);
+            rnc.Location = new Point(126, 130);
             rnc.Name = "rnc";
             rnc.PlaceholderText = "RNC/Cédula";
             rnc.Size = new Size(154, 29);
@@ -1569,7 +1569,7 @@
             // 
             // numerotxt
             // 
-            numerotxt.Location = new Point(321, 130);
+            numerotxt.Location = new Point(320, 130);
             numerotxt.Name = "numerotxt";
             numerotxt.PlaceholderText = "Teléfono (Opcional)";
             numerotxt.Size = new Size(179, 29);
@@ -1580,7 +1580,7 @@
             // 
             pictureBox2.BackColor = SystemColors.Window;
             pictureBox2.Image = Properties.Resources.cedula;
-            pictureBox2.Location = new Point(12, 130);
+            pictureBox2.Location = new Point(11, 130);
             pictureBox2.Margin = new Padding(3, 2, 3, 2);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(27, 29);
@@ -1593,7 +1593,7 @@
             // 
             pictureBox1.BackColor = SystemColors.Window;
             pictureBox1.Image = Properties.Resources.telefono;
-            pictureBox1.Location = new Point(289, 130);
+            pictureBox1.Location = new Point(288, 130);
             pictureBox1.Margin = new Padding(3, 2, 3, 2);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(27, 29);
@@ -1638,11 +1638,11 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold);
             label1.ForeColor = SystemColors.Control;
-            label1.Location = new Point(11, 68);
+            label1.Location = new Point(10, 60);
             label1.Name = "label1";
-            label1.Size = new Size(64, 21);
+            label1.Size = new Size(81, 30);
             label1.TabIndex = 3;
             label1.Text = "Cliente";
             // 
@@ -1650,7 +1650,7 @@
             // 
             buscarclientebtn.Enabled = false;
             buscarclientebtn.Image = Properties.Resources.persona3;
-            buscarclientebtn.Location = new Point(11, 95);
+            buscarclientebtn.Location = new Point(10, 95);
             buscarclientebtn.Name = "buscarclientebtn";
             buscarclientebtn.RightToLeft = RightToLeft.No;
             buscarclientebtn.Size = new Size(29, 29);
@@ -1661,7 +1661,7 @@
             // 
             // idclientetxt
             // 
-            idclientetxt.Location = new Point(46, 95);
+            idclientetxt.Location = new Point(45, 95);
             idclientetxt.Name = "idclientetxt";
             idclientetxt.PlaceholderText = "ID";
             idclientetxt.ReadOnly = true;
@@ -1681,7 +1681,7 @@
             // txtnombrecompleto
             // 
             txtnombrecompleto.CharacterCasing = CharacterCasing.Upper;
-            txtnombrecompleto.Location = new Point(80, 95);
+            txtnombrecompleto.Location = new Point(79, 95);
             txtnombrecompleto.Name = "txtnombrecompleto";
             txtnombrecompleto.PlaceholderText = "Nombre del cliente";
             txtnombrecompleto.Size = new Size(420, 29);
@@ -1693,7 +1693,7 @@
             // 
             panel8.BackColor = Color.DimGray;
             panel8.Controls.Add(cajerolabel);
-            panel8.Location = new Point(254, 166);
+            panel8.Location = new Point(253, 166);
             panel8.Name = "panel8";
             panel8.Size = new Size(246, 33);
             panel8.TabIndex = 71;
@@ -1715,7 +1715,7 @@
             // 
             panel14.BackColor = Color.DimGray;
             panel14.Controls.Add(MesaLabel);
-            panel14.Location = new Point(12, 166);
+            panel14.Location = new Point(11, 166);
             panel14.Name = "panel14";
             panel14.Size = new Size(236, 33);
             panel14.TabIndex = 71;
@@ -2127,9 +2127,9 @@
             tabPage8.Controls.Add(aplicartarjeta);
             tabPage8.Controls.Add(tarjetaMonto);
             tabPage8.Controls.Add(tarjetaref);
-            tabPage8.Location = new Point(4, 30);
+            tabPage8.Location = new Point(4, 24);
             tabPage8.Name = "tabPage8";
-            tabPage8.Size = new Size(366, 140);
+            tabPage8.Size = new Size(366, 146);
             tabPage8.TabIndex = 2;
             tabPage8.Text = "Tarjeta";
             // 

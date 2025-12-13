@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PdfSharp.Drawing;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -320,7 +321,7 @@ namespace Proyecto_restaurante
 
         private void guardarpedidobtn_Click(object sender, EventArgs e)
         {
-            if (txtnombrecompleto.Text == "AL CONTADO" || numerotxt.Text == "" || direccioncliente.Text == "")
+            if (txtnombrecompleto.Text == "AL CONTADO" || txtnombrecompleto.Text == "" || numerotxt.Text == "" || direccioncliente.Text == "")
             {
                 MessageBox.Show("Nombre, Dirección y Teléfono deben tener información.");
                 return;
@@ -362,7 +363,7 @@ namespace Proyecto_restaurante
 
                         cmdInsert.Parameters.AddWithValue("@Fecha", SistemaFecha.FechaActual);
                         cmdInsert.Parameters.AddWithValue("@Origen", "Delivery");
-                        cmdInsert.Parameters.AddWithValue("@IdClientePersona", Convert.ToInt32(idclientetxt.Text));
+                        cmdInsert.Parameters.AddWithValue("@IdClientePersona", Convert.ToInt32(IdClientePersonaST));
                         cmdInsert.Parameters.AddWithValue("@NombreCliente", txtnombrecompleto.Text);
                         cmdInsert.Parameters.AddWithValue("@Estado", "Pendiente");
                         cmdInsert.Parameters.AddWithValue("@Total", Convert.ToDecimal(labeltotal.Text));
@@ -391,7 +392,7 @@ namespace Proyecto_restaurante
                         SqlCommand cmdUpdate = new SqlCommand(queryUpdate, conexion, transaccion);
 
                         cmdUpdate.Parameters.AddWithValue("@Fecha", SistemaFecha.FechaActual);
-                        cmdUpdate.Parameters.AddWithValue("@IdClientePersona", Convert.ToInt32(idclientetxt.Text));
+                        cmdUpdate.Parameters.AddWithValue("@IdClientePersona", Convert.ToInt32(IdClientePersonaST));
                         cmdUpdate.Parameters.AddWithValue("@NombreCliente", txtnombrecompleto.Text);
                         cmdUpdate.Parameters.AddWithValue("@Total", Convert.ToDecimal(labeltotal.Text));
                         cmdUpdate.Parameters.AddWithValue("@Nota", notatxt.Text);
@@ -1201,8 +1202,6 @@ namespace Proyecto_restaurante
         {
             flowComanda.Controls.Clear();
 
-            string conexionString = ConexionBD.ConexionSQL();
-
             using (SqlConnection conexion = new SqlConnection(conexionString))
             {
                 conexion.Open();
@@ -1549,8 +1548,6 @@ namespace Proyecto_restaurante
 
         private void BuscarRNCenSQL(string rnc)
         {
-            string conexionString = ConexionBD.ConexionSQL();
-
             try
             {
                 using (SqlConnection conexion = new SqlConnection(conexionString))
@@ -1594,6 +1591,172 @@ namespace Proyecto_restaurante
             catch
             {
 
+            }
+        }
+
+        private void imprimirbtn_Click(object sender, EventArgs e)
+        {
+            if (PedidoID > 0)
+            {
+                try
+                {
+                    GenerarFacturaPDF(PedidoID);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al generar el PDF: {ex.Message}\nDetalles: {ex.StackTrace}");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Seleccione una factura válida para imprimir.");
+            }
+        }
+
+        private void GenerarFacturaPDF(int idPedido)
+        {
+            try
+            {
+                string folderPath = @"C:\SistemaArchivos\Facturas\";
+
+                if (!Directory.Exists(folderPath))
+                    Directory.CreateDirectory(folderPath);
+
+                string filePath = Path.Combine(folderPath, $"Pedido_{idPedido}.pdf");
+
+                PdfSharp.Pdf.PdfDocument document = new PdfSharp.Pdf.PdfDocument();
+                document.Info.Title = $"Pedido {idPedido}";
+
+                PdfSharp.Pdf.PdfPage page = document.AddPage();
+                XGraphics gfx = XGraphics.FromPdfPage(page);
+
+                XFont titleFont = new XFont("Segoe UI", 20, XFontStyleEx.Bold);
+                XFont headerFont = new XFont("Segoe UI", 12, XFontStyleEx.Bold);
+                XFont textFont = new XFont("Segoe UI", 12, XFontStyleEx.Regular);
+                XFont smallFont = new XFont("Segoe UI", 10, XFontStyleEx.Regular);
+
+                double currentY = 40;
+                double marginLeft = 30;
+                double lineHeight = 20;
+
+                gfx.DrawString("ORDEN", titleFont, XBrushes.Black, new XRect(0, currentY, page.Width, 40), XStringFormats.TopCenter);
+
+                currentY += 50;
+
+                string nombreCliente = "", fecha = "", mesa = "", comprobante = "";
+                decimal totalFactura = 0;
+
+                using (SqlConnection con = new SqlConnection(conexionString))
+                {
+                    con.Open();
+
+                    string sqlPedido = @"
+                SELECT IdPedido, Fecha, NombreCliente, IdMesa, Total, Comprobante
+                FROM Pedido
+                WHERE IdPedido = @id";
+
+                    SqlCommand cmd = new SqlCommand(sqlPedido, con);
+                    cmd.Parameters.AddWithValue("@id", idPedido);
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            fecha = Convert.ToDateTime(dr["Fecha"]).ToString("dd/MM/yyyy HH:mm");
+                            nombreCliente = dr["NombreCliente"].ToString();
+                            mesa = dr["IdMesa"].ToString();
+                            comprobante = dr["Comprobante"]?.ToString() ?? "";
+                            totalFactura = Convert.ToDecimal(dr["Total"]);
+                        }
+                    }
+                }
+
+                gfx.DrawString($"Pedido: {idPedido}", headerFont, XBrushes.Black, marginLeft, currentY); currentY += lineHeight;
+                gfx.DrawString($"Cliente: {nombreCliente}", textFont, XBrushes.Black, marginLeft, currentY); currentY += lineHeight;
+                gfx.DrawString($"Mesa: {mesa}", textFont, XBrushes.Black, marginLeft, currentY); currentY += lineHeight;
+                gfx.DrawString($"Fecha: {fecha}", textFont, XBrushes.Black, marginLeft, currentY); currentY += lineHeight;
+
+                if (!string.IsNullOrWhiteSpace(comprobante))
+                {
+                    gfx.DrawString($"Comprobante: {comprobante}", textFont, XBrushes.Black, marginLeft, currentY);
+                    currentY += lineHeight;
+                }
+
+                currentY += 10;
+                gfx.DrawLine(XPens.Black, marginLeft, currentY, page.Width - marginLeft, currentY);
+                currentY += 20;
+
+                gfx.DrawString("DETALLE", headerFont, XBrushes.Black, marginLeft, currentY);
+                currentY += lineHeight;
+
+                gfx.DrawString("Producto", headerFont, XBrushes.Black, marginLeft, currentY);
+                gfx.DrawString("Cant.", headerFont, XBrushes.Black, marginLeft + 250, currentY);
+                gfx.DrawString("Precio", headerFont, XBrushes.Black, marginLeft + 320, currentY);
+                gfx.DrawString("Subtotal", headerFont, XBrushes.Black, marginLeft + 400, currentY);
+
+                currentY += lineHeight;
+
+                gfx.DrawLine(XPens.Black, marginLeft, currentY, page.Width - marginLeft, currentY);
+                currentY += 10;
+
+
+                using (SqlConnection con = new SqlConnection(conexionString))
+                {
+                    con.Open();
+
+                    string sqlDetalle = @"
+                SELECT d.Cantidad, d.PrecioUnitario, 
+                       (d.Cantidad * d.PrecioUnitario) AS Subtotal,
+                       p.Nombre
+                FROM DetallePedido d
+                INNER JOIN ProductoVenta p ON p.IdProducto = d.IdProducto
+                WHERE d.IdPedido = @id";
+
+                    SqlCommand cmd = new SqlCommand(sqlDetalle, con);
+                    cmd.Parameters.AddWithValue("@id", idPedido);
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            string prod = dr["Nombre"].ToString();
+                            decimal cant = Convert.ToDecimal(dr["Cantidad"]);
+                            decimal precio = Convert.ToDecimal(dr["PrecioUnitario"]);
+                            decimal sub = Convert.ToDecimal(dr["Subtotal"]);
+
+                            gfx.DrawString(prod, textFont, XBrushes.Black, marginLeft, currentY);
+                            gfx.DrawString(cant.ToString(), textFont, XBrushes.Black, marginLeft + 250, currentY);
+                            gfx.DrawString(precio.ToString("N2"), textFont, XBrushes.Black, marginLeft + 320, currentY);
+                            gfx.DrawString(sub.ToString("N2"), textFont, XBrushes.Black, marginLeft + 400, currentY);
+
+                            currentY += lineHeight;
+                        }
+                    }
+                }
+
+                currentY += 10;
+                gfx.DrawLine(XPens.Black, marginLeft, currentY, page.Width - marginLeft, currentY);
+                currentY += 20;
+
+                gfx.DrawString($"TOTAL: RD$ {totalFactura:N2}", titleFont, XBrushes.Black, marginLeft + 250, currentY);
+                currentY += lineHeight * 2;
+
+                gfx.DrawString("Gracias por su compra", smallFont, XBrushes.Black,
+                    new XRect(marginLeft, currentY, page.Width, 20), XStringFormats.TopLeft);
+
+                document.Save(filePath);
+
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = filePath,
+                    UseShellExecute = true
+                });
+
+                MessageBox.Show("Factura generada correctamente.", "Éxito");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al generar el PDF: " + ex.Message);
             }
         }
     }
