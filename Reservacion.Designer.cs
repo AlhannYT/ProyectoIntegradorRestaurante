@@ -210,8 +210,7 @@
             PanelClientes.Controls.Add(tabladatoscliente);
             PanelClientes.Controls.Add(recargarbtn);
             PanelClientes.Controls.Add(panel7);
-            PanelClientes.Dock = DockStyle.Fill;
-            PanelClientes.Location = new Point(3, 3);
+            PanelClientes.Location = new Point(837, 3);
             PanelClientes.Name = "PanelClientes";
             PanelClientes.Size = new Size(836, 470);
             PanelClientes.TabIndex = 11;

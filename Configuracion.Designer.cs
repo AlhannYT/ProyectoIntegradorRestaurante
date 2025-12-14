@@ -33,13 +33,13 @@
             barraizq = new Panel();
             usuarios = new Button();
             button2 = new Button();
-            asignarcaja = new Button();
             sistema = new Button();
             archivoDGII = new Button();
             datosRestaurante = new Button();
             button7 = new Button();
             label1 = new Label();
             button26 = new Button();
+            asignarcaja = new Button();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
             eliminarbtn = new Button();
@@ -134,11 +134,9 @@
             cancelarDoc = new CheckBox();
             admin = new CheckBox();
             tabPage6 = new TabPage();
-            precmaximo = new TextBox();
             precminimo = new CheckBox();
             CrearOrdenReservado = new CheckBox();
-            checkBox2 = new CheckBox();
-            label21 = new Label();
+            cambiarPrecio = new CheckBox();
             tabPage7 = new TabPage();
             tabPage8 = new TabPage();
             label28 = new Label();
@@ -255,7 +253,6 @@
             barraizq.BorderStyle = BorderStyle.FixedSingle;
             barraizq.Controls.Add(usuarios);
             barraizq.Controls.Add(button2);
-            barraizq.Controls.Add(asignarcaja);
             barraizq.Controls.Add(sistema);
             barraizq.Controls.Add(archivoDGII);
             barraizq.Controls.Add(datosRestaurante);
@@ -275,7 +272,7 @@
             usuarios.Cursor = Cursors.Hand;
             usuarios.Image = Properties.Resources.usuario;
             usuarios.ImageAlign = ContentAlignment.MiddleRight;
-            usuarios.Location = new Point(7, 243);
+            usuarios.Location = new Point(7, 203);
             usuarios.Margin = new Padding(2);
             usuarios.Name = "usuarios";
             usuarios.Size = new Size(202, 38);
@@ -289,7 +286,7 @@
             // 
             button2.Image = Properties.Resources.llenar;
             button2.ImageAlign = ContentAlignment.MiddleRight;
-            button2.Location = new Point(7, 203);
+            button2.Location = new Point(7, 163);
             button2.Margin = new Padding(2);
             button2.Name = "button2";
             button2.Size = new Size(202, 38);
@@ -299,26 +296,12 @@
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click_1;
             // 
-            // asignarcaja
-            // 
-            asignarcaja.Image = Properties.Resources.cajero2;
-            asignarcaja.ImageAlign = ContentAlignment.MiddleRight;
-            asignarcaja.Location = new Point(7, 163);
-            asignarcaja.Margin = new Padding(2);
-            asignarcaja.Name = "asignarcaja";
-            asignarcaja.Size = new Size(202, 38);
-            asignarcaja.TabIndex = 15;
-            asignarcaja.Text = "Asignar Caja";
-            asignarcaja.TextAlign = ContentAlignment.MiddleLeft;
-            asignarcaja.UseVisualStyleBackColor = true;
-            asignarcaja.Click += asignarcaja_Click;
-            // 
             // sistema
             // 
             sistema.BackColor = Color.Gold;
             sistema.Image = Properties.Resources.herramientas1;
             sistema.ImageAlign = ContentAlignment.MiddleRight;
-            sistema.Location = new Point(7, 283);
+            sistema.Location = new Point(7, 243);
             sistema.Margin = new Padding(2);
             sistema.Name = "sistema";
             sistema.Size = new Size(202, 38);
@@ -398,6 +381,19 @@
             button26.UseVisualStyleBackColor = true;
             button26.Click += button26_Click;
             // 
+            // asignarcaja
+            // 
+            asignarcaja.Image = Properties.Resources.cajero2;
+            asignarcaja.Location = new Point(472, 260);
+            asignarcaja.Margin = new Padding(2);
+            asignarcaja.Name = "asignarcaja";
+            asignarcaja.Size = new Size(159, 72);
+            asignarcaja.TabIndex = 15;
+            asignarcaja.Text = "Asignar Caja";
+            asignarcaja.TextAlign = ContentAlignment.BottomCenter;
+            asignarcaja.UseVisualStyleBackColor = true;
+            asignarcaja.Click += asignarcaja_Click;
+            // 
             // tabControl1
             // 
             tabControl1.Controls.Add(tabPage1);
@@ -414,6 +410,7 @@
             tabPage1.BackColor = SystemColors.WindowFrame;
             tabPage1.Controls.Add(eliminarbtn);
             tabPage1.Controls.Add(label2);
+            tabPage1.Controls.Add(asignarcaja);
             tabPage1.Controls.Add(filtro);
             tabPage1.Controls.Add(button4);
             tabPage1.Controls.Add(label3);
@@ -869,7 +866,7 @@
             // 
             textBox1.CharacterCasing = CharacterCasing.Upper;
             textBox1.ForeColor = SystemColors.ScrollBar;
-            textBox1.Location = new Point(10, 71);
+            textBox1.Location = new Point(8, 71);
             textBox1.Margin = new Padding(4);
             textBox1.Name = "textBox1";
             textBox1.PlaceholderText = "Buscar usuarios";
@@ -1067,6 +1064,7 @@
             empleadousuariodt.Size = new Size(284, 125);
             empleadousuariodt.TabIndex = 74;
             empleadousuariodt.CellClick += empleadousuariodt_CellClick;
+            empleadousuariodt.CellDoubleClick += empleadousuariodt_CellDoubleClick;
             // 
             // panel2
             // 
@@ -1493,15 +1491,14 @@
             admin.TabIndex = 0;
             admin.Text = "Administrador";
             admin.UseVisualStyleBackColor = true;
+            admin.CheckedChanged += admin_CheckedChanged;
             // 
             // tabPage6
             // 
             tabPage6.BackColor = SystemColors.WindowFrame;
-            tabPage6.Controls.Add(precmaximo);
             tabPage6.Controls.Add(precminimo);
             tabPage6.Controls.Add(CrearOrdenReservado);
-            tabPage6.Controls.Add(checkBox2);
-            tabPage6.Controls.Add(label21);
+            tabPage6.Controls.Add(cambiarPrecio);
             tabPage6.Location = new Point(4, 30);
             tabPage6.Name = "tabPage6";
             tabPage6.Padding = new Padding(3);
@@ -1509,16 +1506,10 @@
             tabPage6.TabIndex = 1;
             tabPage6.Text = "Ordenes";
             // 
-            // precmaximo
-            // 
-            precmaximo.Location = new Point(112, 137);
-            precmaximo.Name = "precmaximo";
-            precmaximo.Size = new Size(69, 29);
-            precmaximo.TabIndex = 2;
-            // 
             // precminimo
             // 
             precminimo.AutoSize = true;
+            precminimo.Enabled = false;
             precminimo.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             precminimo.ForeColor = Color.White;
             precminimo.Location = new Point(15, 101);
@@ -1540,28 +1531,18 @@
             CrearOrdenReservado.Text = "Crear Orden de Mesa Reservada";
             CrearOrdenReservado.UseVisualStyleBackColor = true;
             // 
-            // checkBox2
+            // cambiarPrecio
             // 
-            checkBox2.AutoSize = true;
-            checkBox2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            checkBox2.ForeColor = Color.White;
-            checkBox2.Location = new Point(15, 59);
-            checkBox2.Name = "checkBox2";
-            checkBox2.Size = new Size(226, 25);
-            checkBox2.TabIndex = 1;
-            checkBox2.Text = "Cambiar precio en pedido";
-            checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // label21
-            // 
-            label21.AutoSize = true;
-            label21.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label21.ForeColor = Color.White;
-            label21.Location = new Point(15, 141);
-            label21.Name = "label21";
-            label21.Size = new Size(91, 21);
-            label21.TabIndex = 101;
-            label21.Text = "% Máximo";
+            cambiarPrecio.AutoSize = true;
+            cambiarPrecio.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            cambiarPrecio.ForeColor = Color.White;
+            cambiarPrecio.Location = new Point(15, 59);
+            cambiarPrecio.Name = "cambiarPrecio";
+            cambiarPrecio.Size = new Size(226, 25);
+            cambiarPrecio.TabIndex = 1;
+            cambiarPrecio.Text = "Cambiar precio en pedido";
+            cambiarPrecio.UseVisualStyleBackColor = true;
+            cambiarPrecio.CheckedChanged += cambiarPrecio_CheckedChanged;
             // 
             // tabPage7
             // 
@@ -1683,7 +1664,7 @@
             asignarPCPanel.Controls.Add(nombrepctxt);
             asignarPCPanel.Controls.Add(buscarPC);
             asignarPCPanel.Controls.Add(label38);
-            asignarPCPanel.Location = new Point(1551, 3);
+            asignarPCPanel.Location = new Point(1551, 4);
             asignarPCPanel.Name = "asignarPCPanel";
             asignarPCPanel.Size = new Size(659, 570);
             asignarPCPanel.TabIndex = 45;
@@ -1708,6 +1689,7 @@
             idconsultacajatxt.Font = new Font("Segoe UI", 12F);
             idconsultacajatxt.Location = new Point(4, 28);
             idconsultacajatxt.Name = "idconsultacajatxt";
+            idconsultacajatxt.PlaceholderText = "ID";
             idconsultacajatxt.Size = new Size(41, 29);
             idconsultacajatxt.TabIndex = 58;
             // 
@@ -1716,6 +1698,7 @@
             nombreconsultacajatxt.Font = new Font("Segoe UI", 12F);
             nombreconsultacajatxt.Location = new Point(49, 28);
             nombreconsultacajatxt.Name = "nombreconsultacajatxt";
+            nombreconsultacajatxt.PlaceholderText = "Caja";
             nombreconsultacajatxt.Size = new Size(193, 29);
             nombreconsultacajatxt.TabIndex = 58;
             // 
@@ -1758,6 +1741,7 @@
             cajaDT.Size = new Size(269, 146);
             cajaDT.TabIndex = 74;
             cajaDT.CellClick += cajaDT_CellClick;
+            cajaDT.CellDoubleClick += cajaDT_CellDoubleClick;
             // 
             // idCajatxt
             // 
@@ -1765,6 +1749,7 @@
             idCajatxt.Font = new Font("Segoe UI", 12F);
             idCajatxt.Location = new Point(337, 156);
             idCajatxt.Name = "idCajatxt";
+            idCajatxt.PlaceholderText = "ID";
             idCajatxt.Size = new Size(43, 29);
             idCajatxt.TabIndex = 90;
             // 
@@ -1792,14 +1777,15 @@
             // 
             // button21
             // 
-            button21.Image = Properties.Resources.nuevodoc;
+            button21.Image = Properties.Resources.atrás;
             button21.ImageAlign = ContentAlignment.MiddleLeft;
             button21.Location = new Point(216, 8);
             button21.Name = "button21";
             button21.Size = new Size(181, 58);
             button21.TabIndex = 44;
-            button21.Text = "Nuevo";
+            button21.Text = "Volver";
             button21.UseVisualStyleBackColor = true;
+            button21.Click += button21_Click;
             // 
             // nombrecajaPCtxt
             // 
@@ -1807,6 +1793,7 @@
             nombrecajaPCtxt.Font = new Font("Segoe UI", 12F);
             nombrecajaPCtxt.Location = new Point(384, 156);
             nombrecajaPCtxt.Name = "nombrecajaPCtxt";
+            nombrecajaPCtxt.PlaceholderText = "Caja";
             nombrecajaPCtxt.Size = new Size(193, 29);
             nombrecajaPCtxt.TabIndex = 91;
             // 
@@ -1829,6 +1816,7 @@
             idpcconsultatxt.Font = new Font("Segoe UI", 12F);
             idpcconsultatxt.Location = new Point(4, 28);
             idpcconsultatxt.Name = "idpcconsultatxt";
+            idpcconsultatxt.PlaceholderText = "ID";
             idpcconsultatxt.Size = new Size(41, 29);
             idpcconsultatxt.TabIndex = 58;
             // 
@@ -1837,6 +1825,7 @@
             nombrepcconsultatxt.Font = new Font("Segoe UI", 12F);
             nombrepcconsultatxt.Location = new Point(49, 28);
             nombrepcconsultatxt.Name = "nombrepcconsultatxt";
+            nombrepcconsultatxt.PlaceholderText = "Equipo";
             nombrepcconsultatxt.Size = new Size(193, 29);
             nombrepcconsultatxt.TabIndex = 58;
             // 
@@ -1879,6 +1868,7 @@
             pcDT.Size = new Size(269, 146);
             pcDT.TabIndex = 74;
             pcDT.CellClick += pcDT_CellClick;
+            pcDT.CellDoubleClick += pcDT_CellDoubleClick;
             // 
             // buscarCaja
             // 
@@ -1897,6 +1887,7 @@
             idPCtxt.Font = new Font("Segoe UI", 12F);
             idPCtxt.Location = new Point(49, 156);
             idPCtxt.Name = "idPCtxt";
+            idPCtxt.PlaceholderText = "ID";
             idPCtxt.Size = new Size(43, 29);
             idPCtxt.TabIndex = 85;
             // 
@@ -1928,6 +1919,7 @@
             nombrepctxt.Font = new Font("Segoe UI", 12F);
             nombrepctxt.Location = new Point(96, 156);
             nombrepctxt.Name = "nombrepctxt";
+            nombrepctxt.PlaceholderText = "Equipo";
             nombrepctxt.Size = new Size(193, 29);
             nombrepctxt.TabIndex = 86;
             // 
@@ -2265,13 +2257,13 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.WindowFrame;
             ClientSize = new Size(884, 579);
+            Controls.Add(asignarPCPanel);
             Controls.Add(permisospanel);
             Controls.Add(colores);
             Controls.Add(usuariospanel);
             Controls.Add(sistemaconfiguracion);
             Controls.Add(datosPanel);
             Controls.Add(DGIIPanel);
-            Controls.Add(asignarPCPanel);
             Controls.Add(cajaspanel);
             Controls.Add(barraizq);
             FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -2493,10 +2485,8 @@
         private Panel panel10;
         private Button procesarConfig;
         public Button sistema;
-        private CheckBox checkBox2;
-        private TextBox precmaximo;
+        private CheckBox cambiarPrecio;
         private CheckBox precminimo;
-        private Label label21;
         private ComboBox rolcmbx;
         private Label label34;
         private CheckBox CrearOrdenReservado;

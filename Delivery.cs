@@ -299,6 +299,7 @@ namespace Proyecto_restaurante
             txtnombreproducto.Clear();
             txtprecioproducto.Clear();
             numCantidad.Value = numCantidad.Minimum;
+            IdClientePersonaST = "1";
             txtiva.Clear();
             labelsubtotal.Text = "0";
             labeltotal.Text = "0";

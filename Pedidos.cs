@@ -28,6 +28,7 @@ namespace Proyecto_restaurante
         public string NombreUsuario;
         public int IdUsuario = 0;
         private int Autorizar = 0;
+
         private int IDMesa = 0;
         private int idMesaSeleccionada = 0;
         private int NumeroMesa = 0;
@@ -51,6 +52,11 @@ namespace Proyecto_restaurante
         public string comprobanteFinal;
         bool cargandoOrden = false;
         bool cargandoGrupos = false;
+
+        bool CambiarPrecio = false;
+        bool PrecioMinimo = false;
+
+        bool permisoSi = false;
         private int gruposMinimos = 1;
 
         bool modoUnion = false;
@@ -415,7 +421,6 @@ namespace Proyecto_restaurante
             buscarclientebtn.Enabled = true;
             buscarproductobtn.Enabled = true;
             buscarproductobtn.Enabled = true;
-            txtprecioproducto.Enabled = true;
             bajarproductobtn.Enabled = true;
             numCantidad.Enabled = true;
             nota.Enabled = true;
@@ -888,7 +893,8 @@ namespace Proyecto_restaurante
                 mesasprincipal.Controls.Add(btn);
             }
 
-            string consulta = "SELECT TOP 1 IdPedido FROM Pedido ORDER BY IdPedido DESC";
+            string consultaID = "SELECT TOP 1 IdPedido FROM Pedido ORDER BY IdPedido DESC";
+
             string busquedaCaja = @"
             SELECT 
                 c.Nombre AS nombre_caja,
@@ -898,10 +904,17 @@ namespace Proyecto_restaurante
                 ON conf.IdCaja = c.IdCaja
             WHERE conf.NombrePC = @NombrePC";
 
+            string PermisosSQL = @"
+            SELECT 
+                CambiarPrecio,
+                PrecioMinimo
+            FROM PermisosUsuario
+            WHERE IdUsuario = @IdUsuario;";
+
             using (SqlConnection con = new SqlConnection(conexionString))
             {
                 con.Open();
-                using (SqlCommand cmd = new SqlCommand(consulta, con))
+                using (SqlCommand cmd = new SqlCommand(consultaID, con))
                 {
                     object resultado = cmd.ExecuteScalar();
 
@@ -915,11 +928,7 @@ namespace Proyecto_restaurante
                         txtidpedido.Text = "1";
                     }
                 }
-            }
 
-            using (SqlConnection con = new SqlConnection(conexionString))
-            {
-                con.Open();
                 using (SqlCommand cmdBusCaja = new SqlCommand(busquedaCaja, con))
                 {
                     cmdBusCaja.Parameters.AddWithValue("@NombrePC", NombrePC);
@@ -937,6 +946,22 @@ namespace Proyecto_restaurante
                         }
                     }
                 }
+
+                using (SqlCommand cmdPermiso = new SqlCommand(PermisosSQL, con))
+                {
+                    cmdPermiso.Parameters.AddWithValue("@IdUsuario", IdUsuario);
+
+                    using (SqlDataReader dr = cmdPermiso.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            CambiarPrecio = Convert.ToInt32(dr["CambiarPrecio"]) == 1;
+                            PrecioMinimo = Convert.ToInt32(dr["PrecioMinimo"]) == 1;
+                        }
+                    }
+
+                    txtprecioproducto.Enabled = CambiarPrecio;
+                }
             }
 
             if (detalleorden.ColumnCount == 0)
@@ -949,6 +974,8 @@ namespace Proyecto_restaurante
                 detalleorden.Columns.Add("cantidad", "Cantidad");
                 detalleorden.Columns.Add("subtotal", "Importe");
             }
+
+
 
             NotifComanda();
             Comprobantes();
@@ -2689,7 +2716,6 @@ namespace Proyecto_restaurante
                     FROM PermisosUsuario 
                     WHERE IdUsuario = @IdUsuario";
 
-                    bool permisoSi = false;
                     using (SqlCommand cmdPermiso = new SqlCommand(queryPermiso, conexion))
                     {
                         cmdPermiso.Parameters.AddWithValue("@IdUsuario", idUsuario);
@@ -2715,7 +2741,6 @@ namespace Proyecto_restaurante
                     {
                         MessageBox.Show("No tiene Permisos para esta operación");
                     }
-
                 }
                 catch (Exception ex)
                 {
@@ -3584,5 +3609,73 @@ namespace Proyecto_restaurante
             }
         }
 
+        private void txtprecioproducto_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.Enter)
+                return;
+
+            e.SuppressKeyPress = true;
+
+            if (!int.TryParse(txtcodigoproducto.Text, out int idProducto))
+            {
+                MessageBox.Show("Producto inválido.");
+                return;
+            }
+
+            if (!decimal.TryParse(txtprecioproducto.Text, out decimal precioVenta))
+            {
+                MessageBox.Show("Precio inválido.");
+                return;
+            }
+
+            decimal precioCompra = 0;
+
+            using (SqlConnection cn = new SqlConnection(conexionString))
+            {
+                cn.Open();
+
+                string sql = @"
+                SELECT PrecioCompra
+                FROM ProductoVenta
+                WHERE IdProducto = @IdProducto";
+
+                using (SqlCommand cmd = new SqlCommand(sql, cn))
+                {
+                    cmd.Parameters.AddWithValue("@IdProducto", idProducto);
+
+                    object result = cmd.ExecuteScalar();
+
+                    if (result == null || result == DBNull.Value)
+                    {
+                        MessageBox.Show("No se encontró el producto.");
+                        return;
+                    }
+
+                    precioCompra = Convert.ToDecimal(result);
+                }
+            }
+
+            if (PrecioMinimo && precioVenta < precioCompra)
+            {
+                MessageBox.Show(
+                    $"El precio de venta no puede ser menor al precio de compra.\n\n" +
+                    $"Precio compra: {precioCompra:N2}",
+                    "Precio mínimo",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+
+                txtprecioproducto.Text = precioCompra.ToString("N2");
+                txtprecioproducto.SelectAll();
+                return;
+            }
+
+            bajarproductobtn.Focus();
+        }
+
+        private void txtprecioproducto_Leave(object sender, EventArgs e)
+        {
+            txtprecioproducto_KeyDown(sender, new KeyEventArgs(Keys.Enter));
+        }
     }
 }

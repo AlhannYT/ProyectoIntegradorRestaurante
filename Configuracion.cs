@@ -324,6 +324,9 @@ namespace Proyecto_restaurante
 
             empleadousuariodt.DataSource = dt;
 
+            if (empleadousuariodt.Columns.Contains("Persona"))
+                empleadousuariodt.Columns["Persona"].Visible = false;
+
             if (EstadobuscarEmpleado == 1)
             {
                 buscarempleado.Image = Proyecto_restaurante.Properties.Resources.cancelar1;
@@ -447,13 +450,15 @@ namespace Proyecto_restaurante
 
                     if (existe == 0)
                     {
-                        string queryInsertar = "INSERT INTO PermisosUsuario (IdUsuario, Admin, CrearOrdenReservacion, CancelarDoc) VALUES (@IdUsuario, @Admin, @CrearOrdenReservacion, @Cancelar)";
+                        string queryInsertar = "INSERT INTO PermisosUsuario (IdUsuario, Admin, CrearOrdenReservacion, CancelarDoc, CambiarPrecio, PrecioMinimo) VALUES (@IdUsuario, @Admin, @CrearOrdenReservacion, @Cancelar, @CambiarPrecio, @PrecioMinimo)";
                         using (SqlCommand cmdInsertar = new SqlCommand(queryInsertar, conexion))
                         {
                             cmdInsertar.Parameters.AddWithValue("@IdUsuario", idUsuario);
                             cmdInsertar.Parameters.AddWithValue("@Admin", admin.Checked ? 1 : 0);
                             cmdInsertar.Parameters.AddWithValue("@CrearOrdenReservacion", CrearOrdenReservado.Checked ? 1 : 0);
                             cmdInsertar.Parameters.AddWithValue("@Cancelar", cancelarDoc.Checked ? 1 : 0);
+                            cmdInsertar.Parameters.AddWithValue("@CambiarPrecio", cambiarPrecio.Checked ? 1 : 0);
+                            cmdInsertar.Parameters.AddWithValue("@PrecioMinimo", cambiarPrecio.Checked ? 1 : 0);
                             cmdInsertar.ExecuteNonQuery();
                         }
 
@@ -461,13 +466,17 @@ namespace Proyecto_restaurante
                     }
                     else
                     {
-                        string queryActualizar = "UPDATE PermisosUsuario SET Admin = @Admin, CrearOrdenReservacion = @CrearOrdenReservacion, CancelarDoc = @Cancelar WHERE IdUsuario = @IdUsuario";
+                        string queryActualizar = @"UPDATE PermisosUsuario SET Admin = @Admin, CrearOrdenReservacion = @CrearOrdenReservacion, 
+                        CancelarDoc = @Cancelar, CambiarPrecio = @CambiarPrecio, PrecioMinimo = @PrecioMinimo WHERE IdUsuario = @IdUsuario";
+
                         using (SqlCommand cmdActualizar = new SqlCommand(queryActualizar, conexion))
                         {
                             cmdActualizar.Parameters.AddWithValue("@IdUsuario", idUsuario);
                             cmdActualizar.Parameters.AddWithValue("@Admin", admin.Checked ? 1 : 0);
                             cmdActualizar.Parameters.AddWithValue("@CrearOrdenReservacion", CrearOrdenReservado.Checked ? 1 : 0);
                             cmdActualizar.Parameters.AddWithValue("@Cancelar", cancelarDoc.Checked ? 1 : 0);
+                            cmdActualizar.Parameters.AddWithValue("@CambiarPrecio", cambiarPrecio.Checked ? 1 : 0);
+                            cmdActualizar.Parameters.AddWithValue("@PrecioMinimo", precminimo.Checked ? 1 : 0);
                             cmdActualizar.ExecuteNonQuery();
                         }
 
@@ -492,7 +501,7 @@ namespace Proyecto_restaurante
                 conexion.Open();
 
                 string query = @"
-                SELECT Admin, CrearOrdenReservacion, CancelarDoc
+                SELECT Admin, CrearOrdenReservacion, CancelarDoc, CambiarPrecio, PrecioMinimo
                 FROM PermisosUsuario
                 WHERE IdUsuario = @IdUsuario";
 
@@ -507,12 +516,20 @@ namespace Proyecto_restaurante
                             admin.Checked = Convert.ToInt32(dr["Admin"]) == 1;
                             CrearOrdenReservado.Checked = Convert.ToInt32(dr["CrearOrdenReservacion"]) == 1;
                             cancelarDoc.Checked = Convert.ToInt32(dr["CancelarDoc"]) == 1;
+                            cambiarPrecio.Checked = Convert.ToInt32(dr["CambiarPrecio"]) == 1;
+                            precminimo.Enabled = Convert.ToInt32(dr["PrecioMinimo"]) == 1;
+                            precminimo.Checked = Convert.ToInt32(dr["PrecioMinimo"]) == 1;
+
+                            cambiarPrecio_CheckedChanged(sender, e);
                         }
                         else
                         {
                             admin.Checked = false;
                             CrearOrdenReservado.Checked = false;
                             cancelarDoc.Checked = false;
+                            cambiarPrecio.Checked = false;
+                            precminimo.Enabled = false;
+                            precminimo.Checked = false;
                         }
                     }
                 }
@@ -907,6 +924,60 @@ namespace Proyecto_restaurante
                 {
                     MessageBox.Show($"Ocurrió un error: {ex.Message}");
                 }
+            }
+        }
+
+        private void admin_CheckedChanged(object sender, EventArgs e)
+        {
+            if (admin.Checked == true)
+            {
+                CrearOrdenReservado.Checked = true;
+                cancelarDoc.Checked = true;
+                cambiarPrecio.Checked = true;
+                precminimo.Enabled = true;
+            }
+            else
+            {
+                CrearOrdenReservado.Checked = false;
+                cancelarDoc.Checked = false;
+                cambiarPrecio.Checked = false;
+                precminimo.Enabled = false;
+            }
+        }
+
+        private void empleadousuariodt_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            button10_Click(sender, e);
+        }
+
+        private void pcDT_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            button15_Click(sender, e);
+        }
+
+        private void cajaDT_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            button11_Click(sender, e);
+        }
+
+        private void button21_Click(object sender, EventArgs e)
+        {
+            asignarPCPanel.Visible = false;
+
+            cajaspanel.BringToFront();
+            cajaspanel.Visible = true;
+        }
+
+        private void cambiarPrecio_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cambiarPrecio.Checked == false)
+            {
+                precminimo.Enabled = false;
+                precminimo.Checked = false;
+            }
+            else
+            {
+                precminimo.Enabled = true;
             }
         }
     }

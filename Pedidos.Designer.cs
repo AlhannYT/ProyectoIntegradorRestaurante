@@ -1342,11 +1342,14 @@
             // 
             // txtprecioproducto
             // 
+            txtprecioproducto.Enabled = false;
             txtprecioproducto.Location = new Point(368, 11);
             txtprecioproducto.Name = "txtprecioproducto";
             txtprecioproducto.PlaceholderText = "Precio";
             txtprecioproducto.Size = new Size(90, 29);
             txtprecioproducto.TabIndex = 0;
+            txtprecioproducto.KeyDown += txtprecioproducto_KeyDown;
+            txtprecioproducto.Leave += txtprecioproducto_Leave;
             // 
             // txtcodigoproducto
             // 

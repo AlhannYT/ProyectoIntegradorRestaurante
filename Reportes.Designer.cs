@@ -48,47 +48,27 @@
             generarPDFbtn = new Button();
             repVentasPanel = new Panel();
             label7 = new Label();
-            ventasFin = new DateTimePicker();
-            ventasInicio = new DateTimePicker();
+            FechaFin = new DateTimePicker();
+            FechaInicio = new DateTimePicker();
             label6 = new Label();
             label5 = new Label();
             paraver = new Label();
             RepPlatosPanel = new Panel();
             label8 = new Label();
-            dateTimePicker1 = new DateTimePicker();
-            dateTimePicker2 = new DateTimePicker();
-            label9 = new Label();
-            label10 = new Label();
             RepStockPanel = new Panel();
             label11 = new Label();
-            dateTimePicker3 = new DateTimePicker();
-            dateTimePicker4 = new DateTimePicker();
-            label12 = new Label();
-            label13 = new Label();
             RepComprasPanel = new Panel();
             label14 = new Label();
-            dateTimePicker5 = new DateTimePicker();
-            dateTimePicker6 = new DateTimePicker();
-            label15 = new Label();
-            label16 = new Label();
             RepClientesPanel = new Panel();
             label17 = new Label();
-            dateTimePicker7 = new DateTimePicker();
-            dateTimePicker8 = new DateTimePicker();
-            label18 = new Label();
-            label19 = new Label();
             RepProvPanel = new Panel();
             label20 = new Label();
-            dateTimePicker9 = new DateTimePicker();
-            dateTimePicker10 = new DateTimePicker();
-            label21 = new Label();
-            label22 = new Label();
             RepEmpleadosPanel = new Panel();
             label23 = new Label();
-            dateTimePicker11 = new DateTimePicker();
-            dateTimePicker12 = new DateTimePicker();
-            label24 = new Label();
-            label25 = new Label();
+            opcionesCarpeta = new Panel();
+            eliminarReportes = new Button();
+            carpetaReportes = new Button();
+            deslizar = new Button();
             panel1.SuspendLayout();
             panel5.SuspendLayout();
             panel4.SuspendLayout();
@@ -101,6 +81,7 @@
             RepClientesPanel.SuspendLayout();
             RepProvPanel.SuspendLayout();
             RepEmpleadosPanel.SuspendLayout();
+            opcionesCarpeta.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -133,7 +114,7 @@
             repEmpleados.Location = new Point(4, 39);
             repEmpleados.Name = "repEmpleados";
             repEmpleados.Size = new Size(302, 39);
-            repEmpleados.TabIndex = 5;
+            repEmpleados.TabIndex = 7;
             repEmpleados.Text = "Empleados";
             repEmpleados.UseVisualStyleBackColor = true;
             repEmpleados.CheckedChanged += repEmpleados_CheckedChanged;
@@ -167,7 +148,7 @@
             repProv.Location = new Point(4, 83);
             repProv.Name = "repProv";
             repProv.Size = new Size(302, 39);
-            repProv.TabIndex = 5;
+            repProv.TabIndex = 6;
             repProv.Text = "Proveedores";
             repProv.UseVisualStyleBackColor = true;
             repProv.CheckedChanged += repProv_CheckedChanged;
@@ -213,7 +194,7 @@
             repCompras.Location = new Point(4, 83);
             repCompras.Name = "repCompras";
             repCompras.Size = new Size(302, 39);
-            repCompras.TabIndex = 5;
+            repCompras.TabIndex = 4;
             repCompras.Text = "Compras realizadas";
             repCompras.UseVisualStyleBackColor = true;
             repCompras.CheckedChanged += repCompras_CheckedChanged;
@@ -225,7 +206,7 @@
             repStock.Location = new Point(4, 39);
             repStock.Name = "repStock";
             repStock.Size = new Size(302, 39);
-            repStock.TabIndex = 5;
+            repStock.TabIndex = 3;
             repStock.Text = "Stock en almacen";
             repStock.UseVisualStyleBackColor = true;
             repStock.CheckedChanged += repStock_CheckedChanged;
@@ -259,7 +240,7 @@
             repPlatosVendidos.Location = new Point(4, 83);
             repPlatosVendidos.Name = "repPlatosVendidos";
             repPlatosVendidos.Size = new Size(302, 39);
-            repPlatosVendidos.TabIndex = 5;
+            repPlatosVendidos.TabIndex = 2;
             repPlatosVendidos.Text = "Platos mas vendidos";
             repPlatosVendidos.UseVisualStyleBackColor = true;
             repPlatosVendidos.CheckedChanged += repPlatosVendidos_CheckedChanged;
@@ -271,7 +252,7 @@
             repVentas.Location = new Point(4, 39);
             repVentas.Name = "repVentas";
             repVentas.Size = new Size(302, 39);
-            repVentas.TabIndex = 5;
+            repVentas.TabIndex = 1;
             repVentas.Text = "Reporte de ventas";
             repVentas.UseVisualStyleBackColor = true;
             repVentas.CheckedChanged += repVentas_CheckedChanged;
@@ -296,20 +277,17 @@
             generarPDFbtn.Location = new Point(470, 511);
             generarPDFbtn.Name = "generarPDFbtn";
             generarPDFbtn.Size = new Size(249, 81);
-            generarPDFbtn.TabIndex = 1;
+            generarPDFbtn.TabIndex = 8;
             generarPDFbtn.Text = "Generar PDF";
             generarPDFbtn.UseVisualStyleBackColor = true;
+            generarPDFbtn.Click += generarPDFbtn_Click;
             // 
             // repVentasPanel
             // 
             repVentasPanel.Controls.Add(label7);
-            repVentasPanel.Controls.Add(ventasFin);
-            repVentasPanel.Controls.Add(ventasInicio);
-            repVentasPanel.Controls.Add(label6);
-            repVentasPanel.Controls.Add(label5);
             repVentasPanel.Location = new Point(328, 2);
             repVentasPanel.Name = "repVentasPanel";
-            repVentasPanel.Size = new Size(533, 491);
+            repVentasPanel.Size = new Size(533, 79);
             repVentasPanel.TabIndex = 2;
             repVentasPanel.Visible = false;
             // 
@@ -324,32 +302,34 @@
             label7.TabIndex = 5;
             label7.Text = "Ventas";
             // 
-            // ventasFin
+            // FechaFin
             // 
-            ventasFin.CalendarFont = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ventasFin.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ventasFin.Format = DateTimePickerFormat.Short;
-            ventasFin.Location = new Point(299, 278);
-            ventasFin.Name = "ventasFin";
-            ventasFin.Size = new Size(200, 29);
-            ventasFin.TabIndex = 0;
+            FechaFin.CalendarFont = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            FechaFin.Enabled = false;
+            FechaFin.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            FechaFin.Format = DateTimePickerFormat.Short;
+            FechaFin.Location = new Point(627, 281);
+            FechaFin.Name = "FechaFin";
+            FechaFin.Size = new Size(200, 29);
+            FechaFin.TabIndex = 0;
             // 
-            // ventasInicio
+            // FechaInicio
             // 
-            ventasInicio.CalendarFont = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ventasInicio.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ventasInicio.Format = DateTimePickerFormat.Short;
-            ventasInicio.Location = new Point(299, 182);
-            ventasInicio.Name = "ventasInicio";
-            ventasInicio.Size = new Size(200, 29);
-            ventasInicio.TabIndex = 0;
+            FechaInicio.CalendarFont = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            FechaInicio.Enabled = false;
+            FechaInicio.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            FechaInicio.Format = DateTimePickerFormat.Short;
+            FechaInicio.Location = new Point(627, 185);
+            FechaInicio.Name = "FechaInicio";
+            FechaInicio.Size = new Size(200, 29);
+            FechaInicio.TabIndex = 0;
             // 
             // label6
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold);
             label6.ForeColor = SystemColors.Control;
-            label6.Location = new Point(33, 279);
+            label6.Location = new Point(361, 282);
             label6.Name = "label6";
             label6.Size = new Size(141, 30);
             label6.TabIndex = 4;
@@ -360,7 +340,7 @@
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold);
             label5.ForeColor = SystemColors.Control;
-            label5.Location = new Point(33, 181);
+            label5.Location = new Point(361, 184);
             label5.Name = "label5";
             label5.Size = new Size(166, 30);
             label5.TabIndex = 4;
@@ -379,13 +359,9 @@
             // RepPlatosPanel
             // 
             RepPlatosPanel.Controls.Add(label8);
-            RepPlatosPanel.Controls.Add(dateTimePicker1);
-            RepPlatosPanel.Controls.Add(dateTimePicker2);
-            RepPlatosPanel.Controls.Add(label9);
-            RepPlatosPanel.Controls.Add(label10);
-            RepPlatosPanel.Location = new Point(867, 2);
+            RepPlatosPanel.Location = new Point(900, 2);
             RepPlatosPanel.Name = "RepPlatosPanel";
-            RepPlatosPanel.Size = new Size(533, 491);
+            RepPlatosPanel.Size = new Size(533, 79);
             RepPlatosPanel.TabIndex = 2;
             RepPlatosPanel.Visible = false;
             // 
@@ -400,58 +376,12 @@
             label8.TabIndex = 5;
             label8.Text = "Platos mas vendidos";
             // 
-            // dateTimePicker1
-            // 
-            dateTimePicker1.CalendarFont = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dateTimePicker1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dateTimePicker1.Format = DateTimePickerFormat.Short;
-            dateTimePicker1.Location = new Point(299, 278);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(200, 29);
-            dateTimePicker1.TabIndex = 0;
-            // 
-            // dateTimePicker2
-            // 
-            dateTimePicker2.CalendarFont = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dateTimePicker2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dateTimePicker2.Format = DateTimePickerFormat.Short;
-            dateTimePicker2.Location = new Point(299, 182);
-            dateTimePicker2.Name = "dateTimePicker2";
-            dateTimePicker2.Size = new Size(200, 29);
-            dateTimePicker2.TabIndex = 0;
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold);
-            label9.ForeColor = SystemColors.Control;
-            label9.Location = new Point(33, 279);
-            label9.Name = "label9";
-            label9.Size = new Size(141, 30);
-            label9.TabIndex = 4;
-            label9.Text = "Fecha de Fin:";
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold);
-            label10.ForeColor = SystemColors.Control;
-            label10.Location = new Point(33, 181);
-            label10.Name = "label10";
-            label10.Size = new Size(166, 30);
-            label10.TabIndex = 4;
-            label10.Text = "Fecha de Inicio:";
-            // 
             // RepStockPanel
             // 
             RepStockPanel.Controls.Add(label11);
-            RepStockPanel.Controls.Add(dateTimePicker3);
-            RepStockPanel.Controls.Add(dateTimePicker4);
-            RepStockPanel.Controls.Add(label12);
-            RepStockPanel.Controls.Add(label13);
-            RepStockPanel.Location = new Point(1406, 0);
+            RepStockPanel.Location = new Point(900, 422);
             RepStockPanel.Name = "RepStockPanel";
-            RepStockPanel.Size = new Size(533, 491);
+            RepStockPanel.Size = new Size(533, 79);
             RepStockPanel.TabIndex = 2;
             RepStockPanel.Visible = false;
             // 
@@ -466,58 +396,12 @@
             label11.TabIndex = 5;
             label11.Text = "Stock en almacen";
             // 
-            // dateTimePicker3
-            // 
-            dateTimePicker3.CalendarFont = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dateTimePicker3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dateTimePicker3.Format = DateTimePickerFormat.Short;
-            dateTimePicker3.Location = new Point(299, 278);
-            dateTimePicker3.Name = "dateTimePicker3";
-            dateTimePicker3.Size = new Size(200, 29);
-            dateTimePicker3.TabIndex = 0;
-            // 
-            // dateTimePicker4
-            // 
-            dateTimePicker4.CalendarFont = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dateTimePicker4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dateTimePicker4.Format = DateTimePickerFormat.Short;
-            dateTimePicker4.Location = new Point(299, 182);
-            dateTimePicker4.Name = "dateTimePicker4";
-            dateTimePicker4.Size = new Size(200, 29);
-            dateTimePicker4.TabIndex = 0;
-            // 
-            // label12
-            // 
-            label12.AutoSize = true;
-            label12.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold);
-            label12.ForeColor = SystemColors.Control;
-            label12.Location = new Point(33, 279);
-            label12.Name = "label12";
-            label12.Size = new Size(141, 30);
-            label12.TabIndex = 4;
-            label12.Text = "Fecha de Fin:";
-            // 
-            // label13
-            // 
-            label13.AutoSize = true;
-            label13.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold);
-            label13.ForeColor = SystemColors.Control;
-            label13.Location = new Point(33, 181);
-            label13.Name = "label13";
-            label13.Size = new Size(166, 30);
-            label13.TabIndex = 4;
-            label13.Text = "Fecha de Inicio:";
-            // 
             // RepComprasPanel
             // 
             RepComprasPanel.Controls.Add(label14);
-            RepComprasPanel.Controls.Add(dateTimePicker5);
-            RepComprasPanel.Controls.Add(dateTimePicker6);
-            RepComprasPanel.Controls.Add(label15);
-            RepComprasPanel.Controls.Add(label16);
-            RepComprasPanel.Location = new Point(1945, 2);
+            RepComprasPanel.Location = new Point(900, 527);
             RepComprasPanel.Name = "RepComprasPanel";
-            RepComprasPanel.Size = new Size(533, 491);
+            RepComprasPanel.Size = new Size(533, 79);
             RepComprasPanel.TabIndex = 2;
             RepComprasPanel.Visible = false;
             // 
@@ -532,58 +416,12 @@
             label14.TabIndex = 5;
             label14.Text = "Compras";
             // 
-            // dateTimePicker5
-            // 
-            dateTimePicker5.CalendarFont = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dateTimePicker5.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dateTimePicker5.Format = DateTimePickerFormat.Short;
-            dateTimePicker5.Location = new Point(299, 278);
-            dateTimePicker5.Name = "dateTimePicker5";
-            dateTimePicker5.Size = new Size(200, 29);
-            dateTimePicker5.TabIndex = 0;
-            // 
-            // dateTimePicker6
-            // 
-            dateTimePicker6.CalendarFont = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dateTimePicker6.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dateTimePicker6.Format = DateTimePickerFormat.Short;
-            dateTimePicker6.Location = new Point(299, 182);
-            dateTimePicker6.Name = "dateTimePicker6";
-            dateTimePicker6.Size = new Size(200, 29);
-            dateTimePicker6.TabIndex = 0;
-            // 
-            // label15
-            // 
-            label15.AutoSize = true;
-            label15.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold);
-            label15.ForeColor = SystemColors.Control;
-            label15.Location = new Point(33, 279);
-            label15.Name = "label15";
-            label15.Size = new Size(141, 30);
-            label15.TabIndex = 4;
-            label15.Text = "Fecha de Fin:";
-            // 
-            // label16
-            // 
-            label16.AutoSize = true;
-            label16.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold);
-            label16.ForeColor = SystemColors.Control;
-            label16.Location = new Point(33, 181);
-            label16.Name = "label16";
-            label16.Size = new Size(166, 30);
-            label16.TabIndex = 4;
-            label16.Text = "Fecha de Inicio:";
-            // 
             // RepClientesPanel
             // 
             RepClientesPanel.Controls.Add(label17);
-            RepClientesPanel.Controls.Add(dateTimePicker7);
-            RepClientesPanel.Controls.Add(dateTimePicker8);
-            RepClientesPanel.Controls.Add(label18);
-            RepClientesPanel.Controls.Add(label19);
-            RepClientesPanel.Location = new Point(867, 499);
+            RepClientesPanel.Location = new Point(900, 212);
             RepClientesPanel.Name = "RepClientesPanel";
-            RepClientesPanel.Size = new Size(533, 491);
+            RepClientesPanel.Size = new Size(533, 79);
             RepClientesPanel.TabIndex = 2;
             RepClientesPanel.Visible = false;
             // 
@@ -598,58 +436,12 @@
             label17.TabIndex = 5;
             label17.Text = "Clientes";
             // 
-            // dateTimePicker7
-            // 
-            dateTimePicker7.CalendarFont = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dateTimePicker7.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dateTimePicker7.Format = DateTimePickerFormat.Short;
-            dateTimePicker7.Location = new Point(299, 278);
-            dateTimePicker7.Name = "dateTimePicker7";
-            dateTimePicker7.Size = new Size(200, 29);
-            dateTimePicker7.TabIndex = 0;
-            // 
-            // dateTimePicker8
-            // 
-            dateTimePicker8.CalendarFont = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dateTimePicker8.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dateTimePicker8.Format = DateTimePickerFormat.Short;
-            dateTimePicker8.Location = new Point(299, 182);
-            dateTimePicker8.Name = "dateTimePicker8";
-            dateTimePicker8.Size = new Size(200, 29);
-            dateTimePicker8.TabIndex = 0;
-            // 
-            // label18
-            // 
-            label18.AutoSize = true;
-            label18.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold);
-            label18.ForeColor = SystemColors.Control;
-            label18.Location = new Point(33, 279);
-            label18.Name = "label18";
-            label18.Size = new Size(141, 30);
-            label18.TabIndex = 4;
-            label18.Text = "Fecha de Fin:";
-            // 
-            // label19
-            // 
-            label19.AutoSize = true;
-            label19.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold);
-            label19.ForeColor = SystemColors.Control;
-            label19.Location = new Point(33, 181);
-            label19.Name = "label19";
-            label19.Size = new Size(166, 30);
-            label19.TabIndex = 4;
-            label19.Text = "Fecha de Inicio:";
-            // 
             // RepProvPanel
             // 
             RepProvPanel.Controls.Add(label20);
-            RepProvPanel.Controls.Add(dateTimePicker9);
-            RepProvPanel.Controls.Add(dateTimePicker10);
-            RepProvPanel.Controls.Add(label21);
-            RepProvPanel.Controls.Add(label22);
-            RepProvPanel.Location = new Point(1406, 499);
+            RepProvPanel.Location = new Point(900, 317);
             RepProvPanel.Name = "RepProvPanel";
-            RepProvPanel.Size = new Size(533, 491);
+            RepProvPanel.Size = new Size(533, 79);
             RepProvPanel.TabIndex = 2;
             RepProvPanel.Visible = false;
             // 
@@ -664,58 +456,12 @@
             label20.TabIndex = 5;
             label20.Text = "Proveedores";
             // 
-            // dateTimePicker9
-            // 
-            dateTimePicker9.CalendarFont = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dateTimePicker9.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dateTimePicker9.Format = DateTimePickerFormat.Short;
-            dateTimePicker9.Location = new Point(299, 278);
-            dateTimePicker9.Name = "dateTimePicker9";
-            dateTimePicker9.Size = new Size(200, 29);
-            dateTimePicker9.TabIndex = 0;
-            // 
-            // dateTimePicker10
-            // 
-            dateTimePicker10.CalendarFont = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dateTimePicker10.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dateTimePicker10.Format = DateTimePickerFormat.Short;
-            dateTimePicker10.Location = new Point(299, 182);
-            dateTimePicker10.Name = "dateTimePicker10";
-            dateTimePicker10.Size = new Size(200, 29);
-            dateTimePicker10.TabIndex = 0;
-            // 
-            // label21
-            // 
-            label21.AutoSize = true;
-            label21.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold);
-            label21.ForeColor = SystemColors.Control;
-            label21.Location = new Point(33, 279);
-            label21.Name = "label21";
-            label21.Size = new Size(141, 30);
-            label21.TabIndex = 4;
-            label21.Text = "Fecha de Fin:";
-            // 
-            // label22
-            // 
-            label22.AutoSize = true;
-            label22.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold);
-            label22.ForeColor = SystemColors.Control;
-            label22.Location = new Point(33, 181);
-            label22.Name = "label22";
-            label22.Size = new Size(166, 30);
-            label22.TabIndex = 4;
-            label22.Text = "Fecha de Inicio:";
-            // 
             // RepEmpleadosPanel
             // 
             RepEmpleadosPanel.Controls.Add(label23);
-            RepEmpleadosPanel.Controls.Add(dateTimePicker11);
-            RepEmpleadosPanel.Controls.Add(dateTimePicker12);
-            RepEmpleadosPanel.Controls.Add(label24);
-            RepEmpleadosPanel.Controls.Add(label25);
-            RepEmpleadosPanel.Location = new Point(1945, 499);
+            RepEmpleadosPanel.Location = new Point(900, 107);
             RepEmpleadosPanel.Name = "RepEmpleadosPanel";
-            RepEmpleadosPanel.Size = new Size(533, 491);
+            RepEmpleadosPanel.Size = new Size(533, 79);
             RepEmpleadosPanel.TabIndex = 2;
             RepEmpleadosPanel.Visible = false;
             // 
@@ -730,47 +476,54 @@
             label23.TabIndex = 5;
             label23.Text = "Empleados";
             // 
-            // dateTimePicker11
+            // opcionesCarpeta
             // 
-            dateTimePicker11.CalendarFont = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dateTimePicker11.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dateTimePicker11.Format = DateTimePickerFormat.Short;
-            dateTimePicker11.Location = new Point(299, 278);
-            dateTimePicker11.Name = "dateTimePicker11";
-            dateTimePicker11.Size = new Size(200, 29);
-            dateTimePicker11.TabIndex = 0;
+            opcionesCarpeta.BackColor = Color.FromArgb(64, 64, 64);
+            opcionesCarpeta.Controls.Add(eliminarReportes);
+            opcionesCarpeta.Controls.Add(carpetaReportes);
+            opcionesCarpeta.Location = new Point(576, 107);
+            opcionesCarpeta.Name = "opcionesCarpeta";
+            opcionesCarpeta.Size = new Size(258, 31);
+            opcionesCarpeta.TabIndex = 30;
+            opcionesCarpeta.Visible = false;
             // 
-            // dateTimePicker12
+            // eliminarReportes
             // 
-            dateTimePicker12.CalendarFont = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dateTimePicker12.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dateTimePicker12.Format = DateTimePickerFormat.Short;
-            dateTimePicker12.Location = new Point(299, 182);
-            dateTimePicker12.Name = "dateTimePicker12";
-            dateTimePicker12.Size = new Size(200, 29);
-            dateTimePicker12.TabIndex = 0;
+            eliminarReportes.BackColor = Color.LightCoral;
+            eliminarReportes.Image = Properties.Resources.basura;
+            eliminarReportes.ImageAlign = ContentAlignment.MiddleRight;
+            eliminarReportes.Location = new Point(117, 2);
+            eliminarReportes.Name = "eliminarReportes";
+            eliminarReportes.Size = new Size(139, 27);
+            eliminarReportes.TabIndex = 11;
+            eliminarReportes.Text = "Limpiar Carpeta";
+            eliminarReportes.TextAlign = ContentAlignment.MiddleLeft;
+            eliminarReportes.UseVisualStyleBackColor = false;
+            eliminarReportes.Click += eliminarReportes_Click;
             // 
-            // label24
+            // carpetaReportes
             // 
-            label24.AutoSize = true;
-            label24.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold);
-            label24.ForeColor = SystemColors.Control;
-            label24.Location = new Point(33, 279);
-            label24.Name = "label24";
-            label24.Size = new Size(141, 30);
-            label24.TabIndex = 4;
-            label24.Text = "Fecha de Fin:";
+            carpetaReportes.BackColor = Color.Gold;
+            carpetaReportes.Image = Properties.Resources.carpeta_abierta__1_;
+            carpetaReportes.ImageAlign = ContentAlignment.MiddleRight;
+            carpetaReportes.Location = new Point(2, 2);
+            carpetaReportes.Name = "carpetaReportes";
+            carpetaReportes.Size = new Size(112, 27);
+            carpetaReportes.TabIndex = 10;
+            carpetaReportes.Text = "Reportes";
+            carpetaReportes.TextAlign = ContentAlignment.MiddleLeft;
+            carpetaReportes.UseVisualStyleBackColor = false;
+            carpetaReportes.Click += carpetaReportes_Click;
             // 
-            // label25
+            // deslizar
             // 
-            label25.AutoSize = true;
-            label25.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold);
-            label25.ForeColor = SystemColors.Control;
-            label25.Location = new Point(33, 181);
-            label25.Name = "label25";
-            label25.Size = new Size(166, 30);
-            label25.TabIndex = 4;
-            label25.Text = "Fecha de Inicio:";
+            deslizar.Image = Properties.Resources.flechaizquierdaroja;
+            deslizar.Location = new Point(835, 107);
+            deslizar.Name = "deslizar";
+            deslizar.Size = new Size(26, 31);
+            deslizar.TabIndex = 9;
+            deslizar.UseVisualStyleBackColor = true;
+            deslizar.Click += deslizar_Click;
             // 
             // Reportes
             // 
@@ -778,10 +531,16 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gray;
             ClientSize = new Size(862, 605);
+            Controls.Add(opcionesCarpeta);
+            Controls.Add(deslizar);
             Controls.Add(RepComprasPanel);
+            Controls.Add(FechaFin);
             Controls.Add(RepStockPanel);
+            Controls.Add(FechaInicio);
             Controls.Add(RepEmpleadosPanel);
+            Controls.Add(label6);
             Controls.Add(RepProvPanel);
+            Controls.Add(label5);
             Controls.Add(RepClientesPanel);
             Controls.Add(RepPlatosPanel);
             Controls.Add(repVentasPanel);
@@ -795,6 +554,7 @@
             Name = "Reportes";
             StartPosition = FormStartPosition.Manual;
             Text = "Reportes";
+            Load += Reportes_Load;
             panel1.ResumeLayout(false);
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
@@ -818,6 +578,7 @@
             RepProvPanel.PerformLayout();
             RepEmpleadosPanel.ResumeLayout(false);
             RepEmpleadosPanel.PerformLayout();
+            opcionesCarpeta.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -842,47 +603,27 @@
         private Panel panel3;
         private Panel panel2;
         private Panel repVentasPanel;
-        private DateTimePicker ventasFin;
-        private DateTimePicker ventasInicio;
+        private DateTimePicker FechaFin;
+        private DateTimePicker FechaInicio;
         private Label label5;
         private Label label7;
         private Label label6;
         private Label paraver;
         private Panel RepPlatosPanel;
         private Label label8;
-        private DateTimePicker dateTimePicker1;
-        private DateTimePicker dateTimePicker2;
-        private Label label9;
-        private Label label10;
         private Panel RepStockPanel;
         private Label label11;
-        private DateTimePicker dateTimePicker3;
-        private DateTimePicker dateTimePicker4;
-        private Label label12;
-        private Label label13;
         private Panel RepComprasPanel;
         private Label label14;
-        private DateTimePicker dateTimePicker5;
-        private DateTimePicker dateTimePicker6;
-        private Label label15;
-        private Label label16;
         private Panel RepClientesPanel;
         private Label label17;
-        private DateTimePicker dateTimePicker7;
-        private DateTimePicker dateTimePicker8;
-        private Label label18;
-        private Label label19;
         private Panel RepProvPanel;
         private Label label20;
-        private DateTimePicker dateTimePicker9;
-        private DateTimePicker dateTimePicker10;
-        private Label label21;
-        private Label label22;
         private Panel RepEmpleadosPanel;
         private Label label23;
-        private DateTimePicker dateTimePicker11;
-        private DateTimePicker dateTimePicker12;
-        private Label label24;
-        private Label label25;
+        private Panel opcionesCarpeta;
+        private Button eliminarReportes;
+        private Button carpetaReportes;
+        private Button deslizar;
     }
 }

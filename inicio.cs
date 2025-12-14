@@ -261,6 +261,7 @@ namespace Proyecto_restaurante
             File.WriteAllLines(rutaArchivo, lineas);
 
             MessageBox.Show(actualizada ? "Conexión actualizada correctamente." : "Conexión guardada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             iniciobtn.Enabled = true;
             button6_Click(sender, e);
         }
@@ -295,7 +296,6 @@ namespace Proyecto_restaurante
             }
 
             txtsql.DataSource = tabla;
-
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -368,6 +368,9 @@ namespace Proyecto_restaurante
         private void inicio_Load(object sender, EventArgs e)
         {
             string rutaBase = @"C:\SistemaArchivos";
+
+            string rutaReportes = @"C:\SistemaArchivos\Reportes";
+
             string rutaConexion = Path.Combine(rutaBase, "Conexion", "ConexionesSQL.txt");
 
             string[] carpetas = {
@@ -382,10 +385,23 @@ namespace Proyecto_restaurante
                 "Usuarios"
             };
 
+            string[] carpetasReportes = {
+                "Ventas",
+                "PlatosVendidos",
+                "Stock",
+                "Compras",
+                "Clientes",
+                "Proveedores",
+                "Empleados"
+            };
+
             try
             {
                 if (!Directory.Exists(rutaBase))
                     Directory.CreateDirectory(rutaBase);
+
+                if (!Directory.Exists(rutaReportes))
+                    Directory.CreateDirectory(rutaReportes);
 
                 foreach (string carpeta in carpetas)
                 {
@@ -394,7 +410,12 @@ namespace Proyecto_restaurante
                         Directory.CreateDirectory(rutaCompleta);
                 }
 
-                Console.WriteLine("Verificación de carpetas completada.");
+                foreach (string carpetaRep in carpetasReportes)
+                {
+                    string rutaRepCompleta = Path.Combine(rutaReportes, carpetaRep);
+                    if (!Directory.Exists(rutaRepCompleta))
+                        Directory.CreateDirectory(rutaRepCompleta);
+                }
             }
             catch (Exception ex)
             {
