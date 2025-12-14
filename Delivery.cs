@@ -1760,5 +1760,87 @@ namespace Proyecto_restaurante
                 MessageBox.Show("Error al generar el PDF: " + ex.Message);
             }
         }
+
+        private void tabladatospedidos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = tabladatospedidos.Rows[e.RowIndex];
+
+                PedidoID = Convert.ToInt32(row.Cells["IdPedido"].Value);
+            }
+        }
+
+        public int sistemas = 0;
+
+        private void deslizar_Click(object sender, EventArgs e)
+        {
+            if (sistemas == 0)
+            {
+                deslizar.Image = Proyecto_restaurante.Properties.Resources.flechaderecharoja;
+                opcionesCarpeta.Visible = true;
+                sistemas = 1;
+            }
+            else
+            {
+                deslizar.Image = Proyecto_restaurante.Properties.Resources.flechaizquierdaroja;
+                opcionesCarpeta.Visible = false;
+                sistemas = 0;
+            }
+        }
+
+        private string rutaFacturas = @"C:\SistemaArchivos\Facturas";
+
+        private void carpetaFactura_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!Directory.Exists(rutaFacturas))
+                    Directory.CreateDirectory(rutaFacturas);
+
+                System.Diagnostics.Process.Start("explorer.exe", rutaFacturas);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al abrir la carpeta: " + ex.Message);
+            }
+        }
+
+        private void eliminarFacturas_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!Directory.Exists(rutaFacturas))
+                {
+                    MessageBox.Show("La carpeta no existe.");
+                    return;
+                }
+
+                var archivos = Directory.GetFiles(rutaFacturas, "*.pdf");
+
+                if (archivos.Length == 0)
+                {
+                    MessageBox.Show("No hay facturas PDF para eliminar.");
+                    return;
+                }
+
+                DialogResult r = MessageBox.Show(
+                    $"Se eliminarán {archivos.Length} archivos PDF.\n¿Desea continuar?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning
+                );
+
+                if (r == DialogResult.No)
+                    return;
+
+                foreach (var archivo in archivos)
+                    File.Delete(archivo);
+
+                MessageBox.Show("Todas las facturas han sido eliminadas.");
+                deslizar_Click(sender, e);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al eliminar facturas: " + ex.Message);
+            }
+        }
     }
 }
