@@ -116,28 +116,8 @@ namespace Proyecto_restaurante
 
         private void eliminarbtn_Click(object sender, EventArgs e)
         {
-            txtbuscador.Text = "(ID, Nombre, Apellido)";
-            txtbuscador.ForeColor = Color.Gray;
+            txtbuscador.Text = string.Empty;
             ConsultaClientes_Load(sender, e);
-        }
-
-        private void txtbuscador_Enter(object sender, EventArgs e)
-        {
-            if (txtbuscador.Text == "(ID, Nombre, Apellido)")
-            {
-                txtbuscador.Text = "";
-                txtbuscador.ForeColor = Color.Black;
-            }
-        }
-
-        private void txtbuscador_Leave(object sender, EventArgs e)
-        {
-            if (txtbuscador.Text == "")
-            {
-                txtbuscador.Text = "(ID, Nombre, Apellido)";
-                txtbuscador.ForeColor = Color.Gray;
-                ConsultaClientes_Load(sender, e);
-            }
         }
 
         private void txtbuscador_TextChanged(object sender, EventArgs e)
@@ -314,7 +294,6 @@ namespace Proyecto_restaurante
                             cmdDoc.ExecuteNonQuery();
                         }
 
-
                         trans.Commit();
                         MessageBox.Show("Cliente actualizado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
@@ -352,7 +331,7 @@ namespace Proyecto_restaurante
             nombrenumerotxt.Clear();
 
             estadochk.Checked = true;
-            txtnombre.Focus();
+            identtxt.Focus();
             direccioncliente.Rows.Clear();
             telefonocliente.Rows.Clear();
         }

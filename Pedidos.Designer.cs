@@ -1093,11 +1093,11 @@
             label17.AutoSize = true;
             label17.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label17.ForeColor = SystemColors.Control;
-            label17.Location = new Point(367, 20);
+            label17.Location = new Point(363, 20);
             label17.Name = "label17";
-            label17.Size = new Size(73, 32);
+            label17.Size = new Size(80, 32);
             label17.TabIndex = 3;
-            label17.Text = "Plato";
+            label17.Text = "Menú";
             // 
             // tablapanelproducto
             // 

@@ -450,6 +450,7 @@
             // 
             // tiposueldocmbx
             // 
+            tiposueldocmbx.DropDownStyle = ComboBoxStyle.DropDownList;
             tiposueldocmbx.FormattingEnabled = true;
             tiposueldocmbx.Items.AddRange(new object[] { "Semanal", "Quincenal", "Mensual" });
             tiposueldocmbx.Location = new Point(367, 74);

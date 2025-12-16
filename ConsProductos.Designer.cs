@@ -1078,7 +1078,7 @@
             categoriaconsulta.AllowUserToAddRows = false;
             categoriaconsulta.AllowUserToDeleteRows = false;
             categoriaconsulta.AllowUserToResizeRows = false;
-            categoriaconsulta.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            categoriaconsulta.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             categoriaconsulta.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             categoriaconsulta.Location = new Point(4, 63);
             categoriaconsulta.MultiSelect = false;
@@ -1090,6 +1090,7 @@
             categoriaconsulta.Size = new Size(195, 171);
             categoriaconsulta.TabIndex = 74;
             categoriaconsulta.CellClick += categoriaconsulta_CellClick;
+            categoriaconsulta.CellDoubleClick += categoriaconsulta_CellDoubleClick;
             // 
             // ConsProductos
             // 

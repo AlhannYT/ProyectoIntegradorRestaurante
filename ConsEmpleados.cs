@@ -86,6 +86,18 @@ namespace Proyecto_restaurante
                             insertarEmpleado.ExecuteNonQuery();
                         }
 
+                        string nuevoDoc = @"
+                        INSERT INTO PersonaDocumento (IdPersona, IdTipoDocumento, Numero, EsPrincipal)
+                        VALUES (@IdPersona, 1, @Numero, 1)";
+
+                        using (SqlCommand insertarDocumento = new SqlCommand(nuevoDoc, conexion, trans))
+                        {
+                            insertarDocumento.Parameters.AddWithValue("@IdPersona", PersonaID);
+                            insertarDocumento.Parameters.AddWithValue("@Numero", txtcedula.Text);
+
+                            insertarDocumento.ExecuteNonQuery();
+                        }
+
                         foreach (DataGridViewRow fila in numeroEmpleado.Rows)
                         {
                             if (fila.IsNewRow) continue;
@@ -168,6 +180,18 @@ namespace Proyecto_restaurante
                             actualizarCommand.Parameters.AddWithValue("@IdRol", Convert.ToInt32(rolcmbx.SelectedValue));
                             actualizarCommand.Parameters.AddWithValue("@Activo", estadochk.Checked ? 1 : 0);
                             actualizarCommand.ExecuteNonQuery();
+                        }
+
+                        string actualizarDoc = @"
+                        UPDATE PersonaDocumento
+                        SET Numero = @Numero
+                        WHERE IdPersona = @IdPersona AND EsPrincipal = 1";
+
+                        using (SqlCommand cmdDoc = new SqlCommand(actualizarDoc, conexion, trans))
+                        {
+                            cmdDoc.Parameters.AddWithValue("@IdPersona", PersonaID);
+                            cmdDoc.Parameters.AddWithValue("@Numero", txtcedula.Text);
+                            cmdDoc.ExecuteNonQuery();
                         }
 
                         foreach (DataGridViewRow fila in numeroEmpleado.Rows)
@@ -581,6 +605,8 @@ namespace Proyecto_restaurante
                 CargarDatosEmpleado(idEmpleado);
 
                 tabControl1.SelectedIndex = 1;
+
+                txtcedula.Focus();
             }
             else
             {
@@ -636,6 +662,7 @@ namespace Proyecto_restaurante
                 cmdDoc.Parameters.AddWithValue("@IdPersona", PersonaID);
 
                 object numeroDoc = cmdDoc.ExecuteScalar();
+                txtcedula.Text = numeroDoc?.ToString() ?? "";
 
                 numeroEmpleado.Rows.Clear();
 

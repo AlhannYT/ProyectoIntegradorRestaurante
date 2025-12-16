@@ -336,7 +336,7 @@
             tipodoccmbx.Items.AddRange(new object[] { "RNC", "Cedula" });
             tipodoccmbx.Location = new Point(33, 109);
             tipodoccmbx.Name = "tipodoccmbx";
-            tipodoccmbx.Size = new Size(76, 29);
+            tipodoccmbx.Size = new Size(94, 29);
             tipodoccmbx.TabIndex = 103;
             // 
             // estadochk
@@ -366,9 +366,9 @@
             // identtxt
             // 
             identtxt.CharacterCasing = CharacterCasing.Upper;
-            identtxt.Location = new Point(112, 109);
+            identtxt.Location = new Point(131, 109);
             identtxt.Name = "identtxt";
-            identtxt.Size = new Size(178, 29);
+            identtxt.Size = new Size(159, 29);
             identtxt.TabIndex = 101;
             identtxt.TextChanged += identtxt_TextChanged;
             // 

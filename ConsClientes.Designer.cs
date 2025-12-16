@@ -109,8 +109,6 @@
             txtbuscador.Size = new Size(452, 29);
             txtbuscador.TabIndex = 1;
             txtbuscador.TextChanged += txtbuscador_TextChanged;
-            txtbuscador.Enter += txtbuscador_Enter;
-            txtbuscador.Leave += txtbuscador_Leave;
             // 
             // tabladatos
             // 
