@@ -27,6 +27,7 @@ namespace Proyecto_restaurante
             tabControl1.SelectedIndex = 1;
             PersonaID = 0;
             ProveedorID = 0;
+            nombreprovtxt.Focus();
         }
 
         private System.Windows.Forms.ToolTip toolTip1;

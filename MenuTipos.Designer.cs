@@ -478,6 +478,8 @@
             // 
             // metododt
             // 
+            metododt.AllowUserToAddRows = false;
+            metododt.AllowUserToDeleteRows = false;
             metododt.AllowUserToResizeRows = false;
             metododt.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             metododt.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -685,6 +687,8 @@
             // 
             // identdt
             // 
+            identdt.AllowUserToAddRows = false;
+            identdt.AllowUserToDeleteRows = false;
             identdt.AllowUserToResizeRows = false;
             identdt.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             identdt.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -963,6 +967,8 @@
             // 
             // departdt
             // 
+            departdt.AllowUserToAddRows = false;
+            departdt.AllowUserToDeleteRows = false;
             departdt.AllowUserToResizeRows = false;
             departdt.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             departdt.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -1221,6 +1227,8 @@
             // 
             // depdt
             // 
+            depdt.AllowUserToAddRows = false;
+            depdt.AllowUserToDeleteRows = false;
             depdt.AllowUserToResizeRows = false;
             depdt.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             depdt.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -1408,8 +1416,6 @@
             // bebidachk
             // 
             bebidachk.AutoSize = true;
-            bebidachk.Checked = true;
-            bebidachk.CheckState = CheckState.Checked;
             bebidachk.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             bebidachk.ForeColor = Color.White;
             bebidachk.Location = new Point(317, 140);
@@ -1423,8 +1429,6 @@
             // ingredientechk
             // 
             ingredientechk.AutoSize = true;
-            ingredientechk.Checked = true;
-            ingredientechk.CheckState = CheckState.Checked;
             ingredientechk.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             ingredientechk.ForeColor = Color.White;
             ingredientechk.Location = new Point(111, 140);
@@ -1459,6 +1463,8 @@
             // 
             // prodtidt
             // 
+            prodtidt.AllowUserToAddRows = false;
+            prodtidt.AllowUserToDeleteRows = false;
             prodtidt.AllowUserToResizeRows = false;
             prodtidt.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             prodtidt.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -1665,6 +1671,8 @@
             // 
             // categdt
             // 
+            categdt.AllowUserToAddRows = false;
+            categdt.AllowUserToDeleteRows = false;
             categdt.AllowUserToResizeRows = false;
             categdt.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             categdt.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -1883,6 +1891,8 @@
             // 
             // dataGridView1
             // 
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AllowUserToDeleteRows = false;
             dataGridView1.AllowUserToResizeRows = false;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -2091,6 +2101,8 @@
             // 
             // dataGridView2
             // 
+            dataGridView2.AllowUserToAddRows = false;
+            dataGridView2.AllowUserToDeleteRows = false;
             dataGridView2.AllowUserToResizeRows = false;
             dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;

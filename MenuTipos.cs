@@ -350,8 +350,8 @@ namespace Proyecto_restaurante
             if (idprod != null) idprod.Text = "";
             if (prodtxt != null) prodtxt.Text = "";
             if (estadoprod != null) estadoprod.Checked = true;
-            if (ingredientechk != null) ingredientechk.Checked = true;
-            if (bebidachk != null) bebidachk.Checked = true; // por tu DEFAULT (1)
+            if (ingredientechk != null) ingredientechk.Checked = false;
+            if (bebidachk != null) bebidachk.Checked = false; // por tu DEFAULT (1)
             prodtxt?.Focus();
         }
 

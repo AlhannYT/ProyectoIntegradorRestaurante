@@ -245,7 +245,7 @@ namespace Proyecto_restaurante
         private void agregar_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedIndex = 1;
-            txtnombre.Focus();
+            txtcedula.Focus();
             EmpleadoID = 0;
             PersonaID = 0;
         }

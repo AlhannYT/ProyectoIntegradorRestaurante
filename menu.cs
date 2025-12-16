@@ -461,26 +461,31 @@ namespace Proyecto_restaurante
             if (e.Alt && e.KeyCode == Keys.F)
             {
                 button10_Click(sender, e);
+                e.SuppressKeyPress = true;
             }
 
             if (e.Alt && e.KeyCode == Keys.R)
             {
                 reservacion_Click(sender, e);
+                e.SuppressKeyPress = true;
             }
 
             if (e.Alt && e.KeyCode == Keys.D)
             {
                 button1_Click(sender, e);
+                e.SuppressKeyPress = true;
             }
 
             if (e.Alt && e.KeyCode == Keys.C)
             {
                 button9_Click(sender, e);
+                e.SuppressKeyPress = true;
             }
 
             if (e.Control && e.Shift && e.KeyCode == Keys.C)
             {
                 button12_Click(sender, e);
+                e.SuppressKeyPress = true;
             }
 
             if (e.KeyCode == Keys.Escape)
@@ -490,7 +495,7 @@ namespace Proyecto_restaurante
 
             if (e.KeyCode == Keys.F5)
             {
-
+                e.SuppressKeyPress = true;
                 RecargarMenu();
             }
         }

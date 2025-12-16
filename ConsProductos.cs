@@ -488,6 +488,9 @@ namespace Proyecto_restaurante
 
             CodigoProductoActual = string.Empty;
 
+            ingredientesconsulta.Rows.Clear();
+            recetaingredientes.Rows.Clear();
+
             idProducto = 0;
         }
 

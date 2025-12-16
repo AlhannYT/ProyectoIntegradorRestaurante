@@ -106,6 +106,10 @@
             EntregarOrden = new Button();
             flowComanda = new FlowLayoutPanel();
             tabPage2 = new TabPage();
+            opcionesCarpeta = new Panel();
+            eliminarFacturas = new Button();
+            carpetaFactura = new Button();
+            deslizar = new Button();
             detallepanelcompleto = new Panel();
             detallepagopanel = new Panel();
             eliminarDetalle = new Button();
@@ -172,10 +176,6 @@
             canceladochk = new CheckBox();
             pendientechk = new CheckBox();
             facturadochk = new CheckBox();
-            opcionesCarpeta = new Panel();
-            eliminarFacturas = new Button();
-            carpetaFactura = new Button();
-            deslizar = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -200,6 +200,7 @@
             panelComanda.SuspendLayout();
             comandapanel.SuspendLayout();
             tabPage2.SuspendLayout();
+            opcionesCarpeta.SuspendLayout();
             detallepanelcompleto.SuspendLayout();
             detallepagopanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
@@ -214,7 +215,6 @@
             panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tabladatospedidos).BeginInit();
             panel10.SuspendLayout();
-            opcionesCarpeta.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -1129,6 +1129,55 @@
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Pedidos";
             // 
+            // opcionesCarpeta
+            // 
+            opcionesCarpeta.BackColor = Color.FromArgb(64, 64, 64);
+            opcionesCarpeta.Controls.Add(eliminarFacturas);
+            opcionesCarpeta.Controls.Add(carpetaFactura);
+            opcionesCarpeta.Location = new Point(514, 3);
+            opcionesCarpeta.Name = "opcionesCarpeta";
+            opcionesCarpeta.Size = new Size(258, 31);
+            opcionesCarpeta.TabIndex = 30;
+            opcionesCarpeta.Visible = false;
+            // 
+            // eliminarFacturas
+            // 
+            eliminarFacturas.BackColor = Color.LightCoral;
+            eliminarFacturas.Image = Properties.Resources.basura;
+            eliminarFacturas.ImageAlign = ContentAlignment.MiddleRight;
+            eliminarFacturas.Location = new Point(117, 2);
+            eliminarFacturas.Name = "eliminarFacturas";
+            eliminarFacturas.Size = new Size(139, 27);
+            eliminarFacturas.TabIndex = 0;
+            eliminarFacturas.Text = "Limpiar Carpeta";
+            eliminarFacturas.TextAlign = ContentAlignment.MiddleLeft;
+            eliminarFacturas.UseVisualStyleBackColor = false;
+            eliminarFacturas.Click += eliminarFacturas_Click;
+            // 
+            // carpetaFactura
+            // 
+            carpetaFactura.BackColor = Color.Gold;
+            carpetaFactura.Image = Properties.Resources.carpeta_abierta__1_;
+            carpetaFactura.ImageAlign = ContentAlignment.MiddleRight;
+            carpetaFactura.Location = new Point(2, 2);
+            carpetaFactura.Name = "carpetaFactura";
+            carpetaFactura.Size = new Size(112, 27);
+            carpetaFactura.TabIndex = 0;
+            carpetaFactura.Text = "Facturas";
+            carpetaFactura.TextAlign = ContentAlignment.MiddleLeft;
+            carpetaFactura.UseVisualStyleBackColor = false;
+            carpetaFactura.Click += carpetaFactura_Click;
+            // 
+            // deslizar
+            // 
+            deslizar.Image = Properties.Resources.flechaizquierdaroja;
+            deslizar.Location = new Point(772, 3);
+            deslizar.Name = "deslizar";
+            deslizar.Size = new Size(26, 31);
+            deslizar.TabIndex = 29;
+            deslizar.UseVisualStyleBackColor = true;
+            deslizar.Click += deslizar_Click;
+            // 
             // detallepanelcompleto
             // 
             detallepanelcompleto.BackColor = Color.Gray;
@@ -1775,7 +1824,7 @@
             facturarbtn.Name = "facturarbtn";
             facturarbtn.Size = new Size(114, 56);
             facturarbtn.TabIndex = 0;
-            facturarbtn.Text = "Entregar";
+            facturarbtn.Text = "Entregado";
             facturarbtn.TextAlign = ContentAlignment.MiddleRight;
             facturarbtn.UseVisualStyleBackColor = false;
             facturarbtn.Click += facturarbtn_Click;
@@ -1876,55 +1925,6 @@
             facturadochk.Text = "Facturado";
             facturadochk.UseVisualStyleBackColor = true;
             // 
-            // opcionesCarpeta
-            // 
-            opcionesCarpeta.BackColor = Color.FromArgb(64, 64, 64);
-            opcionesCarpeta.Controls.Add(eliminarFacturas);
-            opcionesCarpeta.Controls.Add(carpetaFactura);
-            opcionesCarpeta.Location = new Point(514, 3);
-            opcionesCarpeta.Name = "opcionesCarpeta";
-            opcionesCarpeta.Size = new Size(258, 31);
-            opcionesCarpeta.TabIndex = 30;
-            opcionesCarpeta.Visible = false;
-            // 
-            // eliminarFacturas
-            // 
-            eliminarFacturas.BackColor = Color.LightCoral;
-            eliminarFacturas.Image = Properties.Resources.basura;
-            eliminarFacturas.ImageAlign = ContentAlignment.MiddleRight;
-            eliminarFacturas.Location = new Point(117, 2);
-            eliminarFacturas.Name = "eliminarFacturas";
-            eliminarFacturas.Size = new Size(139, 27);
-            eliminarFacturas.TabIndex = 0;
-            eliminarFacturas.Text = "Limpiar Carpeta";
-            eliminarFacturas.TextAlign = ContentAlignment.MiddleLeft;
-            eliminarFacturas.UseVisualStyleBackColor = false;
-            eliminarFacturas.Click += eliminarFacturas_Click;
-            // 
-            // carpetaFactura
-            // 
-            carpetaFactura.BackColor = Color.Gold;
-            carpetaFactura.Image = Properties.Resources.carpeta_abierta__1_;
-            carpetaFactura.ImageAlign = ContentAlignment.MiddleRight;
-            carpetaFactura.Location = new Point(2, 2);
-            carpetaFactura.Name = "carpetaFactura";
-            carpetaFactura.Size = new Size(112, 27);
-            carpetaFactura.TabIndex = 0;
-            carpetaFactura.Text = "Facturas";
-            carpetaFactura.TextAlign = ContentAlignment.MiddleLeft;
-            carpetaFactura.UseVisualStyleBackColor = false;
-            carpetaFactura.Click += carpetaFactura_Click;
-            // 
-            // deslizar
-            // 
-            deslizar.Image = Properties.Resources.flechaizquierdaroja;
-            deslizar.Location = new Point(772, 3);
-            deslizar.Name = "deslizar";
-            deslizar.Size = new Size(26, 31);
-            deslizar.TabIndex = 29;
-            deslizar.UseVisualStyleBackColor = true;
-            deslizar.Click += deslizar_Click;
-            // 
             // Delivery
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1977,6 +1977,7 @@
             comandapanel.ResumeLayout(false);
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
+            opcionesCarpeta.ResumeLayout(false);
             detallepanelcompleto.ResumeLayout(false);
             detallepagopanel.ResumeLayout(false);
             detallepagopanel.PerformLayout();
@@ -1999,7 +2000,6 @@
             ((System.ComponentModel.ISupportInitialize)tabladatospedidos).EndInit();
             panel10.ResumeLayout(false);
             panel10.PerformLayout();
-            opcionesCarpeta.ResumeLayout(false);
             ResumeLayout(false);
         }
 
