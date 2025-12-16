@@ -474,7 +474,6 @@
             // button7
             // 
             button7.BackColor = Color.Red;
-            button7.Enabled = false;
             button7.Image = Properties.Resources.basurablanco;
             button7.Location = new Point(799, 169);
             button7.Name = "button7";

@@ -425,6 +425,11 @@ namespace Proyecto_restaurante
             numCantidad.Enabled = true;
             nota.Enabled = true;
             guardarordenbtn.Enabled = true;
+            idclientetxt.Enabled = true;
+            txtnombrecompleto.Enabled = true;
+            numerotxt.Enabled = true;
+            tipodoccmbx.Enabled = true;
+            detalleorden.Enabled = true;
 
             if (grupoCuenta.Items.Count > 0)
             {
@@ -1030,9 +1035,11 @@ namespace Proyecto_restaurante
 
             txtnombrecompleto.Text = "AL CONTADO";
             idclientetxt.Text = "1";
+            IdClientePersonaST = "1";
             numerotxt.Clear();
             rnc.Clear();
-            tipodoccmbx.SelectedIndex = 1;
+
+            tipodoccmbx.SelectedIndex = -1;
 
             txtcodigoproducto.Clear();
             txtnombreproducto.Clear();
@@ -1077,6 +1084,11 @@ namespace Proyecto_restaurante
             mesasSeleccionadasUnion.Clear();
             modoEntregar = false;
             tipoComp.Enabled = true;
+            idclientetxt.Enabled = false;
+            txtnombrecompleto.Enabled = false;
+            rnc.Enabled = false;
+            numerotxt.Enabled = false;
+            detalleorden.Enabled = false;
 
             VerificarOrden();
             Pedidos_Load(sender, e);
@@ -2921,20 +2933,6 @@ namespace Proyecto_restaurante
             if (tipodoccmbx.SelectedIndex == 0)
             {
                 string posicion = rnc.Text; posicion = posicion.Replace("-", "");
-                if (posicion.Length > 11)
-                {
-                    posicion = posicion.Substring(0, 11);
-                }
-                if (posicion.Length > 3)
-                {
-                    posicion = posicion.Insert(3, "-");
-                }
-
-                rnc.Text = posicion; rnc.SelectionStart = rnc.Text.Length;
-            }
-            else if (tipodoccmbx.SelectedIndex == 1)
-            {
-                string posicion = rnc.Text; posicion = posicion.Replace("-", "");
 
                 if (posicion.Length > 11)
                 {
@@ -2952,11 +2950,25 @@ namespace Proyecto_restaurante
 
                 rnc.Text = posicion; rnc.SelectionStart = rnc.Text.Length;
             }
+            else if (tipodoccmbx.SelectedIndex == 1)
+            {
+                string posicion = rnc.Text; posicion = posicion.Replace("-", "");
+                if (posicion.Length > 11)
+                {
+                    posicion = posicion.Substring(0, 11);
+                }
+                if (posicion.Length > 3)
+                {
+                    posicion = posicion.Insert(3, "-");
+                }
+
+                rnc.Text = posicion; rnc.SelectionStart = rnc.Text.Length;
+            }
         }
 
         private void tipodoccmbx_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //rnc.Clear();
+            rnc.Enabled = true;
         }
 
         private void rnc_KeyPress(object sender, KeyPressEventArgs e)

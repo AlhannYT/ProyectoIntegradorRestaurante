@@ -696,15 +696,15 @@ namespace Proyecto_restaurante
                 numPrincipalcmbx.Checked = false;
                 numPrincipalcmbx.Enabled = false;
             }
-            else
-            {
-                numPrincipalcmbx.Checked = false;
-                numPrincipalcmbx.Enabled = true;
-            }
 
             nombrenumerotxt.Clear();
             numerotxt.Clear();
             numPrincipalcmbx.Checked = false;
+
+            if(numPrincipalcmbx.Enabled == false)
+            {
+                TelActivado = 0;
+            }
         }
 
         private void bajardireccion_Click(object sender, EventArgs e)
@@ -737,7 +737,12 @@ namespace Proyecto_restaurante
 
             nombredirecciontxt.Clear();
             direcciontxt.Clear();
-            principalDireccion.Checked = false;
+            principalDireccion.Checked = false; 
+
+            if (principalDireccion.Enabled == false)
+            {
+                DirActivado = 0;
+            }
         }
 
         private void numPrincipalcmbx_CheckedChanged(object sender, EventArgs e)
@@ -746,10 +751,6 @@ namespace Proyecto_restaurante
             {
                 TelActivado = 1;
             }
-            else
-            {
-                TelActivado = 0;
-            }
         }
 
         private void principalDireccion_CheckedChanged(object sender, EventArgs e)
@@ -757,10 +758,6 @@ namespace Proyecto_restaurante
             if (principalDireccion.Checked == true)
             {
                 DirActivado = 1;
-            }
-            else
-            {
-                DirActivado = 0;
             }
         }
 
@@ -771,6 +768,11 @@ namespace Proyecto_restaurante
                 int fila = telefonocliente.SelectedRows[0].Index;
                 telefonocliente.Rows.RemoveAt(fila);
                 EliminarNum = 0;
+
+                if(telefonocliente.Rows.Count == 0)
+                {
+                    TelActivado = 0;
+                }
             }
             else
             {
@@ -785,6 +787,11 @@ namespace Proyecto_restaurante
                 int fila = direccioncliente.SelectedRows[0].Index;
                 direccioncliente.Rows.RemoveAt(fila);
                 EliminarDir = 0;
+
+                if (direccioncliente.Rows.Count == 0)
+                {
+                    DirActivado = 0;
+                }
             }
             else
             {

@@ -470,6 +470,7 @@
             // 
             // metbuscar
             // 
+            metbuscar.CharacterCasing = CharacterCasing.Upper;
             metbuscar.Location = new Point(363, 330);
             metbuscar.Name = "metbuscar";
             metbuscar.Size = new Size(138, 23);
@@ -505,6 +506,7 @@
             // metodotxt
             // 
             metodotxt.Anchor = AnchorStyles.None;
+            metodotxt.CharacterCasing = CharacterCasing.Upper;
             metodotxt.Location = new Point(200, 103);
             metodotxt.Name = "metodotxt";
             metodotxt.Size = new Size(199, 23);
@@ -679,6 +681,7 @@
             // 
             // identbuscar
             // 
+            identbuscar.CharacterCasing = CharacterCasing.Upper;
             identbuscar.Location = new Point(363, 330);
             identbuscar.Name = "identbuscar";
             identbuscar.Size = new Size(138, 23);
@@ -713,6 +716,7 @@
             // 
             // identtxt
             // 
+            identtxt.CharacterCasing = CharacterCasing.Upper;
             identtxt.Location = new Point(200, 103);
             identtxt.Name = "identtxt";
             identtxt.Size = new Size(199, 23);
@@ -950,6 +954,7 @@
             // 
             // depapuestobuscar
             // 
+            depapuestobuscar.CharacterCasing = CharacterCasing.Upper;
             depapuestobuscar.Location = new Point(363, 470);
             depapuestobuscar.Name = "depapuestobuscar";
             depapuestobuscar.Size = new Size(138, 23);
@@ -1016,6 +1021,7 @@
             // iddepapuestotxt
             // 
             iddepapuestotxt.Anchor = AnchorStyles.None;
+            iddepapuestotxt.CharacterCasing = CharacterCasing.Upper;
             iddepapuestotxt.Enabled = false;
             iddepapuestotxt.Location = new Point(240, 134);
             iddepapuestotxt.Name = "iddepapuestotxt";
@@ -1025,6 +1031,7 @@
             // depapuestotxt
             // 
             depapuestotxt.Anchor = AnchorStyles.None;
+            depapuestotxt.CharacterCasing = CharacterCasing.Upper;
             depapuestotxt.Enabled = false;
             depapuestotxt.Location = new Point(285, 134);
             depapuestotxt.Name = "depapuestotxt";
@@ -1034,6 +1041,7 @@
             // puestotxt
             // 
             puestotxt.Anchor = AnchorStyles.None;
+            puestotxt.CharacterCasing = CharacterCasing.Upper;
             puestotxt.Location = new Point(200, 103);
             puestotxt.Name = "puestotxt";
             puestotxt.Size = new Size(199, 23);
@@ -1253,6 +1261,7 @@
             // 
             // depatxt
             // 
+            depatxt.CharacterCasing = CharacterCasing.Upper;
             depatxt.Location = new Point(200, 103);
             depatxt.Name = "depatxt";
             depatxt.Size = new Size(199, 23);
@@ -1455,6 +1464,7 @@
             // 
             // prodbuscar
             // 
+            prodbuscar.CharacterCasing = CharacterCasing.Upper;
             prodbuscar.Location = new Point(363, 331);
             prodbuscar.Name = "prodbuscar";
             prodbuscar.Size = new Size(138, 23);
@@ -1489,6 +1499,7 @@
             // 
             // prodtxt
             // 
+            prodtxt.CharacterCasing = CharacterCasing.Upper;
             prodtxt.Location = new Point(200, 103);
             prodtxt.Name = "prodtxt";
             prodtxt.Size = new Size(199, 23);
@@ -1697,6 +1708,7 @@
             // 
             // categtxt
             // 
+            categtxt.CharacterCasing = CharacterCasing.Upper;
             categtxt.Location = new Point(200, 103);
             categtxt.Name = "categtxt";
             categtxt.Size = new Size(199, 23);
@@ -1883,6 +1895,7 @@
             // 
             // movitobusqueda
             // 
+            movitobusqueda.CharacterCasing = CharacterCasing.Upper;
             movitobusqueda.Location = new Point(363, 331);
             movitobusqueda.Name = "movitobusqueda";
             movitobusqueda.Size = new Size(138, 23);
@@ -1917,6 +1930,7 @@
             // 
             // motivotxt
             // 
+            motivotxt.CharacterCasing = CharacterCasing.Upper;
             motivotxt.Location = new Point(200, 103);
             motivotxt.Name = "motivotxt";
             motivotxt.Size = new Size(199, 23);
@@ -2093,6 +2107,7 @@
             // 
             // unidadbusqueda
             // 
+            unidadbusqueda.CharacterCasing = CharacterCasing.Upper;
             unidadbusqueda.Location = new Point(363, 330);
             unidadbusqueda.Name = "unidadbusqueda";
             unidadbusqueda.Size = new Size(138, 23);
@@ -2127,6 +2142,7 @@
             // 
             // valorunidadtxt
             // 
+            valorunidadtxt.CharacterCasing = CharacterCasing.Upper;
             valorunidadtxt.Location = new Point(200, 132);
             valorunidadtxt.Name = "valorunidadtxt";
             valorunidadtxt.Size = new Size(199, 23);
@@ -2134,6 +2150,7 @@
             // 
             // nombreunidadtxt
             // 
+            nombreunidadtxt.CharacterCasing = CharacterCasing.Upper;
             nombreunidadtxt.Location = new Point(200, 103);
             nombreunidadtxt.Name = "nombreunidadtxt";
             nombreunidadtxt.Size = new Size(199, 23);

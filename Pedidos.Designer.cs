@@ -1551,6 +1551,7 @@
             // 
             tipodoccmbx.BackColor = SystemColors.ActiveCaption;
             tipodoccmbx.DropDownStyle = ComboBoxStyle.DropDownList;
+            tipodoccmbx.Enabled = false;
             tipodoccmbx.FormattingEnabled = true;
             tipodoccmbx.Items.AddRange(new object[] { "RNC", "Cédula" });
             tipodoccmbx.Location = new Point(45, 130);
@@ -1562,6 +1563,7 @@
             // rnc
             // 
             rnc.CharacterCasing = CharacterCasing.Upper;
+            rnc.Enabled = false;
             rnc.Location = new Point(126, 130);
             rnc.Name = "rnc";
             rnc.PlaceholderText = "RNC/Cédula";
@@ -1572,6 +1574,7 @@
             // 
             // numerotxt
             // 
+            numerotxt.Enabled = false;
             numerotxt.Location = new Point(320, 130);
             numerotxt.Name = "numerotxt";
             numerotxt.PlaceholderText = "Teléfono (Opcional)";
@@ -1664,6 +1667,7 @@
             // 
             // idclientetxt
             // 
+            idclientetxt.Enabled = false;
             idclientetxt.Location = new Point(45, 95);
             idclientetxt.Name = "idclientetxt";
             idclientetxt.PlaceholderText = "ID";
@@ -1684,6 +1688,7 @@
             // txtnombrecompleto
             // 
             txtnombrecompleto.CharacterCasing = CharacterCasing.Upper;
+            txtnombrecompleto.Enabled = false;
             txtnombrecompleto.Location = new Point(79, 95);
             txtnombrecompleto.Name = "txtnombrecompleto";
             txtnombrecompleto.PlaceholderText = "Nombre del cliente";

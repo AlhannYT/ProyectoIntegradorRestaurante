@@ -523,14 +523,14 @@
             label19.Name = "label19";
             label19.Size = new Size(103, 21);
             label19.TabIndex = 55;
-            label19.Text = "Direccion     ";
+            label19.Text = "Dirección     ";
             // 
             // textBox3
             // 
             textBox3.CharacterCasing = CharacterCasing.Upper;
             textBox3.Location = new Point(407, 36);
             textBox3.Name = "textBox3";
-            textBox3.PlaceholderText = "Direccion completa";
+            textBox3.PlaceholderText = "Dirección completa";
             textBox3.Size = new Size(291, 29);
             textBox3.TabIndex = 79;
             // 
@@ -538,7 +538,7 @@
             // 
             textBox1.Location = new Point(77, 36);
             textBox1.Name = "textBox1";
-            textBox1.PlaceholderText = "Telefono";
+            textBox1.PlaceholderText = "Teléfono";
             textBox1.Size = new Size(115, 29);
             textBox1.TabIndex = 79;
             // 
@@ -553,7 +553,7 @@
             label15.Name = "label15";
             label15.Size = new Size(185, 21);
             label15.TabIndex = 55;
-            label15.Text = "Numero de teléfono     ";
+            label15.Text = "Número de teléfono     ";
             // 
             // checkBox2
             // 
