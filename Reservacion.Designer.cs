@@ -210,7 +210,8 @@
             PanelClientes.Controls.Add(tabladatoscliente);
             PanelClientes.Controls.Add(recargarbtn);
             PanelClientes.Controls.Add(panel7);
-            PanelClientes.Location = new Point(837, 3);
+            PanelClientes.Dock = DockStyle.Fill;
+            PanelClientes.Location = new Point(3, 3);
             PanelClientes.Name = "PanelClientes";
             PanelClientes.Size = new Size(836, 470);
             PanelClientes.TabIndex = 11;
@@ -1236,19 +1237,19 @@
             label10.AutoSize = true;
             label10.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label10.ForeColor = SystemColors.Control;
-            label10.Location = new Point(287, 10);
+            label10.Location = new Point(292, 10);
             label10.Name = "label10";
-            label10.Size = new Size(264, 32);
+            label10.Size = new Size(265, 32);
             label10.TabIndex = 15;
-            label10.Text = "Reservacion de mesas";
+            label10.Text = "Reservacion de Mesas";
             // 
             // txtbusquedareserva
             // 
             txtbusquedareserva.ForeColor = Color.Gray;
-            txtbusquedareserva.Location = new Point(7, 134);
+            txtbusquedareserva.Location = new Point(3, 134);
             txtbusquedareserva.Name = "txtbusquedareserva";
             txtbusquedareserva.PlaceholderText = "Buscar Reservaciones";
-            txtbusquedareserva.Size = new Size(485, 29);
+            txtbusquedareserva.Size = new Size(489, 29);
             txtbusquedareserva.TabIndex = 8;
             txtbusquedareserva.TextChanged += txtbusquedareserva_TextChanged;
             // 
@@ -1261,9 +1262,9 @@
             panel3.Controls.Add(label9);
             panel3.Controls.Add(fecini);
             panel3.Controls.Add(fecfin);
-            panel3.Location = new Point(7, 54);
+            panel3.Location = new Point(3, 54);
             panel3.Name = "panel3";
-            panel3.Size = new Size(826, 74);
+            panel3.Size = new Size(836, 74);
             panel3.TabIndex = 7;
             // 
             // cancelarreservabtn
@@ -1271,7 +1272,7 @@
             cancelarreservabtn.BackColor = Color.FromArgb(255, 128, 128);
             cancelarreservabtn.Image = Properties.Resources.cancelardoc;
             cancelarreservabtn.ImageAlign = ContentAlignment.MiddleLeft;
-            cancelarreservabtn.Location = new Point(700, 9);
+            cancelarreservabtn.Location = new Point(717, 9);
             cancelarreservabtn.Name = "cancelarreservabtn";
             cancelarreservabtn.Size = new Size(114, 56);
             cancelarreservabtn.TabIndex = 0;
@@ -1296,7 +1297,7 @@
             ordenbtn.BackColor = Color.FromArgb(255, 192, 128);
             ordenbtn.Image = Properties.Resources.nuevo;
             ordenbtn.ImageAlign = ContentAlignment.MiddleLeft;
-            ordenbtn.Location = new Point(575, 9);
+            ordenbtn.Location = new Point(597, 10);
             ordenbtn.Name = "ordenbtn";
             ordenbtn.Size = new Size(114, 56);
             ordenbtn.TabIndex = 0;
@@ -1346,7 +1347,7 @@
             ReservacionMesasDGV.ReadOnly = true;
             ReservacionMesasDGV.RowHeadersVisible = false;
             ReservacionMesasDGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            ReservacionMesasDGV.Size = new Size(826, 296);
+            ReservacionMesasDGV.Size = new Size(829, 296);
             ReservacionMesasDGV.TabIndex = 0;
             // 
             // panel10
@@ -1359,7 +1360,7 @@
             panel10.Controls.Add(canceladochk);
             panel10.Location = new Point(498, 134);
             panel10.Name = "panel10";
-            panel10.Size = new Size(335, 29);
+            panel10.Size = new Size(341, 29);
             panel10.TabIndex = 18;
             // 
             // label12
@@ -1380,7 +1381,7 @@
             pendientechk.Checked = true;
             pendientechk.CheckState = CheckState.Checked;
             pendientechk.ForeColor = Color.White;
-            pendientechk.Location = new Point(31, 1);
+            pendientechk.Location = new Point(35, 1);
             pendientechk.Name = "pendientechk";
             pendientechk.Size = new Size(97, 25);
             pendientechk.TabIndex = 11;
@@ -1392,7 +1393,7 @@
             todoschk.AutoSize = true;
             todoschk.BackColor = Color.FromArgb(64, 64, 64);
             todoschk.ForeColor = Color.White;
-            todoschk.Location = new Point(246, 2);
+            todoschk.Location = new Point(255, 2);
             todoschk.Name = "todoschk";
             todoschk.Size = new Size(69, 25);
             todoschk.TabIndex = 9;
@@ -1404,7 +1405,7 @@
             canceladochk.AutoSize = true;
             canceladochk.BackColor = Color.FromArgb(64, 64, 64);
             canceladochk.ForeColor = Color.White;
-            canceladochk.Location = new Point(135, 2);
+            canceladochk.Location = new Point(142, 2);
             canceladochk.Name = "canceladochk";
             canceladochk.Size = new Size(101, 25);
             canceladochk.TabIndex = 10;
@@ -1414,9 +1415,9 @@
             // panel6
             // 
             panel6.BackColor = Color.FromArgb(64, 64, 64);
-            panel6.Location = new Point(7, 165);
+            panel6.Location = new Point(3, 165);
             panel6.Name = "panel6";
-            panel6.Size = new Size(826, 309);
+            panel6.Size = new Size(836, 309);
             panel6.TabIndex = 19;
             // 
             // toolTip1

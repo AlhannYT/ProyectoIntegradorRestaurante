@@ -956,36 +956,71 @@ namespace Proyecto_restaurante
         {
             string conexionString = ConexionBD.ConexionSQL();
 
+            DateTime fechaIni = FechaInicialDTP.Value;
+            DateTime fechaFin = FechaFinDTP.Value;
+
+            int idEventoActual = (EventoID > 0) ? EventoID : 0;
+
+            int? idSalaFiltro = null;
+            if (!string.IsNullOrWhiteSpace(IdSalaSelecionadaTxtB.Text) &&
+                int.TryParse(IdSalaSelecionadaTxtB.Text, out int tmpSala))
+            {
+                idSalaFiltro = tmpSala;
+            }
+
             using (SqlConnection conexion = new SqlConnection(conexionString))
             {
                 conexion.Open();
 
                 string sql = @"
-                SELECT 
-                m.IdMesa,
-                m.IdSala,
-                s.Nombre AS NombreSala,
-                m.Numero,
-                m.Capacidad,
-                m.Ocupado,
-                ISNULL(m.Reservado, 0) AS Reservado
-                FROM Mesa m
-                INNER JOIN Sala s ON m.IdSala = s.IdSala
-                WHERE 1 = 1";
+        SELECT 
+            m.IdMesa,
+            m.IdSala,
+            s.Nombre AS NombreSala,
+            m.Numero,
+            m.Capacidad,
+            m.Ocupado,
+            ISNULL(m.Reservado, 0) AS Reservado, -- (Reserva normal)
+
+            CASE 
+                WHEN EXISTS (
+                    SELECT 1
+                    FROM EventoMesa em
+                    INNER JOIN Evento e ON e.IdEvento = em.IdEvento
+                    WHERE em.IdMesa = m.IdMesa
+                      AND e.IdEvento <> @IdEventoActual
+                      AND e.Estado <> 'cancelado'
+                      AND @FechaIni <= e.FechaFin
+                      AND @FechaFin >= e.FechaInicio
+                )
+                THEN 1 ELSE 0
+            END AS ReservadaEvento
+
+        FROM Mesa m
+        INNER JOIN Sala s ON m.IdSala = s.IdSala
+        WHERE 1 = 1
+          AND (@IdSala IS NULL OR m.IdSala = @IdSala)
+        ";
 
                 if (!string.IsNullOrWhiteSpace(filtro))
                 {
                     sql += @"
-                        AND (
-                       CAST(m.IdMesa  AS varchar(10)) LIKE @filtro
-                       OR CAST(m.Numero  AS varchar(10)) LIKE @filtro
-                       OR s.Nombre LIKE @filtro)";
+            AND (
+                CAST(m.IdMesa AS varchar(10)) LIKE @filtro
+                OR CAST(m.Numero AS varchar(10)) LIKE @filtro
+                OR s.Nombre LIKE @filtro
+            )";
                 }
 
                 sql += " ORDER BY s.Nombre, m.Numero;";
 
                 using (SqlCommand cmd = new SqlCommand(sql, conexion))
                 {
+                    cmd.Parameters.AddWithValue("@IdEventoActual", idEventoActual);
+                    cmd.Parameters.AddWithValue("@FechaIni", fechaIni);
+                    cmd.Parameters.AddWithValue("@FechaFin", fechaFin);
+                    cmd.Parameters.AddWithValue("@IdSala", (object)idSalaFiltro ?? DBNull.Value);
+
                     if (!string.IsNullOrWhiteSpace(filtro))
                         cmd.Parameters.AddWithValue("@filtro", "%" + filtro + "%");
 
@@ -999,8 +1034,10 @@ namespace Proyecto_restaurante
                             int numero = Convert.ToInt32(dr["Numero"]);
                             string nombreSala = dr["NombreSala"].ToString();
                             int capacidad = Convert.ToInt32(dr["Capacidad"]);
+
                             bool ocupada = Convert.ToBoolean(dr["Ocupado"]);
-                            bool reservada = Convert.ToBoolean(dr["Reservado"]);
+                            bool reservadaNormal = Convert.ToInt32(dr["Reservado"]) == 1;
+                            bool reservadaEvento = Convert.ToInt32(dr["ReservadaEvento"]) == 1;
 
                             Button btn = new Button
                             {
@@ -1016,24 +1053,20 @@ namespace Proyecto_restaurante
                             {
                                 IdMesa = idMesa,
                                 Ocupado = ocupada,
-                                Reservado = reservada
+                                ReservadoNormal = reservadaNormal,
+                                ReservadoEvento = reservadaEvento
                             };
 
                             bool yaSeleccionada = mesasSeleccionadasEvento.Contains(idMesa);
 
                             if (ocupada)
-                            {
-                                btn.BackColor = Color.LightCoral;
-                            }
-                            else if (reservada)
-                            {
-                                btn.BackColor = Color.MediumPurple;
-                            }
+                                btn.BackColor = Color.LightCoral;          // Ocupada por comanda
+                            else if (reservadaNormal)
+                                btn.BackColor = Color.MediumPurple;        // Reservación normal (tu sistema)
+                            else if (reservadaEvento)
+                                btn.BackColor = Color.LightGray;           // Reservada por evento (diferente a morado)
                             else
-                            {
-
                                 btn.BackColor = yaSeleccionada ? Color.DodgerBlue : Color.LightGreen;
-                            }
 
                             btn.Text =
                                 $"Mesa #{numero}\n" +
@@ -1041,7 +1074,6 @@ namespace Proyecto_restaurante
                                 $"Asientos: {capacidad}";
 
                             btn.Click += BtnMesaEvento_Click;
-
                             EventoMesasP.Controls.Add(btn);
                         }
                     }
@@ -1049,39 +1081,46 @@ namespace Proyecto_restaurante
             }
         }
 
-
         private void BtnMesaEvento_Click(object sender, EventArgs e)
         {
             Button btn = sender as Button;
             if (btn == null) return;
 
             dynamic datos = btn.Tag;
+
             int idMesa = datos.IdMesa;
             bool ocupada = datos.Ocupado;
-            bool reservada = datos.Reservado;
+            bool reservadaNormal = datos.ReservadoNormal;
+            bool reservadaEvento = datos.ReservadoEvento;
 
-            if (ocupada || reservada)
+            if (ocupada || reservadaNormal || reservadaEvento)
             {
-                MessageBox.Show("Esta mesa no está disponible para asignar al evento.",
-                    "Mesa no disponible", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                string motivo =
+                    ocupada ? "Está ocupada por una orden." :
+                    reservadaNormal ? "Está reservada (reservación normal)." :
+                    "Está reservada por otro evento en esas fechas.";
+
+                MessageBox.Show(
+                    "Esta mesa no está disponible para asignar al evento.\nMotivo: " + motivo,
+                    "Mesa no disponible",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
                 return;
             }
 
             if (mesasSeleccionadasEvento.Contains(idMesa))
             {
-
                 mesasSeleccionadasEvento.Remove(idMesa);
-
                 btn.BackColor = Color.LightGreen;
             }
             else
             {
-
                 mesasSeleccionadasEvento.Add(idMesa);
-
                 btn.BackColor = Color.DodgerBlue;
             }
         }
+
 
 
         private void BuscarMesaTxtB_TextChanged(object sender, EventArgs e)
@@ -1103,7 +1142,6 @@ namespace Proyecto_restaurante
         }
         private void GuardarEventoBtn_Click(object sender, EventArgs e)
         {
-
             if (string.IsNullOrWhiteSpace(NombreEventoTxt.Text))
             {
                 MessageBox.Show("Debe escribir el nombre del evento.");
@@ -1139,24 +1177,25 @@ namespace Proyecto_restaurante
                 return;
             }
 
-            int? idSalaEvento = null;
-            if (!string.IsNullOrWhiteSpace(IdSalaSelecionadaTxtB.Text))
+            if (mesasSeleccionadasEvento.Count == 0)
             {
-                if (int.TryParse(IdSalaSelecionadaTxtB.Text, out int tmpSala))
-                    idSalaEvento = tmpSala;
+                MessageBox.Show("Debe seleccionar al menos una mesa para el evento.");
+                return;
             }
+
+            int? idSalaEvento = null;
+            if (!string.IsNullOrWhiteSpace(IdSalaSelecionadaTxtB.Text) && int.TryParse(IdSalaSelecionadaTxtB.Text, out int tmpSala))
+                idSalaEvento = tmpSala;
 
             string organizador = NomCompletoOrgTxtB.Text.Trim();
             string nombreEvento = NombreEventoTxt.Text.Trim();
             int personas = (int)CantPersonaNUD.Value;
             DateTime fechaIni = FechaInicialDTP.Value;
             DateTime fechaFin = FechaFinDTP.Value;
+
             string nota = null;
-            if (!string.IsNullOrWhiteSpace(notatxt.Text) &&
-                notatxt.Text != "Escribir nota aquí...")
-            {
+            if (!string.IsNullOrWhiteSpace(notatxt.Text) && notatxt.Text != "Escribir nota aquí...")
                 nota = notatxt.Text.Trim();
-            }
 
             string conexionString = ConexionBD.ConexionSQL();
 
@@ -1167,19 +1206,46 @@ namespace Proyecto_restaurante
 
                 try
                 {
+                    // 1) VALIDAR mesas (no ocupadas ni reservadas)
+                    foreach (int idMesa in mesasSeleccionadasEvento)
+                    {
+                        string sqlCheck = "SELECT Ocupado, ISNULL(Reservado,0) AS Reservado FROM Mesa WHERE IdMesa = @IdMesa;";
+                        using (SqlCommand cmdCheck = new SqlCommand(sqlCheck, conexion, trans))
+                        {
+                            cmdCheck.Parameters.AddWithValue("@IdMesa", idMesa);
+
+                            using (SqlDataReader dr = cmdCheck.ExecuteReader())
+                            {
+                                if (dr.Read())
+                                {
+                                    bool ocupada = Convert.ToBoolean(dr["Ocupado"]);
+                                    bool reservada = Convert.ToBoolean(dr["Reservado"]);
+
+                                    if (ocupada || reservada)
+                                    {
+                                        trans.Rollback();
+                                        MessageBox.Show("Hay mesas seleccionadas que ya están ocupadas o reservadas. Actualice y elija otras.");
+                                        CargarMesasDisponiblesEvento(BuscarMesaTxtB.Text.Trim());
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    // 2) INSERT / UPDATE Evento
                     if (EventoID == 0)
                     {
-
                         string sqlInsert = @"
-                        INSERT INTO Evento
-                        (Organizador, FechaInicio, FechaFin, PersonasEstimadas,
-                        IdSala, MontajeMin, DesmontajeMin, Estado, CreadoEn,
-                        NombreEvento, IdCliente, Nota)
-                        VALUES
-                        (@Organizador, @FechaInicio, @FechaFin, @Personas,
-                        @IdSala, @MontajeMin, @DesmontajeMin, @Estado, SYSDATETIME(),
-                        @NombreEvento, @IdCliente, @Nota);
-                        SELECT CAST(SCOPE_IDENTITY() AS int);";
+                INSERT INTO Evento
+                (Organizador, FechaInicio, FechaFin, PersonasEstimadas,
+                 IdSala, MontajeMin, DesmontajeMin, Estado, CreadoEn,
+                 NombreEvento, IdCliente, Nota)
+                VALUES
+                (@Organizador, @FechaInicio, @FechaFin, @Personas,
+                 @IdSala, @MontajeMin, @DesmontajeMin, @Estado, SYSDATETIME(),
+                 @NombreEvento, @IdCliente, @Nota);
+                SELECT CAST(SCOPE_IDENTITY() AS int);";
 
                         using (SqlCommand cmd = new SqlCommand(sqlInsert, conexion, trans))
                         {
@@ -1188,7 +1254,7 @@ namespace Proyecto_restaurante
                             cmd.Parameters.AddWithValue("@FechaFin", fechaFin);
                             cmd.Parameters.AddWithValue("@Personas", personas);
                             cmd.Parameters.AddWithValue("@IdSala", (object)idSalaEvento ?? DBNull.Value);
-                            cmd.Parameters.AddWithValue("@MontajeMin", 0);  // por ahora
+                            cmd.Parameters.AddWithValue("@MontajeMin", 0);
                             cmd.Parameters.AddWithValue("@DesmontajeMin", 0);
                             cmd.Parameters.AddWithValue("@Estado", "planeado");
                             cmd.Parameters.AddWithValue("@NombreEvento", nombreEvento);
@@ -1202,16 +1268,16 @@ namespace Proyecto_restaurante
                     else
                     {
                         string sqlUpdate = @"
-                        UPDATE Evento
-                        SET Organizador       = @Organizador,
-                        FechaInicio       = @FechaInicio,
-                        FechaFin         = @FechaFin,
-                        PersonasEstimadas= @Personas,
-                        IdSala           = @IdSala,
-                        NombreEvento     = @NombreEvento,
-                        IdCliente        = @IdCliente,
-                        Nota             = @Nota
-                        WHERE IdEvento = @IdEvento;";
+                UPDATE Evento
+                SET Organizador        = @Organizador,
+                    FechaInicio        = @FechaInicio,
+                    FechaFin           = @FechaFin,
+                    PersonasEstimadas  = @Personas,
+                    IdSala             = @IdSala,
+                    NombreEvento       = @NombreEvento,
+                    IdCliente          = @IdCliente,
+                    Nota               = @Nota
+                WHERE IdEvento = @IdEvento;";
 
                         using (SqlCommand cmd = new SqlCommand(sqlUpdate, conexion, trans))
                         {
@@ -1227,19 +1293,18 @@ namespace Proyecto_restaurante
 
                             cmd.ExecuteNonQuery();
                         }
+
+                        // Importante: si editas evento, borra sus mesas anteriores
+                        string sqlDeleteMesas = "DELETE FROM EventoMesa WHERE IdEvento = @IdEvento;";
+                        using (SqlCommand cmdDel = new SqlCommand(sqlDeleteMesas, conexion, trans))
+                        {
+                            cmdDel.Parameters.AddWithValue("@IdEvento", EventoID);
+                            cmdDel.ExecuteNonQuery();
+                        }
                     }
 
-                    // Guardar mesas del evento (EventoMesa)
-                    // Borrar anteriores
-                    string sqlDeleteMesas = "DELETE FROM EventoMesa WHERE IdEvento = @IdEvento;";
-                    using (SqlCommand cmdDel = new SqlCommand(sqlDeleteMesas, conexion, trans))
-                    {
-                        cmdDel.Parameters.AddWithValue("@IdEvento", EventoID);
-                        cmdDel.ExecuteNonQuery();
-                    }
-
+                    // 3) INSERT EventoMesa
                     string sqlInsertMesa = "INSERT INTO EventoMesa (IdEvento, IdMesa) VALUES (@IdEvento, @IdMesa);";
-
                     foreach (int idMesa in mesasSeleccionadasEvento)
                     {
                         using (SqlCommand cmdMesa = new SqlCommand(sqlInsertMesa, conexion, trans))
@@ -1250,8 +1315,25 @@ namespace Proyecto_restaurante
                         }
                     }
 
+                    // 4) MARCAR mesas como reservadas (para que todo el sistema lo vea)
+                    foreach (int idMesa in mesasSeleccionadasEvento)
+                    {
+                        string sqlRes = "UPDATE Mesa SET Reservado = 1 WHERE IdMesa = @IdMesa;";
+                        using (SqlCommand cmdRes = new SqlCommand(sqlRes, conexion, trans))
+                        {
+                            cmdRes.Parameters.AddWithValue("@IdMesa", idMesa);
+                            cmdRes.ExecuteNonQuery();
+                        }
+                    }
+
                     trans.Commit();
+
                     MessageBox.Show("Evento guardado correctamente.");
+
+                    // 5) LIMPIAR FORM (como botón Nuevo)
+                    PrepararNuevoEvento();
+                    CargarMesasDisponiblesEvento();
+                    NombreEventoTxt.Focus();
                 }
                 catch (Exception ex)
                 {
@@ -1260,6 +1342,7 @@ namespace Proyecto_restaurante
                 }
             }
         }
+
 
         private void BuscarOrganizadorBtn_Click(object sender, EventArgs e)
         {
@@ -1505,6 +1588,8 @@ namespace Proyecto_restaurante
             estadoBuscarSalaEvento = 1;
             BuscarSalaBtn.Image = Proyecto_restaurante.Properties.Resources.busqueda1;
             toolTip1.SetToolTip(BuscarSalaBtn, "Buscar sala");
+            CargarMesasDisponiblesEvento(BuscarMesaTxtB.Text.Trim());
+
         }
         private void NombreSalaTxtB_TextChanged(object sender, EventArgs e)
         {
@@ -1578,8 +1663,18 @@ namespace Proyecto_restaurante
 
             if (PersonaDGV.CurrentRow != null)
                 PersonaDGV.ClearSelection();
-        
+
             NomCompletoOrgTxtB.Focus();
+        }
+
+        private void FechaInicialDTP_ValueChanged(object sender, EventArgs e)
+        {
+            CargarMesasDisponiblesEvento(BuscarMesaTxtB.Text.Trim());
+        }
+
+        private void FechaFinDTP_ValueChanged(object sender, EventArgs e)
+        {
+            CargarMesasDisponiblesEvento(BuscarMesaTxtB.Text.Trim());
         }
     }
 

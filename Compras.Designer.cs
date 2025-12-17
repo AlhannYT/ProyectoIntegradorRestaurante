@@ -123,6 +123,10 @@
             ImprimirBtn = new Button();
             ConfirmarRecepcionBtn = new Button();
             toolTip1 = new ToolTip(components);
+            opcionesCarpeta = new Panel();
+            eliminarComprasBtn = new Button();
+            carpetaComprasBtn = new Button();
+            deslizar = new Button();
             panel1.SuspendLayout();
             panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -149,6 +153,7 @@
             ((System.ComponentModel.ISupportInitialize)TablaDatosCompra).BeginInit();
             panel10.SuspendLayout();
             panel8.SuspendLayout();
+            opcionesCarpeta.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -1040,6 +1045,8 @@
             // TabPageHistorialCompras
             // 
             TabPageHistorialCompras.BackColor = Color.FromArgb(87, 128, 87);
+            TabPageHistorialCompras.Controls.Add(opcionesCarpeta);
+            TabPageHistorialCompras.Controls.Add(deslizar);
             TabPageHistorialCompras.Controls.Add(panel11);
             TabPageHistorialCompras.Controls.Add(label17);
             TabPageHistorialCompras.Controls.Add(BusquedaCompraTxt);
@@ -1319,6 +1326,53 @@
             toolTip1.ReshowDelay = 96;
             toolTip1.ToolTipTitle = "Ayuda";
             // 
+            // opcionesCarpeta
+            // 
+            opcionesCarpeta.BackColor = Color.FromArgb(64, 64, 64);
+            opcionesCarpeta.Controls.Add(eliminarComprasBtn);
+            opcionesCarpeta.Controls.Add(carpetaComprasBtn);
+            opcionesCarpeta.Location = new Point(532, 9);
+            opcionesCarpeta.Name = "opcionesCarpeta";
+            opcionesCarpeta.Size = new Size(239, 31);
+            opcionesCarpeta.TabIndex = 30;
+            opcionesCarpeta.Visible = false;
+            // 
+            // eliminarComprasBtn
+            // 
+            eliminarComprasBtn.BackColor = Color.LightCoral;
+            eliminarComprasBtn.Image = Properties.Resources.basura;
+            eliminarComprasBtn.ImageAlign = ContentAlignment.MiddleRight;
+            eliminarComprasBtn.Location = new Point(95, 2);
+            eliminarComprasBtn.Name = "eliminarComprasBtn";
+            eliminarComprasBtn.Size = new Size(144, 27);
+            eliminarComprasBtn.TabIndex = 0;
+            eliminarComprasBtn.Text = "Limpiar Carpeta";
+            eliminarComprasBtn.TextAlign = ContentAlignment.MiddleLeft;
+            eliminarComprasBtn.UseVisualStyleBackColor = false;
+            // 
+            // carpetaComprasBtn
+            // 
+            carpetaComprasBtn.BackColor = Color.Gold;
+            carpetaComprasBtn.Image = Properties.Resources.carpeta_abierta__1_;
+            carpetaComprasBtn.ImageAlign = ContentAlignment.MiddleRight;
+            carpetaComprasBtn.Location = new Point(0, 2);
+            carpetaComprasBtn.Name = "carpetaComprasBtn";
+            carpetaComprasBtn.Size = new Size(93, 27);
+            carpetaComprasBtn.TabIndex = 0;
+            carpetaComprasBtn.Text = "Compras ";
+            carpetaComprasBtn.TextAlign = ContentAlignment.MiddleLeft;
+            carpetaComprasBtn.UseVisualStyleBackColor = false;
+            // 
+            // deslizar
+            // 
+            deslizar.Image = Properties.Resources.flechaizquierdaroja;
+            deslizar.Location = new Point(772, 9);
+            deslizar.Name = "deslizar";
+            deslizar.Size = new Size(26, 31);
+            deslizar.TabIndex = 29;
+            toolTip1.SetToolTip(deslizar, "Sistemas de simulación");
+            deslizar.UseVisualStyleBackColor = true;
+            // 
             // Compras
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1374,6 +1428,7 @@
             panel10.PerformLayout();
             panel8.ResumeLayout(false);
             panel8.PerformLayout();
+            opcionesCarpeta.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -1472,5 +1527,9 @@
         private Label ItbisLabel;
         private Label label11;
         private ToolTip toolTip1;
+        private Panel opcionesCarpeta;
+        private Button eliminarComprasBtn;
+        private Button carpetaComprasBtn;
+        private Button deslizar;
     }
 }

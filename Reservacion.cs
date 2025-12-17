@@ -77,6 +77,15 @@ namespace Proyecto_restaurante
 
             PanelClientes.Visible = false;
 
+            try
+            {
+                LiberarReservasVencidas(); // <-- limpia reservas viejas al entrar
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al limpiar reservas vencidas: " + ex.Message);
+            }
+
             PrepararNuevaReserva();
             CargarMesasDisponiblesReserva();
 
@@ -133,7 +142,16 @@ namespace Proyecto_restaurante
         }
         private void nuevobtn_Click(object sender, EventArgs e)
         {
-            PrepararNuevaReserva();
+            try
+            {
+                LiberarReservasVencidas();     // <-- libera mesas si ya vencieron
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al limpiar reservas vencidas: " + ex.Message);
+            }
+
+            PrepararNuevaReserva();           // ya esto vuelve a cargar mesa
         }
 
         private void CargarMesasDisponiblesReserva()
@@ -208,10 +226,61 @@ namespace Proyecto_restaurante
                 }
             }
         }
+        private void LiberarReservasVencidas()
+        {
+            string conexionString = ConexionBD.ConexionSQL();
+
+            using (SqlConnection con = new SqlConnection(conexionString))
+            {
+                con.Open();
+                SqlTransaction tran = con.BeginTransaction();
+
+                try
+                {
+                    // 1) Marcar como canceladas las reservas "solicitadas" ya vencidas
+                    string sqlCancelVencidas = @"
+                                    UPDATE Reserva
+                                    SET Estado = 'cancelada'
+                                    WHERE Estado = 'solicitada'
+                                    AND FechaHora < SYSDATETIME();";
+
+                    using (SqlCommand cmd = new SqlCommand(sqlCancelVencidas, con, tran))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    // 2) Liberar mesas que estén reservadas pero ya NO tienen reserva activa futura
+                    // (activa = solicitada o confirmada con FechaHora >= ahora)
+                    string sqlLiberarMesas = @"
+                    UPDATE m
+                    SET m.Reservado = 0
+                    FROM Mesa m
+                    WHERE ISNULL(m.Reservado,0) = 1
+                    AND NOT EXISTS (
+                    SELECT 1
+                    FROM Reserva r
+                    WHERE r.IdMesa = m.IdMesa
+                    AND r.Estado IN ('solicitada','confirmada')
+                    AND r.FechaHora >= SYSDATETIME()
+                    );";
+
+                    using (SqlCommand cmd = new SqlCommand(sqlLiberarMesas, con, tran))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    tran.Commit();
+                }
+                catch
+                {
+                    tran.Rollback();
+                    throw;
+                }
+            }
+        }
 
         private void guardareservabtn_Click(object sender, EventArgs e)
         {
-
             if (idMesaSeleccionada <= 0)
             {
                 MessageBox.Show("Debe seleccionar una mesa.");
@@ -240,6 +309,29 @@ namespace Proyecto_restaurante
             using (SqlConnection con = new SqlConnection(conexionString))
             {
                 con.Open();
+
+                // ✅ VALIDACIÓN SIMPLE EN BD (por si el panel estaba desactualizado)
+                string sqlCheck = "SELECT Ocupado, ISNULL(Reservado,0) AS Reservado FROM Mesa WHERE IdMesa = @IdMesa;";
+                using (SqlCommand cmdCheck = new SqlCommand(sqlCheck, con))
+                {
+                    cmdCheck.Parameters.AddWithValue("@IdMesa", idMesa);
+
+                    using (SqlDataReader dr = cmdCheck.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            bool ocupado = Convert.ToBoolean(dr["Ocupado"]);
+                            bool reservado = Convert.ToBoolean(dr["Reservado"]);
+
+                            if (ocupado || reservado)
+                            {
+                                MessageBox.Show("Esa mesa ya no está disponible. Presiona Nuevo para recargar.");
+                                return;
+                            }
+                        }
+                    }
+                }
+
                 SqlTransaction trans = con.BeginTransaction();
 
                 try
@@ -247,11 +339,11 @@ namespace Proyecto_restaurante
                     if (ReservaID == 0)
                     {
                         string sqlInsert = @"
-                                    INSERT INTO Reserva
-                                    (IdMesa, FechaHora, Personas, Cliente, Estado, CreadoEn)
-                                    VALUES
-                                    (@IdMesa, @FechaHora, @Personas, @Cliente, 'solicitada', SYSDATETIME());
-                                    SELECT CAST(SCOPE_IDENTITY() AS int);";
+                INSERT INTO Reserva
+                (IdMesa, FechaHora, Personas, Cliente, Estado, CreadoEn)
+                VALUES
+                (@IdMesa, @FechaHora, @Personas, @Cliente, 'solicitada', SYSDATETIME());
+                SELECT CAST(SCOPE_IDENTITY() AS int);";
 
                         using (SqlCommand cmd = new SqlCommand(sqlInsert, con, trans))
                         {
@@ -265,9 +357,9 @@ namespace Proyecto_restaurante
                         }
 
                         string sqlUpdateMesa = @"
-                                UPDATE Mesa
-                                SET Reservado = 1
-                                WHERE IdMesa = @IdMesa;";
+                UPDATE Mesa
+                SET Reservado = 1
+                WHERE IdMesa = @IdMesa;";
 
                         using (SqlCommand cmdMesa = new SqlCommand(sqlUpdateMesa, con, trans))
                         {
@@ -278,12 +370,12 @@ namespace Proyecto_restaurante
                     else
                     {
                         string sqlUpdate = @"
-                        UPDATE Reserva
-                        SET IdMesa   = @IdMesa,
-                        FechaHora= @FechaHora,
-                        Personas = @Personas,
-                        Cliente  = @Cliente
-                        WHERE IdReserva = @IdReserva;";
+                UPDATE Reserva
+                SET IdMesa    = @IdMesa,
+                    FechaHora = @FechaHora,
+                    Personas  = @Personas,
+                    Cliente   = @Cliente
+                WHERE IdReserva = @IdReserva;";
 
                         using (SqlCommand cmd = new SqlCommand(sqlUpdate, con, trans))
                         {
@@ -299,7 +391,8 @@ namespace Proyecto_restaurante
                     trans.Commit();
                     MessageBox.Show("Reserva guardada correctamente.");
 
-                    CargarMesasDisponiblesReserva();
+                    PrepararNuevaReserva();          // limpia y recarga
+                    CargarMesasDisponiblesReserva(); // por si acaso (extra)
                 }
                 catch (Exception ex)
                 {
@@ -308,6 +401,8 @@ namespace Proyecto_restaurante
                 }
             }
         }
+
+
         private void buscarclientebtn_Click(object sender, EventArgs e)
         {
             PanelClientes.Visible = !PanelClientes.Visible;
@@ -524,7 +619,6 @@ namespace Proyecto_restaurante
         {
             CargarReservas(txtbusquedareserva.Text);
         }
-
         private void ordenbtn_Click(object sender, EventArgs e)
         {
             int? id = ObtenerIdReservaSeleccionada();
@@ -540,18 +634,58 @@ namespace Proyecto_restaurante
             if (r != DialogResult.Yes) return;
 
             string conexionString = ConexionBD.ConexionSQL();
+
             using (SqlConnection con = new SqlConnection(conexionString))
             {
                 con.Open();
-                string sql = "UPDATE Reserva SET Estado = 'confirmada' WHERE IdReserva = @Id;";
-                using (SqlCommand cmd = new SqlCommand(sql, con))
+                SqlTransaction tran = con.BeginTransaction();
+
+                try
                 {
-                    cmd.Parameters.AddWithValue("@Id", id.Value);
-                    cmd.ExecuteNonQuery();
+                    int idMesa = 0;
+
+                    // 1) Buscar IdMesa de la reserva
+                    string sqlGetMesa = "SELECT IdMesa FROM Reserva WHERE IdReserva = @Id;";
+                    using (SqlCommand cmdGet = new SqlCommand(sqlGetMesa, con, tran))
+                    {
+                        cmdGet.Parameters.AddWithValue("@Id", id.Value);
+                        object res = cmdGet.ExecuteScalar();
+                        if (res != null && res != DBNull.Value)
+                            idMesa = Convert.ToInt32(res);
+                    }
+
+                    // 2) Confirmar reserva
+                    string sql = "UPDATE Reserva SET Estado = 'confirmada' WHERE IdReserva = @Id;";
+                    using (SqlCommand cmd = new SqlCommand(sql, con, tran))
+                    {
+                        cmd.Parameters.AddWithValue("@Id", id.Value);
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    // 3) Asegurar mesa reservada
+                    if (idMesa > 0)
+                    {
+                        string sqlMesa = "UPDATE Mesa SET Reservado = 1 WHERE IdMesa = @IdMesa;";
+                        using (SqlCommand cmdMesa = new SqlCommand(sqlMesa, con, tran))
+                        {
+                            cmdMesa.Parameters.AddWithValue("@IdMesa", idMesa);
+                            cmdMesa.ExecuteNonQuery();
+                        }
+                    }
+
+                    tran.Commit();
+
+                    MessageBox.Show("Reservación confirmada.");
+                }
+                catch (Exception ex)
+                {
+                    tran.Rollback();
+                    MessageBox.Show("Error al confirmar: " + ex.Message);
                 }
             }
 
             CargarReservas(txtbusquedareserva.Text);
+            CargarMesasDisponiblesReserva();
         }
 
         private void cancelarreservabtn_Click(object sender, EventArgs e)
@@ -569,18 +703,95 @@ namespace Proyecto_restaurante
             if (r != DialogResult.Yes) return;
 
             string conexionString = ConexionBD.ConexionSQL();
+
             using (SqlConnection con = new SqlConnection(conexionString))
             {
                 con.Open();
-                string sql = "UPDATE Reserva SET Estado = 'cancelada' WHERE IdReserva = @Id;";
-                using (SqlCommand cmd = new SqlCommand(sql, con))
+                SqlTransaction tran = con.BeginTransaction();
+
+                try
                 {
-                    cmd.Parameters.AddWithValue("@Id", id.Value);
-                    cmd.ExecuteNonQuery();
+                    int idMesa = 0;
+                    string estadoActual = "";
+
+                    // 1) Buscar mesa y estado de esa reserva
+                    string sqlGet = "SELECT IdMesa, Estado FROM Reserva WHERE IdReserva = @Id;";
+                    using (SqlCommand cmdGet = new SqlCommand(sqlGet, con, tran))
+                    {
+                        cmdGet.Parameters.AddWithValue("@Id", id.Value);
+
+                        using (SqlDataReader dr = cmdGet.ExecuteReader())
+                        {
+                            if (dr.Read())
+                            {
+                                idMesa = Convert.ToInt32(dr["IdMesa"]);
+                                estadoActual = dr["Estado"]?.ToString() ?? "";
+                            }
+                            else
+                            {
+                                tran.Rollback();
+                                MessageBox.Show("No se encontró la reservación.");
+                                return;
+                            }
+                        }
+                    }
+
+                    // Si ya estaba cancelada, no hagas nada
+                    if (estadoActual == "cancelada")
+                    {
+                        tran.Rollback();
+                        MessageBox.Show("Esa reservación ya estaba cancelada.");
+                        return;
+                    }
+
+                    // 2) Cancelar la reserva
+                    string sqlCancel = "UPDATE Reserva SET Estado = 'cancelada' WHERE IdReserva = @Id;";
+                    using (SqlCommand cmd = new SqlCommand(sqlCancel, con, tran))
+                    {
+                        cmd.Parameters.AddWithValue("@Id", id.Value);
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    // 3) Liberar la mesa SOLO si ya no hay otras reservas activas para esa mesa
+                    // (solicitada o confirmada)
+                    if (idMesa > 0)
+                    {
+                        string sqlHayOtras = @"
+                SELECT COUNT(*) 
+                FROM Reserva
+                WHERE IdMesa = @IdMesa
+                  AND Estado IN ('solicitada','confirmada');";
+
+                        int activas = 0;
+                        using (SqlCommand cmdCount = new SqlCommand(sqlHayOtras, con, tran))
+                        {
+                            cmdCount.Parameters.AddWithValue("@IdMesa", idMesa);
+                            activas = Convert.ToInt32(cmdCount.ExecuteScalar());
+                        }
+
+                        if (activas == 0)
+                        {
+                            string sqlFreeMesa = "UPDATE Mesa SET Reservado = 0 WHERE IdMesa = @IdMesa;";
+                            using (SqlCommand cmdFree = new SqlCommand(sqlFreeMesa, con, tran))
+                            {
+                                cmdFree.Parameters.AddWithValue("@IdMesa", idMesa);
+                                cmdFree.ExecuteNonQuery();
+                            }
+                        }
+                    }
+
+                    tran.Commit();
+                    MessageBox.Show("Reservación cancelada y mesa actualizada.");
+
+                    CargarReservas(txtbusquedareserva.Text);
+                    CargarMesasDisponiblesReserva();
+                }
+                catch (Exception ex)
+                {
+                    tran.Rollback();
+                    MessageBox.Show("Error al cancelar: " + ex.Message);
                 }
             }
-
-            CargarReservas(txtbusquedareserva.Text);
         }
 
         private void RegresarBtn_Click(object sender, EventArgs e)

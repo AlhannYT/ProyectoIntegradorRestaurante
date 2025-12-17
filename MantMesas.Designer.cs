@@ -1607,6 +1607,7 @@
             FechaFinDTP.Name = "FechaFinDTP";
             FechaFinDTP.Size = new Size(107, 29);
             FechaFinDTP.TabIndex = 97;
+            FechaFinDTP.ValueChanged += FechaFinDTP_ValueChanged;
             // 
             // FechaInicialDTP
             // 
@@ -1617,6 +1618,7 @@
             FechaInicialDTP.Name = "FechaInicialDTP";
             FechaInicialDTP.Size = new Size(107, 29);
             FechaInicialDTP.TabIndex = 97;
+            FechaInicialDTP.ValueChanged += FechaInicialDTP_ValueChanged;
             // 
             // panel2
             // 

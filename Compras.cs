@@ -1,6 +1,11 @@
-﻿using System;
+﻿using PdfSharp.Drawing;
+using PdfSharp.Pdf;
+using PdfSharp.Fonts;
+using System.IO;
+using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
@@ -405,7 +410,6 @@ namespace Proyecto_restaurante
             }
         }
 
-
         private void CargarProductosEnPanel(string filtro)
         {
             using (SqlConnection con = new SqlConnection(conexionString))
@@ -413,19 +417,21 @@ namespace Proyecto_restaurante
                 con.Open();
 
                 string sql = @"
-                SELECT 
-                p.IdProducto,
-                p.Nombre,
-                ISNULL(p.PrecioCompra, 0) AS PrecioCompra,
-                ISNULL(p.Itbis, 0) AS Itbis,
-                u.Nombre AS Unidad
-                FROM ProductoVenta p
-                INNER JOIN ProductoTipo t   ON p.IdProductoTipo = t.IdProductoTipo
-                INNER JOIN UnidadMedida u   ON p.IdUnidadMedida = u.IdUnidadMedida
-                WHERE t.Ingrediente = 1
-                AND (@soloActivos = 0 OR p.Activo = 1)
-                AND (@f = '' OR p.Nombre LIKE '%' + @f + '%')
-                ORDER BY p.Nombre;";
+                    SELECT 
+                    p.IdProducto,
+                    p.Nombre,
+                    ISNULL(p.PrecioCompra, 0) AS PrecioCompra,
+                    ISNULL(p.Itbis, 0) AS Itbis,
+                    u.Nombre AS Unidad,
+                    t.Ingrediente,
+                    t.Bebida
+                    FROM ProductoVenta p
+                    INNER JOIN ProductoTipo t   ON p.IdProductoTipo = t.IdProductoTipo
+                    INNER JOIN UnidadMedida u   ON p.IdUnidadMedida = u.IdUnidadMedida
+                    WHERE (t.Ingrediente = 1 OR t.Bebida = 1)
+                    AND (@soloActivos = 0 OR p.Activo = 1)
+                    AND (@f = '' OR p.Nombre LIKE '%' + @f + '%')
+                    ORDER BY p.Nombre;";
 
                 using (SqlDataAdapter da = new SqlDataAdapter(sql, con))
                 {
@@ -448,6 +454,13 @@ namespace Proyecto_restaurante
                         tablaingrediente.Columns["Unidad"].HeaderText = "Unidad";
                     if (tablaingrediente.Columns.Contains("Itbis"))
                         tablaingrediente.Columns["Itbis"].HeaderText = "ITBIS %";
+
+                    /* Opcional: esconder estas columnas, solo son para filtro interno
+                    if (tablaingrediente.Columns.Contains("Ingrediente"))
+                        tablaingrediente.Columns["Ingrediente"].Visible = false;
+                    if (tablaingrediente.Columns.Contains("Bebida"))
+                        tablaingrediente.Columns["Bebida"].Visible = false;
+                    */
                 }
             }
         }
@@ -575,7 +588,6 @@ namespace Proyecto_restaurante
                 return;
             }
 
-
             if (!int.TryParse(idproveedortxt.Text, out int idProveedor))
             {
                 MessageBox.Show("Seleccione un proveedor válido antes de guardar la compra.");
@@ -612,7 +624,9 @@ namespace Proyecto_restaurante
 
                         using (SqlCommand cmdUp = new SqlCommand(sqlUpdate, con, tran))
                         {
-                            cmdUp.Parameters.AddWithValue("@Fecha", SistemaFecha.FechaActual);
+
+                            cmdUp.Parameters.AddWithValue("@Fecha", FechaCompra.Value);
+
                             cmdUp.Parameters.AddWithValue("@IdProveedor", idProveedor);
                             cmdUp.Parameters.AddWithValue("@Subtotal", subtotalAcumulado);
                             cmdUp.Parameters.AddWithValue("@Impuestos", impuestosAcumulados);
@@ -647,7 +661,9 @@ namespace Proyecto_restaurante
 
                         using (SqlCommand cmdCompra = new SqlCommand(sqlCompra, con, tran))
                         {
-                            cmdCompra.Parameters.AddWithValue("@Fecha", SistemaFecha.FechaActual);
+                         
+                            cmdCompra.Parameters.AddWithValue("@Fecha", FechaCompra.Value);
+
                             cmdCompra.Parameters.AddWithValue("@IdProveedor", idProveedor);
                             cmdCompra.Parameters.AddWithValue("@Subtotal", subtotalAcumulado);
                             cmdCompra.Parameters.AddWithValue("@Impuestos", impuestosAcumulados);
@@ -664,9 +680,9 @@ namespace Proyecto_restaurante
                     }
 
                     string sqlDetalle = @"
-                    INSERT INTO DetalleCompra
-                    (IdCompra, IdProducto, Cantidad, CostoUnitario)
-                    VALUES (@IdCompra, @IdProducto, @Cantidad, @CostoUnitario);";
+                        INSERT INTO DetalleCompra
+                        (IdCompra, IdProducto, Cantidad, CostoUnitario)
+                        VALUES (@IdCompra, @IdProducto, @Cantidad, @CostoUnitario);";
 
                     foreach (DataGridViewRow row in detallecompra.Rows)
                     {
@@ -703,6 +719,7 @@ namespace Proyecto_restaurante
                 }
             }
         }
+
 
         private void checkingredactivo_CheckedChanged(object sender, EventArgs e)
         {
@@ -1302,107 +1319,291 @@ namespace Proyecto_restaurante
                 return;
             }
 
-            StringBuilder sb = new StringBuilder();
+            string estado = TablaDatosCompra.CurrentRow.Cells["Estado"].Value?.ToString() ?? "";
 
-            using (SqlConnection con = new SqlConnection(conexionString))
+            if (estado == "Pendiente")
             {
-                con.Open();
+                MessageBox.Show("Esta compra está PENDIENTE. El PDF se generará como provisional.");
+            }
+            else if (estado == "Anulada")
+            {
+                MessageBox.Show("Esta compra está ANULADA. El PDF se generará marcado como anulada.");
+            }
 
-                string sqlCab = @"
-                 SELECT 
-                c.IdCompra,
-                c.Fecha,
-                c.Estado,
-                c.Subtotal,
-                c.Impuestos,
-                c.Total,
-                prov.NombreCompleto           AS NombreProveedor,
-                ISNULL(emp.NombreCompleto,'') AS NombreResponsable
-                FROM Compra c
-                INNER JOIN Persona prov
-                ON c.IdProveedorPersona = prov.IdPersona
-                LEFT JOIN Empleado e
-                ON c.IdEmpleadoResponsable = e.IdEmpleado
-                LEFT JOIN Persona emp
-                ON e.IdPersona = emp.IdPersona
-                WHERE c.IdCompra = @IdCompra;";
+            GenerarCompraPDF(idCompra.Value);
+        }
 
-                DateTime fecha = DateTime.Now;
-                string estado = "";
+        void GenerarCompraPDF(int idCompra)
+        {
+            try
+            {
+                string folderPath = @"C:\SistemaArchivos\Compras\";
+                if (!Directory.Exists(folderPath))
+                    Directory.CreateDirectory(folderPath);
+
+                string filePath = Path.Combine(folderPath, $"Compra_{idCompra}.pdf");
+
+                PdfDocument document = new PdfDocument();
+                document.Info.Title = $"Compra {idCompra}";
+
+                PdfPage page = document.AddPage();
+                XGraphics gfx = XGraphics.FromPdfPage(page);
+
+                XFont titleFont = new XFont("Segoe UI", 18, XFontStyleEx.Bold);
+                XFont sectionFont = new XFont("Segoe UI", 12, XFontStyleEx.Bold);
+                XFont labelFont = new XFont("Segoe UI", 11, XFontStyleEx.Bold);
+                XFont textFont = new XFont("Segoe UI", 11, XFontStyleEx.Regular);
+                XFont smallFont = new XFont("Segoe UI", 9, XFontStyleEx.Regular);
+                XFont watermarkFont = new XFont("Segoe UI", 40, XFontStyleEx.Bold);
+
+                double marginLeft = 40;
+                double marginRight = 40;
+                double currentY = 45;
+                double rowH = 18;
+
+                var pen = new XPen(XColors.Black, 0.7);
+
+                double usableW = page.Width - marginLeft - marginRight;
+                double rightEdge = marginLeft + usableW;
+
+                string proveedor = "", responsable = "", fechaCompra = "", estado = "", fechaRecepcion = "";
                 decimal subtotal = 0, itbis = 0, total = 0;
-                string proveedor = "", responsable = "";
 
-                using (SqlCommand cmdCab = new SqlCommand(sqlCab, con))
+                using (SqlConnection con = new SqlConnection(conexionString))
                 {
-                    cmdCab.Parameters.AddWithValue("@IdCompra", idCompra.Value);
+                    con.Open();
 
-                    using (SqlDataReader dr = cmdCab.ExecuteReader())
+                    string sqlCab = @"
+                        SELECT 
+                        c.IdCompra,
+                        c.Fecha,
+                        c.FechaRecepcion,
+                        c.Estado,
+                        c.Subtotal,
+                        c.Impuestos,
+                        c.Total,
+                        prov.NombreCompleto AS NombreProveedor,
+                        ISNULL(emp.NombreCompleto,'') AS NombreResponsable
+                        FROM Compra c
+                        INNER JOIN Persona prov ON c.IdProveedorPersona = prov.IdPersona
+                        LEFT JOIN Empleado e ON c.IdEmpleadoResponsable = e.IdEmpleado
+                        LEFT JOIN Persona emp ON e.IdPersona = emp.IdPersona
+                        WHERE c.IdCompra = @id;";
+
+                    using (SqlCommand cmd = new SqlCommand(sqlCab, con))
                     {
-                        if (dr.Read())
+                        cmd.Parameters.AddWithValue("@id", idCompra);
+                        using (SqlDataReader dr = cmd.ExecuteReader())
                         {
-                            fecha = Convert.ToDateTime(dr["Fecha"]);
+                            if (!dr.Read())
+                            {
+                                MessageBox.Show("No se encontró la compra seleccionada.");
+                                return;
+                            }
+
+                            fechaCompra = Convert.ToDateTime(dr["Fecha"]).ToString("dd/MM/yyyy HH:mm");
                             estado = dr["Estado"].ToString();
+
                             subtotal = Convert.ToDecimal(dr["Subtotal"]);
                             itbis = Convert.ToDecimal(dr["Impuestos"]);
                             total = Convert.ToDecimal(dr["Total"]);
+
                             proveedor = dr["NombreProveedor"].ToString();
                             responsable = dr["NombreResponsable"].ToString();
+
+                            if (dr["FechaRecepcion"] != DBNull.Value)
+                                fechaRecepcion = Convert.ToDateTime(dr["FechaRecepcion"]).ToString("dd/MM/yyyy HH:mm");
                         }
                     }
                 }
 
-                sb.AppendLine("GLORIA RESTAURANT");
-                sb.AppendLine("COMPROBANTE DE COMPRA");
-                sb.AppendLine(new string('-', 40));
-                sb.AppendLine($"Compra N°: {idCompra.Value}");
-                sb.AppendLine($"Fecha:     {fecha:g}");
-                sb.AppendLine($"Proveedor: {proveedor}");
-                if (!string.IsNullOrEmpty(responsable))
-                    sb.AppendLine($"Responsable: {responsable}");
-                sb.AppendLine($"Estado:    {estado}");
-                sb.AppendLine(new string('-', 40));
-                sb.AppendLine("Detalle");
-                sb.AppendLine(new string('-', 40));
+                string titulo = "COMPROBANTE DE COMPRA";
+                if (estado == "Pendiente") titulo = "COMPROBANTE DE COMPRA (PROVISIONAL)";
+                if (estado == "Anulada") titulo = "COMPROBANTE DE COMPRA (ANULADA)";
 
-                string sqlDet = @"
+                gfx.DrawString(titulo, titleFont, XBrushes.Black,
+                    new XRect(0, currentY, page.Width, 30), XStringFormats.TopCenter);
+
+                currentY += 45;
+
+                if (estado == "Anulada")
+                {
+                    gfx.Save();
+                    gfx.TranslateTransform(page.Width / 2, (page.Height / 2) + 70);
+                    gfx.RotateTransform(-25);
+                    gfx.DrawString("ANULADA", watermarkFont, XBrushes.LightGray,
+                        new XRect(-320, -30, 640, 60), XStringFormats.TopCenter);
+                    gfx.Restore();
+                }
+
+                void DrawLabelValue(string label, string value)
+                {
+                    gfx.DrawString(label, labelFont, XBrushes.Black, marginLeft, currentY);
+                    gfx.DrawString(value, textFont, XBrushes.Black, marginLeft + 150, currentY);
+                    currentY += rowH;
+                }
+
+                DrawLabelValue("Compra:", idCompra.ToString());
+                DrawLabelValue("Proveedor:", proveedor);
+                DrawLabelValue("Fecha compra:", fechaCompra);
+
+                if (!string.IsNullOrWhiteSpace(responsable))
+                    DrawLabelValue("Responsable:", responsable);
+
+                DrawLabelValue("Estado:", estado);
+
+                if (estado == "Recibida" && !string.IsNullOrWhiteSpace(fechaRecepcion))
+                    DrawLabelValue("Fecha recepción:", fechaRecepcion);
+
+                if (estado == "Pendiente")
+                {
+                    currentY += 4;
+                    gfx.DrawString("Nota: Este documento es provisional hasta confirmar la recepción.",
+                        smallFont, XBrushes.Black, marginLeft, currentY);
+                    currentY += rowH;
+                }
+
+                currentY += 10;
+                gfx.DrawLine(pen, marginLeft, currentY, rightEdge, currentY);
+                currentY += 22;
+
+                gfx.DrawString("DETALLE", sectionFont, XBrushes.Black, marginLeft, currentY);
+                currentY += 18;
+
+                double colProdX = marginLeft;
+                double colCantX = marginLeft + usableW * 0.70;
+                double colCostoX = marginLeft + usableW * 0.83;
+                double colSubX = marginLeft + usableW * 0.98;
+
+                currentY += 8;
+                gfx.DrawLine(pen, marginLeft, currentY, rightEdge, currentY);
+                currentY += 10;
+
+                gfx.DrawString("Producto", labelFont, XBrushes.Black, colProdX, currentY);
+                gfx.DrawString("Cant.", labelFont, XBrushes.Black, new XRect(colCantX - 60, currentY, 60, 20), XStringFormats.TopRight);
+                gfx.DrawString("Costo", labelFont, XBrushes.Black, new XRect(colCostoX - 70, currentY, 70, 20), XStringFormats.TopRight);
+                gfx.DrawString("Subtotal", labelFont, XBrushes.Black, new XRect(colSubX - 80, currentY, 80, 20), XStringFormats.TopRight);
+
+                currentY += 18;
+                gfx.DrawLine(pen, marginLeft, currentY, rightEdge, currentY);
+                currentY += 8;
+
+                using (SqlConnection con = new SqlConnection(conexionString))
+                {
+                    con.Open();
+
+                    string sqlDet = @"
                 SELECT 
                 p.Nombre,
                 dc.Cantidad,
                 dc.CostoUnitario,
                 dc.Subtotal
-                 FROM DetalleCompra dc
-                INNER JOIN ProductoVenta p 
-                ON dc.IdProducto = p.IdProducto
-                WHERE dc.IdCompra = @IdCompra
+                FROM DetalleCompra dc
+                INNER JOIN ProductoVenta p ON p.IdProducto = dc.IdProducto
+                WHERE dc.IdCompra = @id
                 ORDER BY dc.IdDetalle;";
 
-                using (SqlCommand cmdDet = new SqlCommand(sqlDet, con))
-                {
-                    cmdDet.Parameters.AddWithValue("@IdCompra", idCompra.Value);
-
-                    using (SqlDataReader drDet = cmdDet.ExecuteReader())
+                    using (SqlCommand cmd = new SqlCommand(sqlDet, con))
                     {
-                        while (drDet.Read())
-                        {
-                            string nom = drDet["Nombre"].ToString();
-                            decimal cant = Convert.ToDecimal(drDet["Cantidad"]);
-                            decimal cost = Convert.ToDecimal(drDet["CostoUnitario"]);
-                            decimal sub = Convert.ToDecimal(drDet["Subtotal"]);
+                        cmd.Parameters.AddWithValue("@id", idCompra);
 
-                            sb.AppendLine(nom);
-                            sb.AppendLine($"  x{cant}  @ {cost:N2} = {sub:N2}");
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                string prod = dr["Nombre"].ToString();
+                                decimal cant = Convert.ToDecimal(dr["Cantidad"]);
+                                decimal costo = Convert.ToDecimal(dr["CostoUnitario"]);
+                                decimal sub = Convert.ToDecimal(dr["Subtotal"]);
+
+                                if (prod.Length > 50) prod = prod.Substring(0, 50) + "...";
+
+                                gfx.DrawString(prod, textFont, XBrushes.Black, colProdX, currentY);
+                                gfx.DrawString(cant.ToString("0.###"), textFont, XBrushes.Black,
+                                    new XRect(colCantX - 60, currentY, 60, 20), XStringFormats.TopRight);
+                                gfx.DrawString(costo.ToString("N2"), textFont, XBrushes.Black,
+                                    new XRect(colCostoX - 70, currentY, 70, 20), XStringFormats.TopRight);
+                                gfx.DrawString(sub.ToString("N2"), textFont, XBrushes.Black,
+                                    new XRect(colSubX - 80, currentY, 80, 20), XStringFormats.TopRight);
+
+                                currentY += rowH;
+
+                                if (currentY > page.Height - 170)
+                                {
+                                    gfx.DrawLine(pen, marginLeft, currentY + 6, rightEdge, currentY + 6);
+
+                                    page = document.AddPage();
+                                    gfx = XGraphics.FromPdfPage(page);
+
+                                    usableW = page.Width - marginLeft - marginRight;
+                                    rightEdge = marginLeft + usableW;
+
+                                    colCantX = marginLeft + usableW * 0.70;
+                                    colCostoX = marginLeft + usableW * 0.83;
+                                    colSubX = marginLeft + usableW * 0.98;
+
+                                    currentY = 50;
+
+                                    gfx.DrawString(titulo, titleFont, XBrushes.Black,
+                                        new XRect(0, currentY, page.Width, 30), XStringFormats.TopCenter);
+
+                                    currentY += 55;
+
+                                    gfx.DrawLine(pen, marginLeft, currentY, rightEdge, currentY);
+                                    currentY += 10;
+
+                                    gfx.DrawString("Producto", labelFont, XBrushes.Black, colProdX, currentY);
+                                    gfx.DrawString("Cant.", labelFont, XBrushes.Black, new XRect(colCantX - 60, currentY, 60, 20), XStringFormats.TopRight);
+                                    gfx.DrawString("Costo", labelFont, XBrushes.Black, new XRect(colCostoX - 70, currentY, 70, 20), XStringFormats.TopRight);
+                                    gfx.DrawString("Subtotal", labelFont, XBrushes.Black, new XRect(colSubX - 80, currentY, 80, 20), XStringFormats.TopRight);
+
+                                    currentY += 18;
+                                    gfx.DrawLine(pen, marginLeft, currentY, rightEdge, currentY);
+                                    currentY += 8;
+                                }
+                            }
                         }
                     }
                 }
 
-                sb.AppendLine(new string('-', 40));
-                sb.AppendLine($"Subtotal: {subtotal:N2}");
-                sb.AppendLine($"ITBIS:    {itbis:N2}");
-                sb.AppendLine($"Total:    {total:N2}");
-            }
+                gfx.DrawLine(pen, marginLeft, currentY + 6, rightEdge, currentY + 6);
+                currentY += 28;
 
-            MessageBox.Show(sb.ToString(), "Resumen de compra",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                double totalsLabelX = marginLeft + usableW * 0.62;
+                double totalsValueRight = rightEdge;
+                double totalsValueW = 170;
+
+                gfx.DrawString("SUBTOTAL:", labelFont, XBrushes.Black, totalsLabelX, currentY);
+                gfx.DrawString($"RD$ {subtotal:N2}", labelFont, XBrushes.Black,
+                    new XRect(totalsValueRight - totalsValueW, currentY, totalsValueW, 20), XStringFormats.TopRight);
+                currentY += 18;
+
+                gfx.DrawString("ITBIS:", labelFont, XBrushes.Black, totalsLabelX, currentY);
+                gfx.DrawString($"RD$ {itbis:N2}", labelFont, XBrushes.Black,
+                    new XRect(totalsValueRight - totalsValueW, currentY, totalsValueW, 20), XStringFormats.TopRight);
+                currentY += 26;
+
+                gfx.DrawString("TOTAL:", titleFont, XBrushes.Black, totalsLabelX, currentY);
+                gfx.DrawString($"RD$ {total:N2}", titleFont, XBrushes.Black,
+                    new XRect(totalsValueRight - totalsValueW, currentY, totalsValueW, 24), XStringFormats.TopRight);
+
+                gfx.DrawString("Gloria Restaurant - Compras", smallFont, XBrushes.Black,
+                    new XRect(marginLeft, page.Height - 50, page.Width, 20), XStringFormats.TopLeft);
+
+                document.Save(filePath);
+
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = filePath,
+                    UseShellExecute = true
+                });
+
+                MessageBox.Show("PDF generado correctamente.", "Éxito");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al generar el PDF: " + ex.Message);
+            }
         }
     }
 
