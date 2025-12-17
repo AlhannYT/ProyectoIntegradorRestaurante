@@ -83,7 +83,9 @@
             label19 = new Label();
             tablaclientes = new DataGridView();
             panel2 = new Panel();
+            estimado = new TextBox();
             label37 = new Label();
+            label14 = new Label();
             label6 = new Label();
             detalleorden = new DataGridView();
             label21 = new Label();
@@ -468,7 +470,7 @@
             tipoComp.DropDownStyle = ComboBoxStyle.DropDownList;
             tipoComp.FormattingEnabled = true;
             tipoComp.Items.AddRange(new object[] { "B01", "B02" });
-            tipoComp.Location = new Point(120, 5);
+            tipoComp.Location = new Point(120, 3);
             tipoComp.Name = "tipoComp";
             tipoComp.Size = new Size(50, 29);
             tipoComp.TabIndex = 7;
@@ -479,7 +481,7 @@
             label40.AutoSize = true;
             label40.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label40.ForeColor = SystemColors.Control;
-            label40.Location = new Point(3, 9);
+            label40.Location = new Point(3, 7);
             label40.Name = "label40";
             label40.Size = new Size(119, 21);
             label40.TabIndex = 8;
@@ -488,7 +490,7 @@
             // Comprobantetxt
             // 
             Comprobantetxt.Enabled = false;
-            Comprobantetxt.Location = new Point(170, 5);
+            Comprobantetxt.Location = new Point(170, 3);
             Comprobantetxt.Name = "Comprobantetxt";
             Comprobantetxt.Size = new Size(105, 29);
             Comprobantetxt.TabIndex = 6;
@@ -843,7 +845,9 @@
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(64, 64, 64);
+            panel2.Controls.Add(estimado);
             panel2.Controls.Add(label37);
+            panel2.Controls.Add(label14);
             panel2.Controls.Add(label6);
             panel2.Controls.Add(detalleorden);
             panel2.Controls.Add(label21);
@@ -853,6 +857,15 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(793, 361);
             panel2.TabIndex = 3;
+            // 
+            // estimado
+            // 
+            estimado.Font = new Font("Segoe UI", 12F);
+            estimado.Location = new Point(184, 3);
+            estimado.Name = "estimado";
+            estimado.PlaceholderText = "Minutos";
+            estimado.Size = new Size(62, 29);
+            estimado.TabIndex = 0;
             // 
             // label37
             // 
@@ -864,6 +877,19 @@
             label37.Size = new Size(456, 21);
             label37.TabIndex = 75;
             label37.Text = "Combinaciones:    Alt+1, Alt+2, Alt+3: Cambio rapido de pestaña";
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label14.ForeColor = SystemColors.Control;
+            label14.Image = Properties.Resources.tiempo;
+            label14.ImageAlign = ContentAlignment.MiddleLeft;
+            label14.Location = new Point(7, 7);
+            label14.Name = "label14";
+            label14.Size = new Size(179, 21);
+            label14.TabIndex = 8;
+            label14.Text = "     Minutos estimados:";
             // 
             // label6
             // 
@@ -2152,5 +2178,7 @@
         private Button eliminarFacturas;
         private Button carpetaFactura;
         private Button deslizar;
+        private Label label14;
+        private TextBox estimado;
     }
 }

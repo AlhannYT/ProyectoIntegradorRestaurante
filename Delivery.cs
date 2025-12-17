@@ -293,7 +293,7 @@ namespace Proyecto_restaurante
             txtnombrecompleto.Text = "AL CONTADO";
             idclientetxt.Text = "1";
             numerotxt.Clear();
-
+            estimado.Clear();
 
             txtcodigoproducto.Clear();
             txtnombreproducto.Clear();
