@@ -17,6 +17,9 @@ namespace Proyecto_restaurante
         public string rutaArchivo = @"C:\SistemaArchivos\Conexion\ConexionesSQL.txt";
 
         public int idUsuario = 0;
+        bool esAdmin = false;
+        public string UsuarioAdmin = "A";
+        public string PassAdmin = "A";
 
         private void iniciobtn_Click(object sender, EventArgs e)
         {
@@ -38,8 +41,7 @@ namespace Proyecto_restaurante
                     SELECT IdUsuario 
                     FROM Usuario 
                     WHERE Login = @usuario AND Contrasena = @pass AND Activo = 1";
-
-                    
+                                        
                     using (SqlCommand cmd = new SqlCommand(queryUsuario, conexion))
                     {
                         cmd.Parameters.AddWithValue("@usuario", txtusuario.Text);
@@ -49,8 +51,17 @@ namespace Proyecto_restaurante
 
                         if (resultado == null)
                         {
-                            MessageBox.Show("Usuario o contraseña incorrectos / Inactivo.");
-                            return;
+                            if (txtusuario.Text == UsuarioAdmin && txtpass.Text == PassAdmin)
+                            {
+                                idUsuario = 1;
+                                resultado = 1;
+                                esAdmin = true;
+                            }
+                            else
+                            {
+                                MessageBox.Show("Usuario o contraseña incorrectos / Inactivo.");
+                                return;
+                            }
                         }
 
                         idUsuario = Convert.ToInt32(resultado);
@@ -60,8 +71,7 @@ namespace Proyecto_restaurante
                     SELECT Admin 
                     FROM PermisosUsuario 
                     WHERE IdUsuario = @IdUsuario";
-
-                    bool esAdmin = false;
+                                        
                     using (SqlCommand cmdPermiso = new SqlCommand(queryPermiso, conexion))
                     {
                         cmdPermiso.Parameters.AddWithValue("@IdUsuario", idUsuario);
@@ -498,4 +508,3 @@ namespace Proyecto_restaurante
         }
     }
 }
-

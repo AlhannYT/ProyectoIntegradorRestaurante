@@ -64,19 +64,19 @@
             panel2 = new Panel();
             panel5 = new Panel();
             label19 = new Label();
-            textBox3 = new TextBox();
-            textBox1 = new TextBox();
+            direcciontxt = new TextBox();
+            numerotxt = new TextBox();
             label13 = new Label();
-            checkBox2 = new CheckBox();
-            checkBox1 = new CheckBox();
-            dataGridView1 = new DataGridView();
-            ingredientesconsulta = new DataGridView();
+            principalDireccion = new CheckBox();
+            numPrincipalcmbx = new CheckBox();
+            direccionEmpleado = new DataGridView();
+            numeroEmpleado = new DataGridView();
             button7 = new Button();
-            button4 = new Button();
+            bajarDireccion = new Button();
             button6 = new Button();
-            button3 = new Button();
-            textBox2 = new TextBox();
-            txtcodigo = new TextBox();
+            bajarTelefono = new Button();
+            nombredirecciontxt = new TextBox();
+            nombrenumerotxt = new TextBox();
             panel3 = new Panel();
             guardarbtn = new Button();
             limpiarbtn = new Button();
@@ -87,7 +87,7 @@
             emailtxt = new TextBox();
             txtcedula = new TextBox();
             txtapellido = new TextBox();
-            ultimoID = new TextBox();
+            idUltimoEmpleado = new TextBox();
             txtsueldo = new TextBox();
             txtnombre = new TextBox();
             label14 = new Label();
@@ -108,8 +108,8 @@
             puestopanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)puestoconsulta).BeginInit();
             panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)ingredientesconsulta).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)direccionEmpleado).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numeroEmpleado).BeginInit();
             panel3.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)imagenempleado).BeginInit();
@@ -228,6 +228,7 @@
             Editar.Text = "Editar";
             Editar.TextAlign = ContentAlignment.BottomCenter;
             Editar.UseVisualStyleBackColor = true;
+            Editar.Click += Editar_Click;
             // 
             // tabladatos
             // 
@@ -266,6 +267,7 @@
             recargarbtn.Size = new Size(29, 29);
             recargarbtn.TabIndex = 55;
             recargarbtn.UseVisualStyleBackColor = true;
+            recargarbtn.Click += recargarbtn_Click;
             // 
             // eliminarbtn
             // 
@@ -275,6 +277,7 @@
             eliminarbtn.Size = new Size(31, 29);
             eliminarbtn.TabIndex = 56;
             eliminarbtn.UseVisualStyleBackColor = true;
+            eliminarbtn.Click += eliminarbtn_Click;
             // 
             // filtro
             // 
@@ -313,7 +316,7 @@
             tabPage2.Controls.Add(emailtxt);
             tabPage2.Controls.Add(txtcedula);
             tabPage2.Controls.Add(txtapellido);
-            tabPage2.Controls.Add(ultimoID);
+            tabPage2.Controls.Add(idUltimoEmpleado);
             tabPage2.Controls.Add(txtsueldo);
             tabPage2.Controls.Add(txtnombre);
             tabPage2.Controls.Add(label14);
@@ -447,6 +450,7 @@
             // 
             // tiposueldocmbx
             // 
+            tiposueldocmbx.DropDownStyle = ComboBoxStyle.DropDownList;
             tiposueldocmbx.FormattingEnabled = true;
             tiposueldocmbx.Items.AddRange(new object[] { "Semanal", "Quincenal", "Mensual" });
             tiposueldocmbx.Location = new Point(367, 74);
@@ -512,19 +516,19 @@
             // 
             panel5.BackColor = Color.FromArgb(64, 64, 64);
             panel5.Controls.Add(label19);
-            panel5.Controls.Add(textBox3);
-            panel5.Controls.Add(textBox1);
+            panel5.Controls.Add(direcciontxt);
+            panel5.Controls.Add(numerotxt);
             panel5.Controls.Add(label13);
-            panel5.Controls.Add(checkBox2);
-            panel5.Controls.Add(checkBox1);
-            panel5.Controls.Add(dataGridView1);
-            panel5.Controls.Add(ingredientesconsulta);
+            panel5.Controls.Add(principalDireccion);
+            panel5.Controls.Add(numPrincipalcmbx);
+            panel5.Controls.Add(direccionEmpleado);
+            panel5.Controls.Add(numeroEmpleado);
             panel5.Controls.Add(button7);
-            panel5.Controls.Add(button4);
+            panel5.Controls.Add(bajarDireccion);
             panel5.Controls.Add(button6);
-            panel5.Controls.Add(button3);
-            panel5.Controls.Add(textBox2);
-            panel5.Controls.Add(txtcodigo);
+            panel5.Controls.Add(bajarTelefono);
+            panel5.Controls.Add(nombredirecciontxt);
+            panel5.Controls.Add(nombrenumerotxt);
             panel5.Location = new Point(19, 338);
             panel5.Name = "panel5";
             panel5.Size = new Size(727, 206);
@@ -541,25 +545,23 @@
             label19.Name = "label19";
             label19.Size = new Size(103, 21);
             label19.TabIndex = 55;
-            label19.Text = "Direccion     ";
+            label19.Text = "Dirección     ";
             // 
-            // textBox3
+            // direcciontxt
             // 
-            textBox3.Enabled = false;
-            textBox3.Location = new Point(411, 36);
-            textBox3.Name = "textBox3";
-            textBox3.PlaceholderText = "Direccion";
-            textBox3.Size = new Size(179, 29);
-            textBox3.TabIndex = 79;
+            direcciontxt.Location = new Point(411, 36);
+            direcciontxt.Name = "direcciontxt";
+            direcciontxt.PlaceholderText = "Dirección";
+            direcciontxt.Size = new Size(179, 29);
+            direcciontxt.TabIndex = 79;
             // 
-            // textBox1
+            // numerotxt
             // 
-            textBox1.Enabled = false;
-            textBox1.Location = new Point(81, 36);
-            textBox1.Name = "textBox1";
-            textBox1.PlaceholderText = "Numero";
-            textBox1.Size = new Size(113, 29);
-            textBox1.TabIndex = 79;
+            numerotxt.Location = new Point(81, 36);
+            numerotxt.Name = "numerotxt";
+            numerotxt.PlaceholderText = "Número";
+            numerotxt.Size = new Size(113, 29);
+            numerotxt.TabIndex = 79;
             // 
             // label13
             // 
@@ -572,117 +574,123 @@
             label13.Name = "label13";
             label13.Size = new Size(185, 21);
             label13.TabIndex = 55;
-            label13.Text = "Numero de telefono     ";
+            label13.Text = "Número de teléfono     ";
             // 
-            // checkBox2
+            // principalDireccion
             // 
-            checkBox2.AutoSize = true;
-            checkBox2.ForeColor = Color.White;
-            checkBox2.Location = new Point(596, 38);
-            checkBox2.Name = "checkBox2";
-            checkBox2.Size = new Size(89, 25);
-            checkBox2.TabIndex = 90;
-            checkBox2.Text = "Principal";
-            checkBox2.UseVisualStyleBackColor = true;
+            principalDireccion.AutoSize = true;
+            principalDireccion.ForeColor = Color.White;
+            principalDireccion.Location = new Point(596, 38);
+            principalDireccion.Name = "principalDireccion";
+            principalDireccion.Size = new Size(89, 25);
+            principalDireccion.TabIndex = 90;
+            principalDireccion.Text = "Principal";
+            principalDireccion.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // numPrincipalcmbx
             // 
-            checkBox1.AutoSize = true;
-            checkBox1.ForeColor = Color.White;
-            checkBox1.Location = new Point(200, 38);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(89, 25);
-            checkBox1.TabIndex = 90;
-            checkBox1.Text = "Principal";
-            checkBox1.UseVisualStyleBackColor = true;
+            numPrincipalcmbx.AutoSize = true;
+            numPrincipalcmbx.ForeColor = Color.White;
+            numPrincipalcmbx.Location = new Point(200, 38);
+            numPrincipalcmbx.Name = "numPrincipalcmbx";
+            numPrincipalcmbx.Size = new Size(89, 25);
+            numPrincipalcmbx.TabIndex = 90;
+            numPrincipalcmbx.Text = "Principal";
+            numPrincipalcmbx.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // direccionEmpleado
             // 
-            dataGridView1.AllowUserToAddRows = false;
-            dataGridView1.AllowUserToDeleteRows = false;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(339, 71);
-            dataGridView1.MultiSelect = false;
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.ReadOnly = true;
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView1.Size = new Size(346, 129);
-            dataGridView1.TabIndex = 74;
+            direccionEmpleado.AllowUserToAddRows = false;
+            direccionEmpleado.AllowUserToDeleteRows = false;
+            direccionEmpleado.AllowUserToResizeRows = false;
+            direccionEmpleado.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            direccionEmpleado.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            direccionEmpleado.Location = new Point(339, 71);
+            direccionEmpleado.MultiSelect = false;
+            direccionEmpleado.Name = "direccionEmpleado";
+            direccionEmpleado.ReadOnly = true;
+            direccionEmpleado.RowHeadersVisible = false;
+            direccionEmpleado.RowHeadersWidth = 51;
+            direccionEmpleado.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            direccionEmpleado.Size = new Size(346, 129);
+            direccionEmpleado.TabIndex = 74;
+            direccionEmpleado.CellClick += direccionEmpleado_CellClick;
             // 
-            // ingredientesconsulta
+            // numeroEmpleado
             // 
-            ingredientesconsulta.AllowUserToAddRows = false;
-            ingredientesconsulta.AllowUserToDeleteRows = false;
-            ingredientesconsulta.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            ingredientesconsulta.Location = new Point(9, 69);
-            ingredientesconsulta.MultiSelect = false;
-            ingredientesconsulta.Name = "ingredientesconsulta";
-            ingredientesconsulta.ReadOnly = true;
-            ingredientesconsulta.RowHeadersWidth = 51;
-            ingredientesconsulta.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            ingredientesconsulta.Size = new Size(281, 129);
-            ingredientesconsulta.TabIndex = 74;
+            numeroEmpleado.AllowUserToAddRows = false;
+            numeroEmpleado.AllowUserToDeleteRows = false;
+            numeroEmpleado.AllowUserToResizeRows = false;
+            numeroEmpleado.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            numeroEmpleado.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            numeroEmpleado.Location = new Point(9, 69);
+            numeroEmpleado.MultiSelect = false;
+            numeroEmpleado.Name = "numeroEmpleado";
+            numeroEmpleado.ReadOnly = true;
+            numeroEmpleado.RowHeadersVisible = false;
+            numeroEmpleado.RowHeadersWidth = 51;
+            numeroEmpleado.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            numeroEmpleado.Size = new Size(281, 129);
+            numeroEmpleado.TabIndex = 74;
+            numeroEmpleado.CellClick += numeroEmpleado_CellClick;
             // 
             // button7
             // 
             button7.BackColor = Color.Red;
-            button7.Enabled = false;
             button7.Image = Properties.Resources.basurablanco;
             button7.Location = new Point(691, 171);
             button7.Name = "button7";
             button7.Size = new Size(28, 29);
             button7.TabIndex = 77;
             button7.UseVisualStyleBackColor = false;
+            button7.Click += button7_Click;
             // 
-            // button4
+            // bajarDireccion
             // 
-            button4.Enabled = false;
-            button4.Image = Properties.Resources.angulo_hacia_abajo;
-            button4.Location = new Point(691, 36);
-            button4.Name = "button4";
-            button4.Size = new Size(28, 29);
-            button4.TabIndex = 77;
-            button4.UseVisualStyleBackColor = true;
+            bajarDireccion.Image = Properties.Resources.angulo_hacia_abajo;
+            bajarDireccion.Location = new Point(691, 36);
+            bajarDireccion.Name = "bajarDireccion";
+            bajarDireccion.Size = new Size(28, 29);
+            bajarDireccion.TabIndex = 77;
+            bajarDireccion.UseVisualStyleBackColor = true;
+            bajarDireccion.Click += bajarDireccion_Click;
             // 
             // button6
             // 
             button6.BackColor = Color.Red;
-            button6.Enabled = false;
             button6.Image = Properties.Resources.basurablanco;
             button6.Location = new Point(295, 169);
             button6.Name = "button6";
             button6.Size = new Size(28, 29);
             button6.TabIndex = 77;
             button6.UseVisualStyleBackColor = false;
+            button6.Click += button6_Click;
             // 
-            // button3
+            // bajarTelefono
             // 
-            button3.Enabled = false;
-            button3.Image = Properties.Resources.angulo_hacia_abajo;
-            button3.Location = new Point(295, 36);
-            button3.Name = "button3";
-            button3.Size = new Size(28, 29);
-            button3.TabIndex = 77;
-            button3.UseVisualStyleBackColor = true;
+            bajarTelefono.Image = Properties.Resources.angulo_hacia_abajo;
+            bajarTelefono.Location = new Point(295, 36);
+            bajarTelefono.Name = "bajarTelefono";
+            bajarTelefono.Size = new Size(28, 29);
+            bajarTelefono.TabIndex = 77;
+            bajarTelefono.UseVisualStyleBackColor = true;
+            bajarTelefono.Click += bajarTelefono_Click;
             // 
-            // textBox2
+            // nombredirecciontxt
             // 
-            textBox2.Enabled = false;
-            textBox2.Location = new Point(339, 36);
-            textBox2.Name = "textBox2";
-            textBox2.PlaceholderText = "Etiqueta";
-            textBox2.Size = new Size(66, 29);
-            textBox2.TabIndex = 79;
+            nombredirecciontxt.Location = new Point(339, 36);
+            nombredirecciontxt.Name = "nombredirecciontxt";
+            nombredirecciontxt.PlaceholderText = "Etiqueta";
+            nombredirecciontxt.Size = new Size(66, 29);
+            nombredirecciontxt.TabIndex = 79;
             // 
-            // txtcodigo
+            // nombrenumerotxt
             // 
-            txtcodigo.Enabled = false;
-            txtcodigo.Location = new Point(9, 36);
-            txtcodigo.Name = "txtcodigo";
-            txtcodigo.PlaceholderText = "Etiqueta";
-            txtcodigo.Size = new Size(66, 29);
-            txtcodigo.TabIndex = 79;
+            nombrenumerotxt.Location = new Point(9, 36);
+            nombrenumerotxt.Name = "nombrenumerotxt";
+            nombrenumerotxt.PlaceholderText = "Etiqueta";
+            nombrenumerotxt.Size = new Size(66, 29);
+            nombrenumerotxt.TabIndex = 79;
             // 
             // panel3
             // 
@@ -792,13 +800,13 @@
             txtapellido.Size = new Size(172, 29);
             txtapellido.TabIndex = 77;
             // 
-            // ultimoID
+            // idUltimoEmpleado
             // 
-            ultimoID.Enabled = false;
-            ultimoID.Location = new Point(51, 11);
-            ultimoID.Name = "ultimoID";
-            ultimoID.Size = new Size(76, 29);
-            ultimoID.TabIndex = 81;
+            idUltimoEmpleado.Enabled = false;
+            idUltimoEmpleado.Location = new Point(51, 11);
+            idUltimoEmpleado.Name = "idUltimoEmpleado";
+            idUltimoEmpleado.Size = new Size(76, 29);
+            idUltimoEmpleado.TabIndex = 81;
             // 
             // txtsueldo
             // 
@@ -929,6 +937,7 @@
             StartPosition = FormStartPosition.Manual;
             Text = "Empleados";
             Load += ConsEmpleados_Load;
+            KeyDown += ConsEmpleados_KeyDown;
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
@@ -941,8 +950,8 @@
             ((System.ComponentModel.ISupportInitialize)puestoconsulta).EndInit();
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)ingredientesconsulta).EndInit();
+            ((System.ComponentModel.ISupportInitialize)direccionEmpleado).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numeroEmpleado).EndInit();
             panel3.ResumeLayout(false);
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)imagenempleado).EndInit();
@@ -976,7 +985,7 @@
         private CheckBox estadochk;
         private TextBox txtcedula;
         private TextBox txtapellido;
-        private TextBox ultimoID;
+        private TextBox idUltimoEmpleado;
         private TextBox txtnombre;
         private Label label4;
         private Label label6;
@@ -986,16 +995,16 @@
         private Label label9;
         private Panel panel5;
         private Label label19;
-        private TextBox textBox3;
-        private TextBox textBox1;
+        private TextBox direcciontxt;
+        private TextBox numerotxt;
         private Label label13;
-        private DataGridView dataGridView1;
-        private DataGridView ingredientesconsulta;
-        private Button button3;
-        private TextBox textBox2;
-        private TextBox txtcodigo;
-        private CheckBox checkBox1;
-        private Button button4;
+        private DataGridView direccionEmpleado;
+        private DataGridView numeroEmpleado;
+        private Button bajarTelefono;
+        private TextBox nombredirecciontxt;
+        private TextBox nombrenumerotxt;
+        private CheckBox numPrincipalcmbx;
+        private Button bajarDireccion;
         private Panel panel4;
         private Panel panel2;
         private TextBox idpuestotxt;
@@ -1009,7 +1018,7 @@
         private Label label5;
         private DataGridView puestoconsulta;
         private DateTimePicker fechaingreso;
-        private CheckBox checkBox2;
+        private CheckBox principalDireccion;
         private Label label14;
         private ComboBox tiposueldocmbx;
         private TextBox txtsueldo;

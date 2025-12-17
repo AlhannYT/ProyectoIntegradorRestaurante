@@ -304,7 +304,7 @@
             // 
             ActualizarFormEventoBtn.Cursor = Cursors.Hand;
             ActualizarFormEventoBtn.Image = Properties.Resources.actualizar;
-            ActualizarFormEventoBtn.Location = new Point(668, 11);
+            ActualizarFormEventoBtn.Location = new Point(668, 12);
             ActualizarFormEventoBtn.Name = "ActualizarFormEventoBtn";
             ActualizarFormEventoBtn.Size = new Size(29, 29);
             ActualizarFormEventoBtn.TabIndex = 51;
@@ -317,7 +317,7 @@
             // 
             LimpiarFormEventoBtn.Cursor = Cursors.Hand;
             LimpiarFormEventoBtn.Image = Properties.Resources.limpio;
-            LimpiarFormEventoBtn.Location = new Point(669, 96);
+            LimpiarFormEventoBtn.Location = new Point(673, 96);
             LimpiarFormEventoBtn.Name = "LimpiarFormEventoBtn";
             LimpiarFormEventoBtn.Size = new Size(29, 29);
             LimpiarFormEventoBtn.TabIndex = 112;
@@ -329,7 +329,7 @@
             // 
             BuscarOrganizadorBtn.Cursor = Cursors.Hand;
             BuscarOrganizadorBtn.Image = Properties.Resources.persona3;
-            BuscarOrganizadorBtn.Location = new Point(8, 128);
+            BuscarOrganizadorBtn.Location = new Point(5, 128);
             BuscarOrganizadorBtn.Name = "BuscarOrganizadorBtn";
             BuscarOrganizadorBtn.RightToLeft = RightToLeft.No;
             BuscarOrganizadorBtn.Size = new Size(29, 29);
@@ -491,7 +491,7 @@
             // eliminarbtn
             // 
             eliminarbtn.Image = Properties.Resources.limpio;
-            eliminarbtn.Location = new Point(160, 2);
+            eliminarbtn.Location = new Point(164, 2);
             eliminarbtn.Name = "eliminarbtn";
             eliminarbtn.Size = new Size(29, 29);
             eliminarbtn.TabIndex = 22;
@@ -1057,11 +1057,15 @@
             // tabladatos
             // 
             tabladatos.AllowUserToAddRows = false;
+            tabladatos.AllowUserToDeleteRows = false;
+            tabladatos.AllowUserToResizeRows = false;
+            tabladatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             tabladatos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tabladatos.Location = new Point(148, 338);
             tabladatos.MultiSelect = false;
             tabladatos.Name = "tabladatos";
             tabladatos.ReadOnly = true;
+            tabladatos.RowHeadersVisible = false;
             tabladatos.RowHeadersWidth = 51;
             tabladatos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             tabladatos.Size = new Size(409, 134);
@@ -1295,7 +1299,7 @@
             notapanel.BackColor = Color.Gray;
             notapanel.Controls.Add(notatxt);
             notapanel.Cursor = Cursors.IBeam;
-            notapanel.Location = new Point(8, 228);
+            notapanel.Location = new Point(5, 228);
             notapanel.Name = "notapanel";
             notapanel.Size = new Size(252, 138);
             notapanel.TabIndex = 158;
@@ -1320,7 +1324,7 @@
             SeleccionarSalaPanel.Controls.Add(DesplegarBtn);
             SeleccionarSalaPanel.Controls.Add(label27);
             SeleccionarSalaPanel.Controls.Add(SalaConEventoDGV);
-            SeleccionarSalaPanel.Location = new Point(8, 334);
+            SeleccionarSalaPanel.Location = new Point(5, 334);
             SeleccionarSalaPanel.Name = "SeleccionarSalaPanel";
             SeleccionarSalaPanel.Size = new Size(252, 155);
             SeleccionarSalaPanel.TabIndex = 116;
@@ -1391,7 +1395,7 @@
             NotaBtn.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             NotaBtn.Image = Properties.Resources.nota;
             NotaBtn.ImageAlign = ContentAlignment.MiddleLeft;
-            NotaBtn.Location = new Point(10, 387);
+            NotaBtn.Location = new Point(7, 387);
             NotaBtn.Name = "NotaBtn";
             NotaBtn.Size = new Size(74, 28);
             NotaBtn.TabIndex = 149;
@@ -1406,7 +1410,7 @@
             FechaCreacionDTP.Enabled = false;
             FechaCreacionDTP.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FechaCreacionDTP.Format = DateTimePickerFormat.Short;
-            FechaCreacionDTP.Location = new Point(153, 73);
+            FechaCreacionDTP.Location = new Point(150, 73);
             FechaCreacionDTP.Name = "FechaCreacionDTP";
             FechaCreacionDTP.Size = new Size(105, 29);
             FechaCreacionDTP.TabIndex = 148;
@@ -1416,7 +1420,7 @@
             label37.AutoSize = true;
             label37.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label37.ForeColor = SystemColors.Control;
-            label37.Location = new Point(3, 73);
+            label37.Location = new Point(0, 73);
             label37.Name = "label37";
             label37.Size = new Size(150, 21);
             label37.TabIndex = 147;
@@ -1481,7 +1485,7 @@
             label30.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label30.ForeColor = SystemColors.Control;
             label30.Image = Properties.Resources.busqueda;
-            label30.Location = new Point(642, 100);
+            label30.Location = new Point(647, 100);
             label30.Name = "label30";
             label30.Size = new Size(18, 21);
             label30.TabIndex = 125;
@@ -1492,7 +1496,7 @@
             label29.AutoSize = true;
             label29.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label29.ForeColor = SystemColors.Control;
-            label29.Location = new Point(8, 104);
+            label29.Location = new Point(5, 104);
             label29.Name = "label29";
             label29.Size = new Size(105, 21);
             label29.TabIndex = 123;
@@ -1501,7 +1505,7 @@
             // NomCompletoOrgTxtB
             // 
             NomCompletoOrgTxtB.Enabled = false;
-            NomCompletoOrgTxtB.Location = new Point(41, 129);
+            NomCompletoOrgTxtB.Location = new Point(38, 129);
             NomCompletoOrgTxtB.Name = "NomCompletoOrgTxtB";
             NomCompletoOrgTxtB.PlaceholderText = "Persona Organizadora";
             NomCompletoOrgTxtB.Size = new Size(219, 29);
@@ -1510,7 +1514,7 @@
             // IdSalaSelecionadaTxtB
             // 
             IdSalaSelecionadaTxtB.Enabled = false;
-            IdSalaSelecionadaTxtB.Location = new Point(10, 352);
+            IdSalaSelecionadaTxtB.Location = new Point(7, 352);
             IdSalaSelecionadaTxtB.Name = "IdSalaSelecionadaTxtB";
             IdSalaSelecionadaTxtB.PlaceholderText = "ID";
             IdSalaSelecionadaTxtB.Size = new Size(48, 29);
@@ -1519,7 +1523,7 @@
             // NomSalaSelecTxtB
             // 
             NomSalaSelecTxtB.Enabled = false;
-            NomSalaSelecTxtB.Location = new Point(60, 352);
+            NomSalaSelecTxtB.Location = new Point(57, 352);
             NomSalaSelecTxtB.Name = "NomSalaSelecTxtB";
             NomSalaSelecTxtB.PlaceholderText = "Sala Seleccionada";
             NomSalaSelecTxtB.Size = new Size(166, 29);
@@ -1531,7 +1535,7 @@
             BuscarSalaBtn.Cursor = Cursors.Hand;
             BuscarSalaBtn.ForeColor = Color.Black;
             BuscarSalaBtn.Image = Properties.Resources.busqueda;
-            BuscarSalaBtn.Location = new Point(232, 352);
+            BuscarSalaBtn.Location = new Point(229, 352);
             BuscarSalaBtn.Name = "BuscarSalaBtn";
             BuscarSalaBtn.Size = new Size(28, 29);
             BuscarSalaBtn.TabIndex = 121;
@@ -1543,7 +1547,7 @@
             label28.AutoSize = true;
             label28.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label28.ForeColor = SystemColors.Control;
-            label28.Location = new Point(8, 328);
+            label28.Location = new Point(5, 328);
             label28.Name = "label28";
             label28.Size = new Size(42, 21);
             label28.TabIndex = 117;
@@ -1552,7 +1556,7 @@
             // CantPersonaNUD
             // 
             CantPersonaNUD.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            CantPersonaNUD.Location = new Point(186, 298);
+            CantPersonaNUD.Location = new Point(183, 298);
             CantPersonaNUD.Name = "CantPersonaNUD";
             CantPersonaNUD.Size = new Size(74, 29);
             CantPersonaNUD.TabIndex = 115;
@@ -1562,7 +1566,7 @@
             label26.AutoSize = true;
             label26.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label26.ForeColor = SystemColors.Control;
-            label26.Location = new Point(8, 300);
+            label26.Location = new Point(5, 300);
             label26.Name = "label26";
             label26.Size = new Size(178, 21);
             label26.TabIndex = 114;
@@ -1571,10 +1575,10 @@
             // BuscarMesaTxtB
             // 
             BuscarMesaTxtB.ForeColor = SystemColors.ScrollBar;
-            BuscarMesaTxtB.Location = new Point(266, 96);
+            BuscarMesaTxtB.Location = new Point(259, 96);
             BuscarMesaTxtB.Name = "BuscarMesaTxtB";
             BuscarMesaTxtB.PlaceholderText = "Buscar por numero de Mesa o Sala";
-            BuscarMesaTxtB.Size = new Size(397, 29);
+            BuscarMesaTxtB.Size = new Size(411, 29);
             BuscarMesaTxtB.TabIndex = 111;
             BuscarMesaTxtB.TextChanged += BuscarMesaTxtB_TextChanged;
             // 
@@ -1603,7 +1607,7 @@
             FechaFinDTP.Cursor = Cursors.Hand;
             FechaFinDTP.CustomFormat = "dd/MM/yyyy HH:mm";
             FechaFinDTP.Format = DateTimePickerFormat.Custom;
-            FechaFinDTP.Location = new Point(139, 251);
+            FechaFinDTP.Location = new Point(136, 251);
             FechaFinDTP.Name = "FechaFinDTP";
             FechaFinDTP.Size = new Size(107, 29);
             FechaFinDTP.TabIndex = 97;
@@ -1614,7 +1618,7 @@
             FechaInicialDTP.Cursor = Cursors.Hand;
             FechaInicialDTP.CustomFormat = "dd/MM/yyyy HH:mm";
             FechaInicialDTP.Format = DateTimePickerFormat.Custom;
-            FechaInicialDTP.Location = new Point(10, 251);
+            FechaInicialDTP.Location = new Point(7, 251);
             FechaInicialDTP.Name = "FechaInicialDTP";
             FechaInicialDTP.Size = new Size(107, 29);
             FechaInicialDTP.TabIndex = 97;
@@ -1661,7 +1665,7 @@
             label22.AutoSize = true;
             label22.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label22.ForeColor = SystemColors.Control;
-            label22.Location = new Point(139, 227);
+            label22.Location = new Point(136, 227);
             label22.Name = "label22";
             label22.Size = new Size(81, 21);
             label22.TabIndex = 35;
@@ -1672,7 +1676,7 @@
             label21.AutoSize = true;
             label21.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label21.ForeColor = SystemColors.Control;
-            label21.Location = new Point(8, 227);
+            label21.Location = new Point(5, 227);
             label21.Name = "label21";
             label21.Size = new Size(101, 21);
             label21.TabIndex = 35;
@@ -1683,7 +1687,7 @@
             label23.AutoSize = true;
             label23.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label23.ForeColor = SystemColors.Control;
-            label23.Location = new Point(264, 72);
+            label23.Location = new Point(257, 72);
             label23.Name = "label23";
             label23.Size = new Size(119, 21);
             label23.TabIndex = 35;
@@ -1712,7 +1716,7 @@
             label20.AutoSize = true;
             label20.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label20.ForeColor = SystemColors.Control;
-            label20.Location = new Point(8, 164);
+            label20.Location = new Point(5, 164);
             label20.Name = "label20";
             label20.Size = new Size(73, 21);
             label20.TabIndex = 35;
@@ -1720,7 +1724,7 @@
             // 
             // NombreEventoTxt
             // 
-            NombreEventoTxt.Location = new Point(10, 188);
+            NombreEventoTxt.Location = new Point(7, 188);
             NombreEventoTxt.Name = "NombreEventoTxt";
             NombreEventoTxt.PlaceholderText = "Nombre del Evento";
             NombreEventoTxt.Size = new Size(250, 29);
@@ -1742,9 +1746,9 @@
             // 
             EventoMesasP.AutoScroll = true;
             EventoMesasP.BackColor = Color.FromArgb(64, 64, 64);
-            EventoMesasP.Location = new Point(266, 131);
+            EventoMesasP.Location = new Point(259, 131);
             EventoMesasP.Name = "EventoMesasP";
-            EventoMesasP.Size = new Size(432, 274);
+            EventoMesasP.Size = new Size(443, 274);
             EventoMesasP.TabIndex = 26;
             // 
             // panelTituloEvento

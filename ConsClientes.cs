@@ -116,28 +116,8 @@ namespace Proyecto_restaurante
 
         private void eliminarbtn_Click(object sender, EventArgs e)
         {
-            txtbuscador.Text = "(ID, Nombre, Apellido)";
-            txtbuscador.ForeColor = Color.Gray;
+            txtbuscador.Text = string.Empty;
             ConsultaClientes_Load(sender, e);
-        }
-
-        private void txtbuscador_Enter(object sender, EventArgs e)
-        {
-            if (txtbuscador.Text == "(ID, Nombre, Apellido)")
-            {
-                txtbuscador.Text = "";
-                txtbuscador.ForeColor = Color.Black;
-            }
-        }
-
-        private void txtbuscador_Leave(object sender, EventArgs e)
-        {
-            if (txtbuscador.Text == "")
-            {
-                txtbuscador.Text = "(ID, Nombre, Apellido)";
-                txtbuscador.ForeColor = Color.Gray;
-                ConsultaClientes_Load(sender, e);
-            }
         }
 
         private void txtbuscador_TextChanged(object sender, EventArgs e)
@@ -314,7 +294,6 @@ namespace Proyecto_restaurante
                             cmdDoc.ExecuteNonQuery();
                         }
 
-
                         trans.Commit();
                         MessageBox.Show("Cliente actualizado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
@@ -352,7 +331,7 @@ namespace Proyecto_restaurante
             nombrenumerotxt.Clear();
 
             estadochk.Checked = true;
-            txtnombre.Focus();
+            identtxt.Focus();
             direccioncliente.Rows.Clear();
             telefonocliente.Rows.Clear();
         }
@@ -696,15 +675,15 @@ namespace Proyecto_restaurante
                 numPrincipalcmbx.Checked = false;
                 numPrincipalcmbx.Enabled = false;
             }
-            else
-            {
-                numPrincipalcmbx.Checked = false;
-                numPrincipalcmbx.Enabled = true;
-            }
 
             nombrenumerotxt.Clear();
             numerotxt.Clear();
             numPrincipalcmbx.Checked = false;
+
+            if(numPrincipalcmbx.Enabled == false)
+            {
+                TelActivado = 0;
+            }
         }
 
         private void bajardireccion_Click(object sender, EventArgs e)
@@ -737,7 +716,12 @@ namespace Proyecto_restaurante
 
             nombredirecciontxt.Clear();
             direcciontxt.Clear();
-            principalDireccion.Checked = false;
+            principalDireccion.Checked = false; 
+
+            if (principalDireccion.Enabled == false)
+            {
+                DirActivado = 0;
+            }
         }
 
         private void numPrincipalcmbx_CheckedChanged(object sender, EventArgs e)
@@ -746,10 +730,6 @@ namespace Proyecto_restaurante
             {
                 TelActivado = 1;
             }
-            else
-            {
-                TelActivado = 0;
-            }
         }
 
         private void principalDireccion_CheckedChanged(object sender, EventArgs e)
@@ -757,10 +737,6 @@ namespace Proyecto_restaurante
             if (principalDireccion.Checked == true)
             {
                 DirActivado = 1;
-            }
-            else
-            {
-                DirActivado = 0;
             }
         }
 
@@ -771,6 +747,11 @@ namespace Proyecto_restaurante
                 int fila = telefonocliente.SelectedRows[0].Index;
                 telefonocliente.Rows.RemoveAt(fila);
                 EliminarNum = 0;
+
+                if(telefonocliente.Rows.Count == 0)
+                {
+                    TelActivado = 0;
+                }
             }
             else
             {
@@ -785,6 +766,11 @@ namespace Proyecto_restaurante
                 int fila = direccioncliente.SelectedRows[0].Index;
                 direccioncliente.Rows.RemoveAt(fila);
                 EliminarDir = 0;
+
+                if (direccioncliente.Rows.Count == 0)
+                {
+                    DirActivado = 0;
+                }
             }
             else
             {

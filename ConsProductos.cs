@@ -488,6 +488,9 @@ namespace Proyecto_restaurante
 
             CodigoProductoActual = string.Empty;
 
+            ingredientesconsulta.Rows.Clear();
+            recetaingredientes.Rows.Clear();
+
             idProducto = 0;
         }
 
@@ -596,9 +599,9 @@ namespace Proyecto_restaurante
                 imagenpanel.Visible = true;
                 imagenpanel.BringToFront();
                 buscarcateg.Image = Proyecto_restaurante.Properties.Resources.busqueda1;
-                categoriapanel.Visible = false;                
+                categoriapanel.Visible = false;
                 categoriapanel.Location = new Point(227, 245);
-                
+
                 buscarcatedt = 1;
             }
         }
@@ -702,7 +705,6 @@ namespace Proyecto_restaurante
             {
                 txtprecio_venta.Clear();
                 txtprecio_compra.Clear();
-                txtprecio_venta.Focus();
             }
         }
 
@@ -769,6 +771,11 @@ namespace Proyecto_restaurante
             decimal precioVenta = CalcularPrecioVenta(costo);
 
             txtprecio_venta.Text = precioVenta.ToString("N2");
+        }
+
+        private void categoriaconsulta_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            button4.PerformClick();
         }
     }
 }

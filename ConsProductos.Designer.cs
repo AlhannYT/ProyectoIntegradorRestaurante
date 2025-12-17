@@ -474,7 +474,6 @@
             // button7
             // 
             button7.BackColor = Color.Red;
-            button7.Enabled = false;
             button7.Image = Properties.Resources.basurablanco;
             button7.Location = new Point(799, 169);
             button7.Name = "button7";
@@ -522,7 +521,7 @@
             // 
             numCantidad.DecimalPlaces = 2;
             numCantidad.Location = new Point(739, 37);
-            numCantidad.Minimum = new decimal(new int[] { 1, 0, 0, 131072 });
+            numCantidad.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numCantidad.Name = "numCantidad";
             numCantidad.Size = new Size(57, 29);
             numCantidad.TabIndex = 80;
@@ -629,7 +628,7 @@
             // panel9
             // 
             panel9.BackColor = Color.FromArgb(64, 64, 64);
-            panel9.Location = new Point(196, 313);
+            panel9.Location = new Point(192, 313);
             panel9.Name = "panel9";
             panel9.Size = new Size(15, 9);
             panel9.TabIndex = 87;
@@ -637,7 +636,7 @@
             // panel8
             // 
             panel8.BackColor = Color.FromArgb(64, 64, 64);
-            panel8.Location = new Point(194, 280);
+            panel8.Location = new Point(190, 280);
             panel8.Name = "panel8";
             panel8.Size = new Size(10, 74);
             panel8.TabIndex = 87;
@@ -650,7 +649,7 @@
             autoCalcular.Font = new Font("Segoe UI", 14F);
             autoCalcular.Image = Properties.Resources.calculadora;
             autoCalcular.ImageAlign = ContentAlignment.MiddleRight;
-            autoCalcular.Location = new Point(213, 303);
+            autoCalcular.Location = new Point(210, 303);
             autoCalcular.Name = "autoCalcular";
             autoCalcular.Size = new Size(36, 29);
             autoCalcular.TabIndex = 86;
@@ -663,7 +662,7 @@
             panel7.BackColor = Color.FromArgb(64, 64, 64);
             panel7.Location = new Point(181, 345);
             panel7.Name = "panel7";
-            panel7.Size = new Size(15, 9);
+            panel7.Size = new Size(11, 9);
             panel7.TabIndex = 87;
             // 
             // panel5
@@ -671,7 +670,7 @@
             panel5.BackColor = Color.FromArgb(64, 64, 64);
             panel5.Location = new Point(181, 280);
             panel5.Name = "panel5";
-            panel5.Size = new Size(15, 9);
+            panel5.Size = new Size(11, 9);
             panel5.TabIndex = 87;
             // 
             // ultimoID
@@ -1079,7 +1078,7 @@
             categoriaconsulta.AllowUserToAddRows = false;
             categoriaconsulta.AllowUserToDeleteRows = false;
             categoriaconsulta.AllowUserToResizeRows = false;
-            categoriaconsulta.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            categoriaconsulta.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             categoriaconsulta.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             categoriaconsulta.Location = new Point(4, 63);
             categoriaconsulta.MultiSelect = false;
@@ -1091,6 +1090,7 @@
             categoriaconsulta.Size = new Size(195, 171);
             categoriaconsulta.TabIndex = 74;
             categoriaconsulta.CellClick += categoriaconsulta_CellClick;
+            categoriaconsulta.CellDoubleClick += categoriaconsulta_CellDoubleClick;
             // 
             // ConsProductos
             // 
