@@ -79,7 +79,7 @@ namespace Proyecto_restaurante
 
             try
             {
-                LiberarReservasVencidas(); // <-- limpia reservas viejas al entrar
+                LiberarReservasVencidas();
             }
             catch (Exception ex)
             {
@@ -144,14 +144,14 @@ namespace Proyecto_restaurante
         {
             try
             {
-                LiberarReservasVencidas();     // <-- libera mesas si ya vencieron
+                LiberarReservasVencidas();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error al limpiar reservas vencidas: " + ex.Message);
             }
 
-            PrepararNuevaReserva();           // ya esto vuelve a cargar mesa
+            PrepararNuevaReserva();
         }
 
         private void CargarMesasDisponiblesReserva()
@@ -237,7 +237,7 @@ namespace Proyecto_restaurante
 
                 try
                 {
-                    // 1) Marcar como canceladas las reservas "solicitadas" ya vencidas
+
                     string sqlCancelVencidas = @"
                                     UPDATE Reserva
                                     SET Estado = 'cancelada'
@@ -249,8 +249,6 @@ namespace Proyecto_restaurante
                         cmd.ExecuteNonQuery();
                     }
 
-                    // 2) Liberar mesas que estén reservadas pero ya NO tienen reserva activa futura
-                    // (activa = solicitada o confirmada con FechaHora >= ahora)
                     string sqlLiberarMesas = @"
                     UPDATE m
                     SET m.Reservado = 0
@@ -339,11 +337,11 @@ namespace Proyecto_restaurante
                     if (ReservaID == 0)
                     {
                         string sqlInsert = @"
-                INSERT INTO Reserva
-                (IdMesa, FechaHora, Personas, Cliente, Estado, CreadoEn)
-                VALUES
-                (@IdMesa, @FechaHora, @Personas, @Cliente, 'solicitada', SYSDATETIME());
-                SELECT CAST(SCOPE_IDENTITY() AS int);";
+                                INSERT INTO Reserva
+                                (IdMesa, FechaHora, Personas, Cliente, Estado, CreadoEn)
+                                VALUES
+                                (@IdMesa, @FechaHora, @Personas, @Cliente, 'solicitada', SYSDATETIME());
+                                SELECT CAST(SCOPE_IDENTITY() AS int);";
 
                         using (SqlCommand cmd = new SqlCommand(sqlInsert, con, trans))
                         {
@@ -357,9 +355,9 @@ namespace Proyecto_restaurante
                         }
 
                         string sqlUpdateMesa = @"
-                UPDATE Mesa
-                SET Reservado = 1
-                WHERE IdMesa = @IdMesa;";
+                            UPDATE Mesa
+                            SET Reservado = 1
+                            WHERE IdMesa = @IdMesa;";
 
                         using (SqlCommand cmdMesa = new SqlCommand(sqlUpdateMesa, con, trans))
                         {
@@ -370,12 +368,12 @@ namespace Proyecto_restaurante
                     else
                     {
                         string sqlUpdate = @"
-                UPDATE Reserva
-                SET IdMesa    = @IdMesa,
-                    FechaHora = @FechaHora,
-                    Personas  = @Personas,
-                    Cliente   = @Cliente
-                WHERE IdReserva = @IdReserva;";
+                            UPDATE Reserva
+                            SET IdMesa    = @IdMesa,
+                            FechaHora = @FechaHora,
+                            Personas  = @Personas,
+                            Cliente   = @Cliente
+                            WHERE IdReserva = @IdReserva;";
 
                         using (SqlCommand cmd = new SqlCommand(sqlUpdate, con, trans))
                         {
@@ -391,8 +389,8 @@ namespace Proyecto_restaurante
                     trans.Commit();
                     MessageBox.Show("Reserva guardada correctamente.");
 
-                    PrepararNuevaReserva();          // limpia y recarga
-                    CargarMesasDisponiblesReserva(); // por si acaso (extra)
+                    PrepararNuevaReserva();          
+                    CargarMesasDisponiblesReserva();
                 }
                 catch (Exception ex)
                 {
@@ -551,27 +549,27 @@ namespace Proyecto_restaurante
                 con.Open();
 
                 string sql = @"
-                SELECT 
-                r.IdReserva,
-                r.FechaHora,
-                r.Personas,
-                r.Cliente,
-                r.Estado,
-                m.Numero      AS NumeroMesa,
-                s.Nombre      AS Sala
-                FROM Reserva r
-                INNER JOIN Mesa m ON r.IdMesa = m.IdMesa
-                INNER JOIN Sala s ON m.IdSala = s.IdSala
-                WHERE 
-                r.FechaHora >= @Desde
-                AND r.FechaHora < DATEADD(day, 1, @Hasta)
-                AND (
+                        SELECT 
+                        r.IdReserva,
+                        r.FechaHora,
+                        r.Personas,
+                        r.Cliente,
+                        r.Estado,
+                        m.Numero      AS NumeroMesa,
+                        s.Nombre      AS Sala
+                        FROM Reserva r
+                        INNER JOIN Mesa m ON r.IdMesa = m.IdMesa
+                        INNER JOIN Sala s ON m.IdSala = s.IdSala
+                        WHERE 
+                        r.FechaHora >= @Desde
+                        AND r.FechaHora < DATEADD(day, 1, @Hasta)
+                        AND (
                         @Texto = '' OR
                         CAST(r.IdReserva AS varchar(10)) LIKE @Filtro OR
                         r.Cliente LIKE @Filtro OR
                         CAST(m.Numero AS varchar(10)) LIKE @Filtro OR
                         s.Nombre LIKE @Filtro
-                    ) ORDER BY r.FechaHora DESC;";
+                        ) ORDER BY r.FechaHora DESC;";
 
                 using (SqlCommand cmd = new SqlCommand(sql, con))
                 {
@@ -644,7 +642,6 @@ namespace Proyecto_restaurante
                 {
                     int idMesa = 0;
 
-                    // 1) Buscar IdMesa de la reserva
                     string sqlGetMesa = "SELECT IdMesa FROM Reserva WHERE IdReserva = @Id;";
                     using (SqlCommand cmdGet = new SqlCommand(sqlGetMesa, con, tran))
                     {
@@ -654,7 +651,6 @@ namespace Proyecto_restaurante
                             idMesa = Convert.ToInt32(res);
                     }
 
-                    // 2) Confirmar reserva
                     string sql = "UPDATE Reserva SET Estado = 'confirmada' WHERE IdReserva = @Id;";
                     using (SqlCommand cmd = new SqlCommand(sql, con, tran))
                     {
@@ -662,7 +658,6 @@ namespace Proyecto_restaurante
                         cmd.ExecuteNonQuery();
                     }
 
-                    // 3) Asegurar mesa reservada
                     if (idMesa > 0)
                     {
                         string sqlMesa = "UPDATE Mesa SET Reservado = 1 WHERE IdMesa = @IdMesa;";
@@ -714,7 +709,6 @@ namespace Proyecto_restaurante
                     int idMesa = 0;
                     string estadoActual = "";
 
-                    // 1) Buscar mesa y estado de esa reserva
                     string sqlGet = "SELECT IdMesa, Estado FROM Reserva WHERE IdReserva = @Id;";
                     using (SqlCommand cmdGet = new SqlCommand(sqlGet, con, tran))
                     {
@@ -736,7 +730,6 @@ namespace Proyecto_restaurante
                         }
                     }
 
-                    // Si ya estaba cancelada, no hagas nada
                     if (estadoActual == "cancelada")
                     {
                         tran.Rollback();
@@ -744,7 +737,6 @@ namespace Proyecto_restaurante
                         return;
                     }
 
-                    // 2) Cancelar la reserva
                     string sqlCancel = "UPDATE Reserva SET Estado = 'cancelada' WHERE IdReserva = @Id;";
                     using (SqlCommand cmd = new SqlCommand(sqlCancel, con, tran))
                     {
@@ -752,15 +744,13 @@ namespace Proyecto_restaurante
                         cmd.ExecuteNonQuery();
                     }
 
-                    // 3) Liberar la mesa SOLO si ya no hay otras reservas activas para esa mesa
-                    // (solicitada o confirmada)
                     if (idMesa > 0)
                     {
                         string sqlHayOtras = @"
-                SELECT COUNT(*) 
-                FROM Reserva
-                WHERE IdMesa = @IdMesa
-                  AND Estado IN ('solicitada','confirmada');";
+                            SELECT COUNT(*) 
+                            FROM Reserva
+                            WHERE IdMesa = @IdMesa
+                            AND Estado IN ('solicitada','confirmada');";
 
                         int activas = 0;
                         using (SqlCommand cmdCount = new SqlCommand(sqlHayOtras, con, tran))

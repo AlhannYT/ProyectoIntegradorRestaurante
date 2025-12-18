@@ -31,7 +31,8 @@ namespace Proyecto_restaurante
 
         // Responsable que viene de la pantalla de login / menu principal
         public string responsableCompra;
-
+        private int sistemas = 0;
+        private string rutaCompras = @"C:\SistemaArchivos\Compras";
 
         public Compras()
         {
@@ -58,9 +59,11 @@ namespace Proyecto_restaurante
             }
 
             // IdEmpleadoResponsable fijo = 1 si esta vacio
-            if (string.IsNullOrWhiteSpace(IdRespoCompratxt.Text))
-                IdRespoCompratxt.Text = "1";
-
+            /* if (string.IsNullOrWhiteSpace(IdRespoCompratxt.Text))
+                 IdRespoCompratxt.Text = "1";
+            */
+            IdRespoCompratxt.Clear();
+            ResponsableCompratxt.Clear();
             IdRespoCompratxt.ReadOnly = true;
             ResponsableCompratxt.ReadOnly = true;
 
@@ -661,7 +664,7 @@ namespace Proyecto_restaurante
 
                         using (SqlCommand cmdCompra = new SqlCommand(sqlCompra, con, tran))
                         {
-                         
+
                             cmdCompra.Parameters.AddWithValue("@Fecha", FechaCompra.Value);
 
                             cmdCompra.Parameters.AddWithValue("@IdProveedor", idProveedor);
@@ -1605,6 +1608,79 @@ namespace Proyecto_restaurante
                 MessageBox.Show("Error al generar el PDF: " + ex.Message);
             }
         }
+
+        private void deslizarBtn_Click(object sender, EventArgs e)
+        {
+            if (sistemas == 0)
+            {
+                deslizarBtn.Image = Proyecto_restaurante.Properties.Resources.flechaderecharoja;
+                opcionesCarpeta.Visible = true;   // <- si tu panel se llama diferente, cámbialo aquí
+                sistemas = 1;
+            }
+            else
+            {
+                deslizarBtn.Image = Proyecto_restaurante.Properties.Resources.flechaizquierdaroja;
+                opcionesCarpeta.Visible = false;  // <- si tu panel se llama diferente, cámbialo aquí
+                sistemas = 0;
+            }
+        }
+
+        private void carpetaComprasBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!Directory.Exists(rutaCompras))
+                    Directory.CreateDirectory(rutaCompras);
+
+                System.Diagnostics.Process.Start("explorer.exe", rutaCompras);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al abrir la carpeta: " + ex.Message);
+            }
+        }
+
+        private void eliminarComprasBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!Directory.Exists(rutaCompras))
+                {
+                    MessageBox.Show("La carpeta no existe.");
+                    return;
+                }
+
+                var archivos = Directory.GetFiles(rutaCompras, "*.pdf");
+
+                if (archivos.Length == 0)
+                {
+                    MessageBox.Show("No hay comprobantes PDF para eliminar.");
+                    return;
+                }
+
+                DialogResult r = MessageBox.Show(
+                    $"Se eliminarán {archivos.Length} archivos PDF.\n¿Desea continuar?",
+                    "Confirmar eliminación",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning
+                );
+
+                if (r == DialogResult.No)
+                    return;
+
+                foreach (var archivo in archivos)
+                    File.Delete(archivo);
+
+                MessageBox.Show("Todos los comprobantes de compras han sido eliminados.");
+                deslizarBtn_Click(sender, e);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al eliminar comprobantes: " + ex.Message);
+            }
+        }
+
+
     }
 
 

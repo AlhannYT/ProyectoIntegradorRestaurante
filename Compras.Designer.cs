@@ -102,6 +102,10 @@
             label9 = new Label();
             label10 = new Label();
             TabPageHistorialCompras = new TabPage();
+            opcionesCarpeta = new Panel();
+            eliminarComprasBtn = new Button();
+            carpetaComprasBtn = new Button();
+            deslizarBtn = new Button();
             panel11 = new Panel();
             TablaDatosCompra = new DataGridView();
             label17 = new Label();
@@ -123,10 +127,6 @@
             ImprimirBtn = new Button();
             ConfirmarRecepcionBtn = new Button();
             toolTip1 = new ToolTip(components);
-            opcionesCarpeta = new Panel();
-            eliminarComprasBtn = new Button();
-            carpetaComprasBtn = new Button();
-            deslizar = new Button();
             panel1.SuspendLayout();
             panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -149,11 +149,11 @@
             panel4.SuspendLayout();
             panelSubTotal.SuspendLayout();
             TabPageHistorialCompras.SuspendLayout();
+            opcionesCarpeta.SuspendLayout();
             panel11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TablaDatosCompra).BeginInit();
             panel10.SuspendLayout();
             panel8.SuspendLayout();
-            opcionesCarpeta.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -1045,8 +1045,8 @@
             // TabPageHistorialCompras
             // 
             TabPageHistorialCompras.BackColor = Color.FromArgb(87, 128, 87);
+            TabPageHistorialCompras.Controls.Add(deslizarBtn);
             TabPageHistorialCompras.Controls.Add(opcionesCarpeta);
-            TabPageHistorialCompras.Controls.Add(deslizar);
             TabPageHistorialCompras.Controls.Add(panel11);
             TabPageHistorialCompras.Controls.Add(label17);
             TabPageHistorialCompras.Controls.Add(BusquedaCompraTxt);
@@ -1059,6 +1059,56 @@
             TabPageHistorialCompras.Size = new Size(799, 673);
             TabPageHistorialCompras.TabIndex = 0;
             TabPageHistorialCompras.Text = "Historial";
+            // 
+            // opcionesCarpeta
+            // 
+            opcionesCarpeta.BackColor = Color.FromArgb(64, 64, 64);
+            opcionesCarpeta.Controls.Add(eliminarComprasBtn);
+            opcionesCarpeta.Controls.Add(carpetaComprasBtn);
+            opcionesCarpeta.Location = new Point(532, 9);
+            opcionesCarpeta.Name = "opcionesCarpeta";
+            opcionesCarpeta.Size = new Size(244, 31);
+            opcionesCarpeta.TabIndex = 30;
+            opcionesCarpeta.Visible = false;
+            // 
+            // eliminarComprasBtn
+            // 
+            eliminarComprasBtn.BackColor = Color.LightCoral;
+            eliminarComprasBtn.Image = Properties.Resources.basura;
+            eliminarComprasBtn.ImageAlign = ContentAlignment.MiddleRight;
+            eliminarComprasBtn.Location = new Point(95, 2);
+            eliminarComprasBtn.Name = "eliminarComprasBtn";
+            eliminarComprasBtn.Size = new Size(144, 27);
+            eliminarComprasBtn.TabIndex = 0;
+            eliminarComprasBtn.Text = "Limpiar Carpeta";
+            eliminarComprasBtn.TextAlign = ContentAlignment.MiddleLeft;
+            eliminarComprasBtn.UseVisualStyleBackColor = false;
+            eliminarComprasBtn.Click += eliminarComprasBtn_Click;
+            // 
+            // carpetaComprasBtn
+            // 
+            carpetaComprasBtn.BackColor = Color.Gold;
+            carpetaComprasBtn.Image = Properties.Resources.carpeta_abierta__1_;
+            carpetaComprasBtn.ImageAlign = ContentAlignment.MiddleRight;
+            carpetaComprasBtn.Location = new Point(0, 2);
+            carpetaComprasBtn.Name = "carpetaComprasBtn";
+            carpetaComprasBtn.Size = new Size(93, 27);
+            carpetaComprasBtn.TabIndex = 0;
+            carpetaComprasBtn.Text = "Compras ";
+            carpetaComprasBtn.TextAlign = ContentAlignment.MiddleLeft;
+            carpetaComprasBtn.UseVisualStyleBackColor = false;
+            carpetaComprasBtn.Click += carpetaComprasBtn_Click;
+            // 
+            // deslizarBtn
+            // 
+            deslizarBtn.Image = Properties.Resources.flechaizquierdaroja;
+            deslizarBtn.Location = new Point(772, 9);
+            deslizarBtn.Name = "deslizarBtn";
+            deslizarBtn.Size = new Size(26, 31);
+            deslizarBtn.TabIndex = 29;
+            toolTip1.SetToolTip(deslizarBtn, "Sistemas de simulación");
+            deslizarBtn.UseVisualStyleBackColor = true;
+            deslizarBtn.Click += deslizarBtn_Click;
             // 
             // panel11
             // 
@@ -1194,7 +1244,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = SystemColors.Control;
-            label1.Location = new Point(272, 8);
+            label1.Location = new Point(274, 8);
             label1.Name = "label1";
             label1.Size = new Size(254, 32);
             label1.TabIndex = 13;
@@ -1326,53 +1376,6 @@
             toolTip1.ReshowDelay = 96;
             toolTip1.ToolTipTitle = "Ayuda";
             // 
-            // opcionesCarpeta
-            // 
-            opcionesCarpeta.BackColor = Color.FromArgb(64, 64, 64);
-            opcionesCarpeta.Controls.Add(eliminarComprasBtn);
-            opcionesCarpeta.Controls.Add(carpetaComprasBtn);
-            opcionesCarpeta.Location = new Point(532, 9);
-            opcionesCarpeta.Name = "opcionesCarpeta";
-            opcionesCarpeta.Size = new Size(239, 31);
-            opcionesCarpeta.TabIndex = 30;
-            opcionesCarpeta.Visible = false;
-            // 
-            // eliminarComprasBtn
-            // 
-            eliminarComprasBtn.BackColor = Color.LightCoral;
-            eliminarComprasBtn.Image = Properties.Resources.basura;
-            eliminarComprasBtn.ImageAlign = ContentAlignment.MiddleRight;
-            eliminarComprasBtn.Location = new Point(95, 2);
-            eliminarComprasBtn.Name = "eliminarComprasBtn";
-            eliminarComprasBtn.Size = new Size(144, 27);
-            eliminarComprasBtn.TabIndex = 0;
-            eliminarComprasBtn.Text = "Limpiar Carpeta";
-            eliminarComprasBtn.TextAlign = ContentAlignment.MiddleLeft;
-            eliminarComprasBtn.UseVisualStyleBackColor = false;
-            // 
-            // carpetaComprasBtn
-            // 
-            carpetaComprasBtn.BackColor = Color.Gold;
-            carpetaComprasBtn.Image = Properties.Resources.carpeta_abierta__1_;
-            carpetaComprasBtn.ImageAlign = ContentAlignment.MiddleRight;
-            carpetaComprasBtn.Location = new Point(0, 2);
-            carpetaComprasBtn.Name = "carpetaComprasBtn";
-            carpetaComprasBtn.Size = new Size(93, 27);
-            carpetaComprasBtn.TabIndex = 0;
-            carpetaComprasBtn.Text = "Compras ";
-            carpetaComprasBtn.TextAlign = ContentAlignment.MiddleLeft;
-            carpetaComprasBtn.UseVisualStyleBackColor = false;
-            // 
-            // deslizar
-            // 
-            deslizar.Image = Properties.Resources.flechaizquierdaroja;
-            deslizar.Location = new Point(772, 9);
-            deslizar.Name = "deslizar";
-            deslizar.Size = new Size(26, 31);
-            deslizar.TabIndex = 29;
-            toolTip1.SetToolTip(deslizar, "Sistemas de simulación");
-            deslizar.UseVisualStyleBackColor = true;
-            // 
             // Compras
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1422,13 +1425,13 @@
             panelSubTotal.PerformLayout();
             TabPageHistorialCompras.ResumeLayout(false);
             TabPageHistorialCompras.PerformLayout();
+            opcionesCarpeta.ResumeLayout(false);
             panel11.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)TablaDatosCompra).EndInit();
             panel10.ResumeLayout(false);
             panel10.PerformLayout();
             panel8.ResumeLayout(false);
             panel8.PerformLayout();
-            opcionesCarpeta.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -1530,6 +1533,6 @@
         private Panel opcionesCarpeta;
         private Button eliminarComprasBtn;
         private Button carpetaComprasBtn;
-        private Button deslizar;
+        private Button deslizarBtn;
     }
 }

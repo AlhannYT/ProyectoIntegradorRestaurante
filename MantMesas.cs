@@ -1268,16 +1268,16 @@ namespace Proyecto_restaurante
                     else
                     {
                         string sqlUpdate = @"
-                UPDATE Evento
-                SET Organizador        = @Organizador,
-                    FechaInicio        = @FechaInicio,
-                    FechaFin           = @FechaFin,
-                    PersonasEstimadas  = @Personas,
-                    IdSala             = @IdSala,
-                    NombreEvento       = @NombreEvento,
-                    IdCliente          = @IdCliente,
-                    Nota               = @Nota
-                WHERE IdEvento = @IdEvento;";
+                            UPDATE Evento
+                            SET Organizador        = @Organizador,
+                            FechaInicio        = @FechaInicio,
+                            FechaFin           = @FechaFin,
+                            PersonasEstimadas  = @Personas,
+                            IdSala             = @IdSala,
+                            NombreEvento       = @NombreEvento,
+                            IdCliente          = @IdCliente,
+                            Nota               = @Nota
+                            WHERE IdEvento = @IdEvento;";
 
                         using (SqlCommand cmd = new SqlCommand(sqlUpdate, conexion, trans))
                         {
@@ -1294,7 +1294,6 @@ namespace Proyecto_restaurante
                             cmd.ExecuteNonQuery();
                         }
 
-                        // Importante: si editas evento, borra sus mesas anteriores
                         string sqlDeleteMesas = "DELETE FROM EventoMesa WHERE IdEvento = @IdEvento;";
                         using (SqlCommand cmdDel = new SqlCommand(sqlDeleteMesas, conexion, trans))
                         {
@@ -1303,7 +1302,6 @@ namespace Proyecto_restaurante
                         }
                     }
 
-                    // 3) INSERT EventoMesa
                     string sqlInsertMesa = "INSERT INTO EventoMesa (IdEvento, IdMesa) VALUES (@IdEvento, @IdMesa);";
                     foreach (int idMesa in mesasSeleccionadasEvento)
                     {
@@ -1315,7 +1313,6 @@ namespace Proyecto_restaurante
                         }
                     }
 
-                    // 4) MARCAR mesas como reservadas (para que todo el sistema lo vea)
                     foreach (int idMesa in mesasSeleccionadasEvento)
                     {
                         string sqlRes = "UPDATE Mesa SET Reservado = 1 WHERE IdMesa = @IdMesa;";
@@ -1330,7 +1327,6 @@ namespace Proyecto_restaurante
 
                     MessageBox.Show("Evento guardado correctamente.");
 
-                    // 5) LIMPIAR FORM (como botón Nuevo)
                     PrepararNuevoEvento();
                     CargarMesasDisponiblesEvento();
                     NombreEventoTxt.Focus();
